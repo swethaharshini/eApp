@@ -21,4 +21,10 @@ public class ApplicationConstants {
 		months.add(new IdNamePair("11","December"));
 	}
 	
+	public static final List<IdNamePair> workSchedules=new ArrayList<IdNamePair>();
+	static {
+		workSchedules.add(new IdNamePair("0","Full Day"));
+		workSchedules.add(new IdNamePair("1","Half Day"));
+		workSchedules.add(new IdNamePair("2","Non-working Day"));
+	}
 }

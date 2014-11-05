@@ -87,7 +87,7 @@
 		<one-to-one name="fileBlobModel" access="com.liferay.portal.dao.orm.hibernate.PrivatePropertyAccessor" class="com.rknowsys.eapp.hrm.model.EmpAttachmentFileBlobModel" cascade="save-update" outer-join="false" constrained="true" />
 		<property name="comment" type="com.liferay.portal.dao.orm.hibernate.StringType" column="comment_" />
 	</class>
-	<class name="com.rknowsys.eapp.hrm.model.EmpAttachmentFileBlobModel" table="emp_attachment" lazy="false">
+	<class name="com.rknowsys.eapp.hrm.model.EmpAttachmentFileBlobModel" table="emp_attachment" lazy="true">
 		<id name="empAttachmentId" column="empAttachmentId">
 			<generator class="foreign">
 				<param name="property">com.rknowsys.eapp.hrm.model.impl.EmpAttachmentImpl</param>
@@ -250,7 +250,7 @@
 		<property name="employmentContractEndDate" type="org.hibernate.type.TimestampType" />
 		<one-to-one name="contractDetailsBlobModel" access="com.liferay.portal.dao.orm.hibernate.PrivatePropertyAccessor" class="com.rknowsys.eapp.hrm.model.EmpJobContractDetailsBlobModel" cascade="save-update" outer-join="false" constrained="true" />
 	</class>
-	<class name="com.rknowsys.eapp.hrm.model.EmpJobContractDetailsBlobModel" table="emp_job" lazy="false">
+	<class name="com.rknowsys.eapp.hrm.model.EmpJobContractDetailsBlobModel" table="emp_job" lazy="true">
 		<id name="empJobId" column="empJobId">
 			<generator class="foreign">
 				<param name="property">com.rknowsys.eapp.hrm.model.impl.EmpJobImpl</param>
