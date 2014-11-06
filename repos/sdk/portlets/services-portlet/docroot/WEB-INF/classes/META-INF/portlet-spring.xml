@@ -133,6 +133,10 @@
 		<property name="dataSource" ref="hrmDataSource" />
 		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.HolidayFinder" class="com.rknowsys.eapp.hrm.service.persistence.HolidayFinderImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
 	<bean id="com.rknowsys.eapp.hrm.service.InterviewLocalService" class="com.rknowsys.eapp.hrm.service.impl.InterviewLocalServiceImpl" />
 	<bean id="com.rknowsys.eapp.hrm.service.persistence.InterviewPersistence" class="com.rknowsys.eapp.hrm.service.persistence.InterviewPersistenceImpl" parent="basePersistence">
 		<property name="dataSource" ref="hrmDataSource" />

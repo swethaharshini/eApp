@@ -257,10 +257,13 @@ public class ContactDetailsAction extends MVCPortlet {
 			//			contactDetails.setAddressStreet1("one atlantic street");
 
 			renderRequest.setAttribute("editContactDetails", contactDetails);
-		} catch (PortalException | SystemException e) {
+		} catch (PortalException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		} catch ( SystemException e)
+		{
+			
+		}
 		//		renderResponse.setRenderParameter("jspPage",
 //				"/html/contactdetails/edit_contact_details.jsp");
         super.doView(renderRequest, renderResponse);
