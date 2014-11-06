@@ -320,6 +320,9 @@
 	</model>
 	<model name="com.rknowsys.eapp.hrm.model.Holiday">
 		<field name="holidayId" type="long" />
+		<field name="holidayName" type="String" />
+		<field name="isAnnual" type="boolean" />
+		<field name="isFullDay" type="boolean" />
 		<field name="holidayDate" type="Date" />
 		<field name="nationalityId" type="long" />
 		<field name="groupId" type="long" />
@@ -368,6 +371,19 @@
 		<field name="userId" type="long" />
 		<field name="languageName" type="String" />
 	</model>
+	<model name="com.rknowsys.eapp.hrm.model.LeaveCarryForwardPolicy">
+		<field name="leaveCarryForwardPolicyId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="userId" type="long" />
+		<field name="leaveTypeId" type="long" />
+		<field name="expiryDuration" type="int" />
+		<field name="expiryDurationUOM" type="String" />
+		<field name="isMaxCarryForwardLimitApplicable" type="boolean" />
+		<field name="maxCarryForwardLimit" type="String" />
+	</model>
 	<model name="com.rknowsys.eapp.hrm.model.LeavePeriod">
 		<field name="leavePeriodId" type="long" />
 		<field name="companyId" type="long" />
@@ -378,6 +394,67 @@
 		<field name="startMonth" type="int" />
 		<field name="startDate" type="int" />
 		<field name="endDate" type="String" />
+	</model>
+	<model name="com.rknowsys.eapp.hrm.model.LeaveRestriction">
+		<field name="leaveRestrictionId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="userId" type="long" />
+		<field name="leaveTypeId" type="long" />
+		<field name="cannotExceedBalance" type="boolean" />
+		<field name="cannotApplyForPartialDay" type="boolean" />
+		<field name="ifATermsQuestion" type="boolean" />
+		<field name="termsQuestion" type="String" />
+		<field name="errorTextIfTermsDeclined" type="String" />
+		<field name="isMinimumServicePeriodApplicable" type="boolean" />
+		<field name="minimumServicePeriod" type="String" />
+		<field name="isMaxConsecutiveLeavesApplicable" type="boolean" />
+		<field name="maxConsecutiveLeaves" type="String" />
+		<field name="isSmallChildCriterionApplicable" type="boolean" />
+		<field name="maxSmallChildAgeApplicable" type="String" />
+	</model>
+	<model name="com.rknowsys.eapp.hrm.model.LeaveRule">
+		<field name="leaveRuleId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="userId" type="long" />
+		<field name="leaveTypeId" type="long" />
+		<field name="leavePeriodTypeId" type="int" />
+		<field name="startMonth" type="int" />
+		<field name="startDayOfMonth" type="int" />
+		<field name="duration" type="String" />
+		<field name="ifEmployeesCanApply" type="boolean" />
+		<field name="ifAdminCanAssign" type="boolean" />
+		<field name="ifAdminCanManageEntitlements" type="boolean" />
+		<field name="ifLeaveAccruable" type="boolean" />
+		<field name="ifCarryForwardable" type="boolean" />
+	</model>
+	<model name="com.rknowsys.eapp.hrm.model.LeaveType">
+		<field name="leaveTypeId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="userId" type="long" />
+		<field name="nationalityId" type="long" />
+		<field name="leaveTypeName" type="String" />
+		<field name="isSituational" type="boolean" />
+	</model>
+	<model name="com.rknowsys.eapp.hrm.model.LeaveTypeApplicability">
+		<field name="leaveTypeApplicabilityId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="userId" type="long" />
+		<field name="leaveTypeId" type="long" />
+		<field name="ifYearsOfServiceCriterionApplicable" type="boolean" />
+		<field name="minYearsOfService" type="String" />
+		<field name="maxYearsOfService" type="String" />
 	</model>
 	<model name="com.rknowsys.eapp.hrm.model.License">
 		<field name="licenseId" type="long" />
@@ -390,6 +467,7 @@
 	</model>
 	<model name="com.rknowsys.eapp.hrm.model.Location">
 		<field name="locationId" type="long" />
+		<field name="nationalityId" type="long" />
 		<field name="companyId" type="long" />
 		<field name="groupId" type="long" />
 		<field name="createDate" type="Date" />

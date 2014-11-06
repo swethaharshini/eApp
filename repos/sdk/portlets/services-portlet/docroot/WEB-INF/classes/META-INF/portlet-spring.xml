@@ -157,8 +157,33 @@
 		<property name="dataSource" ref="hrmDataSource" />
 		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.LeaveCarryForwardPolicyLocalService" class="com.rknowsys.eapp.hrm.service.impl.LeaveCarryForwardPolicyLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.LeaveCarryForwardPolicyPersistence" class="com.rknowsys.eapp.hrm.service.persistence.LeaveCarryForwardPolicyPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
 	<bean id="com.rknowsys.eapp.hrm.service.LeavePeriodLocalService" class="com.rknowsys.eapp.hrm.service.impl.LeavePeriodLocalServiceImpl" />
 	<bean id="com.rknowsys.eapp.hrm.service.persistence.LeavePeriodPersistence" class="com.rknowsys.eapp.hrm.service.persistence.LeavePeriodPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.LeaveRestrictionLocalService" class="com.rknowsys.eapp.hrm.service.impl.LeaveRestrictionLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.LeaveRestrictionPersistence" class="com.rknowsys.eapp.hrm.service.persistence.LeaveRestrictionPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.LeaveRuleLocalService" class="com.rknowsys.eapp.hrm.service.impl.LeaveRuleLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.LeaveRulePersistence" class="com.rknowsys.eapp.hrm.service.persistence.LeaveRulePersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.LeaveTypeLocalService" class="com.rknowsys.eapp.hrm.service.impl.LeaveTypeLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.LeaveTypePersistence" class="com.rknowsys.eapp.hrm.service.persistence.LeaveTypePersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.LeaveTypeApplicabilityLocalService" class="com.rknowsys.eapp.hrm.service.impl.LeaveTypeApplicabilityLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.LeaveTypeApplicabilityPersistence" class="com.rknowsys.eapp.hrm.service.persistence.LeaveTypeApplicabilityPersistenceImpl" parent="basePersistence">
 		<property name="dataSource" ref="hrmDataSource" />
 		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>

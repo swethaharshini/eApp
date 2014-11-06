@@ -18,11 +18,5 @@
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/services-portlet/docroot/WEB-INF/lib/services-portlet-service.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry combineaccessrules="false" kind="src" path="/hrm-common"/>
 	<classpathentry kind="output" path="docroot/WEB-INF/classes"/>
 </classpath>

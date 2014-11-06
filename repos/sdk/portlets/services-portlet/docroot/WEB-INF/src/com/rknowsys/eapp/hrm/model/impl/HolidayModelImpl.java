@@ -62,6 +62,9 @@ public class HolidayModelImpl extends BaseModelImpl<Holiday>
 	public static final String TABLE_NAME = "holiday";
 	public static final Object[][] TABLE_COLUMNS = {
 			{ "holidayId", Types.BIGINT },
+			{ "holidayName", Types.VARCHAR },
+			{ "isAnnual", Types.BOOLEAN },
+			{ "isFullDay", Types.BOOLEAN },
 			{ "holidayDate", Types.TIMESTAMP },
 			{ "nationalityId", Types.BIGINT },
 			{ "groupId", Types.BIGINT },
@@ -71,7 +74,7 @@ public class HolidayModelImpl extends BaseModelImpl<Holiday>
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP }
 		};
-	public static final String TABLE_SQL_CREATE = "create table holiday (holidayId LONG not null primary key,holidayDate DATE null,nationalityId LONG,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null)";
+	public static final String TABLE_SQL_CREATE = "create table holiday (holidayId LONG not null primary key,holidayName VARCHAR(75) null,isAnnual BOOLEAN,isFullDay BOOLEAN,holidayDate DATE null,nationalityId LONG,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null)";
 	public static final String TABLE_SQL_DROP = "drop table holiday";
 	public static final String ORDER_BY_JPQL = " ORDER BY holiday.holidayId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY holiday.holidayId ASC";
@@ -135,6 +138,9 @@ public class HolidayModelImpl extends BaseModelImpl<Holiday>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("holidayId", getHolidayId());
+		attributes.put("holidayName", getHolidayName());
+		attributes.put("isAnnual", getIsAnnual());
+		attributes.put("isFullDay", getIsFullDay());
 		attributes.put("holidayDate", getHolidayDate());
 		attributes.put("nationalityId", getNationalityId());
 		attributes.put("groupId", getGroupId());
@@ -153,6 +159,24 @@ public class HolidayModelImpl extends BaseModelImpl<Holiday>
 
 		if (holidayId != null) {
 			setHolidayId(holidayId);
+		}
+
+		String holidayName = (String)attributes.get("holidayName");
+
+		if (holidayName != null) {
+			setHolidayName(holidayName);
+		}
+
+		Boolean isAnnual = (Boolean)attributes.get("isAnnual");
+
+		if (isAnnual != null) {
+			setIsAnnual(isAnnual);
+		}
+
+		Boolean isFullDay = (Boolean)attributes.get("isFullDay");
+
+		if (isFullDay != null) {
+			setIsFullDay(isFullDay);
 		}
 
 		Date holidayDate = (Date)attributes.get("holidayDate");
@@ -212,6 +236,51 @@ public class HolidayModelImpl extends BaseModelImpl<Holiday>
 	@Override
 	public void setHolidayId(long holidayId) {
 		_holidayId = holidayId;
+	}
+
+	@Override
+	public String getHolidayName() {
+		if (_holidayName == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _holidayName;
+		}
+	}
+
+	@Override
+	public void setHolidayName(String holidayName) {
+		_holidayName = holidayName;
+	}
+
+	@Override
+	public boolean getIsAnnual() {
+		return _isAnnual;
+	}
+
+	@Override
+	public boolean isIsAnnual() {
+		return _isAnnual;
+	}
+
+	@Override
+	public void setIsAnnual(boolean isAnnual) {
+		_isAnnual = isAnnual;
+	}
+
+	@Override
+	public boolean getIsFullDay() {
+		return _isFullDay;
+	}
+
+	@Override
+	public boolean isIsFullDay() {
+		return _isFullDay;
+	}
+
+	@Override
+	public void setIsFullDay(boolean isFullDay) {
+		_isFullDay = isFullDay;
 	}
 
 	@Override
@@ -337,6 +406,9 @@ public class HolidayModelImpl extends BaseModelImpl<Holiday>
 		HolidayImpl holidayImpl = new HolidayImpl();
 
 		holidayImpl.setHolidayId(getHolidayId());
+		holidayImpl.setHolidayName(getHolidayName());
+		holidayImpl.setIsAnnual(getIsAnnual());
+		holidayImpl.setIsFullDay(getIsFullDay());
 		holidayImpl.setHolidayDate(getHolidayDate());
 		holidayImpl.setNationalityId(getNationalityId());
 		holidayImpl.setGroupId(getGroupId());
@@ -403,6 +475,18 @@ public class HolidayModelImpl extends BaseModelImpl<Holiday>
 
 		holidayCacheModel.holidayId = getHolidayId();
 
+		holidayCacheModel.holidayName = getHolidayName();
+
+		String holidayName = holidayCacheModel.holidayName;
+
+		if ((holidayName != null) && (holidayName.length() == 0)) {
+			holidayCacheModel.holidayName = null;
+		}
+
+		holidayCacheModel.isAnnual = getIsAnnual();
+
+		holidayCacheModel.isFullDay = getIsFullDay();
+
 		Date holidayDate = getHolidayDate();
 
 		if (holidayDate != null) {
@@ -451,10 +535,16 @@ public class HolidayModelImpl extends BaseModelImpl<Holiday>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(25);
 
 		sb.append("{holidayId=");
 		sb.append(getHolidayId());
+		sb.append(", holidayName=");
+		sb.append(getHolidayName());
+		sb.append(", isAnnual=");
+		sb.append(getIsAnnual());
+		sb.append(", isFullDay=");
+		sb.append(getIsFullDay());
 		sb.append(", holidayDate=");
 		sb.append(getHolidayDate());
 		sb.append(", nationalityId=");
@@ -478,7 +568,7 @@ public class HolidayModelImpl extends BaseModelImpl<Holiday>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(40);
 
 		sb.append("<model><model-name>");
 		sb.append("com.rknowsys.eapp.hrm.model.Holiday");
@@ -487,6 +577,18 @@ public class HolidayModelImpl extends BaseModelImpl<Holiday>
 		sb.append(
 			"<column><column-name>holidayId</column-name><column-value><![CDATA[");
 		sb.append(getHolidayId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>holidayName</column-name><column-value><![CDATA[");
+		sb.append(getHolidayName());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>isAnnual</column-name><column-value><![CDATA[");
+		sb.append(getIsAnnual());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>isFullDay</column-name><column-value><![CDATA[");
+		sb.append(getIsFullDay());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>holidayDate</column-name><column-value><![CDATA[");
@@ -531,6 +633,9 @@ public class HolidayModelImpl extends BaseModelImpl<Holiday>
 			Holiday.class
 		};
 	private long _holidayId;
+	private String _holidayName;
+	private boolean _isAnnual;
+	private boolean _isFullDay;
 	private Date _holidayDate;
 	private long _nationalityId;
 	private long _groupId;

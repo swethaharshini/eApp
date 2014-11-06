@@ -610,6 +610,9 @@
 	<mapped-superclass class="com.rknowsys.eapp.hrm.model.impl.HolidayModelImpl">
 		<attributes>
 			<id name="holidayId" />
+			<basic name="holidayName" />
+			<basic name="isAnnual" />
+			<basic name="isFullDay" />
 			<basic name="holidayDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
@@ -709,6 +712,29 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
+	<mapped-superclass class="com.rknowsys.eapp.hrm.model.impl.LeaveCarryForwardPolicyModelImpl">
+		<attributes>
+			<id name="leaveCarryForwardPolicyId" />
+			<basic name="companyId" />
+			<basic name="groupId" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="userId" />
+			<basic name="leaveTypeId" />
+			<basic name="expiryDuration" />
+			<basic name="expiryDurationUOM" />
+			<basic name="isMaxCarryForwardLimitApplicable" />
+			<basic name="maxCarryForwardLimit" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
 	<mapped-superclass class="com.rknowsys.eapp.hrm.model.impl.LeavePeriodModelImpl">
 		<attributes>
 			<id name="leavePeriodId" />
@@ -724,6 +750,107 @@
 			<basic name="startMonth" />
 			<basic name="startDate" />
 			<basic name="endDate" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.rknowsys.eapp.hrm.model.impl.LeaveRestrictionModelImpl">
+		<attributes>
+			<id name="leaveRestrictionId" />
+			<basic name="companyId" />
+			<basic name="groupId" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="userId" />
+			<basic name="leaveTypeId" />
+			<basic name="cannotExceedBalance" />
+			<basic name="cannotApplyForPartialDay" />
+			<basic name="ifATermsQuestion" />
+			<basic name="termsQuestion" />
+			<basic name="errorTextIfTermsDeclined" />
+			<basic name="isMinimumServicePeriodApplicable" />
+			<basic name="minimumServicePeriod" />
+			<basic name="isMaxConsecutiveLeavesApplicable" />
+			<basic name="maxConsecutiveLeaves" />
+			<basic name="isSmallChildCriterionApplicable" />
+			<basic name="maxSmallChildAgeApplicable" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.rknowsys.eapp.hrm.model.impl.LeaveRuleModelImpl">
+		<attributes>
+			<id name="leaveRuleId" />
+			<basic name="companyId" />
+			<basic name="groupId" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="userId" />
+			<basic name="leaveTypeId" />
+			<basic name="leavePeriodTypeId" />
+			<basic name="startMonth" />
+			<basic name="startDayOfMonth" />
+			<basic name="duration" />
+			<basic name="ifEmployeesCanApply" />
+			<basic name="ifAdminCanAssign" />
+			<basic name="ifAdminCanManageEntitlements" />
+			<basic name="ifLeaveAccruable" />
+			<basic name="ifCarryForwardable" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.rknowsys.eapp.hrm.model.impl.LeaveTypeModelImpl">
+		<attributes>
+			<id name="leaveTypeId" />
+			<basic name="companyId" />
+			<basic name="groupId" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="userId" />
+			<basic name="nationalityId" />
+			<basic name="leaveTypeName" />
+			<basic name="isSituational" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.rknowsys.eapp.hrm.model.impl.LeaveTypeApplicabilityModelImpl">
+		<attributes>
+			<id name="leaveTypeApplicabilityId" />
+			<basic name="companyId" />
+			<basic name="groupId" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="userId" />
+			<basic name="leaveTypeId" />
+			<basic name="ifYearsOfServiceCriterionApplicable" />
+			<basic name="minYearsOfService" />
+			<basic name="maxYearsOfService" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
@@ -752,6 +879,7 @@
 	<mapped-superclass class="com.rknowsys.eapp.hrm.model.impl.LocationModelImpl">
 		<attributes>
 			<id name="locationId" />
+			<basic name="nationalityId" />
 			<basic name="companyId" />
 			<basic name="groupId" />
 			<basic name="createDate">
@@ -1164,8 +1292,28 @@
 		<table name="language" />
 		<attributes />
 	</entity>
+	<entity class="com.rknowsys.eapp.hrm.model.impl.LeaveCarryForwardPolicyImpl" name="LeaveCarryForwardPolicy">
+		<table name="leave_carry_forward_policy" />
+		<attributes />
+	</entity>
 	<entity class="com.rknowsys.eapp.hrm.model.impl.LeavePeriodImpl" name="LeavePeriod">
 		<table name="leave_period" />
+		<attributes />
+	</entity>
+	<entity class="com.rknowsys.eapp.hrm.model.impl.LeaveRestrictionImpl" name="LeaveRestriction">
+		<table name="leave_restriction" />
+		<attributes />
+	</entity>
+	<entity class="com.rknowsys.eapp.hrm.model.impl.LeaveRuleImpl" name="LeaveRule">
+		<table name="leave_rule" />
+		<attributes />
+	</entity>
+	<entity class="com.rknowsys.eapp.hrm.model.impl.LeaveTypeImpl" name="LeaveType">
+		<table name="leave_type" />
+		<attributes />
+	</entity>
+	<entity class="com.rknowsys.eapp.hrm.model.impl.LeaveTypeApplicabilityImpl" name="LeaveTypeApplicability">
+		<table name="leave_type_applicability" />
 		<attributes />
 	</entity>
 	<entity class="com.rknowsys.eapp.hrm.model.impl.LicenseImpl" name="License">

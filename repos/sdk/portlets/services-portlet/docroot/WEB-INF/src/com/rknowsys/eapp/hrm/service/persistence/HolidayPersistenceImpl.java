@@ -325,6 +325,9 @@ public class HolidayPersistenceImpl extends BasePersistenceImpl<Holiday>
 		holidayImpl.setPrimaryKey(holiday.getPrimaryKey());
 
 		holidayImpl.setHolidayId(holiday.getHolidayId());
+		holidayImpl.setHolidayName(holiday.getHolidayName());
+		holidayImpl.setIsAnnual(holiday.isIsAnnual());
+		holidayImpl.setIsFullDay(holiday.isIsFullDay());
 		holidayImpl.setHolidayDate(holiday.getHolidayDate());
 		holidayImpl.setNationalityId(holiday.getNationalityId());
 		holidayImpl.setGroupId(holiday.getGroupId());

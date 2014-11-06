@@ -65,7 +65,12 @@ import com.rknowsys.eapp.hrm.service.persistence.InterviewPersistence;
 import com.rknowsys.eapp.hrm.service.persistence.JobCategoryPersistence;
 import com.rknowsys.eapp.hrm.service.persistence.JobTitlePersistence;
 import com.rknowsys.eapp.hrm.service.persistence.LanguagePersistence;
+import com.rknowsys.eapp.hrm.service.persistence.LeaveCarryForwardPolicyPersistence;
 import com.rknowsys.eapp.hrm.service.persistence.LeavePeriodPersistence;
+import com.rknowsys.eapp.hrm.service.persistence.LeaveRestrictionPersistence;
+import com.rknowsys.eapp.hrm.service.persistence.LeaveRulePersistence;
+import com.rknowsys.eapp.hrm.service.persistence.LeaveTypeApplicabilityPersistence;
+import com.rknowsys.eapp.hrm.service.persistence.LeaveTypePersistence;
 import com.rknowsys.eapp.hrm.service.persistence.LicensePersistence;
 import com.rknowsys.eapp.hrm.service.persistence.LocationPersistence;
 import com.rknowsys.eapp.hrm.service.persistence.MembershipPersistence;
@@ -1596,6 +1601,44 @@ public abstract class HolidayLocalServiceBaseImpl extends BaseLocalServiceImpl
 	}
 
 	/**
+	 * Returns the leave carry forward policy local service.
+	 *
+	 * @return the leave carry forward policy local service
+	 */
+	public com.rknowsys.eapp.hrm.service.LeaveCarryForwardPolicyLocalService getLeaveCarryForwardPolicyLocalService() {
+		return leaveCarryForwardPolicyLocalService;
+	}
+
+	/**
+	 * Sets the leave carry forward policy local service.
+	 *
+	 * @param leaveCarryForwardPolicyLocalService the leave carry forward policy local service
+	 */
+	public void setLeaveCarryForwardPolicyLocalService(
+		com.rknowsys.eapp.hrm.service.LeaveCarryForwardPolicyLocalService leaveCarryForwardPolicyLocalService) {
+		this.leaveCarryForwardPolicyLocalService = leaveCarryForwardPolicyLocalService;
+	}
+
+	/**
+	 * Returns the leave carry forward policy persistence.
+	 *
+	 * @return the leave carry forward policy persistence
+	 */
+	public LeaveCarryForwardPolicyPersistence getLeaveCarryForwardPolicyPersistence() {
+		return leaveCarryForwardPolicyPersistence;
+	}
+
+	/**
+	 * Sets the leave carry forward policy persistence.
+	 *
+	 * @param leaveCarryForwardPolicyPersistence the leave carry forward policy persistence
+	 */
+	public void setLeaveCarryForwardPolicyPersistence(
+		LeaveCarryForwardPolicyPersistence leaveCarryForwardPolicyPersistence) {
+		this.leaveCarryForwardPolicyPersistence = leaveCarryForwardPolicyPersistence;
+	}
+
+	/**
 	 * Returns the leave period local service.
 	 *
 	 * @return the leave period local service
@@ -1631,6 +1674,158 @@ public abstract class HolidayLocalServiceBaseImpl extends BaseLocalServiceImpl
 	public void setLeavePeriodPersistence(
 		LeavePeriodPersistence leavePeriodPersistence) {
 		this.leavePeriodPersistence = leavePeriodPersistence;
+	}
+
+	/**
+	 * Returns the leave restriction local service.
+	 *
+	 * @return the leave restriction local service
+	 */
+	public com.rknowsys.eapp.hrm.service.LeaveRestrictionLocalService getLeaveRestrictionLocalService() {
+		return leaveRestrictionLocalService;
+	}
+
+	/**
+	 * Sets the leave restriction local service.
+	 *
+	 * @param leaveRestrictionLocalService the leave restriction local service
+	 */
+	public void setLeaveRestrictionLocalService(
+		com.rknowsys.eapp.hrm.service.LeaveRestrictionLocalService leaveRestrictionLocalService) {
+		this.leaveRestrictionLocalService = leaveRestrictionLocalService;
+	}
+
+	/**
+	 * Returns the leave restriction persistence.
+	 *
+	 * @return the leave restriction persistence
+	 */
+	public LeaveRestrictionPersistence getLeaveRestrictionPersistence() {
+		return leaveRestrictionPersistence;
+	}
+
+	/**
+	 * Sets the leave restriction persistence.
+	 *
+	 * @param leaveRestrictionPersistence the leave restriction persistence
+	 */
+	public void setLeaveRestrictionPersistence(
+		LeaveRestrictionPersistence leaveRestrictionPersistence) {
+		this.leaveRestrictionPersistence = leaveRestrictionPersistence;
+	}
+
+	/**
+	 * Returns the leave rule local service.
+	 *
+	 * @return the leave rule local service
+	 */
+	public com.rknowsys.eapp.hrm.service.LeaveRuleLocalService getLeaveRuleLocalService() {
+		return leaveRuleLocalService;
+	}
+
+	/**
+	 * Sets the leave rule local service.
+	 *
+	 * @param leaveRuleLocalService the leave rule local service
+	 */
+	public void setLeaveRuleLocalService(
+		com.rknowsys.eapp.hrm.service.LeaveRuleLocalService leaveRuleLocalService) {
+		this.leaveRuleLocalService = leaveRuleLocalService;
+	}
+
+	/**
+	 * Returns the leave rule persistence.
+	 *
+	 * @return the leave rule persistence
+	 */
+	public LeaveRulePersistence getLeaveRulePersistence() {
+		return leaveRulePersistence;
+	}
+
+	/**
+	 * Sets the leave rule persistence.
+	 *
+	 * @param leaveRulePersistence the leave rule persistence
+	 */
+	public void setLeaveRulePersistence(
+		LeaveRulePersistence leaveRulePersistence) {
+		this.leaveRulePersistence = leaveRulePersistence;
+	}
+
+	/**
+	 * Returns the leave type local service.
+	 *
+	 * @return the leave type local service
+	 */
+	public com.rknowsys.eapp.hrm.service.LeaveTypeLocalService getLeaveTypeLocalService() {
+		return leaveTypeLocalService;
+	}
+
+	/**
+	 * Sets the leave type local service.
+	 *
+	 * @param leaveTypeLocalService the leave type local service
+	 */
+	public void setLeaveTypeLocalService(
+		com.rknowsys.eapp.hrm.service.LeaveTypeLocalService leaveTypeLocalService) {
+		this.leaveTypeLocalService = leaveTypeLocalService;
+	}
+
+	/**
+	 * Returns the leave type persistence.
+	 *
+	 * @return the leave type persistence
+	 */
+	public LeaveTypePersistence getLeaveTypePersistence() {
+		return leaveTypePersistence;
+	}
+
+	/**
+	 * Sets the leave type persistence.
+	 *
+	 * @param leaveTypePersistence the leave type persistence
+	 */
+	public void setLeaveTypePersistence(
+		LeaveTypePersistence leaveTypePersistence) {
+		this.leaveTypePersistence = leaveTypePersistence;
+	}
+
+	/**
+	 * Returns the leave type applicability local service.
+	 *
+	 * @return the leave type applicability local service
+	 */
+	public com.rknowsys.eapp.hrm.service.LeaveTypeApplicabilityLocalService getLeaveTypeApplicabilityLocalService() {
+		return leaveTypeApplicabilityLocalService;
+	}
+
+	/**
+	 * Sets the leave type applicability local service.
+	 *
+	 * @param leaveTypeApplicabilityLocalService the leave type applicability local service
+	 */
+	public void setLeaveTypeApplicabilityLocalService(
+		com.rknowsys.eapp.hrm.service.LeaveTypeApplicabilityLocalService leaveTypeApplicabilityLocalService) {
+		this.leaveTypeApplicabilityLocalService = leaveTypeApplicabilityLocalService;
+	}
+
+	/**
+	 * Returns the leave type applicability persistence.
+	 *
+	 * @return the leave type applicability persistence
+	 */
+	public LeaveTypeApplicabilityPersistence getLeaveTypeApplicabilityPersistence() {
+		return leaveTypeApplicabilityPersistence;
+	}
+
+	/**
+	 * Sets the leave type applicability persistence.
+	 *
+	 * @param leaveTypeApplicabilityPersistence the leave type applicability persistence
+	 */
+	public void setLeaveTypeApplicabilityPersistence(
+		LeaveTypeApplicabilityPersistence leaveTypeApplicabilityPersistence) {
+		this.leaveTypeApplicabilityPersistence = leaveTypeApplicabilityPersistence;
 	}
 
 	/**
@@ -2454,10 +2649,30 @@ public abstract class HolidayLocalServiceBaseImpl extends BaseLocalServiceImpl
 	protected com.rknowsys.eapp.hrm.service.LanguageLocalService languageLocalService;
 	@BeanReference(type = LanguagePersistence.class)
 	protected LanguagePersistence languagePersistence;
+	@BeanReference(type = com.rknowsys.eapp.hrm.service.LeaveCarryForwardPolicyLocalService.class)
+	protected com.rknowsys.eapp.hrm.service.LeaveCarryForwardPolicyLocalService leaveCarryForwardPolicyLocalService;
+	@BeanReference(type = LeaveCarryForwardPolicyPersistence.class)
+	protected LeaveCarryForwardPolicyPersistence leaveCarryForwardPolicyPersistence;
 	@BeanReference(type = com.rknowsys.eapp.hrm.service.LeavePeriodLocalService.class)
 	protected com.rknowsys.eapp.hrm.service.LeavePeriodLocalService leavePeriodLocalService;
 	@BeanReference(type = LeavePeriodPersistence.class)
 	protected LeavePeriodPersistence leavePeriodPersistence;
+	@BeanReference(type = com.rknowsys.eapp.hrm.service.LeaveRestrictionLocalService.class)
+	protected com.rknowsys.eapp.hrm.service.LeaveRestrictionLocalService leaveRestrictionLocalService;
+	@BeanReference(type = LeaveRestrictionPersistence.class)
+	protected LeaveRestrictionPersistence leaveRestrictionPersistence;
+	@BeanReference(type = com.rknowsys.eapp.hrm.service.LeaveRuleLocalService.class)
+	protected com.rknowsys.eapp.hrm.service.LeaveRuleLocalService leaveRuleLocalService;
+	@BeanReference(type = LeaveRulePersistence.class)
+	protected LeaveRulePersistence leaveRulePersistence;
+	@BeanReference(type = com.rknowsys.eapp.hrm.service.LeaveTypeLocalService.class)
+	protected com.rknowsys.eapp.hrm.service.LeaveTypeLocalService leaveTypeLocalService;
+	@BeanReference(type = LeaveTypePersistence.class)
+	protected LeaveTypePersistence leaveTypePersistence;
+	@BeanReference(type = com.rknowsys.eapp.hrm.service.LeaveTypeApplicabilityLocalService.class)
+	protected com.rknowsys.eapp.hrm.service.LeaveTypeApplicabilityLocalService leaveTypeApplicabilityLocalService;
+	@BeanReference(type = LeaveTypeApplicabilityPersistence.class)
+	protected LeaveTypeApplicabilityPersistence leaveTypeApplicabilityPersistence;
 	@BeanReference(type = com.rknowsys.eapp.hrm.service.LicenseLocalService.class)
 	protected com.rknowsys.eapp.hrm.service.LicenseLocalService licenseLocalService;
 	@BeanReference(type = LicensePersistence.class)
