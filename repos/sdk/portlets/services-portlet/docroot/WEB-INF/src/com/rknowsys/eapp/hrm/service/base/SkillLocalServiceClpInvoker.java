@@ -113,10 +113,6 @@ public class SkillLocalServiceClpInvoker {
 		_methodName229 = "setBeanIdentifier";
 
 		_methodParameterTypes229 = new String[] { "java.lang.String" };
-
-		_methodName234 = "getEmployeeSkills";
-
-		_methodParameterTypes234 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -220,11 +216,6 @@ public class SkillLocalServiceClpInvoker {
 			return null;
 		}
 
-		if (_methodName234.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes234, parameterTypes)) {
-			return SkillLocalServiceUtil.getEmployeeSkills(((Long)arguments[0]).longValue());
-		}
-
 		throw new UnsupportedOperationException();
 	}
 
@@ -264,6 +255,4 @@ public class SkillLocalServiceClpInvoker {
 	private String[] _methodParameterTypes228;
 	private String _methodName229;
 	private String[] _methodParameterTypes229;
-	private String _methodName234;
-	private String[] _methodParameterTypes234;
 }
