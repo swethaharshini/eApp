@@ -166,11 +166,11 @@ public class OrganizationSoap implements Serializable {
 		_taxId = taxId;
 	}
 
-	public int getNumberOfEmployees() {
+	public long getNumberOfEmployees() {
 		return _numberOfEmployees;
 	}
 
-	public void setNumberOfEmployees(int numberOfEmployees) {
+	public void setNumberOfEmployees(long numberOfEmployees) {
 		_numberOfEmployees = numberOfEmployees;
 	}
 
@@ -270,7 +270,7 @@ public class OrganizationSoap implements Serializable {
 	private Date _modifiedDate;
 	private String _organizationName;
 	private String _taxId;
-	private int _numberOfEmployees;
+	private long _numberOfEmployees;
 	private String _registrationNumber;
 	private String _phone;
 	private String _fax;

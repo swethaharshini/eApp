@@ -67,15 +67,15 @@ public class PayGradeModelImpl extends BaseModelImpl<PayGrade>
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "userId", Types.BIGINT },
-			{ "paygradeName", Types.VARCHAR }
+			{ "payGradeName", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table pay_grade (payGradeId LONG not null primary key,companyId LONG,groupId LONG,createDate DATE null,modifiedDate DATE null,userId LONG,paygradeName VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table pay_grade (payGradeId LONG not null primary key,companyId LONG,groupId LONG,createDate DATE null,modifiedDate DATE null,userId LONG,payGradeName VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table pay_grade";
 	public static final String ORDER_BY_JPQL = " ORDER BY payGrade.payGradeId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY pay_grade.payGradeId ASC";
-	public static final String DATA_SOURCE = "anotherDataSource";
-	public static final String SESSION_FACTORY = "anotherSessionFactory";
-	public static final String TX_MANAGER = "anotherTransactionManager";
+	public static final String DATA_SOURCE = "hrmDataSource";
+	public static final String SESSION_FACTORY = "hrmSessionFactory";
+	public static final String TX_MANAGER = "hrmTransactionManager";
 	public static final boolean ENTITY_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.entity.cache.enabled.com.rknowsys.eapp.hrm.model.PayGrade"),
 			true);
@@ -133,7 +133,7 @@ public class PayGradeModelImpl extends BaseModelImpl<PayGrade>
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("userId", getUserId());
-		attributes.put("paygradeName", getPaygradeName());
+		attributes.put("payGradeName", getPayGradeName());
 
 		return attributes;
 	}
@@ -176,10 +176,10 @@ public class PayGradeModelImpl extends BaseModelImpl<PayGrade>
 			setUserId(userId);
 		}
 
-		String paygradeName = (String)attributes.get("paygradeName");
+		String payGradeName = (String)attributes.get("payGradeName");
 
-		if (paygradeName != null) {
-			setPaygradeName(paygradeName);
+		if (payGradeName != null) {
+			setPayGradeName(payGradeName);
 		}
 	}
 
@@ -266,18 +266,18 @@ public class PayGradeModelImpl extends BaseModelImpl<PayGrade>
 	}
 
 	@Override
-	public String getPaygradeName() {
-		if (_paygradeName == null) {
+	public String getPayGradeName() {
+		if (_payGradeName == null) {
 			return StringPool.BLANK;
 		}
 		else {
-			return _paygradeName;
+			return _payGradeName;
 		}
 	}
 
 	@Override
-	public void setPaygradeName(String paygradeName) {
-		_paygradeName = paygradeName;
+	public void setPayGradeName(String payGradeName) {
+		_payGradeName = payGradeName;
 	}
 
 	public long getColumnBitmask() {
@@ -317,7 +317,7 @@ public class PayGradeModelImpl extends BaseModelImpl<PayGrade>
 		payGradeImpl.setCreateDate(getCreateDate());
 		payGradeImpl.setModifiedDate(getModifiedDate());
 		payGradeImpl.setUserId(getUserId());
-		payGradeImpl.setPaygradeName(getPaygradeName());
+		payGradeImpl.setPayGradeName(getPayGradeName());
 
 		payGradeImpl.resetOriginalValues();
 
@@ -407,12 +407,12 @@ public class PayGradeModelImpl extends BaseModelImpl<PayGrade>
 
 		payGradeCacheModel.userId = getUserId();
 
-		payGradeCacheModel.paygradeName = getPaygradeName();
+		payGradeCacheModel.payGradeName = getPayGradeName();
 
-		String paygradeName = payGradeCacheModel.paygradeName;
+		String payGradeName = payGradeCacheModel.payGradeName;
 
-		if ((paygradeName != null) && (paygradeName.length() == 0)) {
-			payGradeCacheModel.paygradeName = null;
+		if ((payGradeName != null) && (payGradeName.length() == 0)) {
+			payGradeCacheModel.payGradeName = null;
 		}
 
 		return payGradeCacheModel;
@@ -434,8 +434,8 @@ public class PayGradeModelImpl extends BaseModelImpl<PayGrade>
 		sb.append(getModifiedDate());
 		sb.append(", userId=");
 		sb.append(getUserId());
-		sb.append(", paygradeName=");
-		sb.append(getPaygradeName());
+		sb.append(", payGradeName=");
+		sb.append(getPayGradeName());
 		sb.append("}");
 
 		return sb.toString();
@@ -474,8 +474,8 @@ public class PayGradeModelImpl extends BaseModelImpl<PayGrade>
 		sb.append(getUserId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>paygradeName</column-name><column-value><![CDATA[");
-		sb.append(getPaygradeName());
+			"<column><column-name>payGradeName</column-name><column-value><![CDATA[");
+		sb.append(getPayGradeName());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -496,7 +496,7 @@ public class PayGradeModelImpl extends BaseModelImpl<PayGrade>
 	private Date _modifiedDate;
 	private long _userId;
 	private String _userUuid;
-	private String _paygradeName;
+	private String _payGradeName;
 	private long _columnBitmask;
 	private PayGrade _escapedModel;
 }

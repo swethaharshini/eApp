@@ -51,7 +51,6 @@ public class SalaryComponentWrapper implements SalaryComponent,
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("salaryComponentId", getSalaryComponentId());
-		attributes.put("employeeId", getEmployeeId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("createDate", getCreateDate());
@@ -71,12 +70,6 @@ public class SalaryComponentWrapper implements SalaryComponent,
 
 		if (salaryComponentId != null) {
 			setSalaryComponentId(salaryComponentId);
-		}
-
-		Long employeeId = (Long)attributes.get("employeeId");
-
-		if (employeeId != null) {
-			setEmployeeId(employeeId);
 		}
 
 		Long companyId = (Long)attributes.get("companyId");
@@ -172,26 +165,6 @@ public class SalaryComponentWrapper implements SalaryComponent,
 	@Override
 	public void setSalaryComponentId(long salaryComponentId) {
 		_salaryComponent.setSalaryComponentId(salaryComponentId);
-	}
-
-	/**
-	* Returns the employee ID of this salary component.
-	*
-	* @return the employee ID of this salary component
-	*/
-	@Override
-	public long getEmployeeId() {
-		return _salaryComponent.getEmployeeId();
-	}
-
-	/**
-	* Sets the employee ID of this salary component.
-	*
-	* @param employeeId the employee ID of this salary component
-	*/
-	@Override
-	public void setEmployeeId(long employeeId) {
-		_salaryComponent.setEmployeeId(employeeId);
 	}
 
 	/**

@@ -51,7 +51,6 @@ public class NationalityWrapper implements Nationality,
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("nationalityId", getNationalityId());
-		attributes.put("employeeId", getEmployeeId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
@@ -68,12 +67,6 @@ public class NationalityWrapper implements Nationality,
 
 		if (nationalityId != null) {
 			setNationalityId(nationalityId);
-		}
-
-		Long employeeId = (Long)attributes.get("employeeId");
-
-		if (employeeId != null) {
-			setEmployeeId(employeeId);
 		}
 
 		Long groupId = (Long)attributes.get("groupId");
@@ -151,26 +144,6 @@ public class NationalityWrapper implements Nationality,
 	@Override
 	public void setNationalityId(long nationalityId) {
 		_nationality.setNationalityId(nationalityId);
-	}
-
-	/**
-	* Returns the employee ID of this Nationality.
-	*
-	* @return the employee ID of this Nationality
-	*/
-	@Override
-	public long getEmployeeId() {
-		return _nationality.getEmployeeId();
-	}
-
-	/**
-	* Sets the employee ID of this Nationality.
-	*
-	* @param employeeId the employee ID of this Nationality
-	*/
-	@Override
-	public void setEmployeeId(long employeeId) {
-		_nationality.setEmployeeId(employeeId);
 	}
 
 	/**

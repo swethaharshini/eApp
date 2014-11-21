@@ -75,6 +75,7 @@ public class LocationClp extends BaseModelImpl<Location> implements Location {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("locationId", getLocationId());
+		attributes.put("nationalityId", getNationalityId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("createDate", getCreateDate());
@@ -99,6 +100,12 @@ public class LocationClp extends BaseModelImpl<Location> implements Location {
 
 		if (locationId != null) {
 			setLocationId(locationId);
+		}
+
+		Long nationalityId = (Long)attributes.get("nationalityId");
+
+		if (nationalityId != null) {
+			setNationalityId(nationalityId);
 		}
 
 		Long companyId = (Long)attributes.get("companyId");
@@ -202,6 +209,29 @@ public class LocationClp extends BaseModelImpl<Location> implements Location {
 				Method method = clazz.getMethod("setLocationId", long.class);
 
 				method.invoke(_locationRemoteModel, locationId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public long getNationalityId() {
+		return _nationalityId;
+	}
+
+	@Override
+	public void setNationalityId(long nationalityId) {
+		_nationalityId = nationalityId;
+
+		if (_locationRemoteModel != null) {
+			try {
+				Class<?> clazz = _locationRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setNationalityId", long.class);
+
+				method.invoke(_locationRemoteModel, nationalityId);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -611,6 +641,7 @@ public class LocationClp extends BaseModelImpl<Location> implements Location {
 		LocationClp clone = new LocationClp();
 
 		clone.setLocationId(getLocationId());
+		clone.setNationalityId(getNationalityId());
 		clone.setCompanyId(getCompanyId());
 		clone.setGroupId(getGroupId());
 		clone.setCreateDate(getCreateDate());
@@ -673,10 +704,12 @@ public class LocationClp extends BaseModelImpl<Location> implements Location {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(33);
 
 		sb.append("{locationId=");
 		sb.append(getLocationId());
+		sb.append(", nationalityId=");
+		sb.append(getNationalityId());
 		sb.append(", companyId=");
 		sb.append(getCompanyId());
 		sb.append(", groupId=");
@@ -712,7 +745,7 @@ public class LocationClp extends BaseModelImpl<Location> implements Location {
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(49);
+		StringBundler sb = new StringBundler(52);
 
 		sb.append("<model><model-name>");
 		sb.append("com.rknowsys.eapp.hrm.model.Location");
@@ -721,6 +754,10 @@ public class LocationClp extends BaseModelImpl<Location> implements Location {
 		sb.append(
 			"<column><column-name>locationId</column-name><column-value><![CDATA[");
 		sb.append(getLocationId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>nationalityId</column-name><column-value><![CDATA[");
+		sb.append(getNationalityId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>companyId</column-name><column-value><![CDATA[");
@@ -785,6 +822,7 @@ public class LocationClp extends BaseModelImpl<Location> implements Location {
 	}
 
 	private long _locationId;
+	private long _nationalityId;
 	private long _companyId;
 	private long _groupId;
 	private Date _createDate;

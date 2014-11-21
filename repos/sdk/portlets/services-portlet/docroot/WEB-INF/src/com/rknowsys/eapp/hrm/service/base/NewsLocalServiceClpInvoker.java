@@ -102,13 +102,13 @@ public class NewsLocalServiceClpInvoker {
 				"com.rknowsys.eapp.hrm.model.News"
 			};
 
-		_methodName136 = "getBeanIdentifier";
+		_methodName232 = "getBeanIdentifier";
 
-		_methodParameterTypes136 = new String[] {  };
+		_methodParameterTypes232 = new String[] {  };
 
-		_methodName137 = "setBeanIdentifier";
+		_methodName233 = "setBeanIdentifier";
 
-		_methodParameterTypes137 = new String[] { "java.lang.String" };
+		_methodParameterTypes233 = new String[] { "java.lang.String" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -200,13 +200,13 @@ public class NewsLocalServiceClpInvoker {
 			return NewsLocalServiceUtil.updateNews((com.rknowsys.eapp.hrm.model.News)arguments[0]);
 		}
 
-		if (_methodName136.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes136, parameterTypes)) {
+		if (_methodName232.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes232, parameterTypes)) {
 			return NewsLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName137.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes137, parameterTypes)) {
+		if (_methodName233.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes233, parameterTypes)) {
 			NewsLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
@@ -247,8 +247,8 @@ public class NewsLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName136;
-	private String[] _methodParameterTypes136;
-	private String _methodName137;
-	private String[] _methodParameterTypes137;
+	private String _methodName232;
+	private String[] _methodParameterTypes232;
+	private String _methodName233;
+	private String[] _methodParameterTypes233;
 }

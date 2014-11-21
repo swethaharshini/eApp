@@ -75,23 +75,14 @@ public class EmployeeClp extends BaseModelImpl<Employee> implements Employee {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("employeeId", getEmployeeId());
-		attributes.put("contactDetailsId", getContactDetailsId());
-		attributes.put("jobId", getJobId());
-		attributes.put("shiftId", getShiftId());
-		attributes.put("licenseId", getLicenseId());
+		attributes.put("locationId", getLocationId());
+		attributes.put("assignedUserId", getAssignedUserId());
+		attributes.put("imageId", getImageId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("firstName", getFirstName());
-		attributes.put("lastName", getLastName());
-		attributes.put("middleName", getMiddleName());
-		attributes.put("gender", getGender());
-		attributes.put("maritalStatus", getMaritalStatus());
-		attributes.put("nationalityId", getNationalityId());
-		attributes.put("dateOfBirth", getDateOfBirth());
-		attributes.put("otherId", getOtherId());
 
 		return attributes;
 	}
@@ -104,28 +95,22 @@ public class EmployeeClp extends BaseModelImpl<Employee> implements Employee {
 			setEmployeeId(employeeId);
 		}
 
-		Long contactDetailsId = (Long)attributes.get("contactDetailsId");
+		Long locationId = (Long)attributes.get("locationId");
 
-		if (contactDetailsId != null) {
-			setContactDetailsId(contactDetailsId);
+		if (locationId != null) {
+			setLocationId(locationId);
 		}
 
-		Long jobId = (Long)attributes.get("jobId");
+		Long assignedUserId = (Long)attributes.get("assignedUserId");
 
-		if (jobId != null) {
-			setJobId(jobId);
+		if (assignedUserId != null) {
+			setAssignedUserId(assignedUserId);
 		}
 
-		Long shiftId = (Long)attributes.get("shiftId");
+		Long imageId = (Long)attributes.get("imageId");
 
-		if (shiftId != null) {
-			setShiftId(shiftId);
-		}
-
-		Long licenseId = (Long)attributes.get("licenseId");
-
-		if (licenseId != null) {
-			setLicenseId(licenseId);
+		if (imageId != null) {
+			setImageId(imageId);
 		}
 
 		Long groupId = (Long)attributes.get("groupId");
@@ -157,54 +142,6 @@ public class EmployeeClp extends BaseModelImpl<Employee> implements Employee {
 		if (modifiedDate != null) {
 			setModifiedDate(modifiedDate);
 		}
-
-		String firstName = (String)attributes.get("firstName");
-
-		if (firstName != null) {
-			setFirstName(firstName);
-		}
-
-		String lastName = (String)attributes.get("lastName");
-
-		if (lastName != null) {
-			setLastName(lastName);
-		}
-
-		String middleName = (String)attributes.get("middleName");
-
-		if (middleName != null) {
-			setMiddleName(middleName);
-		}
-
-		Integer gender = (Integer)attributes.get("gender");
-
-		if (gender != null) {
-			setGender(gender);
-		}
-
-		Integer maritalStatus = (Integer)attributes.get("maritalStatus");
-
-		if (maritalStatus != null) {
-			setMaritalStatus(maritalStatus);
-		}
-
-		Long nationalityId = (Long)attributes.get("nationalityId");
-
-		if (nationalityId != null) {
-			setNationalityId(nationalityId);
-		}
-
-		Date dateOfBirth = (Date)attributes.get("dateOfBirth");
-
-		if (dateOfBirth != null) {
-			setDateOfBirth(dateOfBirth);
-		}
-
-		String otherId = (String)attributes.get("otherId");
-
-		if (otherId != null) {
-			setOtherId(otherId);
-		}
 	}
 
 	@Override
@@ -231,22 +168,21 @@ public class EmployeeClp extends BaseModelImpl<Employee> implements Employee {
 	}
 
 	@Override
-	public long getContactDetailsId() {
-		return _contactDetailsId;
+	public long getLocationId() {
+		return _locationId;
 	}
 
 	@Override
-	public void setContactDetailsId(long contactDetailsId) {
-		_contactDetailsId = contactDetailsId;
+	public void setLocationId(long locationId) {
+		_locationId = locationId;
 
 		if (_employeeRemoteModel != null) {
 			try {
 				Class<?> clazz = _employeeRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setContactDetailsId",
-						long.class);
+				Method method = clazz.getMethod("setLocationId", long.class);
 
-				method.invoke(_employeeRemoteModel, contactDetailsId);
+				method.invoke(_employeeRemoteModel, locationId);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -255,21 +191,21 @@ public class EmployeeClp extends BaseModelImpl<Employee> implements Employee {
 	}
 
 	@Override
-	public long getJobId() {
-		return _jobId;
+	public long getAssignedUserId() {
+		return _assignedUserId;
 	}
 
 	@Override
-	public void setJobId(long jobId) {
-		_jobId = jobId;
+	public void setAssignedUserId(long assignedUserId) {
+		_assignedUserId = assignedUserId;
 
 		if (_employeeRemoteModel != null) {
 			try {
 				Class<?> clazz = _employeeRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setJobId", long.class);
+				Method method = clazz.getMethod("setAssignedUserId", long.class);
 
-				method.invoke(_employeeRemoteModel, jobId);
+				method.invoke(_employeeRemoteModel, assignedUserId);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -278,44 +214,32 @@ public class EmployeeClp extends BaseModelImpl<Employee> implements Employee {
 	}
 
 	@Override
-	public long getShiftId() {
-		return _shiftId;
+	public String getAssignedUserUuid() throws SystemException {
+		return PortalUtil.getUserValue(getAssignedUserId(), "uuid",
+			_assignedUserUuid);
 	}
 
 	@Override
-	public void setShiftId(long shiftId) {
-		_shiftId = shiftId;
+	public void setAssignedUserUuid(String assignedUserUuid) {
+		_assignedUserUuid = assignedUserUuid;
+	}
+
+	@Override
+	public long getImageId() {
+		return _imageId;
+	}
+
+	@Override
+	public void setImageId(long imageId) {
+		_imageId = imageId;
 
 		if (_employeeRemoteModel != null) {
 			try {
 				Class<?> clazz = _employeeRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setShiftId", long.class);
+				Method method = clazz.getMethod("setImageId", long.class);
 
-				method.invoke(_employeeRemoteModel, shiftId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public long getLicenseId() {
-		return _licenseId;
-	}
-
-	@Override
-	public void setLicenseId(long licenseId) {
-		_licenseId = licenseId;
-
-		if (_employeeRemoteModel != null) {
-			try {
-				Class<?> clazz = _employeeRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setLicenseId", long.class);
-
-				method.invoke(_employeeRemoteModel, licenseId);
+				method.invoke(_employeeRemoteModel, imageId);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -448,421 +372,6 @@ public class EmployeeClp extends BaseModelImpl<Employee> implements Employee {
 		}
 	}
 
-	@Override
-	public String getFirstName() {
-		return _firstName;
-	}
-
-	@Override
-	public void setFirstName(String firstName) {
-		_firstName = firstName;
-
-		if (_employeeRemoteModel != null) {
-			try {
-				Class<?> clazz = _employeeRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setFirstName", String.class);
-
-				method.invoke(_employeeRemoteModel, firstName);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public String getLastName() {
-		return _lastName;
-	}
-
-	@Override
-	public void setLastName(String lastName) {
-		_lastName = lastName;
-
-		if (_employeeRemoteModel != null) {
-			try {
-				Class<?> clazz = _employeeRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setLastName", String.class);
-
-				method.invoke(_employeeRemoteModel, lastName);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public String getMiddleName() {
-		return _middleName;
-	}
-
-	@Override
-	public void setMiddleName(String middleName) {
-		_middleName = middleName;
-
-		if (_employeeRemoteModel != null) {
-			try {
-				Class<?> clazz = _employeeRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setMiddleName", String.class);
-
-				method.invoke(_employeeRemoteModel, middleName);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public int getGender() {
-		return _gender;
-	}
-
-	@Override
-	public void setGender(int gender) {
-		_gender = gender;
-
-		if (_employeeRemoteModel != null) {
-			try {
-				Class<?> clazz = _employeeRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setGender", int.class);
-
-				method.invoke(_employeeRemoteModel, gender);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public int getMaritalStatus() {
-		return _maritalStatus;
-	}
-
-	@Override
-	public void setMaritalStatus(int maritalStatus) {
-		_maritalStatus = maritalStatus;
-
-		if (_employeeRemoteModel != null) {
-			try {
-				Class<?> clazz = _employeeRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setMaritalStatus", int.class);
-
-				method.invoke(_employeeRemoteModel, maritalStatus);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public long getNationalityId() {
-		return _nationalityId;
-	}
-
-	@Override
-	public void setNationalityId(long nationalityId) {
-		_nationalityId = nationalityId;
-
-		if (_employeeRemoteModel != null) {
-			try {
-				Class<?> clazz = _employeeRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setNationalityId", long.class);
-
-				method.invoke(_employeeRemoteModel, nationalityId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public Date getDateOfBirth() {
-		return _dateOfBirth;
-	}
-
-	@Override
-	public void setDateOfBirth(Date dateOfBirth) {
-		_dateOfBirth = dateOfBirth;
-
-		if (_employeeRemoteModel != null) {
-			try {
-				Class<?> clazz = _employeeRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setDateOfBirth", Date.class);
-
-				method.invoke(_employeeRemoteModel, dateOfBirth);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public String getOtherId() {
-		return _otherId;
-	}
-
-	@Override
-	public void setOtherId(String otherId) {
-		_otherId = otherId;
-
-		if (_employeeRemoteModel != null) {
-			try {
-				Class<?> clazz = _employeeRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setOtherId", String.class);
-
-				method.invoke(_employeeRemoteModel, otherId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public com.rknowsys.eapp.hrm.model.Job getJob() {
-		try {
-			String methodName = "getJob";
-
-			Class<?>[] parameterTypes = new Class<?>[] {  };
-
-			Object[] parameterValues = new Object[] {  };
-
-			com.rknowsys.eapp.hrm.model.Job returnObj = (com.rknowsys.eapp.hrm.model.Job)invokeOnRemoteModel(methodName,
-					parameterTypes, parameterValues);
-
-			return returnObj;
-		}
-		catch (Exception e) {
-			throw new UnsupportedOperationException(e);
-		}
-	}
-
-	@Override
-	public com.rknowsys.eapp.hrm.model.ContactDetails getContactDetails() {
-		try {
-			String methodName = "getContactDetails";
-
-			Class<?>[] parameterTypes = new Class<?>[] {  };
-
-			Object[] parameterValues = new Object[] {  };
-
-			com.rknowsys.eapp.hrm.model.ContactDetails returnObj = (com.rknowsys.eapp.hrm.model.ContactDetails)invokeOnRemoteModel(methodName,
-					parameterTypes, parameterValues);
-
-			return returnObj;
-		}
-		catch (Exception e) {
-			throw new UnsupportedOperationException(e);
-		}
-	}
-
-	@Override
-	public java.util.List<com.rknowsys.eapp.hrm.model.Membership> getMemberships() {
-		try {
-			String methodName = "getMemberships";
-
-			Class<?>[] parameterTypes = new Class<?>[] {  };
-
-			Object[] parameterValues = new Object[] {  };
-
-			java.util.List<com.rknowsys.eapp.hrm.model.Membership> returnObj = (java.util.List<com.rknowsys.eapp.hrm.model.Membership>)invokeOnRemoteModel(methodName,
-					parameterTypes, parameterValues);
-
-			return returnObj;
-		}
-		catch (Exception e) {
-			throw new UnsupportedOperationException(e);
-		}
-	}
-
-	@Override
-	public java.util.List<com.rknowsys.eapp.hrm.model.EmergencyContact> getEmergencyContacts() {
-		try {
-			String methodName = "getEmergencyContacts";
-
-			Class<?>[] parameterTypes = new Class<?>[] {  };
-
-			Object[] parameterValues = new Object[] {  };
-
-			java.util.List<com.rknowsys.eapp.hrm.model.EmergencyContact> returnObj =
-				(java.util.List<com.rknowsys.eapp.hrm.model.EmergencyContact>)invokeOnRemoteModel(methodName,
-					parameterTypes, parameterValues);
-
-			return returnObj;
-		}
-		catch (Exception e) {
-			throw new UnsupportedOperationException(e);
-		}
-	}
-
-	@Override
-	public java.util.List<com.rknowsys.eapp.hrm.model.ImmigrationDocument> getImmigrationDocuments() {
-		try {
-			String methodName = "getImmigrationDocuments";
-
-			Class<?>[] parameterTypes = new Class<?>[] {  };
-
-			Object[] parameterValues = new Object[] {  };
-
-			java.util.List<com.rknowsys.eapp.hrm.model.ImmigrationDocument> returnObj =
-				(java.util.List<com.rknowsys.eapp.hrm.model.ImmigrationDocument>)invokeOnRemoteModel(methodName,
-					parameterTypes, parameterValues);
-
-			return returnObj;
-		}
-		catch (Exception e) {
-			throw new UnsupportedOperationException(e);
-		}
-	}
-
-	@Override
-	public java.util.List<com.rknowsys.eapp.hrm.model.Language> getLanguages() {
-		try {
-			String methodName = "getLanguages";
-
-			Class<?>[] parameterTypes = new Class<?>[] {  };
-
-			Object[] parameterValues = new Object[] {  };
-
-			java.util.List<com.rknowsys.eapp.hrm.model.Language> returnObj = (java.util.List<com.rknowsys.eapp.hrm.model.Language>)invokeOnRemoteModel(methodName,
-					parameterTypes, parameterValues);
-
-			return returnObj;
-		}
-		catch (Exception e) {
-			throw new UnsupportedOperationException(e);
-		}
-	}
-
-	@Override
-	public com.rknowsys.eapp.hrm.model.License getLicense() {
-		try {
-			String methodName = "getLicense";
-
-			Class<?>[] parameterTypes = new Class<?>[] {  };
-
-			Object[] parameterValues = new Object[] {  };
-
-			com.rknowsys.eapp.hrm.model.License returnObj = (com.rknowsys.eapp.hrm.model.License)invokeOnRemoteModel(methodName,
-					parameterTypes, parameterValues);
-
-			return returnObj;
-		}
-		catch (Exception e) {
-			throw new UnsupportedOperationException(e);
-		}
-	}
-
-	@Override
-	public java.util.List<com.rknowsys.eapp.hrm.model.Education> getEducations() {
-		try {
-			String methodName = "getEducations";
-
-			Class<?>[] parameterTypes = new Class<?>[] {  };
-
-			Object[] parameterValues = new Object[] {  };
-
-			java.util.List<com.rknowsys.eapp.hrm.model.Education> returnObj = (java.util.List<com.rknowsys.eapp.hrm.model.Education>)invokeOnRemoteModel(methodName,
-					parameterTypes, parameterValues);
-
-			return returnObj;
-		}
-		catch (Exception e) {
-			throw new UnsupportedOperationException(e);
-		}
-	}
-
-	@Override
-	public java.util.List<com.rknowsys.eapp.hrm.model.Skill> getSkills() {
-		try {
-			String methodName = "getSkills";
-
-			Class<?>[] parameterTypes = new Class<?>[] {  };
-
-			Object[] parameterValues = new Object[] {  };
-
-			java.util.List<com.rknowsys.eapp.hrm.model.Skill> returnObj = (java.util.List<com.rknowsys.eapp.hrm.model.Skill>)invokeOnRemoteModel(methodName,
-					parameterTypes, parameterValues);
-
-			return returnObj;
-		}
-		catch (Exception e) {
-			throw new UnsupportedOperationException(e);
-		}
-	}
-
-	@Override
-	public java.util.List<com.rknowsys.eapp.hrm.model.SalaryComponent> getSalaryComponents() {
-		try {
-			String methodName = "getSalaryComponents";
-
-			Class<?>[] parameterTypes = new Class<?>[] {  };
-
-			Object[] parameterValues = new Object[] {  };
-
-			java.util.List<com.rknowsys.eapp.hrm.model.SalaryComponent> returnObj =
-				(java.util.List<com.rknowsys.eapp.hrm.model.SalaryComponent>)invokeOnRemoteModel(methodName,
-					parameterTypes, parameterValues);
-
-			return returnObj;
-		}
-		catch (Exception e) {
-			throw new UnsupportedOperationException(e);
-		}
-	}
-
-	@Override
-	public java.util.List<com.rknowsys.eapp.hrm.model.Dependent> getDependents() {
-		try {
-			String methodName = "getDependents";
-
-			Class<?>[] parameterTypes = new Class<?>[] {  };
-
-			Object[] parameterValues = new Object[] {  };
-
-			java.util.List<com.rknowsys.eapp.hrm.model.Dependent> returnObj = (java.util.List<com.rknowsys.eapp.hrm.model.Dependent>)invokeOnRemoteModel(methodName,
-					parameterTypes, parameterValues);
-
-			return returnObj;
-		}
-		catch (Exception e) {
-			throw new UnsupportedOperationException(e);
-		}
-	}
-
-	@Override
-	public java.util.List<com.rknowsys.eapp.hrm.model.Attachment> getAttachments() {
-		try {
-			String methodName = "getAttachments";
-
-			Class<?>[] parameterTypes = new Class<?>[] {  };
-
-			Object[] parameterValues = new Object[] {  };
-
-			java.util.List<com.rknowsys.eapp.hrm.model.Attachment> returnObj = (java.util.List<com.rknowsys.eapp.hrm.model.Attachment>)invokeOnRemoteModel(methodName,
-					parameterTypes, parameterValues);
-
-			return returnObj;
-		}
-		catch (Exception e) {
-			throw new UnsupportedOperationException(e);
-		}
-	}
-
 	public BaseModel<?> getEmployeeRemoteModel() {
 		return _employeeRemoteModel;
 	}
@@ -933,23 +442,14 @@ public class EmployeeClp extends BaseModelImpl<Employee> implements Employee {
 		EmployeeClp clone = new EmployeeClp();
 
 		clone.setEmployeeId(getEmployeeId());
-		clone.setContactDetailsId(getContactDetailsId());
-		clone.setJobId(getJobId());
-		clone.setShiftId(getShiftId());
-		clone.setLicenseId(getLicenseId());
+		clone.setLocationId(getLocationId());
+		clone.setAssignedUserId(getAssignedUserId());
+		clone.setImageId(getImageId());
 		clone.setGroupId(getGroupId());
 		clone.setCompanyId(getCompanyId());
 		clone.setUserId(getUserId());
 		clone.setCreateDate(getCreateDate());
 		clone.setModifiedDate(getModifiedDate());
-		clone.setFirstName(getFirstName());
-		clone.setLastName(getLastName());
-		clone.setMiddleName(getMiddleName());
-		clone.setGender(getGender());
-		clone.setMaritalStatus(getMaritalStatus());
-		clone.setNationalityId(getNationalityId());
-		clone.setDateOfBirth(getDateOfBirth());
-		clone.setOtherId(getOtherId());
 
 		return clone;
 	}
@@ -998,18 +498,16 @@ public class EmployeeClp extends BaseModelImpl<Employee> implements Employee {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(37);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("{employeeId=");
 		sb.append(getEmployeeId());
-		sb.append(", contactDetailsId=");
-		sb.append(getContactDetailsId());
-		sb.append(", jobId=");
-		sb.append(getJobId());
-		sb.append(", shiftId=");
-		sb.append(getShiftId());
-		sb.append(", licenseId=");
-		sb.append(getLicenseId());
+		sb.append(", locationId=");
+		sb.append(getLocationId());
+		sb.append(", assignedUserId=");
+		sb.append(getAssignedUserId());
+		sb.append(", imageId=");
+		sb.append(getImageId());
 		sb.append(", groupId=");
 		sb.append(getGroupId());
 		sb.append(", companyId=");
@@ -1020,22 +518,6 @@ public class EmployeeClp extends BaseModelImpl<Employee> implements Employee {
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
-		sb.append(", firstName=");
-		sb.append(getFirstName());
-		sb.append(", lastName=");
-		sb.append(getLastName());
-		sb.append(", middleName=");
-		sb.append(getMiddleName());
-		sb.append(", gender=");
-		sb.append(getGender());
-		sb.append(", maritalStatus=");
-		sb.append(getMaritalStatus());
-		sb.append(", nationalityId=");
-		sb.append(getNationalityId());
-		sb.append(", dateOfBirth=");
-		sb.append(getDateOfBirth());
-		sb.append(", otherId=");
-		sb.append(getOtherId());
 		sb.append("}");
 
 		return sb.toString();
@@ -1043,7 +525,7 @@ public class EmployeeClp extends BaseModelImpl<Employee> implements Employee {
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(58);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("<model><model-name>");
 		sb.append("com.rknowsys.eapp.hrm.model.Employee");
@@ -1054,20 +536,16 @@ public class EmployeeClp extends BaseModelImpl<Employee> implements Employee {
 		sb.append(getEmployeeId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>contactDetailsId</column-name><column-value><![CDATA[");
-		sb.append(getContactDetailsId());
+			"<column><column-name>locationId</column-name><column-value><![CDATA[");
+		sb.append(getLocationId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>jobId</column-name><column-value><![CDATA[");
-		sb.append(getJobId());
+			"<column><column-name>assignedUserId</column-name><column-value><![CDATA[");
+		sb.append(getAssignedUserId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>shiftId</column-name><column-value><![CDATA[");
-		sb.append(getShiftId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>licenseId</column-name><column-value><![CDATA[");
-		sb.append(getLicenseId());
+			"<column><column-name>imageId</column-name><column-value><![CDATA[");
+		sb.append(getImageId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>groupId</column-name><column-value><![CDATA[");
@@ -1089,38 +567,6 @@ public class EmployeeClp extends BaseModelImpl<Employee> implements Employee {
 			"<column><column-name>modifiedDate</column-name><column-value><![CDATA[");
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>firstName</column-name><column-value><![CDATA[");
-		sb.append(getFirstName());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>lastName</column-name><column-value><![CDATA[");
-		sb.append(getLastName());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>middleName</column-name><column-value><![CDATA[");
-		sb.append(getMiddleName());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>gender</column-name><column-value><![CDATA[");
-		sb.append(getGender());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>maritalStatus</column-name><column-value><![CDATA[");
-		sb.append(getMaritalStatus());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>nationalityId</column-name><column-value><![CDATA[");
-		sb.append(getNationalityId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>dateOfBirth</column-name><column-value><![CDATA[");
-		sb.append(getDateOfBirth());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>otherId</column-name><column-value><![CDATA[");
-		sb.append(getOtherId());
-		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -1128,23 +574,15 @@ public class EmployeeClp extends BaseModelImpl<Employee> implements Employee {
 	}
 
 	private long _employeeId;
-	private long _contactDetailsId;
-	private long _jobId;
-	private long _shiftId;
-	private long _licenseId;
+	private long _locationId;
+	private long _assignedUserId;
+	private String _assignedUserUuid;
+	private long _imageId;
 	private long _groupId;
 	private long _companyId;
 	private long _userId;
 	private String _userUuid;
 	private Date _createDate;
 	private Date _modifiedDate;
-	private String _firstName;
-	private String _lastName;
-	private String _middleName;
-	private int _gender;
-	private int _maritalStatus;
-	private long _nationalityId;
-	private Date _dateOfBirth;
-	private String _otherId;
 	private BaseModel<?> _employeeRemoteModel;
 }

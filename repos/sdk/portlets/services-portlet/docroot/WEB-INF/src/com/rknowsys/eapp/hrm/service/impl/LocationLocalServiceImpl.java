@@ -14,6 +14,10 @@
 
 package com.rknowsys.eapp.hrm.service.impl;
 
+import java.util.List;
+
+import com.liferay.portal.kernel.exception.SystemException;
+import com.rknowsys.eapp.hrm.model.Location;
 import com.rknowsys.eapp.hrm.service.base.LocationLocalServiceBaseImpl;
 
 /**
@@ -36,4 +40,7 @@ public class LocationLocalServiceImpl extends LocationLocalServiceBaseImpl {
 	 *
 	 * Never reference this interface directly. Always use {@link com.rknowsys.eapp.hrm.service.LocationLocalServiceUtil} to access the location local service.
 	 */
+	public List<Location> findByNationality(long natId) throws SystemException{
+		return locationPersistence.findByNationalityId(natId);
+	}
 }

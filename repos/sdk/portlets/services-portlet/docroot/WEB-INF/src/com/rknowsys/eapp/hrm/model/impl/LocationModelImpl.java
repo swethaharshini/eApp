@@ -62,6 +62,7 @@ public class LocationModelImpl extends BaseModelImpl<Location>
 	public static final String TABLE_NAME = "location";
 	public static final Object[][] TABLE_COLUMNS = {
 			{ "locationId", Types.BIGINT },
+			{ "nationalityId", Types.BIGINT },
 			{ "companyId", Types.BIGINT },
 			{ "groupId", Types.BIGINT },
 			{ "createDate", Types.TIMESTAMP },
@@ -75,16 +76,15 @@ public class LocationModelImpl extends BaseModelImpl<Location>
 			{ "postalcode", Types.VARCHAR },
 			{ "phone", Types.VARCHAR },
 			{ "fax", Types.VARCHAR },
-			{ "notes", Types.VARCHAR },
-			{ "jobId", Types.BIGINT }
+			{ "notes", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table location (locationId LONG not null primary key,companyId LONG,groupId LONG,createDate DATE null,modifiedDate DATE null,userId LONG,name VARCHAR(75) null,country VARCHAR(75) null,state_ VARCHAR(75) null,city VARCHAR(75) null,address VARCHAR(75) null,postalcode VARCHAR(75) null,phone VARCHAR(75) null,fax VARCHAR(75) null,notes VARCHAR(75) null,jobId LONG)";
+	public static final String TABLE_SQL_CREATE = "create table location (locationId LONG not null primary key,nationalityId LONG,companyId LONG,groupId LONG,createDate DATE null,modifiedDate DATE null,userId LONG,name VARCHAR(75) null,country VARCHAR(75) null,state_ VARCHAR(75) null,city VARCHAR(75) null,address VARCHAR(75) null,postalcode VARCHAR(75) null,phone VARCHAR(75) null,fax VARCHAR(75) null,notes VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table location";
 	public static final String ORDER_BY_JPQL = " ORDER BY location.locationId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY location.locationId ASC";
-	public static final String DATA_SOURCE = "anotherDataSource";
-	public static final String SESSION_FACTORY = "anotherSessionFactory";
-	public static final String TX_MANAGER = "anotherTransactionManager";
+	public static final String DATA_SOURCE = "hrmDataSource";
+	public static final String SESSION_FACTORY = "hrmSessionFactory";
+	public static final String TX_MANAGER = "hrmTransactionManager";
 	public static final boolean ENTITY_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.entity.cache.enabled.com.rknowsys.eapp.hrm.model.Location"),
 			true);
@@ -95,7 +95,17 @@ public class LocationModelImpl extends BaseModelImpl<Location>
 				"value.object.column.bitmask.enabled.com.rknowsys.eapp.hrm.model.Location"),
 			true);
 	public static long GROUPID_COLUMN_BITMASK = 1L;
-	public static long LOCATIONID_COLUMN_BITMASK = 2L;
+	public static long NATIONALITYID_COLUMN_BITMASK = 2L;
+	public static long LOCATIONID_COLUMN_BITMASK = 4L;
+	public static final String MAPPING_TABLE_HRM_LOCATIONS_HOLIDAYS_NAME = "hrm_locations_holidays";
+	public static final Object[][] MAPPING_TABLE_HRM_LOCATIONS_HOLIDAYS_COLUMNS = {
+			{ "locationId", Types.BIGINT },
+			{ "holidayId", Types.BIGINT }
+		};
+	public static final String MAPPING_TABLE_HRM_LOCATIONS_HOLIDAYS_SQL_CREATE = "create table hrm_locations_holidays (holidayId LONG not null,locationId LONG not null,primary key (holidayId, locationId))";
+	public static final boolean FINDER_CACHE_ENABLED_HRM_LOCATIONS_HOLIDAYS = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
+				"value.object.finder.cache.enabled.hrm_locations_holidays"),
+			true);
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.rknowsys.eapp.hrm.model.Location"));
 
@@ -137,6 +147,7 @@ public class LocationModelImpl extends BaseModelImpl<Location>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("locationId", getLocationId());
+		attributes.put("nationalityId", getNationalityId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("createDate", getCreateDate());
@@ -151,7 +162,6 @@ public class LocationModelImpl extends BaseModelImpl<Location>
 		attributes.put("phone", getPhone());
 		attributes.put("fax", getFax());
 		attributes.put("notes", getNotes());
-		attributes.put("jobId", getJobId());
 
 		return attributes;
 	}
@@ -162,6 +172,12 @@ public class LocationModelImpl extends BaseModelImpl<Location>
 
 		if (locationId != null) {
 			setLocationId(locationId);
+		}
+
+		Long nationalityId = (Long)attributes.get("nationalityId");
+
+		if (nationalityId != null) {
+			setNationalityId(nationalityId);
 		}
 
 		Long companyId = (Long)attributes.get("companyId");
@@ -247,12 +263,6 @@ public class LocationModelImpl extends BaseModelImpl<Location>
 		if (notes != null) {
 			setNotes(notes);
 		}
-
-		Long jobId = (Long)attributes.get("jobId");
-
-		if (jobId != null) {
-			setJobId(jobId);
-		}
 	}
 
 	@Override
@@ -263,6 +273,28 @@ public class LocationModelImpl extends BaseModelImpl<Location>
 	@Override
 	public void setLocationId(long locationId) {
 		_locationId = locationId;
+	}
+
+	@Override
+	public long getNationalityId() {
+		return _nationalityId;
+	}
+
+	@Override
+	public void setNationalityId(long nationalityId) {
+		_columnBitmask |= NATIONALITYID_COLUMN_BITMASK;
+
+		if (!_setOriginalNationalityId) {
+			_setOriginalNationalityId = true;
+
+			_originalNationalityId = _nationalityId;
+		}
+
+		_nationalityId = nationalityId;
+	}
+
+	public long getOriginalNationalityId() {
+		return _originalNationalityId;
 	}
 
 	@Override
@@ -472,16 +504,6 @@ public class LocationModelImpl extends BaseModelImpl<Location>
 		_notes = notes;
 	}
 
-	@Override
-	public long getJobId() {
-		return _jobId;
-	}
-
-	@Override
-	public void setJobId(long jobId) {
-		_jobId = jobId;
-	}
-
 	public long getColumnBitmask() {
 		return _columnBitmask;
 	}
@@ -514,6 +536,7 @@ public class LocationModelImpl extends BaseModelImpl<Location>
 		LocationImpl locationImpl = new LocationImpl();
 
 		locationImpl.setLocationId(getLocationId());
+		locationImpl.setNationalityId(getNationalityId());
 		locationImpl.setCompanyId(getCompanyId());
 		locationImpl.setGroupId(getGroupId());
 		locationImpl.setCreateDate(getCreateDate());
@@ -528,7 +551,6 @@ public class LocationModelImpl extends BaseModelImpl<Location>
 		locationImpl.setPhone(getPhone());
 		locationImpl.setFax(getFax());
 		locationImpl.setNotes(getNotes());
-		locationImpl.setJobId(getJobId());
 
 		locationImpl.resetOriginalValues();
 
@@ -581,6 +603,10 @@ public class LocationModelImpl extends BaseModelImpl<Location>
 	public void resetOriginalValues() {
 		LocationModelImpl locationModelImpl = this;
 
+		locationModelImpl._originalNationalityId = locationModelImpl._nationalityId;
+
+		locationModelImpl._setOriginalNationalityId = false;
+
 		locationModelImpl._originalGroupId = locationModelImpl._groupId;
 
 		locationModelImpl._setOriginalGroupId = false;
@@ -593,6 +619,8 @@ public class LocationModelImpl extends BaseModelImpl<Location>
 		LocationCacheModel locationCacheModel = new LocationCacheModel();
 
 		locationCacheModel.locationId = getLocationId();
+
+		locationCacheModel.nationalityId = getNationalityId();
 
 		locationCacheModel.companyId = getCompanyId();
 
@@ -690,8 +718,6 @@ public class LocationModelImpl extends BaseModelImpl<Location>
 			locationCacheModel.notes = null;
 		}
 
-		locationCacheModel.jobId = getJobId();
-
 		return locationCacheModel;
 	}
 
@@ -701,6 +727,8 @@ public class LocationModelImpl extends BaseModelImpl<Location>
 
 		sb.append("{locationId=");
 		sb.append(getLocationId());
+		sb.append(", nationalityId=");
+		sb.append(getNationalityId());
 		sb.append(", companyId=");
 		sb.append(getCompanyId());
 		sb.append(", groupId=");
@@ -729,8 +757,6 @@ public class LocationModelImpl extends BaseModelImpl<Location>
 		sb.append(getFax());
 		sb.append(", notes=");
 		sb.append(getNotes());
-		sb.append(", jobId=");
-		sb.append(getJobId());
 		sb.append("}");
 
 		return sb.toString();
@@ -747,6 +773,10 @@ public class LocationModelImpl extends BaseModelImpl<Location>
 		sb.append(
 			"<column><column-name>locationId</column-name><column-value><![CDATA[");
 		sb.append(getLocationId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>nationalityId</column-name><column-value><![CDATA[");
+		sb.append(getNationalityId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>companyId</column-name><column-value><![CDATA[");
@@ -804,10 +834,6 @@ public class LocationModelImpl extends BaseModelImpl<Location>
 			"<column><column-name>notes</column-name><column-value><![CDATA[");
 		sb.append(getNotes());
 		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>jobId</column-name><column-value><![CDATA[");
-		sb.append(getJobId());
-		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -819,6 +845,9 @@ public class LocationModelImpl extends BaseModelImpl<Location>
 			Location.class
 		};
 	private long _locationId;
+	private long _nationalityId;
+	private long _originalNationalityId;
+	private boolean _setOriginalNationalityId;
 	private long _companyId;
 	private long _groupId;
 	private long _originalGroupId;
@@ -836,7 +865,6 @@ public class LocationModelImpl extends BaseModelImpl<Location>
 	private String _phone;
 	private String _fax;
 	private String _notes;
-	private long _jobId;
 	private long _columnBitmask;
 	private Location _escapedModel;
 }

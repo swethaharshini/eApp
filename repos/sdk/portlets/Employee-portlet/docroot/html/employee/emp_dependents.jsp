@@ -11,14 +11,9 @@ A.ready(function()
    addButton.on('click',
    function()
    {
-   alert("adding dependent details");
    A.one('#<portlet:namespace/>dependentAdd').hide();
    A.one('#<portlet:namespace/>dependentDelete').hide();
    A.one('#assignedDependentAdd').show();
-   
-   A.all('input[type=text]').set('disabled',false);
-   A.all('select').set('disabled',false);
-   A.all('input[type=radio]').set('disabled',false);
    });
    var cancelButton=A.one('#<portlet:namespace/>cancelDependentDetails');
    cancelButton.on('click',function()
@@ -46,7 +41,7 @@ A.ready(function()
 %>
 <div id="assignedDependentAdd" class="panel">
 	<div class="panel-heading">
-		<h3>Add Dependent</h3>
+		<h3><liferay-ui:message key="01_add-dependent"></liferay-ui:message></h3>
 	</div>
 	<div class="panel-body">
 		<aui:form name="addDependent" id="addDependent"
@@ -55,13 +50,13 @@ A.ready(function()
 			<aui:input name="dependentFileId" value="<%=fileEntryId %>" type="hidden" />
 			<div class="row-fluid">
 				<div class="span8">
-					<aui:input name="dependent_name" label="Name"
+					<aui:input name="dependent_name" label="01_name"
 						 inlineLabel="left"></aui:input>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span8">
-					<aui:input name="dependent_relationship" label="Relationship"
+					<aui:input name="dependent_relationship" label="01_relationship"
 				 inlineLabel="left"></aui:input>
 				</div>
 			</div>
@@ -95,8 +90,8 @@ A.ready(function()
 			</liferay-ui:search-container-results>
 			<liferay-ui:search-container-row className="EmpDependent"
 				modelVar="id">
-				<liferay-ui:search-container-column-text name="Name" property="name" />
-				<liferay-ui:search-container-column-text name="Relation"
+				<liferay-ui:search-container-column-text name="01_name" property="name" />
+				<liferay-ui:search-container-column-text name="01_relation"
 					property="relationship" />
 			</liferay-ui:search-container-row>
 			<liferay-ui:search-iterator />

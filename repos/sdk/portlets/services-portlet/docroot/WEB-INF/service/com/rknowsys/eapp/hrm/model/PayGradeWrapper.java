@@ -55,7 +55,7 @@ public class PayGradeWrapper implements PayGrade, ModelWrapper<PayGrade> {
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("userId", getUserId());
-		attributes.put("paygradeName", getPaygradeName());
+		attributes.put("payGradeName", getPayGradeName());
 
 		return attributes;
 	}
@@ -98,10 +98,10 @@ public class PayGradeWrapper implements PayGrade, ModelWrapper<PayGrade> {
 			setUserId(userId);
 		}
 
-		String paygradeName = (String)attributes.get("paygradeName");
+		String payGradeName = (String)attributes.get("payGradeName");
 
-		if (paygradeName != null) {
-			setPaygradeName(paygradeName);
+		if (payGradeName != null) {
+			setPayGradeName(payGradeName);
 		}
 	}
 
@@ -268,23 +268,23 @@ public class PayGradeWrapper implements PayGrade, ModelWrapper<PayGrade> {
 	}
 
 	/**
-	* Returns the paygrade name of this pay grade.
+	* Returns the pay grade name of this pay grade.
 	*
-	* @return the paygrade name of this pay grade
+	* @return the pay grade name of this pay grade
 	*/
 	@Override
-	public java.lang.String getPaygradeName() {
-		return _payGrade.getPaygradeName();
+	public java.lang.String getPayGradeName() {
+		return _payGrade.getPayGradeName();
 	}
 
 	/**
-	* Sets the paygrade name of this pay grade.
+	* Sets the pay grade name of this pay grade.
 	*
-	* @param paygradeName the paygrade name of this pay grade
+	* @param payGradeName the pay grade name of this pay grade
 	*/
 	@Override
-	public void setPaygradeName(java.lang.String paygradeName) {
-		_payGrade.setPaygradeName(paygradeName);
+	public void setPayGradeName(java.lang.String payGradeName) {
+		_payGrade.setPayGradeName(payGradeName);
 	}
 
 	@Override

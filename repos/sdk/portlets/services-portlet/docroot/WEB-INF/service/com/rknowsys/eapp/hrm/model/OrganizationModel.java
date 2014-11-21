@@ -194,14 +194,14 @@ public interface OrganizationModel extends BaseModel<Organization> {
 	 *
 	 * @return the number of employees of this organization
 	 */
-	public int getNumberOfEmployees();
+	public long getNumberOfEmployees();
 
 	/**
 	 * Sets the number of employees of this organization.
 	 *
 	 * @param numberOfEmployees the number of employees of this organization
 	 */
-	public void setNumberOfEmployees(int numberOfEmployees);
+	public void setNumberOfEmployees(long numberOfEmployees);
 
 	/**
 	 * Returns the registration number of this organization.

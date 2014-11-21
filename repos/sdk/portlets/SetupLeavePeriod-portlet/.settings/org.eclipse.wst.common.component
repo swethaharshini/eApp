@@ -5,6 +5,9 @@
         <dependent-module archiveName="hrm-common.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hrm-common/hrm-common">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="services-portlet-service.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/services-portlet/docroot/WEB-INF/lib/services-portlet-service.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="SetupLeavePeriod-portlet"/>
         <property name="java-output-path" value="/SetupLeavePeriod-portlet/docroot/WEB-INF/classes"/>
     </wb-module>

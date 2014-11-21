@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE project>
 
-<project name="SetupLeavePeriod-portlet" basedir="." default="deploy">
+<project name="ReportingMethods-portlet" basedir="." default="deploy">
 	<import file="../build-common-portlet.xml" />
 </project>

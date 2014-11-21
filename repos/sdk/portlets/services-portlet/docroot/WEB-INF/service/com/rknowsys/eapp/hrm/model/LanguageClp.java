@@ -75,7 +75,6 @@ public class LanguageClp extends BaseModelImpl<Language> implements Language {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("languageId", getLanguageId());
-		attributes.put("employeeId", getEmployeeId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("createDate", getCreateDate());
@@ -92,12 +91,6 @@ public class LanguageClp extends BaseModelImpl<Language> implements Language {
 
 		if (languageId != null) {
 			setLanguageId(languageId);
-		}
-
-		Long employeeId = (Long)attributes.get("employeeId");
-
-		if (employeeId != null) {
-			setEmployeeId(employeeId);
 		}
 
 		Long companyId = (Long)attributes.get("companyId");
@@ -153,29 +146,6 @@ public class LanguageClp extends BaseModelImpl<Language> implements Language {
 				Method method = clazz.getMethod("setLanguageId", long.class);
 
 				method.invoke(_languageRemoteModel, languageId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public long getEmployeeId() {
-		return _employeeId;
-	}
-
-	@Override
-	public void setEmployeeId(long employeeId) {
-		_employeeId = employeeId;
-
-		if (_languageRemoteModel != null) {
-			try {
-				Class<?> clazz = _languageRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setEmployeeId", long.class);
-
-				method.invoke(_languageRemoteModel, employeeId);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -401,7 +371,6 @@ public class LanguageClp extends BaseModelImpl<Language> implements Language {
 		LanguageClp clone = new LanguageClp();
 
 		clone.setLanguageId(getLanguageId());
-		clone.setEmployeeId(getEmployeeId());
 		clone.setCompanyId(getCompanyId());
 		clone.setGroupId(getGroupId());
 		clone.setCreateDate(getCreateDate());
@@ -456,12 +425,10 @@ public class LanguageClp extends BaseModelImpl<Language> implements Language {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(15);
 
 		sb.append("{languageId=");
 		sb.append(getLanguageId());
-		sb.append(", employeeId=");
-		sb.append(getEmployeeId());
 		sb.append(", companyId=");
 		sb.append(getCompanyId());
 		sb.append(", groupId=");
@@ -481,7 +448,7 @@ public class LanguageClp extends BaseModelImpl<Language> implements Language {
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(28);
+		StringBundler sb = new StringBundler(25);
 
 		sb.append("<model><model-name>");
 		sb.append("com.rknowsys.eapp.hrm.model.Language");
@@ -490,10 +457,6 @@ public class LanguageClp extends BaseModelImpl<Language> implements Language {
 		sb.append(
 			"<column><column-name>languageId</column-name><column-value><![CDATA[");
 		sb.append(getLanguageId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>employeeId</column-name><column-value><![CDATA[");
-		sb.append(getEmployeeId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>companyId</column-name><column-value><![CDATA[");
@@ -526,7 +489,6 @@ public class LanguageClp extends BaseModelImpl<Language> implements Language {
 	}
 
 	private long _languageId;
-	private long _employeeId;
 	private long _companyId;
 	private long _groupId;
 	private Date _createDate;

@@ -62,7 +62,6 @@ public class LanguageModelImpl extends BaseModelImpl<Language>
 	public static final String TABLE_NAME = "language";
 	public static final Object[][] TABLE_COLUMNS = {
 			{ "languageId", Types.BIGINT },
-			{ "employeeId", Types.BIGINT },
 			{ "companyId", Types.BIGINT },
 			{ "groupId", Types.BIGINT },
 			{ "createDate", Types.TIMESTAMP },
@@ -70,13 +69,13 @@ public class LanguageModelImpl extends BaseModelImpl<Language>
 			{ "userId", Types.BIGINT },
 			{ "languageName", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table language (languageId LONG not null primary key,employeeId LONG,companyId LONG,groupId LONG,createDate DATE null,modifiedDate DATE null,userId LONG,languageName VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table language (languageId LONG not null primary key,companyId LONG,groupId LONG,createDate DATE null,modifiedDate DATE null,userId LONG,languageName VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table language";
 	public static final String ORDER_BY_JPQL = " ORDER BY language.languageId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY language.languageId ASC";
-	public static final String DATA_SOURCE = "anotherDataSource";
-	public static final String SESSION_FACTORY = "anotherSessionFactory";
-	public static final String TX_MANAGER = "anotherTransactionManager";
+	public static final String DATA_SOURCE = "hrmDataSource";
+	public static final String SESSION_FACTORY = "hrmSessionFactory";
+	public static final String TX_MANAGER = "hrmTransactionManager";
 	public static final boolean ENTITY_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.entity.cache.enabled.com.rknowsys.eapp.hrm.model.Language"),
 			true);
@@ -86,9 +85,8 @@ public class LanguageModelImpl extends BaseModelImpl<Language>
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.column.bitmask.enabled.com.rknowsys.eapp.hrm.model.Language"),
 			true);
-	public static long EMPLOYEEID_COLUMN_BITMASK = 1L;
-	public static long GROUPID_COLUMN_BITMASK = 2L;
-	public static long LANGUAGEID_COLUMN_BITMASK = 4L;
+	public static long GROUPID_COLUMN_BITMASK = 1L;
+	public static long LANGUAGEID_COLUMN_BITMASK = 2L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.rknowsys.eapp.hrm.model.Language"));
 
@@ -130,7 +128,6 @@ public class LanguageModelImpl extends BaseModelImpl<Language>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("languageId", getLanguageId());
-		attributes.put("employeeId", getEmployeeId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("createDate", getCreateDate());
@@ -147,12 +144,6 @@ public class LanguageModelImpl extends BaseModelImpl<Language>
 
 		if (languageId != null) {
 			setLanguageId(languageId);
-		}
-
-		Long employeeId = (Long)attributes.get("employeeId");
-
-		if (employeeId != null) {
-			setEmployeeId(employeeId);
 		}
 
 		Long companyId = (Long)attributes.get("companyId");
@@ -212,28 +203,6 @@ public class LanguageModelImpl extends BaseModelImpl<Language>
 
 	public long getOriginalLanguageId() {
 		return _originalLanguageId;
-	}
-
-	@Override
-	public long getEmployeeId() {
-		return _employeeId;
-	}
-
-	@Override
-	public void setEmployeeId(long employeeId) {
-		_columnBitmask |= EMPLOYEEID_COLUMN_BITMASK;
-
-		if (!_setOriginalEmployeeId) {
-			_setOriginalEmployeeId = true;
-
-			_originalEmployeeId = _employeeId;
-		}
-
-		_employeeId = employeeId;
-	}
-
-	public long getOriginalEmployeeId() {
-		return _originalEmployeeId;
 	}
 
 	@Override
@@ -355,7 +324,6 @@ public class LanguageModelImpl extends BaseModelImpl<Language>
 		LanguageImpl languageImpl = new LanguageImpl();
 
 		languageImpl.setLanguageId(getLanguageId());
-		languageImpl.setEmployeeId(getEmployeeId());
 		languageImpl.setCompanyId(getCompanyId());
 		languageImpl.setGroupId(getGroupId());
 		languageImpl.setCreateDate(getCreateDate());
@@ -418,10 +386,6 @@ public class LanguageModelImpl extends BaseModelImpl<Language>
 
 		languageModelImpl._setOriginalLanguageId = false;
 
-		languageModelImpl._originalEmployeeId = languageModelImpl._employeeId;
-
-		languageModelImpl._setOriginalEmployeeId = false;
-
 		languageModelImpl._originalGroupId = languageModelImpl._groupId;
 
 		languageModelImpl._setOriginalGroupId = false;
@@ -434,8 +398,6 @@ public class LanguageModelImpl extends BaseModelImpl<Language>
 		LanguageCacheModel languageCacheModel = new LanguageCacheModel();
 
 		languageCacheModel.languageId = getLanguageId();
-
-		languageCacheModel.employeeId = getEmployeeId();
 
 		languageCacheModel.companyId = getCompanyId();
 
@@ -474,12 +436,10 @@ public class LanguageModelImpl extends BaseModelImpl<Language>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(15);
 
 		sb.append("{languageId=");
 		sb.append(getLanguageId());
-		sb.append(", employeeId=");
-		sb.append(getEmployeeId());
 		sb.append(", companyId=");
 		sb.append(getCompanyId());
 		sb.append(", groupId=");
@@ -499,7 +459,7 @@ public class LanguageModelImpl extends BaseModelImpl<Language>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(28);
+		StringBundler sb = new StringBundler(25);
 
 		sb.append("<model><model-name>");
 		sb.append("com.rknowsys.eapp.hrm.model.Language");
@@ -508,10 +468,6 @@ public class LanguageModelImpl extends BaseModelImpl<Language>
 		sb.append(
 			"<column><column-name>languageId</column-name><column-value><![CDATA[");
 		sb.append(getLanguageId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>employeeId</column-name><column-value><![CDATA[");
-		sb.append(getEmployeeId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>companyId</column-name><column-value><![CDATA[");
@@ -550,9 +506,6 @@ public class LanguageModelImpl extends BaseModelImpl<Language>
 	private long _languageId;
 	private long _originalLanguageId;
 	private boolean _setOriginalLanguageId;
-	private long _employeeId;
-	private long _originalEmployeeId;
-	private boolean _setOriginalEmployeeId;
 	private long _companyId;
 	private long _groupId;
 	private long _originalGroupId;

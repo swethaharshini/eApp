@@ -26,6 +26,30 @@ create table hrm_Nationality (
 	Name VARCHAR(75) null
 );
 
+create table hrm_applicable_employment_statuses (
+	employmentStatusId LONG not null,
+	leaveTypeApplicabilityId LONG not null,
+	primary key (employmentStatusId, leaveTypeApplicabilityId)
+);
+
+create table hrm_applicable_job_titles (
+	jobTitleId LONG not null,
+	leaveTypeApplicabilityId LONG not null,
+	primary key (jobTitleId, leaveTypeApplicabilityId)
+);
+
+create table hrm_emp_workshift (
+	employeeId LONG not null,
+	shiftId LONG not null,
+	primary key (employeeId, shiftId)
+);
+
+create table hrm_locations_holidays (
+	holidayId LONG not null,
+	locationId LONG not null,
+	primary key (holidayId, locationId)
+);
+
 create table supervisor (
 	supervisorId LONG not null primary key,
 	employeeId LONG,

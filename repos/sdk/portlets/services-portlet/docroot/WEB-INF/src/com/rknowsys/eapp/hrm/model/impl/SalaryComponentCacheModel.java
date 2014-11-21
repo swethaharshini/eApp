@@ -38,12 +38,10 @@ public class SalaryComponentCacheModel implements CacheModel<SalaryComponent>,
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(23);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{salaryComponentId=");
 		sb.append(salaryComponentId);
-		sb.append(", employeeId=");
-		sb.append(employeeId);
 		sb.append(", companyId=");
 		sb.append(companyId);
 		sb.append(", groupId=");
@@ -72,7 +70,6 @@ public class SalaryComponentCacheModel implements CacheModel<SalaryComponent>,
 		SalaryComponentImpl salaryComponentImpl = new SalaryComponentImpl();
 
 		salaryComponentImpl.setSalaryComponentId(salaryComponentId);
-		salaryComponentImpl.setEmployeeId(employeeId);
 		salaryComponentImpl.setCompanyId(companyId);
 		salaryComponentImpl.setGroupId(groupId);
 
@@ -117,7 +114,6 @@ public class SalaryComponentCacheModel implements CacheModel<SalaryComponent>,
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		salaryComponentId = objectInput.readLong();
-		employeeId = objectInput.readLong();
 		companyId = objectInput.readLong();
 		groupId = objectInput.readLong();
 		createDate = objectInput.readLong();
@@ -133,7 +129,6 @@ public class SalaryComponentCacheModel implements CacheModel<SalaryComponent>,
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(salaryComponentId);
-		objectOutput.writeLong(employeeId);
 		objectOutput.writeLong(companyId);
 		objectOutput.writeLong(groupId);
 		objectOutput.writeLong(createDate);
@@ -159,7 +154,6 @@ public class SalaryComponentCacheModel implements CacheModel<SalaryComponent>,
 	}
 
 	public long salaryComponentId;
-	public long employeeId;
 	public long companyId;
 	public long groupId;
 	public long createDate;

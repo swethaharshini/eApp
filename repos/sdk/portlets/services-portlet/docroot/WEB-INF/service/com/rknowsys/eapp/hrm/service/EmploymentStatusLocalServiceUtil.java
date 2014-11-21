@@ -252,6 +252,183 @@ public class EmploymentStatusLocalServiceUtil {
 	}
 
 	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void addLeaveTypeApplicabilityEmploymentStatus(
+		long leaveTypeApplicabilityId, long employmentStatusId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService()
+			.addLeaveTypeApplicabilityEmploymentStatus(leaveTypeApplicabilityId,
+			employmentStatusId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void addLeaveTypeApplicabilityEmploymentStatus(
+		long leaveTypeApplicabilityId,
+		com.rknowsys.eapp.hrm.model.EmploymentStatus employmentStatus)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService()
+			.addLeaveTypeApplicabilityEmploymentStatus(leaveTypeApplicabilityId,
+			employmentStatus);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void addLeaveTypeApplicabilityEmploymentStatuses(
+		long leaveTypeApplicabilityId, long[] employmentStatusIds)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService()
+			.addLeaveTypeApplicabilityEmploymentStatuses(leaveTypeApplicabilityId,
+			employmentStatusIds);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void addLeaveTypeApplicabilityEmploymentStatuses(
+		long leaveTypeApplicabilityId,
+		java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> EmploymentStatuses)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService()
+			.addLeaveTypeApplicabilityEmploymentStatuses(leaveTypeApplicabilityId,
+			EmploymentStatuses);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void clearLeaveTypeApplicabilityEmploymentStatuses(
+		long leaveTypeApplicabilityId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService()
+			.clearLeaveTypeApplicabilityEmploymentStatuses(leaveTypeApplicabilityId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void deleteLeaveTypeApplicabilityEmploymentStatus(
+		long leaveTypeApplicabilityId, long employmentStatusId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService()
+			.deleteLeaveTypeApplicabilityEmploymentStatus(leaveTypeApplicabilityId,
+			employmentStatusId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void deleteLeaveTypeApplicabilityEmploymentStatus(
+		long leaveTypeApplicabilityId,
+		com.rknowsys.eapp.hrm.model.EmploymentStatus employmentStatus)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService()
+			.deleteLeaveTypeApplicabilityEmploymentStatus(leaveTypeApplicabilityId,
+			employmentStatus);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void deleteLeaveTypeApplicabilityEmploymentStatuses(
+		long leaveTypeApplicabilityId, long[] employmentStatusIds)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService()
+			.deleteLeaveTypeApplicabilityEmploymentStatuses(leaveTypeApplicabilityId,
+			employmentStatusIds);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void deleteLeaveTypeApplicabilityEmploymentStatuses(
+		long leaveTypeApplicabilityId,
+		java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> EmploymentStatuses)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService()
+			.deleteLeaveTypeApplicabilityEmploymentStatuses(leaveTypeApplicabilityId,
+			EmploymentStatuses);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> getLeaveTypeApplicabilityEmploymentStatuses(
+		long leaveTypeApplicabilityId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .getLeaveTypeApplicabilityEmploymentStatuses(leaveTypeApplicabilityId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> getLeaveTypeApplicabilityEmploymentStatuses(
+		long leaveTypeApplicabilityId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .getLeaveTypeApplicabilityEmploymentStatuses(leaveTypeApplicabilityId,
+			start, end);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> getLeaveTypeApplicabilityEmploymentStatuses(
+		long leaveTypeApplicabilityId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .getLeaveTypeApplicabilityEmploymentStatuses(leaveTypeApplicabilityId,
+			start, end, orderByComparator);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int getLeaveTypeApplicabilityEmploymentStatusesCount(
+		long leaveTypeApplicabilityId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .getLeaveTypeApplicabilityEmploymentStatusesCount(leaveTypeApplicabilityId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static boolean hasLeaveTypeApplicabilityEmploymentStatus(
+		long leaveTypeApplicabilityId, long employmentStatusId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .hasLeaveTypeApplicabilityEmploymentStatus(leaveTypeApplicabilityId,
+			employmentStatusId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static boolean hasLeaveTypeApplicabilityEmploymentStatuses(
+		long leaveTypeApplicabilityId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .hasLeaveTypeApplicabilityEmploymentStatuses(leaveTypeApplicabilityId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void setLeaveTypeApplicabilityEmploymentStatuses(
+		long leaveTypeApplicabilityId, long[] employmentStatusIds)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService()
+			.setLeaveTypeApplicabilityEmploymentStatuses(leaveTypeApplicabilityId,
+			employmentStatusIds);
+	}
+
+	/**
 	* Returns the Spring bean ID for this bean.
 	*
 	* @return the Spring bean ID for this bean

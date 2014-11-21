@@ -62,7 +62,6 @@ public class EducationModelImpl extends BaseModelImpl<Education>
 	public static final String TABLE_NAME = "education";
 	public static final Object[][] TABLE_COLUMNS = {
 			{ "educationId", Types.BIGINT },
-			{ "employeeId", Types.BIGINT },
 			{ "companyId", Types.BIGINT },
 			{ "groupId", Types.BIGINT },
 			{ "createDate", Types.TIMESTAMP },
@@ -70,13 +69,13 @@ public class EducationModelImpl extends BaseModelImpl<Education>
 			{ "userId", Types.BIGINT },
 			{ "eduLevel", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table education (educationId LONG not null primary key,employeeId LONG,companyId LONG,groupId LONG,createDate DATE null,modifiedDate DATE null,userId LONG,eduLevel VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table education (educationId LONG not null primary key,companyId LONG,groupId LONG,createDate DATE null,modifiedDate DATE null,userId LONG,eduLevel VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table education";
 	public static final String ORDER_BY_JPQL = " ORDER BY education.educationId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY education.educationId ASC";
-	public static final String DATA_SOURCE = "anotherDataSource";
-	public static final String SESSION_FACTORY = "anotherSessionFactory";
-	public static final String TX_MANAGER = "anotherTransactionManager";
+	public static final String DATA_SOURCE = "hrmDataSource";
+	public static final String SESSION_FACTORY = "hrmSessionFactory";
+	public static final String TX_MANAGER = "hrmTransactionManager";
 	public static final boolean ENTITY_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.entity.cache.enabled.com.rknowsys.eapp.hrm.model.Education"),
 			true);
@@ -86,9 +85,8 @@ public class EducationModelImpl extends BaseModelImpl<Education>
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.column.bitmask.enabled.com.rknowsys.eapp.hrm.model.Education"),
 			true);
-	public static long EDUCATIONID_COLUMN_BITMASK = 1L;
-	public static long EMPLOYEEID_COLUMN_BITMASK = 2L;
-	public static long GROUPID_COLUMN_BITMASK = 4L;
+	public static long GROUPID_COLUMN_BITMASK = 1L;
+	public static long EDUCATIONID_COLUMN_BITMASK = 2L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.rknowsys.eapp.hrm.model.Education"));
 
@@ -130,7 +128,6 @@ public class EducationModelImpl extends BaseModelImpl<Education>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("educationId", getEducationId());
-		attributes.put("employeeId", getEmployeeId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("createDate", getCreateDate());
@@ -147,12 +144,6 @@ public class EducationModelImpl extends BaseModelImpl<Education>
 
 		if (educationId != null) {
 			setEducationId(educationId);
-		}
-
-		Long employeeId = (Long)attributes.get("employeeId");
-
-		if (employeeId != null) {
-			setEmployeeId(employeeId);
 		}
 
 		Long companyId = (Long)attributes.get("companyId");
@@ -199,41 +190,7 @@ public class EducationModelImpl extends BaseModelImpl<Education>
 
 	@Override
 	public void setEducationId(long educationId) {
-		_columnBitmask |= EDUCATIONID_COLUMN_BITMASK;
-
-		if (!_setOriginalEducationId) {
-			_setOriginalEducationId = true;
-
-			_originalEducationId = _educationId;
-		}
-
 		_educationId = educationId;
-	}
-
-	public long getOriginalEducationId() {
-		return _originalEducationId;
-	}
-
-	@Override
-	public long getEmployeeId() {
-		return _employeeId;
-	}
-
-	@Override
-	public void setEmployeeId(long employeeId) {
-		_columnBitmask |= EMPLOYEEID_COLUMN_BITMASK;
-
-		if (!_setOriginalEmployeeId) {
-			_setOriginalEmployeeId = true;
-
-			_originalEmployeeId = _employeeId;
-		}
-
-		_employeeId = employeeId;
-	}
-
-	public long getOriginalEmployeeId() {
-		return _originalEmployeeId;
 	}
 
 	@Override
@@ -355,7 +312,6 @@ public class EducationModelImpl extends BaseModelImpl<Education>
 		EducationImpl educationImpl = new EducationImpl();
 
 		educationImpl.setEducationId(getEducationId());
-		educationImpl.setEmployeeId(getEmployeeId());
 		educationImpl.setCompanyId(getCompanyId());
 		educationImpl.setGroupId(getGroupId());
 		educationImpl.setCreateDate(getCreateDate());
@@ -414,14 +370,6 @@ public class EducationModelImpl extends BaseModelImpl<Education>
 	public void resetOriginalValues() {
 		EducationModelImpl educationModelImpl = this;
 
-		educationModelImpl._originalEducationId = educationModelImpl._educationId;
-
-		educationModelImpl._setOriginalEducationId = false;
-
-		educationModelImpl._originalEmployeeId = educationModelImpl._employeeId;
-
-		educationModelImpl._setOriginalEmployeeId = false;
-
 		educationModelImpl._originalGroupId = educationModelImpl._groupId;
 
 		educationModelImpl._setOriginalGroupId = false;
@@ -434,8 +382,6 @@ public class EducationModelImpl extends BaseModelImpl<Education>
 		EducationCacheModel educationCacheModel = new EducationCacheModel();
 
 		educationCacheModel.educationId = getEducationId();
-
-		educationCacheModel.employeeId = getEmployeeId();
 
 		educationCacheModel.companyId = getCompanyId();
 
@@ -474,12 +420,10 @@ public class EducationModelImpl extends BaseModelImpl<Education>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(15);
 
 		sb.append("{educationId=");
 		sb.append(getEducationId());
-		sb.append(", employeeId=");
-		sb.append(getEmployeeId());
 		sb.append(", companyId=");
 		sb.append(getCompanyId());
 		sb.append(", groupId=");
@@ -499,7 +443,7 @@ public class EducationModelImpl extends BaseModelImpl<Education>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(28);
+		StringBundler sb = new StringBundler(25);
 
 		sb.append("<model><model-name>");
 		sb.append("com.rknowsys.eapp.hrm.model.Education");
@@ -508,10 +452,6 @@ public class EducationModelImpl extends BaseModelImpl<Education>
 		sb.append(
 			"<column><column-name>educationId</column-name><column-value><![CDATA[");
 		sb.append(getEducationId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>employeeId</column-name><column-value><![CDATA[");
-		sb.append(getEmployeeId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>companyId</column-name><column-value><![CDATA[");
@@ -548,11 +488,6 @@ public class EducationModelImpl extends BaseModelImpl<Education>
 			Education.class
 		};
 	private long _educationId;
-	private long _originalEducationId;
-	private boolean _setOriginalEducationId;
-	private long _employeeId;
-	private long _originalEmployeeId;
-	private boolean _setOriginalEmployeeId;
 	private long _companyId;
 	private long _groupId;
 	private long _originalGroupId;

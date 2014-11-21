@@ -75,20 +75,6 @@ public interface LanguageModel extends BaseModel<Language> {
 	public void setLanguageId(long languageId);
 
 	/**
-	 * Returns the employee ID of this language.
-	 *
-	 * @return the employee ID of this language
-	 */
-	public long getEmployeeId();
-
-	/**
-	 * Sets the employee ID of this language.
-	 *
-	 * @param employeeId the employee ID of this language
-	 */
-	public void setEmployeeId(long employeeId);
-
-	/**
 	 * Returns the company ID of this language.
 	 *
 	 * @return the company ID of this language

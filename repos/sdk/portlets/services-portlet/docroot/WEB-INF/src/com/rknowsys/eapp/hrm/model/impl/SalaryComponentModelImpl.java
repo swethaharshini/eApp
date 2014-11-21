@@ -62,7 +62,6 @@ public class SalaryComponentModelImpl extends BaseModelImpl<SalaryComponent>
 	public static final String TABLE_NAME = "salary_component";
 	public static final Object[][] TABLE_COLUMNS = {
 			{ "salaryComponentId", Types.BIGINT },
-			{ "employeeId", Types.BIGINT },
 			{ "companyId", Types.BIGINT },
 			{ "groupId", Types.BIGINT },
 			{ "createDate", Types.TIMESTAMP },
@@ -73,13 +72,13 @@ public class SalaryComponentModelImpl extends BaseModelImpl<SalaryComponent>
 			{ "onlyCTC", Types.BOOLEAN },
 			{ "valueType", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table salary_component (salaryComponentId LONG not null primary key,employeeId LONG,companyId LONG,groupId LONG,createDate DATE null,modifiedDate DATE null,userId LONG,componentName VARCHAR(75) null,type_ BOOLEAN,onlyCTC BOOLEAN,valueType VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table salary_component (salaryComponentId LONG not null primary key,companyId LONG,groupId LONG,createDate DATE null,modifiedDate DATE null,userId LONG,componentName VARCHAR(75) null,type_ BOOLEAN,onlyCTC BOOLEAN,valueType VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table salary_component";
 	public static final String ORDER_BY_JPQL = " ORDER BY salaryComponent.salaryComponentId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY salary_component.salaryComponentId ASC";
-	public static final String DATA_SOURCE = "anotherDataSource";
-	public static final String SESSION_FACTORY = "anotherSessionFactory";
-	public static final String TX_MANAGER = "anotherTransactionManager";
+	public static final String DATA_SOURCE = "hrmDataSource";
+	public static final String SESSION_FACTORY = "hrmSessionFactory";
+	public static final String TX_MANAGER = "hrmTransactionManager";
 	public static final boolean ENTITY_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.entity.cache.enabled.com.rknowsys.eapp.hrm.model.SalaryComponent"),
 			true);
@@ -89,9 +88,8 @@ public class SalaryComponentModelImpl extends BaseModelImpl<SalaryComponent>
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.column.bitmask.enabled.com.rknowsys.eapp.hrm.model.SalaryComponent"),
 			true);
-	public static long EMPLOYEEID_COLUMN_BITMASK = 1L;
-	public static long GROUPID_COLUMN_BITMASK = 2L;
-	public static long SALARYCOMPONENTID_COLUMN_BITMASK = 4L;
+	public static long GROUPID_COLUMN_BITMASK = 1L;
+	public static long SALARYCOMPONENTID_COLUMN_BITMASK = 2L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.rknowsys.eapp.hrm.model.SalaryComponent"));
 
@@ -133,7 +131,6 @@ public class SalaryComponentModelImpl extends BaseModelImpl<SalaryComponent>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("salaryComponentId", getSalaryComponentId());
-		attributes.put("employeeId", getEmployeeId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("createDate", getCreateDate());
@@ -153,12 +150,6 @@ public class SalaryComponentModelImpl extends BaseModelImpl<SalaryComponent>
 
 		if (salaryComponentId != null) {
 			setSalaryComponentId(salaryComponentId);
-		}
-
-		Long employeeId = (Long)attributes.get("employeeId");
-
-		if (employeeId != null) {
-			setEmployeeId(employeeId);
 		}
 
 		Long companyId = (Long)attributes.get("companyId");
@@ -236,28 +227,6 @@ public class SalaryComponentModelImpl extends BaseModelImpl<SalaryComponent>
 
 	public long getOriginalSalaryComponentId() {
 		return _originalSalaryComponentId;
-	}
-
-	@Override
-	public long getEmployeeId() {
-		return _employeeId;
-	}
-
-	@Override
-	public void setEmployeeId(long employeeId) {
-		_columnBitmask |= EMPLOYEEID_COLUMN_BITMASK;
-
-		if (!_setOriginalEmployeeId) {
-			_setOriginalEmployeeId = true;
-
-			_originalEmployeeId = _employeeId;
-		}
-
-		_employeeId = employeeId;
-	}
-
-	public long getOriginalEmployeeId() {
-		return _originalEmployeeId;
 	}
 
 	@Override
@@ -424,7 +393,6 @@ public class SalaryComponentModelImpl extends BaseModelImpl<SalaryComponent>
 		SalaryComponentImpl salaryComponentImpl = new SalaryComponentImpl();
 
 		salaryComponentImpl.setSalaryComponentId(getSalaryComponentId());
-		salaryComponentImpl.setEmployeeId(getEmployeeId());
 		salaryComponentImpl.setCompanyId(getCompanyId());
 		salaryComponentImpl.setGroupId(getGroupId());
 		salaryComponentImpl.setCreateDate(getCreateDate());
@@ -490,10 +458,6 @@ public class SalaryComponentModelImpl extends BaseModelImpl<SalaryComponent>
 
 		salaryComponentModelImpl._setOriginalSalaryComponentId = false;
 
-		salaryComponentModelImpl._originalEmployeeId = salaryComponentModelImpl._employeeId;
-
-		salaryComponentModelImpl._setOriginalEmployeeId = false;
-
 		salaryComponentModelImpl._originalGroupId = salaryComponentModelImpl._groupId;
 
 		salaryComponentModelImpl._setOriginalGroupId = false;
@@ -506,8 +470,6 @@ public class SalaryComponentModelImpl extends BaseModelImpl<SalaryComponent>
 		SalaryComponentCacheModel salaryComponentCacheModel = new SalaryComponentCacheModel();
 
 		salaryComponentCacheModel.salaryComponentId = getSalaryComponentId();
-
-		salaryComponentCacheModel.employeeId = getEmployeeId();
 
 		salaryComponentCacheModel.companyId = getCompanyId();
 
@@ -558,12 +520,10 @@ public class SalaryComponentModelImpl extends BaseModelImpl<SalaryComponent>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(23);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{salaryComponentId=");
 		sb.append(getSalaryComponentId());
-		sb.append(", employeeId=");
-		sb.append(getEmployeeId());
 		sb.append(", companyId=");
 		sb.append(getCompanyId());
 		sb.append(", groupId=");
@@ -589,7 +549,7 @@ public class SalaryComponentModelImpl extends BaseModelImpl<SalaryComponent>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(37);
+		StringBundler sb = new StringBundler(34);
 
 		sb.append("<model><model-name>");
 		sb.append("com.rknowsys.eapp.hrm.model.SalaryComponent");
@@ -598,10 +558,6 @@ public class SalaryComponentModelImpl extends BaseModelImpl<SalaryComponent>
 		sb.append(
 			"<column><column-name>salaryComponentId</column-name><column-value><![CDATA[");
 		sb.append(getSalaryComponentId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>employeeId</column-name><column-value><![CDATA[");
-		sb.append(getEmployeeId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>companyId</column-name><column-value><![CDATA[");
@@ -652,9 +608,6 @@ public class SalaryComponentModelImpl extends BaseModelImpl<SalaryComponent>
 	private long _salaryComponentId;
 	private long _originalSalaryComponentId;
 	private boolean _setOriginalSalaryComponentId;
-	private long _employeeId;
-	private long _originalEmployeeId;
-	private boolean _setOriginalEmployeeId;
 	private long _companyId;
 	private long _groupId;
 	private long _originalGroupId;

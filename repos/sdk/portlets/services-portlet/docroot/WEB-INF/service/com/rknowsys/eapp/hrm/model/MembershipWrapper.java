@@ -50,7 +50,6 @@ public class MembershipWrapper implements Membership, ModelWrapper<Membership> {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("membershipId", getMembershipId());
-		attributes.put("employeeId", getEmployeeId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("createDate", getCreateDate());
@@ -67,12 +66,6 @@ public class MembershipWrapper implements Membership, ModelWrapper<Membership> {
 
 		if (membershipId != null) {
 			setMembershipId(membershipId);
-		}
-
-		Long employeeId = (Long)attributes.get("employeeId");
-
-		if (employeeId != null) {
-			setEmployeeId(employeeId);
 		}
 
 		Long companyId = (Long)attributes.get("companyId");
@@ -150,26 +143,6 @@ public class MembershipWrapper implements Membership, ModelWrapper<Membership> {
 	@Override
 	public void setMembershipId(long membershipId) {
 		_membership.setMembershipId(membershipId);
-	}
-
-	/**
-	* Returns the employee ID of this membership.
-	*
-	* @return the employee ID of this membership
-	*/
-	@Override
-	public long getEmployeeId() {
-		return _membership.getEmployeeId();
-	}
-
-	/**
-	* Sets the employee ID of this membership.
-	*
-	* @param employeeId the employee ID of this membership
-	*/
-	@Override
-	public void setEmployeeId(long employeeId) {
-		_membership.setEmployeeId(employeeId);
 	}
 
 	/**

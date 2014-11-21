@@ -75,6 +75,20 @@ public interface LocationModel extends BaseModel<Location> {
 	public void setLocationId(long locationId);
 
 	/**
+	 * Returns the nationality ID of this location.
+	 *
+	 * @return the nationality ID of this location
+	 */
+	public long getNationalityId();
+
+	/**
+	 * Sets the nationality ID of this location.
+	 *
+	 * @param nationalityId the nationality ID of this location
+	 */
+	public void setNationalityId(long nationalityId);
+
+	/**
 	 * Returns the company ID of this location.
 	 *
 	 * @return the company ID of this location

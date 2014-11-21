@@ -31,7 +31,6 @@ public class NationalitySoap implements Serializable {
 		NationalitySoap soapModel = new NationalitySoap();
 
 		soapModel.setNationalityId(model.getNationalityId());
-		soapModel.setEmployeeId(model.getEmployeeId());
 		soapModel.setGroupId(model.getGroupId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setUserId(model.getUserId());
@@ -98,14 +97,6 @@ public class NationalitySoap implements Serializable {
 		_nationalityId = nationalityId;
 	}
 
-	public long getEmployeeId() {
-		return _employeeId;
-	}
-
-	public void setEmployeeId(long employeeId) {
-		_employeeId = employeeId;
-	}
-
 	public long getGroupId() {
 		return _groupId;
 	}
@@ -155,7 +146,6 @@ public class NationalitySoap implements Serializable {
 	}
 
 	private long _nationalityId;
-	private long _employeeId;
 	private long _groupId;
 	private long _companyId;
 	private long _userId;

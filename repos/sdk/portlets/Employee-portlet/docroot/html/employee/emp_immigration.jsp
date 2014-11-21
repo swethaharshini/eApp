@@ -11,13 +11,9 @@ A.ready(function()
    addButton.on('click',
    function()
    {
-   alert("adding immigration details");
    A.one('#<portlet:namespace/>immigrationAdd').hide();
    A.one('#<portlet:namespace/>immigrationDelete').hide();
    A.one('#empImmigrationAdd').show();
-   A.all('input[type=text]').set('disabled',false);
-   A.all('select').set('disabled',false);
-   A.all('input[type=radio]').set('disabled',false);
    });
    var cancelButton=A.one('#<portlet:namespace/>cancelImmigrationDetails');
    cancelButton.on('click',function()
@@ -58,17 +54,17 @@ A.ready(function()
 					</div>
 					<div class="span4">
 						<aui:input inlineLabel="right" name="document_type" type="radio"
-							value="Passport" label="Passport" disabled="true" />
+							value="Passport" label="01_passport" disabled="true" />
 					</div>
 					<div class="span2">
 						<aui:input checked="<%=true%>" inlineLabel="right" name="document_type"
-							type="radio" value="Visa" label="Visa" disabled="true" />
+							type="radio" value="Visa" label="01_visa" disabled="true" />
 					</div>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span8">
-					<aui:input name="img_number" label="Number"
+					<aui:input name="img_number" label="01_number"
 						showRequiredLabel="false" inlineLabel="left">
 						<aui:validator name="required"></aui:validator>
 					</aui:input>
@@ -77,36 +73,36 @@ A.ready(function()
 			<div class="row-fluid">
 				<div class="span8">
 					<aui:input name="img_issued_date" id="imgIssueDate"
-						label="Issued Date" cssClass="dateEmployee" inlineLabel="left"></aui:input>
+						label="01_issued-date" cssClass="dateEmployee" inlineLabel="left"></aui:input>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span8">
-					<aui:input name="img_exp_date" id="imgExpDate" label="Expiry Date"
+					<aui:input name="img_exp_date" id="imgExpDate" label="01_expiry-date"
 						inlineLabel="left" cssClass="dateEmployee" ></aui:input>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span8">
-					<aui:input name="eligible_status" label="Eligible Status"
+					<aui:input name="eligible_status" label="01_eligible-status"
 						inlineLabel="left"></aui:input>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span8">
-					<aui:select name="issued_by" label="Issued By">
+					<aui:select name="issued_by" label="01_issued-by">
 					</aui:select>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span8">
-					<aui:input name="review_date" id="reviewDate" label="Review Date"
+					<aui:input name="review_date" id="reviewDate" label="01_review-date"
 					cssClass="dateEmployee"></aui:input>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span8">
-					<aui:input name="img_comments" type="textarea" label="Comments"></aui:input>
+					<aui:input name="img_comments" type="textarea" label="01_comments"></aui:input>
 				</div>
 			</div>
 			<aui:button type="submit" cssClass="button btn-primary" value="save"
@@ -139,13 +135,13 @@ A.ready(function()
 			</liferay-ui:search-container-results>
 			<liferay-ui:search-container-row className="EmpImmigrationDocument"
 				modelVar="id">
-				<liferay-ui:search-container-column-text name="Document" property="docType" />
-				<liferay-ui:search-container-column-text name="Number"
+				<liferay-ui:search-container-column-text name="01_document" property="docType" />
+				<liferay-ui:search-container-column-text name="01_number"
 					property="docNumber" />
-				<liferay-ui:search-container-column-text name="Issued By" property="issuedBy" />
-				<liferay-ui:search-container-column-text name="Issued Date"
+				<liferay-ui:search-container-column-text name="01_issued-by" property="issuedBy" />
+				<liferay-ui:search-container-column-text name="01_issued-date"
 					property="issuedDate" />
-				<liferay-ui:search-container-column-text name="Expiry Date"
+				<liferay-ui:search-container-column-text name="01_expiry-date"
 					property="expiryDate" />
 			</liferay-ui:search-container-row>
 			<liferay-ui:search-iterator />

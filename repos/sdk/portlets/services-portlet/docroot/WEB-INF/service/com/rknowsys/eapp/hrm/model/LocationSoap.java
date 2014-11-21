@@ -31,6 +31,7 @@ public class LocationSoap implements Serializable {
 		LocationSoap soapModel = new LocationSoap();
 
 		soapModel.setLocationId(model.getLocationId());
+		soapModel.setNationalityId(model.getNationalityId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setGroupId(model.getGroupId());
 		soapModel.setCreateDate(model.getCreateDate());
@@ -103,6 +104,14 @@ public class LocationSoap implements Serializable {
 
 	public void setLocationId(long locationId) {
 		_locationId = locationId;
+	}
+
+	public long getNationalityId() {
+		return _nationalityId;
+	}
+
+	public void setNationalityId(long nationalityId) {
+		_nationalityId = nationalityId;
 	}
 
 	public long getCompanyId() {
@@ -218,6 +227,7 @@ public class LocationSoap implements Serializable {
 	}
 
 	private long _locationId;
+	private long _nationalityId;
 	private long _companyId;
 	private long _groupId;
 	private Date _createDate;

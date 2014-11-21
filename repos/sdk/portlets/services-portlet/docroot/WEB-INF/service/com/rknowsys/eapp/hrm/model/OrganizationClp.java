@@ -149,7 +149,7 @@ public class OrganizationClp extends BaseModelImpl<Organization>
 			setTaxId(taxId);
 		}
 
-		Integer numberOfEmployees = (Integer)attributes.get("numberOfEmployees");
+		Long numberOfEmployees = (Long)attributes.get("numberOfEmployees");
 
 		if (numberOfEmployees != null) {
 			setNumberOfEmployees(numberOfEmployees);
@@ -418,12 +418,12 @@ public class OrganizationClp extends BaseModelImpl<Organization>
 	}
 
 	@Override
-	public int getNumberOfEmployees() {
+	public long getNumberOfEmployees() {
 		return _numberOfEmployees;
 	}
 
 	@Override
-	public void setNumberOfEmployees(int numberOfEmployees) {
+	public void setNumberOfEmployees(long numberOfEmployees) {
 		_numberOfEmployees = numberOfEmployees;
 
 		if (_organizationRemoteModel != null) {
@@ -431,7 +431,7 @@ public class OrganizationClp extends BaseModelImpl<Organization>
 				Class<?> clazz = _organizationRemoteModel.getClass();
 
 				Method method = clazz.getMethod("setNumberOfEmployees",
-						int.class);
+						long.class);
 
 				method.invoke(_organizationRemoteModel, numberOfEmployees);
 			}
@@ -984,7 +984,7 @@ public class OrganizationClp extends BaseModelImpl<Organization>
 	private Date _modifiedDate;
 	private String _organizationName;
 	private String _taxId;
-	private int _numberOfEmployees;
+	private long _numberOfEmployees;
 	private String _registrationNumber;
 	private String _phone;
 	private String _fax;

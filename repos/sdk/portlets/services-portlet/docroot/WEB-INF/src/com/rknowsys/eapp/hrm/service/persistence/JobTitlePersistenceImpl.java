@@ -14,6 +14,7 @@
 
 package com.rknowsys.eapp.hrm.service.persistence;
 
+import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
@@ -30,6 +31,7 @@ import com.liferay.portal.kernel.util.InstanceFactory;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
+import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -37,6 +39,8 @@ import com.liferay.portal.kernel.util.UnmodifiableList;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.service.persistence.impl.TableMapper;
+import com.liferay.portal.service.persistence.impl.TableMapperFactory;
 
 import com.rknowsys.eapp.hrm.NoSuchJobTitleException;
 import com.rknowsys.eapp.hrm.model.JobTitle;
@@ -47,7 +51,9 @@ import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The persistence implementation for the job title service.
@@ -568,842 +574,6 @@ public class JobTitlePersistenceImpl extends BasePersistenceImpl<JobTitle>
 	}
 
 	private static final String _FINDER_COLUMN_GROUPID_GROUPID_2 = "jobTitle.groupId = ?";
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_EMPLOYEEID =
-		new FinderPath(JobTitleModelImpl.ENTITY_CACHE_ENABLED,
-			JobTitleModelImpl.FINDER_CACHE_ENABLED, JobTitleImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByemployeeId",
-			new String[] {
-				Long.class.getName(),
-				
-			Integer.class.getName(), Integer.class.getName(),
-				OrderByComparator.class.getName()
-			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_EMPLOYEEID =
-		new FinderPath(JobTitleModelImpl.ENTITY_CACHE_ENABLED,
-			JobTitleModelImpl.FINDER_CACHE_ENABLED, JobTitleImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByemployeeId",
-			new String[] { Long.class.getName() },
-			JobTitleModelImpl.EMPLOYEEID_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_EMPLOYEEID = new FinderPath(JobTitleModelImpl.ENTITY_CACHE_ENABLED,
-			JobTitleModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByemployeeId",
-			new String[] { Long.class.getName() });
-
-	/**
-	 * Returns all the job titles where employeeId = &#63;.
-	 *
-	 * @param employeeId the employee ID
-	 * @return the matching job titles
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public List<JobTitle> findByemployeeId(long employeeId)
-		throws SystemException {
-		return findByemployeeId(employeeId, QueryUtil.ALL_POS,
-			QueryUtil.ALL_POS, null);
-	}
-
-	/**
-	 * Returns a range of all the job titles where employeeId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.rknowsys.eapp.hrm.model.impl.JobTitleModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param employeeId the employee ID
-	 * @param start the lower bound of the range of job titles
-	 * @param end the upper bound of the range of job titles (not inclusive)
-	 * @return the range of matching job titles
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public List<JobTitle> findByemployeeId(long employeeId, int start, int end)
-		throws SystemException {
-		return findByemployeeId(employeeId, start, end, null);
-	}
-
-	/**
-	 * Returns an ordered range of all the job titles where employeeId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.rknowsys.eapp.hrm.model.impl.JobTitleModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param employeeId the employee ID
-	 * @param start the lower bound of the range of job titles
-	 * @param end the upper bound of the range of job titles (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching job titles
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public List<JobTitle> findByemployeeId(long employeeId, int start, int end,
-		OrderByComparator orderByComparator) throws SystemException {
-		boolean pagination = true;
-		FinderPath finderPath = null;
-		Object[] finderArgs = null;
-
-		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
-			pagination = false;
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_EMPLOYEEID;
-			finderArgs = new Object[] { employeeId };
-		}
-		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_EMPLOYEEID;
-			finderArgs = new Object[] { employeeId, start, end, orderByComparator };
-		}
-
-		List<JobTitle> list = (List<JobTitle>)FinderCacheUtil.getResult(finderPath,
-				finderArgs, this);
-
-		if ((list != null) && !list.isEmpty()) {
-			for (JobTitle jobTitle : list) {
-				if ((employeeId != jobTitle.getEmployeeId())) {
-					list = null;
-
-					break;
-				}
-			}
-		}
-
-		if (list == null) {
-			StringBundler query = null;
-
-			if (orderByComparator != null) {
-				query = new StringBundler(3 +
-						(orderByComparator.getOrderByFields().length * 3));
-			}
-			else {
-				query = new StringBundler(3);
-			}
-
-			query.append(_SQL_SELECT_JOBTITLE_WHERE);
-
-			query.append(_FINDER_COLUMN_EMPLOYEEID_EMPLOYEEID_2);
-
-			if (orderByComparator != null) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
-			}
-			else
-			 if (pagination) {
-				query.append(JobTitleModelImpl.ORDER_BY_JPQL);
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(employeeId);
-
-				if (!pagination) {
-					list = (List<JobTitle>)QueryUtil.list(q, getDialect(),
-							start, end, false);
-
-					Collections.sort(list);
-
-					list = new UnmodifiableList<JobTitle>(list);
-				}
-				else {
-					list = (List<JobTitle>)QueryUtil.list(q, getDialect(),
-							start, end);
-				}
-
-				cacheResult(list);
-
-				FinderCacheUtil.putResult(finderPath, finderArgs, list);
-			}
-			catch (Exception e) {
-				FinderCacheUtil.removeResult(finderPath, finderArgs);
-
-				throw processException(e);
-			}
-			finally {
-				closeSession(session);
-			}
-		}
-
-		return list;
-	}
-
-	/**
-	 * Returns the first job title in the ordered set where employeeId = &#63;.
-	 *
-	 * @param employeeId the employee ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching job title
-	 * @throws com.rknowsys.eapp.hrm.NoSuchJobTitleException if a matching job title could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public JobTitle findByemployeeId_First(long employeeId,
-		OrderByComparator orderByComparator)
-		throws NoSuchJobTitleException, SystemException {
-		JobTitle jobTitle = fetchByemployeeId_First(employeeId,
-				orderByComparator);
-
-		if (jobTitle != null) {
-			return jobTitle;
-		}
-
-		StringBundler msg = new StringBundler(4);
-
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-		msg.append("employeeId=");
-		msg.append(employeeId);
-
-		msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-		throw new NoSuchJobTitleException(msg.toString());
-	}
-
-	/**
-	 * Returns the first job title in the ordered set where employeeId = &#63;.
-	 *
-	 * @param employeeId the employee ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching job title, or <code>null</code> if a matching job title could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public JobTitle fetchByemployeeId_First(long employeeId,
-		OrderByComparator orderByComparator) throws SystemException {
-		List<JobTitle> list = findByemployeeId(employeeId, 0, 1,
-				orderByComparator);
-
-		if (!list.isEmpty()) {
-			return list.get(0);
-		}
-
-		return null;
-	}
-
-	/**
-	 * Returns the last job title in the ordered set where employeeId = &#63;.
-	 *
-	 * @param employeeId the employee ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching job title
-	 * @throws com.rknowsys.eapp.hrm.NoSuchJobTitleException if a matching job title could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public JobTitle findByemployeeId_Last(long employeeId,
-		OrderByComparator orderByComparator)
-		throws NoSuchJobTitleException, SystemException {
-		JobTitle jobTitle = fetchByemployeeId_Last(employeeId, orderByComparator);
-
-		if (jobTitle != null) {
-			return jobTitle;
-		}
-
-		StringBundler msg = new StringBundler(4);
-
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-		msg.append("employeeId=");
-		msg.append(employeeId);
-
-		msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-		throw new NoSuchJobTitleException(msg.toString());
-	}
-
-	/**
-	 * Returns the last job title in the ordered set where employeeId = &#63;.
-	 *
-	 * @param employeeId the employee ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching job title, or <code>null</code> if a matching job title could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public JobTitle fetchByemployeeId_Last(long employeeId,
-		OrderByComparator orderByComparator) throws SystemException {
-		int count = countByemployeeId(employeeId);
-
-		if (count == 0) {
-			return null;
-		}
-
-		List<JobTitle> list = findByemployeeId(employeeId, count - 1, count,
-				orderByComparator);
-
-		if (!list.isEmpty()) {
-			return list.get(0);
-		}
-
-		return null;
-	}
-
-	/**
-	 * Returns the job titles before and after the current job title in the ordered set where employeeId = &#63;.
-	 *
-	 * @param jobTitleId the primary key of the current job title
-	 * @param employeeId the employee ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next job title
-	 * @throws com.rknowsys.eapp.hrm.NoSuchJobTitleException if a job title with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public JobTitle[] findByemployeeId_PrevAndNext(long jobTitleId,
-		long employeeId, OrderByComparator orderByComparator)
-		throws NoSuchJobTitleException, SystemException {
-		JobTitle jobTitle = findByPrimaryKey(jobTitleId);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			JobTitle[] array = new JobTitleImpl[3];
-
-			array[0] = getByemployeeId_PrevAndNext(session, jobTitle,
-					employeeId, orderByComparator, true);
-
-			array[1] = jobTitle;
-
-			array[2] = getByemployeeId_PrevAndNext(session, jobTitle,
-					employeeId, orderByComparator, false);
-
-			return array;
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	protected JobTitle getByemployeeId_PrevAndNext(Session session,
-		JobTitle jobTitle, long employeeId,
-		OrderByComparator orderByComparator, boolean previous) {
-		StringBundler query = null;
-
-		if (orderByComparator != null) {
-			query = new StringBundler(6 +
-					(orderByComparator.getOrderByFields().length * 6));
-		}
-		else {
-			query = new StringBundler(3);
-		}
-
-		query.append(_SQL_SELECT_JOBTITLE_WHERE);
-
-		query.append(_FINDER_COLUMN_EMPLOYEEID_EMPLOYEEID_2);
-
-		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
-
-			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
-			}
-
-			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
-
-				if ((i + 1) < orderByConditionFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN);
-					}
-				}
-			}
-
-			query.append(ORDER_BY_CLAUSE);
-
-			String[] orderByFields = orderByComparator.getOrderByFields();
-
-			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
-
-				if ((i + 1) < orderByFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
-					}
-					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
-					}
-					else {
-						query.append(ORDER_BY_DESC);
-					}
-				}
-			}
-		}
-		else {
-			query.append(JobTitleModelImpl.ORDER_BY_JPQL);
-		}
-
-		String sql = query.toString();
-
-		Query q = session.createQuery(sql);
-
-		q.setFirstResult(0);
-		q.setMaxResults(2);
-
-		QueryPos qPos = QueryPos.getInstance(q);
-
-		qPos.add(employeeId);
-
-		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(jobTitle);
-
-			for (Object value : values) {
-				qPos.add(value);
-			}
-		}
-
-		List<JobTitle> list = q.list();
-
-		if (list.size() == 2) {
-			return list.get(1);
-		}
-		else {
-			return null;
-		}
-	}
-
-	/**
-	 * Removes all the job titles where employeeId = &#63; from the database.
-	 *
-	 * @param employeeId the employee ID
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public void removeByemployeeId(long employeeId) throws SystemException {
-		for (JobTitle jobTitle : findByemployeeId(employeeId,
-				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
-			remove(jobTitle);
-		}
-	}
-
-	/**
-	 * Returns the number of job titles where employeeId = &#63;.
-	 *
-	 * @param employeeId the employee ID
-	 * @return the number of matching job titles
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public int countByemployeeId(long employeeId) throws SystemException {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_EMPLOYEEID;
-
-		Object[] finderArgs = new Object[] { employeeId };
-
-		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
-				this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(2);
-
-			query.append(_SQL_COUNT_JOBTITLE_WHERE);
-
-			query.append(_FINDER_COLUMN_EMPLOYEEID_EMPLOYEEID_2);
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(employeeId);
-
-				count = (Long)q.uniqueResult();
-
-				FinderCacheUtil.putResult(finderPath, finderArgs, count);
-			}
-			catch (Exception e) {
-				FinderCacheUtil.removeResult(finderPath, finderArgs);
-
-				throw processException(e);
-			}
-			finally {
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	private static final String _FINDER_COLUMN_EMPLOYEEID_EMPLOYEEID_2 = "jobTitle.employeeId = ?";
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_JOBTITLEID =
-		new FinderPath(JobTitleModelImpl.ENTITY_CACHE_ENABLED,
-			JobTitleModelImpl.FINDER_CACHE_ENABLED, JobTitleImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByjobTitleId",
-			new String[] {
-				Long.class.getName(),
-				
-			Integer.class.getName(), Integer.class.getName(),
-				OrderByComparator.class.getName()
-			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_JOBTITLEID =
-		new FinderPath(JobTitleModelImpl.ENTITY_CACHE_ENABLED,
-			JobTitleModelImpl.FINDER_CACHE_ENABLED, JobTitleImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByjobTitleId",
-			new String[] { Long.class.getName() },
-			JobTitleModelImpl.JOBTITLEID_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_JOBTITLEID = new FinderPath(JobTitleModelImpl.ENTITY_CACHE_ENABLED,
-			JobTitleModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByjobTitleId",
-			new String[] { Long.class.getName() });
-
-	/**
-	 * Returns all the job titles where jobTitleId = &#63;.
-	 *
-	 * @param jobTitleId the job title ID
-	 * @return the matching job titles
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public List<JobTitle> findByjobTitleId(long jobTitleId)
-		throws SystemException {
-		return findByjobTitleId(jobTitleId, QueryUtil.ALL_POS,
-			QueryUtil.ALL_POS, null);
-	}
-
-	/**
-	 * Returns a range of all the job titles where jobTitleId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.rknowsys.eapp.hrm.model.impl.JobTitleModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param jobTitleId the job title ID
-	 * @param start the lower bound of the range of job titles
-	 * @param end the upper bound of the range of job titles (not inclusive)
-	 * @return the range of matching job titles
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public List<JobTitle> findByjobTitleId(long jobTitleId, int start, int end)
-		throws SystemException {
-		return findByjobTitleId(jobTitleId, start, end, null);
-	}
-
-	/**
-	 * Returns an ordered range of all the job titles where jobTitleId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.rknowsys.eapp.hrm.model.impl.JobTitleModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param jobTitleId the job title ID
-	 * @param start the lower bound of the range of job titles
-	 * @param end the upper bound of the range of job titles (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching job titles
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public List<JobTitle> findByjobTitleId(long jobTitleId, int start, int end,
-		OrderByComparator orderByComparator) throws SystemException {
-		boolean pagination = true;
-		FinderPath finderPath = null;
-		Object[] finderArgs = null;
-
-		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
-			pagination = false;
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_JOBTITLEID;
-			finderArgs = new Object[] { jobTitleId };
-		}
-		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_JOBTITLEID;
-			finderArgs = new Object[] { jobTitleId, start, end, orderByComparator };
-		}
-
-		List<JobTitle> list = (List<JobTitle>)FinderCacheUtil.getResult(finderPath,
-				finderArgs, this);
-
-		if ((list != null) && !list.isEmpty()) {
-			for (JobTitle jobTitle : list) {
-				if ((jobTitleId != jobTitle.getJobTitleId())) {
-					list = null;
-
-					break;
-				}
-			}
-		}
-
-		if (list == null) {
-			StringBundler query = null;
-
-			if (orderByComparator != null) {
-				query = new StringBundler(3 +
-						(orderByComparator.getOrderByFields().length * 3));
-			}
-			else {
-				query = new StringBundler(3);
-			}
-
-			query.append(_SQL_SELECT_JOBTITLE_WHERE);
-
-			query.append(_FINDER_COLUMN_JOBTITLEID_JOBTITLEID_2);
-
-			if (orderByComparator != null) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
-			}
-			else
-			 if (pagination) {
-				query.append(JobTitleModelImpl.ORDER_BY_JPQL);
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(jobTitleId);
-
-				if (!pagination) {
-					list = (List<JobTitle>)QueryUtil.list(q, getDialect(),
-							start, end, false);
-
-					Collections.sort(list);
-
-					list = new UnmodifiableList<JobTitle>(list);
-				}
-				else {
-					list = (List<JobTitle>)QueryUtil.list(q, getDialect(),
-							start, end);
-				}
-
-				cacheResult(list);
-
-				FinderCacheUtil.putResult(finderPath, finderArgs, list);
-			}
-			catch (Exception e) {
-				FinderCacheUtil.removeResult(finderPath, finderArgs);
-
-				throw processException(e);
-			}
-			finally {
-				closeSession(session);
-			}
-		}
-
-		return list;
-	}
-
-	/**
-	 * Returns the first job title in the ordered set where jobTitleId = &#63;.
-	 *
-	 * @param jobTitleId the job title ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching job title
-	 * @throws com.rknowsys.eapp.hrm.NoSuchJobTitleException if a matching job title could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public JobTitle findByjobTitleId_First(long jobTitleId,
-		OrderByComparator orderByComparator)
-		throws NoSuchJobTitleException, SystemException {
-		JobTitle jobTitle = fetchByjobTitleId_First(jobTitleId,
-				orderByComparator);
-
-		if (jobTitle != null) {
-			return jobTitle;
-		}
-
-		StringBundler msg = new StringBundler(4);
-
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-		msg.append("jobTitleId=");
-		msg.append(jobTitleId);
-
-		msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-		throw new NoSuchJobTitleException(msg.toString());
-	}
-
-	/**
-	 * Returns the first job title in the ordered set where jobTitleId = &#63;.
-	 *
-	 * @param jobTitleId the job title ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching job title, or <code>null</code> if a matching job title could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public JobTitle fetchByjobTitleId_First(long jobTitleId,
-		OrderByComparator orderByComparator) throws SystemException {
-		List<JobTitle> list = findByjobTitleId(jobTitleId, 0, 1,
-				orderByComparator);
-
-		if (!list.isEmpty()) {
-			return list.get(0);
-		}
-
-		return null;
-	}
-
-	/**
-	 * Returns the last job title in the ordered set where jobTitleId = &#63;.
-	 *
-	 * @param jobTitleId the job title ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching job title
-	 * @throws com.rknowsys.eapp.hrm.NoSuchJobTitleException if a matching job title could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public JobTitle findByjobTitleId_Last(long jobTitleId,
-		OrderByComparator orderByComparator)
-		throws NoSuchJobTitleException, SystemException {
-		JobTitle jobTitle = fetchByjobTitleId_Last(jobTitleId, orderByComparator);
-
-		if (jobTitle != null) {
-			return jobTitle;
-		}
-
-		StringBundler msg = new StringBundler(4);
-
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-		msg.append("jobTitleId=");
-		msg.append(jobTitleId);
-
-		msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-		throw new NoSuchJobTitleException(msg.toString());
-	}
-
-	/**
-	 * Returns the last job title in the ordered set where jobTitleId = &#63;.
-	 *
-	 * @param jobTitleId the job title ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching job title, or <code>null</code> if a matching job title could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public JobTitle fetchByjobTitleId_Last(long jobTitleId,
-		OrderByComparator orderByComparator) throws SystemException {
-		int count = countByjobTitleId(jobTitleId);
-
-		if (count == 0) {
-			return null;
-		}
-
-		List<JobTitle> list = findByjobTitleId(jobTitleId, count - 1, count,
-				orderByComparator);
-
-		if (!list.isEmpty()) {
-			return list.get(0);
-		}
-
-		return null;
-	}
-
-	/**
-	 * Removes all the job titles where jobTitleId = &#63; from the database.
-	 *
-	 * @param jobTitleId the job title ID
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public void removeByjobTitleId(long jobTitleId) throws SystemException {
-		for (JobTitle jobTitle : findByjobTitleId(jobTitleId,
-				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
-			remove(jobTitle);
-		}
-	}
-
-	/**
-	 * Returns the number of job titles where jobTitleId = &#63;.
-	 *
-	 * @param jobTitleId the job title ID
-	 * @return the number of matching job titles
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public int countByjobTitleId(long jobTitleId) throws SystemException {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_JOBTITLEID;
-
-		Object[] finderArgs = new Object[] { jobTitleId };
-
-		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
-				this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(2);
-
-			query.append(_SQL_COUNT_JOBTITLE_WHERE);
-
-			query.append(_FINDER_COLUMN_JOBTITLEID_JOBTITLEID_2);
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(jobTitleId);
-
-				count = (Long)q.uniqueResult();
-
-				FinderCacheUtil.putResult(finderPath, finderArgs, count);
-			}
-			catch (Exception e) {
-				FinderCacheUtil.removeResult(finderPath, finderArgs);
-
-				throw processException(e);
-			}
-			finally {
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	private static final String _FINDER_COLUMN_JOBTITLEID_JOBTITLEID_2 = "jobTitle.jobTitleId = ?";
 
 	public JobTitlePersistenceImpl() {
 		setModelClass(JobTitle.class);
@@ -1563,6 +733,8 @@ public class JobTitlePersistenceImpl extends BasePersistenceImpl<JobTitle>
 	protected JobTitle removeImpl(JobTitle jobTitle) throws SystemException {
 		jobTitle = toUnwrappedModel(jobTitle);
 
+		jobTitleToLeaveTypeApplicabilityTableMapper.deleteLeftPrimaryKeyTableMappings(jobTitle.getPrimaryKey());
+
 		Session session = null;
 
 		try {
@@ -1644,44 +816,6 @@ public class JobTitlePersistenceImpl extends BasePersistenceImpl<JobTitle>
 				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID,
 					args);
 			}
-
-			if ((jobTitleModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_EMPLOYEEID.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						jobTitleModelImpl.getOriginalEmployeeId()
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_EMPLOYEEID,
-					args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_EMPLOYEEID,
-					args);
-
-				args = new Object[] { jobTitleModelImpl.getEmployeeId() };
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_EMPLOYEEID,
-					args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_EMPLOYEEID,
-					args);
-			}
-
-			if ((jobTitleModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_JOBTITLEID.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						jobTitleModelImpl.getOriginalJobTitleId()
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_JOBTITLEID,
-					args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_JOBTITLEID,
-					args);
-
-				args = new Object[] { jobTitleModelImpl.getJobTitleId() };
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_JOBTITLEID,
-					args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_JOBTITLEID,
-					args);
-			}
 		}
 
 		EntityCacheUtil.putResult(JobTitleModelImpl.ENTITY_CACHE_ENABLED,
@@ -1706,12 +840,10 @@ public class JobTitlePersistenceImpl extends BasePersistenceImpl<JobTitle>
 		jobTitleImpl.setCreateDate(jobTitle.getCreateDate());
 		jobTitleImpl.setModifiedDate(jobTitle.getModifiedDate());
 		jobTitleImpl.setUserId(jobTitle.getUserId());
-		jobTitleImpl.setEmployeeId(jobTitle.getEmployeeId());
 		jobTitleImpl.setTitle(jobTitle.getTitle());
 		jobTitleImpl.setDescription(jobTitle.getDescription());
 		jobTitleImpl.setNotes(jobTitle.getNotes());
 		jobTitleImpl.setSpecification(jobTitle.getSpecification());
-		jobTitleImpl.setJobId(jobTitle.getJobId());
 
 		return jobTitleImpl;
 	}
@@ -1988,6 +1120,307 @@ public class JobTitlePersistenceImpl extends BasePersistenceImpl<JobTitle>
 	}
 
 	/**
+	 * Returns all the leave type applicabilities associated with the job title.
+	 *
+	 * @param pk the primary key of the job title
+	 * @return the leave type applicabilities associated with the job title
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public List<com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> getLeaveTypeApplicabilities(
+		long pk) throws SystemException {
+		return getLeaveTypeApplicabilities(pk, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS);
+	}
+
+	/**
+	 * Returns a range of all the leave type applicabilities associated with the job title.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.rknowsys.eapp.hrm.model.impl.JobTitleModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param pk the primary key of the job title
+	 * @param start the lower bound of the range of job titles
+	 * @param end the upper bound of the range of job titles (not inclusive)
+	 * @return the range of leave type applicabilities associated with the job title
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public List<com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> getLeaveTypeApplicabilities(
+		long pk, int start, int end) throws SystemException {
+		return getLeaveTypeApplicabilities(pk, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the leave type applicabilities associated with the job title.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.rknowsys.eapp.hrm.model.impl.JobTitleModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param pk the primary key of the job title
+	 * @param start the lower bound of the range of job titles
+	 * @param end the upper bound of the range of job titles (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of leave type applicabilities associated with the job title
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public List<com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> getLeaveTypeApplicabilities(
+		long pk, int start, int end, OrderByComparator orderByComparator)
+		throws SystemException {
+		return jobTitleToLeaveTypeApplicabilityTableMapper.getRightBaseModels(pk,
+			start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns the number of leave type applicabilities associated with the job title.
+	 *
+	 * @param pk the primary key of the job title
+	 * @return the number of leave type applicabilities associated with the job title
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public int getLeaveTypeApplicabilitiesSize(long pk)
+		throws SystemException {
+		long[] pks = jobTitleToLeaveTypeApplicabilityTableMapper.getRightPrimaryKeys(pk);
+
+		return pks.length;
+	}
+
+	/**
+	 * Returns <code>true</code> if the leave type applicability is associated with the job title.
+	 *
+	 * @param pk the primary key of the job title
+	 * @param leaveTypeApplicabilityPK the primary key of the leave type applicability
+	 * @return <code>true</code> if the leave type applicability is associated with the job title; <code>false</code> otherwise
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public boolean containsLeaveTypeApplicability(long pk,
+		long leaveTypeApplicabilityPK) throws SystemException {
+		return jobTitleToLeaveTypeApplicabilityTableMapper.containsTableMapping(pk,
+			leaveTypeApplicabilityPK);
+	}
+
+	/**
+	 * Returns <code>true</code> if the job title has any leave type applicabilities associated with it.
+	 *
+	 * @param pk the primary key of the job title to check for associations with leave type applicabilities
+	 * @return <code>true</code> if the job title has any leave type applicabilities associated with it; <code>false</code> otherwise
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public boolean containsLeaveTypeApplicabilities(long pk)
+		throws SystemException {
+		if (getLeaveTypeApplicabilitiesSize(pk) > 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	/**
+	 * Adds an association between the job title and the leave type applicability. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the job title
+	 * @param leaveTypeApplicabilityPK the primary key of the leave type applicability
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void addLeaveTypeApplicability(long pk, long leaveTypeApplicabilityPK)
+		throws SystemException {
+		jobTitleToLeaveTypeApplicabilityTableMapper.addTableMapping(pk,
+			leaveTypeApplicabilityPK);
+	}
+
+	/**
+	 * Adds an association between the job title and the leave type applicability. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the job title
+	 * @param leaveTypeApplicability the leave type applicability
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void addLeaveTypeApplicability(long pk,
+		com.rknowsys.eapp.hrm.model.LeaveTypeApplicability leaveTypeApplicability)
+		throws SystemException {
+		jobTitleToLeaveTypeApplicabilityTableMapper.addTableMapping(pk,
+			leaveTypeApplicability.getPrimaryKey());
+	}
+
+	/**
+	 * Adds an association between the job title and the leave type applicabilities. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the job title
+	 * @param leaveTypeApplicabilityPKs the primary keys of the leave type applicabilities
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void addLeaveTypeApplicabilities(long pk,
+		long[] leaveTypeApplicabilityPKs) throws SystemException {
+		for (long leaveTypeApplicabilityPK : leaveTypeApplicabilityPKs) {
+			jobTitleToLeaveTypeApplicabilityTableMapper.addTableMapping(pk,
+				leaveTypeApplicabilityPK);
+		}
+	}
+
+	/**
+	 * Adds an association between the job title and the leave type applicabilities. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the job title
+	 * @param leaveTypeApplicabilities the leave type applicabilities
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void addLeaveTypeApplicabilities(long pk,
+		List<com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> leaveTypeApplicabilities)
+		throws SystemException {
+		for (com.rknowsys.eapp.hrm.model.LeaveTypeApplicability leaveTypeApplicability : leaveTypeApplicabilities) {
+			jobTitleToLeaveTypeApplicabilityTableMapper.addTableMapping(pk,
+				leaveTypeApplicability.getPrimaryKey());
+		}
+	}
+
+	/**
+	 * Clears all associations between the job title and its leave type applicabilities. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the job title to clear the associated leave type applicabilities from
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void clearLeaveTypeApplicabilities(long pk)
+		throws SystemException {
+		jobTitleToLeaveTypeApplicabilityTableMapper.deleteLeftPrimaryKeyTableMappings(pk);
+	}
+
+	/**
+	 * Removes the association between the job title and the leave type applicability. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the job title
+	 * @param leaveTypeApplicabilityPK the primary key of the leave type applicability
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void removeLeaveTypeApplicability(long pk,
+		long leaveTypeApplicabilityPK) throws SystemException {
+		jobTitleToLeaveTypeApplicabilityTableMapper.deleteTableMapping(pk,
+			leaveTypeApplicabilityPK);
+	}
+
+	/**
+	 * Removes the association between the job title and the leave type applicability. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the job title
+	 * @param leaveTypeApplicability the leave type applicability
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void removeLeaveTypeApplicability(long pk,
+		com.rknowsys.eapp.hrm.model.LeaveTypeApplicability leaveTypeApplicability)
+		throws SystemException {
+		jobTitleToLeaveTypeApplicabilityTableMapper.deleteTableMapping(pk,
+			leaveTypeApplicability.getPrimaryKey());
+	}
+
+	/**
+	 * Removes the association between the job title and the leave type applicabilities. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the job title
+	 * @param leaveTypeApplicabilityPKs the primary keys of the leave type applicabilities
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void removeLeaveTypeApplicabilities(long pk,
+		long[] leaveTypeApplicabilityPKs) throws SystemException {
+		for (long leaveTypeApplicabilityPK : leaveTypeApplicabilityPKs) {
+			jobTitleToLeaveTypeApplicabilityTableMapper.deleteTableMapping(pk,
+				leaveTypeApplicabilityPK);
+		}
+	}
+
+	/**
+	 * Removes the association between the job title and the leave type applicabilities. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the job title
+	 * @param leaveTypeApplicabilities the leave type applicabilities
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void removeLeaveTypeApplicabilities(long pk,
+		List<com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> leaveTypeApplicabilities)
+		throws SystemException {
+		for (com.rknowsys.eapp.hrm.model.LeaveTypeApplicability leaveTypeApplicability : leaveTypeApplicabilities) {
+			jobTitleToLeaveTypeApplicabilityTableMapper.deleteTableMapping(pk,
+				leaveTypeApplicability.getPrimaryKey());
+		}
+	}
+
+	/**
+	 * Sets the leave type applicabilities associated with the job title, removing and adding associations as necessary. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the job title
+	 * @param leaveTypeApplicabilityPKs the primary keys of the leave type applicabilities to be associated with the job title
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void setLeaveTypeApplicabilities(long pk,
+		long[] leaveTypeApplicabilityPKs) throws SystemException {
+		Set<Long> newLeaveTypeApplicabilityPKsSet = SetUtil.fromArray(leaveTypeApplicabilityPKs);
+		Set<Long> oldLeaveTypeApplicabilityPKsSet = SetUtil.fromArray(jobTitleToLeaveTypeApplicabilityTableMapper.getRightPrimaryKeys(
+					pk));
+
+		Set<Long> removeLeaveTypeApplicabilityPKsSet = new HashSet<Long>(oldLeaveTypeApplicabilityPKsSet);
+
+		removeLeaveTypeApplicabilityPKsSet.removeAll(newLeaveTypeApplicabilityPKsSet);
+
+		for (long removeLeaveTypeApplicabilityPK : removeLeaveTypeApplicabilityPKsSet) {
+			jobTitleToLeaveTypeApplicabilityTableMapper.deleteTableMapping(pk,
+				removeLeaveTypeApplicabilityPK);
+		}
+
+		newLeaveTypeApplicabilityPKsSet.removeAll(oldLeaveTypeApplicabilityPKsSet);
+
+		for (long newLeaveTypeApplicabilityPK : newLeaveTypeApplicabilityPKsSet) {
+			jobTitleToLeaveTypeApplicabilityTableMapper.addTableMapping(pk,
+				newLeaveTypeApplicabilityPK);
+		}
+	}
+
+	/**
+	 * Sets the leave type applicabilities associated with the job title, removing and adding associations as necessary. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the job title
+	 * @param leaveTypeApplicabilities the leave type applicabilities to be associated with the job title
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void setLeaveTypeApplicabilities(long pk,
+		List<com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> leaveTypeApplicabilities)
+		throws SystemException {
+		try {
+			long[] leaveTypeApplicabilityPKs = new long[leaveTypeApplicabilities.size()];
+
+			for (int i = 0; i < leaveTypeApplicabilities.size(); i++) {
+				com.rknowsys.eapp.hrm.model.LeaveTypeApplicability leaveTypeApplicability =
+					leaveTypeApplicabilities.get(i);
+
+				leaveTypeApplicabilityPKs[i] = leaveTypeApplicability.getPrimaryKey();
+			}
+
+			setLeaveTypeApplicabilities(pk, leaveTypeApplicabilityPKs);
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			FinderCacheUtil.clearCache(JobTitleModelImpl.MAPPING_TABLE_HRM_APPLICABLE_JOB_TITLES_NAME);
+		}
+	}
+
+	/**
 	 * Initializes the job title persistence.
 	 */
 	public void afterPropertiesSet() {
@@ -2010,6 +1443,10 @@ public class JobTitlePersistenceImpl extends BasePersistenceImpl<JobTitle>
 				_log.error(e);
 			}
 		}
+
+		jobTitleToLeaveTypeApplicabilityTableMapper = TableMapperFactory.getTableMapper("hrm_applicable_job_titles",
+				"jobTitleId", "leaveTypeApplicabilityId", this,
+				leaveTypeApplicabilityPersistence);
 	}
 
 	public void destroy() {
@@ -2019,6 +1456,9 @@ public class JobTitlePersistenceImpl extends BasePersistenceImpl<JobTitle>
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 	}
 
+	@BeanReference(type = LeaveTypeApplicabilityPersistence.class)
+	protected LeaveTypeApplicabilityPersistence leaveTypeApplicabilityPersistence;
+	protected TableMapper<JobTitle, com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> jobTitleToLeaveTypeApplicabilityTableMapper;
 	private static final String _SQL_SELECT_JOBTITLE = "SELECT jobTitle FROM JobTitle jobTitle";
 	private static final String _SQL_SELECT_JOBTITLE_WHERE = "SELECT jobTitle FROM JobTitle jobTitle WHERE ";
 	private static final String _SQL_COUNT_JOBTITLE = "SELECT COUNT(jobTitle) FROM JobTitle jobTitle";

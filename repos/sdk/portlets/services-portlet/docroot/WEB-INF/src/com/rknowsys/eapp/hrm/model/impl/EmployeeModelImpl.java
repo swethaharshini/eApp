@@ -19,7 +19,6 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.service.ServiceContext;
@@ -30,12 +29,9 @@ import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
 
 import com.rknowsys.eapp.hrm.model.Employee;
 import com.rknowsys.eapp.hrm.model.EmployeeModel;
-import com.rknowsys.eapp.hrm.model.EmployeePhotographBlobModel;
-import com.rknowsys.eapp.hrm.service.EmployeeLocalServiceUtil;
 
 import java.io.Serializable;
 
-import java.sql.Blob;
 import java.sql.Types;
 
 import java.util.Date;
@@ -65,32 +61,22 @@ public class EmployeeModelImpl extends BaseModelImpl<Employee>
 	public static final String TABLE_NAME = "employee";
 	public static final Object[][] TABLE_COLUMNS = {
 			{ "employeeId", Types.BIGINT },
-			{ "contactDetailsId", Types.BIGINT },
-			{ "jobId", Types.BIGINT },
-			{ "shiftId", Types.BIGINT },
-			{ "licenseId", Types.BIGINT },
+			{ "locationId", Types.BIGINT },
+			{ "assignedUserId", Types.BIGINT },
+			{ "imageId", Types.BIGINT },
 			{ "groupId", Types.BIGINT },
 			{ "companyId", Types.BIGINT },
 			{ "userId", Types.BIGINT },
 			{ "createDate", Types.TIMESTAMP },
-			{ "modifiedDate", Types.TIMESTAMP },
-			{ "firstName", Types.VARCHAR },
-			{ "lastName", Types.VARCHAR },
-			{ "middleName", Types.VARCHAR },
-			{ "photograph", Types.BLOB },
-			{ "gender", Types.INTEGER },
-			{ "maritalStatus", Types.INTEGER },
-			{ "nationality", Types.VARCHAR },
-			{ "dateOfBirth", Types.TIMESTAMP },
-			{ "otherId", Types.VARCHAR }
+			{ "modifiedDate", Types.TIMESTAMP }
 		};
-	public static final String TABLE_SQL_CREATE = "create table employee (employeeId LONG not null primary key,contactDetailsId LONG,jobId LONG,shiftId LONG,licenseId LONG,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,firstName VARCHAR(75) null,lastName VARCHAR(75) null,middleName VARCHAR(75) null,photograph BLOB,gender INTEGER,maritalStatus INTEGER,nationality VARCHAR(75) null,dateOfBirth DATE null,otherId VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table employee (employeeId LONG not null primary key,locationId LONG,assignedUserId LONG,imageId LONG,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null)";
 	public static final String TABLE_SQL_DROP = "drop table employee";
 	public static final String ORDER_BY_JPQL = " ORDER BY employee.employeeId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY employee.employeeId ASC";
-	public static final String DATA_SOURCE = "anotherDataSource";
-	public static final String SESSION_FACTORY = "anotherSessionFactory";
-	public static final String TX_MANAGER = "anotherTransactionManager";
+	public static final String DATA_SOURCE = "hrmDataSource";
+	public static final String SESSION_FACTORY = "hrmSessionFactory";
+	public static final String TX_MANAGER = "hrmTransactionManager";
 	public static final boolean ENTITY_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.entity.cache.enabled.com.rknowsys.eapp.hrm.model.Employee"),
 			true);
@@ -101,7 +87,14 @@ public class EmployeeModelImpl extends BaseModelImpl<Employee>
 				"value.object.column.bitmask.enabled.com.rknowsys.eapp.hrm.model.Employee"),
 			true);
 	public static long EMPLOYEEID_COLUMN_BITMASK = 1L;
-	public static long SHIFTID_COLUMN_BITMASK = 2L;
+	public static final String MAPPING_TABLE_HRM_EMP_WORKSHIFT_NAME = "hrm_emp_workshift";
+	public static final Object[][] MAPPING_TABLE_HRM_EMP_WORKSHIFT_COLUMNS = {
+			{ "shiftId", Types.BIGINT },
+			{ "employeeId", Types.BIGINT }
+		};
+	public static final String MAPPING_TABLE_HRM_EMP_WORKSHIFT_SQL_CREATE = "create table hrm_emp_workshift (employeeId LONG not null,shiftId LONG not null,primary key (employeeId, shiftId))";
+	public static final boolean FINDER_CACHE_ENABLED_HRM_EMP_WORKSHIFT = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
+				"value.object.finder.cache.enabled.hrm_emp_workshift"), true);
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.rknowsys.eapp.hrm.model.Employee"));
 
@@ -143,24 +136,14 @@ public class EmployeeModelImpl extends BaseModelImpl<Employee>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("employeeId", getEmployeeId());
-		attributes.put("contactDetailsId", getContactDetailsId());
-		attributes.put("jobId", getJobId());
-		attributes.put("shiftId", getShiftId());
-		attributes.put("licenseId", getLicenseId());
+		attributes.put("locationId", getLocationId());
+		attributes.put("assignedUserId", getAssignedUserId());
+		attributes.put("imageId", getImageId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("firstName", getFirstName());
-		attributes.put("lastName", getLastName());
-		attributes.put("middleName", getMiddleName());
-		attributes.put("photograph", getPhotograph());
-		attributes.put("gender", getGender());
-		attributes.put("maritalStatus", getMaritalStatus());
-		attributes.put("nationality", getNationality());
-		attributes.put("dateOfBirth", getDateOfBirth());
-		attributes.put("otherId", getOtherId());
 
 		return attributes;
 	}
@@ -173,28 +156,22 @@ public class EmployeeModelImpl extends BaseModelImpl<Employee>
 			setEmployeeId(employeeId);
 		}
 
-		Long contactDetailsId = (Long)attributes.get("contactDetailsId");
+		Long locationId = (Long)attributes.get("locationId");
 
-		if (contactDetailsId != null) {
-			setContactDetailsId(contactDetailsId);
+		if (locationId != null) {
+			setLocationId(locationId);
 		}
 
-		Long jobId = (Long)attributes.get("jobId");
+		Long assignedUserId = (Long)attributes.get("assignedUserId");
 
-		if (jobId != null) {
-			setJobId(jobId);
+		if (assignedUserId != null) {
+			setAssignedUserId(assignedUserId);
 		}
 
-		Long shiftId = (Long)attributes.get("shiftId");
+		Long imageId = (Long)attributes.get("imageId");
 
-		if (shiftId != null) {
-			setShiftId(shiftId);
-		}
-
-		Long licenseId = (Long)attributes.get("licenseId");
-
-		if (licenseId != null) {
-			setLicenseId(licenseId);
+		if (imageId != null) {
+			setImageId(imageId);
 		}
 
 		Long groupId = (Long)attributes.get("groupId");
@@ -226,60 +203,6 @@ public class EmployeeModelImpl extends BaseModelImpl<Employee>
 		if (modifiedDate != null) {
 			setModifiedDate(modifiedDate);
 		}
-
-		String firstName = (String)attributes.get("firstName");
-
-		if (firstName != null) {
-			setFirstName(firstName);
-		}
-
-		String lastName = (String)attributes.get("lastName");
-
-		if (lastName != null) {
-			setLastName(lastName);
-		}
-
-		String middleName = (String)attributes.get("middleName");
-
-		if (middleName != null) {
-			setMiddleName(middleName);
-		}
-
-		Blob photograph = (Blob)attributes.get("photograph");
-
-		if (photograph != null) {
-			setPhotograph(photograph);
-		}
-
-		Integer gender = (Integer)attributes.get("gender");
-
-		if (gender != null) {
-			setGender(gender);
-		}
-
-		Integer maritalStatus = (Integer)attributes.get("maritalStatus");
-
-		if (maritalStatus != null) {
-			setMaritalStatus(maritalStatus);
-		}
-
-		String nationality = (String)attributes.get("nationality");
-
-		if (nationality != null) {
-			setNationality(nationality);
-		}
-
-		Date dateOfBirth = (Date)attributes.get("dateOfBirth");
-
-		if (dateOfBirth != null) {
-			setDateOfBirth(dateOfBirth);
-		}
-
-		String otherId = (String)attributes.get("otherId");
-
-		if (otherId != null) {
-			setOtherId(otherId);
-		}
 	}
 
 	@Override
@@ -305,55 +228,44 @@ public class EmployeeModelImpl extends BaseModelImpl<Employee>
 	}
 
 	@Override
-	public long getContactDetailsId() {
-		return _contactDetailsId;
+	public long getLocationId() {
+		return _locationId;
 	}
 
 	@Override
-	public void setContactDetailsId(long contactDetailsId) {
-		_contactDetailsId = contactDetailsId;
+	public void setLocationId(long locationId) {
+		_locationId = locationId;
 	}
 
 	@Override
-	public long getJobId() {
-		return _jobId;
+	public long getAssignedUserId() {
+		return _assignedUserId;
 	}
 
 	@Override
-	public void setJobId(long jobId) {
-		_jobId = jobId;
+	public void setAssignedUserId(long assignedUserId) {
+		_assignedUserId = assignedUserId;
 	}
 
 	@Override
-	public long getShiftId() {
-		return _shiftId;
+	public String getAssignedUserUuid() throws SystemException {
+		return PortalUtil.getUserValue(getAssignedUserId(), "uuid",
+			_assignedUserUuid);
 	}
 
 	@Override
-	public void setShiftId(long shiftId) {
-		_columnBitmask |= SHIFTID_COLUMN_BITMASK;
-
-		if (!_setOriginalShiftId) {
-			_setOriginalShiftId = true;
-
-			_originalShiftId = _shiftId;
-		}
-
-		_shiftId = shiftId;
-	}
-
-	public long getOriginalShiftId() {
-		return _originalShiftId;
+	public void setAssignedUserUuid(String assignedUserUuid) {
+		_assignedUserUuid = assignedUserUuid;
 	}
 
 	@Override
-	public long getLicenseId() {
-		return _licenseId;
+	public long getImageId() {
+		return _imageId;
 	}
 
 	@Override
-	public void setLicenseId(long licenseId) {
-		_licenseId = licenseId;
+	public void setImageId(long imageId) {
+		_imageId = imageId;
 	}
 
 	@Override
@@ -416,141 +328,6 @@ public class EmployeeModelImpl extends BaseModelImpl<Employee>
 		_modifiedDate = modifiedDate;
 	}
 
-	@Override
-	public String getFirstName() {
-		if (_firstName == null) {
-			return StringPool.BLANK;
-		}
-		else {
-			return _firstName;
-		}
-	}
-
-	@Override
-	public void setFirstName(String firstName) {
-		_firstName = firstName;
-	}
-
-	@Override
-	public String getLastName() {
-		if (_lastName == null) {
-			return StringPool.BLANK;
-		}
-		else {
-			return _lastName;
-		}
-	}
-
-	@Override
-	public void setLastName(String lastName) {
-		_lastName = lastName;
-	}
-
-	@Override
-	public String getMiddleName() {
-		if (_middleName == null) {
-			return StringPool.BLANK;
-		}
-		else {
-			return _middleName;
-		}
-	}
-
-	@Override
-	public void setMiddleName(String middleName) {
-		_middleName = middleName;
-	}
-
-	@Override
-	public Blob getPhotograph() {
-		if (_photographBlobModel == null) {
-			try {
-				_photographBlobModel = EmployeeLocalServiceUtil.getPhotographBlobModel(getPrimaryKey());
-			}
-			catch (Exception e) {
-			}
-		}
-
-		Blob blob = null;
-
-		if (_photographBlobModel != null) {
-			blob = _photographBlobModel.getPhotographBlob();
-		}
-
-		return blob;
-	}
-
-	@Override
-	public void setPhotograph(Blob photograph) {
-		if (_photographBlobModel == null) {
-			_photographBlobModel = new EmployeePhotographBlobModel(getPrimaryKey(),
-					photograph);
-		}
-		else {
-			_photographBlobModel.setPhotographBlob(photograph);
-		}
-	}
-
-	@Override
-	public int getGender() {
-		return _gender;
-	}
-
-	@Override
-	public void setGender(int gender) {
-		_gender = gender;
-	}
-
-	@Override
-	public int getMaritalStatus() {
-		return _maritalStatus;
-	}
-
-	@Override
-	public void setMaritalStatus(int maritalStatus) {
-		_maritalStatus = maritalStatus;
-	}
-
-	@Override
-	public String getNationality() {
-		if (_nationality == null) {
-			return StringPool.BLANK;
-		}
-		else {
-			return _nationality;
-		}
-	}
-
-	@Override
-	public void setNationality(String nationality) {
-		_nationality = nationality;
-	}
-
-	@Override
-	public Date getDateOfBirth() {
-		return _dateOfBirth;
-	}
-
-	@Override
-	public void setDateOfBirth(Date dateOfBirth) {
-		_dateOfBirth = dateOfBirth;
-	}
-
-	@Override
-	public String getOtherId() {
-		if (_otherId == null) {
-			return StringPool.BLANK;
-		}
-		else {
-			return _otherId;
-		}
-	}
-
-	@Override
-	public void setOtherId(String otherId) {
-		_otherId = otherId;
-	}
-
 	public long getColumnBitmask() {
 		return _columnBitmask;
 	}
@@ -583,23 +360,14 @@ public class EmployeeModelImpl extends BaseModelImpl<Employee>
 		EmployeeImpl employeeImpl = new EmployeeImpl();
 
 		employeeImpl.setEmployeeId(getEmployeeId());
-		employeeImpl.setContactDetailsId(getContactDetailsId());
-		employeeImpl.setJobId(getJobId());
-		employeeImpl.setShiftId(getShiftId());
-		employeeImpl.setLicenseId(getLicenseId());
+		employeeImpl.setLocationId(getLocationId());
+		employeeImpl.setAssignedUserId(getAssignedUserId());
+		employeeImpl.setImageId(getImageId());
 		employeeImpl.setGroupId(getGroupId());
 		employeeImpl.setCompanyId(getCompanyId());
 		employeeImpl.setUserId(getUserId());
 		employeeImpl.setCreateDate(getCreateDate());
 		employeeImpl.setModifiedDate(getModifiedDate());
-		employeeImpl.setFirstName(getFirstName());
-		employeeImpl.setLastName(getLastName());
-		employeeImpl.setMiddleName(getMiddleName());
-		employeeImpl.setGender(getGender());
-		employeeImpl.setMaritalStatus(getMaritalStatus());
-		employeeImpl.setNationality(getNationality());
-		employeeImpl.setDateOfBirth(getDateOfBirth());
-		employeeImpl.setOtherId(getOtherId());
 
 		employeeImpl.resetOriginalValues();
 
@@ -656,12 +424,6 @@ public class EmployeeModelImpl extends BaseModelImpl<Employee>
 
 		employeeModelImpl._setOriginalEmployeeId = false;
 
-		employeeModelImpl._originalShiftId = employeeModelImpl._shiftId;
-
-		employeeModelImpl._setOriginalShiftId = false;
-
-		employeeModelImpl._photographBlobModel = null;
-
 		employeeModelImpl._columnBitmask = 0;
 	}
 
@@ -671,13 +433,11 @@ public class EmployeeModelImpl extends BaseModelImpl<Employee>
 
 		employeeCacheModel.employeeId = getEmployeeId();
 
-		employeeCacheModel.contactDetailsId = getContactDetailsId();
+		employeeCacheModel.locationId = getLocationId();
 
-		employeeCacheModel.jobId = getJobId();
+		employeeCacheModel.assignedUserId = getAssignedUserId();
 
-		employeeCacheModel.shiftId = getShiftId();
-
-		employeeCacheModel.licenseId = getLicenseId();
+		employeeCacheModel.imageId = getImageId();
 
 		employeeCacheModel.groupId = getGroupId();
 
@@ -703,76 +463,21 @@ public class EmployeeModelImpl extends BaseModelImpl<Employee>
 			employeeCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
-		employeeCacheModel.firstName = getFirstName();
-
-		String firstName = employeeCacheModel.firstName;
-
-		if ((firstName != null) && (firstName.length() == 0)) {
-			employeeCacheModel.firstName = null;
-		}
-
-		employeeCacheModel.lastName = getLastName();
-
-		String lastName = employeeCacheModel.lastName;
-
-		if ((lastName != null) && (lastName.length() == 0)) {
-			employeeCacheModel.lastName = null;
-		}
-
-		employeeCacheModel.middleName = getMiddleName();
-
-		String middleName = employeeCacheModel.middleName;
-
-		if ((middleName != null) && (middleName.length() == 0)) {
-			employeeCacheModel.middleName = null;
-		}
-
-		employeeCacheModel.gender = getGender();
-
-		employeeCacheModel.maritalStatus = getMaritalStatus();
-
-		employeeCacheModel.nationality = getNationality();
-
-		String nationality = employeeCacheModel.nationality;
-
-		if ((nationality != null) && (nationality.length() == 0)) {
-			employeeCacheModel.nationality = null;
-		}
-
-		Date dateOfBirth = getDateOfBirth();
-
-		if (dateOfBirth != null) {
-			employeeCacheModel.dateOfBirth = dateOfBirth.getTime();
-		}
-		else {
-			employeeCacheModel.dateOfBirth = Long.MIN_VALUE;
-		}
-
-		employeeCacheModel.otherId = getOtherId();
-
-		String otherId = employeeCacheModel.otherId;
-
-		if ((otherId != null) && (otherId.length() == 0)) {
-			employeeCacheModel.otherId = null;
-		}
-
 		return employeeCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(39);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("{employeeId=");
 		sb.append(getEmployeeId());
-		sb.append(", contactDetailsId=");
-		sb.append(getContactDetailsId());
-		sb.append(", jobId=");
-		sb.append(getJobId());
-		sb.append(", shiftId=");
-		sb.append(getShiftId());
-		sb.append(", licenseId=");
-		sb.append(getLicenseId());
+		sb.append(", locationId=");
+		sb.append(getLocationId());
+		sb.append(", assignedUserId=");
+		sb.append(getAssignedUserId());
+		sb.append(", imageId=");
+		sb.append(getImageId());
 		sb.append(", groupId=");
 		sb.append(getGroupId());
 		sb.append(", companyId=");
@@ -783,22 +488,6 @@ public class EmployeeModelImpl extends BaseModelImpl<Employee>
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
-		sb.append(", firstName=");
-		sb.append(getFirstName());
-		sb.append(", lastName=");
-		sb.append(getLastName());
-		sb.append(", middleName=");
-		sb.append(getMiddleName());
-		sb.append(", gender=");
-		sb.append(getGender());
-		sb.append(", maritalStatus=");
-		sb.append(getMaritalStatus());
-		sb.append(", nationality=");
-		sb.append(getNationality());
-		sb.append(", dateOfBirth=");
-		sb.append(getDateOfBirth());
-		sb.append(", otherId=");
-		sb.append(getOtherId());
 		sb.append("}");
 
 		return sb.toString();
@@ -806,7 +495,7 @@ public class EmployeeModelImpl extends BaseModelImpl<Employee>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(61);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("<model><model-name>");
 		sb.append("com.rknowsys.eapp.hrm.model.Employee");
@@ -817,20 +506,16 @@ public class EmployeeModelImpl extends BaseModelImpl<Employee>
 		sb.append(getEmployeeId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>contactDetailsId</column-name><column-value><![CDATA[");
-		sb.append(getContactDetailsId());
+			"<column><column-name>locationId</column-name><column-value><![CDATA[");
+		sb.append(getLocationId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>jobId</column-name><column-value><![CDATA[");
-		sb.append(getJobId());
+			"<column><column-name>assignedUserId</column-name><column-value><![CDATA[");
+		sb.append(getAssignedUserId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>shiftId</column-name><column-value><![CDATA[");
-		sb.append(getShiftId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>licenseId</column-name><column-value><![CDATA[");
-		sb.append(getLicenseId());
+			"<column><column-name>imageId</column-name><column-value><![CDATA[");
+		sb.append(getImageId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>groupId</column-name><column-value><![CDATA[");
@@ -852,38 +537,6 @@ public class EmployeeModelImpl extends BaseModelImpl<Employee>
 			"<column><column-name>modifiedDate</column-name><column-value><![CDATA[");
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>firstName</column-name><column-value><![CDATA[");
-		sb.append(getFirstName());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>lastName</column-name><column-value><![CDATA[");
-		sb.append(getLastName());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>middleName</column-name><column-value><![CDATA[");
-		sb.append(getMiddleName());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>gender</column-name><column-value><![CDATA[");
-		sb.append(getGender());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>maritalStatus</column-name><column-value><![CDATA[");
-		sb.append(getMaritalStatus());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>nationality</column-name><column-value><![CDATA[");
-		sb.append(getNationality());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>dateOfBirth</column-name><column-value><![CDATA[");
-		sb.append(getDateOfBirth());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>otherId</column-name><column-value><![CDATA[");
-		sb.append(getOtherId());
-		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -897,27 +550,16 @@ public class EmployeeModelImpl extends BaseModelImpl<Employee>
 	private long _employeeId;
 	private long _originalEmployeeId;
 	private boolean _setOriginalEmployeeId;
-	private long _contactDetailsId;
-	private long _jobId;
-	private long _shiftId;
-	private long _originalShiftId;
-	private boolean _setOriginalShiftId;
-	private long _licenseId;
+	private long _locationId;
+	private long _assignedUserId;
+	private String _assignedUserUuid;
+	private long _imageId;
 	private long _groupId;
 	private long _companyId;
 	private long _userId;
 	private String _userUuid;
 	private Date _createDate;
 	private Date _modifiedDate;
-	private String _firstName;
-	private String _lastName;
-	private String _middleName;
-	private EmployeePhotographBlobModel _photographBlobModel;
-	private int _gender;
-	private int _maritalStatus;
-	private String _nationality;
-	private Date _dateOfBirth;
-	private String _otherId;
 	private long _columnBitmask;
 	private Employee _escapedModel;
 }

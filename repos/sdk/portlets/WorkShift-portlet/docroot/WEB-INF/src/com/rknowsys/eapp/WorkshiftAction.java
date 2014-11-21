@@ -242,7 +242,11 @@ public class WorkshiftAction extends MVCPortlet {
 						System.out.println("shiftId in try block...."+id);
 						
 						workshift = WorkshiftLocalServiceUtil.deleteWorkshift(id);
-					} catch (PortalException | SystemException e) {
+					} catch (PortalException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					catch (SystemException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}

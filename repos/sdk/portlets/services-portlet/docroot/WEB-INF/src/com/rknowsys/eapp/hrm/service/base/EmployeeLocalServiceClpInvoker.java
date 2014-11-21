@@ -106,17 +106,84 @@ public class EmployeeLocalServiceClpInvoker {
 				"com.rknowsys.eapp.hrm.model.Employee"
 			};
 
-		_methodName16 = "getPhotographBlobModel";
+		_methodName16 = "addWorkshiftEmployee";
 
-		_methodParameterTypes16 = new String[] { "java.io.Serializable" };
+		_methodParameterTypes16 = new String[] { "long", "long" };
 
-		_methodName137 = "getBeanIdentifier";
+		_methodName17 = "addWorkshiftEmployee";
 
-		_methodParameterTypes137 = new String[] {  };
+		_methodParameterTypes17 = new String[] {
+				"long", "com.rknowsys.eapp.hrm.model.Employee"
+			};
 
-		_methodName138 = "setBeanIdentifier";
+		_methodName18 = "addWorkshiftEmployees";
 
-		_methodParameterTypes138 = new String[] { "java.lang.String" };
+		_methodParameterTypes18 = new String[] { "long", "long[][]" };
+
+		_methodName19 = "addWorkshiftEmployees";
+
+		_methodParameterTypes19 = new String[] { "long", "java.util.List" };
+
+		_methodName20 = "clearWorkshiftEmployees";
+
+		_methodParameterTypes20 = new String[] { "long" };
+
+		_methodName21 = "deleteWorkshiftEmployee";
+
+		_methodParameterTypes21 = new String[] { "long", "long" };
+
+		_methodName22 = "deleteWorkshiftEmployee";
+
+		_methodParameterTypes22 = new String[] {
+				"long", "com.rknowsys.eapp.hrm.model.Employee"
+			};
+
+		_methodName23 = "deleteWorkshiftEmployees";
+
+		_methodParameterTypes23 = new String[] { "long", "long[][]" };
+
+		_methodName24 = "deleteWorkshiftEmployees";
+
+		_methodParameterTypes24 = new String[] { "long", "java.util.List" };
+
+		_methodName25 = "getWorkshiftEmployees";
+
+		_methodParameterTypes25 = new String[] { "long" };
+
+		_methodName26 = "getWorkshiftEmployees";
+
+		_methodParameterTypes26 = new String[] { "long", "int", "int" };
+
+		_methodName27 = "getWorkshiftEmployees";
+
+		_methodParameterTypes27 = new String[] {
+				"long", "int", "int",
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			};
+
+		_methodName28 = "getWorkshiftEmployeesCount";
+
+		_methodParameterTypes28 = new String[] { "long" };
+
+		_methodName29 = "hasWorkshiftEmployee";
+
+		_methodParameterTypes29 = new String[] { "long", "long" };
+
+		_methodName30 = "hasWorkshiftEmployees";
+
+		_methodParameterTypes30 = new String[] { "long" };
+
+		_methodName31 = "setWorkshiftEmployees";
+
+		_methodParameterTypes31 = new String[] { "long", "long[][]" };
+
+		_methodName248 = "getBeanIdentifier";
+
+		_methodParameterTypes248 = new String[] {  };
+
+		_methodName249 = "setBeanIdentifier";
+
+		_methodParameterTypes249 = new String[] { "java.lang.String" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -210,16 +277,126 @@ public class EmployeeLocalServiceClpInvoker {
 
 		if (_methodName16.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes16, parameterTypes)) {
-			return EmployeeLocalServiceUtil.getPhotographBlobModel((java.io.Serializable)arguments[0]);
+			EmployeeLocalServiceUtil.addWorkshiftEmployee(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue());
+
+			return null;
 		}
 
-		if (_methodName137.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes137, parameterTypes)) {
+		if (_methodName17.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes17, parameterTypes)) {
+			EmployeeLocalServiceUtil.addWorkshiftEmployee(((Long)arguments[0]).longValue(),
+				(com.rknowsys.eapp.hrm.model.Employee)arguments[1]);
+
+			return null;
+		}
+
+		if (_methodName18.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes18, parameterTypes)) {
+			EmployeeLocalServiceUtil.addWorkshiftEmployees(((Long)arguments[0]).longValue(),
+				(long[])arguments[1]);
+
+			return null;
+		}
+
+		if (_methodName19.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes19, parameterTypes)) {
+			EmployeeLocalServiceUtil.addWorkshiftEmployees(((Long)arguments[0]).longValue(),
+				(java.util.List<com.rknowsys.eapp.hrm.model.Employee>)arguments[1]);
+
+			return null;
+		}
+
+		if (_methodName20.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes20, parameterTypes)) {
+			EmployeeLocalServiceUtil.clearWorkshiftEmployees(((Long)arguments[0]).longValue());
+
+			return null;
+		}
+
+		if (_methodName21.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes21, parameterTypes)) {
+			EmployeeLocalServiceUtil.deleteWorkshiftEmployee(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue());
+
+			return null;
+		}
+
+		if (_methodName22.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes22, parameterTypes)) {
+			EmployeeLocalServiceUtil.deleteWorkshiftEmployee(((Long)arguments[0]).longValue(),
+				(com.rknowsys.eapp.hrm.model.Employee)arguments[1]);
+
+			return null;
+		}
+
+		if (_methodName23.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes23, parameterTypes)) {
+			EmployeeLocalServiceUtil.deleteWorkshiftEmployees(((Long)arguments[0]).longValue(),
+				(long[])arguments[1]);
+
+			return null;
+		}
+
+		if (_methodName24.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes24, parameterTypes)) {
+			EmployeeLocalServiceUtil.deleteWorkshiftEmployees(((Long)arguments[0]).longValue(),
+				(java.util.List<com.rknowsys.eapp.hrm.model.Employee>)arguments[1]);
+
+			return null;
+		}
+
+		if (_methodName25.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes25, parameterTypes)) {
+			return EmployeeLocalServiceUtil.getWorkshiftEmployees(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName26.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes26, parameterTypes)) {
+			return EmployeeLocalServiceUtil.getWorkshiftEmployees(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue(),
+				((Integer)arguments[2]).intValue());
+		}
+
+		if (_methodName27.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes27, parameterTypes)) {
+			return EmployeeLocalServiceUtil.getWorkshiftEmployees(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue(),
+				((Integer)arguments[2]).intValue(),
+				(com.liferay.portal.kernel.util.OrderByComparator)arguments[3]);
+		}
+
+		if (_methodName28.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes28, parameterTypes)) {
+			return EmployeeLocalServiceUtil.getWorkshiftEmployeesCount(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName29.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes29, parameterTypes)) {
+			return EmployeeLocalServiceUtil.hasWorkshiftEmployee(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue());
+		}
+
+		if (_methodName30.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes30, parameterTypes)) {
+			return EmployeeLocalServiceUtil.hasWorkshiftEmployees(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName31.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes31, parameterTypes)) {
+			EmployeeLocalServiceUtil.setWorkshiftEmployees(((Long)arguments[0]).longValue(),
+				(long[])arguments[1]);
+
+			return null;
+		}
+
+		if (_methodName248.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes248, parameterTypes)) {
 			return EmployeeLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName138.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes138, parameterTypes)) {
+		if (_methodName249.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes249, parameterTypes)) {
 			EmployeeLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
@@ -262,8 +439,38 @@ public class EmployeeLocalServiceClpInvoker {
 	private String[] _methodParameterTypes15;
 	private String _methodName16;
 	private String[] _methodParameterTypes16;
-	private String _methodName137;
-	private String[] _methodParameterTypes137;
-	private String _methodName138;
-	private String[] _methodParameterTypes138;
+	private String _methodName17;
+	private String[] _methodParameterTypes17;
+	private String _methodName18;
+	private String[] _methodParameterTypes18;
+	private String _methodName19;
+	private String[] _methodParameterTypes19;
+	private String _methodName20;
+	private String[] _methodParameterTypes20;
+	private String _methodName21;
+	private String[] _methodParameterTypes21;
+	private String _methodName22;
+	private String[] _methodParameterTypes22;
+	private String _methodName23;
+	private String[] _methodParameterTypes23;
+	private String _methodName24;
+	private String[] _methodParameterTypes24;
+	private String _methodName25;
+	private String[] _methodParameterTypes25;
+	private String _methodName26;
+	private String[] _methodParameterTypes26;
+	private String _methodName27;
+	private String[] _methodParameterTypes27;
+	private String _methodName28;
+	private String[] _methodParameterTypes28;
+	private String _methodName29;
+	private String[] _methodParameterTypes29;
+	private String _methodName30;
+	private String[] _methodParameterTypes30;
+	private String _methodName31;
+	private String[] _methodParameterTypes31;
+	private String _methodName248;
+	private String[] _methodParameterTypes248;
+	private String _methodName249;
+	private String[] _methodParameterTypes249;
 }

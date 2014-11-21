@@ -14,10 +14,6 @@ A.ready(function()
    A.one('#<portlet:namespace />empMembershipAdd').hide();
    A.one('#<portlet:namespace />empMembershipDelete').hide();
    A.one('#addEmpMembership').show();
-   
-   A.all('input[type=text]').set('disabled',false);
-   A.all('select').set('disabled',false);
-   A.all('input[type=radio]').set('disabled',false);
    });
    var cancelButton=A.one('#<portlet:namespace />cancelMembership');
    cancelButton.on('click',function()
@@ -35,7 +31,7 @@ A.ready(function()
 %>
 <div id="addEmpMembership" class="panel">
 	<div class="panel-heading">
-		<h3>Add Membership</h3>
+		<h3><liferay-ui:message key="01_add-membership"/></h3>
 	</div>
 	<div class="panel-body">
 		<aui:form name="addEmployeeMembership" id="addEmployeeMembership"
@@ -44,7 +40,7 @@ A.ready(function()
 				<aui:input name="memFileId" value="<%=fileEntryId%>" type="hidden"></aui:input>
 			<div class="row-fluid">
 				<div class="span8">
-					<aui:select name="emp_membership" label="Membership"
+					<aui:select name="emp_membership" label="01_membership"
 						inlineLabel="left" showRequiredLabel="false">
 						<%
 							List<Membership> membershipList = MembershipLocalServiceUtil
@@ -64,7 +60,7 @@ A.ready(function()
 			</div>
 			<div class="row-fluid">
 				<div class="span8">
-					<aui:select name="sub_paid_by" label="Subscription Paid By">
+					<aui:select name="sub_paid_by" label="01_subscription-paid-by">
 						<aui:option>Individual</aui:option>
 						<aui:option>Company</aui:option>
 					</aui:select>
@@ -79,7 +75,7 @@ A.ready(function()
 </div>
 <div id="empMembershipAddDelete" class="panel">
 	<div class="panel-heading">
-		<h3>Membership</h3>
+		<h3><liferay-ui:message key="01_membership"/></h3>
 	</div>
 	<div class="panel-body">
 		<aui:button id="empMembershipAdd" name="empMembershipAdd" value="Add"

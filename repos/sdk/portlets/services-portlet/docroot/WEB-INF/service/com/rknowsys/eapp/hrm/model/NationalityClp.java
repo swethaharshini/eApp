@@ -76,7 +76,6 @@ public class NationalityClp extends BaseModelImpl<Nationality>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("nationalityId", getNationalityId());
-		attributes.put("employeeId", getEmployeeId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
@@ -93,12 +92,6 @@ public class NationalityClp extends BaseModelImpl<Nationality>
 
 		if (nationalityId != null) {
 			setNationalityId(nationalityId);
-		}
-
-		Long employeeId = (Long)attributes.get("employeeId");
-
-		if (employeeId != null) {
-			setEmployeeId(employeeId);
 		}
 
 		Long groupId = (Long)attributes.get("groupId");
@@ -154,29 +147,6 @@ public class NationalityClp extends BaseModelImpl<Nationality>
 				Method method = clazz.getMethod("setNationalityId", long.class);
 
 				method.invoke(_nationalityRemoteModel, nationalityId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public long getEmployeeId() {
-		return _employeeId;
-	}
-
-	@Override
-	public void setEmployeeId(long employeeId) {
-		_employeeId = employeeId;
-
-		if (_nationalityRemoteModel != null) {
-			try {
-				Class<?> clazz = _nationalityRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setEmployeeId", long.class);
-
-				method.invoke(_nationalityRemoteModel, employeeId);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -402,7 +372,6 @@ public class NationalityClp extends BaseModelImpl<Nationality>
 		NationalityClp clone = new NationalityClp();
 
 		clone.setNationalityId(getNationalityId());
-		clone.setEmployeeId(getEmployeeId());
 		clone.setGroupId(getGroupId());
 		clone.setCompanyId(getCompanyId());
 		clone.setUserId(getUserId());
@@ -457,12 +426,10 @@ public class NationalityClp extends BaseModelImpl<Nationality>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(15);
 
 		sb.append("{nationalityId=");
 		sb.append(getNationalityId());
-		sb.append(", employeeId=");
-		sb.append(getEmployeeId());
 		sb.append(", groupId=");
 		sb.append(getGroupId());
 		sb.append(", companyId=");
@@ -482,7 +449,7 @@ public class NationalityClp extends BaseModelImpl<Nationality>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(28);
+		StringBundler sb = new StringBundler(25);
 
 		sb.append("<model><model-name>");
 		sb.append("com.rknowsys.eapp.hrm.model.Nationality");
@@ -491,10 +458,6 @@ public class NationalityClp extends BaseModelImpl<Nationality>
 		sb.append(
 			"<column><column-name>nationalityId</column-name><column-value><![CDATA[");
 		sb.append(getNationalityId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>employeeId</column-name><column-value><![CDATA[");
-		sb.append(getEmployeeId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>groupId</column-name><column-value><![CDATA[");
@@ -527,7 +490,6 @@ public class NationalityClp extends BaseModelImpl<Nationality>
 	}
 
 	private long _nationalityId;
-	private long _employeeId;
 	private long _groupId;
 	private long _companyId;
 	private long _userId;

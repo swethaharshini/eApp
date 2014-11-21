@@ -5,7 +5,204 @@
 	<author>rknowsys</author>
 	<namespace>hrm</namespace>
 
+<entity name="TerminationReasons" table="terminationreasons" data-source="hrmDataSource"
+		local-service="true" remote-service="false" session-factory="hrmSessionFactory"
+		tx-manager="hrmTransactionManager">
+		<!-- PK fields -->
+		<column name="terminationreasonsId" type="long" primary="true" />
+		<!-- Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="groupId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		<column name="userId" type="long" />
+		<!-- Other fields -->
+		<column name="terminationreasonsName" type="String" />
+		<!-- Order -->
+		
+		
+	</entity>
+	
+	
+<entity name="LeaveType" table="leave_type" data-source="hrmDataSource"
+		local-service="true" remote-service="false" session-factory="hrmSessionFactory"
+		tx-manager="hrmTransactionManager">
 
+		<!-- PK fields -->
+
+		<column name="leaveTypeId" type="long" primary="true" />
+
+		<!-- Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="groupId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		<column name="userId" type="long" />
+
+		<!-- Other fields -->
+		<column name="nationalityId" type="long" />
+		<column name="leaveTypeName" type="String" />
+		<column name="isSituational" type="boolean" />
+
+		<!-- Order -->
+
+		<!-- Finder methods -->
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+		<finder name="nationalityId" return-type="Collection">
+			<finder-column name="nationalityId" />
+		</finder>
+
+	</entity>
+
+	<entity name="LeaveRule" table="leave_rule" data-source="hrmDataSource"
+		local-service="true" remote-service="false" session-factory="hrmSessionFactory"
+		tx-manager="hrmTransactionManager">
+
+		<!-- PK fields -->
+
+		<column name="leaveRuleId" type="long" primary="true" />
+
+		<!-- Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="groupId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		<column name="userId" type="long" />
+
+		<!-- Other fields -->
+		<column name="leaveTypeId" type="long" />
+		<column name="leavePeriodTypeId" type="int" />
+		<column name="startMonth" type="int" />
+		<column name="startDayOfMonth" type="int" />
+		<column name="duration" type="String" />
+		<column name="ifEmployeesCanApply" type="boolean" />
+		<column name="ifAdminCanAssign" type="boolean" />
+		<column name="ifAdminCanManageEntitlements" type="boolean" />
+		<column name="ifLeaveAccruable" type="boolean" />
+		<column name="ifCarryForwardable" type="boolean" />
+
+		<!-- Order -->
+
+		<!-- Finder methods -->
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+		<finder name="LeaveTypeId" return-type="Collection">
+			<finder-column name="leaveTypeId" />
+		</finder>
+	</entity>
+
+		<entity name="LeaveTypeApplicability" table="leave_type_applicability" data-source="hrmDataSource"
+		local-service="true" remote-service="false" session-factory="hrmSessionFactory"
+		tx-manager="hrmTransactionManager">
+
+		<!-- PK fields -->
+		<column name="leaveTypeApplicabilityId" type="long" primary="true" />
+
+		<!-- Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="groupId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		<column name="userId" type="long" />
+
+		<!-- Other fields -->
+		<column name="leaveTypeId" type="long" />
+		<column name="ifYearsOfServiceCriterionApplicable" type="boolean" />
+		<column name="minYearsOfService" type="String" />
+		<column name="maxYearsOfService" type="String" />
+
+		<!-- Order -->
+		<!-- Relationship fields -->
+		
+		<column name="jobTitles" type="Collection" entity="JobTitle" mapping-table="applicable_job_titles" />
+		<column name="employmentStatuses" type="Collection" entity="EmploymentStatus" mapping-table="applicable_employment_statuses" />
+		
+		<!-- Finder methods -->
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+		<finder name="LeaveTypeId" return-type="Collection">
+			<finder-column name="leaveTypeId" />
+		</finder>
+
+	</entity>
+	
+	<entity name="LeaveRestriction" table="leave_restriction" data-source="hrmDataSource"
+		local-service="true" remote-service="false" session-factory="hrmSessionFactory"
+		tx-manager="hrmTransactionManager">
+
+		<!-- PK fields -->
+		<column name="leaveRestrictionId" type="long" primary="true" />
+
+		<!-- Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="groupId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		<column name="userId" type="long" />
+
+		<!-- Other fields -->
+		<column name="leaveTypeId" type="long" />
+		<column name="cannotExceedBalance" type="boolean" />
+		<column name="cannotApplyForPartialDay" type="boolean" />
+		<column name="ifATermsQuestion" type="boolean" />
+		<column name="termsQuestion" type="String" />
+		<column name="errorTextIfTermsDeclined" type="String" />
+		<column name="isMinimumServicePeriodApplicable" type="boolean" />
+		<column name="minimumServicePeriod" type="String" />
+		<column name="isMaxConsecutiveLeavesApplicable" type="boolean" />
+		<column name="maxConsecutiveLeaves" type="String" />
+		<column name="isSmallChildCriterionApplicable" type="boolean" />
+		<column name="maxSmallChildAgeApplicable" type="String" />
+
+		<!-- Order -->
+
+		<!-- Finder methods -->
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+		<finder name="LeaveTypeId" return-type="Collection">
+			<finder-column name="leaveTypeId" />
+		</finder>
+	</entity>
+
+	<entity name="LeaveCarryForwardPolicy" table="leave_carry_forward_policy" data-source="hrmDataSource"
+		local-service="true" remote-service="false" session-factory="hrmSessionFactory"
+		tx-manager="hrmTransactionManager">
+
+		<!-- PK fields -->
+		<column name="leaveCarryForwardPolicyId" type="long" primary="true" />
+
+		<!-- Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="groupId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		<column name="userId" type="long" />
+
+		<!-- Other fields -->
+		<column name="leaveTypeId" type="long" />
+		<column name="expiryDuration" type="int" />
+		<column name="expiryDurationUOM" type="String" />
+		<column name="isMaxCarryForwardLimitApplicable" type="boolean" />
+		<column name="maxCarryForwardLimit" type="String" />
+
+		<!-- Order -->
+
+		<!-- Finder methods -->
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+		<finder name="LeaveTypeId" return-type="Collection">
+			<finder-column name="leaveTypeId" />
+		</finder>
+	</entity>
+
+
+	
 	<entity name="LeavePeriod" table="leave_period" data-source="hrmDataSource"
 		local-service="true" remote-service="false" session-factory="hrmSessionFactory"
 		tx-manager="hrmTransactionManager">
@@ -256,6 +453,7 @@
 		<!-- Relationship fields -->
 		
 		<column name="holidays" type="Collection" entity="Holiday" mapping-table="locations_holidays"/>
+		<column name="nationalityId" type="long" />
 
 		<!-- Audit fields -->
 
@@ -282,6 +480,9 @@
 
 		<finder name="GroupId" return-type="Collection">
 			<finder-column name="groupId" />
+		</finder>
+		<finder name="NationalityId" return-type="Collection">
+			<finder-column name="nationalityId" />
 		</finder>
 	</entity>
 
@@ -339,8 +540,9 @@
 		<column name="notes" type="String" />
 		<column name="specification" type="String" />
 
-		<!-- Order -->
-
+		<!-- Relationship fields -->
+		<column name="leaveTypeApplicabilities" type="Collection" entity="LeaveTypeApplicability" mapping-table="applicable_job_titles" />
+		
 		<!-- Finder methods -->
 
 		<finder name="GroupId" return-type="Collection">
@@ -397,6 +599,7 @@
 		<column name="createDate" type="Date"></column>
 		<column name="modifiedDate" type="Date"></column>
 		<column name="employmentstatus" type="String"></column>
+		<column name="leaveTypeApplicabilities" type="Collection" entity="LeaveTypeApplicability" mapping-table="applicable_employment_statuses" />
 	</entity>
 
 	<entity name="PayGrade" table="pay_grade" data-source="hrmDataSource"
@@ -592,7 +795,8 @@
 		<!-- Relationship fields -->
 		<column name="locationId" type="long"></column>
 		<column name="assignedUserId" type="long"></column>
-		<column name="workshift" type="Collection" entity="Workshift" mapping-table="emp_workshift"/>
+		<column name="imageId" type="long"></column>
+ 		<column name="workshift" type="Collection" entity="Workshift" mapping-table="emp_workshift"/>
 		<!-- Group instance -->
 		<column name="groupId" type="long"></column>
 		<!-- Audit fields -->
@@ -853,7 +1057,7 @@
 		<column name="modifiedDate" type="Date" />
 		<column name="userId" type="long" />
 		<!-- Other fields -->
-		<column name="educationId" type="String" />
+		<column name="educationId" type="long" />
 		<column name="institute" type="String" />
 		<column name="major" type="String" />
 		<column name="year" type="String" />
@@ -881,7 +1085,7 @@
 		<column name="modifiedDate" type="Date" />
 		<column name="userId" type="long" />
 		<!-- Other fields -->
-		<column name="skillId" type="String" />
+		<column name="skillId" type="long" />
 		<column name="years" type="String" />
 		<column name="comments" type="String" />
 		<!-- Order -->
@@ -1253,6 +1457,9 @@
 		session-factory="hrmSessionFactory" tx-manager="hrmTransactionManager"
 		remote-service="false">
 		<column name="holidayId" type="long" primary="true"></column>
+		<column name="holidayName" type="String"></column>
+		<column name="isAnnual" type="boolean"></column>
+		<column name="isFullDay" type="boolean"></column>
 		<column name="holidayDate" type="Date"></column>
 		<column name="nationalityId" type="long"></column>
 		<column name="locations" type="Collection" entity="Location"
@@ -1310,6 +1517,4 @@
 
 
 		</entity>
-
-
 </service-builder>

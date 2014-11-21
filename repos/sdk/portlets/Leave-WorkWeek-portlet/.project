@@ -3,7 +3,6 @@
 	<name>Leave-WorkWeek-portlet</name>
 	<comment></comment>
 	<projects>
-		<project>hrm-common</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

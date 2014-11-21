@@ -15,7 +15,6 @@
 package com.rknowsys.eapp.hrm.model.impl;
 
 import com.liferay.portal.kernel.util.StringBundler;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.CacheModel;
 
 import com.rknowsys.eapp.hrm.model.Employee;
@@ -37,18 +36,16 @@ import java.util.Date;
 public class EmployeeCacheModel implements CacheModel<Employee>, Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(37);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("{employeeId=");
 		sb.append(employeeId);
-		sb.append(", contactDetailsId=");
-		sb.append(contactDetailsId);
-		sb.append(", jobId=");
-		sb.append(jobId);
-		sb.append(", shiftId=");
-		sb.append(shiftId);
-		sb.append(", licenseId=");
-		sb.append(licenseId);
+		sb.append(", locationId=");
+		sb.append(locationId);
+		sb.append(", assignedUserId=");
+		sb.append(assignedUserId);
+		sb.append(", imageId=");
+		sb.append(imageId);
 		sb.append(", groupId=");
 		sb.append(groupId);
 		sb.append(", companyId=");
@@ -59,22 +56,6 @@ public class EmployeeCacheModel implements CacheModel<Employee>, Externalizable 
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
-		sb.append(", firstName=");
-		sb.append(firstName);
-		sb.append(", lastName=");
-		sb.append(lastName);
-		sb.append(", middleName=");
-		sb.append(middleName);
-		sb.append(", gender=");
-		sb.append(gender);
-		sb.append(", maritalStatus=");
-		sb.append(maritalStatus);
-		sb.append(", nationality=");
-		sb.append(nationality);
-		sb.append(", dateOfBirth=");
-		sb.append(dateOfBirth);
-		sb.append(", otherId=");
-		sb.append(otherId);
 		sb.append("}");
 
 		return sb.toString();
@@ -85,10 +66,9 @@ public class EmployeeCacheModel implements CacheModel<Employee>, Externalizable 
 		EmployeeImpl employeeImpl = new EmployeeImpl();
 
 		employeeImpl.setEmployeeId(employeeId);
-		employeeImpl.setContactDetailsId(contactDetailsId);
-		employeeImpl.setJobId(jobId);
-		employeeImpl.setShiftId(shiftId);
-		employeeImpl.setLicenseId(licenseId);
+		employeeImpl.setLocationId(locationId);
+		employeeImpl.setAssignedUserId(assignedUserId);
+		employeeImpl.setImageId(imageId);
 		employeeImpl.setGroupId(groupId);
 		employeeImpl.setCompanyId(companyId);
 		employeeImpl.setUserId(userId);
@@ -107,51 +87,6 @@ public class EmployeeCacheModel implements CacheModel<Employee>, Externalizable 
 			employeeImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
-		if (firstName == null) {
-			employeeImpl.setFirstName(StringPool.BLANK);
-		}
-		else {
-			employeeImpl.setFirstName(firstName);
-		}
-
-		if (lastName == null) {
-			employeeImpl.setLastName(StringPool.BLANK);
-		}
-		else {
-			employeeImpl.setLastName(lastName);
-		}
-
-		if (middleName == null) {
-			employeeImpl.setMiddleName(StringPool.BLANK);
-		}
-		else {
-			employeeImpl.setMiddleName(middleName);
-		}
-
-		employeeImpl.setGender(gender);
-		employeeImpl.setMaritalStatus(maritalStatus);
-
-		if (nationality == null) {
-			employeeImpl.setNationality(StringPool.BLANK);
-		}
-		else {
-			employeeImpl.setNationality(nationality);
-		}
-
-		if (dateOfBirth == Long.MIN_VALUE) {
-			employeeImpl.setDateOfBirth(null);
-		}
-		else {
-			employeeImpl.setDateOfBirth(new Date(dateOfBirth));
-		}
-
-		if (otherId == null) {
-			employeeImpl.setOtherId(StringPool.BLANK);
-		}
-		else {
-			employeeImpl.setOtherId(otherId);
-		}
-
 		employeeImpl.resetOriginalValues();
 
 		return employeeImpl;
@@ -160,96 +95,37 @@ public class EmployeeCacheModel implements CacheModel<Employee>, Externalizable 
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		employeeId = objectInput.readLong();
-		contactDetailsId = objectInput.readLong();
-		jobId = objectInput.readLong();
-		shiftId = objectInput.readLong();
-		licenseId = objectInput.readLong();
+		locationId = objectInput.readLong();
+		assignedUserId = objectInput.readLong();
+		imageId = objectInput.readLong();
 		groupId = objectInput.readLong();
 		companyId = objectInput.readLong();
 		userId = objectInput.readLong();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
-		firstName = objectInput.readUTF();
-		lastName = objectInput.readUTF();
-		middleName = objectInput.readUTF();
-		gender = objectInput.readInt();
-		maritalStatus = objectInput.readInt();
-		nationality = objectInput.readUTF();
-		dateOfBirth = objectInput.readLong();
-		otherId = objectInput.readUTF();
 	}
 
 	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(employeeId);
-		objectOutput.writeLong(contactDetailsId);
-		objectOutput.writeLong(jobId);
-		objectOutput.writeLong(shiftId);
-		objectOutput.writeLong(licenseId);
+		objectOutput.writeLong(locationId);
+		objectOutput.writeLong(assignedUserId);
+		objectOutput.writeLong(imageId);
 		objectOutput.writeLong(groupId);
 		objectOutput.writeLong(companyId);
 		objectOutput.writeLong(userId);
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
-
-		if (firstName == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
-		}
-		else {
-			objectOutput.writeUTF(firstName);
-		}
-
-		if (lastName == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
-		}
-		else {
-			objectOutput.writeUTF(lastName);
-		}
-
-		if (middleName == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
-		}
-		else {
-			objectOutput.writeUTF(middleName);
-		}
-
-		objectOutput.writeInt(gender);
-		objectOutput.writeInt(maritalStatus);
-
-		if (nationality == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
-		}
-		else {
-			objectOutput.writeUTF(nationality);
-		}
-
-		objectOutput.writeLong(dateOfBirth);
-
-		if (otherId == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
-		}
-		else {
-			objectOutput.writeUTF(otherId);
-		}
 	}
 
 	public long employeeId;
-	public long contactDetailsId;
-	public long jobId;
-	public long shiftId;
-	public long licenseId;
+	public long locationId;
+	public long assignedUserId;
+	public long imageId;
 	public long groupId;
 	public long companyId;
 	public long userId;
 	public long createDate;
 	public long modifiedDate;
-	public String firstName;
-	public String lastName;
-	public String middleName;
-	public int gender;
-	public int maritalStatus;
-	public String nationality;
-	public long dateOfBirth;
-	public String otherId;
 }

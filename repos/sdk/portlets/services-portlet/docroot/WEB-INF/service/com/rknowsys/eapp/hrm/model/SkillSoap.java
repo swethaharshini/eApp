@@ -31,7 +31,6 @@ public class SkillSoap implements Serializable {
 		SkillSoap soapModel = new SkillSoap();
 
 		soapModel.setSkillId(model.getSkillId());
-		soapModel.setEmployeeId(model.getEmployeeId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setGroupId(model.getGroupId());
 		soapModel.setCreateDate(model.getCreateDate());
@@ -99,14 +98,6 @@ public class SkillSoap implements Serializable {
 		_skillId = skillId;
 	}
 
-	public long getEmployeeId() {
-		return _employeeId;
-	}
-
-	public void setEmployeeId(long employeeId) {
-		_employeeId = employeeId;
-	}
-
 	public long getCompanyId() {
 		return _companyId;
 	}
@@ -164,7 +155,6 @@ public class SkillSoap implements Serializable {
 	}
 
 	private long _skillId;
-	private long _employeeId;
 	private long _companyId;
 	private long _groupId;
 	private Date _createDate;

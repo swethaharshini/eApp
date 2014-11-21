@@ -50,7 +50,6 @@ public class LanguageWrapper implements Language, ModelWrapper<Language> {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("languageId", getLanguageId());
-		attributes.put("employeeId", getEmployeeId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("createDate", getCreateDate());
@@ -67,12 +66,6 @@ public class LanguageWrapper implements Language, ModelWrapper<Language> {
 
 		if (languageId != null) {
 			setLanguageId(languageId);
-		}
-
-		Long employeeId = (Long)attributes.get("employeeId");
-
-		if (employeeId != null) {
-			setEmployeeId(employeeId);
 		}
 
 		Long companyId = (Long)attributes.get("companyId");
@@ -150,26 +143,6 @@ public class LanguageWrapper implements Language, ModelWrapper<Language> {
 	@Override
 	public void setLanguageId(long languageId) {
 		_language.setLanguageId(languageId);
-	}
-
-	/**
-	* Returns the employee ID of this language.
-	*
-	* @return the employee ID of this language
-	*/
-	@Override
-	public long getEmployeeId() {
-		return _language.getEmployeeId();
-	}
-
-	/**
-	* Sets the employee ID of this language.
-	*
-	* @param employeeId the employee ID of this language
-	*/
-	@Override
-	public void setEmployeeId(long employeeId) {
-		_language.setEmployeeId(employeeId);
 	}
 
 	/**

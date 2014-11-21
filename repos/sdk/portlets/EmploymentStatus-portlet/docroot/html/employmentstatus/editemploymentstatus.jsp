@@ -118,7 +118,7 @@ AUI().use(
 	</div>
 	<div id="editEmploymentStatusForm">
   <aui:form name="myForm" action="<%=saveemploymentstatus.toString()%>">
-		<aui:input name="employmentstatusId" type="hidden" id="employmentstatusId"  value="<%=editemploymentstatus.getEmploymentStatusId()%>"/>
+		<aui:input name="employmentstatusId" type="hidden" id="employmentstatusId"  value="<%=editemploymentstatus.getEmploymentstatus()%>"/>
 		<div class="span12">
 				<div class="span2">
 						<label>Employment Status</label>

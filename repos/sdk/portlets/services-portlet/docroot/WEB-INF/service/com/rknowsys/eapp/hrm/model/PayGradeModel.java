@@ -160,19 +160,19 @@ public interface PayGradeModel extends BaseModel<PayGrade> {
 	public void setUserUuid(String userUuid);
 
 	/**
-	 * Returns the paygrade name of this pay grade.
+	 * Returns the pay grade name of this pay grade.
 	 *
-	 * @return the paygrade name of this pay grade
+	 * @return the pay grade name of this pay grade
 	 */
 	@AutoEscape
-	public String getPaygradeName();
+	public String getPayGradeName();
 
 	/**
-	 * Sets the paygrade name of this pay grade.
+	 * Sets the pay grade name of this pay grade.
 	 *
-	 * @param paygradeName the paygrade name of this pay grade
+	 * @param payGradeName the pay grade name of this pay grade
 	 */
-	public void setPaygradeName(String paygradeName);
+	public void setPayGradeName(String payGradeName);
 
 	@Override
 	public boolean isNew();

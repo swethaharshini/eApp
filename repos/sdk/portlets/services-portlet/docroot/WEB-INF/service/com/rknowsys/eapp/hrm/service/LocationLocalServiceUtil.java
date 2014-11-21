@@ -252,6 +252,143 @@ public class LocationLocalServiceUtil {
 	}
 
 	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void addHolidayLocation(long holidayId, long locationId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().addHolidayLocation(holidayId, locationId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void addHolidayLocation(long holidayId,
+		com.rknowsys.eapp.hrm.model.Location location)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().addHolidayLocation(holidayId, location);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void addHolidayLocations(long holidayId, long[] locationIds)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().addHolidayLocations(holidayId, locationIds);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void addHolidayLocations(long holidayId,
+		java.util.List<com.rknowsys.eapp.hrm.model.Location> Locations)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().addHolidayLocations(holidayId, Locations);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void clearHolidayLocations(long holidayId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().clearHolidayLocations(holidayId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void deleteHolidayLocation(long holidayId, long locationId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteHolidayLocation(holidayId, locationId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void deleteHolidayLocation(long holidayId,
+		com.rknowsys.eapp.hrm.model.Location location)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteHolidayLocation(holidayId, location);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void deleteHolidayLocations(long holidayId, long[] locationIds)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteHolidayLocations(holidayId, locationIds);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void deleteHolidayLocations(long holidayId,
+		java.util.List<com.rknowsys.eapp.hrm.model.Location> Locations)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteHolidayLocations(holidayId, Locations);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.rknowsys.eapp.hrm.model.Location> getHolidayLocations(
+		long holidayId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getHolidayLocations(holidayId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.rknowsys.eapp.hrm.model.Location> getHolidayLocations(
+		long holidayId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getHolidayLocations(holidayId, start, end);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.rknowsys.eapp.hrm.model.Location> getHolidayLocations(
+		long holidayId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .getHolidayLocations(holidayId, start, end, orderByComparator);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int getHolidayLocationsCount(long holidayId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getHolidayLocationsCount(holidayId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static boolean hasHolidayLocation(long holidayId, long locationId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().hasHolidayLocation(holidayId, locationId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static boolean hasHolidayLocations(long holidayId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().hasHolidayLocations(holidayId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void setHolidayLocations(long holidayId, long[] locationIds)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().setHolidayLocations(holidayId, locationIds);
+	}
+
+	/**
 	* Returns the Spring bean ID for this bean.
 	*
 	* @return the Spring bean ID for this bean
@@ -273,6 +410,11 @@ public class LocationLocalServiceUtil {
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		return getService().invokeMethod(name, parameterTypes, arguments);
+	}
+
+	public static java.util.List<com.rknowsys.eapp.hrm.model.Location> findByNationality(
+		long natId) throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().findByNationality(natId);
 	}
 
 	public static void clearService() {

@@ -27,7 +27,7 @@
 	</bean>
 	<bean id="hrmHibernateSessionFactory"
 		class="com.liferay.portal.spring.hibernate.PortletHibernateConfiguration"
-		lazy-init="false">
+		lazy-init="true">
 		<property name="dataSource" ref="hrmDataSource" />
 		<property name="hibernateProperties">
 		<props>
@@ -40,13 +40,13 @@
 	</bean>
 
 	<bean id="hrmSessionFactory" class="com.liferay.portal.dao.orm.hibernate.SessionFactoryImpl"
-		lazy-init="false">
+		lazy-init="true">
 		<property name="sessionFactoryImplementor" ref="hrmHibernateSessionFactory" />
 	</bean>
 
 	<bean id="hrmTransactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager"
-		lazy-init="false">
+		lazy-init="true">
 		<property name="dataSource" ref="hrmDataSource" />
 		<property name="globalRollbackOnParticipationFailure" value="false" />
 		<property name="sessionFactory" ref="hrmHibernateSessionFactory" />

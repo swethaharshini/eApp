@@ -38,12 +38,10 @@ public class MembershipCacheModel implements CacheModel<Membership>,
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(15);
 
 		sb.append("{membershipId=");
 		sb.append(membershipId);
-		sb.append(", employeeId=");
-		sb.append(employeeId);
 		sb.append(", companyId=");
 		sb.append(companyId);
 		sb.append(", groupId=");
@@ -66,7 +64,6 @@ public class MembershipCacheModel implements CacheModel<Membership>,
 		MembershipImpl membershipImpl = new MembershipImpl();
 
 		membershipImpl.setMembershipId(membershipId);
-		membershipImpl.setEmployeeId(employeeId);
 		membershipImpl.setCompanyId(companyId);
 		membershipImpl.setGroupId(groupId);
 
@@ -101,7 +98,6 @@ public class MembershipCacheModel implements CacheModel<Membership>,
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		membershipId = objectInput.readLong();
-		employeeId = objectInput.readLong();
 		companyId = objectInput.readLong();
 		groupId = objectInput.readLong();
 		createDate = objectInput.readLong();
@@ -114,7 +110,6 @@ public class MembershipCacheModel implements CacheModel<Membership>,
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(membershipId);
-		objectOutput.writeLong(employeeId);
 		objectOutput.writeLong(companyId);
 		objectOutput.writeLong(groupId);
 		objectOutput.writeLong(createDate);
@@ -130,7 +125,6 @@ public class MembershipCacheModel implements CacheModel<Membership>,
 	}
 
 	public long membershipId;
-	public long employeeId;
 	public long companyId;
 	public long groupId;
 	public long createDate;

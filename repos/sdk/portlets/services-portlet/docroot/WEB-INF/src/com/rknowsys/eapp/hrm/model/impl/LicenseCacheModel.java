@@ -37,12 +37,10 @@ import java.util.Date;
 public class LicenseCacheModel implements CacheModel<License>, Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(15);
 
 		sb.append("{licenseId=");
 		sb.append(licenseId);
-		sb.append(", employeeId=");
-		sb.append(employeeId);
 		sb.append(", companyId=");
 		sb.append(companyId);
 		sb.append(", groupId=");
@@ -55,8 +53,6 @@ public class LicenseCacheModel implements CacheModel<License>, Externalizable {
 		sb.append(userId);
 		sb.append(", licenseName=");
 		sb.append(licenseName);
-		sb.append(", expiryDate=");
-		sb.append(expiryDate);
 		sb.append("}");
 
 		return sb.toString();
@@ -67,7 +63,6 @@ public class LicenseCacheModel implements CacheModel<License>, Externalizable {
 		LicenseImpl licenseImpl = new LicenseImpl();
 
 		licenseImpl.setLicenseId(licenseId);
-		licenseImpl.setEmployeeId(employeeId);
 		licenseImpl.setCompanyId(companyId);
 		licenseImpl.setGroupId(groupId);
 
@@ -94,13 +89,6 @@ public class LicenseCacheModel implements CacheModel<License>, Externalizable {
 			licenseImpl.setLicenseName(licenseName);
 		}
 
-		if (expiryDate == Long.MIN_VALUE) {
-			licenseImpl.setExpiryDate(null);
-		}
-		else {
-			licenseImpl.setExpiryDate(new Date(expiryDate));
-		}
-
 		licenseImpl.resetOriginalValues();
 
 		return licenseImpl;
@@ -109,21 +97,18 @@ public class LicenseCacheModel implements CacheModel<License>, Externalizable {
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		licenseId = objectInput.readLong();
-		employeeId = objectInput.readLong();
 		companyId = objectInput.readLong();
 		groupId = objectInput.readLong();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		userId = objectInput.readLong();
 		licenseName = objectInput.readUTF();
-		expiryDate = objectInput.readLong();
 	}
 
 	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(licenseId);
-		objectOutput.writeLong(employeeId);
 		objectOutput.writeLong(companyId);
 		objectOutput.writeLong(groupId);
 		objectOutput.writeLong(createDate);
@@ -136,17 +121,13 @@ public class LicenseCacheModel implements CacheModel<License>, Externalizable {
 		else {
 			objectOutput.writeUTF(licenseName);
 		}
-
-		objectOutput.writeLong(expiryDate);
 	}
 
 	public long licenseId;
-	public long employeeId;
 	public long companyId;
 	public long groupId;
 	public long createDate;
 	public long modifiedDate;
 	public long userId;
 	public String licenseName;
-	public long expiryDate;
 }

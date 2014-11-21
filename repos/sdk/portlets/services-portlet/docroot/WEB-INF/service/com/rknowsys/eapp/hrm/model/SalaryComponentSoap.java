@@ -31,7 +31,6 @@ public class SalaryComponentSoap implements Serializable {
 		SalaryComponentSoap soapModel = new SalaryComponentSoap();
 
 		soapModel.setSalaryComponentId(model.getSalaryComponentId());
-		soapModel.setEmployeeId(model.getEmployeeId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setGroupId(model.getGroupId());
 		soapModel.setCreateDate(model.getCreateDate());
@@ -101,14 +100,6 @@ public class SalaryComponentSoap implements Serializable {
 
 	public void setSalaryComponentId(long salaryComponentId) {
 		_salaryComponentId = salaryComponentId;
-	}
-
-	public long getEmployeeId() {
-		return _employeeId;
-	}
-
-	public void setEmployeeId(long employeeId) {
-		_employeeId = employeeId;
 	}
 
 	public long getCompanyId() {
@@ -192,7 +183,6 @@ public class SalaryComponentSoap implements Serializable {
 	}
 
 	private long _salaryComponentId;
-	private long _employeeId;
 	private long _companyId;
 	private long _groupId;
 	private Date _createDate;

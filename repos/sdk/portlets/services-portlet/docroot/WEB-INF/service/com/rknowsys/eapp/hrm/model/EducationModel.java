@@ -75,20 +75,6 @@ public interface EducationModel extends BaseModel<Education> {
 	public void setEducationId(long educationId);
 
 	/**
-	 * Returns the employee ID of this education.
-	 *
-	 * @return the employee ID of this education
-	 */
-	public long getEmployeeId();
-
-	/**
-	 * Sets the employee ID of this education.
-	 *
-	 * @param employeeId the employee ID of this education
-	 */
-	public void setEmployeeId(long employeeId);
-
-	/**
 	 * Returns the company ID of this education.
 	 *
 	 * @return the company ID of this education

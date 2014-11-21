@@ -38,144 +38,6 @@ public interface EmployeePersistence extends BasePersistence<Employee> {
 	 */
 
 	/**
-	* Returns all the Employees where shiftId = &#63;.
-	*
-	* @param shiftId the shift ID
-	* @return the matching Employees
-	* @throws SystemException if a system exception occurred
-	*/
-	public java.util.List<com.rknowsys.eapp.hrm.model.Employee> findByshiftId(
-		long shiftId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns a range of all the Employees where shiftId = &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.rknowsys.eapp.hrm.model.impl.EmployeeModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	* </p>
-	*
-	* @param shiftId the shift ID
-	* @param start the lower bound of the range of Employees
-	* @param end the upper bound of the range of Employees (not inclusive)
-	* @return the range of matching Employees
-	* @throws SystemException if a system exception occurred
-	*/
-	public java.util.List<com.rknowsys.eapp.hrm.model.Employee> findByshiftId(
-		long shiftId, int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns an ordered range of all the Employees where shiftId = &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.rknowsys.eapp.hrm.model.impl.EmployeeModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	* </p>
-	*
-	* @param shiftId the shift ID
-	* @param start the lower bound of the range of Employees
-	* @param end the upper bound of the range of Employees (not inclusive)
-	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	* @return the ordered range of matching Employees
-	* @throws SystemException if a system exception occurred
-	*/
-	public java.util.List<com.rknowsys.eapp.hrm.model.Employee> findByshiftId(
-		long shiftId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the first Employee in the ordered set where shiftId = &#63;.
-	*
-	* @param shiftId the shift ID
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the first matching Employee
-	* @throws com.rknowsys.eapp.hrm.NoSuchEmployeeException if a matching Employee could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.rknowsys.eapp.hrm.model.Employee findByshiftId_First(
-		long shiftId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.rknowsys.eapp.hrm.NoSuchEmployeeException;
-
-	/**
-	* Returns the first Employee in the ordered set where shiftId = &#63;.
-	*
-	* @param shiftId the shift ID
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the first matching Employee, or <code>null</code> if a matching Employee could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.rknowsys.eapp.hrm.model.Employee fetchByshiftId_First(
-		long shiftId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the last Employee in the ordered set where shiftId = &#63;.
-	*
-	* @param shiftId the shift ID
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the last matching Employee
-	* @throws com.rknowsys.eapp.hrm.NoSuchEmployeeException if a matching Employee could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.rknowsys.eapp.hrm.model.Employee findByshiftId_Last(
-		long shiftId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.rknowsys.eapp.hrm.NoSuchEmployeeException;
-
-	/**
-	* Returns the last Employee in the ordered set where shiftId = &#63;.
-	*
-	* @param shiftId the shift ID
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the last matching Employee, or <code>null</code> if a matching Employee could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.rknowsys.eapp.hrm.model.Employee fetchByshiftId_Last(
-		long shiftId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the Employees before and after the current Employee in the ordered set where shiftId = &#63;.
-	*
-	* @param employeeId the primary key of the current Employee
-	* @param shiftId the shift ID
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the previous, current, and next Employee
-	* @throws com.rknowsys.eapp.hrm.NoSuchEmployeeException if a Employee with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.rknowsys.eapp.hrm.model.Employee[] findByshiftId_PrevAndNext(
-		long employeeId, long shiftId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.rknowsys.eapp.hrm.NoSuchEmployeeException;
-
-	/**
-	* Removes all the Employees where shiftId = &#63; from the database.
-	*
-	* @param shiftId the shift ID
-	* @throws SystemException if a system exception occurred
-	*/
-	public void removeByshiftId(long shiftId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the number of Employees where shiftId = &#63;.
-	*
-	* @param shiftId the shift ID
-	* @return the number of matching Employees
-	* @throws SystemException if a system exception occurred
-	*/
-	public int countByshiftId(long shiftId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
 	* Returns all the Employees where employeeId = &#63;.
 	*
 	* @param employeeId the employee ID
@@ -418,5 +280,196 @@ public interface EmployeePersistence extends BasePersistence<Employee> {
 	* @throws SystemException if a system exception occurred
 	*/
 	public int countAll()
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns all the workshifts associated with the Employee.
+	*
+	* @param pk the primary key of the Employee
+	* @return the workshifts associated with the Employee
+	* @throws SystemException if a system exception occurred
+	*/
+	public java.util.List<com.rknowsys.eapp.hrm.model.Workshift> getWorkshifts(
+		long pk) throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns a range of all the workshifts associated with the Employee.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.rknowsys.eapp.hrm.model.impl.EmployeeModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param pk the primary key of the Employee
+	* @param start the lower bound of the range of Employees
+	* @param end the upper bound of the range of Employees (not inclusive)
+	* @return the range of workshifts associated with the Employee
+	* @throws SystemException if a system exception occurred
+	*/
+	public java.util.List<com.rknowsys.eapp.hrm.model.Workshift> getWorkshifts(
+		long pk, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns an ordered range of all the workshifts associated with the Employee.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.rknowsys.eapp.hrm.model.impl.EmployeeModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param pk the primary key of the Employee
+	* @param start the lower bound of the range of Employees
+	* @param end the upper bound of the range of Employees (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of workshifts associated with the Employee
+	* @throws SystemException if a system exception occurred
+	*/
+	public java.util.List<com.rknowsys.eapp.hrm.model.Workshift> getWorkshifts(
+		long pk, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the number of workshifts associated with the Employee.
+	*
+	* @param pk the primary key of the Employee
+	* @return the number of workshifts associated with the Employee
+	* @throws SystemException if a system exception occurred
+	*/
+	public int getWorkshiftsSize(long pk)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns <code>true</code> if the workshift is associated with the Employee.
+	*
+	* @param pk the primary key of the Employee
+	* @param workshiftPK the primary key of the workshift
+	* @return <code>true</code> if the workshift is associated with the Employee; <code>false</code> otherwise
+	* @throws SystemException if a system exception occurred
+	*/
+	public boolean containsWorkshift(long pk, long workshiftPK)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns <code>true</code> if the Employee has any workshifts associated with it.
+	*
+	* @param pk the primary key of the Employee to check for associations with workshifts
+	* @return <code>true</code> if the Employee has any workshifts associated with it; <code>false</code> otherwise
+	* @throws SystemException if a system exception occurred
+	*/
+	public boolean containsWorkshifts(long pk)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Adds an association between the Employee and the workshift. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the Employee
+	* @param workshiftPK the primary key of the workshift
+	* @throws SystemException if a system exception occurred
+	*/
+	public void addWorkshift(long pk, long workshiftPK)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Adds an association between the Employee and the workshift. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the Employee
+	* @param workshift the workshift
+	* @throws SystemException if a system exception occurred
+	*/
+	public void addWorkshift(long pk,
+		com.rknowsys.eapp.hrm.model.Workshift workshift)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Adds an association between the Employee and the workshifts. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the Employee
+	* @param workshiftPKs the primary keys of the workshifts
+	* @throws SystemException if a system exception occurred
+	*/
+	public void addWorkshifts(long pk, long[] workshiftPKs)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Adds an association between the Employee and the workshifts. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the Employee
+	* @param workshifts the workshifts
+	* @throws SystemException if a system exception occurred
+	*/
+	public void addWorkshifts(long pk,
+		java.util.List<com.rknowsys.eapp.hrm.model.Workshift> workshifts)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Clears all associations between the Employee and its workshifts. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the Employee to clear the associated workshifts from
+	* @throws SystemException if a system exception occurred
+	*/
+	public void clearWorkshifts(long pk)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Removes the association between the Employee and the workshift. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the Employee
+	* @param workshiftPK the primary key of the workshift
+	* @throws SystemException if a system exception occurred
+	*/
+	public void removeWorkshift(long pk, long workshiftPK)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Removes the association between the Employee and the workshift. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the Employee
+	* @param workshift the workshift
+	* @throws SystemException if a system exception occurred
+	*/
+	public void removeWorkshift(long pk,
+		com.rknowsys.eapp.hrm.model.Workshift workshift)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Removes the association between the Employee and the workshifts. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the Employee
+	* @param workshiftPKs the primary keys of the workshifts
+	* @throws SystemException if a system exception occurred
+	*/
+	public void removeWorkshifts(long pk, long[] workshiftPKs)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Removes the association between the Employee and the workshifts. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the Employee
+	* @param workshifts the workshifts
+	* @throws SystemException if a system exception occurred
+	*/
+	public void removeWorkshifts(long pk,
+		java.util.List<com.rknowsys.eapp.hrm.model.Workshift> workshifts)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Sets the workshifts associated with the Employee, removing and adding associations as necessary. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the Employee
+	* @param workshiftPKs the primary keys of the workshifts to be associated with the Employee
+	* @throws SystemException if a system exception occurred
+	*/
+	public void setWorkshifts(long pk, long[] workshiftPKs)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Sets the workshifts associated with the Employee, removing and adding associations as necessary. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the Employee
+	* @param workshifts the workshifts to be associated with the Employee
+	* @throws SystemException if a system exception occurred
+	*/
+	public void setWorkshifts(long pk,
+		java.util.List<com.rknowsys.eapp.hrm.model.Workshift> workshifts)
 		throws com.liferay.portal.kernel.exception.SystemException;
 }

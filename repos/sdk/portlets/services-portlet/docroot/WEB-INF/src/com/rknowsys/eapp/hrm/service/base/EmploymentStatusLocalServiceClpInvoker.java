@@ -106,13 +106,84 @@ public class EmploymentStatusLocalServiceClpInvoker {
 				"com.rknowsys.eapp.hrm.model.EmploymentStatus"
 			};
 
-		_methodName136 = "getBeanIdentifier";
+		_methodName16 = "addLeaveTypeApplicabilityEmploymentStatus";
 
-		_methodParameterTypes136 = new String[] {  };
+		_methodParameterTypes16 = new String[] { "long", "long" };
 
-		_methodName137 = "setBeanIdentifier";
+		_methodName17 = "addLeaveTypeApplicabilityEmploymentStatus";
 
-		_methodParameterTypes137 = new String[] { "java.lang.String" };
+		_methodParameterTypes17 = new String[] {
+				"long", "com.rknowsys.eapp.hrm.model.EmploymentStatus"
+			};
+
+		_methodName18 = "addLeaveTypeApplicabilityEmploymentStatuses";
+
+		_methodParameterTypes18 = new String[] { "long", "long[][]" };
+
+		_methodName19 = "addLeaveTypeApplicabilityEmploymentStatuses";
+
+		_methodParameterTypes19 = new String[] { "long", "java.util.List" };
+
+		_methodName20 = "clearLeaveTypeApplicabilityEmploymentStatuses";
+
+		_methodParameterTypes20 = new String[] { "long" };
+
+		_methodName21 = "deleteLeaveTypeApplicabilityEmploymentStatus";
+
+		_methodParameterTypes21 = new String[] { "long", "long" };
+
+		_methodName22 = "deleteLeaveTypeApplicabilityEmploymentStatus";
+
+		_methodParameterTypes22 = new String[] {
+				"long", "com.rknowsys.eapp.hrm.model.EmploymentStatus"
+			};
+
+		_methodName23 = "deleteLeaveTypeApplicabilityEmploymentStatuses";
+
+		_methodParameterTypes23 = new String[] { "long", "long[][]" };
+
+		_methodName24 = "deleteLeaveTypeApplicabilityEmploymentStatuses";
+
+		_methodParameterTypes24 = new String[] { "long", "java.util.List" };
+
+		_methodName25 = "getLeaveTypeApplicabilityEmploymentStatuses";
+
+		_methodParameterTypes25 = new String[] { "long" };
+
+		_methodName26 = "getLeaveTypeApplicabilityEmploymentStatuses";
+
+		_methodParameterTypes26 = new String[] { "long", "int", "int" };
+
+		_methodName27 = "getLeaveTypeApplicabilityEmploymentStatuses";
+
+		_methodParameterTypes27 = new String[] {
+				"long", "int", "int",
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			};
+
+		_methodName28 = "getLeaveTypeApplicabilityEmploymentStatusesCount";
+
+		_methodParameterTypes28 = new String[] { "long" };
+
+		_methodName29 = "hasLeaveTypeApplicabilityEmploymentStatus";
+
+		_methodParameterTypes29 = new String[] { "long", "long" };
+
+		_methodName30 = "hasLeaveTypeApplicabilityEmploymentStatuses";
+
+		_methodParameterTypes30 = new String[] { "long" };
+
+		_methodName31 = "setLeaveTypeApplicabilityEmploymentStatuses";
+
+		_methodParameterTypes31 = new String[] { "long", "long[][]" };
+
+		_methodName248 = "getBeanIdentifier";
+
+		_methodParameterTypes248 = new String[] {  };
+
+		_methodName249 = "setBeanIdentifier";
+
+		_methodParameterTypes249 = new String[] { "java.lang.String" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -204,13 +275,128 @@ public class EmploymentStatusLocalServiceClpInvoker {
 			return EmploymentStatusLocalServiceUtil.updateEmploymentStatus((com.rknowsys.eapp.hrm.model.EmploymentStatus)arguments[0]);
 		}
 
-		if (_methodName136.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes136, parameterTypes)) {
+		if (_methodName16.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes16, parameterTypes)) {
+			EmploymentStatusLocalServiceUtil.addLeaveTypeApplicabilityEmploymentStatus(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue());
+
+			return null;
+		}
+
+		if (_methodName17.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes17, parameterTypes)) {
+			EmploymentStatusLocalServiceUtil.addLeaveTypeApplicabilityEmploymentStatus(((Long)arguments[0]).longValue(),
+				(com.rknowsys.eapp.hrm.model.EmploymentStatus)arguments[1]);
+
+			return null;
+		}
+
+		if (_methodName18.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes18, parameterTypes)) {
+			EmploymentStatusLocalServiceUtil.addLeaveTypeApplicabilityEmploymentStatuses(((Long)arguments[0]).longValue(),
+				(long[])arguments[1]);
+
+			return null;
+		}
+
+		if (_methodName19.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes19, parameterTypes)) {
+			EmploymentStatusLocalServiceUtil.addLeaveTypeApplicabilityEmploymentStatuses(((Long)arguments[0]).longValue(),
+				(java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus>)arguments[1]);
+
+			return null;
+		}
+
+		if (_methodName20.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes20, parameterTypes)) {
+			EmploymentStatusLocalServiceUtil.clearLeaveTypeApplicabilityEmploymentStatuses(((Long)arguments[0]).longValue());
+
+			return null;
+		}
+
+		if (_methodName21.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes21, parameterTypes)) {
+			EmploymentStatusLocalServiceUtil.deleteLeaveTypeApplicabilityEmploymentStatus(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue());
+
+			return null;
+		}
+
+		if (_methodName22.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes22, parameterTypes)) {
+			EmploymentStatusLocalServiceUtil.deleteLeaveTypeApplicabilityEmploymentStatus(((Long)arguments[0]).longValue(),
+				(com.rknowsys.eapp.hrm.model.EmploymentStatus)arguments[1]);
+
+			return null;
+		}
+
+		if (_methodName23.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes23, parameterTypes)) {
+			EmploymentStatusLocalServiceUtil.deleteLeaveTypeApplicabilityEmploymentStatuses(((Long)arguments[0]).longValue(),
+				(long[])arguments[1]);
+
+			return null;
+		}
+
+		if (_methodName24.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes24, parameterTypes)) {
+			EmploymentStatusLocalServiceUtil.deleteLeaveTypeApplicabilityEmploymentStatuses(((Long)arguments[0]).longValue(),
+				(java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus>)arguments[1]);
+
+			return null;
+		}
+
+		if (_methodName25.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes25, parameterTypes)) {
+			return EmploymentStatusLocalServiceUtil.getLeaveTypeApplicabilityEmploymentStatuses(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName26.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes26, parameterTypes)) {
+			return EmploymentStatusLocalServiceUtil.getLeaveTypeApplicabilityEmploymentStatuses(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue(),
+				((Integer)arguments[2]).intValue());
+		}
+
+		if (_methodName27.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes27, parameterTypes)) {
+			return EmploymentStatusLocalServiceUtil.getLeaveTypeApplicabilityEmploymentStatuses(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue(),
+				((Integer)arguments[2]).intValue(),
+				(com.liferay.portal.kernel.util.OrderByComparator)arguments[3]);
+		}
+
+		if (_methodName28.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes28, parameterTypes)) {
+			return EmploymentStatusLocalServiceUtil.getLeaveTypeApplicabilityEmploymentStatusesCount(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName29.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes29, parameterTypes)) {
+			return EmploymentStatusLocalServiceUtil.hasLeaveTypeApplicabilityEmploymentStatus(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue());
+		}
+
+		if (_methodName30.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes30, parameterTypes)) {
+			return EmploymentStatusLocalServiceUtil.hasLeaveTypeApplicabilityEmploymentStatuses(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName31.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes31, parameterTypes)) {
+			EmploymentStatusLocalServiceUtil.setLeaveTypeApplicabilityEmploymentStatuses(((Long)arguments[0]).longValue(),
+				(long[])arguments[1]);
+
+			return null;
+		}
+
+		if (_methodName248.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes248, parameterTypes)) {
 			return EmploymentStatusLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName137.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes137, parameterTypes)) {
+		if (_methodName249.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes249, parameterTypes)) {
 			EmploymentStatusLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
@@ -251,8 +437,40 @@ public class EmploymentStatusLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName136;
-	private String[] _methodParameterTypes136;
-	private String _methodName137;
-	private String[] _methodParameterTypes137;
+	private String _methodName16;
+	private String[] _methodParameterTypes16;
+	private String _methodName17;
+	private String[] _methodParameterTypes17;
+	private String _methodName18;
+	private String[] _methodParameterTypes18;
+	private String _methodName19;
+	private String[] _methodParameterTypes19;
+	private String _methodName20;
+	private String[] _methodParameterTypes20;
+	private String _methodName21;
+	private String[] _methodParameterTypes21;
+	private String _methodName22;
+	private String[] _methodParameterTypes22;
+	private String _methodName23;
+	private String[] _methodParameterTypes23;
+	private String _methodName24;
+	private String[] _methodParameterTypes24;
+	private String _methodName25;
+	private String[] _methodParameterTypes25;
+	private String _methodName26;
+	private String[] _methodParameterTypes26;
+	private String _methodName27;
+	private String[] _methodParameterTypes27;
+	private String _methodName28;
+	private String[] _methodParameterTypes28;
+	private String _methodName29;
+	private String[] _methodParameterTypes29;
+	private String _methodName30;
+	private String[] _methodParameterTypes30;
+	private String _methodName31;
+	private String[] _methodParameterTypes31;
+	private String _methodName248;
+	private String[] _methodParameterTypes248;
+	private String _methodName249;
+	private String[] _methodParameterTypes249;
 }
