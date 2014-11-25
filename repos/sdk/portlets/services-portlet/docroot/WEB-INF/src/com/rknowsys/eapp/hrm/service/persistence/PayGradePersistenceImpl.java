@@ -832,7 +832,7 @@ public class PayGradePersistenceImpl extends BasePersistenceImpl<PayGrade>
 		payGradeImpl.setCreateDate(payGrade.getCreateDate());
 		payGradeImpl.setModifiedDate(payGrade.getModifiedDate());
 		payGradeImpl.setUserId(payGrade.getUserId());
-		payGradeImpl.setPaygradeName(payGrade.getPaygradeName());
+		payGradeImpl.setPayGradeName(payGrade.getPayGradeName());
 
 		return payGradeImpl;
 	}

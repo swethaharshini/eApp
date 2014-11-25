@@ -52,8 +52,8 @@ public class NationalityCacheModel implements CacheModel<Nationality>,
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
-		sb.append(", Name=");
-		sb.append(Name);
+		sb.append(", name=");
+		sb.append(name);
 		sb.append("}");
 
 		return sb.toString();
@@ -82,11 +82,11 @@ public class NationalityCacheModel implements CacheModel<Nationality>,
 			nationalityImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
-		if (Name == null) {
+		if (name == null) {
 			nationalityImpl.setName(StringPool.BLANK);
 		}
 		else {
-			nationalityImpl.setName(Name);
+			nationalityImpl.setName(name);
 		}
 
 		nationalityImpl.resetOriginalValues();
@@ -102,7 +102,7 @@ public class NationalityCacheModel implements CacheModel<Nationality>,
 		userId = objectInput.readLong();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
-		Name = objectInput.readUTF();
+		name = objectInput.readUTF();
 	}
 
 	@Override
@@ -115,11 +115,11 @@ public class NationalityCacheModel implements CacheModel<Nationality>,
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 
-		if (Name == null) {
+		if (name == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
 		}
 		else {
-			objectOutput.writeUTF(Name);
+			objectOutput.writeUTF(name);
 		}
 	}
 
@@ -129,5 +129,5 @@ public class NationalityCacheModel implements CacheModel<Nationality>,
 	public long userId;
 	public long createDate;
 	public long modifiedDate;
-	public String Name;
+	public String name;
 }

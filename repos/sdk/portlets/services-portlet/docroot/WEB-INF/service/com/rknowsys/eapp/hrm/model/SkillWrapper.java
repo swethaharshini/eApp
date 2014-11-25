@@ -50,7 +50,6 @@ public class SkillWrapper implements Skill, ModelWrapper<Skill> {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("skillId", getSkillId());
-		attributes.put("employeeId", getEmployeeId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("createDate", getCreateDate());
@@ -68,12 +67,6 @@ public class SkillWrapper implements Skill, ModelWrapper<Skill> {
 
 		if (skillId != null) {
 			setSkillId(skillId);
-		}
-
-		Long employeeId = (Long)attributes.get("employeeId");
-
-		if (employeeId != null) {
-			setEmployeeId(employeeId);
 		}
 
 		Long companyId = (Long)attributes.get("companyId");
@@ -157,26 +150,6 @@ public class SkillWrapper implements Skill, ModelWrapper<Skill> {
 	@Override
 	public void setSkillId(long skillId) {
 		_skill.setSkillId(skillId);
-	}
-
-	/**
-	* Returns the employee ID of this skill.
-	*
-	* @return the employee ID of this skill
-	*/
-	@Override
-	public long getEmployeeId() {
-		return _skill.getEmployeeId();
-	}
-
-	/**
-	* Sets the employee ID of this skill.
-	*
-	* @param employeeId the employee ID of this skill
-	*/
-	@Override
-	public void setEmployeeId(long employeeId) {
-		_skill.setEmployeeId(employeeId);
 	}
 
 	/**

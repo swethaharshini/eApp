@@ -560,6 +560,231 @@ public class WorkshiftUtil {
 		return getPersistence().countAll();
 	}
 
+	/**
+	* Returns all the Employees associated with the workshift.
+	*
+	* @param pk the primary key of the workshift
+	* @return the Employees associated with the workshift
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.rknowsys.eapp.hrm.model.Employee> getEmployees(
+		long pk) throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().getEmployees(pk);
+	}
+
+	/**
+	* Returns a range of all the Employees associated with the workshift.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.rknowsys.eapp.hrm.model.impl.WorkshiftModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param pk the primary key of the workshift
+	* @param start the lower bound of the range of workshifts
+	* @param end the upper bound of the range of workshifts (not inclusive)
+	* @return the range of Employees associated with the workshift
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.rknowsys.eapp.hrm.model.Employee> getEmployees(
+		long pk, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().getEmployees(pk, start, end);
+	}
+
+	/**
+	* Returns an ordered range of all the Employees associated with the workshift.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.rknowsys.eapp.hrm.model.impl.WorkshiftModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param pk the primary key of the workshift
+	* @param start the lower bound of the range of workshifts
+	* @param end the upper bound of the range of workshifts (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of Employees associated with the workshift
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.rknowsys.eapp.hrm.model.Employee> getEmployees(
+		long pk, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().getEmployees(pk, start, end, orderByComparator);
+	}
+
+	/**
+	* Returns the number of Employees associated with the workshift.
+	*
+	* @param pk the primary key of the workshift
+	* @return the number of Employees associated with the workshift
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int getEmployeesSize(long pk)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().getEmployeesSize(pk);
+	}
+
+	/**
+	* Returns <code>true</code> if the Employee is associated with the workshift.
+	*
+	* @param pk the primary key of the workshift
+	* @param employeePK the primary key of the Employee
+	* @return <code>true</code> if the Employee is associated with the workshift; <code>false</code> otherwise
+	* @throws SystemException if a system exception occurred
+	*/
+	public static boolean containsEmployee(long pk, long employeePK)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().containsEmployee(pk, employeePK);
+	}
+
+	/**
+	* Returns <code>true</code> if the workshift has any Employees associated with it.
+	*
+	* @param pk the primary key of the workshift to check for associations with Employees
+	* @return <code>true</code> if the workshift has any Employees associated with it; <code>false</code> otherwise
+	* @throws SystemException if a system exception occurred
+	*/
+	public static boolean containsEmployees(long pk)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().containsEmployees(pk);
+	}
+
+	/**
+	* Adds an association between the workshift and the Employee. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the workshift
+	* @param employeePK the primary key of the Employee
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void addEmployee(long pk, long employeePK)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().addEmployee(pk, employeePK);
+	}
+
+	/**
+	* Adds an association between the workshift and the Employee. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the workshift
+	* @param employee the Employee
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void addEmployee(long pk,
+		com.rknowsys.eapp.hrm.model.Employee employee)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().addEmployee(pk, employee);
+	}
+
+	/**
+	* Adds an association between the workshift and the Employees. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the workshift
+	* @param employeePKs the primary keys of the Employees
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void addEmployees(long pk, long[] employeePKs)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().addEmployees(pk, employeePKs);
+	}
+
+	/**
+	* Adds an association between the workshift and the Employees. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the workshift
+	* @param employees the Employees
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void addEmployees(long pk,
+		java.util.List<com.rknowsys.eapp.hrm.model.Employee> employees)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().addEmployees(pk, employees);
+	}
+
+	/**
+	* Clears all associations between the workshift and its Employees. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the workshift to clear the associated Employees from
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void clearEmployees(long pk)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().clearEmployees(pk);
+	}
+
+	/**
+	* Removes the association between the workshift and the Employee. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the workshift
+	* @param employeePK the primary key of the Employee
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeEmployee(long pk, long employeePK)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeEmployee(pk, employeePK);
+	}
+
+	/**
+	* Removes the association between the workshift and the Employee. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the workshift
+	* @param employee the Employee
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeEmployee(long pk,
+		com.rknowsys.eapp.hrm.model.Employee employee)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeEmployee(pk, employee);
+	}
+
+	/**
+	* Removes the association between the workshift and the Employees. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the workshift
+	* @param employeePKs the primary keys of the Employees
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeEmployees(long pk, long[] employeePKs)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeEmployees(pk, employeePKs);
+	}
+
+	/**
+	* Removes the association between the workshift and the Employees. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the workshift
+	* @param employees the Employees
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeEmployees(long pk,
+		java.util.List<com.rknowsys.eapp.hrm.model.Employee> employees)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeEmployees(pk, employees);
+	}
+
+	/**
+	* Sets the Employees associated with the workshift, removing and adding associations as necessary. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the workshift
+	* @param employeePKs the primary keys of the Employees to be associated with the workshift
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void setEmployees(long pk, long[] employeePKs)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().setEmployees(pk, employeePKs);
+	}
+
+	/**
+	* Sets the Employees associated with the workshift, removing and adding associations as necessary. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the workshift
+	* @param employees the Employees to be associated with the workshift
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void setEmployees(long pk,
+		java.util.List<com.rknowsys.eapp.hrm.model.Employee> employees)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().setEmployees(pk, employees);
+	}
+
 	public static WorkshiftPersistence getPersistence() {
 		if (_persistence == null) {
 			_persistence = (WorkshiftPersistence)PortletBeanLocatorUtil.locate(com.rknowsys.eapp.hrm.service.ClpSerializer.getServletContextName(),

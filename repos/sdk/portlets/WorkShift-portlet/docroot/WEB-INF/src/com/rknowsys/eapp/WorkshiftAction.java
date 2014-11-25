@@ -2,13 +2,13 @@ package com.rknowsys.eapp;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
+import javax.portlet.PortletSession;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
@@ -21,9 +21,9 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.util.bridges.mvc.MVCPortlet;
-import com.rknowsys.eapp.hrm.model.Employee;
+import com.rknowsys.eapp.hrm.model.EmpJob;
 import com.rknowsys.eapp.hrm.model.Workshift;
-import com.rknowsys.eapp.hrm.service.EmployeeLocalServiceUtil;
+import com.rknowsys.eapp.hrm.service.EmpJobLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.WorkshiftLocalServiceUtil;
 
 public class WorkshiftAction extends MVCPortlet {
@@ -58,30 +58,47 @@ public class WorkshiftAction extends MVCPortlet {
 		log.info("userId = " + themeDisplay.getUserId());
 		log.info("groupId = " + themeDisplay.getCompanyGroupId());
 		SimpleDateFormat formater = new SimpleDateFormat("HH:mm");
-		Workshift workshift =null;
+		
 		try {
+			
 			log.info("workshift = "
 					+ ParamUtil.getString(actionRequest,
 							CustomComparatorUtil.WORKSHIFT_COL_NAME));
 			String id = ParamUtil.getString(actionRequest, WORKSHIFT_ID);
 			log.info("id == " + id);
-            ParamUtil.print(actionRequest);
-            String[] availableEmpsIds = ParamUtil.getParameterValues(actionRequest,"lstBox1");	
-            String[] assignedEmpsIds = ParamUtil.getParameterValues(actionRequest,"lstBox2");					
-            log.info("availableEmpsIds ====" + Arrays.toString(availableEmpsIds));
-            log.info("assignedEmpsIds ====" + Arrays.toString(assignedEmpsIds));
-			
-			
+            String[] availableEmpsIds = ParamUtil.getParameterValues(actionRequest,"selectfrom");	
+            String[] assignedEmpsIds = ParamUtil.getParameterValues(actionRequest,"selectto");					
+            log.info("availableEmpsIds ====" +availableEmpsIds.length);
+            log.info("assignedEmpsIds ====" +assignedEmpsIds.length);
+            
+            			
 			Date date = new Date();
 			if (id == null|| id.isEmpty() ) {
 				log.info("inside if loop...");
 
-				workshift = WorkshiftLocalServiceUtil
+				Workshift workshift = WorkshiftLocalServiceUtil
 						.createWorkshift(CounterLocalServiceUtil.increment());
 				
 				setWorkShift(actionRequest, themeDisplay, formater, workshift,
 						date);
 				workshift = WorkshiftLocalServiceUtil.addWorkshift(workshift);
+				
+				
+				if (assignedEmpsIds != null && assignedEmpsIds.length>0){
+					log.info("assignedEmpsIds.length == " + assignedEmpsIds.length);
+					for (String empId: assignedEmpsIds) {
+						log.info(empId);
+						if (empId != null && !empId.isEmpty()) {
+							long eid = Long.parseLong(empId);
+							EmpJob empJob = EmpJobLocalServiceUtil.getEmpJobByEmpId(eid);
+							EmpJob empJob2 = EmpJobLocalServiceUtil.getEmpJob(empJob.getEmpJobId());
+							empJob2.setShiftId(workshift.getShiftId());
+							empJob2 = EmpJobLocalServiceUtil.updateEmpJob(empJob2);
+							
+							System.out.println("====END IF LOOP=====");
+						}
+					}
+				}
 
 				log.info("end of if block");
 			} else {
@@ -89,7 +106,7 @@ public class WorkshiftAction extends MVCPortlet {
 
 				long shiftid = Long.parseLong(id);
 
-				workshift = WorkshiftLocalServiceUtil
+				Workshift workshift = WorkshiftLocalServiceUtil
 						.getWorkshift(shiftid);
 
 				setWorkShift(actionRequest, themeDisplay, formater, workshift,
@@ -98,42 +115,30 @@ public class WorkshiftAction extends MVCPortlet {
 				workshift = WorkshiftLocalServiceUtil
 						.updateWorkshift(workshift);
 				
-				//To handle move from Assigned emps to Available emps select items
-				if (availableEmpsIds != null && availableEmpsIds.length>0){
-					log.info("availableEmpsIds.length == " + availableEmpsIds.length);
-					for (String employeeId:availableEmpsIds) {
-						log.info(employeeId);
-						if (employeeId != null && !employeeId.isEmpty()) {
-							Employee employee = EmployeeLocalServiceUtil
-									.getEmployee(Long.parseLong(employeeId));
-							log.info("employee ===== " + employee);
-							if (employee !=null){
-								log.info("employee to update = " + employee);
-								employee.setShiftId(0);
-							    EmployeeLocalServiceUtil.updateEmployee(employee);
-							}
+				if (assignedEmpsIds != null && assignedEmpsIds.length>0){
+					log.info("assignedEmpsIds.length == " + assignedEmpsIds.length);
+					for (String empId: assignedEmpsIds) {
+						log.info(empId);
+						if (empId != null && !empId.isEmpty()) {
+							long eid = Long.parseLong(empId);
+							EmpJob empJob = EmpJobLocalServiceUtil.getEmpJobByEmpId(eid);
+							EmpJob empJob2 = EmpJobLocalServiceUtil.getEmpJob(empJob.getEmpJobId());
+							empJob2.setShiftId(workshift.getShiftId());
+							empJob2 = EmpJobLocalServiceUtil.updateEmpJob(empJob2);
 						}
 					}
 				}
+				if (availableEmpsIds != null && availableEmpsIds.length>0){
+					for (String empId: availableEmpsIds) {
+						EmpJob empJob = EmpJobLocalServiceUtil.getEmpJobByEmpId(Long.parseLong(empId));
+						empJob.setShiftId(0);
+						empJob = EmpJobLocalServiceUtil.updateEmpJob(empJob);
+					}
+					
+				}
+				
 				log.info("end of else block");
 
-			}
-
-			if (assignedEmpsIds != null && assignedEmpsIds.length>0){
-				log.info("assignedEmpsIds.length == " + assignedEmpsIds.length);
-				for (String empId: assignedEmpsIds) {
-					log.info(empId);
-					if (empId != null && !empId.isEmpty()) {
-						Employee employee = EmployeeLocalServiceUtil
-								.getEmployee(Long.parseLong(empId));
-						log.info("employee ===== " + employee);
-						if (employee !=null){
-							log.info("employee to update = " + employee);
-							employee.setShiftId(workshift.getShiftId());
-						    EmployeeLocalServiceUtil.updateEmployee(employee);
-						}
-					}
-				}
 			}
 			
 
@@ -146,11 +151,7 @@ public class WorkshiftAction extends MVCPortlet {
 			e.printStackTrace();
 			log.info("portalexception");
 		}
-/*//		actionResponse.setRenderParameter("mvcPath",
-//				"/html/workshift/addworkshift.jsp");
-		
-		actionResponse.setRenderParameter("jspPage",
-				"/html/workshift/addworkshift.jsp");*/
+
 
 		log.info("end of the saveWorkshift method");
 	}
@@ -198,48 +199,59 @@ public class WorkshiftAction extends MVCPortlet {
 			ResourceResponse resourceResponse) throws IOException,
 			NumberFormatException {
 		if (resourceRequest.getResourceID().equals("deleteWorkshift")) {
+			
+			Workshift workshift;
+			
 
 			log.info("inside deleteWorkshift... serveResource");
-			Workshift workshift;
-			try {
-				workshift = WorkshiftLocalServiceUtil
-						.createWorkshift(CounterLocalServiceUtil.increment());
-			} catch (SystemException e1) {
-
-				e1.printStackTrace();
-			}
+			
 			ParamUtil.print(resourceRequest);
-			String[] assignedEmpsIds = ParamUtil.getParameterValues(resourceRequest,
+			String[] selectedIds = ParamUtil.getParameterValues(resourceRequest,
 					"workshiftIds");
 
-			log.info("assignedEmpsIds== " + assignedEmpsIds.length);
-			for (int i = 0; i <= assignedEmpsIds.length - 1; i++) {
-				log.info(assignedEmpsIds[i]);
+			log.info("selectedIds== " + selectedIds.length);
+			for (int i = 0; i <= selectedIds.length - 1; i++) {
+				log.info(selectedIds[i]);
 
 			}
-			for (int i = 0; i <= assignedEmpsIds.length - 1; i++) {
-				log.info(assignedEmpsIds[i]);
-				if (assignedEmpsIds[i].equals("on")) {
+			for (int i = 0; i <= selectedIds.length - 1; i++) {
+				log.info(selectedIds[i]);
+				if (selectedIds[i].equals("on")) {
 					log.info("All records selected...");
 				} else {
-					try {
-						workshift = WorkshiftLocalServiceUtil
-								.deleteWorkshift(Long.parseLong(assignedEmpsIds[i]));
-						List<Employee> employees = workshift.getEmployees();
-						for (Employee e : employees){
-							e.setShiftId(0);
-						    EmployeeLocalServiceUtil.updateEmployee(e);
+					long id =Long.parseLong(selectedIds[i]);
+					List<EmpJob> empJoblist;
+					EmpJob empJob;
+					System.out.println("before getting list...");
+					empJoblist = EmpJobLocalServiceUtil.findEmpJobListByShiftId(id);
+					System.out.println("list size===" +empJoblist.size());
+					for(int j =0;j<empJoblist.size();j++){
+						System.out.println("for loop started..");
+						empJob = empJoblist.get(j);
+						System.out.println("empJob ==" +empJob);
+						empJob.setShiftId(Long.parseLong("0"));
+						try {
+							empJob = EmpJobLocalServiceUtil.updateEmpJob(empJob);
+						} catch (SystemException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
-						log.info("end of try block in delete...");
-					} catch (PortalException e) {
-
-						e.printStackTrace();
-						log.info("portal exception...");
-					} catch (SystemException e) {
-
-						e.printStackTrace();
-						log.info("system exception...");
 					}
+					try {
+						System.out.println("try block....");
+						System.out.println("shiftId in try block...."+id);
+						
+						workshift = WorkshiftLocalServiceUtil.deleteWorkshift(id);
+					} catch (PortalException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					catch (SystemException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					
 				}
 
 			}
@@ -275,32 +287,11 @@ public class WorkshiftAction extends MVCPortlet {
 		Workshift ws = WorkshiftLocalServiceUtil
 				.getWorkshift(Long.parseLong(s));
 		
-//		List<Employee> allEmployees = EmployeeLocalServiceUtil.getEmployees(0, EmployeeLocalServiceUtil.getEmployeesCount());
-		List<Employee> shiftEmployees = ws.getEmployees();
-//		List<Employee> allocatedEmployees =new ArrayList<Employee>();
-		
-/*		
-		List<Workshift> allWorkshifts = WorkshiftLocalServiceUtil.getWorkshifts(0, WorkshiftLocalServiceUtil.getWorkshiftsCount());
-		for (Workshift workshift :allWorkshifts ) {
-			allocatedEmployees.addAll(EmployeeLocalServiceUtil.getWorkshiftEmployees(workshift.getShiftId()));
-//			for (Employee employee : allEmployees ) {
-//				if (employee.getShiftId()==workshift.getShiftId()) {
-//					allocatedEmployees.add(employee);
-//				}
-//			}
-		}
-		
-*/		
-//		allEmployees.removeAll(allocatedEmployees);
-		List<Employee> unallocatedEmployees =EmployeeLocalServiceUtil.getWorkshiftEmployees(0);
+
 		log.info(ws.getShiftId());
 		log.info(ws.getWorkshiftName());
-		actionRequest.setAttribute("unassignedemployees", unallocatedEmployees);
-//		log.info("allocatedEmployees="+allocatedEmployees);
-		log.info("unallocatedEmployees=="+unallocatedEmployees);
-		log.info("shiftEmployees="+shiftEmployees);
-		actionRequest.setAttribute("shiftemployees", shiftEmployees);
-		actionRequest.setAttribute("editworkshift", ws);
+		PortletSession portletSession = actionRequest.getPortletSession();
+		portletSession.setAttribute("editworkshift", ws);
 		
 		actionResponse.setRenderParameter("jspPage",
 				"/html/workshift/editworkshift.jsp");

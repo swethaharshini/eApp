@@ -285,14 +285,6 @@ public class EducationLocalServiceWrapper implements EducationLocalService,
 			arguments);
 	}
 
-	@Override
-	public java.util.List<com.rknowsys.eapp.hrm.model.Education> getEmployeeEducations(
-		long employeeId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _educationLocalService.getEmployeeEducations(employeeId);
-	}
-
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */

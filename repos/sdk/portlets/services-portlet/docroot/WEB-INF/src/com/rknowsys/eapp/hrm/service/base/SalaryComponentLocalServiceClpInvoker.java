@@ -106,17 +106,13 @@ public class SalaryComponentLocalServiceClpInvoker {
 				"com.rknowsys.eapp.hrm.model.SalaryComponent"
 			};
 
-		_methodName136 = "getBeanIdentifier";
+		_methodName232 = "getBeanIdentifier";
 
-		_methodParameterTypes136 = new String[] {  };
+		_methodParameterTypes232 = new String[] {  };
 
-		_methodName137 = "setBeanIdentifier";
+		_methodName233 = "setBeanIdentifier";
 
-		_methodParameterTypes137 = new String[] { "java.lang.String" };
-
-		_methodName142 = "getEmployeeSalaryComponents";
-
-		_methodParameterTypes142 = new String[] { "long" };
+		_methodParameterTypes233 = new String[] { "java.lang.String" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -208,21 +204,16 @@ public class SalaryComponentLocalServiceClpInvoker {
 			return SalaryComponentLocalServiceUtil.updateSalaryComponent((com.rknowsys.eapp.hrm.model.SalaryComponent)arguments[0]);
 		}
 
-		if (_methodName136.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes136, parameterTypes)) {
+		if (_methodName232.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes232, parameterTypes)) {
 			return SalaryComponentLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName137.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes137, parameterTypes)) {
+		if (_methodName233.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes233, parameterTypes)) {
 			SalaryComponentLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
-		}
-
-		if (_methodName142.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes142, parameterTypes)) {
-			return SalaryComponentLocalServiceUtil.getEmployeeSalaryComponents(((Long)arguments[0]).longValue());
 		}
 
 		throw new UnsupportedOperationException();
@@ -260,10 +251,8 @@ public class SalaryComponentLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName136;
-	private String[] _methodParameterTypes136;
-	private String _methodName137;
-	private String[] _methodParameterTypes137;
-	private String _methodName142;
-	private String[] _methodParameterTypes142;
+	private String _methodName232;
+	private String[] _methodParameterTypes232;
+	private String _methodName233;
+	private String[] _methodParameterTypes233;
 }

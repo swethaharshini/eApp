@@ -5,14 +5,7 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/membership/add.jsp" />
 </portlet:renderURL>
-<style type="text/css">	
-.table-first-header{
-width: 10%;
-}
-.table-last-header{
-width: 15%;
-}
-</style>
+
 <aui:script>
 AUI().use(
   'aui-node',
@@ -103,25 +96,30 @@ AUI().use(
 </head>
 <body>
 <jsp:useBean id="editMembership" type="com.rknowsys.eapp.hrm.model.Membership" scope="request" />
-<div id="editMembershipAddDelete" class="span12">
-		<a href="#" id="add">Add</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"
-			id="delete">Delete</a>
+<div class="row-fluid">
+	<div id="editMembershipAddDelete" class="span12 text-right">
+		<a href="#" class="btn btn-success" id="add">Add</a>
+		<a href="#" class="btn btn-success" id="delete">Delete</a>
 	</div>
 	<div id="editMembershipForm">
   <aui:form name="myForm" action="<%=updateMemberships.toString()%>">
   <aui:input name="membershipId" type="hidden" id="membershipId"  value="<%=editMembership.getMembershipId()%>"/>
-		<div class="span12">
-			<div class="span2">
+		<div class="row-fluid">
+			<div class="span3 text-right">
 				<label>Membership Name</label>
-		</div>
-		<div class="span3">		
-		 <input name="<portlet:namespace/>membership_name" type="text" required = "required" value="<%=editMembership.getMembershipName() %>" >
+			</div>
+			<div class="span6">		
+		 		<input name="<portlet:namespace/>membership_name" type="text" required = "required" value="<%=editMembership.getMembershipName() %>" >
 			</div>
 		</div>
-	<aui:button type="submit" value="Submit"/> <aui:button  type="reset" value="Cancel" id ="editCancel"></aui:button>
+		<div class="row-fluid">
+			<div class="span6 offset3">
+				<aui:button type="submit" value="Submit"/> <aui:button  type="reset" value="Cancel" id ="editCancel"></aui:button>
+			</div>
+		</div>
 	</aui:form>
 	</div>
-	 <div><label style="color: white" >.</label></div>
+</div>
 </body>
 <%
 PortletURL iteratorURL = renderResponse.createRenderURL();

@@ -124,7 +124,7 @@ public class OrganizationWrapper implements Organization,
 			setTaxId(taxId);
 		}
 
-		Integer numberOfEmployees = (Integer)attributes.get("numberOfEmployees");
+		Long numberOfEmployees = (Long)attributes.get("numberOfEmployees");
 
 		if (numberOfEmployees != null) {
 			setNumberOfEmployees(numberOfEmployees);
@@ -405,7 +405,7 @@ public class OrganizationWrapper implements Organization,
 	* @return the number of employees of this organization
 	*/
 	@Override
-	public int getNumberOfEmployees() {
+	public long getNumberOfEmployees() {
 		return _organization.getNumberOfEmployees();
 	}
 
@@ -415,7 +415,7 @@ public class OrganizationWrapper implements Organization,
 	* @param numberOfEmployees the number of employees of this organization
 	*/
 	@Override
-	public void setNumberOfEmployees(int numberOfEmployees) {
+	public void setNumberOfEmployees(long numberOfEmployees) {
 		_organization.setNumberOfEmployees(numberOfEmployees);
 	}
 

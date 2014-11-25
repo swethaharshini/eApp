@@ -13,7 +13,5 @@ String prk=String.valueOf(license.getPrimaryKey());
 </portlet:actionURL>
 
 
-<a href="#" onclick="window.location='<%=editLicenses.toString()%>'"><img
-					width="18px" height="18px" alt="loading..." 
-					src="<%=request.getContextPath() %>/images/pencil.jpg"></a> 
+<a href="#" onclick="window.location='<%=editLicenses.toString()%>'"><i class="icon-edit"></i></a> 
 </liferay-ui:icon-menu>

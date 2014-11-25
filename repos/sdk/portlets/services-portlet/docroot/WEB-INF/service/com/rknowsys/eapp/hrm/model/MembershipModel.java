@@ -75,20 +75,6 @@ public interface MembershipModel extends BaseModel<Membership> {
 	public void setMembershipId(long membershipId);
 
 	/**
-	 * Returns the employee ID of this membership.
-	 *
-	 * @return the employee ID of this membership
-	 */
-	public long getEmployeeId();
-
-	/**
-	 * Sets the employee ID of this membership.
-	 *
-	 * @param employeeId the employee ID of this membership
-	 */
-	public void setEmployeeId(long employeeId);
-
-	/**
 	 * Returns the company ID of this membership.
 	 *
 	 * @return the company ID of this membership

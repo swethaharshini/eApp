@@ -50,6 +50,7 @@ public class LocationWrapper implements Location, ModelWrapper<Location> {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("locationId", getLocationId());
+		attributes.put("nationalityId", getNationalityId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("createDate", getCreateDate());
@@ -74,6 +75,12 @@ public class LocationWrapper implements Location, ModelWrapper<Location> {
 
 		if (locationId != null) {
 			setLocationId(locationId);
+		}
+
+		Long nationalityId = (Long)attributes.get("nationalityId");
+
+		if (nationalityId != null) {
+			setNationalityId(nationalityId);
 		}
 
 		Long companyId = (Long)attributes.get("companyId");
@@ -199,6 +206,26 @@ public class LocationWrapper implements Location, ModelWrapper<Location> {
 	@Override
 	public void setLocationId(long locationId) {
 		_location.setLocationId(locationId);
+	}
+
+	/**
+	* Returns the nationality ID of this location.
+	*
+	* @return the nationality ID of this location
+	*/
+	@Override
+	public long getNationalityId() {
+		return _location.getNationalityId();
+	}
+
+	/**
+	* Sets the nationality ID of this location.
+	*
+	* @param nationalityId the nationality ID of this location
+	*/
+	@Override
+	public void setNationalityId(long nationalityId) {
+		_location.setNationalityId(nationalityId);
 	}
 
 	/**

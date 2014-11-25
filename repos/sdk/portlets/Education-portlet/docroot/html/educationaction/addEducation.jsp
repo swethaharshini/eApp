@@ -6,14 +6,6 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/educationaction/addEducation.jsp" />
 </portlet:renderURL>
-<style type="text/css">
-.table-first-header {
-	width: 10%;
-}
-.table-last-header {
-	width: 15%;
-}
-</style>
 <aui:script>
 AUI().use(
   'aui-node',
@@ -102,28 +94,31 @@ AUI().use(
 </head>
 
 <body>
-	<div id="educationAddDelete" class="span12">
-		<a href="#" id="add">Add</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="delete">Delete</a>
-
-	</div>
-	<div  id="addEducationForm">
-	<aui:form name="myForm" action="<%=saveEducations.toString()%>" >
-		<aui:input name="educationId" type="hidden" id="educationId" />
-				<div class="span12">
-			<div class="span2">
-				<label>Level</label>
+	<div class="row-fluid">
+		<div id="educationAddDelete" class="span12 text-right">
+			<a href="#" class="btn btn-success" id="add"><i class="icon-plus"></i></a>
+			<a href="#" class="btn btn-danger" id="delete"><i class="icon-trash"></i></a>
 		</div>
-		<div class="span3">		
-		 <input name="<portlet:namespace/>education_level" type="text" required = "required">
+		<div  id="addEducationForm">
+		<aui:form name="myForm" action="<%=saveEducations.toString()%>" >
+			<aui:input name="educationId" type="hidden" id="educationId" />
+			<div class="row-fluid">
+				<div class="span2 text-right">
+					<label>Level</label>
+				</div>
+				<div class="span6">		
+				 <input name="<portlet:namespace/>education_level" type="text" required = "required">
+				</div>
 			</div>
+			<div class="row-fluid">
+				<div class="span6 offset2">
+					<aui:button type="submit" value="Submit" />
+					<aui:button  type="reset" value="Cancel" id ="cancel"/>
+				</div>
+			</div>
+		</aui:form>
 		</div>
-		<aui:button type="submit" value="Submit" />
-		<aui:button  type="reset" value="Cancel" id ="cancel"/>
-		
-	</aui:form>
 	</div>
-	
-	 <div><label style="color: white" >.</label></div>
 	
 </body>
 

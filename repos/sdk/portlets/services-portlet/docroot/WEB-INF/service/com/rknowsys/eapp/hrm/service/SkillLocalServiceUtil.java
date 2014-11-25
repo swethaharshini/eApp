@@ -271,13 +271,6 @@ public class SkillLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
-	public static java.util.List<com.rknowsys.eapp.hrm.model.Skill> getEmployeeSkills(
-		long employeeId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return getService().getEmployeeSkills(employeeId);
-	}
-
 	public static void clearService() {
 		_service = null;
 	}

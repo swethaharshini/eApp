@@ -36,7 +36,7 @@ public class PayGradeSoap implements Serializable {
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setUserId(model.getUserId());
-		soapModel.setPaygradeName(model.getPaygradeName());
+		soapModel.setPayGradeName(model.getPayGradeName());
 
 		return soapModel;
 	}
@@ -137,12 +137,12 @@ public class PayGradeSoap implements Serializable {
 		_userId = userId;
 	}
 
-	public String getPaygradeName() {
-		return _paygradeName;
+	public String getPayGradeName() {
+		return _payGradeName;
 	}
 
-	public void setPaygradeName(String paygradeName) {
-		_paygradeName = paygradeName;
+	public void setPayGradeName(String payGradeName) {
+		_payGradeName = payGradeName;
 	}
 
 	private long _payGradeId;
@@ -151,5 +151,5 @@ public class PayGradeSoap implements Serializable {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _userId;
-	private String _paygradeName;
+	private String _payGradeName;
 }

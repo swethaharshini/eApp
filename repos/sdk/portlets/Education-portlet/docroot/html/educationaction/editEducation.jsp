@@ -5,14 +5,6 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/educationaction/addEducation.jsp" />
 </portlet:renderURL>
-<style type="text/css">	
-.table-first-header{
-width: 10%;
-}
-.table-last-header{
-width: 15%;
-}
-</style>
 <aui:script>
 AUI().use(
   'aui-node',
@@ -104,25 +96,31 @@ AUI().use(
 </head>
 <body>
 <jsp:useBean id="editEducation" type="com.rknowsys.eapp.hrm.model.Education" scope="request" />
-<div id="editEducationAddDelete" class="span12">
-		<a href="#" id="add">Add</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"
-			id="delete">Delete</a>
+<div class="row-fluid">
+	<div id="editEducationAddDelete" class="span12">
+		<a href="#" class="btn btn-success" id="add"><i class="icon-plus"></i></a>
+		<a href="#"  class="btn btn-danger" id="delete"><i class="icon-trash"></i></a>
 	</div>
 	<div id="editEducationForm">
-  <aui:form name="myForm" action="<%=updateEducations.toString()%>">
+  	<aui:form name="myForm" action="<%=updateEducations.toString()%>">
 		<aui:input name="educationId" type="hidden" id="educationId"  value="<%=editEducation.getEducationId()%>"/>
-		<div class="span12">
-			<div class="span2">
+		<div class="row-fluid">
+			<div class="span2 text-right">
 				<label>Level</label>
-		</div>
-		<div class="span3">		
-		 <input name="<portlet:namespace/>education_level" type="text" required = "required" value="<%=editEducation.getEduLevel() %>" >
+			</div>
+			<div class="span6">		
+		 		<input name="<portlet:namespace/>education_level" type="text" required = "required" value="<%=editEducation.getEduLevel() %>" >
 			</div>
 		</div>
-	<aui:button type="submit" value="Submit"/> <aui:button  type="reset" value="Cancel" id ="editCancel"></aui:button>
+		<div class="row-fluid">
+			<div class="span6 offset2">
+				<aui:button type="submit" class="btn btn-success" value="Submit" />
+				<aui:button  type="reset" class="btn btn-danger" id ="editCancel" value="Cancel"></aui:button>
+			</div>
+		</div>
 	</aui:form>
 	</div>
-	 <div><label style="color: white" >.</label></div>
+</div>
 </body>
 <%
 PortletURL iteratorURL = renderResponse.createRenderURL();

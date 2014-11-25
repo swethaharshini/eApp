@@ -35,6 +35,7 @@
 .aui input[type="color"], .aui input[type="date"], .aui input[type="datetime"], .aui input[type="datetime-local"], .aui input[type="email"], .aui input[type="month"], .aui input[type="file"], .aui input[type="checkbox"] input[type="number"], .aui input[type="password"], .aui input[type="search"], .aui input[type="tel"], .aui input[type="text"], .aui input[type="time"], .aui input[type="url"], .aui input[type="week"], .aui select, .aui textarea, .aui .uneditable-input {
   border: 1px solid #DDD;
   color: #8D8D8D;
+  border-radius: 4px;
   font-weight: 200;
   width: 64%;
   font-size: 12px;

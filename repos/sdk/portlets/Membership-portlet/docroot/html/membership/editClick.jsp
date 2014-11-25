@@ -13,7 +13,5 @@ String prk=String.valueOf(membership.getPrimaryKey());
 </portlet:actionURL>
 
 
-<a href="#" onclick="window.location='<%=editMemberships.toString()%>'"><img
-					width="18px" height="18px" alt="loading..." 
-					src="<%=request.getContextPath() %>/images/pencil.jpg"></a> 
+<a href="#" onclick="window.location='<%=editMemberships.toString()%>'"><i class="icon-edit"></i></a> 
 </liferay-ui:icon-menu>

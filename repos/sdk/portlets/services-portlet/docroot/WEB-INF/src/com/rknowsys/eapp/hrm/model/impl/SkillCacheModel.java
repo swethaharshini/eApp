@@ -37,12 +37,10 @@ import java.util.Date;
 public class SkillCacheModel implements CacheModel<Skill>, Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(17);
 
 		sb.append("{skillId=");
 		sb.append(skillId);
-		sb.append(", employeeId=");
-		sb.append(employeeId);
 		sb.append(", companyId=");
 		sb.append(companyId);
 		sb.append(", groupId=");
@@ -67,7 +65,6 @@ public class SkillCacheModel implements CacheModel<Skill>, Externalizable {
 		SkillImpl skillImpl = new SkillImpl();
 
 		skillImpl.setSkillId(skillId);
-		skillImpl.setEmployeeId(employeeId);
 		skillImpl.setCompanyId(companyId);
 		skillImpl.setGroupId(groupId);
 
@@ -109,7 +106,6 @@ public class SkillCacheModel implements CacheModel<Skill>, Externalizable {
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		skillId = objectInput.readLong();
-		employeeId = objectInput.readLong();
 		companyId = objectInput.readLong();
 		groupId = objectInput.readLong();
 		createDate = objectInput.readLong();
@@ -123,7 +119,6 @@ public class SkillCacheModel implements CacheModel<Skill>, Externalizable {
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(skillId);
-		objectOutput.writeLong(employeeId);
 		objectOutput.writeLong(companyId);
 		objectOutput.writeLong(groupId);
 		objectOutput.writeLong(createDate);
@@ -146,7 +141,6 @@ public class SkillCacheModel implements CacheModel<Skill>, Externalizable {
 	}
 
 	public long skillId;
-	public long employeeId;
 	public long companyId;
 	public long groupId;
 	public long createDate;

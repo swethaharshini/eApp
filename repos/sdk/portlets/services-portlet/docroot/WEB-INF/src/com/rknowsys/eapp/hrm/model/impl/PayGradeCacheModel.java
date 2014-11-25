@@ -51,8 +51,8 @@ public class PayGradeCacheModel implements CacheModel<PayGrade>, Externalizable 
 		sb.append(modifiedDate);
 		sb.append(", userId=");
 		sb.append(userId);
-		sb.append(", paygradeName=");
-		sb.append(paygradeName);
+		sb.append(", payGradeName=");
+		sb.append(payGradeName);
 		sb.append("}");
 
 		return sb.toString();
@@ -82,11 +82,11 @@ public class PayGradeCacheModel implements CacheModel<PayGrade>, Externalizable 
 
 		payGradeImpl.setUserId(userId);
 
-		if (paygradeName == null) {
-			payGradeImpl.setPaygradeName(StringPool.BLANK);
+		if (payGradeName == null) {
+			payGradeImpl.setPayGradeName(StringPool.BLANK);
 		}
 		else {
-			payGradeImpl.setPaygradeName(paygradeName);
+			payGradeImpl.setPayGradeName(payGradeName);
 		}
 
 		payGradeImpl.resetOriginalValues();
@@ -102,7 +102,7 @@ public class PayGradeCacheModel implements CacheModel<PayGrade>, Externalizable 
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		userId = objectInput.readLong();
-		paygradeName = objectInput.readUTF();
+		payGradeName = objectInput.readUTF();
 	}
 
 	@Override
@@ -115,11 +115,11 @@ public class PayGradeCacheModel implements CacheModel<PayGrade>, Externalizable 
 		objectOutput.writeLong(modifiedDate);
 		objectOutput.writeLong(userId);
 
-		if (paygradeName == null) {
+		if (payGradeName == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
 		}
 		else {
-			objectOutput.writeUTF(paygradeName);
+			objectOutput.writeUTF(payGradeName);
 		}
 	}
 
@@ -129,5 +129,5 @@ public class PayGradeCacheModel implements CacheModel<PayGrade>, Externalizable 
 	public long createDate;
 	public long modifiedDate;
 	public long userId;
-	public String paygradeName;
+	public String payGradeName;
 }

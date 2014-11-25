@@ -7,18 +7,17 @@ var A=new AUI();
 A.ready(function()
 {
 A.one('#<portlet:namespace />saveContactDetails').hide();
-A.all('input[type=text]').set('disabled',true);
-	A.all('input[type=select]').set('disabled',true);
-	A.all('input[type=radio]').set('disabled',true);
+A.all('#<portlet:namespace/>empContactDetailsEdit input[type=text]').set('disabled',true);
+	A.all('#<portlet:namespace/>empContactDetailsEdit input[type=select]').set('disabled',true);
+	A.all('#<portlet:namespace/>empContactDetailsEdit input[type=radio]').set('disabled',true);
 });
 	var node=A.one('#<portlet:namespace />editContactDetails');
 	node.on('click',function()
 	{
 	A.one('#<portlet:namespace />editContactDetails').hide();
-	alert(A.all('input[type=text]'));
-	A.all('input[type=text]').set('disabled',false);
-	A.all('input[type=select]').set('disabled',false);
-	A.all('input[type=radio]').set('disabled',false);
+	A.all('#<portlet:namespace/>empContactDetailsEdit input[type=text]').set('disabled',false);
+	A.all('#<portlet:namespace/>empContactDetailsEdit input[type=select]').set('disabled',false);
+	A.all('#<portlet:namespace/>empContactDetailsEdit input[type=radio]').set('disabled',false);
 	A.one('#<portlet:namespace />saveContactDetails').show();
 	});
 </aui:script>
@@ -80,7 +79,7 @@ Map empId = (Map) request.getSession(false).getAttribute(
 
 <div id="emp_contact_details" class="panel">
 	<div class="panel-heading">
-		<h3>Contact Details</h3>
+		<h3><liferay-ui:message key="Contact Details"/></h3>
 	</div>
 	<div class="panel-body">
 		<aui:form name="empContactDetailsEdit" id="empContactDetailsEdit"
@@ -92,68 +91,68 @@ Map empId = (Map) request.getSession(false).getAttribute(
 				value="<%=fileEntryId %>"></aui:input>
 			<div class="row-fluid">
 				<div class="span10">
-					<aui:input name="address_street1" label="Address Street 1"
+					<aui:input name="address_street1" label="01_address-street1"
 						inlineLabel="left" value="<%=adressStreet1%>"></aui:input>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span10">
-					<aui:input name="address_street2" label="Address Street 2"
+					<aui:input name="address_street2" label="01_address-street2"
 						inlineLabel="left" value="<%=addressStreet2%>"></aui:input>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span10">
-					<aui:input name="city" label="City" inlineLabel="left"
+					<aui:input name="city" label="01_city" inlineLabel="left"
 						value="<%=city%>"></aui:input>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span10">
-					<aui:input name="state" label=" State/Province" inlineLabel="left"
+					<aui:input name="state" label="01_state" inlineLabel="left"
 						value="<%=state%>"></aui:input>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span10">
-					<aui:input name="zip" label="Postal Code" value="<%=zip%>"
+					<aui:input name="zip" label="01_postal-code" value="<%=zip%>"
 						inlineLabel="left"></aui:input>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span10">
-					<aui:input name="country" label="Country" inlineLabel="left"
+					<aui:input name="country" label="01_country" inlineLabel="left"
 						value="<%=country%>">
 					</aui:input>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span10">
-					<aui:input name="home_telephone" label="Home Telephone"
+					<aui:input name="home_telephone" label="01_home-tele"
 						inlineLabel="left" value="<%=homeTel%>"></aui:input>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span10">
-					<aui:input name="work_telephone" label="Work Telephone"
+					<aui:input name="work_telephone" label="01_work-tele"
 						inlineLabel="left" value="<%=workTel%>"></aui:input>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span10">
-					<aui:input name="mobile" label=" Mobile" inlineLabel="left"
+					<aui:input name="mobile" label="01_mobile" inlineLabel="left"
 						value="<%=mobile%>"></aui:input>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span10">
-					<aui:input name="work_email" label="Work Email" inlineLabel="left"
+					<aui:input name="work_email" label="01_work-mail" inlineLabel="left"
 						value="<%=workEmail%>"></aui:input>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span10">
-					<aui:input name="other_email" label="Other Email"
+					<aui:input name="other_email" label="01_other-mail"
 						inlineLabel="left" value="<%=otherEmail%>"></aui:input>
 				</div>
 			</div>

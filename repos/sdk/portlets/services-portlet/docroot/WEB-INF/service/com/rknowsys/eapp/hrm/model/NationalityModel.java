@@ -75,20 +75,6 @@ public interface NationalityModel extends BaseModel<Nationality> {
 	public void setNationalityId(long nationalityId);
 
 	/**
-	 * Returns the employee ID of this Nationality.
-	 *
-	 * @return the employee ID of this Nationality
-	 */
-	public long getEmployeeId();
-
-	/**
-	 * Sets the employee ID of this Nationality.
-	 *
-	 * @param employeeId the employee ID of this Nationality
-	 */
-	public void setEmployeeId(long employeeId);
-
-	/**
 	 * Returns the group ID of this Nationality.
 	 *
 	 * @return the group ID of this Nationality

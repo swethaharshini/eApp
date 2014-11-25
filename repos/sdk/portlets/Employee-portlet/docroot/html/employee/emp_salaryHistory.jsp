@@ -104,7 +104,6 @@ var basicPay=A.one("#<portlet:namespace />annual_basic_pay");
 	costToCompany=Number(A.one("#<portlet:namespace />annual_basic_pay").get('value'))+
 	         Number(A.one("#<portlet:namespace />car_allowance").get('value'))+
 	         Number(A.one("#<portlet:namespace />living_allowance").get('value'));
-	         alert("cost to company is"+costToCompany);
 	
 	A.one("#<portlet:namespace/>cost_to_company").set("value",costToCompany);
 	A.one("#<portlet:namespace/>tot_deductions").set("value",totalDeductions);
@@ -156,7 +155,6 @@ var basicPay=A.one("#<portlet:namespace />annual_basic_pay");
          {
 		var currencyDropDown=nodeValue;
 		var targetElement = A.one("#<portlet:namespace />emp_paygrade_currency");
-		alert("selected value is"+currencyDropDown);
 		var url = '<%=dependencyDropdown%>';
          A.io.request(url,
         	 {
@@ -171,10 +169,8 @@ var basicPay=A.one("#<portlet:namespace />annual_basic_pay");
 		          for (var j=0; j < currencyArray.length; j++) {
 		          targetElement.append("<option value='" + currencyArray[j] + "'>" + currencyArray[j] + "</option>");
 		                    }
-                         alert('submitted successfully');
                            },
                       failure: function() {
-                         alert("cannot submit");
                           }
                }
              });
@@ -187,12 +183,12 @@ var basicPay=A.one("#<portlet:namespace />annual_basic_pay");
 	<aui:input name="SalFileId" value="<%=fileEntryId%>" type="hidden"></aui:input>
 	<div id="salaryComponents" class="panel">
 		<div class="panel-heading">
-			<h3>Salary-Payment Details</h3>
+			<h3><liferay-ui:message key="01_salary-payment-details" /></h3>
 		</div>
 		<div class="panel-body">
 			<div class="row-fluid">
 				<div class="span10">
-					<aui:select name="emp_paygrade" label="Pay Grade"
+					<aui:select name="emp_paygrade" label="01_pay-grade"
 						onChange="javascript:dropdowns(this.value);">
 						<%
 							List<PayGrade> payGrades = PayGradeLocalServiceUtil
@@ -212,20 +208,20 @@ var basicPay=A.one("#<portlet:namespace />annual_basic_pay");
 			</div>
 			<div class="row-fluid">
 				<div class="span10">
-					<aui:select name="emp_paygrade_currency" label="Paygrade Currency">
+					<aui:select name="emp_paygrade_currency" label="01_paygrade-currency">
 					</aui:select>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span10">
-					<aui:input name="sal_comments" label="comments" type="textarea"></aui:input>
+					<aui:input name="sal_comments" label="01_comments" type="textarea"></aui:input>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div id="empEarnings" class="panel">
 		<div class="panel-heading">
-			<h3>All Earnings</h3>
+			<h3><liferay-ui:message key="01_all-earnings"/></h3>
 		</div>
 		<div class="panel-body">
 			<div class="row-fluid" id="employeeAnnualPay">
@@ -233,10 +229,10 @@ var basicPay=A.one("#<portlet:namespace />annual_basic_pay");
 					<aui:input name="check_annual_pay" type="checkbox" label=""></aui:input>
 				</div>
 				<div class="span6">
-					<aui:input name="annual_basic_pay" label="Annual Basic Payment"></aui:input>
+					<aui:input name="annual_basic_pay" label="01_annual-basic-payment"></aui:input>
 				</div>
 				<div class="span5">
-					<aui:input name="basic_pay_date" label="Effective Date"
+					<aui:input name="basic_pay_date" label="01_effective-date"
 						cssClass="dateEmployee"></aui:input>
 				</div>
 			</div>
@@ -245,10 +241,10 @@ var basicPay=A.one("#<portlet:namespace />annual_basic_pay");
 					<aui:input name="check_car_alwnce" type="checkbox" label=""></aui:input>
 				</div>
 				<div class="span6">
-					<aui:input name="car_allowance" label="Car Allowance"></aui:input>
+					<aui:input name="car_allowance" label="01_car-allowance"></aui:input>
 				</div>
 				<div class="span5">
-					<aui:input name="car_pay_date" label="Effective Date"
+					<aui:input name="car_pay_date" label="01_effective-date"
 						cssClass="dateEmployee"></aui:input>
 				</div>
 			</div>
@@ -257,10 +253,10 @@ var basicPay=A.one("#<portlet:namespace />annual_basic_pay");
 					<aui:input name="check_living_alwnce" label="" type="checkbox"></aui:input>
 				</div>
 				<div class="span6">
-					<aui:input name="living_allowance" label="Cost of Living Allowance"></aui:input>
+					<aui:input name="living_allowance" label="01_cost-of-living-allowance"></aui:input>
 				</div>
 				<div class="span5">
-					<aui:input name="cost_living_date" label="Effective Date"
+					<aui:input name="cost_living_date" label="01_effective-date"
 						cssClass="dateEmployee"></aui:input>
 				</div>
 			</div>
@@ -276,10 +272,10 @@ var basicPay=A.one("#<portlet:namespace />annual_basic_pay");
 					<aui:input name="check_pension_fund" label="" type="checkbox"></aui:input>
 				</div>
 				<div class="span6">
-					<aui:input name="pension_fund" label="Pension Fund"></aui:input>
+					<aui:input name="pension_fund" label="01_pension-fund"></aui:input>
 				</div>
 				<div class="span5">
-					<aui:input name="pension_date" label="Effective Date"
+					<aui:input name="pension_date" label="01_effective-date"
 						cssClass="dateEmployee"></aui:input>
 				</div>
 			</div>
@@ -288,10 +284,10 @@ var basicPay=A.one("#<portlet:namespace />annual_basic_pay");
 					<aui:input name="check_epf_percentage" label="" type="checkbox"></aui:input>
 				</div>
 				<div class="span6">
-					<aui:input name="epf_percentage" label="EPF (Percentage)"></aui:input>
+					<aui:input name="epf_percentage" label="01_epf"></aui:input>
 				</div>
 				<div class="span5">
-					<aui:input name="epf_date" label="Effective Date"
+					<aui:input name="epf_date" label="01_effective-date"
 						cssClass="dateEmployee"></aui:input>
 				</div>
 			</div>
@@ -299,19 +295,19 @@ var basicPay=A.one("#<portlet:namespace />annual_basic_pay");
 	</div>
 	<div id="empSalSummary" class="panel">
 		<div class="panel-heading">
-			<h3>Salary Summary</h3>
+			<h3><liferay-ui:message key="01_salary-summary" /></h3>
 		</div>
 		<div class="panel-body">
 			<div class="row-fluid">
 				<div class="span6">
-					<label>Total Deductions :</label>
+					<label><liferay-ui:message key="01_total-deductions" /></label>
 				</div>
 				<div class="span6">
 				<aui:input name="tot_deductions" label="" disabled="true"></aui:input></div>
 			</div>
 			<div class="row-fluid">
 				<div class="span6">
-					<label>Total Payable :</label>
+					<label><liferay-ui:message key="01_total-payable" /></label>
 				</div>
 				<div class="span6">
 				<aui:input name="tot_payable" label="" disabled="true"></aui:input>
@@ -319,7 +315,7 @@ var basicPay=A.one("#<portlet:namespace />annual_basic_pay");
 			</div>
 			<div class="row-fluid">
 				<div class="span6">
-					<label> Cost to the Company :</label>
+					<label><liferay-ui:message key="01_cost-to-company" /></label>
 				</div>
 				<div class="span6">
 				<aui:input name="cost_to_company" label="" disabled="true"></aui:input>

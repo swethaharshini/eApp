@@ -50,23 +50,14 @@ public class EmployeeWrapper implements Employee, ModelWrapper<Employee> {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("employeeId", getEmployeeId());
-		attributes.put("contactDetailsId", getContactDetailsId());
-		attributes.put("jobId", getJobId());
-		attributes.put("shiftId", getShiftId());
-		attributes.put("licenseId", getLicenseId());
+		attributes.put("locationId", getLocationId());
+		attributes.put("assignedUserId", getAssignedUserId());
+		attributes.put("imageId", getImageId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("firstName", getFirstName());
-		attributes.put("lastName", getLastName());
-		attributes.put("middleName", getMiddleName());
-		attributes.put("gender", getGender());
-		attributes.put("maritalStatus", getMaritalStatus());
-		attributes.put("nationalityId", getNationalityId());
-		attributes.put("dateOfBirth", getDateOfBirth());
-		attributes.put("otherId", getOtherId());
 
 		return attributes;
 	}
@@ -79,28 +70,22 @@ public class EmployeeWrapper implements Employee, ModelWrapper<Employee> {
 			setEmployeeId(employeeId);
 		}
 
-		Long contactDetailsId = (Long)attributes.get("contactDetailsId");
+		Long locationId = (Long)attributes.get("locationId");
 
-		if (contactDetailsId != null) {
-			setContactDetailsId(contactDetailsId);
+		if (locationId != null) {
+			setLocationId(locationId);
 		}
 
-		Long jobId = (Long)attributes.get("jobId");
+		Long assignedUserId = (Long)attributes.get("assignedUserId");
 
-		if (jobId != null) {
-			setJobId(jobId);
+		if (assignedUserId != null) {
+			setAssignedUserId(assignedUserId);
 		}
 
-		Long shiftId = (Long)attributes.get("shiftId");
+		Long imageId = (Long)attributes.get("imageId");
 
-		if (shiftId != null) {
-			setShiftId(shiftId);
-		}
-
-		Long licenseId = (Long)attributes.get("licenseId");
-
-		if (licenseId != null) {
-			setLicenseId(licenseId);
+		if (imageId != null) {
+			setImageId(imageId);
 		}
 
 		Long groupId = (Long)attributes.get("groupId");
@@ -131,54 +116,6 @@ public class EmployeeWrapper implements Employee, ModelWrapper<Employee> {
 
 		if (modifiedDate != null) {
 			setModifiedDate(modifiedDate);
-		}
-
-		String firstName = (String)attributes.get("firstName");
-
-		if (firstName != null) {
-			setFirstName(firstName);
-		}
-
-		String lastName = (String)attributes.get("lastName");
-
-		if (lastName != null) {
-			setLastName(lastName);
-		}
-
-		String middleName = (String)attributes.get("middleName");
-
-		if (middleName != null) {
-			setMiddleName(middleName);
-		}
-
-		Integer gender = (Integer)attributes.get("gender");
-
-		if (gender != null) {
-			setGender(gender);
-		}
-
-		Integer maritalStatus = (Integer)attributes.get("maritalStatus");
-
-		if (maritalStatus != null) {
-			setMaritalStatus(maritalStatus);
-		}
-
-		Long nationalityId = (Long)attributes.get("nationalityId");
-
-		if (nationalityId != null) {
-			setNationalityId(nationalityId);
-		}
-
-		Date dateOfBirth = (Date)attributes.get("dateOfBirth");
-
-		if (dateOfBirth != null) {
-			setDateOfBirth(dateOfBirth);
-		}
-
-		String otherId = (String)attributes.get("otherId");
-
-		if (otherId != null) {
-			setOtherId(otherId);
 		}
 	}
 
@@ -223,83 +160,85 @@ public class EmployeeWrapper implements Employee, ModelWrapper<Employee> {
 	}
 
 	/**
-	* Returns the contact details ID of this Employee.
+	* Returns the location ID of this Employee.
 	*
-	* @return the contact details ID of this Employee
+	* @return the location ID of this Employee
 	*/
 	@Override
-	public long getContactDetailsId() {
-		return _employee.getContactDetailsId();
+	public long getLocationId() {
+		return _employee.getLocationId();
 	}
 
 	/**
-	* Sets the contact details ID of this Employee.
+	* Sets the location ID of this Employee.
 	*
-	* @param contactDetailsId the contact details ID of this Employee
+	* @param locationId the location ID of this Employee
 	*/
 	@Override
-	public void setContactDetailsId(long contactDetailsId) {
-		_employee.setContactDetailsId(contactDetailsId);
+	public void setLocationId(long locationId) {
+		_employee.setLocationId(locationId);
 	}
 
 	/**
-	* Returns the job ID of this Employee.
+	* Returns the assigned user ID of this Employee.
 	*
-	* @return the job ID of this Employee
+	* @return the assigned user ID of this Employee
 	*/
 	@Override
-	public long getJobId() {
-		return _employee.getJobId();
+	public long getAssignedUserId() {
+		return _employee.getAssignedUserId();
 	}
 
 	/**
-	* Sets the job ID of this Employee.
+	* Sets the assigned user ID of this Employee.
 	*
-	* @param jobId the job ID of this Employee
+	* @param assignedUserId the assigned user ID of this Employee
 	*/
 	@Override
-	public void setJobId(long jobId) {
-		_employee.setJobId(jobId);
+	public void setAssignedUserId(long assignedUserId) {
+		_employee.setAssignedUserId(assignedUserId);
 	}
 
 	/**
-	* Returns the shift ID of this Employee.
+	* Returns the assigned user uuid of this Employee.
 	*
-	* @return the shift ID of this Employee
+	* @return the assigned user uuid of this Employee
+	* @throws SystemException if a system exception occurred
 	*/
 	@Override
-	public long getShiftId() {
-		return _employee.getShiftId();
+	public java.lang.String getAssignedUserUuid()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _employee.getAssignedUserUuid();
 	}
 
 	/**
-	* Sets the shift ID of this Employee.
+	* Sets the assigned user uuid of this Employee.
 	*
-	* @param shiftId the shift ID of this Employee
+	* @param assignedUserUuid the assigned user uuid of this Employee
 	*/
 	@Override
-	public void setShiftId(long shiftId) {
-		_employee.setShiftId(shiftId);
+	public void setAssignedUserUuid(java.lang.String assignedUserUuid) {
+		_employee.setAssignedUserUuid(assignedUserUuid);
 	}
 
 	/**
-	* Returns the license ID of this Employee.
+	* Returns the image ID of this Employee.
 	*
-	* @return the license ID of this Employee
+	* @return the image ID of this Employee
 	*/
 	@Override
-	public long getLicenseId() {
-		return _employee.getLicenseId();
+	public long getImageId() {
+		return _employee.getImageId();
 	}
 
 	/**
-	* Sets the license ID of this Employee.
+	* Sets the image ID of this Employee.
 	*
-	* @param licenseId the license ID of this Employee
+	* @param imageId the image ID of this Employee
 	*/
 	@Override
-	public void setLicenseId(long licenseId) {
-		_employee.setLicenseId(licenseId);
+	public void setImageId(long imageId) {
+		_employee.setImageId(imageId);
 	}
 
 	/**
@@ -424,166 +363,6 @@ public class EmployeeWrapper implements Employee, ModelWrapper<Employee> {
 		_employee.setModifiedDate(modifiedDate);
 	}
 
-	/**
-	* Returns the first name of this Employee.
-	*
-	* @return the first name of this Employee
-	*/
-	@Override
-	public java.lang.String getFirstName() {
-		return _employee.getFirstName();
-	}
-
-	/**
-	* Sets the first name of this Employee.
-	*
-	* @param firstName the first name of this Employee
-	*/
-	@Override
-	public void setFirstName(java.lang.String firstName) {
-		_employee.setFirstName(firstName);
-	}
-
-	/**
-	* Returns the last name of this Employee.
-	*
-	* @return the last name of this Employee
-	*/
-	@Override
-	public java.lang.String getLastName() {
-		return _employee.getLastName();
-	}
-
-	/**
-	* Sets the last name of this Employee.
-	*
-	* @param lastName the last name of this Employee
-	*/
-	@Override
-	public void setLastName(java.lang.String lastName) {
-		_employee.setLastName(lastName);
-	}
-
-	/**
-	* Returns the middle name of this Employee.
-	*
-	* @return the middle name of this Employee
-	*/
-	@Override
-	public java.lang.String getMiddleName() {
-		return _employee.getMiddleName();
-	}
-
-	/**
-	* Sets the middle name of this Employee.
-	*
-	* @param middleName the middle name of this Employee
-	*/
-	@Override
-	public void setMiddleName(java.lang.String middleName) {
-		_employee.setMiddleName(middleName);
-	}
-
-	/**
-	* Returns the gender of this Employee.
-	*
-	* @return the gender of this Employee
-	*/
-	@Override
-	public int getGender() {
-		return _employee.getGender();
-	}
-
-	/**
-	* Sets the gender of this Employee.
-	*
-	* @param gender the gender of this Employee
-	*/
-	@Override
-	public void setGender(int gender) {
-		_employee.setGender(gender);
-	}
-
-	/**
-	* Returns the marital status of this Employee.
-	*
-	* @return the marital status of this Employee
-	*/
-	@Override
-	public int getMaritalStatus() {
-		return _employee.getMaritalStatus();
-	}
-
-	/**
-	* Sets the marital status of this Employee.
-	*
-	* @param maritalStatus the marital status of this Employee
-	*/
-	@Override
-	public void setMaritalStatus(int maritalStatus) {
-		_employee.setMaritalStatus(maritalStatus);
-	}
-
-	/**
-	* Returns the nationality ID of this Employee.
-	*
-	* @return the nationality ID of this Employee
-	*/
-	@Override
-	public long getNationalityId() {
-		return _employee.getNationalityId();
-	}
-
-	/**
-	* Sets the nationality ID of this Employee.
-	*
-	* @param nationalityId the nationality ID of this Employee
-	*/
-	@Override
-	public void setNationalityId(long nationalityId) {
-		_employee.setNationalityId(nationalityId);
-	}
-
-	/**
-	* Returns the date of birth of this Employee.
-	*
-	* @return the date of birth of this Employee
-	*/
-	@Override
-	public java.util.Date getDateOfBirth() {
-		return _employee.getDateOfBirth();
-	}
-
-	/**
-	* Sets the date of birth of this Employee.
-	*
-	* @param dateOfBirth the date of birth of this Employee
-	*/
-	@Override
-	public void setDateOfBirth(java.util.Date dateOfBirth) {
-		_employee.setDateOfBirth(dateOfBirth);
-	}
-
-	/**
-	* Returns the other ID of this Employee.
-	*
-	* @return the other ID of this Employee
-	*/
-	@Override
-	public java.lang.String getOtherId() {
-		return _employee.getOtherId();
-	}
-
-	/**
-	* Sets the other ID of this Employee.
-	*
-	* @param otherId the other ID of this Employee
-	*/
-	@Override
-	public void setOtherId(java.lang.String otherId) {
-		_employee.setOtherId(otherId);
-	}
-
 	@Override
 	public boolean isNew() {
 		return _employee.isNew();
@@ -686,90 +465,6 @@ public class EmployeeWrapper implements Employee, ModelWrapper<Employee> {
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_employee.persist();
-	}
-
-	@Override
-	public com.rknowsys.eapp.hrm.model.ContactDetails getContactDetails()
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _employee.getContactDetails();
-	}
-
-	@Override
-	public com.rknowsys.eapp.hrm.model.License getLicense()
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _employee.getLicense();
-	}
-
-	@Override
-	public com.rknowsys.eapp.hrm.model.Job getJob()
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _employee.getJob();
-	}
-
-	@Override
-	public java.util.List<com.rknowsys.eapp.hrm.model.Attachment> getAttachments()
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _employee.getAttachments();
-	}
-
-	@Override
-	public java.util.List<com.rknowsys.eapp.hrm.model.Dependent> getDependents()
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _employee.getDependents();
-	}
-
-	@Override
-	public java.util.List<com.rknowsys.eapp.hrm.model.SalaryComponent> getSalaryComponents()
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _employee.getSalaryComponents();
-	}
-
-	@Override
-	public java.util.List<com.rknowsys.eapp.hrm.model.EmergencyContact> getEmergencyContacts()
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _employee.getEmergencyContacts();
-	}
-
-	@Override
-	public java.util.List<com.rknowsys.eapp.hrm.model.ImmigrationDocument> getImmigrationDocuments()
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _employee.getImmigrationDocuments();
-	}
-
-	@Override
-	public java.util.List<com.rknowsys.eapp.hrm.model.Education> getEducations()
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _employee.getEducations();
-	}
-
-	@Override
-	public java.util.List<com.rknowsys.eapp.hrm.model.Language> getLanguages()
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _employee.getLanguages();
-	}
-
-	@Override
-	public java.util.List<com.rknowsys.eapp.hrm.model.Skill> getSkills()
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _employee.getSkills();
-	}
-
-	@Override
-	public java.util.List<com.rknowsys.eapp.hrm.model.Membership> getMemberships()
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _employee.getMemberships();
 	}
 
 	@Override

@@ -95,4 +95,6 @@
 <%@page import="com.rknowsys.eapp.hrm.model.EmpSkill"%>
 <%@page import="com.rknowsys.eapp.hrm.model.EmpEducation"%>
 <%@page import="com.rknowsys.eapp.hrm.model.EmpWorkExp"%>
+<%@page import="com.rknowsys.eapp.hrm.service.EducationLocalServiceUtil"%>
+<%@page import="com.rknowsys.eapp.hrm.model.Education"%>
 <portlet:defineObjects />

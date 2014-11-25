@@ -1,136 +1,265 @@
 <?xml version="1.0"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
-	<bean id="com.rknowsys.eapp.hrm.service.AttachmentLocalService" class="com.rknowsys.eapp.hrm.service.impl.AttachmentLocalServiceImpl" />
-	<bean id="com.rknowsys.eapp.hrm.service.persistence.AttachmentPersistence" class="com.rknowsys.eapp.hrm.service.persistence.AttachmentPersistenceImpl" parent="basePersistence">
-		<property name="dataSource" ref="anotherDataSource" />
-		<property name="sessionFactory" ref="anotherSessionFactory" />
-	</bean>
-	<bean id="com.rknowsys.eapp.hrm.service.ContactDetailsLocalService" class="com.rknowsys.eapp.hrm.service.impl.ContactDetailsLocalServiceImpl" />
-	<bean id="com.rknowsys.eapp.hrm.service.persistence.ContactDetailsPersistence" class="com.rknowsys.eapp.hrm.service.persistence.ContactDetailsPersistenceImpl" parent="basePersistence">
-		<property name="dataSource" ref="anotherDataSource" />
-		<property name="sessionFactory" ref="anotherSessionFactory" />
-	</bean>
-	<bean id="com.rknowsys.eapp.hrm.service.DependentLocalService" class="com.rknowsys.eapp.hrm.service.impl.DependentLocalServiceImpl" />
-	<bean id="com.rknowsys.eapp.hrm.service.persistence.DependentPersistence" class="com.rknowsys.eapp.hrm.service.persistence.DependentPersistenceImpl" parent="basePersistence">
-		<property name="dataSource" ref="anotherDataSource" />
-		<property name="sessionFactory" ref="anotherSessionFactory" />
-	</bean>
 	<bean id="com.rknowsys.eapp.hrm.service.DocCategoryLocalService" class="com.rknowsys.eapp.hrm.service.impl.DocCategoryLocalServiceImpl" />
 	<bean id="com.rknowsys.eapp.hrm.service.persistence.DocCategoryPersistence" class="com.rknowsys.eapp.hrm.service.persistence.DocCategoryPersistenceImpl" parent="basePersistence">
-		<property name="dataSource" ref="anotherDataSource" />
-		<property name="sessionFactory" ref="anotherSessionFactory" />
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>
 	<bean id="com.rknowsys.eapp.hrm.service.EducationLocalService" class="com.rknowsys.eapp.hrm.service.impl.EducationLocalServiceImpl" />
 	<bean id="com.rknowsys.eapp.hrm.service.persistence.EducationPersistence" class="com.rknowsys.eapp.hrm.service.persistence.EducationPersistenceImpl" parent="basePersistence">
-		<property name="dataSource" ref="anotherDataSource" />
-		<property name="sessionFactory" ref="anotherSessionFactory" />
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>
-	<bean id="com.rknowsys.eapp.hrm.service.EmergencyContactLocalService" class="com.rknowsys.eapp.hrm.service.impl.EmergencyContactLocalServiceImpl" />
-	<bean id="com.rknowsys.eapp.hrm.service.persistence.EmergencyContactPersistence" class="com.rknowsys.eapp.hrm.service.persistence.EmergencyContactPersistenceImpl" parent="basePersistence">
-		<property name="dataSource" ref="anotherDataSource" />
-		<property name="sessionFactory" ref="anotherSessionFactory" />
+	<bean id="com.rknowsys.eapp.hrm.service.EmpAttachmentLocalService" class="com.rknowsys.eapp.hrm.service.impl.EmpAttachmentLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.EmpAttachmentPersistence" class="com.rknowsys.eapp.hrm.service.persistence.EmpAttachmentPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.EmpContactDetailsLocalService" class="com.rknowsys.eapp.hrm.service.impl.EmpContactDetailsLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.EmpContactDetailsPersistence" class="com.rknowsys.eapp.hrm.service.persistence.EmpContactDetailsPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.EmpDependentLocalService" class="com.rknowsys.eapp.hrm.service.impl.EmpDependentLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.EmpDependentPersistence" class="com.rknowsys.eapp.hrm.service.persistence.EmpDependentPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.EmpDetailsLocalService" class="com.rknowsys.eapp.hrm.service.impl.EmpDetailsLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.EmpDetailsPersistence" class="com.rknowsys.eapp.hrm.service.persistence.EmpDetailsPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.EmpDetailsFinder" class="com.rknowsys.eapp.hrm.service.persistence.EmpDetailsFinderImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.EmpDirectDepositLocalService" class="com.rknowsys.eapp.hrm.service.impl.EmpDirectDepositLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.EmpDirectDepositPersistence" class="com.rknowsys.eapp.hrm.service.persistence.EmpDirectDepositPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.EmpEducationLocalService" class="com.rknowsys.eapp.hrm.service.impl.EmpEducationLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.EmpEducationPersistence" class="com.rknowsys.eapp.hrm.service.persistence.EmpEducationPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.EmpEmergencyContactLocalService" class="com.rknowsys.eapp.hrm.service.impl.EmpEmergencyContactLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.EmpEmergencyContactPersistence" class="com.rknowsys.eapp.hrm.service.persistence.EmpEmergencyContactPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.EmpImmigrationDocumentLocalService" class="com.rknowsys.eapp.hrm.service.impl.EmpImmigrationDocumentLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.EmpImmigrationDocumentPersistence" class="com.rknowsys.eapp.hrm.service.persistence.EmpImmigrationDocumentPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.EmpJobLocalService" class="com.rknowsys.eapp.hrm.service.impl.EmpJobLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.EmpJobPersistence" class="com.rknowsys.eapp.hrm.service.persistence.EmpJobPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.EmpJobFinder" class="com.rknowsys.eapp.hrm.service.persistence.EmpJobFinderImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.EmpLanguageLocalService" class="com.rknowsys.eapp.hrm.service.impl.EmpLanguageLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.EmpLanguagePersistence" class="com.rknowsys.eapp.hrm.service.persistence.EmpLanguagePersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.EmpLicenseLocalService" class="com.rknowsys.eapp.hrm.service.impl.EmpLicenseLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.EmpLicensePersistence" class="com.rknowsys.eapp.hrm.service.persistence.EmpLicensePersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>
 	<bean id="com.rknowsys.eapp.hrm.service.EmployeeLocalService" class="com.rknowsys.eapp.hrm.service.impl.EmployeeLocalServiceImpl" />
 	<bean id="com.rknowsys.eapp.hrm.service.persistence.EmployeePersistence" class="com.rknowsys.eapp.hrm.service.persistence.EmployeePersistenceImpl" parent="basePersistence">
-		<property name="dataSource" ref="anotherDataSource" />
-		<property name="sessionFactory" ref="anotherSessionFactory" />
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>
 	<bean id="com.rknowsys.eapp.hrm.service.EmploymentStatusLocalService" class="com.rknowsys.eapp.hrm.service.impl.EmploymentStatusLocalServiceImpl" />
 	<bean id="com.rknowsys.eapp.hrm.service.persistence.EmploymentStatusPersistence" class="com.rknowsys.eapp.hrm.service.persistence.EmploymentStatusPersistenceImpl" parent="basePersistence">
-		<property name="dataSource" ref="anotherDataSource" />
-		<property name="sessionFactory" ref="anotherSessionFactory" />
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>
-	<bean id="com.rknowsys.eapp.hrm.service.ImmigrationDocumentLocalService" class="com.rknowsys.eapp.hrm.service.impl.ImmigrationDocumentLocalServiceImpl" />
-	<bean id="com.rknowsys.eapp.hrm.service.persistence.ImmigrationDocumentPersistence" class="com.rknowsys.eapp.hrm.service.persistence.ImmigrationDocumentPersistenceImpl" parent="basePersistence">
-		<property name="dataSource" ref="anotherDataSource" />
-		<property name="sessionFactory" ref="anotherSessionFactory" />
+	<bean id="com.rknowsys.eapp.hrm.service.EmpMembershipLocalService" class="com.rknowsys.eapp.hrm.service.impl.EmpMembershipLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.EmpMembershipPersistence" class="com.rknowsys.eapp.hrm.service.persistence.EmpMembershipPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.EmpPersonalDetailsLocalService" class="com.rknowsys.eapp.hrm.service.impl.EmpPersonalDetailsLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.EmpPersonalDetailsPersistence" class="com.rknowsys.eapp.hrm.service.persistence.EmpPersonalDetailsPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.EmpPersonalDetailsFinder" class="com.rknowsys.eapp.hrm.service.persistence.EmpPersonalDetailsFinderImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.EmpSalaryLocalService" class="com.rknowsys.eapp.hrm.service.impl.EmpSalaryLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.EmpSalaryPersistence" class="com.rknowsys.eapp.hrm.service.persistence.EmpSalaryPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.EmpSalaryComponentLocalService" class="com.rknowsys.eapp.hrm.service.impl.EmpSalaryComponentLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.EmpSalaryComponentPersistence" class="com.rknowsys.eapp.hrm.service.persistence.EmpSalaryComponentPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.EmpSkillLocalService" class="com.rknowsys.eapp.hrm.service.impl.EmpSkillLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.EmpSkillPersistence" class="com.rknowsys.eapp.hrm.service.persistence.EmpSkillPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.EmpSubordinateLocalService" class="com.rknowsys.eapp.hrm.service.impl.EmpSubordinateLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.EmpSubordinatePersistence" class="com.rknowsys.eapp.hrm.service.persistence.EmpSubordinatePersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.EmpSupervisorLocalService" class="com.rknowsys.eapp.hrm.service.impl.EmpSupervisorLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.EmpSupervisorPersistence" class="com.rknowsys.eapp.hrm.service.persistence.EmpSupervisorPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.EmpWorkExpLocalService" class="com.rknowsys.eapp.hrm.service.impl.EmpWorkExpLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.EmpWorkExpPersistence" class="com.rknowsys.eapp.hrm.service.persistence.EmpWorkExpPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.HolidayLocalService" class="com.rknowsys.eapp.hrm.service.impl.HolidayLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.HolidayPersistence" class="com.rknowsys.eapp.hrm.service.persistence.HolidayPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.HolidayFinder" class="com.rknowsys.eapp.hrm.service.persistence.HolidayFinderImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>
 	<bean id="com.rknowsys.eapp.hrm.service.InterviewLocalService" class="com.rknowsys.eapp.hrm.service.impl.InterviewLocalServiceImpl" />
 	<bean id="com.rknowsys.eapp.hrm.service.persistence.InterviewPersistence" class="com.rknowsys.eapp.hrm.service.persistence.InterviewPersistenceImpl" parent="basePersistence">
-		<property name="dataSource" ref="anotherDataSource" />
-		<property name="sessionFactory" ref="anotherSessionFactory" />
-	</bean>
-	<bean id="com.rknowsys.eapp.hrm.service.JobLocalService" class="com.rknowsys.eapp.hrm.service.impl.JobLocalServiceImpl" />
-	<bean id="com.rknowsys.eapp.hrm.service.persistence.JobPersistence" class="com.rknowsys.eapp.hrm.service.persistence.JobPersistenceImpl" parent="basePersistence">
-		<property name="dataSource" ref="anotherDataSource" />
-		<property name="sessionFactory" ref="anotherSessionFactory" />
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>
 	<bean id="com.rknowsys.eapp.hrm.service.JobCategoryLocalService" class="com.rknowsys.eapp.hrm.service.impl.JobCategoryLocalServiceImpl" />
 	<bean id="com.rknowsys.eapp.hrm.service.persistence.JobCategoryPersistence" class="com.rknowsys.eapp.hrm.service.persistence.JobCategoryPersistenceImpl" parent="basePersistence">
-		<property name="dataSource" ref="anotherDataSource" />
-		<property name="sessionFactory" ref="anotherSessionFactory" />
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>
 	<bean id="com.rknowsys.eapp.hrm.service.JobTitleLocalService" class="com.rknowsys.eapp.hrm.service.impl.JobTitleLocalServiceImpl" />
 	<bean id="com.rknowsys.eapp.hrm.service.persistence.JobTitlePersistence" class="com.rknowsys.eapp.hrm.service.persistence.JobTitlePersistenceImpl" parent="basePersistence">
-		<property name="dataSource" ref="anotherDataSource" />
-		<property name="sessionFactory" ref="anotherSessionFactory" />
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>
 	<bean id="com.rknowsys.eapp.hrm.service.LanguageLocalService" class="com.rknowsys.eapp.hrm.service.impl.LanguageLocalServiceImpl" />
 	<bean id="com.rknowsys.eapp.hrm.service.persistence.LanguagePersistence" class="com.rknowsys.eapp.hrm.service.persistence.LanguagePersistenceImpl" parent="basePersistence">
-		<property name="dataSource" ref="anotherDataSource" />
-		<property name="sessionFactory" ref="anotherSessionFactory" />
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.LeaveCarryForwardPolicyLocalService" class="com.rknowsys.eapp.hrm.service.impl.LeaveCarryForwardPolicyLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.LeaveCarryForwardPolicyPersistence" class="com.rknowsys.eapp.hrm.service.persistence.LeaveCarryForwardPolicyPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.LeavePeriodLocalService" class="com.rknowsys.eapp.hrm.service.impl.LeavePeriodLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.LeavePeriodPersistence" class="com.rknowsys.eapp.hrm.service.persistence.LeavePeriodPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.LeaveRestrictionLocalService" class="com.rknowsys.eapp.hrm.service.impl.LeaveRestrictionLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.LeaveRestrictionPersistence" class="com.rknowsys.eapp.hrm.service.persistence.LeaveRestrictionPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.LeaveRuleLocalService" class="com.rknowsys.eapp.hrm.service.impl.LeaveRuleLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.LeaveRulePersistence" class="com.rknowsys.eapp.hrm.service.persistence.LeaveRulePersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.LeaveTypeLocalService" class="com.rknowsys.eapp.hrm.service.impl.LeaveTypeLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.LeaveTypePersistence" class="com.rknowsys.eapp.hrm.service.persistence.LeaveTypePersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.LeaveTypeApplicabilityLocalService" class="com.rknowsys.eapp.hrm.service.impl.LeaveTypeApplicabilityLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.LeaveTypeApplicabilityPersistence" class="com.rknowsys.eapp.hrm.service.persistence.LeaveTypeApplicabilityPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>
 	<bean id="com.rknowsys.eapp.hrm.service.LicenseLocalService" class="com.rknowsys.eapp.hrm.service.impl.LicenseLocalServiceImpl" />
 	<bean id="com.rknowsys.eapp.hrm.service.persistence.LicensePersistence" class="com.rknowsys.eapp.hrm.service.persistence.LicensePersistenceImpl" parent="basePersistence">
-		<property name="dataSource" ref="anotherDataSource" />
-		<property name="sessionFactory" ref="anotherSessionFactory" />
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>
 	<bean id="com.rknowsys.eapp.hrm.service.LocationLocalService" class="com.rknowsys.eapp.hrm.service.impl.LocationLocalServiceImpl" />
 	<bean id="com.rknowsys.eapp.hrm.service.persistence.LocationPersistence" class="com.rknowsys.eapp.hrm.service.persistence.LocationPersistenceImpl" parent="basePersistence">
-		<property name="dataSource" ref="anotherDataSource" />
-		<property name="sessionFactory" ref="anotherSessionFactory" />
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>
 	<bean id="com.rknowsys.eapp.hrm.service.MembershipLocalService" class="com.rknowsys.eapp.hrm.service.impl.MembershipLocalServiceImpl" />
 	<bean id="com.rknowsys.eapp.hrm.service.persistence.MembershipPersistence" class="com.rknowsys.eapp.hrm.service.persistence.MembershipPersistenceImpl" parent="basePersistence">
-		<property name="dataSource" ref="anotherDataSource" />
-		<property name="sessionFactory" ref="anotherSessionFactory" />
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>
 	<bean id="com.rknowsys.eapp.hrm.service.NationalityLocalService" class="com.rknowsys.eapp.hrm.service.impl.NationalityLocalServiceImpl" />
-	<bean id="com.rknowsys.eapp.hrm.service.persistence.NationalityPersistence" class="com.rknowsys.eapp.hrm.service.persistence.NationalityPersistenceImpl" parent="basePersistence" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.NationalityPersistence" class="com.rknowsys.eapp.hrm.service.persistence.NationalityPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
 	<bean id="com.rknowsys.eapp.hrm.service.NewsLocalService" class="com.rknowsys.eapp.hrm.service.impl.NewsLocalServiceImpl" />
 	<bean id="com.rknowsys.eapp.hrm.service.persistence.NewsPersistence" class="com.rknowsys.eapp.hrm.service.persistence.NewsPersistenceImpl" parent="basePersistence">
-		<property name="dataSource" ref="anotherDataSource" />
-		<property name="sessionFactory" ref="anotherSessionFactory" />
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.OrganizationLocalService" class="com.rknowsys.eapp.hrm.service.impl.OrganizationLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.OrganizationPersistence" class="com.rknowsys.eapp.hrm.service.persistence.OrganizationPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>
 	<bean id="com.rknowsys.eapp.hrm.service.PayGradeLocalService" class="com.rknowsys.eapp.hrm.service.impl.PayGradeLocalServiceImpl" />
 	<bean id="com.rknowsys.eapp.hrm.service.persistence.PayGradePersistence" class="com.rknowsys.eapp.hrm.service.persistence.PayGradePersistenceImpl" parent="basePersistence">
-		<property name="dataSource" ref="anotherDataSource" />
-		<property name="sessionFactory" ref="anotherSessionFactory" />
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>
 	<bean id="com.rknowsys.eapp.hrm.service.PayGradeCurrencyLocalService" class="com.rknowsys.eapp.hrm.service.impl.PayGradeCurrencyLocalServiceImpl" />
 	<bean id="com.rknowsys.eapp.hrm.service.persistence.PayGradeCurrencyPersistence" class="com.rknowsys.eapp.hrm.service.persistence.PayGradeCurrencyPersistenceImpl" parent="basePersistence">
-		<property name="dataSource" ref="anotherDataSource" />
-		<property name="sessionFactory" ref="anotherSessionFactory" />
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.ReportingMethodsLocalService" class="com.rknowsys.eapp.hrm.service.impl.ReportingMethodsLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.ReportingMethodsPersistence" class="com.rknowsys.eapp.hrm.service.persistence.ReportingMethodsPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>
 	<bean id="com.rknowsys.eapp.hrm.service.SalaryComponentLocalService" class="com.rknowsys.eapp.hrm.service.impl.SalaryComponentLocalServiceImpl" />
 	<bean id="com.rknowsys.eapp.hrm.service.persistence.SalaryComponentPersistence" class="com.rknowsys.eapp.hrm.service.persistence.SalaryComponentPersistenceImpl" parent="basePersistence">
-		<property name="dataSource" ref="anotherDataSource" />
-		<property name="sessionFactory" ref="anotherSessionFactory" />
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>
 	<bean id="com.rknowsys.eapp.hrm.service.SkillLocalService" class="com.rknowsys.eapp.hrm.service.impl.SkillLocalServiceImpl" />
 	<bean id="com.rknowsys.eapp.hrm.service.persistence.SkillPersistence" class="com.rknowsys.eapp.hrm.service.persistence.SkillPersistenceImpl" parent="basePersistence">
-		<property name="dataSource" ref="anotherDataSource" />
-		<property name="sessionFactory" ref="anotherSessionFactory" />
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>
 	<bean id="com.rknowsys.eapp.hrm.service.SubUnitLocalService" class="com.rknowsys.eapp.hrm.service.impl.SubUnitLocalServiceImpl" />
 	<bean id="com.rknowsys.eapp.hrm.service.persistence.SubUnitPersistence" class="com.rknowsys.eapp.hrm.service.persistence.SubUnitPersistenceImpl" parent="basePersistence">
-		<property name="dataSource" ref="anotherDataSource" />
-		<property name="sessionFactory" ref="anotherSessionFactory" />
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>
-	<bean id="com.rknowsys.eapp.hrm.service.SupervisorLocalService" class="com.rknowsys.eapp.hrm.service.impl.SupervisorLocalServiceImpl" />
-	<bean id="com.rknowsys.eapp.hrm.service.persistence.SupervisorPersistence" class="com.rknowsys.eapp.hrm.service.persistence.SupervisorPersistenceImpl" parent="basePersistence">
-		<property name="dataSource" ref="anotherDataSource" />
-		<property name="sessionFactory" ref="anotherSessionFactory" />
-	</bean>
-	<bean id="com.rknowsys.eapp.hrm.service.WorkExpCompanyLocalService" class="com.rknowsys.eapp.hrm.service.impl.WorkExpCompanyLocalServiceImpl" />
-	<bean id="com.rknowsys.eapp.hrm.service.persistence.WorkExpCompanyPersistence" class="com.rknowsys.eapp.hrm.service.persistence.WorkExpCompanyPersistenceImpl" parent="basePersistence">
-		<property name="dataSource" ref="anotherDataSource" />
-		<property name="sessionFactory" ref="anotherSessionFactory" />
+	<bean id="com.rknowsys.eapp.hrm.service.TerminationReasonsLocalService" class="com.rknowsys.eapp.hrm.service.impl.TerminationReasonsLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.TerminationReasonsPersistence" class="com.rknowsys.eapp.hrm.service.persistence.TerminationReasonsPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>
 	<bean id="com.rknowsys.eapp.hrm.service.WorkshiftLocalService" class="com.rknowsys.eapp.hrm.service.impl.WorkshiftLocalServiceImpl" />
 	<bean id="com.rknowsys.eapp.hrm.service.persistence.WorkshiftPersistence" class="com.rknowsys.eapp.hrm.service.persistence.WorkshiftPersistenceImpl" parent="basePersistence">
-		<property name="dataSource" ref="anotherDataSource" />
-		<property name="sessionFactory" ref="anotherSessionFactory" />
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.WorkWeekLocalService" class="com.rknowsys.eapp.hrm.service.impl.WorkWeekLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.WorkWeekPersistence" class="com.rknowsys.eapp.hrm.service.persistence.WorkWeekPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>
 </beans>

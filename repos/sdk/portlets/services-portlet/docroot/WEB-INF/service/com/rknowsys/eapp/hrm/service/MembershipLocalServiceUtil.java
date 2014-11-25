@@ -275,13 +275,6 @@ public class MembershipLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
-	public static java.util.List<com.rknowsys.eapp.hrm.model.Membership> getEmployeeMemberships(
-		long employeeId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return getService().getEmployeeMemberships(employeeId);
-	}
-
 	public static void clearService() {
 		_service = null;
 	}

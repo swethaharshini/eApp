@@ -255,6 +255,160 @@ public class WorkshiftLocalServiceWrapper implements WorkshiftLocalService,
 	}
 
 	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public void addEmployeeWorkshift(long employeeId, long shiftId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_workshiftLocalService.addEmployeeWorkshift(employeeId, shiftId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public void addEmployeeWorkshift(long employeeId,
+		com.rknowsys.eapp.hrm.model.Workshift workshift)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_workshiftLocalService.addEmployeeWorkshift(employeeId, workshift);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public void addEmployeeWorkshifts(long employeeId, long[] shiftIds)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_workshiftLocalService.addEmployeeWorkshifts(employeeId, shiftIds);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public void addEmployeeWorkshifts(long employeeId,
+		java.util.List<com.rknowsys.eapp.hrm.model.Workshift> Workshifts)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_workshiftLocalService.addEmployeeWorkshifts(employeeId, Workshifts);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public void clearEmployeeWorkshifts(long employeeId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_workshiftLocalService.clearEmployeeWorkshifts(employeeId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public void deleteEmployeeWorkshift(long employeeId, long shiftId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_workshiftLocalService.deleteEmployeeWorkshift(employeeId, shiftId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public void deleteEmployeeWorkshift(long employeeId,
+		com.rknowsys.eapp.hrm.model.Workshift workshift)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_workshiftLocalService.deleteEmployeeWorkshift(employeeId, workshift);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public void deleteEmployeeWorkshifts(long employeeId, long[] shiftIds)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_workshiftLocalService.deleteEmployeeWorkshifts(employeeId, shiftIds);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public void deleteEmployeeWorkshifts(long employeeId,
+		java.util.List<com.rknowsys.eapp.hrm.model.Workshift> Workshifts)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_workshiftLocalService.deleteEmployeeWorkshifts(employeeId, Workshifts);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public java.util.List<com.rknowsys.eapp.hrm.model.Workshift> getEmployeeWorkshifts(
+		long employeeId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _workshiftLocalService.getEmployeeWorkshifts(employeeId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public java.util.List<com.rknowsys.eapp.hrm.model.Workshift> getEmployeeWorkshifts(
+		long employeeId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _workshiftLocalService.getEmployeeWorkshifts(employeeId, start,
+			end);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public java.util.List<com.rknowsys.eapp.hrm.model.Workshift> getEmployeeWorkshifts(
+		long employeeId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _workshiftLocalService.getEmployeeWorkshifts(employeeId, start,
+			end, orderByComparator);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public int getEmployeeWorkshiftsCount(long employeeId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _workshiftLocalService.getEmployeeWorkshiftsCount(employeeId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public boolean hasEmployeeWorkshift(long employeeId, long shiftId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _workshiftLocalService.hasEmployeeWorkshift(employeeId, shiftId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public boolean hasEmployeeWorkshifts(long employeeId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _workshiftLocalService.hasEmployeeWorkshifts(employeeId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public void setEmployeeWorkshifts(long employeeId, long[] shiftIds)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_workshiftLocalService.setEmployeeWorkshifts(employeeId, shiftIds);
+	}
+
+	/**
 	* Returns the Spring bean ID for this bean.
 	*
 	* @return the Spring bean ID for this bean

@@ -361,25 +361,6 @@ public class WorkshiftClp extends BaseModelImpl<Workshift> implements Workshift 
 		}
 	}
 
-	@Override
-	public java.util.List<com.rknowsys.eapp.hrm.model.Employee> getEmployees() {
-		try {
-			String methodName = "getEmployees";
-
-			Class<?>[] parameterTypes = new Class<?>[] {  };
-
-			Object[] parameterValues = new Object[] {  };
-
-			java.util.List<com.rknowsys.eapp.hrm.model.Employee> returnObj = (java.util.List<com.rknowsys.eapp.hrm.model.Employee>)invokeOnRemoteModel(methodName,
-					parameterTypes, parameterValues);
-
-			return returnObj;
-		}
-		catch (Exception e) {
-			throw new UnsupportedOperationException(e);
-		}
-	}
-
 	public BaseModel<?> getWorkshiftRemoteModel() {
 		return _workshiftRemoteModel;
 	}

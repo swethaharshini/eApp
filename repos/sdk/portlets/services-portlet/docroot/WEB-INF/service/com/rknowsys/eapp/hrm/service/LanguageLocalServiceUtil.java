@@ -275,13 +275,6 @@ public class LanguageLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
-	public static java.util.List<com.rknowsys.eapp.hrm.model.Language> getEmployeeLanguages(
-		long employeeId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return getService().getEmployeeLanguages(employeeId);
-	}
-
 	public static void clearService() {
 		_service = null;
 	}

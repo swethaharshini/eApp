@@ -6,14 +6,7 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/license/add.jsp" />
 </portlet:renderURL>
-<style type="text/css">
-.table-first-header {
-	width: 10%;
-}
-.table-last-header {
-	width: 15%;
-}
-</style>
+
 <aui:script>
 AUI().use(
   'aui-node',
@@ -102,30 +95,31 @@ AUI().use(
 </head>
 
 <body>
-	<div id="licenseAddDelete" class="span12">
-		<a href="#" id="add">Add</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="delete">Delete</a>
-
+	<div class="row-fluid">
+	<div id="licenseAddDelete" class="span12 text-right">
+		<a href="#" id="add" class="btn btn-success"><i class="icon-plus"></i></a>
+		<a href="#" id="delete" class="btn btn-danger"><i class="icon-trash"></i></a>
 	</div>
 	<div  id="addLicenseForm">
 	<aui:form name="myForm" action="<%=saveLicenses.toString()%>" >
 		<aui:input name="licenseId" type="hidden" id="licenseId" />
-	
-		<div class="span12">
-			<div class="span2">
+		<div class="row-fluid">
+			<div class="span2 text-right">
 				<label>Name</label>
-		</div>
-		<div class="span3">		
-		 <input name="<portlet:namespace/>license_name" type="text" required = "required">
+			</div>
+			<div class="span6">		
+			 	<input name="<portlet:namespace/>license_name" type="text" required = "required">
 			</div>
 		</div>
-		<aui:button type="submit" value="Submit" />
-		<aui:button  type="reset" value="Cancel" id ="cancel"/>
-		
+		<div class="row-fluid">
+			<div class="span6 offset2">
+				<aui:button type="submit" value="Submit" />
+				<aui:button  type="reset" value="Cancel" id ="cancel"/>
+			</div>
+		</div>
 	</aui:form>
 	</div>
-	
-	 <div><label style="color: white" >.</label></div>
-	
+	</div>
 </body>
 
 <%

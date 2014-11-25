@@ -3,29 +3,27 @@
 	name="updateEmpPersonalDetails" />
 <aui:script use="aui-base,aui-node,aui-io-request-deprecated">
 var A=new AUI();
-A.ready(function()
-{
-A.one('#<portlet:namespace />savePersonalDetails').hide();
-});
 	var node=A.one('#<portlet:namespace />editPersonalDetails');
 	node.on('click',function()
 	{
 	A.one('#<portlet:namespace />editPersonalDetails').hide();
 	A.one('#<portlet:namespace />savePersonalDetails').show();
-	A.all('input[type=text]').set('disabled',false);
-	A.all('select').set('disabled',false);
-	A.all('input[type=radio]').set('disabled',false);
+	A.all('#<portlet:namespace />empPersonalDetailsSave input[type=text]').set('disabled',false);
+	A.all('#<portlet:namespace />empPersonalDetailsSave select').set('disabled',false);
+	A.all('#<portlet:namespace />empPersonalDetailsSave input[type=radio]').set('disabled',false);
 	});
+	
 </aui:script>
 <%
-Map empId = (Map) request.getSession(false).getAttribute(
-		"empId");
-long employeeId = (Long)empId.get("empId");
-String jsp=(String)empId.get("jsp");
-long fileEntryId=(Long)empId.get("fileId");
-	String firstName, middleName, lastName, empNo, otherId, licenseNumber,  gender, nationality, maritslStatus;
+	Map empId = (Map) request.getSession(false).getAttribute("empId");
+	long employeeId = (Long) empId.get("empId");
+	String jsp = (String) empId.get("jsp");
+	long fileEntryId = (Long) empId.get("fileId");
+	String firstName, middleName, lastName, empNo, otherId, licenseNumber, gender, nationality, maritslStatus;
 	Long personalDetailsId;
-	Date dateOfB,licenseExpDate;
+	Date dateOfB, licenseExpDate;
+	nationality = "";
+	long nationalityId = 0;
 	//Date k = new Date();
 	//long employeeId = Long.parseLong(empId);
 	DynamicQuery personalDetailsDynamicQuery = DynamicQueryFactoryUtil
@@ -37,7 +35,8 @@ long fileEntryId=(Long)empId.get("fileId");
 			.dynamicQuery(personalDetailsDynamicQuery);
 	if (l.size() != 0) {
 		EmpPersonalDetails empPersonalDetails = l.get(0);
-		personalDetailsId=empPersonalDetails.getEmpPersonalDetailsId();
+		personalDetailsId = empPersonalDetails
+				.getEmpPersonalDetailsId();
 		firstName = empPersonalDetails.getFirstName();
 		middleName = empPersonalDetails.getMiddleName() != null ? empPersonalDetails
 				.getMiddleName() : "";
@@ -48,7 +47,8 @@ long fileEntryId=(Long)empId.get("fileId");
 				.getOtherId() : "";
 		licenseNumber = empPersonalDetails.getLicenseNo() != null ? empPersonalDetails
 				.getLicenseNo() : "";
-		licenseExpDate = empPersonalDetails.getLicenseExpDate()!= null ? empPersonalDetails.getLicenseExpDate() : new Date();
+		licenseExpDate = empPersonalDetails.getLicenseExpDate() != null ? empPersonalDetails
+				.getLicenseExpDate() : new Date();
 		gender = String.valueOf(empPersonalDetails.getGender()) != null ? String
 				.valueOf(empPersonalDetails.getGender()) : "";
 		Nationality empNationality2 = null;
@@ -65,14 +65,16 @@ long fileEntryId=(Long)empId.get("fileId");
 				empNationality2 = nationalities.get(0);
 				nationality = empNationality2.getName() != null ? empNationality2
 						.getName() : "";
+				nationalityId = empNationality2.getNationalityId();
 			}
 		}
 		maritslStatus = String.valueOf(empPersonalDetails
 				.getMaritalStatus()) != null ? String
 				.valueOf(empPersonalDetails.getMaritalStatus()) : "";
-		dateOfB = empPersonalDetails.getDateOfBirth()!= null ? empPersonalDetails.getDateOfBirth() :new Date() ;
+		dateOfB = empPersonalDetails.getDateOfBirth() != null ? empPersonalDetails
+				.getDateOfBirth() : new Date();
 	} else {
-		personalDetailsId=0l;
+		personalDetailsId = 0l;
 		firstName = "";
 		middleName = "";
 		lastName = "";
@@ -86,68 +88,102 @@ long fileEntryId=(Long)empId.get("fileId");
 		dateOfB = new Date();
 	}
 %>
+<aui:script use="aui-base,aui-node,aui-io-request-deprecated">
+var A=new AUI();
+A.ready(function()
+{
+A.one('#<portlet:namespace />savePersonalDetails').hide();
+A.all('#<portlet:namespace />empPersonalDetailsSave input[type=text]').set('disabled',true);
+	A.all('#<portlet:namespace />empPersonalDetailsSave select').set('disabled',true);
+	A.all('#<portlet:namespace />empPersonalDetailsSave input[type=radio]').set('disabled',true);
+	
+var genderValue="<%=gender%>";
+var maritalStatus="<%=maritslStatus%>";
+if(genderValue=="male")
+	{
+	A.one("#<portlet:namespace />genderMale").set('checked',true);
+	}
+	if(genderValue=="female")
+	{
+	A.one("#<portlet:namespace />genderFemale").set('checked',true);
+	}
+	else
+	{
+	}
+if(maritalStatus=="single")
+	{
+	A.one("#<portlet:namespace />marital_status> option[value="+maritalStatus+"]").set('selected', 'selected');
+	}
+	if(maritalStatus=="married")
+	{
+	A.one("#<portlet:namespace />marital_status> option[value="+maritalStatus+"]").set('selected', 'selected');
+	}
+	if(maritalStatus=="other")
+	{
+	A.one("#<portlet:namespace />marital_status> option[value="+maritalStatus+"]").set('selected', 'selected');
+	}
+	else
+	{
+	}
+		});
+</aui:script>
 <div id="search_form" class="panel">
 	<div class="panel-heading">
-		<h3>Personal Details</h3>
+		<h3>
+			<liferay-ui:message key="01_emp-personal-details" />
+		</h3>
 	</div>
 	<div class="panel-body">
 		<aui:form name="empPersonalDetailsSave" id="empPersonalDetailsSave"
-			method="post" action="<%=updateEmpPersonalDetails %>" >
+			method="post" action="<%=updateEmpPersonalDetails%>">
 			<aui:input name="personalDetailsId" type="hidden"
-				value="<%=personalDetailsId %>"></aui:input>
-				<aui:input name="perEmpId" type="hidden"
-				value="<%=employeeId%>"></aui:input>
-				<aui:input name="fileIdemp" type="hidden"
-				value="<%=fileEntryId%>"></aui:input>
+				value="<%=personalDetailsId%>"></aui:input>
+			<aui:input name="perEmpId" type="hidden" value="<%=employeeId%>"></aui:input>
+			<aui:input name="fileIdemp" type="hidden" value="<%=fileEntryId%>"></aui:input>
 			<div class="row-fluid">
 				<div class="span8">
-					<label>Full Name</label>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:input name="firstName" label="First Name"
+					<aui:input name="firstName" label="01_firstName"
 						showRequiredLabel="false" disabled="true" value="<%=firstName%>">
 						<aui:validator name="required"></aui:validator>
 					</aui:input>
 				</div>
 				<div class="row-fluid">
-				<div class="span8">
-					<aui:input name="middleName" label="Middle Name"
-						showRequiredLabel="false" disabled="true" value="<%=middleName%>"></aui:input>
-				</div>
+					<div class="span8">
+						<aui:input name="middleName" label="01_middleName"
+							showRequiredLabel="false" disabled="true" value="<%=middleName%>"></aui:input>
+					</div>
 				</div>
 				<div class="row-fluid">
-				<div class="span8">
-					<aui:input name="lastName" label="Last Name"
-						showRequiredLabel="false" disabled="true" value="<%=lastName%>">
-						<aui:validator name="required"></aui:validator>
-					</aui:input>
+					<div class="span8">
+						<aui:input name="lastName" label="01_lastName"
+							showRequiredLabel="false" disabled="true" value="<%=lastName%>">
+							<aui:validator name="required"></aui:validator>
+						</aui:input>
 					</div>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span8">
-					<aui:input name="employee_no" label="EmployeeNo" disabled="true"
+					<aui:input name="employee_no" label="01_emp-no" disabled="true"
 						inlineLabel="left" value="<%=empNo%>"></aui:input>
 				</div>
-				</div>
-				<div class="row-fluid">
+			</div>
+			<div class="row-fluid">
 				<div class="span8">
-					<aui:input name="other_id" label="Other Id" inlineLabel="left"
+					<aui:input name="other_id" label="01_other-id" inlineLabel="left"
 						disabled="true" value="<%=otherId%>">
 					</aui:input>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span8">
-					<aui:input name="driver_license_no" label="Driver License No"
+					<aui:input name="driver_license_no" label="01_driver-license-no"
 						inlineLabel="left" disabled="true" value="<%=licenseNumber%>"></aui:input>
 				</div>
-				</div>
-				<div class="row-fluid">
+			</div>
+			<div class="row-fluid">
 				<div class="span8">
-					<aui:input name="expiry_date" label="Expiry Date"
+					<aui:input name="expiry_date" label="01_expiry-date"
 						inlineLabel="left" disabled="true" value='<%=licenseExpDate%>'
 						cssClass="dateEmployee"></aui:input>
 				</div>
@@ -155,53 +191,67 @@ long fileEntryId=(Long)empId.get("fileId");
 			<div class="row-fluid">
 				<div class="span7">
 					<div class="span3">
-						<label>Gender</label>
+						<label><liferay-ui:message key="01_gender" /></label>
 					</div>
 					<div class="span2">
 						<aui:input inlineLabel="right" name="gender" type="radio"
-							value="1" label="male" disabled="true" />
+							id="genderMale" value="male" label="01_male" disabled="true" />
 					</div>
 					<div class="span2">
-						<aui:input checked="<%=true%>" inlineLabel="right" name="gender"
-							type="radio" value="2" label="female" disabled="true" />
+						<aui:input inlineLabel="right" name="gender" id="genderFemale"
+							type="radio" value="female" label="01_female" disabled="true" />
 					</div>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span8">
-					<aui:select name="marital_status" label="Marital Status"
+					<aui:select name="marital_status" label="01_marital-status"
 						inlineLabel="left" disabled="true">
-						<aui:option selected="selected" value="Select" label="select"></aui:option>
-						<aui:option value="single" label="Single"></aui:option>
-						<aui:option value="married" label="Married"></aui:option>
-						<aui:option value="other" label="Other"></aui:option>
+						<aui:option selected="selected" value="" label="01_select"></aui:option>
+						<aui:option id="maritalStatus_single" value="single" label="01_single"></aui:option>
+						<aui:option id="maritalStatus_married" value="married" label="01_married"></aui:option>
+						<aui:option id="maritalStatus_other" value="other" label="01_other"></aui:option>
 					</aui:select>
 				</div>
-					</div>
-				<div class="row-fluid">
+			</div>
+			<div class="row-fluid">
 				<div class="span8">
-					<aui:select name="emp_nationality" label="Nationality"
+					<aui:select name="emp_nationality" label="01_nationality"
 						disabled="true">
-						<aui:option value="-1">--Select--</aui:option>
 						<%
-							List l2 = NationalityLocalServiceUtil.getNationalities(-1,
+							if (nationality.equals("")) {
+						%>
+						<aui:option selected="true" value="0">--Select--</aui:option>
+						<%
+							} else {
+						%>
+						<aui:option value="0">--Select--</aui:option>
+						<aui:option selected="true" value="<%=nationalityId%>"><%=nationality%></aui:option>
+						<%
+							}
+									List l2 = NationalityLocalServiceUtil.getNationalities(-1,
 											-1);
 									Iterator nationalities = l2.iterator();
 									while (nationalities.hasNext()) {
 										Nationality nationalities2 = (Nationality) nationalities
 												.next();
 						%>
-						<aui:option value="<%=nationalities2.getName()%>"><%=nationalities2.getName()%></aui:option>
+						<%
+							if (nationalityId != nationalities2.getNationalityId()) {
+						%>
+						<aui:option value="<%=nationalities2.getNationalityId()%>"><%=nationalities2.getName()%></aui:option>
 						<%
 							}
+									}
 						%>
 					</aui:select>
 				</div>
-				</div>
-				<div class="row-fluid">
+			</div>
+			<div class="row-fluid">
 				<div class="span8">
-				<aui:input name="date_of_birth" label="Date of Birth" inlineLabel="left" cssClass="dateEmployee"
-				 value='<%=dateOfB %>'> </aui:input>
+					<aui:input name="date_of_birth" label="01_date-of-birth"
+						inlineLabel="left" cssClass="dateEmployee" value='<%=dateOfB%>'>
+					</aui:input>
 				</div>
 			</div>
 			<aui:button id="editPersonalDetails" name="editPersonalDetails"

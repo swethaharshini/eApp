@@ -14,6 +14,7 @@
 
 package com.rknowsys.eapp.hrm.service.persistence;
 
+import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
@@ -30,6 +31,7 @@ import com.liferay.portal.kernel.util.InstanceFactory;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
+import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -37,6 +39,8 @@ import com.liferay.portal.kernel.util.UnmodifiableList;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.service.persistence.impl.TableMapper;
+import com.liferay.portal.service.persistence.impl.TableMapperFactory;
 
 import com.rknowsys.eapp.hrm.NoSuchEmployeeException;
 import com.rknowsys.eapp.hrm.model.Employee;
@@ -47,7 +51,9 @@ import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The persistence implementation for the Employee service.
@@ -82,492 +88,6 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
 	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(EmployeeModelImpl.ENTITY_CACHE_ENABLED,
 			EmployeeModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_SHIFTID = new FinderPath(EmployeeModelImpl.ENTITY_CACHE_ENABLED,
-			EmployeeModelImpl.FINDER_CACHE_ENABLED, EmployeeImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByshiftId",
-			new String[] {
-				Long.class.getName(),
-				
-			Integer.class.getName(), Integer.class.getName(),
-				OrderByComparator.class.getName()
-			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_SHIFTID =
-		new FinderPath(EmployeeModelImpl.ENTITY_CACHE_ENABLED,
-			EmployeeModelImpl.FINDER_CACHE_ENABLED, EmployeeImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByshiftId",
-			new String[] { Long.class.getName() },
-			EmployeeModelImpl.SHIFTID_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_SHIFTID = new FinderPath(EmployeeModelImpl.ENTITY_CACHE_ENABLED,
-			EmployeeModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByshiftId",
-			new String[] { Long.class.getName() });
-
-	/**
-	 * Returns all the Employees where shiftId = &#63;.
-	 *
-	 * @param shiftId the shift ID
-	 * @return the matching Employees
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public List<Employee> findByshiftId(long shiftId) throws SystemException {
-		return findByshiftId(shiftId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
-	}
-
-	/**
-	 * Returns a range of all the Employees where shiftId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.rknowsys.eapp.hrm.model.impl.EmployeeModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param shiftId the shift ID
-	 * @param start the lower bound of the range of Employees
-	 * @param end the upper bound of the range of Employees (not inclusive)
-	 * @return the range of matching Employees
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public List<Employee> findByshiftId(long shiftId, int start, int end)
-		throws SystemException {
-		return findByshiftId(shiftId, start, end, null);
-	}
-
-	/**
-	 * Returns an ordered range of all the Employees where shiftId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.rknowsys.eapp.hrm.model.impl.EmployeeModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param shiftId the shift ID
-	 * @param start the lower bound of the range of Employees
-	 * @param end the upper bound of the range of Employees (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching Employees
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public List<Employee> findByshiftId(long shiftId, int start, int end,
-		OrderByComparator orderByComparator) throws SystemException {
-		boolean pagination = true;
-		FinderPath finderPath = null;
-		Object[] finderArgs = null;
-
-		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
-			pagination = false;
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_SHIFTID;
-			finderArgs = new Object[] { shiftId };
-		}
-		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_SHIFTID;
-			finderArgs = new Object[] { shiftId, start, end, orderByComparator };
-		}
-
-		List<Employee> list = (List<Employee>)FinderCacheUtil.getResult(finderPath,
-				finderArgs, this);
-
-		if ((list != null) && !list.isEmpty()) {
-			for (Employee employee : list) {
-				if ((shiftId != employee.getShiftId())) {
-					list = null;
-
-					break;
-				}
-			}
-		}
-
-		if (list == null) {
-			StringBundler query = null;
-
-			if (orderByComparator != null) {
-				query = new StringBundler(3 +
-						(orderByComparator.getOrderByFields().length * 3));
-			}
-			else {
-				query = new StringBundler(3);
-			}
-
-			query.append(_SQL_SELECT_EMPLOYEE_WHERE);
-
-			query.append(_FINDER_COLUMN_SHIFTID_SHIFTID_2);
-
-			if (orderByComparator != null) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
-			}
-			else
-			 if (pagination) {
-				query.append(EmployeeModelImpl.ORDER_BY_JPQL);
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(shiftId);
-
-				if (!pagination) {
-					list = (List<Employee>)QueryUtil.list(q, getDialect(),
-							start, end, false);
-
-					Collections.sort(list);
-
-					list = new UnmodifiableList<Employee>(list);
-				}
-				else {
-					list = (List<Employee>)QueryUtil.list(q, getDialect(),
-							start, end);
-				}
-
-				cacheResult(list);
-
-				FinderCacheUtil.putResult(finderPath, finderArgs, list);
-			}
-			catch (Exception e) {
-				FinderCacheUtil.removeResult(finderPath, finderArgs);
-
-				throw processException(e);
-			}
-			finally {
-				closeSession(session);
-			}
-		}
-
-		return list;
-	}
-
-	/**
-	 * Returns the first Employee in the ordered set where shiftId = &#63;.
-	 *
-	 * @param shiftId the shift ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching Employee
-	 * @throws com.rknowsys.eapp.hrm.NoSuchEmployeeException if a matching Employee could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public Employee findByshiftId_First(long shiftId,
-		OrderByComparator orderByComparator)
-		throws NoSuchEmployeeException, SystemException {
-		Employee employee = fetchByshiftId_First(shiftId, orderByComparator);
-
-		if (employee != null) {
-			return employee;
-		}
-
-		StringBundler msg = new StringBundler(4);
-
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-		msg.append("shiftId=");
-		msg.append(shiftId);
-
-		msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-		throw new NoSuchEmployeeException(msg.toString());
-	}
-
-	/**
-	 * Returns the first Employee in the ordered set where shiftId = &#63;.
-	 *
-	 * @param shiftId the shift ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching Employee, or <code>null</code> if a matching Employee could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public Employee fetchByshiftId_First(long shiftId,
-		OrderByComparator orderByComparator) throws SystemException {
-		List<Employee> list = findByshiftId(shiftId, 0, 1, orderByComparator);
-
-		if (!list.isEmpty()) {
-			return list.get(0);
-		}
-
-		return null;
-	}
-
-	/**
-	 * Returns the last Employee in the ordered set where shiftId = &#63;.
-	 *
-	 * @param shiftId the shift ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching Employee
-	 * @throws com.rknowsys.eapp.hrm.NoSuchEmployeeException if a matching Employee could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public Employee findByshiftId_Last(long shiftId,
-		OrderByComparator orderByComparator)
-		throws NoSuchEmployeeException, SystemException {
-		Employee employee = fetchByshiftId_Last(shiftId, orderByComparator);
-
-		if (employee != null) {
-			return employee;
-		}
-
-		StringBundler msg = new StringBundler(4);
-
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-		msg.append("shiftId=");
-		msg.append(shiftId);
-
-		msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-		throw new NoSuchEmployeeException(msg.toString());
-	}
-
-	/**
-	 * Returns the last Employee in the ordered set where shiftId = &#63;.
-	 *
-	 * @param shiftId the shift ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching Employee, or <code>null</code> if a matching Employee could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public Employee fetchByshiftId_Last(long shiftId,
-		OrderByComparator orderByComparator) throws SystemException {
-		int count = countByshiftId(shiftId);
-
-		if (count == 0) {
-			return null;
-		}
-
-		List<Employee> list = findByshiftId(shiftId, count - 1, count,
-				orderByComparator);
-
-		if (!list.isEmpty()) {
-			return list.get(0);
-		}
-
-		return null;
-	}
-
-	/**
-	 * Returns the Employees before and after the current Employee in the ordered set where shiftId = &#63;.
-	 *
-	 * @param employeeId the primary key of the current Employee
-	 * @param shiftId the shift ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next Employee
-	 * @throws com.rknowsys.eapp.hrm.NoSuchEmployeeException if a Employee with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public Employee[] findByshiftId_PrevAndNext(long employeeId, long shiftId,
-		OrderByComparator orderByComparator)
-		throws NoSuchEmployeeException, SystemException {
-		Employee employee = findByPrimaryKey(employeeId);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			Employee[] array = new EmployeeImpl[3];
-
-			array[0] = getByshiftId_PrevAndNext(session, employee, shiftId,
-					orderByComparator, true);
-
-			array[1] = employee;
-
-			array[2] = getByshiftId_PrevAndNext(session, employee, shiftId,
-					orderByComparator, false);
-
-			return array;
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	protected Employee getByshiftId_PrevAndNext(Session session,
-		Employee employee, long shiftId, OrderByComparator orderByComparator,
-		boolean previous) {
-		StringBundler query = null;
-
-		if (orderByComparator != null) {
-			query = new StringBundler(6 +
-					(orderByComparator.getOrderByFields().length * 6));
-		}
-		else {
-			query = new StringBundler(3);
-		}
-
-		query.append(_SQL_SELECT_EMPLOYEE_WHERE);
-
-		query.append(_FINDER_COLUMN_SHIFTID_SHIFTID_2);
-
-		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
-
-			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
-			}
-
-			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
-
-				if ((i + 1) < orderByConditionFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN);
-					}
-				}
-			}
-
-			query.append(ORDER_BY_CLAUSE);
-
-			String[] orderByFields = orderByComparator.getOrderByFields();
-
-			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
-
-				if ((i + 1) < orderByFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
-					}
-					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
-					}
-					else {
-						query.append(ORDER_BY_DESC);
-					}
-				}
-			}
-		}
-		else {
-			query.append(EmployeeModelImpl.ORDER_BY_JPQL);
-		}
-
-		String sql = query.toString();
-
-		Query q = session.createQuery(sql);
-
-		q.setFirstResult(0);
-		q.setMaxResults(2);
-
-		QueryPos qPos = QueryPos.getInstance(q);
-
-		qPos.add(shiftId);
-
-		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(employee);
-
-			for (Object value : values) {
-				qPos.add(value);
-			}
-		}
-
-		List<Employee> list = q.list();
-
-		if (list.size() == 2) {
-			return list.get(1);
-		}
-		else {
-			return null;
-		}
-	}
-
-	/**
-	 * Removes all the Employees where shiftId = &#63; from the database.
-	 *
-	 * @param shiftId the shift ID
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public void removeByshiftId(long shiftId) throws SystemException {
-		for (Employee employee : findByshiftId(shiftId, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, null)) {
-			remove(employee);
-		}
-	}
-
-	/**
-	 * Returns the number of Employees where shiftId = &#63;.
-	 *
-	 * @param shiftId the shift ID
-	 * @return the number of matching Employees
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public int countByshiftId(long shiftId) throws SystemException {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_SHIFTID;
-
-		Object[] finderArgs = new Object[] { shiftId };
-
-		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
-				this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(2);
-
-			query.append(_SQL_COUNT_EMPLOYEE_WHERE);
-
-			query.append(_FINDER_COLUMN_SHIFTID_SHIFTID_2);
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(shiftId);
-
-				count = (Long)q.uniqueResult();
-
-				FinderCacheUtil.putResult(finderPath, finderArgs, count);
-			}
-			catch (Exception e) {
-				FinderCacheUtil.removeResult(finderPath, finderArgs);
-
-				throw processException(e);
-			}
-			finally {
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	private static final String _FINDER_COLUMN_SHIFTID_SHIFTID_2 = "employee.shiftId = ?";
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_EMPLOYEEID =
 		new FinderPath(EmployeeModelImpl.ENTITY_CACHE_ENABLED,
 			EmployeeModelImpl.FINDER_CACHE_ENABLED, EmployeeImpl.class,
@@ -1072,6 +592,8 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
 	protected Employee removeImpl(Employee employee) throws SystemException {
 		employee = toUnwrappedModel(employee);
 
+		employeeToWorkshiftTableMapper.deleteLeftPrimaryKeyTableMappings(employee.getPrimaryKey());
+
 		Session session = null;
 
 		try {
@@ -1120,12 +642,8 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
 				employee.setNew(false);
 			}
 			else {
-				session.evict(employee);
-				session.saveOrUpdate(employee);
+				session.merge(employee);
 			}
-
-			session.flush();
-			session.clear();
 		}
 		catch (Exception e) {
 			throw processException(e);
@@ -1141,23 +659,6 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
 		}
 
 		else {
-			if ((employeeModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_SHIFTID.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						employeeModelImpl.getOriginalShiftId()
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_SHIFTID, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_SHIFTID,
-					args);
-
-				args = new Object[] { employeeModelImpl.getShiftId() };
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_SHIFTID, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_SHIFTID,
-					args);
-			}
-
 			if ((employeeModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_EMPLOYEEID.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
@@ -1181,8 +682,6 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
 		EntityCacheUtil.putResult(EmployeeModelImpl.ENTITY_CACHE_ENABLED,
 			EmployeeImpl.class, employee.getPrimaryKey(), employee);
 
-		employee.resetOriginalValues();
-
 		return employee;
 	}
 
@@ -1197,24 +696,14 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
 		employeeImpl.setPrimaryKey(employee.getPrimaryKey());
 
 		employeeImpl.setEmployeeId(employee.getEmployeeId());
-		employeeImpl.setContactDetailsId(employee.getContactDetailsId());
-		employeeImpl.setJobId(employee.getJobId());
-		employeeImpl.setShiftId(employee.getShiftId());
-		employeeImpl.setLicenseId(employee.getLicenseId());
+		employeeImpl.setLocationId(employee.getLocationId());
+		employeeImpl.setAssignedUserId(employee.getAssignedUserId());
+		employeeImpl.setImageId(employee.getImageId());
 		employeeImpl.setGroupId(employee.getGroupId());
 		employeeImpl.setCompanyId(employee.getCompanyId());
 		employeeImpl.setUserId(employee.getUserId());
 		employeeImpl.setCreateDate(employee.getCreateDate());
 		employeeImpl.setModifiedDate(employee.getModifiedDate());
-		employeeImpl.setFirstName(employee.getFirstName());
-		employeeImpl.setLastName(employee.getLastName());
-		employeeImpl.setMiddleName(employee.getMiddleName());
-		employeeImpl.setPhotograph(employee.getPhotograph());
-		employeeImpl.setGender(employee.getGender());
-		employeeImpl.setMaritalStatus(employee.getMaritalStatus());
-		employeeImpl.setNationality(employee.getNationality());
-		employeeImpl.setDateOfBirth(employee.getDateOfBirth());
-		employeeImpl.setOtherId(employee.getOtherId());
 
 		return employeeImpl;
 	}
@@ -1491,6 +980,297 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
 	}
 
 	/**
+	 * Returns all the workshifts associated with the Employee.
+	 *
+	 * @param pk the primary key of the Employee
+	 * @return the workshifts associated with the Employee
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public List<com.rknowsys.eapp.hrm.model.Workshift> getWorkshifts(long pk)
+		throws SystemException {
+		return getWorkshifts(pk, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+	}
+
+	/**
+	 * Returns a range of all the workshifts associated with the Employee.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.rknowsys.eapp.hrm.model.impl.EmployeeModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param pk the primary key of the Employee
+	 * @param start the lower bound of the range of Employees
+	 * @param end the upper bound of the range of Employees (not inclusive)
+	 * @return the range of workshifts associated with the Employee
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public List<com.rknowsys.eapp.hrm.model.Workshift> getWorkshifts(long pk,
+		int start, int end) throws SystemException {
+		return getWorkshifts(pk, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the workshifts associated with the Employee.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.rknowsys.eapp.hrm.model.impl.EmployeeModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param pk the primary key of the Employee
+	 * @param start the lower bound of the range of Employees
+	 * @param end the upper bound of the range of Employees (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of workshifts associated with the Employee
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public List<com.rknowsys.eapp.hrm.model.Workshift> getWorkshifts(long pk,
+		int start, int end, OrderByComparator orderByComparator)
+		throws SystemException {
+		return employeeToWorkshiftTableMapper.getRightBaseModels(pk, start,
+			end, orderByComparator);
+	}
+
+	/**
+	 * Returns the number of workshifts associated with the Employee.
+	 *
+	 * @param pk the primary key of the Employee
+	 * @return the number of workshifts associated with the Employee
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public int getWorkshiftsSize(long pk) throws SystemException {
+		long[] pks = employeeToWorkshiftTableMapper.getRightPrimaryKeys(pk);
+
+		return pks.length;
+	}
+
+	/**
+	 * Returns <code>true</code> if the workshift is associated with the Employee.
+	 *
+	 * @param pk the primary key of the Employee
+	 * @param workshiftPK the primary key of the workshift
+	 * @return <code>true</code> if the workshift is associated with the Employee; <code>false</code> otherwise
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public boolean containsWorkshift(long pk, long workshiftPK)
+		throws SystemException {
+		return employeeToWorkshiftTableMapper.containsTableMapping(pk,
+			workshiftPK);
+	}
+
+	/**
+	 * Returns <code>true</code> if the Employee has any workshifts associated with it.
+	 *
+	 * @param pk the primary key of the Employee to check for associations with workshifts
+	 * @return <code>true</code> if the Employee has any workshifts associated with it; <code>false</code> otherwise
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public boolean containsWorkshifts(long pk) throws SystemException {
+		if (getWorkshiftsSize(pk) > 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	/**
+	 * Adds an association between the Employee and the workshift. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the Employee
+	 * @param workshiftPK the primary key of the workshift
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void addWorkshift(long pk, long workshiftPK)
+		throws SystemException {
+		employeeToWorkshiftTableMapper.addTableMapping(pk, workshiftPK);
+	}
+
+	/**
+	 * Adds an association between the Employee and the workshift. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the Employee
+	 * @param workshift the workshift
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void addWorkshift(long pk,
+		com.rknowsys.eapp.hrm.model.Workshift workshift)
+		throws SystemException {
+		employeeToWorkshiftTableMapper.addTableMapping(pk,
+			workshift.getPrimaryKey());
+	}
+
+	/**
+	 * Adds an association between the Employee and the workshifts. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the Employee
+	 * @param workshiftPKs the primary keys of the workshifts
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void addWorkshifts(long pk, long[] workshiftPKs)
+		throws SystemException {
+		for (long workshiftPK : workshiftPKs) {
+			employeeToWorkshiftTableMapper.addTableMapping(pk, workshiftPK);
+		}
+	}
+
+	/**
+	 * Adds an association between the Employee and the workshifts. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the Employee
+	 * @param workshifts the workshifts
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void addWorkshifts(long pk,
+		List<com.rknowsys.eapp.hrm.model.Workshift> workshifts)
+		throws SystemException {
+		for (com.rknowsys.eapp.hrm.model.Workshift workshift : workshifts) {
+			employeeToWorkshiftTableMapper.addTableMapping(pk,
+				workshift.getPrimaryKey());
+		}
+	}
+
+	/**
+	 * Clears all associations between the Employee and its workshifts. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the Employee to clear the associated workshifts from
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void clearWorkshifts(long pk) throws SystemException {
+		employeeToWorkshiftTableMapper.deleteLeftPrimaryKeyTableMappings(pk);
+	}
+
+	/**
+	 * Removes the association between the Employee and the workshift. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the Employee
+	 * @param workshiftPK the primary key of the workshift
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void removeWorkshift(long pk, long workshiftPK)
+		throws SystemException {
+		employeeToWorkshiftTableMapper.deleteTableMapping(pk, workshiftPK);
+	}
+
+	/**
+	 * Removes the association between the Employee and the workshift. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the Employee
+	 * @param workshift the workshift
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void removeWorkshift(long pk,
+		com.rknowsys.eapp.hrm.model.Workshift workshift)
+		throws SystemException {
+		employeeToWorkshiftTableMapper.deleteTableMapping(pk,
+			workshift.getPrimaryKey());
+	}
+
+	/**
+	 * Removes the association between the Employee and the workshifts. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the Employee
+	 * @param workshiftPKs the primary keys of the workshifts
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void removeWorkshifts(long pk, long[] workshiftPKs)
+		throws SystemException {
+		for (long workshiftPK : workshiftPKs) {
+			employeeToWorkshiftTableMapper.deleteTableMapping(pk, workshiftPK);
+		}
+	}
+
+	/**
+	 * Removes the association between the Employee and the workshifts. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the Employee
+	 * @param workshifts the workshifts
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void removeWorkshifts(long pk,
+		List<com.rknowsys.eapp.hrm.model.Workshift> workshifts)
+		throws SystemException {
+		for (com.rknowsys.eapp.hrm.model.Workshift workshift : workshifts) {
+			employeeToWorkshiftTableMapper.deleteTableMapping(pk,
+				workshift.getPrimaryKey());
+		}
+	}
+
+	/**
+	 * Sets the workshifts associated with the Employee, removing and adding associations as necessary. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the Employee
+	 * @param workshiftPKs the primary keys of the workshifts to be associated with the Employee
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void setWorkshifts(long pk, long[] workshiftPKs)
+		throws SystemException {
+		Set<Long> newWorkshiftPKsSet = SetUtil.fromArray(workshiftPKs);
+		Set<Long> oldWorkshiftPKsSet = SetUtil.fromArray(employeeToWorkshiftTableMapper.getRightPrimaryKeys(
+					pk));
+
+		Set<Long> removeWorkshiftPKsSet = new HashSet<Long>(oldWorkshiftPKsSet);
+
+		removeWorkshiftPKsSet.removeAll(newWorkshiftPKsSet);
+
+		for (long removeWorkshiftPK : removeWorkshiftPKsSet) {
+			employeeToWorkshiftTableMapper.deleteTableMapping(pk,
+				removeWorkshiftPK);
+		}
+
+		newWorkshiftPKsSet.removeAll(oldWorkshiftPKsSet);
+
+		for (long newWorkshiftPK : newWorkshiftPKsSet) {
+			employeeToWorkshiftTableMapper.addTableMapping(pk, newWorkshiftPK);
+		}
+	}
+
+	/**
+	 * Sets the workshifts associated with the Employee, removing and adding associations as necessary. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the Employee
+	 * @param workshifts the workshifts to be associated with the Employee
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void setWorkshifts(long pk,
+		List<com.rknowsys.eapp.hrm.model.Workshift> workshifts)
+		throws SystemException {
+		try {
+			long[] workshiftPKs = new long[workshifts.size()];
+
+			for (int i = 0; i < workshifts.size(); i++) {
+				com.rknowsys.eapp.hrm.model.Workshift workshift = workshifts.get(i);
+
+				workshiftPKs[i] = workshift.getPrimaryKey();
+			}
+
+			setWorkshifts(pk, workshiftPKs);
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			FinderCacheUtil.clearCache(EmployeeModelImpl.MAPPING_TABLE_HRM_EMP_WORKSHIFT_NAME);
+		}
+	}
+
+	/**
 	 * Initializes the Employee persistence.
 	 */
 	public void afterPropertiesSet() {
@@ -1513,6 +1293,9 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
 				_log.error(e);
 			}
 		}
+
+		employeeToWorkshiftTableMapper = TableMapperFactory.getTableMapper("hrm_emp_workshift",
+				"employeeId", "shiftId", this, workshiftPersistence);
 	}
 
 	public void destroy() {
@@ -1522,6 +1305,9 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 	}
 
+	@BeanReference(type = WorkshiftPersistence.class)
+	protected WorkshiftPersistence workshiftPersistence;
+	protected TableMapper<Employee, com.rknowsys.eapp.hrm.model.Workshift> employeeToWorkshiftTableMapper;
 	private static final String _SQL_SELECT_EMPLOYEE = "SELECT employee FROM Employee employee";
 	private static final String _SQL_SELECT_EMPLOYEE_WHERE = "SELECT employee FROM Employee employee WHERE ";
 	private static final String _SQL_COUNT_EMPLOYEE = "SELECT COUNT(employee) FROM Employee employee";

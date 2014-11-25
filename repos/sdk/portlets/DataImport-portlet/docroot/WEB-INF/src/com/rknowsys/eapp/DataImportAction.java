@@ -224,6 +224,7 @@ public class DataImportAction extends MVCPortlet {
 					empJob.setCompanyId(themeDisplay.getCompanyId());
 					empJob.setCreateDate(date);
 					empJob.setModifiedDate(date);
+					empJob.setEmployeeId(employee.getEmployeeId());
 					empJob = EmpJobLocalServiceUtil.addEmpJob(empJob);
 					
 					

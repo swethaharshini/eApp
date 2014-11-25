@@ -7,9 +7,9 @@ import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
-import com.rknowsys.eapp.hrm.model.EmpDetails;
-import com.rknowsys.eapp.hrm.model.impl.EmpDetailsImpl;
 
+import com.rknowsys.eapp.hrm.model.impl.EmpDetailsImpl;
+import com.rknowsys.eapp.hrm.model.EmpDetails;
 
 /**
  * 

@@ -15,7 +15,7 @@
 package com.rknowsys.eapp.hrm.model.impl;
 
 /**
- * The extended model implementation for the Nationality service. Represents a row in the &quot;hrm_Nationality&quot; database table, with each column mapped to a property of this class.
+ * The extended model implementation for the Nationality service. Represents a row in the &quot;nationality&quot; database table, with each column mapped to a property of this class.
  *
  * <p>
  * Helper methods and all application logic should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.rknowsys.eapp.hrm.model.Nationality} interface.
@@ -27,7 +27,7 @@ public class NationalityImpl extends NationalityBaseImpl {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never reference this class directly. All methods that expect a nationality model instance should use the {@link com.rknowsys.eapp.hrm.model.Nationality} interface instead.
+	 * Never reference this class directly. All methods that expect a Nationality model instance should use the {@link com.rknowsys.eapp.hrm.model.Nationality} interface instead.
 	 */
 	public NationalityImpl() {
 	}

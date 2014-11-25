@@ -25,20 +25,40 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.BaseModel;
 
-import com.rknowsys.eapp.hrm.model.AttachmentClp;
-import com.rknowsys.eapp.hrm.model.ContactDetailsClp;
-import com.rknowsys.eapp.hrm.model.DependentClp;
 import com.rknowsys.eapp.hrm.model.DocCategoryClp;
 import com.rknowsys.eapp.hrm.model.EducationClp;
-import com.rknowsys.eapp.hrm.model.EmergencyContactClp;
+import com.rknowsys.eapp.hrm.model.EmpAttachmentClp;
+import com.rknowsys.eapp.hrm.model.EmpContactDetailsClp;
+import com.rknowsys.eapp.hrm.model.EmpDependentClp;
+import com.rknowsys.eapp.hrm.model.EmpDetailsClp;
+import com.rknowsys.eapp.hrm.model.EmpDirectDepositClp;
+import com.rknowsys.eapp.hrm.model.EmpEducationClp;
+import com.rknowsys.eapp.hrm.model.EmpEmergencyContactClp;
+import com.rknowsys.eapp.hrm.model.EmpImmigrationDocumentClp;
+import com.rknowsys.eapp.hrm.model.EmpJobClp;
+import com.rknowsys.eapp.hrm.model.EmpLanguageClp;
+import com.rknowsys.eapp.hrm.model.EmpLicenseClp;
+import com.rknowsys.eapp.hrm.model.EmpMembershipClp;
+import com.rknowsys.eapp.hrm.model.EmpPersonalDetailsClp;
+import com.rknowsys.eapp.hrm.model.EmpSalaryClp;
+import com.rknowsys.eapp.hrm.model.EmpSalaryComponentClp;
+import com.rknowsys.eapp.hrm.model.EmpSkillClp;
+import com.rknowsys.eapp.hrm.model.EmpSubordinateClp;
+import com.rknowsys.eapp.hrm.model.EmpSupervisorClp;
+import com.rknowsys.eapp.hrm.model.EmpWorkExpClp;
 import com.rknowsys.eapp.hrm.model.EmployeeClp;
 import com.rknowsys.eapp.hrm.model.EmploymentStatusClp;
-import com.rknowsys.eapp.hrm.model.ImmigrationDocumentClp;
+import com.rknowsys.eapp.hrm.model.HolidayClp;
 import com.rknowsys.eapp.hrm.model.InterviewClp;
 import com.rknowsys.eapp.hrm.model.JobCategoryClp;
-import com.rknowsys.eapp.hrm.model.JobClp;
 import com.rknowsys.eapp.hrm.model.JobTitleClp;
 import com.rknowsys.eapp.hrm.model.LanguageClp;
+import com.rknowsys.eapp.hrm.model.LeaveCarryForwardPolicyClp;
+import com.rknowsys.eapp.hrm.model.LeavePeriodClp;
+import com.rknowsys.eapp.hrm.model.LeaveRestrictionClp;
+import com.rknowsys.eapp.hrm.model.LeaveRuleClp;
+import com.rknowsys.eapp.hrm.model.LeaveTypeApplicabilityClp;
+import com.rknowsys.eapp.hrm.model.LeaveTypeClp;
 import com.rknowsys.eapp.hrm.model.LicenseClp;
 import com.rknowsys.eapp.hrm.model.LocationClp;
 import com.rknowsys.eapp.hrm.model.MembershipClp;
@@ -47,11 +67,12 @@ import com.rknowsys.eapp.hrm.model.NewsClp;
 import com.rknowsys.eapp.hrm.model.OrganizationClp;
 import com.rknowsys.eapp.hrm.model.PayGradeClp;
 import com.rknowsys.eapp.hrm.model.PayGradeCurrencyClp;
+import com.rknowsys.eapp.hrm.model.ReportingMethodsClp;
 import com.rknowsys.eapp.hrm.model.SalaryComponentClp;
 import com.rknowsys.eapp.hrm.model.SkillClp;
 import com.rknowsys.eapp.hrm.model.SubUnitClp;
-import com.rknowsys.eapp.hrm.model.SupervisorClp;
-import com.rknowsys.eapp.hrm.model.WorkExpCompanyClp;
+import com.rknowsys.eapp.hrm.model.TerminationReasonsClp;
+import com.rknowsys.eapp.hrm.model.WorkWeekClp;
 import com.rknowsys.eapp.hrm.model.WorkshiftClp;
 
 import java.io.ObjectInputStream;
@@ -129,18 +150,6 @@ public class ClpSerializer {
 
 		String oldModelClassName = oldModelClass.getName();
 
-		if (oldModelClassName.equals(AttachmentClp.class.getName())) {
-			return translateInputAttachment(oldModel);
-		}
-
-		if (oldModelClassName.equals(ContactDetailsClp.class.getName())) {
-			return translateInputContactDetails(oldModel);
-		}
-
-		if (oldModelClassName.equals(DependentClp.class.getName())) {
-			return translateInputDependent(oldModel);
-		}
-
 		if (oldModelClassName.equals(DocCategoryClp.class.getName())) {
 			return translateInputDocCategory(oldModel);
 		}
@@ -149,8 +158,48 @@ public class ClpSerializer {
 			return translateInputEducation(oldModel);
 		}
 
-		if (oldModelClassName.equals(EmergencyContactClp.class.getName())) {
-			return translateInputEmergencyContact(oldModel);
+		if (oldModelClassName.equals(EmpAttachmentClp.class.getName())) {
+			return translateInputEmpAttachment(oldModel);
+		}
+
+		if (oldModelClassName.equals(EmpContactDetailsClp.class.getName())) {
+			return translateInputEmpContactDetails(oldModel);
+		}
+
+		if (oldModelClassName.equals(EmpDependentClp.class.getName())) {
+			return translateInputEmpDependent(oldModel);
+		}
+
+		if (oldModelClassName.equals(EmpDetailsClp.class.getName())) {
+			return translateInputEmpDetails(oldModel);
+		}
+
+		if (oldModelClassName.equals(EmpDirectDepositClp.class.getName())) {
+			return translateInputEmpDirectDeposit(oldModel);
+		}
+
+		if (oldModelClassName.equals(EmpEducationClp.class.getName())) {
+			return translateInputEmpEducation(oldModel);
+		}
+
+		if (oldModelClassName.equals(EmpEmergencyContactClp.class.getName())) {
+			return translateInputEmpEmergencyContact(oldModel);
+		}
+
+		if (oldModelClassName.equals(EmpImmigrationDocumentClp.class.getName())) {
+			return translateInputEmpImmigrationDocument(oldModel);
+		}
+
+		if (oldModelClassName.equals(EmpJobClp.class.getName())) {
+			return translateInputEmpJob(oldModel);
+		}
+
+		if (oldModelClassName.equals(EmpLanguageClp.class.getName())) {
+			return translateInputEmpLanguage(oldModel);
+		}
+
+		if (oldModelClassName.equals(EmpLicenseClp.class.getName())) {
+			return translateInputEmpLicense(oldModel);
 		}
 
 		if (oldModelClassName.equals(EmployeeClp.class.getName())) {
@@ -161,16 +210,44 @@ public class ClpSerializer {
 			return translateInputEmploymentStatus(oldModel);
 		}
 
-		if (oldModelClassName.equals(ImmigrationDocumentClp.class.getName())) {
-			return translateInputImmigrationDocument(oldModel);
+		if (oldModelClassName.equals(EmpMembershipClp.class.getName())) {
+			return translateInputEmpMembership(oldModel);
+		}
+
+		if (oldModelClassName.equals(EmpPersonalDetailsClp.class.getName())) {
+			return translateInputEmpPersonalDetails(oldModel);
+		}
+
+		if (oldModelClassName.equals(EmpSalaryClp.class.getName())) {
+			return translateInputEmpSalary(oldModel);
+		}
+
+		if (oldModelClassName.equals(EmpSalaryComponentClp.class.getName())) {
+			return translateInputEmpSalaryComponent(oldModel);
+		}
+
+		if (oldModelClassName.equals(EmpSkillClp.class.getName())) {
+			return translateInputEmpSkill(oldModel);
+		}
+
+		if (oldModelClassName.equals(EmpSubordinateClp.class.getName())) {
+			return translateInputEmpSubordinate(oldModel);
+		}
+
+		if (oldModelClassName.equals(EmpSupervisorClp.class.getName())) {
+			return translateInputEmpSupervisor(oldModel);
+		}
+
+		if (oldModelClassName.equals(EmpWorkExpClp.class.getName())) {
+			return translateInputEmpWorkExp(oldModel);
+		}
+
+		if (oldModelClassName.equals(HolidayClp.class.getName())) {
+			return translateInputHoliday(oldModel);
 		}
 
 		if (oldModelClassName.equals(InterviewClp.class.getName())) {
 			return translateInputInterview(oldModel);
-		}
-
-		if (oldModelClassName.equals(JobClp.class.getName())) {
-			return translateInputJob(oldModel);
 		}
 
 		if (oldModelClassName.equals(JobCategoryClp.class.getName())) {
@@ -183,6 +260,30 @@ public class ClpSerializer {
 
 		if (oldModelClassName.equals(LanguageClp.class.getName())) {
 			return translateInputLanguage(oldModel);
+		}
+
+		if (oldModelClassName.equals(LeaveCarryForwardPolicyClp.class.getName())) {
+			return translateInputLeaveCarryForwardPolicy(oldModel);
+		}
+
+		if (oldModelClassName.equals(LeavePeriodClp.class.getName())) {
+			return translateInputLeavePeriod(oldModel);
+		}
+
+		if (oldModelClassName.equals(LeaveRestrictionClp.class.getName())) {
+			return translateInputLeaveRestriction(oldModel);
+		}
+
+		if (oldModelClassName.equals(LeaveRuleClp.class.getName())) {
+			return translateInputLeaveRule(oldModel);
+		}
+
+		if (oldModelClassName.equals(LeaveTypeClp.class.getName())) {
+			return translateInputLeaveType(oldModel);
+		}
+
+		if (oldModelClassName.equals(LeaveTypeApplicabilityClp.class.getName())) {
+			return translateInputLeaveTypeApplicability(oldModel);
 		}
 
 		if (oldModelClassName.equals(LicenseClp.class.getName())) {
@@ -217,6 +318,10 @@ public class ClpSerializer {
 			return translateInputPayGradeCurrency(oldModel);
 		}
 
+		if (oldModelClassName.equals(ReportingMethodsClp.class.getName())) {
+			return translateInputReportingMethods(oldModel);
+		}
+
 		if (oldModelClassName.equals(SalaryComponentClp.class.getName())) {
 			return translateInputSalaryComponent(oldModel);
 		}
@@ -229,16 +334,16 @@ public class ClpSerializer {
 			return translateInputSubUnit(oldModel);
 		}
 
-		if (oldModelClassName.equals(SupervisorClp.class.getName())) {
-			return translateInputSupervisor(oldModel);
-		}
-
-		if (oldModelClassName.equals(WorkExpCompanyClp.class.getName())) {
-			return translateInputWorkExpCompany(oldModel);
+		if (oldModelClassName.equals(TerminationReasonsClp.class.getName())) {
+			return translateInputTerminationReasons(oldModel);
 		}
 
 		if (oldModelClassName.equals(WorkshiftClp.class.getName())) {
 			return translateInputWorkshift(oldModel);
+		}
+
+		if (oldModelClassName.equals(WorkWeekClp.class.getName())) {
+			return translateInputWorkWeek(oldModel);
 		}
 
 		return oldModel;
@@ -254,36 +359,6 @@ public class ClpSerializer {
 		}
 
 		return newList;
-	}
-
-	public static Object translateInputAttachment(BaseModel<?> oldModel) {
-		AttachmentClp oldClpModel = (AttachmentClp)oldModel;
-
-		BaseModel<?> newModel = oldClpModel.getAttachmentRemoteModel();
-
-		newModel.setModelAttributes(oldClpModel.getModelAttributes());
-
-		return newModel;
-	}
-
-	public static Object translateInputContactDetails(BaseModel<?> oldModel) {
-		ContactDetailsClp oldClpModel = (ContactDetailsClp)oldModel;
-
-		BaseModel<?> newModel = oldClpModel.getContactDetailsRemoteModel();
-
-		newModel.setModelAttributes(oldClpModel.getModelAttributes());
-
-		return newModel;
-	}
-
-	public static Object translateInputDependent(BaseModel<?> oldModel) {
-		DependentClp oldClpModel = (DependentClp)oldModel;
-
-		BaseModel<?> newModel = oldClpModel.getDependentRemoteModel();
-
-		newModel.setModelAttributes(oldClpModel.getModelAttributes());
-
-		return newModel;
 	}
 
 	public static Object translateInputDocCategory(BaseModel<?> oldModel) {
@@ -306,10 +381,112 @@ public class ClpSerializer {
 		return newModel;
 	}
 
-	public static Object translateInputEmergencyContact(BaseModel<?> oldModel) {
-		EmergencyContactClp oldClpModel = (EmergencyContactClp)oldModel;
+	public static Object translateInputEmpAttachment(BaseModel<?> oldModel) {
+		EmpAttachmentClp oldClpModel = (EmpAttachmentClp)oldModel;
 
-		BaseModel<?> newModel = oldClpModel.getEmergencyContactRemoteModel();
+		BaseModel<?> newModel = oldClpModel.getEmpAttachmentRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputEmpContactDetails(BaseModel<?> oldModel) {
+		EmpContactDetailsClp oldClpModel = (EmpContactDetailsClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getEmpContactDetailsRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputEmpDependent(BaseModel<?> oldModel) {
+		EmpDependentClp oldClpModel = (EmpDependentClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getEmpDependentRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputEmpDetails(BaseModel<?> oldModel) {
+		EmpDetailsClp oldClpModel = (EmpDetailsClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getEmpDetailsRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputEmpDirectDeposit(BaseModel<?> oldModel) {
+		EmpDirectDepositClp oldClpModel = (EmpDirectDepositClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getEmpDirectDepositRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputEmpEducation(BaseModel<?> oldModel) {
+		EmpEducationClp oldClpModel = (EmpEducationClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getEmpEducationRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputEmpEmergencyContact(
+		BaseModel<?> oldModel) {
+		EmpEmergencyContactClp oldClpModel = (EmpEmergencyContactClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getEmpEmergencyContactRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputEmpImmigrationDocument(
+		BaseModel<?> oldModel) {
+		EmpImmigrationDocumentClp oldClpModel = (EmpImmigrationDocumentClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getEmpImmigrationDocumentRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputEmpJob(BaseModel<?> oldModel) {
+		EmpJobClp oldClpModel = (EmpJobClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getEmpJobRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputEmpLanguage(BaseModel<?> oldModel) {
+		EmpLanguageClp oldClpModel = (EmpLanguageClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getEmpLanguageRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputEmpLicense(BaseModel<?> oldModel) {
+		EmpLicenseClp oldClpModel = (EmpLicenseClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getEmpLicenseRemoteModel();
 
 		newModel.setModelAttributes(oldClpModel.getModelAttributes());
 
@@ -336,11 +513,90 @@ public class ClpSerializer {
 		return newModel;
 	}
 
-	public static Object translateInputImmigrationDocument(
-		BaseModel<?> oldModel) {
-		ImmigrationDocumentClp oldClpModel = (ImmigrationDocumentClp)oldModel;
+	public static Object translateInputEmpMembership(BaseModel<?> oldModel) {
+		EmpMembershipClp oldClpModel = (EmpMembershipClp)oldModel;
 
-		BaseModel<?> newModel = oldClpModel.getImmigrationDocumentRemoteModel();
+		BaseModel<?> newModel = oldClpModel.getEmpMembershipRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputEmpPersonalDetails(BaseModel<?> oldModel) {
+		EmpPersonalDetailsClp oldClpModel = (EmpPersonalDetailsClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getEmpPersonalDetailsRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputEmpSalary(BaseModel<?> oldModel) {
+		EmpSalaryClp oldClpModel = (EmpSalaryClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getEmpSalaryRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputEmpSalaryComponent(BaseModel<?> oldModel) {
+		EmpSalaryComponentClp oldClpModel = (EmpSalaryComponentClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getEmpSalaryComponentRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputEmpSkill(BaseModel<?> oldModel) {
+		EmpSkillClp oldClpModel = (EmpSkillClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getEmpSkillRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputEmpSubordinate(BaseModel<?> oldModel) {
+		EmpSubordinateClp oldClpModel = (EmpSubordinateClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getEmpSubordinateRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputEmpSupervisor(BaseModel<?> oldModel) {
+		EmpSupervisorClp oldClpModel = (EmpSupervisorClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getEmpSupervisorRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputEmpWorkExp(BaseModel<?> oldModel) {
+		EmpWorkExpClp oldClpModel = (EmpWorkExpClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getEmpWorkExpRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputHoliday(BaseModel<?> oldModel) {
+		HolidayClp oldClpModel = (HolidayClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getHolidayRemoteModel();
 
 		newModel.setModelAttributes(oldClpModel.getModelAttributes());
 
@@ -351,16 +607,6 @@ public class ClpSerializer {
 		InterviewClp oldClpModel = (InterviewClp)oldModel;
 
 		BaseModel<?> newModel = oldClpModel.getInterviewRemoteModel();
-
-		newModel.setModelAttributes(oldClpModel.getModelAttributes());
-
-		return newModel;
-	}
-
-	public static Object translateInputJob(BaseModel<?> oldModel) {
-		JobClp oldClpModel = (JobClp)oldModel;
-
-		BaseModel<?> newModel = oldClpModel.getJobRemoteModel();
 
 		newModel.setModelAttributes(oldClpModel.getModelAttributes());
 
@@ -391,6 +637,68 @@ public class ClpSerializer {
 		LanguageClp oldClpModel = (LanguageClp)oldModel;
 
 		BaseModel<?> newModel = oldClpModel.getLanguageRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputLeaveCarryForwardPolicy(
+		BaseModel<?> oldModel) {
+		LeaveCarryForwardPolicyClp oldClpModel = (LeaveCarryForwardPolicyClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getLeaveCarryForwardPolicyRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputLeavePeriod(BaseModel<?> oldModel) {
+		LeavePeriodClp oldClpModel = (LeavePeriodClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getLeavePeriodRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputLeaveRestriction(BaseModel<?> oldModel) {
+		LeaveRestrictionClp oldClpModel = (LeaveRestrictionClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getLeaveRestrictionRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputLeaveRule(BaseModel<?> oldModel) {
+		LeaveRuleClp oldClpModel = (LeaveRuleClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getLeaveRuleRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputLeaveType(BaseModel<?> oldModel) {
+		LeaveTypeClp oldClpModel = (LeaveTypeClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getLeaveTypeRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputLeaveTypeApplicability(
+		BaseModel<?> oldModel) {
+		LeaveTypeApplicabilityClp oldClpModel = (LeaveTypeApplicabilityClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getLeaveTypeApplicabilityRemoteModel();
 
 		newModel.setModelAttributes(oldClpModel.getModelAttributes());
 
@@ -477,6 +785,16 @@ public class ClpSerializer {
 		return newModel;
 	}
 
+	public static Object translateInputReportingMethods(BaseModel<?> oldModel) {
+		ReportingMethodsClp oldClpModel = (ReportingMethodsClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getReportingMethodsRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
 	public static Object translateInputSalaryComponent(BaseModel<?> oldModel) {
 		SalaryComponentClp oldClpModel = (SalaryComponentClp)oldModel;
 
@@ -507,20 +825,10 @@ public class ClpSerializer {
 		return newModel;
 	}
 
-	public static Object translateInputSupervisor(BaseModel<?> oldModel) {
-		SupervisorClp oldClpModel = (SupervisorClp)oldModel;
+	public static Object translateInputTerminationReasons(BaseModel<?> oldModel) {
+		TerminationReasonsClp oldClpModel = (TerminationReasonsClp)oldModel;
 
-		BaseModel<?> newModel = oldClpModel.getSupervisorRemoteModel();
-
-		newModel.setModelAttributes(oldClpModel.getModelAttributes());
-
-		return newModel;
-	}
-
-	public static Object translateInputWorkExpCompany(BaseModel<?> oldModel) {
-		WorkExpCompanyClp oldClpModel = (WorkExpCompanyClp)oldModel;
-
-		BaseModel<?> newModel = oldClpModel.getWorkExpCompanyRemoteModel();
+		BaseModel<?> newModel = oldClpModel.getTerminationReasonsRemoteModel();
 
 		newModel.setModelAttributes(oldClpModel.getModelAttributes());
 
@@ -531,6 +839,16 @@ public class ClpSerializer {
 		WorkshiftClp oldClpModel = (WorkshiftClp)oldModel;
 
 		BaseModel<?> newModel = oldClpModel.getWorkshiftRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputWorkWeek(BaseModel<?> oldModel) {
+		WorkWeekClp oldClpModel = (WorkWeekClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getWorkWeekRemoteModel();
 
 		newModel.setModelAttributes(oldClpModel.getModelAttributes());
 
@@ -555,21 +873,6 @@ public class ClpSerializer {
 		String oldModelClassName = oldModelClass.getName();
 
 		if (oldModelClassName.equals(
-					"com.rknowsys.eapp.hrm.model.impl.AttachmentImpl")) {
-			return translateOutputAttachment(oldModel);
-		}
-
-		if (oldModelClassName.equals(
-					"com.rknowsys.eapp.hrm.model.impl.ContactDetailsImpl")) {
-			return translateOutputContactDetails(oldModel);
-		}
-
-		if (oldModelClassName.equals(
-					"com.rknowsys.eapp.hrm.model.impl.DependentImpl")) {
-			return translateOutputDependent(oldModel);
-		}
-
-		if (oldModelClassName.equals(
 					"com.rknowsys.eapp.hrm.model.impl.DocCategoryImpl")) {
 			return translateOutputDocCategory(oldModel);
 		}
@@ -580,8 +883,58 @@ public class ClpSerializer {
 		}
 
 		if (oldModelClassName.equals(
-					"com.rknowsys.eapp.hrm.model.impl.EmergencyContactImpl")) {
-			return translateOutputEmergencyContact(oldModel);
+					"com.rknowsys.eapp.hrm.model.impl.EmpAttachmentImpl")) {
+			return translateOutputEmpAttachment(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.EmpContactDetailsImpl")) {
+			return translateOutputEmpContactDetails(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.EmpDependentImpl")) {
+			return translateOutputEmpDependent(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.EmpDetailsImpl")) {
+			return translateOutputEmpDetails(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.EmpDirectDepositImpl")) {
+			return translateOutputEmpDirectDeposit(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.EmpEducationImpl")) {
+			return translateOutputEmpEducation(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.EmpEmergencyContactImpl")) {
+			return translateOutputEmpEmergencyContact(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.EmpImmigrationDocumentImpl")) {
+			return translateOutputEmpImmigrationDocument(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.EmpJobImpl")) {
+			return translateOutputEmpJob(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.EmpLanguageImpl")) {
+			return translateOutputEmpLanguage(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.EmpLicenseImpl")) {
+			return translateOutputEmpLicense(oldModel);
 		}
 
 		if (oldModelClassName.equals(
@@ -595,17 +948,53 @@ public class ClpSerializer {
 		}
 
 		if (oldModelClassName.equals(
-					"com.rknowsys.eapp.hrm.model.impl.ImmigrationDocumentImpl")) {
-			return translateOutputImmigrationDocument(oldModel);
+					"com.rknowsys.eapp.hrm.model.impl.EmpMembershipImpl")) {
+			return translateOutputEmpMembership(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.EmpPersonalDetailsImpl")) {
+			return translateOutputEmpPersonalDetails(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.EmpSalaryImpl")) {
+			return translateOutputEmpSalary(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.EmpSalaryComponentImpl")) {
+			return translateOutputEmpSalaryComponent(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.EmpSkillImpl")) {
+			return translateOutputEmpSkill(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.EmpSubordinateImpl")) {
+			return translateOutputEmpSubordinate(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.EmpSupervisorImpl")) {
+			return translateOutputEmpSupervisor(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.EmpWorkExpImpl")) {
+			return translateOutputEmpWorkExp(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.HolidayImpl")) {
+			return translateOutputHoliday(oldModel);
 		}
 
 		if (oldModelClassName.equals(
 					"com.rknowsys.eapp.hrm.model.impl.InterviewImpl")) {
 			return translateOutputInterview(oldModel);
-		}
-
-		if (oldModelClassName.equals("com.rknowsys.eapp.hrm.model.impl.JobImpl")) {
-			return translateOutputJob(oldModel);
 		}
 
 		if (oldModelClassName.equals(
@@ -621,6 +1010,36 @@ public class ClpSerializer {
 		if (oldModelClassName.equals(
 					"com.rknowsys.eapp.hrm.model.impl.LanguageImpl")) {
 			return translateOutputLanguage(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.LeaveCarryForwardPolicyImpl")) {
+			return translateOutputLeaveCarryForwardPolicy(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.LeavePeriodImpl")) {
+			return translateOutputLeavePeriod(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.LeaveRestrictionImpl")) {
+			return translateOutputLeaveRestriction(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.LeaveRuleImpl")) {
+			return translateOutputLeaveRule(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.LeaveTypeImpl")) {
+			return translateOutputLeaveType(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.LeaveTypeApplicabilityImpl")) {
+			return translateOutputLeaveTypeApplicability(oldModel);
 		}
 
 		if (oldModelClassName.equals(
@@ -664,6 +1083,11 @@ public class ClpSerializer {
 		}
 
 		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.ReportingMethodsImpl")) {
+			return translateOutputReportingMethods(oldModel);
+		}
+
+		if (oldModelClassName.equals(
 					"com.rknowsys.eapp.hrm.model.impl.SalaryComponentImpl")) {
 			return translateOutputSalaryComponent(oldModel);
 		}
@@ -679,18 +1103,18 @@ public class ClpSerializer {
 		}
 
 		if (oldModelClassName.equals(
-					"com.rknowsys.eapp.hrm.model.impl.SupervisorImpl")) {
-			return translateOutputSupervisor(oldModel);
-		}
-
-		if (oldModelClassName.equals(
-					"com.rknowsys.eapp.hrm.model.impl.WorkExpCompanyImpl")) {
-			return translateOutputWorkExpCompany(oldModel);
+					"com.rknowsys.eapp.hrm.model.impl.TerminationReasonsImpl")) {
+			return translateOutputTerminationReasons(oldModel);
 		}
 
 		if (oldModelClassName.equals(
 					"com.rknowsys.eapp.hrm.model.impl.WorkshiftImpl")) {
 			return translateOutputWorkshift(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.WorkWeekImpl")) {
+			return translateOutputWorkWeek(oldModel);
 		}
 
 		return oldModel;
@@ -773,19 +1197,6 @@ public class ClpSerializer {
 			return new SystemException();
 		}
 
-		if (className.equals("com.rknowsys.eapp.hrm.NoSuchAttachmentException")) {
-			return new com.rknowsys.eapp.hrm.NoSuchAttachmentException();
-		}
-
-		if (className.equals(
-					"com.rknowsys.eapp.hrm.NoSuchContactDetailsException")) {
-			return new com.rknowsys.eapp.hrm.NoSuchContactDetailsException();
-		}
-
-		if (className.equals("com.rknowsys.eapp.hrm.NoSuchDependentException")) {
-			return new com.rknowsys.eapp.hrm.NoSuchDependentException();
-		}
-
 		if (className.equals("com.rknowsys.eapp.hrm.NoSuchDocCategoryException")) {
 			return new com.rknowsys.eapp.hrm.NoSuchDocCategoryException();
 		}
@@ -795,8 +1206,54 @@ public class ClpSerializer {
 		}
 
 		if (className.equals(
-					"com.rknowsys.eapp.hrm.NoSuchEmergencyContactException")) {
-			return new com.rknowsys.eapp.hrm.NoSuchEmergencyContactException();
+					"com.rknowsys.eapp.hrm.NoSuchEmpAttachmentException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchEmpAttachmentException();
+		}
+
+		if (className.equals(
+					"com.rknowsys.eapp.hrm.NoSuchEmpContactDetailsException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchEmpContactDetailsException();
+		}
+
+		if (className.equals(
+					"com.rknowsys.eapp.hrm.NoSuchEmpDependentException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchEmpDependentException();
+		}
+
+		if (className.equals("com.rknowsys.eapp.hrm.NoSuchEmpDetailsException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchEmpDetailsException();
+		}
+
+		if (className.equals(
+					"com.rknowsys.eapp.hrm.NoSuchEmpDirectDepositException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchEmpDirectDepositException();
+		}
+
+		if (className.equals(
+					"com.rknowsys.eapp.hrm.NoSuchEmpEducationException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchEmpEducationException();
+		}
+
+		if (className.equals(
+					"com.rknowsys.eapp.hrm.NoSuchEmpEmergencyContactException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchEmpEmergencyContactException();
+		}
+
+		if (className.equals(
+					"com.rknowsys.eapp.hrm.NoSuchEmpImmigrationDocumentException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchEmpImmigrationDocumentException();
+		}
+
+		if (className.equals("com.rknowsys.eapp.hrm.NoSuchEmpJobException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchEmpJobException();
+		}
+
+		if (className.equals("com.rknowsys.eapp.hrm.NoSuchEmpLanguageException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchEmpLanguageException();
+		}
+
+		if (className.equals("com.rknowsys.eapp.hrm.NoSuchEmpLicenseException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchEmpLicenseException();
 		}
 
 		if (className.equals("com.rknowsys.eapp.hrm.NoSuchEmployeeException")) {
@@ -809,16 +1266,48 @@ public class ClpSerializer {
 		}
 
 		if (className.equals(
-					"com.rknowsys.eapp.hrm.NoSuchImmigrationDocumentException")) {
-			return new com.rknowsys.eapp.hrm.NoSuchImmigrationDocumentException();
+					"com.rknowsys.eapp.hrm.NoSuchEmpMembershipException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchEmpMembershipException();
+		}
+
+		if (className.equals(
+					"com.rknowsys.eapp.hrm.NoSuchEmpPersonalDetailsException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchEmpPersonalDetailsException();
+		}
+
+		if (className.equals("com.rknowsys.eapp.hrm.NoSuchEmpSalaryException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchEmpSalaryException();
+		}
+
+		if (className.equals(
+					"com.rknowsys.eapp.hrm.NoSuchEmpSalaryComponentException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchEmpSalaryComponentException();
+		}
+
+		if (className.equals("com.rknowsys.eapp.hrm.NoSuchEmpSkillException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchEmpSkillException();
+		}
+
+		if (className.equals(
+					"com.rknowsys.eapp.hrm.NoSuchEmpSubordinateException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchEmpSubordinateException();
+		}
+
+		if (className.equals(
+					"com.rknowsys.eapp.hrm.NoSuchEmpSupervisorException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchEmpSupervisorException();
+		}
+
+		if (className.equals("com.rknowsys.eapp.hrm.NoSuchEmpWorkExpException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchEmpWorkExpException();
+		}
+
+		if (className.equals("com.rknowsys.eapp.hrm.NoSuchHolidayException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchHolidayException();
 		}
 
 		if (className.equals("com.rknowsys.eapp.hrm.NoSuchInterviewException")) {
 			return new com.rknowsys.eapp.hrm.NoSuchInterviewException();
-		}
-
-		if (className.equals("com.rknowsys.eapp.hrm.NoSuchJobException")) {
-			return new com.rknowsys.eapp.hrm.NoSuchJobException();
 		}
 
 		if (className.equals("com.rknowsys.eapp.hrm.NoSuchJobCategoryException")) {
@@ -831,6 +1320,33 @@ public class ClpSerializer {
 
 		if (className.equals("com.rknowsys.eapp.hrm.NoSuchLanguageException")) {
 			return new com.rknowsys.eapp.hrm.NoSuchLanguageException();
+		}
+
+		if (className.equals(
+					"com.rknowsys.eapp.hrm.NoSuchLeaveCarryForwardPolicyException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchLeaveCarryForwardPolicyException();
+		}
+
+		if (className.equals("com.rknowsys.eapp.hrm.NoSuchLeavePeriodException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchLeavePeriodException();
+		}
+
+		if (className.equals(
+					"com.rknowsys.eapp.hrm.NoSuchLeaveRestrictionException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchLeaveRestrictionException();
+		}
+
+		if (className.equals("com.rknowsys.eapp.hrm.NoSuchLeaveRuleException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchLeaveRuleException();
+		}
+
+		if (className.equals("com.rknowsys.eapp.hrm.NoSuchLeaveTypeException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchLeaveTypeException();
+		}
+
+		if (className.equals(
+					"com.rknowsys.eapp.hrm.NoSuchLeaveTypeApplicabilityException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchLeaveTypeApplicabilityException();
 		}
 
 		if (className.equals("com.rknowsys.eapp.hrm.NoSuchLicenseException")) {
@@ -868,6 +1384,11 @@ public class ClpSerializer {
 		}
 
 		if (className.equals(
+					"com.rknowsys.eapp.hrm.NoSuchReportingMethodsException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchReportingMethodsException();
+		}
+
+		if (className.equals(
 					"com.rknowsys.eapp.hrm.NoSuchSalaryComponentException")) {
 			return new com.rknowsys.eapp.hrm.NoSuchSalaryComponentException();
 		}
@@ -880,50 +1401,20 @@ public class ClpSerializer {
 			return new com.rknowsys.eapp.hrm.NoSuchSubUnitException();
 		}
 
-		if (className.equals("com.rknowsys.eapp.hrm.NoSuchSupervisorException")) {
-			return new com.rknowsys.eapp.hrm.NoSuchSupervisorException();
-		}
-
 		if (className.equals(
-					"com.rknowsys.eapp.hrm.NoSuchWorkExpCompanyException")) {
-			return new com.rknowsys.eapp.hrm.NoSuchWorkExpCompanyException();
+					"com.rknowsys.eapp.hrm.NoSuchTerminationReasonsException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchTerminationReasonsException();
 		}
 
 		if (className.equals("com.rknowsys.eapp.hrm.NoSuchWorkshiftException")) {
 			return new com.rknowsys.eapp.hrm.NoSuchWorkshiftException();
 		}
 
+		if (className.equals("com.rknowsys.eapp.hrm.NoSuchWorkWeekException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchWorkWeekException();
+		}
+
 		return throwable;
-	}
-
-	public static Object translateOutputAttachment(BaseModel<?> oldModel) {
-		AttachmentClp newModel = new AttachmentClp();
-
-		newModel.setModelAttributes(oldModel.getModelAttributes());
-
-		newModel.setAttachmentRemoteModel(oldModel);
-
-		return newModel;
-	}
-
-	public static Object translateOutputContactDetails(BaseModel<?> oldModel) {
-		ContactDetailsClp newModel = new ContactDetailsClp();
-
-		newModel.setModelAttributes(oldModel.getModelAttributes());
-
-		newModel.setContactDetailsRemoteModel(oldModel);
-
-		return newModel;
-	}
-
-	public static Object translateOutputDependent(BaseModel<?> oldModel) {
-		DependentClp newModel = new DependentClp();
-
-		newModel.setModelAttributes(oldModel.getModelAttributes());
-
-		newModel.setDependentRemoteModel(oldModel);
-
-		return newModel;
 	}
 
 	public static Object translateOutputDocCategory(BaseModel<?> oldModel) {
@@ -946,12 +1437,114 @@ public class ClpSerializer {
 		return newModel;
 	}
 
-	public static Object translateOutputEmergencyContact(BaseModel<?> oldModel) {
-		EmergencyContactClp newModel = new EmergencyContactClp();
+	public static Object translateOutputEmpAttachment(BaseModel<?> oldModel) {
+		EmpAttachmentClp newModel = new EmpAttachmentClp();
 
 		newModel.setModelAttributes(oldModel.getModelAttributes());
 
-		newModel.setEmergencyContactRemoteModel(oldModel);
+		newModel.setEmpAttachmentRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputEmpContactDetails(BaseModel<?> oldModel) {
+		EmpContactDetailsClp newModel = new EmpContactDetailsClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setEmpContactDetailsRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputEmpDependent(BaseModel<?> oldModel) {
+		EmpDependentClp newModel = new EmpDependentClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setEmpDependentRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputEmpDetails(BaseModel<?> oldModel) {
+		EmpDetailsClp newModel = new EmpDetailsClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setEmpDetailsRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputEmpDirectDeposit(BaseModel<?> oldModel) {
+		EmpDirectDepositClp newModel = new EmpDirectDepositClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setEmpDirectDepositRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputEmpEducation(BaseModel<?> oldModel) {
+		EmpEducationClp newModel = new EmpEducationClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setEmpEducationRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputEmpEmergencyContact(
+		BaseModel<?> oldModel) {
+		EmpEmergencyContactClp newModel = new EmpEmergencyContactClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setEmpEmergencyContactRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputEmpImmigrationDocument(
+		BaseModel<?> oldModel) {
+		EmpImmigrationDocumentClp newModel = new EmpImmigrationDocumentClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setEmpImmigrationDocumentRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputEmpJob(BaseModel<?> oldModel) {
+		EmpJobClp newModel = new EmpJobClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setEmpJobRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputEmpLanguage(BaseModel<?> oldModel) {
+		EmpLanguageClp newModel = new EmpLanguageClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setEmpLanguageRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputEmpLicense(BaseModel<?> oldModel) {
+		EmpLicenseClp newModel = new EmpLicenseClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setEmpLicenseRemoteModel(oldModel);
 
 		return newModel;
 	}
@@ -976,13 +1569,94 @@ public class ClpSerializer {
 		return newModel;
 	}
 
-	public static Object translateOutputImmigrationDocument(
-		BaseModel<?> oldModel) {
-		ImmigrationDocumentClp newModel = new ImmigrationDocumentClp();
+	public static Object translateOutputEmpMembership(BaseModel<?> oldModel) {
+		EmpMembershipClp newModel = new EmpMembershipClp();
 
 		newModel.setModelAttributes(oldModel.getModelAttributes());
 
-		newModel.setImmigrationDocumentRemoteModel(oldModel);
+		newModel.setEmpMembershipRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputEmpPersonalDetails(
+		BaseModel<?> oldModel) {
+		EmpPersonalDetailsClp newModel = new EmpPersonalDetailsClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setEmpPersonalDetailsRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputEmpSalary(BaseModel<?> oldModel) {
+		EmpSalaryClp newModel = new EmpSalaryClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setEmpSalaryRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputEmpSalaryComponent(
+		BaseModel<?> oldModel) {
+		EmpSalaryComponentClp newModel = new EmpSalaryComponentClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setEmpSalaryComponentRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputEmpSkill(BaseModel<?> oldModel) {
+		EmpSkillClp newModel = new EmpSkillClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setEmpSkillRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputEmpSubordinate(BaseModel<?> oldModel) {
+		EmpSubordinateClp newModel = new EmpSubordinateClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setEmpSubordinateRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputEmpSupervisor(BaseModel<?> oldModel) {
+		EmpSupervisorClp newModel = new EmpSupervisorClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setEmpSupervisorRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputEmpWorkExp(BaseModel<?> oldModel) {
+		EmpWorkExpClp newModel = new EmpWorkExpClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setEmpWorkExpRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputHoliday(BaseModel<?> oldModel) {
+		HolidayClp newModel = new HolidayClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setHolidayRemoteModel(oldModel);
 
 		return newModel;
 	}
@@ -993,16 +1667,6 @@ public class ClpSerializer {
 		newModel.setModelAttributes(oldModel.getModelAttributes());
 
 		newModel.setInterviewRemoteModel(oldModel);
-
-		return newModel;
-	}
-
-	public static Object translateOutputJob(BaseModel<?> oldModel) {
-		JobClp newModel = new JobClp();
-
-		newModel.setModelAttributes(oldModel.getModelAttributes());
-
-		newModel.setJobRemoteModel(oldModel);
 
 		return newModel;
 	}
@@ -1033,6 +1697,68 @@ public class ClpSerializer {
 		newModel.setModelAttributes(oldModel.getModelAttributes());
 
 		newModel.setLanguageRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputLeaveCarryForwardPolicy(
+		BaseModel<?> oldModel) {
+		LeaveCarryForwardPolicyClp newModel = new LeaveCarryForwardPolicyClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setLeaveCarryForwardPolicyRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputLeavePeriod(BaseModel<?> oldModel) {
+		LeavePeriodClp newModel = new LeavePeriodClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setLeavePeriodRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputLeaveRestriction(BaseModel<?> oldModel) {
+		LeaveRestrictionClp newModel = new LeaveRestrictionClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setLeaveRestrictionRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputLeaveRule(BaseModel<?> oldModel) {
+		LeaveRuleClp newModel = new LeaveRuleClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setLeaveRuleRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputLeaveType(BaseModel<?> oldModel) {
+		LeaveTypeClp newModel = new LeaveTypeClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setLeaveTypeRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputLeaveTypeApplicability(
+		BaseModel<?> oldModel) {
+		LeaveTypeApplicabilityClp newModel = new LeaveTypeApplicabilityClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setLeaveTypeApplicabilityRemoteModel(oldModel);
 
 		return newModel;
 	}
@@ -1117,6 +1843,16 @@ public class ClpSerializer {
 		return newModel;
 	}
 
+	public static Object translateOutputReportingMethods(BaseModel<?> oldModel) {
+		ReportingMethodsClp newModel = new ReportingMethodsClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setReportingMethodsRemoteModel(oldModel);
+
+		return newModel;
+	}
+
 	public static Object translateOutputSalaryComponent(BaseModel<?> oldModel) {
 		SalaryComponentClp newModel = new SalaryComponentClp();
 
@@ -1147,22 +1883,13 @@ public class ClpSerializer {
 		return newModel;
 	}
 
-	public static Object translateOutputSupervisor(BaseModel<?> oldModel) {
-		SupervisorClp newModel = new SupervisorClp();
+	public static Object translateOutputTerminationReasons(
+		BaseModel<?> oldModel) {
+		TerminationReasonsClp newModel = new TerminationReasonsClp();
 
 		newModel.setModelAttributes(oldModel.getModelAttributes());
 
-		newModel.setSupervisorRemoteModel(oldModel);
-
-		return newModel;
-	}
-
-	public static Object translateOutputWorkExpCompany(BaseModel<?> oldModel) {
-		WorkExpCompanyClp newModel = new WorkExpCompanyClp();
-
-		newModel.setModelAttributes(oldModel.getModelAttributes());
-
-		newModel.setWorkExpCompanyRemoteModel(oldModel);
+		newModel.setTerminationReasonsRemoteModel(oldModel);
 
 		return newModel;
 	}
@@ -1173,6 +1900,16 @@ public class ClpSerializer {
 		newModel.setModelAttributes(oldModel.getModelAttributes());
 
 		newModel.setWorkshiftRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputWorkWeek(BaseModel<?> oldModel) {
+		WorkWeekClp newModel = new WorkWeekClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setWorkWeekRemoteModel(oldModel);
 
 		return newModel;
 	}

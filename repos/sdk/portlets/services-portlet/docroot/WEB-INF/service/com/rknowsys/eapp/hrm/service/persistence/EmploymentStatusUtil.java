@@ -260,6 +260,247 @@ public class EmploymentStatusUtil {
 		return getPersistence().countAll();
 	}
 
+	/**
+	* Returns all the leave type applicabilities associated with the employment status.
+	*
+	* @param pk the primary key of the employment status
+	* @return the leave type applicabilities associated with the employment status
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> getLeaveTypeApplicabilities(
+		long pk) throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().getLeaveTypeApplicabilities(pk);
+	}
+
+	/**
+	* Returns a range of all the leave type applicabilities associated with the employment status.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.rknowsys.eapp.hrm.model.impl.EmploymentStatusModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param pk the primary key of the employment status
+	* @param start the lower bound of the range of employment statuses
+	* @param end the upper bound of the range of employment statuses (not inclusive)
+	* @return the range of leave type applicabilities associated with the employment status
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> getLeaveTypeApplicabilities(
+		long pk, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().getLeaveTypeApplicabilities(pk, start, end);
+	}
+
+	/**
+	* Returns an ordered range of all the leave type applicabilities associated with the employment status.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.rknowsys.eapp.hrm.model.impl.EmploymentStatusModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param pk the primary key of the employment status
+	* @param start the lower bound of the range of employment statuses
+	* @param end the upper bound of the range of employment statuses (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of leave type applicabilities associated with the employment status
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> getLeaveTypeApplicabilities(
+		long pk, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .getLeaveTypeApplicabilities(pk, start, end,
+			orderByComparator);
+	}
+
+	/**
+	* Returns the number of leave type applicabilities associated with the employment status.
+	*
+	* @param pk the primary key of the employment status
+	* @return the number of leave type applicabilities associated with the employment status
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int getLeaveTypeApplicabilitiesSize(long pk)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().getLeaveTypeApplicabilitiesSize(pk);
+	}
+
+	/**
+	* Returns <code>true</code> if the leave type applicability is associated with the employment status.
+	*
+	* @param pk the primary key of the employment status
+	* @param leaveTypeApplicabilityPK the primary key of the leave type applicability
+	* @return <code>true</code> if the leave type applicability is associated with the employment status; <code>false</code> otherwise
+	* @throws SystemException if a system exception occurred
+	*/
+	public static boolean containsLeaveTypeApplicability(long pk,
+		long leaveTypeApplicabilityPK)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .containsLeaveTypeApplicability(pk, leaveTypeApplicabilityPK);
+	}
+
+	/**
+	* Returns <code>true</code> if the employment status has any leave type applicabilities associated with it.
+	*
+	* @param pk the primary key of the employment status to check for associations with leave type applicabilities
+	* @return <code>true</code> if the employment status has any leave type applicabilities associated with it; <code>false</code> otherwise
+	* @throws SystemException if a system exception occurred
+	*/
+	public static boolean containsLeaveTypeApplicabilities(long pk)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().containsLeaveTypeApplicabilities(pk);
+	}
+
+	/**
+	* Adds an association between the employment status and the leave type applicability. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the employment status
+	* @param leaveTypeApplicabilityPK the primary key of the leave type applicability
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void addLeaveTypeApplicability(long pk,
+		long leaveTypeApplicabilityPK)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().addLeaveTypeApplicability(pk, leaveTypeApplicabilityPK);
+	}
+
+	/**
+	* Adds an association between the employment status and the leave type applicability. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the employment status
+	* @param leaveTypeApplicability the leave type applicability
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void addLeaveTypeApplicability(long pk,
+		com.rknowsys.eapp.hrm.model.LeaveTypeApplicability leaveTypeApplicability)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().addLeaveTypeApplicability(pk, leaveTypeApplicability);
+	}
+
+	/**
+	* Adds an association between the employment status and the leave type applicabilities. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the employment status
+	* @param leaveTypeApplicabilityPKs the primary keys of the leave type applicabilities
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void addLeaveTypeApplicabilities(long pk,
+		long[] leaveTypeApplicabilityPKs)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence()
+			.addLeaveTypeApplicabilities(pk, leaveTypeApplicabilityPKs);
+	}
+
+	/**
+	* Adds an association between the employment status and the leave type applicabilities. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the employment status
+	* @param leaveTypeApplicabilities the leave type applicabilities
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void addLeaveTypeApplicabilities(long pk,
+		java.util.List<com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> leaveTypeApplicabilities)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence()
+			.addLeaveTypeApplicabilities(pk, leaveTypeApplicabilities);
+	}
+
+	/**
+	* Clears all associations between the employment status and its leave type applicabilities. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the employment status to clear the associated leave type applicabilities from
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void clearLeaveTypeApplicabilities(long pk)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().clearLeaveTypeApplicabilities(pk);
+	}
+
+	/**
+	* Removes the association between the employment status and the leave type applicability. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the employment status
+	* @param leaveTypeApplicabilityPK the primary key of the leave type applicability
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeLeaveTypeApplicability(long pk,
+		long leaveTypeApplicabilityPK)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence()
+			.removeLeaveTypeApplicability(pk, leaveTypeApplicabilityPK);
+	}
+
+	/**
+	* Removes the association between the employment status and the leave type applicability. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the employment status
+	* @param leaveTypeApplicability the leave type applicability
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeLeaveTypeApplicability(long pk,
+		com.rknowsys.eapp.hrm.model.LeaveTypeApplicability leaveTypeApplicability)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeLeaveTypeApplicability(pk, leaveTypeApplicability);
+	}
+
+	/**
+	* Removes the association between the employment status and the leave type applicabilities. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the employment status
+	* @param leaveTypeApplicabilityPKs the primary keys of the leave type applicabilities
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeLeaveTypeApplicabilities(long pk,
+		long[] leaveTypeApplicabilityPKs)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence()
+			.removeLeaveTypeApplicabilities(pk, leaveTypeApplicabilityPKs);
+	}
+
+	/**
+	* Removes the association between the employment status and the leave type applicabilities. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the employment status
+	* @param leaveTypeApplicabilities the leave type applicabilities
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeLeaveTypeApplicabilities(long pk,
+		java.util.List<com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> leaveTypeApplicabilities)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence()
+			.removeLeaveTypeApplicabilities(pk, leaveTypeApplicabilities);
+	}
+
+	/**
+	* Sets the leave type applicabilities associated with the employment status, removing and adding associations as necessary. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the employment status
+	* @param leaveTypeApplicabilityPKs the primary keys of the leave type applicabilities to be associated with the employment status
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void setLeaveTypeApplicabilities(long pk,
+		long[] leaveTypeApplicabilityPKs)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence()
+			.setLeaveTypeApplicabilities(pk, leaveTypeApplicabilityPKs);
+	}
+
+	/**
+	* Sets the leave type applicabilities associated with the employment status, removing and adding associations as necessary. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	*
+	* @param pk the primary key of the employment status
+	* @param leaveTypeApplicabilities the leave type applicabilities to be associated with the employment status
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void setLeaveTypeApplicabilities(long pk,
+		java.util.List<com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> leaveTypeApplicabilities)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence()
+			.setLeaveTypeApplicabilities(pk, leaveTypeApplicabilities);
+	}
+
 	public static EmploymentStatusPersistence getPersistence() {
 		if (_persistence == null) {
 			_persistence = (EmploymentStatusPersistence)PortletBeanLocatorUtil.locate(com.rknowsys.eapp.hrm.service.ClpSerializer.getServletContextName(),

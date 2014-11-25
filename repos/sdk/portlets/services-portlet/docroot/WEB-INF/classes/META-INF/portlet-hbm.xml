@@ -2,65 +2,111 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping default-lazy="false" auto-import="false">
-	<import class="com.rknowsys.eapp.hrm.model.Attachment" />
-	<import class="com.rknowsys.eapp.hrm.model.ContactDetails" />
-	<import class="com.rknowsys.eapp.hrm.model.Dependent" />
 	<import class="com.rknowsys.eapp.hrm.model.DocCategory" />
 	<import class="com.rknowsys.eapp.hrm.model.Education" />
-	<import class="com.rknowsys.eapp.hrm.model.EmergencyContact" />
+	<import class="com.rknowsys.eapp.hrm.model.EmpAttachment" />
+	<import class="com.rknowsys.eapp.hrm.model.EmpContactDetails" />
+	<import class="com.rknowsys.eapp.hrm.model.EmpDependent" />
+	<import class="com.rknowsys.eapp.hrm.model.EmpDetails" />
+	<import class="com.rknowsys.eapp.hrm.model.EmpDirectDeposit" />
+	<import class="com.rknowsys.eapp.hrm.model.EmpEducation" />
+	<import class="com.rknowsys.eapp.hrm.model.EmpEmergencyContact" />
+	<import class="com.rknowsys.eapp.hrm.model.EmpImmigrationDocument" />
+	<import class="com.rknowsys.eapp.hrm.model.EmpJob" />
+	<import class="com.rknowsys.eapp.hrm.model.EmpLanguage" />
+	<import class="com.rknowsys.eapp.hrm.model.EmpLicense" />
 	<import class="com.rknowsys.eapp.hrm.model.Employee" />
 	<import class="com.rknowsys.eapp.hrm.model.EmploymentStatus" />
-	<import class="com.rknowsys.eapp.hrm.model.ImmigrationDocument" />
+	<import class="com.rknowsys.eapp.hrm.model.EmpMembership" />
+	<import class="com.rknowsys.eapp.hrm.model.EmpPersonalDetails" />
+	<import class="com.rknowsys.eapp.hrm.model.EmpSalary" />
+	<import class="com.rknowsys.eapp.hrm.model.EmpSalaryComponent" />
+	<import class="com.rknowsys.eapp.hrm.model.EmpSkill" />
+	<import class="com.rknowsys.eapp.hrm.model.EmpSubordinate" />
+	<import class="com.rknowsys.eapp.hrm.model.EmpSupervisor" />
+	<import class="com.rknowsys.eapp.hrm.model.EmpWorkExp" />
+	<import class="com.rknowsys.eapp.hrm.model.Holiday" />
 	<import class="com.rknowsys.eapp.hrm.model.Interview" />
-	<import class="com.rknowsys.eapp.hrm.model.Job" />
 	<import class="com.rknowsys.eapp.hrm.model.JobCategory" />
 	<import class="com.rknowsys.eapp.hrm.model.JobTitle" />
 	<import class="com.rknowsys.eapp.hrm.model.Language" />
+	<import class="com.rknowsys.eapp.hrm.model.LeaveCarryForwardPolicy" />
+	<import class="com.rknowsys.eapp.hrm.model.LeavePeriod" />
+	<import class="com.rknowsys.eapp.hrm.model.LeaveRestriction" />
+	<import class="com.rknowsys.eapp.hrm.model.LeaveRule" />
+	<import class="com.rknowsys.eapp.hrm.model.LeaveType" />
+	<import class="com.rknowsys.eapp.hrm.model.LeaveTypeApplicability" />
 	<import class="com.rknowsys.eapp.hrm.model.License" />
 	<import class="com.rknowsys.eapp.hrm.model.Location" />
 	<import class="com.rknowsys.eapp.hrm.model.Membership" />
 	<import class="com.rknowsys.eapp.hrm.model.Nationality" />
 	<import class="com.rknowsys.eapp.hrm.model.News" />
+	<import class="com.rknowsys.eapp.hrm.model.Organization" />
 	<import class="com.rknowsys.eapp.hrm.model.PayGrade" />
 	<import class="com.rknowsys.eapp.hrm.model.PayGradeCurrency" />
+	<import class="com.rknowsys.eapp.hrm.model.ReportingMethods" />
 	<import class="com.rknowsys.eapp.hrm.model.SalaryComponent" />
 	<import class="com.rknowsys.eapp.hrm.model.Skill" />
 	<import class="com.rknowsys.eapp.hrm.model.SubUnit" />
-	<import class="com.rknowsys.eapp.hrm.model.Supervisor" />
-	<import class="com.rknowsys.eapp.hrm.model.WorkExpCompany" />
+	<import class="com.rknowsys.eapp.hrm.model.TerminationReasons" />
 	<import class="com.rknowsys.eapp.hrm.model.Workshift" />
-	<class name="com.rknowsys.eapp.hrm.model.impl.AttachmentImpl" table="attachment">
+	<import class="com.rknowsys.eapp.hrm.model.WorkWeek" />
+	<class name="com.rknowsys.eapp.hrm.model.impl.DocCategoryImpl" table="doc_category">
 		<cache usage="read-write" />
-		<id name="attachmentId" type="long">
+		<id name="docCategoryId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="docName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.EducationImpl" table="education">
+		<cache usage="read-write" />
+		<id name="educationId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="eduLevel" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.EmpAttachmentImpl" table="emp_attachment">
+		<cache usage="read-write" />
+		<id name="empAttachmentId" type="long">
 			<generator class="assigned" />
 		</id>
 		<property name="employeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
-		<property name="comment" type="com.liferay.portal.dao.orm.hibernate.StringType" column="comment_" />
-		<one-to-one name="fileBlobModel" access="com.liferay.portal.dao.orm.hibernate.PrivatePropertyAccessor" class="com.rknowsys.eapp.hrm.model.AttachmentFileBlobModel" cascade="save-update" outer-join="false" constrained="true" />
-		<property name="attachmentType" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
-		<property name="size" type="com.liferay.portal.dao.orm.hibernate.LongType" column="size_" />
-		<property name="fileType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="attachmentTypeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="fileName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="fileSize" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="fileType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<one-to-one name="fileBlobModel" access="com.liferay.portal.dao.orm.hibernate.PrivatePropertyAccessor" class="com.rknowsys.eapp.hrm.model.EmpAttachmentFileBlobModel" cascade="save-update" outer-join="false" constrained="true" />
+		<property name="comment" type="com.liferay.portal.dao.orm.hibernate.StringType" column="comment_" />
 	</class>
-	<class name="com.rknowsys.eapp.hrm.model.AttachmentFileBlobModel" table="attachment" lazy="true">
-		<id name="attachmentId" column="attachmentId">
+	<class name="com.rknowsys.eapp.hrm.model.EmpAttachmentFileBlobModel" table="emp_attachment" lazy="true">
+		<id name="empAttachmentId" column="empAttachmentId">
 			<generator class="foreign">
-				<param name="property">com.rknowsys.eapp.hrm.model.impl.AttachmentImpl</param>
+				<param name="property">com.rknowsys.eapp.hrm.model.impl.EmpAttachmentImpl</param>
 			</generator>
 		</id>
 		<property column="file" name="fileBlob" type="blob" />
 	</class>
-	<class name="com.rknowsys.eapp.hrm.model.impl.ContactDetailsImpl" table="contact_details">
+	<class name="com.rknowsys.eapp.hrm.model.impl.EmpContactDetailsImpl" table="emp_contact_details">
 		<cache usage="read-write" />
-		<id name="contactDetailsId" type="long">
+		<id name="empContactDetailsId" type="long">
 			<generator class="assigned" />
 		</id>
+		<property name="employeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
@@ -79,9 +125,9 @@
 		<property name="workEmail" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="otherEmail" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
-	<class name="com.rknowsys.eapp.hrm.model.impl.DependentImpl" table="hrm_Dependent">
+	<class name="com.rknowsys.eapp.hrm.model.impl.EmpDependentImpl" table="hrm_EmpDependent">
 		<cache usage="read-write" />
-		<id name="dependentId" type="long">
+		<id name="empDependentId" type="long">
 			<generator class="assigned" />
 		</id>
 		<property name="employeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
@@ -94,34 +140,62 @@
 		<property name="relationship" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="dateOfBirth" type="org.hibernate.type.TimestampType" />
 	</class>
-	<class name="com.rknowsys.eapp.hrm.model.impl.DocCategoryImpl" table="doc_category">
+	<class name="com.rknowsys.eapp.hrm.model.impl.EmpDetailsImpl" table="hrm_EmpDetails">
 		<cache usage="read-write" />
-		<id name="id" column="id_" type="long">
+		<id name="empdetailsId" type="long">
 			<generator class="assigned" />
 		</id>
+		<property name="employeeNo" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
-		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="docName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="firstName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="lastName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="title" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="employmentstatus" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="supervisor" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
-	<class name="com.rknowsys.eapp.hrm.model.impl.EducationImpl" table="education">
+	<class name="com.rknowsys.eapp.hrm.model.impl.EmpDirectDepositImpl" table="emp_direct_deposit">
 		<cache usage="read-write" />
-		<id name="educationId" type="long">
+		<id name="empDirectDepositId" type="long">
 			<generator class="assigned" />
 		</id>
 		<property name="employeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="eduLevel" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="amount" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="accountNumber" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="bankName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="accountType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="branchLocation" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="routingNumber" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
-	<class name="com.rknowsys.eapp.hrm.model.impl.EmergencyContactImpl" table="emergency_contact">
+	<class name="com.rknowsys.eapp.hrm.model.impl.EmpEducationImpl" table="emp_education">
 		<cache usage="read-write" />
-		<id name="emergencyContactId" type="long">
+		<id name="empEducationId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="employeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="educationId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="institute" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="major" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="year" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="startDate" type="org.hibernate.type.TimestampType" />
+		<property name="endDate" type="org.hibernate.type.TimestampType" />
+	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.EmpEmergencyContactImpl" table="emp_emergency_contact">
+		<cache usage="read-write" />
+		<id name="empEmergencyContactId" type="long">
 			<generator class="assigned" />
 		</id>
 		<property name="employeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
@@ -136,37 +210,105 @@
 		<property name="mobile" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="workTelephone" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.EmpImmigrationDocumentImpl" table="emp_immigration_document">
+		<cache usage="read-write" />
+		<id name="empImmigrationDocumentId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="employeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="docType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="docNumber" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="issuedDate" type="org.hibernate.type.TimestampType" />
+		<property name="expiryDate" type="org.hibernate.type.TimestampType" />
+		<property name="eligibleStatus" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="issuedBy" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="eligibleReviewDate" type="org.hibernate.type.TimestampType" />
+		<property name="comments" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.EmpJobImpl" table="emp_job">
+		<cache usage="read-write" />
+		<id name="empJobId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="employeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="joinedDate" type="org.hibernate.type.TimestampType" />
+		<property name="probationEndDate" type="org.hibernate.type.TimestampType" />
+		<property name="permanentDate" type="org.hibernate.type.TimestampType" />
+		<property name="jobTitleId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="employmentStatusId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="jobCategoryId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="subUnitId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="locationId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="effectiveDate" type="org.hibernate.type.TimestampType" />
+		<property name="shiftId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="comments" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="employmentContractStartDate" type="org.hibernate.type.TimestampType" />
+		<property name="employmentContractEndDate" type="org.hibernate.type.TimestampType" />
+		<one-to-one name="contractDetailsBlobModel" access="com.liferay.portal.dao.orm.hibernate.PrivatePropertyAccessor" class="com.rknowsys.eapp.hrm.model.EmpJobContractDetailsBlobModel" cascade="save-update" outer-join="false" constrained="true" />
+	</class>
+	<class name="com.rknowsys.eapp.hrm.model.EmpJobContractDetailsBlobModel" table="emp_job" lazy="true">
+		<id name="empJobId" column="empJobId">
+			<generator class="foreign">
+				<param name="property">com.rknowsys.eapp.hrm.model.impl.EmpJobImpl</param>
+			</generator>
+		</id>
+		<property column="contractDetails" name="contractDetailsBlob" type="blob" />
+	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.EmpLanguageImpl" table="emp_language">
+		<cache usage="read-write" />
+		<id name="empLanguageId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="employeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="languageId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="languageSkill" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="languageFluency" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="comments" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.EmpLicenseImpl" table="emp_license">
+		<cache usage="read-write" />
+		<id name="empLicenseId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="employeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="licenseId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="licenseNumber" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="issuedDate" type="org.hibernate.type.TimestampType" />
+		<property name="expiryDate" type="org.hibernate.type.TimestampType" />
+	</class>
 	<class name="com.rknowsys.eapp.hrm.model.impl.EmployeeImpl" table="employee">
 		<cache usage="read-write" />
 		<id name="employeeId" type="long">
 			<generator class="assigned" />
 		</id>
-		<property name="contactDetailsId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="jobId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="shiftId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="licenseId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="locationId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="assignedUserId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="imageId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
-		<property name="firstName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="lastName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="middleName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<one-to-one name="photographBlobModel" access="com.liferay.portal.dao.orm.hibernate.PrivatePropertyAccessor" class="com.rknowsys.eapp.hrm.model.EmployeePhotographBlobModel" cascade="save-update" outer-join="false" constrained="true" />
-		<property name="gender" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
-		<property name="maritalStatus" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
-		<property name="nationality" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="dateOfBirth" type="org.hibernate.type.TimestampType" />
-		<property name="otherId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-	</class>
-	<class name="com.rknowsys.eapp.hrm.model.EmployeePhotographBlobModel" table="employee" lazy="true">
-		<id name="employeeId" column="employeeId">
-			<generator class="foreign">
-				<param name="property">com.rknowsys.eapp.hrm.model.impl.EmployeeImpl</param>
-			</generator>
-		</id>
-		<property column="photograph" name="photographBlob" type="blob" />
 	</class>
 	<class name="com.rknowsys.eapp.hrm.model.impl.EmploymentStatusImpl" table="employment_status">
 		<cache usage="read-write" />
@@ -179,28 +321,158 @@
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="employmentstatus" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="jobId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
-	<class name="com.rknowsys.eapp.hrm.model.impl.ImmigrationDocumentImpl" table="immigration_document">
+	<class name="com.rknowsys.eapp.hrm.model.impl.EmpMembershipImpl" table="emp_membership">
 		<cache usage="read-write" />
-		<id name="immigrationDocumentId" type="long">
+		<id name="empMembershipId" type="long">
 			<generator class="assigned" />
 		</id>
 		<property name="employeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="docTopic" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="docCategory" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="publishTo" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="publishDate" type="org.hibernate.type.TimestampType" />
+		<property name="membershipId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="subscriptionPaidBy" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="subscriptionAmt" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="currency" type="com.liferay.portal.dao.orm.hibernate.StringType" column="currency_" />
+		<property name="commenceDate" type="org.hibernate.type.TimestampType" />
+		<property name="renewalDate" type="org.hibernate.type.TimestampType" />
+	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.EmpPersonalDetailsImpl" table="emp_personal_details">
+		<cache usage="read-write" />
+		<id name="empPersonalDetailsId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="employeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="firstName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="lastName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="middleName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="employeeNo" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="otherId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="licenseNo" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="licenseExpDate" type="org.hibernate.type.TimestampType" />
+		<property name="gender" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="maritalStatus" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="nationalityId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="dateOfBirth" type="org.hibernate.type.TimestampType" />
+	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.EmpSalaryImpl" table="emp_salary">
+		<cache usage="read-write" />
+		<id name="empSalaryId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="employeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="payGradeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="payGradeCurrencyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="comment" type="com.liferay.portal.dao.orm.hibernate.StringType" column="comment_" />
+	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.EmpSalaryComponentImpl" table="emp_salary_component">
+		<cache usage="read-write" />
+		<id name="empSalaryEarningId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="empSalaryId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="salaryComponentId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="amount" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="effectiveDate" type="org.hibernate.type.TimestampType" />
+	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.EmpSkillImpl" table="emp_skill">
+		<cache usage="read-write" />
+		<id name="empSkillId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="employeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="skillId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="years" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="comments" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.EmpSubordinateImpl" table="emp_subordinate">
+		<cache usage="read-write" />
+		<id name="empSubordinateId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="employeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="reporterEmployeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="reportingMethod" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.EmpSupervisorImpl" table="emp_supervisor">
+		<cache usage="read-write" />
+		<id name="empSupervisorId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="employeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="reporterEmployeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="reportingMethod" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.EmpWorkExpImpl" table="emp_work_exp">
+		<cache usage="read-write" />
+		<id name="empWorkExpId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="employeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="company" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="jobTitle" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="fromDate" type="org.hibernate.type.TimestampType" />
+		<property name="toDate" type="org.hibernate.type.TimestampType" />
+		<property name="comment" type="com.liferay.portal.dao.orm.hibernate.StringType" column="comment_" />
+	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.HolidayImpl" table="holiday">
+		<cache usage="read-write" />
+		<id name="holidayId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="holidayName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="isAnnual" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="isFullDay" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="holidayDate" type="org.hibernate.type.TimestampType" />
+		<property name="nationalityId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 	</class>
 	<class name="com.rknowsys.eapp.hrm.model.impl.InterviewImpl" table="interview">
 		<cache usage="read-write" />
-		<id name="id" column="id_" type="long">
+		<id name="interviewId" type="long">
 			<generator class="assigned" />
 		</id>
 		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
@@ -209,34 +481,6 @@
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-	</class>
-	<class name="com.rknowsys.eapp.hrm.model.impl.JobImpl" table="hrm_Job">
-		<cache usage="read-write" />
-		<id name="jobId" type="long">
-			<generator class="assigned" />
-		</id>
-		<property name="jobTitleId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="jobCategoryId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="subUnitId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="locationId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="employmentStatusId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="createDate" type="org.hibernate.type.TimestampType" />
-		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
-		<property name="joinedDate" type="org.hibernate.type.TimestampType" />
-		<property name="employmentContractStartDate" type="org.hibernate.type.TimestampType" />
-		<property name="employmentContractEndDate" type="org.hibernate.type.TimestampType" />
-		<one-to-one name="contractDetailsBlobModel" access="com.liferay.portal.dao.orm.hibernate.PrivatePropertyAccessor" class="com.rknowsys.eapp.hrm.model.JobContractDetailsBlobModel" cascade="save-update" outer-join="false" constrained="true" />
-	</class>
-	<class name="com.rknowsys.eapp.hrm.model.JobContractDetailsBlobModel" table="hrm_Job" lazy="true">
-		<id name="jobId" column="jobId">
-			<generator class="foreign">
-				<param name="property">com.rknowsys.eapp.hrm.model.impl.JobImpl</param>
-			</generator>
-		</id>
-		<property column="contractDetails" name="contractDetailsBlob" type="blob" />
 	</class>
 	<class name="com.rknowsys.eapp.hrm.model.impl.JobCategoryImpl" table="job_category">
 		<cache usage="read-write" />
@@ -249,7 +493,6 @@
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="jobcategory" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="jobId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
 	<class name="com.rknowsys.eapp.hrm.model.impl.JobTitleImpl" table="job_title">
 		<cache usage="read-write" />
@@ -261,19 +504,16 @@
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="employeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="title" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="notes" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="specification" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="jobId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
 	<class name="com.rknowsys.eapp.hrm.model.impl.LanguageImpl" table="language">
 		<cache usage="read-write" />
 		<id name="languageId" type="long">
 			<generator class="assigned" />
 		</id>
-		<property name="employeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
@@ -281,25 +521,127 @@
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="languageName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.LeaveCarryForwardPolicyImpl" table="leave_carry_forward_policy">
+		<cache usage="read-write" />
+		<id name="leaveCarryForwardPolicyId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="leaveTypeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="expiryDuration" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="expiryDurationUOM" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="isMaxCarryForwardLimitApplicable" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="maxCarryForwardLimit" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.LeavePeriodImpl" table="leave_period">
+		<cache usage="read-write" />
+		<id name="leavePeriodId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="startMonth" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="startDate" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="endDate" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.LeaveRestrictionImpl" table="leave_restriction">
+		<cache usage="read-write" />
+		<id name="leaveRestrictionId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="leaveTypeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="cannotExceedBalance" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="cannotApplyForPartialDay" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="ifATermsQuestion" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="termsQuestion" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="errorTextIfTermsDeclined" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="isMinimumServicePeriodApplicable" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="minimumServicePeriod" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="isMaxConsecutiveLeavesApplicable" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="maxConsecutiveLeaves" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="isSmallChildCriterionApplicable" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="maxSmallChildAgeApplicable" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.LeaveRuleImpl" table="leave_rule">
+		<cache usage="read-write" />
+		<id name="leaveRuleId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="leaveTypeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="leavePeriodTypeId" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="startMonth" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="startDayOfMonth" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="duration" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="ifEmployeesCanApply" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="ifAdminCanAssign" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="ifAdminCanManageEntitlements" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="ifLeaveAccruable" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="ifCarryForwardable" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.LeaveTypeImpl" table="leave_type">
+		<cache usage="read-write" />
+		<id name="leaveTypeId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="nationalityId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="leaveTypeName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="isSituational" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.LeaveTypeApplicabilityImpl" table="leave_type_applicability">
+		<cache usage="read-write" />
+		<id name="leaveTypeApplicabilityId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="leaveTypeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="ifYearsOfServiceCriterionApplicable" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="minYearsOfService" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="maxYearsOfService" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
 	<class name="com.rknowsys.eapp.hrm.model.impl.LicenseImpl" table="license">
 		<cache usage="read-write" />
 		<id name="licenseId" type="long">
 			<generator class="assigned" />
 		</id>
-		<property name="employeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="licenseName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="expiryDate" type="org.hibernate.type.TimestampType" />
 	</class>
 	<class name="com.rknowsys.eapp.hrm.model.impl.LocationImpl" table="location">
 		<cache usage="read-write" />
 		<id name="locationId" type="long">
 			<generator class="assigned" />
 		</id>
+		<property name="nationalityId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
@@ -314,14 +656,12 @@
 		<property name="phone" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="fax" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="notes" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="jobId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
 	<class name="com.rknowsys.eapp.hrm.model.impl.MembershipImpl" table="membership">
 		<cache usage="read-write" />
 		<id name="membershipId" type="long">
 			<generator class="assigned" />
 		</id>
-		<property name="employeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
@@ -329,7 +669,7 @@
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="membershipName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
-	<class name="com.rknowsys.eapp.hrm.model.impl.NationalityImpl" table="hrm_Nationality">
+	<class name="com.rknowsys.eapp.hrm.model.impl.NationalityImpl" table="nationality">
 		<cache usage="read-write" />
 		<id name="nationalityId" type="long">
 			<generator class="assigned" />
@@ -339,11 +679,11 @@
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
-		<property name="Name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.rknowsys.eapp.hrm.model.impl.NewsImpl" table="news">
 		<cache usage="read-write" />
-		<id name="id" column="id_" type="long">
+		<id name="newsId" type="long">
 			<generator class="assigned" />
 		</id>
 		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
@@ -356,6 +696,31 @@
 		<property name="publishTo" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="publishDate" type="org.hibernate.type.TimestampType" />
 	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.OrganizationImpl" table="hrm_Organization">
+		<cache usage="read-write" />
+		<id name="organizationId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="organizationName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="taxId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="numberOfEmployees" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="registrationNumber" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="phone" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="fax" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="email" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="addressStreet1" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="addressStreet2" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="city" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="state" type="com.liferay.portal.dao.orm.hibernate.StringType" column="state_" />
+		<property name="postalCode" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="nationalityId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="note" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
 	<class name="com.rknowsys.eapp.hrm.model.impl.PayGradeImpl" table="pay_grade">
 		<cache usage="read-write" />
 		<id name="payGradeId" type="long">
@@ -366,7 +731,7 @@
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="paygradeName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="payGradeName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.rknowsys.eapp.hrm.model.impl.PayGradeCurrencyImpl" table="pay_grade_currency">
 		<cache usage="read-write" />
@@ -383,12 +748,23 @@
 		<property name="minSalary" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="maxSalary" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.ReportingMethodsImpl" table="reportingmethods">
+		<cache usage="read-write" />
+		<id name="reportingmethodId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="reportingmethodName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
 	<class name="com.rknowsys.eapp.hrm.model.impl.SalaryComponentImpl" table="salary_component">
 		<cache usage="read-write" />
 		<id name="salaryComponentId" type="long">
 			<generator class="assigned" />
 		</id>
-		<property name="employeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
@@ -404,7 +780,6 @@
 		<id name="skillId" type="long">
 			<generator class="assigned" />
 		</id>
-		<property name="employeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
@@ -425,38 +800,18 @@
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
-		<property name="jobId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
-	<class name="com.rknowsys.eapp.hrm.model.impl.SupervisorImpl" table="supervisor">
+	<class name="com.rknowsys.eapp.hrm.model.impl.TerminationReasonsImpl" table="terminationreasons">
 		<cache usage="read-write" />
-		<id name="supervisorId" type="long">
+		<id name="terminationreasonsId" type="long">
 			<generator class="assigned" />
 		</id>
-		<property name="employeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
-		<property name="reportingMethod" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-	</class>
-	<class name="com.rknowsys.eapp.hrm.model.impl.WorkExpCompanyImpl" table="work_exp_company">
-		<cache usage="read-write" />
-		<id name="workExpCompanyId" type="long">
-			<generator class="assigned" />
-		</id>
-		<property name="employeeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="createDate" type="org.hibernate.type.TimestampType" />
-		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
-		<property name="company" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="jobTitle" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="fromDate" type="org.hibernate.type.TimestampType" />
-		<property name="toDate" type="org.hibernate.type.TimestampType" />
-		<property name="comment" type="com.liferay.portal.dao.orm.hibernate.StringType" column="comment_" />
+		<property name="terminationreasonsName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.rknowsys.eapp.hrm.model.impl.WorkshiftImpl" table="workshift">
 		<cache usage="read-write" />
@@ -471,5 +826,25 @@
 		<property name="workshiftName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="fromWorkHours" type="org.hibernate.type.TimestampType" />
 		<property name="toWorkHours" type="org.hibernate.type.TimestampType" />
+	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.WorkWeekImpl" table="workweek">
+		<cache usage="read-write" />
+		<id name="workWeekId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="nationalityId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="mondayWorkSchedule" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="tuesdayWorkSchedule" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="wednesdayWorkSchedule" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="thursdayWorkSchedule" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="fridayWorkSchedule" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="saturdayWorkSchedule" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="sundayWorkSchedule" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 	</class>
 </hibernate-mapping>

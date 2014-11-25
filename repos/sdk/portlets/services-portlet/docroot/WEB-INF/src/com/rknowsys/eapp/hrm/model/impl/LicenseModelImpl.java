@@ -62,22 +62,20 @@ public class LicenseModelImpl extends BaseModelImpl<License>
 	public static final String TABLE_NAME = "license";
 	public static final Object[][] TABLE_COLUMNS = {
 			{ "licenseId", Types.BIGINT },
-			{ "employeeId", Types.BIGINT },
 			{ "companyId", Types.BIGINT },
 			{ "groupId", Types.BIGINT },
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "userId", Types.BIGINT },
-			{ "licenseName", Types.VARCHAR },
-			{ "expiryDate", Types.TIMESTAMP }
+			{ "licenseName", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table license (licenseId LONG not null primary key,employeeId LONG,companyId LONG,groupId LONG,createDate DATE null,modifiedDate DATE null,userId LONG,licenseName VARCHAR(75) null,expiryDate DATE null)";
+	public static final String TABLE_SQL_CREATE = "create table license (licenseId LONG not null primary key,companyId LONG,groupId LONG,createDate DATE null,modifiedDate DATE null,userId LONG,licenseName VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table license";
 	public static final String ORDER_BY_JPQL = " ORDER BY license.licenseId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY license.licenseId ASC";
-	public static final String DATA_SOURCE = "anotherDataSource";
-	public static final String SESSION_FACTORY = "anotherSessionFactory";
-	public static final String TX_MANAGER = "anotherTransactionManager";
+	public static final String DATA_SOURCE = "hrmDataSource";
+	public static final String SESSION_FACTORY = "hrmSessionFactory";
+	public static final String TX_MANAGER = "hrmTransactionManager";
 	public static final boolean ENTITY_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.entity.cache.enabled.com.rknowsys.eapp.hrm.model.License"),
 			true);
@@ -87,9 +85,8 @@ public class LicenseModelImpl extends BaseModelImpl<License>
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.column.bitmask.enabled.com.rknowsys.eapp.hrm.model.License"),
 			true);
-	public static long EMPLOYEEID_COLUMN_BITMASK = 1L;
-	public static long GROUPID_COLUMN_BITMASK = 2L;
-	public static long LICENSEID_COLUMN_BITMASK = 4L;
+	public static long GROUPID_COLUMN_BITMASK = 1L;
+	public static long LICENSEID_COLUMN_BITMASK = 2L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.rknowsys.eapp.hrm.model.License"));
 
@@ -131,14 +128,12 @@ public class LicenseModelImpl extends BaseModelImpl<License>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("licenseId", getLicenseId());
-		attributes.put("employeeId", getEmployeeId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("userId", getUserId());
 		attributes.put("licenseName", getLicenseName());
-		attributes.put("expiryDate", getExpiryDate());
 
 		return attributes;
 	}
@@ -149,12 +144,6 @@ public class LicenseModelImpl extends BaseModelImpl<License>
 
 		if (licenseId != null) {
 			setLicenseId(licenseId);
-		}
-
-		Long employeeId = (Long)attributes.get("employeeId");
-
-		if (employeeId != null) {
-			setEmployeeId(employeeId);
 		}
 
 		Long companyId = (Long)attributes.get("companyId");
@@ -192,12 +181,6 @@ public class LicenseModelImpl extends BaseModelImpl<License>
 		if (licenseName != null) {
 			setLicenseName(licenseName);
 		}
-
-		Date expiryDate = (Date)attributes.get("expiryDate");
-
-		if (expiryDate != null) {
-			setExpiryDate(expiryDate);
-		}
 	}
 
 	@Override
@@ -220,28 +203,6 @@ public class LicenseModelImpl extends BaseModelImpl<License>
 
 	public long getOriginalLicenseId() {
 		return _originalLicenseId;
-	}
-
-	@Override
-	public long getEmployeeId() {
-		return _employeeId;
-	}
-
-	@Override
-	public void setEmployeeId(long employeeId) {
-		_columnBitmask |= EMPLOYEEID_COLUMN_BITMASK;
-
-		if (!_setOriginalEmployeeId) {
-			_setOriginalEmployeeId = true;
-
-			_originalEmployeeId = _employeeId;
-		}
-
-		_employeeId = employeeId;
-	}
-
-	public long getOriginalEmployeeId() {
-		return _originalEmployeeId;
 	}
 
 	@Override
@@ -331,16 +292,6 @@ public class LicenseModelImpl extends BaseModelImpl<License>
 		_licenseName = licenseName;
 	}
 
-	@Override
-	public Date getExpiryDate() {
-		return _expiryDate;
-	}
-
-	@Override
-	public void setExpiryDate(Date expiryDate) {
-		_expiryDate = expiryDate;
-	}
-
 	public long getColumnBitmask() {
 		return _columnBitmask;
 	}
@@ -373,14 +324,12 @@ public class LicenseModelImpl extends BaseModelImpl<License>
 		LicenseImpl licenseImpl = new LicenseImpl();
 
 		licenseImpl.setLicenseId(getLicenseId());
-		licenseImpl.setEmployeeId(getEmployeeId());
 		licenseImpl.setCompanyId(getCompanyId());
 		licenseImpl.setGroupId(getGroupId());
 		licenseImpl.setCreateDate(getCreateDate());
 		licenseImpl.setModifiedDate(getModifiedDate());
 		licenseImpl.setUserId(getUserId());
 		licenseImpl.setLicenseName(getLicenseName());
-		licenseImpl.setExpiryDate(getExpiryDate());
 
 		licenseImpl.resetOriginalValues();
 
@@ -437,10 +386,6 @@ public class LicenseModelImpl extends BaseModelImpl<License>
 
 		licenseModelImpl._setOriginalLicenseId = false;
 
-		licenseModelImpl._originalEmployeeId = licenseModelImpl._employeeId;
-
-		licenseModelImpl._setOriginalEmployeeId = false;
-
 		licenseModelImpl._originalGroupId = licenseModelImpl._groupId;
 
 		licenseModelImpl._setOriginalGroupId = false;
@@ -453,8 +398,6 @@ public class LicenseModelImpl extends BaseModelImpl<License>
 		LicenseCacheModel licenseCacheModel = new LicenseCacheModel();
 
 		licenseCacheModel.licenseId = getLicenseId();
-
-		licenseCacheModel.employeeId = getEmployeeId();
 
 		licenseCacheModel.companyId = getCompanyId();
 
@@ -488,26 +431,15 @@ public class LicenseModelImpl extends BaseModelImpl<License>
 			licenseCacheModel.licenseName = null;
 		}
 
-		Date expiryDate = getExpiryDate();
-
-		if (expiryDate != null) {
-			licenseCacheModel.expiryDate = expiryDate.getTime();
-		}
-		else {
-			licenseCacheModel.expiryDate = Long.MIN_VALUE;
-		}
-
 		return licenseCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(15);
 
 		sb.append("{licenseId=");
 		sb.append(getLicenseId());
-		sb.append(", employeeId=");
-		sb.append(getEmployeeId());
 		sb.append(", companyId=");
 		sb.append(getCompanyId());
 		sb.append(", groupId=");
@@ -520,8 +452,6 @@ public class LicenseModelImpl extends BaseModelImpl<License>
 		sb.append(getUserId());
 		sb.append(", licenseName=");
 		sb.append(getLicenseName());
-		sb.append(", expiryDate=");
-		sb.append(getExpiryDate());
 		sb.append("}");
 
 		return sb.toString();
@@ -529,7 +459,7 @@ public class LicenseModelImpl extends BaseModelImpl<License>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(25);
 
 		sb.append("<model><model-name>");
 		sb.append("com.rknowsys.eapp.hrm.model.License");
@@ -538,10 +468,6 @@ public class LicenseModelImpl extends BaseModelImpl<License>
 		sb.append(
 			"<column><column-name>licenseId</column-name><column-value><![CDATA[");
 		sb.append(getLicenseId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>employeeId</column-name><column-value><![CDATA[");
-		sb.append(getEmployeeId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>companyId</column-name><column-value><![CDATA[");
@@ -567,10 +493,6 @@ public class LicenseModelImpl extends BaseModelImpl<License>
 			"<column><column-name>licenseName</column-name><column-value><![CDATA[");
 		sb.append(getLicenseName());
 		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>expiryDate</column-name><column-value><![CDATA[");
-		sb.append(getExpiryDate());
-		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -584,9 +506,6 @@ public class LicenseModelImpl extends BaseModelImpl<License>
 	private long _licenseId;
 	private long _originalLicenseId;
 	private boolean _setOriginalLicenseId;
-	private long _employeeId;
-	private long _originalEmployeeId;
-	private boolean _setOriginalEmployeeId;
 	private long _companyId;
 	private long _groupId;
 	private long _originalGroupId;
@@ -596,7 +515,6 @@ public class LicenseModelImpl extends BaseModelImpl<License>
 	private long _userId;
 	private String _userUuid;
 	private String _licenseName;
-	private Date _expiryDate;
 	private long _columnBitmask;
 	private License _escapedModel;
 }

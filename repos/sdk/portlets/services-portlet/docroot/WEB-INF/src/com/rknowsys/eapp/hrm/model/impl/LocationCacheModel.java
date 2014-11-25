@@ -41,6 +41,8 @@ public class LocationCacheModel implements CacheModel<Location>, Externalizable 
 
 		sb.append("{locationId=");
 		sb.append(locationId);
+		sb.append(", nationalityId=");
+		sb.append(nationalityId);
 		sb.append(", companyId=");
 		sb.append(companyId);
 		sb.append(", groupId=");
@@ -69,8 +71,6 @@ public class LocationCacheModel implements CacheModel<Location>, Externalizable 
 		sb.append(fax);
 		sb.append(", notes=");
 		sb.append(notes);
-		sb.append(", jobId=");
-		sb.append(jobId);
 		sb.append("}");
 
 		return sb.toString();
@@ -81,6 +81,7 @@ public class LocationCacheModel implements CacheModel<Location>, Externalizable 
 		LocationImpl locationImpl = new LocationImpl();
 
 		locationImpl.setLocationId(locationId);
+		locationImpl.setNationalityId(nationalityId);
 		locationImpl.setCompanyId(companyId);
 		locationImpl.setGroupId(groupId);
 
@@ -163,8 +164,6 @@ public class LocationCacheModel implements CacheModel<Location>, Externalizable 
 			locationImpl.setNotes(notes);
 		}
 
-		locationImpl.setJobId(jobId);
-
 		locationImpl.resetOriginalValues();
 
 		return locationImpl;
@@ -173,6 +172,7 @@ public class LocationCacheModel implements CacheModel<Location>, Externalizable 
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		locationId = objectInput.readLong();
+		nationalityId = objectInput.readLong();
 		companyId = objectInput.readLong();
 		groupId = objectInput.readLong();
 		createDate = objectInput.readLong();
@@ -187,13 +187,13 @@ public class LocationCacheModel implements CacheModel<Location>, Externalizable 
 		phone = objectInput.readUTF();
 		fax = objectInput.readUTF();
 		notes = objectInput.readUTF();
-		jobId = objectInput.readLong();
 	}
 
 	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(locationId);
+		objectOutput.writeLong(nationalityId);
 		objectOutput.writeLong(companyId);
 		objectOutput.writeLong(groupId);
 		objectOutput.writeLong(createDate);
@@ -262,11 +262,10 @@ public class LocationCacheModel implements CacheModel<Location>, Externalizable 
 		else {
 			objectOutput.writeUTF(notes);
 		}
-
-		objectOutput.writeLong(jobId);
 	}
 
 	public long locationId;
+	public long nationalityId;
 	public long companyId;
 	public long groupId;
 	public long createDate;
@@ -281,5 +280,4 @@ public class LocationCacheModel implements CacheModel<Location>, Externalizable 
 	public String phone;
 	public String fax;
 	public String notes;
-	public long jobId;
 }

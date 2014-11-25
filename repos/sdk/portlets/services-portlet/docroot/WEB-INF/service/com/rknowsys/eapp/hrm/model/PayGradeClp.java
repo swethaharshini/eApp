@@ -80,7 +80,7 @@ public class PayGradeClp extends BaseModelImpl<PayGrade> implements PayGrade {
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("userId", getUserId());
-		attributes.put("paygradeName", getPaygradeName());
+		attributes.put("payGradeName", getPayGradeName());
 
 		return attributes;
 	}
@@ -123,10 +123,10 @@ public class PayGradeClp extends BaseModelImpl<PayGrade> implements PayGrade {
 			setUserId(userId);
 		}
 
-		String paygradeName = (String)attributes.get("paygradeName");
+		String payGradeName = (String)attributes.get("payGradeName");
 
-		if (paygradeName != null) {
-			setPaygradeName(paygradeName);
+		if (payGradeName != null) {
+			setPayGradeName(payGradeName);
 		}
 	}
 
@@ -279,21 +279,21 @@ public class PayGradeClp extends BaseModelImpl<PayGrade> implements PayGrade {
 	}
 
 	@Override
-	public String getPaygradeName() {
-		return _paygradeName;
+	public String getPayGradeName() {
+		return _payGradeName;
 	}
 
 	@Override
-	public void setPaygradeName(String paygradeName) {
-		_paygradeName = paygradeName;
+	public void setPayGradeName(String payGradeName) {
+		_payGradeName = payGradeName;
 
 		if (_payGradeRemoteModel != null) {
 			try {
 				Class<?> clazz = _payGradeRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setPaygradeName", String.class);
+				Method method = clazz.getMethod("setPayGradeName", String.class);
 
-				method.invoke(_payGradeRemoteModel, paygradeName);
+				method.invoke(_payGradeRemoteModel, payGradeName);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -376,7 +376,7 @@ public class PayGradeClp extends BaseModelImpl<PayGrade> implements PayGrade {
 		clone.setCreateDate(getCreateDate());
 		clone.setModifiedDate(getModifiedDate());
 		clone.setUserId(getUserId());
-		clone.setPaygradeName(getPaygradeName());
+		clone.setPayGradeName(getPayGradeName());
 
 		return clone;
 	}
@@ -439,8 +439,8 @@ public class PayGradeClp extends BaseModelImpl<PayGrade> implements PayGrade {
 		sb.append(getModifiedDate());
 		sb.append(", userId=");
 		sb.append(getUserId());
-		sb.append(", paygradeName=");
-		sb.append(getPaygradeName());
+		sb.append(", payGradeName=");
+		sb.append(getPayGradeName());
 		sb.append("}");
 
 		return sb.toString();
@@ -479,8 +479,8 @@ public class PayGradeClp extends BaseModelImpl<PayGrade> implements PayGrade {
 		sb.append(getUserId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>paygradeName</column-name><column-value><![CDATA[");
-		sb.append(getPaygradeName());
+			"<column><column-name>payGradeName</column-name><column-value><![CDATA[");
+		sb.append(getPayGradeName());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -495,6 +495,6 @@ public class PayGradeClp extends BaseModelImpl<PayGrade> implements PayGrade {
 	private Date _modifiedDate;
 	private long _userId;
 	private String _userUuid;
-	private String _paygradeName;
+	private String _payGradeName;
 	private BaseModel<?> _payGradeRemoteModel;
 }

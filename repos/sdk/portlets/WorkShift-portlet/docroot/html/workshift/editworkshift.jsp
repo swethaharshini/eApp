@@ -1,3 +1,5 @@
+<%@page import="com.rknowsys.eapp.hrm.service.EmpPersonalDetailsLocalServiceUtil"%>
+<%@page import="com.rknowsys.eapp.hrm.model.EmpPersonalDetails"%>
 <%@page import="com.rknowsys.eapp.hrm.model.Workshift"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.liferay.portal.kernel.util.WebKeys"%>
@@ -22,54 +24,17 @@
 .table-last-header {
 	width: 15%;
 }
+.aui input[type="text"],.aui select{
+border-radius: 4px;
+}
+.aui label {
+color: #555;
+font-size: 14px;
+font-weight: 200;
+font-family: sans-serif;
+font: small-caption;
 </style>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script>
-var selectedEmps = new Array;
-$(document).ready(function() {
-    $('#btnRight').click(function(e) {
-        var selectedOpts = $('#lstBox1 option:selected');
-        if (selectedOpts.length == 0) {
-            alert("Nothing to move.");
-            e.preventDefault();
-        }
 
-        $('#lstBox2').append($(selectedOpts).clone());
-        $(selectedOpts).remove();
-        e.preventDefault();
-    });
-
-    $('#btnLeft').click(function(e) {
-        var selectedOpts = $('#lstBox2 option:selected');
-        if (selectedOpts.length == 0) {
-            alert("Nothing to move.");
-            e.preventDefault();
-        }
-
-        $('#lstBox1').append($(selectedOpts).clone());
-        $(selectedOpts).remove();
-        e.preventDefault();
-    });
-    
-    $('#<portlet:namespace/>save').click(function(element) {
-
-        var allAssignedOpts = $('#lstBox2 option');
-        if (allAssignedOpts.length != 0) {
-        	     $("#lstBox2 option").each  ( function() {
-        	    	 $('#lstBox2 option').prop('selected', true);
-        	     });
-        }
-        var allAvailableOpts = $('#lstBox1 option');
-        if (allAvailableOpts.length != 0) {
-        	     $("#lstBox1 option").each  ( function() {
-        	    	 $('#lstBox1 option').prop('selected', true);
-        	     });
-        }
-
-    });
-});
-
-</script>
 <aui:script>
 AUI().use(
   'aui-node',
@@ -78,6 +43,7 @@ AUI().use(
     node.on(
       'click',
       function() {
+     
      var idArray = [];
       A.all('input[type=checkbox]:checked').each(function(object) {
       idArray.push(object.get("value"));
@@ -96,7 +62,7 @@ AUI().use(
                  },
           on: {
                success: function() { 
-                   alert('Records deleted successfully.');
+                   alert('Deleted successfully.');
                    window.location='<%=listview%>';
               },
                failure: function() {
@@ -117,47 +83,52 @@ AUI().use(
     );
   }
 );
-</aui:script>
-<aui:script>
+
+
+
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#edit');
-    node.on(
+    
+    var add = A.one('#btn-add');
+ add.on(
       'click',
       function() {
-         A.one('#editjobeditdelete').hide();
-         A.one('#editWorkshiftForm').show();
-                     
+      AUI().ready('aui-node',function(A) {
+       var nodeObject = A.all('#select-to');
+        A.all('#select-from option:selected').each(function() {
+        A.one('#select-to').append('<option selected="selected" value="'+this.val()+'">'+this.text()+'</option>');
+        this.remove();
+       
+		});
+      });
       }
     );
   }
 );
 
-AUI().ready('event', 'node', function(A){
-
-  A.one('#editjobeditdelete').hide();
- 
- });
-
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#editcancel');
-    node.on(
+    
+    var add = A.one('#btn-remove');
+ add.on(
       'click',
       function() {
-      	 A.one('#editjobeditdelete').show();
-         A.	one('#editWorkshiftForm').hide();
-         A.one("#editworkshift").set("value","");
-      	A.one("#editworkshiftTime").set("value","");
+      AUI().ready('aui-node',function(A) {
+       var nodeObject = A.all('#select-from');
+        A.all('#select-to option:selected').each(function() {
+        A.one('#select-from').append('<option selected="selected" value="'+this.val()+'">'+this.text()+'</option>');
+        this.remove();
+       
+		});
+      });
       }
-    );																																
+    );
   }
 );
 
 </aui:script>
-
 <aui:script>
 YUI().use(
   'aui-timepicker',
@@ -196,76 +167,81 @@ YUI().use(
 
 </head>
 <body>
-	<jsp:useBean id="editworkshift"
-		type="com.rknowsys.eapp.hrm.model.Workshift" scope="request" />
-			
-	<div id="editjobeditdelete" class="span12">
-		<a href="#" id="edit">edit</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"
-			id="delete">Delete</a>
-	</div>
-	
+<%
+Workshift editworkshift = (Workshift) portletSession.getAttribute("editworkshift");
+
+%>
+
 	<div id="editWorkshiftForm">
 		<aui:form name="workshiftForm" action="<%=saveworkshift.toString()%>">
+		<div class="row-fluid">
 			<aui:input name="shiftId" type="hidden" id="shiftId"
 				value="<%=editworkshift.getShiftId()%>" />
-				<aui:fieldset label="Edit Work Shift">
-					<label>Edit Work Shift</label>
 					<% WorkshiftBean workshiftExt = new WorkshiftBean(editworkshift); %>
 					<input name="<portlet:namespace/>workshiftName" id="workshiftName"
 					    type="text" value="<%=editworkshift.getWorkshiftName() %>">
+			</div>
+			<div class="row-fluid">
+			<div class="span4">
 					<label>From</label>
 					<input name="<portlet:namespace/>fromWorkHours" id="fromWorkHours"
-						type="text" value="<%=workshiftExt.getFormattedFromWorkHoursStr() %>">
+						type="text" value="<%=workshiftExt.getFormattedFromWorkHoursStr() %>"></div>
+				<div class="span4">
                     <label>To</label>
 					<input name="<portlet:namespace/>toWorkHours" id="toWorkHours"
-						type="text" value="<%=workshiftExt.getFormattedToWorkHoursStr() %>">
-<table style='width:370px;'>
-    <tr>
-				<td style='width: 160px;'><b>Available Employees</b><br /> <select
-					multiple="multiple" id="lstBox1" name="<portlet:namespace/>lstBox1">
-						        	<jsp:useBean id="unassignedemployees"
-		class="java.util.ArrayList" scope="request" />
-        
-        						<%
- 								if (unassignedemployees != null) {
-							    for (Object employee : unassignedemployees) {
-								    System.out.println("Employee # " + employee);
-								%>
-									<option value="<%=((Employee)employee).getEmployeeId()%>"> <%=((Employee)employee).getFirstName() + " " + ((Employee)employee).getMiddleName() + " " + ((Employee)employee).getLastName() %></option>
-								<%
-							        }
-        						}
-							%>
-				</select></td>
-				<td style='width:50px;text-align:center;vertical-align:middle;'>
-        <input type='button' id='btnRight' value ='  >  '/>
-        <br/><input type='button' id='btnLeft' value ='  <  '/>
-    </td>
-    <td style='width:160px;'>
-        <b>Assigned Employees</b><br/>
-        <select multiple="multiple" name="<portlet:namespace />lstBox2" id="lstBox2"> 
-        	<jsp:useBean id="shiftemployees"
-		class="java.util.ArrayList" scope="request" />
-        
-        						<%
- 								if (shiftemployees != null) {
-							    for (Object employee : shiftemployees) {
-								    System.out.println("Employee # " + employee);
-								%>
-									<option value="<%=((Employee)employee).getEmployeeId()%>"> <%=((Employee)employee).getFirstName() + " " + ((Employee)employee).getMiddleName() + " " + ((Employee)employee).getLastName() %></option>
-								<%
-							        }
-        						}
-							%>
-        </select>
-    </td>
-</tr>
-</table>						
-		<aui:button-row>
-			<aui:button name="save" type="submit" />
-			<aui:button type="reset" value="Cancel" id="editcancel"></aui:button>
-		</aui:button-row>
-		</aui:fieldset>
+						type="text" value="<%=workshiftExt.getFormattedToWorkHoursStr() %>"></div>
+				<div class="span4"></div>
+			</div>
+			
+	<div class="row-fluid">
+  
+  <table><tr><td><b>
+
+Available Employees<br/></b>
+
+<%
+List<EmpPersonalDetails> emplist = EmpPersonalDetailsLocalServiceUtil.getEmployeeDetailsByShiftId(Long.parseLong("0"));
+	System.out.println("List == "+emplist.size());
+ %>
+
+ <select name="<portlet:namespace />selectfrom" id="select-from"multiple="multiple" >
+    <%for(int i=0;i<emplist.size();i++){
+    %>
+     
+    <Option selected="selected" value="<%=emplist.get(i).getEmployeeId()%>"><%=emplist.get(i).getFirstName()+" "+emplist.get(i).getLastName()%></Option>
+    <%}%>
+    </select>
+
+
+
+</td><td align="center" height="183px" width="175px"><div id="btn-add"><a href="#">Add</a></div><br/><div id="btn-remove"><a href="#">Remove</a></div></td>
+  <td><b>Assigned Employees<br/></b>
+  	<%
+List<EmpPersonalDetails> elist = EmpPersonalDetailsLocalServiceUtil.getEmployeeDetailsByShiftId(editworkshift.getShiftId());
+	System.out.println("List == "+emplist.size());
+ %>
+<select name="<portlet:namespace/>selectto" id="select-to" multiple="multiple" >
+     <%for(int i=0;i<elist.size();i++){
+    %>
+     
+    <Option selected="selected" value="<%=elist.get(i).getEmployeeId()%>"><%=elist.get(i).getFirstName()+" "+elist.get(i).getLastName()%></Option>
+    <%}%>
+
+</select> 
+
+   
+    </td></tr>
+      
+    </table>
+  
+  
+  
+  </div>
+						
+			   <aui:button type="submit" name="submit" value="Submit" id="submit"></aui:button>
+			   <aui:button type="reset" value="reset"></aui:button>
+			   <input type="button" class="btn" value="Delete" id="delete">
+		
 		</aui:form>
 	</div>
 	
@@ -298,7 +274,7 @@ System.out.println("sortByType == " +sortByType);
 <%!
   com.liferay.portal.kernel.dao.search.SearchContainer<Workshift> searchContainer;
 %>
-<liferay-ui:search-container orderByCol="<%=sortByCol %>" orderByType="<%=sortByType %>" rowChecker="<%= new RowChecker(renderResponse) %>"  delta="5" emptyResultsMessage="No records is available for Workshift."   deltaConfigurable="true"   iteratorURL="<%=iteratorURL%>">
+<liferay-ui:search-container orderByCol="<%=sortByCol %>" orderByType="<%=sortByType %>" rowChecker="<%= new RowChecker(renderResponse) %>" delta="5" emptyResultsMessage="No records is available for Workshift."   deltaConfigurable="true"   iteratorURL="<%=iteratorURL%>">
 		<liferay-ui:search-container-results>
 				
 		<%
