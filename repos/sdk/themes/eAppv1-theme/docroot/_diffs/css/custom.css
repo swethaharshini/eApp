@@ -1,0 +1,190 @@
+/* ----------- Compass Import ----------*/
+@import "compass";
+
+/* -----------Color Schemes Import --------------*/
+@import url(color_schemes/default.css);
+@import url(color_schemes/pink.css);
+@import url(color_schemes/orange.css);
+@import url(color_schemes/yellow.css);
+@import url(color_schemes/green.css);
+
+/* -----------Mixins --------------*/
+@mixin clearfix() {
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+/* -----------Colors Variables --------------*/
+	$blue: #2c3748;
+	$col2:#4e4e4e;
+	* {
+	margin: 0;
+	}
+	html, body {
+		height: 100%;
+	}
+.aui {
+	body {
+	  background:url(../images/tiny_grid.png);
+	  font-family: 'Open Sans', sans-serif;
+	  color:$col2;
+	  font-size:13px;
+	}
+	img {
+		height:none;
+	}
+	
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+	  font-weight: 600; 
+	  font-family: 'Open Sans', sans-serif;
+	  color:$col2;
+	}
+	.separation {
+		display:block;
+		border-top:solid 1px #c1c1c1;
+		border-bottom:solid 1px #e4e4e4;
+	}
+	
+	
+	/* --------------Hyperlinks---------------- */
+	a {
+	  color: $blue;
+	  -webkit-transition: color 300ms, background-color 300ms;
+	  -moz-transition: color 300ms, background-color 300ms;
+	  -o-transition:  color 300ms, background-color 300ms;
+	  transition:  color 300ms, background-color 300ms;
+	}
+	
+	a:hover, a:focus {
+	  color: lighten($col2,10%);
+	}
+
+
+	
+	/* --------------Wrappers---------------- */
+	#wrapper {
+		padding:0;
+		min-height: 100%;
+		height: auto !important;
+		height: 100%;
+		margin: 0 auto -46px;
+	}
+	#banner {
+		background: $blue;
+	}
+	#content {
+		
+	}
+	#main-content {
+	}
+	
+	#footer {
+		background:#fff;
+		border-top:solid 1px #e2e2e2;
+		line-height:45px;
+		padding:0 !important;
+		p {
+			margin:0;
+		}
+	}
+	.push {
+		height:45px !important;
+	}
+
+	
+	/*--------------------- Header ----------------------*/
+	.site-title {
+		text-align:center;
+		padding:10px;
+		display:block;
+		margin:0 auto;
+		span {
+			display:none;
+		}
+	}
+	.logo {
+		line-height: 60px;
+	}
+	/*--------------------- Navigation ----------------------*/
+	#navigation {
+		float:right;
+	}	
+	.jMenu{display:table;margin:0 !important;padding:0;list-style:none; position:relative}
+	.jMenu li{display:table-cell; margin:0;list-style:none}
+	.jMenu li a{padding:19px 15px;display:block;background-color:transparent;color:#fff; cursor:pointer;font-size:12px}
+	.jMenu li a:hover{background-color:#2a2a2a; color: #23dbdb; text-decoration:none;}
+	.jMenu li:hover>a{background-color:#2a2a2a}
+	.jMenu li ul{display:none;position:absolute;z-index:9999;padding:0;margin:0;list-style:none}
+	.jMenu li ul li{background-color:#333;display:block;border-bottom:1px solid #bbb;padding:0;list-style:none;position:relative}
+	.jMenu li ul li a{font-size:11px;color:#bbb;text-transform:none;display:block;padding:7px;border-top:1px solid transparent;border-bottom:1px solid transparent}
+	.jMenu li ul li a:hover {color: #fff;}
+	.jMenu li ul li a.isParent{background-color:#2a2a2a}
+	.jMenu li ul li a:hover{background-color:#2a2a2a;border-top:1px solid #322f32;border-bottom:1px solid #322f32}
+	.modify-pages li {position: static;}
+	.menu-icon {
+		position: relative;
+		right: -10px;
+	}
+	.child-menu {
+		border-top:solid 2px #23dbdb;
+		.menu-icon {
+			position: relative;
+			right: -30px;
+		}
+	}
+	.grandchild-menu {
+		border-left:solid 2px #23dbdb;
+		margin-left: 2px !important;
+		.menu-icon {
+			position: relative;
+			right: -70px;
+		}
+	}
+	.sub-grandchild-menu {
+		border-left:solid 2px #23dbdb;
+		margin-left: 2px !important;
+	}
+	/*--------------------- breadcrumbs ----------------------*/
+	#breadcrumbs {
+		margin-top:15px;
+		.breadcrumb {
+			background:none !important;
+			margin-bottom: 15px;
+		}
+	}
+
+	.portlet {
+		@include box-shadow (0 4px 0 0 #e2e2e2);
+		.portlet-topper {
+			padding:0 15px;
+			background: #00b897;
+			h2 {
+				margin:0;
+				color:#fff;
+				font-size: 24px;
+			}
+			.portlet-topper-toolbar {
+				z-index: 0;
+				top:10px;
+				right:15px;
+				color:#fff;
+			}
+		}
+		.portlet-content {
+			background: #fff;
+			padding: 10px 15px;
+		}
+	}
+
+}
