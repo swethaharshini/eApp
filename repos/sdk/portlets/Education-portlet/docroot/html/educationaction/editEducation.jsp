@@ -104,19 +104,11 @@ AUI().use(
 	<div id="editEducationForm">
   	<aui:form name="myForm" action="<%=updateEducations.toString()%>">
 		<aui:input name="educationId" type="hidden" id="educationId"  value="<%=editEducation.getEducationId()%>"/>
-		<div class="row-fluid">
-			<div class="span2 text-right">
-				<label>Level</label>
-			</div>
-			<div class="span6">		
+		<div class="form-inline">
+				<label>Level: </label>
 		 		<input name="<portlet:namespace/>education_level" type="text" required = "required" value="<%=editEducation.getEduLevel() %>" >
-			</div>
-		</div>
-		<div class="row-fluid">
-			<div class="span6 offset2">
-				<aui:button type="submit" class="btn btn-success" value="Submit" />
-				<aui:button  type="reset" class="btn btn-danger" id ="editCancel" value="Cancel"></aui:button>
-			</div>
+				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
+				<button  type="reset" id ="cancel" class="btn btn-danger"><i class="icon-remove"></i></button>
 		</div>
 	</aui:form>
 	</div>

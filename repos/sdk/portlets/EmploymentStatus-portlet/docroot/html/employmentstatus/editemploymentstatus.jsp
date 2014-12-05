@@ -13,14 +13,7 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/employmentstatus/addemploymentstatus.jsp" />
 </portlet:renderURL>
-<style type="text/css">	
-.table-first-header{
-width: 10%;
-}
-.table-last-header{
-width: 15%;
-}
-</style>
+
 <aui:script>
 AUI().use(
   'aui-node',
@@ -112,25 +105,23 @@ AUI().use(
 </head>
 <body>
 <jsp:useBean id="editemploymentstatus" type="com.rknowsys.eapp.hrm.model.EmploymentStatus" scope="request" />
-<div id="editjobadddelete" class="span12">
-		<a href="#" id="add">Add</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"
-			id="delete">Delete</a>
-	</div>
-	<div id="editEmploymentStatusForm">
-  <aui:form name="myForm" action="<%=saveemploymentstatus.toString()%>">
-		<aui:input name="employmentstatusId" type="hidden" id="employmentstatusId"  value="<%=editemploymentstatus.getEmploymentstatus()%>"/>
-		<div class="span12">
-				<div class="span2">
-						<label>Employment Status</label>
-			 </div>
-			 <div class="span3">
-			 <input name="<portlet:namespace/>employmentstatus" id="editemploymentstatus" class="employmentstatus" type="text" required = "required" value="<%=editemploymentstatus.getEmploymentstatus() %>">
-						</div>
-					</div>
-	<aui:button type="submit" value="Submit"/> <aui:button  type="reset" value="Cancel" id ="editcancel"></aui:button>
-	</aui:form>
-	</div>
-	 <div><label style="color: white" >.</label></div>
+<div class="row-fluid">
+		<div id="employmentstatusadddelete" class="span12 text-right">
+			<a href="#" id="add" class="btn btn-success"><i class="icon-plus"></i></a>
+			<a href="#" id="delete" class="btn btn-danger"><i class="icon-trash"></i></a>
+		</div>
+		<div id="editEmploymentStatusForm">
+	    <aui:form name="myForm" action="<%=saveemploymentstatus.toString()%>">
+	  		<aui:input name="employmentstatusId" type="hidden" id="employmentstatusId"  value="<%=editemploymentstatus.getEmploymentstatus()%>"/>
+	  		<div class="form-inline">
+				<label>Employment Status: </label>
+				<input name="<portlet:namespace/>employmentstatus" id="editemploymentstatus" class="employmentstatus" type="text" required="required" value="<%=editemploymentstatus.getEmploymentstatus() %>">
+				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
+				<button  type="reset" id ="editcancel" class="btn btn-danger"><i class="icon-remove"></i></button>
+	  		</div>
+	  	</aui:form>
+		</div>
+</div>
 </body>
 <%
 PortletURL iteratorURL = renderResponse.createRenderURL();

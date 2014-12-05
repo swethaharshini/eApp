@@ -1,6 +1,14 @@
 .table-first-header {
-	width: 5%;
+	width: 20px;
+	text-align:center !important;
 }
 .table-last-header {
-	width: 10%;
+	width: 40px;
+	text-align:center !important;
+}
+.table-cell.first{
+	text-align:center !important;
+}
+.table-cell.last{
+	text-align:center !important;
 }

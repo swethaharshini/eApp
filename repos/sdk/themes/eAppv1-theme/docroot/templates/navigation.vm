@@ -36,8 +36,8 @@
 								#set ($nav_child_caret='<b class="icon-caret-right menu-icon"></b>')
 							#end
 
-							<li class="$nav_child_css_class" id="layout_$nav_child.getlayoutid()" $nav_child_attr_selected role="presentation">
-								<a aria-labelledby="layout_$nav_child.getlayoutid()" href="$nav_child.geturl()" $nav_child.gettarget() role="menuitem">$nav_child.getName() $nav_child_caret</a>
+							<li class="$nav_child_css_class" id="layout_$nav_child.getLayoutId()" $nav_child_attr_selected role="presentation">
+								<a aria-labelledby="layout_$nav_child.getLayoutId()" href="$nav_child.getURL()" $nav_child.getTarget() role="menuitem">$nav_child.getName() $nav_child_caret</a>
 								
 								#if ($nav_child.hasChildren())
 									<ul class="grandchild-menu" role="menu">
@@ -56,8 +56,8 @@
 												#set ($nav_grandchild_caret='<b class="icon-caret-right menu-icon"></b>')
 											#end
 				
-											<li class="$nav_grandchild_css_class" id="layout_$nav_grandchild.getlayoutid()" $nav_grandchild_attr_selected role="presentation">
-												<a aria-labelledby="layout_$nav_grandchild.getlayoutid()" href="$nav_grandchild.geturl()" $nav_grandchild.gettarget() role="menuitem">$nav_grandchild.getName() $nav_grandchild_caret</a>
+											<li class="$nav_grandchild_css_class" id="layout_$nav_grandchild.getLayoutId()" $nav_grandchild_attr_selected role="presentation">
+												<a aria-labelledby="layout_$nav_grandchild.getLayoutId()" href="$nav_grandchild.getURL()" $nav_grandchild.getTarget() role="menuitem">$nav_grandchild.getName() $nav_grandchild_caret</a>
 												#if ($nav_grandchild.hasChildren())
 													<ul class="sub-grandchild-menu" role="menu">
 														#foreach ($nav_subgrandchild in $nav_grandchild.getChildren())
@@ -68,8 +68,8 @@
 																#set ($nav_subgrandchild_attr_selected="aria-selected='true'")
 																#set ($nav_subgrandchild_css_class = "selected")
 															#end
-															<li class="$nav_subgrandchild_css_class" id="layout_$nav_subgrandchild.getlayoutid()" $nav_subgrandchild_attr_selected role="presentation">
-																<a aria-labelledby="layout_$nav_subgrandchild.getlayoutid()" href="$nav_subgrandchild.geturl()" $nav_subgrandchild.gettarget() role="menuitem">$nav_subgrandchild.getName()</a>
+															<li class="$nav_subgrandchild_css_class" id="layout_$nav_subgrandchild.getLayoutId()" $nav_subgrandchild_attr_selected role="presentation">
+																<a aria-labelledby="layout_$nav_subgrandchild.getLayoutId()" href="$nav_subgrandchild.getURL()" $nav_subgrandchild.getTarget() role="menuitem">$nav_subgrandchild.getName()</a>
 															</li>
 														#end
 													</ul>
