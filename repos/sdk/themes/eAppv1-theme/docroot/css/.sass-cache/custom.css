@@ -1,5 +1,35 @@
 /* ----------- Compass Import ----------*/
 /* -----------Color Schemes Import --------------*/
+.aui .blue a:hover, .aui .blue a:focus {
+  color: #516ffd; }
+.aui .blue #banner {
+  background-image: linear-gradient(#6a84fd, #1f45fc); }
+.aui .blue .jMenu li a:hover {
+  color: #1f45fc; }
+.aui .blue .portlet .portlet-topper {
+  background-image: linear-gradient(#e6e8e9, #d1d1d1);
+  border-color: #1f45fc; }
+
+.aui .orange a:hover, .aui .orange a:focus {
+  color: #f99049; }
+.aui .orange #banner {
+  background-image: linear-gradient(#bd5006, #f87217); }
+.aui .orange .jMenu li a:hover {
+  color: #f87217; }
+.aui .orange .portlet .portlet-topper {
+  background-image: linear-gradient(#e6e8e9, #d1d1d1);
+  border-color: #f87217; }
+
+.aui .green a:hover, .aui .green a:focus {
+  color: #62e628; }
+.aui .green #banner {
+  background-image: linear-gradient(#31800f, #4cc417); }
+.aui .green .jMenu li a:hover {
+  color: #4cc417; }
+.aui .green .portlet .portlet-topper {
+  background-image: linear-gradient(#e6e8e9, #d1d1d1);
+  border-color: #4cc417; }
+
 /* -----------Mixins --------------*/
 /* -----------Colors Variables --------------*/
 * {
@@ -9,7 +39,6 @@ html, body {
   height: 100%; }
 
 .aui {
-  /* --------------Hyperlinks---------------- */
   /* --------------Wrappers---------------- */
   /*--------------------- Header ----------------------*/
   /*--------------------- Navigation ----------------------*/
@@ -30,18 +59,23 @@ html, body {
     font-weight: 600;
     font-family: 'Open Sans', sans-serif;
     color: #4e4e4e; }
-  .aui .separation {
-    display: block;
-    border-top: solid 1px #c1c1c1;
-    border-bottom: solid 1px #e4e4e4; }
+  .aui .btn {
+    color: #fff !important; }
   .aui a {
-    color: #2c3748;
+    color: #4e4e4e;
     -webkit-transition: color 300ms, background-color 300ms;
     -moz-transition: color 300ms, background-color 300ms;
     -o-transition: color 300ms, background-color 300ms;
     transition: color 300ms, background-color 300ms; }
-  .aui a:hover, .aui a:focus {
-    color: #686868; }
+    .aui a:hover, .aui a:focus {
+      color: #686868; }
+  .aui input[type="color"], .aui input[type="date"], .aui input[type="datetime"], .aui input[type="datetime-local"], .aui input[type="email"], .aui input[type="month"], .aui input[type="number"], .aui input[type="password"], .aui input[type="search"], .aui input[type="tel"], .aui input[type="text"], .aui input[type="time"], .aui input[type="url"], .aui input[type="week"], .aui select, .aui textarea, .aui .uneditable-input {
+    font-size: 13px;
+    border: 1px solid #DDD; }
+    .aui input[type="color"]:focus, .aui input[type="date"]:focus, .aui input[type="datetime"]:focus, .aui input[type="datetime-local"]:focus, .aui input[type="email"]:focus, .aui input[type="month"]:focus, .aui input[type="number"]:focus, .aui input[type="password"]:focus, .aui input[type="search"]:focus, .aui input[type="tel"]:focus, .aui input[type="text"]:focus, .aui input[type="time"]:focus, .aui input[type="url"]:focus, .aui input[type="week"]:focus, .aui select:focus, .aui textarea:focus, .aui .uneditable-input:focus {
+      border-color: rgba(0, 172, 255, 0.8); }
+  .aui label {
+    font-size: 13px; }
   .aui #wrapper {
     padding: 0;
     min-height: 100%;
@@ -49,7 +83,10 @@ html, body {
     height: 100%;
     margin: 0 auto -46px; }
   .aui #banner {
-    background: #2c3748; }
+    -webkit-box-shadow: 0 2px 4px #b5b5b5;
+    -moz-box-shadow: 0 2px 4px #b5b5b5;
+    box-shadow: 0 2px 4px #b5b5b5;
+    border-bottom: solid 1px #fff; }
   .aui #footer {
     background: #fff;
     border-top: solid 1px #e2e2e2;
@@ -81,7 +118,7 @@ html, body {
     margin: 0;
     list-style: none; }
   .aui .jMenu li a {
-    padding: 19px 15px;
+    padding: 20px 15px;
     display: block;
     background-color: transparent;
     color: #fff;
@@ -128,20 +165,17 @@ html, body {
   .aui .menu-icon {
     position: relative;
     right: -10px; }
-  .aui .child-menu {
-    border-top: solid 2px #23dbdb; }
-    .aui .child-menu .menu-icon {
-      position: relative;
-      right: -30px; }
+  .aui .child-menu .menu-icon {
+    position: relative;
+    right: -30px; }
   .aui .grandchild-menu {
-    border-left: solid 2px #23dbdb;
-    margin-left: 2px !important; }
+    margin-left: 1px !important; }
     .aui .grandchild-menu .menu-icon {
       position: relative;
       right: -70px; }
   .aui .sub-grandchild-menu {
     border-left: solid 2px #23dbdb;
-    margin-left: 2px !important; }
+    margin-left: 1px !important; }
   .aui #breadcrumbs {
     margin-top: 15px; }
     .aui #breadcrumbs .breadcrumb {
@@ -153,16 +187,21 @@ html, body {
     box-shadow: 0 4px 0 0 #e2e2e2; }
     .aui .portlet .portlet-topper {
       padding: 0 15px;
-      background: #00b897; }
+      border-bottom: solid 1px;
+      -moz-border-radius-topleft: 5px;
+      -webkit-border-top-left-radius: 5px;
+      border-top-left-radius: 5px;
+      -moz-border-radius-topright: 5px;
+      -webkit-border-top-right-radius: 5px;
+      border-top-right-radius: 5px; }
       .aui .portlet .portlet-topper h2 {
         margin: 0;
-        color: #fff;
+        color: #4e4e4e;
         font-size: 24px; }
       .aui .portlet .portlet-topper .portlet-topper-toolbar {
         z-index: 0;
         top: 10px;
-        right: 15px;
-        color: #fff; }
+        right: 15px; }
     .aui .portlet .portlet-content {
       background: #fff;
       padding: 10px 15px; }
