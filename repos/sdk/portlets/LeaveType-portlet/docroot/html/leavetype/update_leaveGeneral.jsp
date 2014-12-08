@@ -15,7 +15,7 @@ YUI().use(
   }
 );
 </aui:script>
-<%Map leaveInfo=(Map)request.getSession().getAttribute("leaveGeneralForLeaveType"); 
+<%Map leaveInfo=(Map)request.getSession().getAttribute("leaveInfo"); 
 		System.out.println("edit leave info is"+leaveInfo ); 
 		LeaveType editLeaveType=(LeaveType)leaveInfo.get("editLeaveType");%>
 <div id="leaveGeneralDetails">

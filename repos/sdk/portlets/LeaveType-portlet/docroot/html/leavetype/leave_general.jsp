@@ -2,20 +2,20 @@
 <portlet:actionURL var="saveLeaveGeneral" name="saveOrUpdateLeaveGeneral">
 </portlet:actionURL>
 <portlet:renderURL var="initialView">
- </portlet:renderURL>
- <portlet:resourceURL var="resourceURL" id="resourceURL"/>
+</portlet:renderURL>
+<portlet:resourceURL var="resourceURL" id="resourceURL"/>
 
- <% Map leaveTypeAndGeneral=(Map)request.getSession(false).getAttribute(
-			"leaveGeneralForLeaveType");
-    LeaveGeneral editLeaveGeneral=(LeaveGeneral)leaveTypeAndGeneral.get("leaveGeneral");
-    System.out.println("edit leave rule is "+editLeaveGeneral);
+ <%  Map leaveTypeAndGeneral=(Map)request.getSession(false).getAttribute(
+			"leaveInfo");
+ LeaveGeneral editLeaveGeneral=(LeaveGeneral)leaveTypeAndGeneral.get("editLeaveGeneral");
+ System.out.println("edit leave rule is "+editLeaveGeneral);
     int startMonth,startDayOfMonth=0;String duration="";
     boolean ifEmployeesCanApply,ifAdminCanAssign,ifAdminCanManageEntitlements,ifLeaveAccruable,
-    ifCarryForwardable,showProjectBalance,enableAttachment,isAttachmentMandatory=false;
+    ifCarryForwardable,showProjectBalance,enableAttachment,isAttachmentMandatory=false;int leavePeriodTypeID=0;
     long leaveGeneralId=0l;long leaveTypeId=(Long)leaveTypeAndGeneral.get("leaveTypeId");
     if(editLeaveGeneral!=null)
     {	
-    	
+    	leavePeriodTypeID=editLeaveGeneral.getLeavePeriodTypeId();
     	startMonth=editLeaveGeneral.getStartMonth();
     	startDayOfMonth=editLeaveGeneral.getStartDayOfMonth();
     	duration=editLeaveGeneral.getDuration();
@@ -29,7 +29,7 @@
     	isAttachmentMandatory=editLeaveGeneral.getIsAttachmentMandatory();
     }
     else
-    {
+    {   leavePeriodTypeID=0;
     	startMonth=0;
     	ifEmployeesCanApply=false;ifAdminCanAssign=false;ifAdminCanManageEntitlements=false;ifLeaveAccruable=false;
         ifCarryForwardable=false;showProjectBalance=false;enableAttachment=false;isAttachmentMandatory=false;
@@ -48,7 +48,7 @@ width: 15%;
 
 <aui:script use="">
 AUI().ready('event', 'node', function(A){
-var selectedValue = A.one('#<portlet:namespace/>leavePeriodTypeId').get('value');
+var selectedValue ="<%=leavePeriodTypeID %>";
    // alert("selectedValue = " + selectedValue);
     switch (selectedValue) { 
                         
@@ -158,8 +158,8 @@ function getDaysInMonth(month, year) {
 
 					<aui:option value="0">Default
 		             </aui:option>
-					<aui:option selected="" value="1">Hire Date Base Leave Period</aui:option>
-					<aui:option selected="" value="2">Custom Leave Period</aui:option>
+					<aui:option selected="<%=leavePeriodTypeID==1 %>" value="1">Hire Date Base Leave Period</aui:option>
+					<aui:option selected="<%=leavePeriodTypeID==2 %>" value="2">Custom Leave Period</aui:option>
 				</aui:select>
 			</div>
 		</div>
@@ -168,12 +168,12 @@ function getDaysInMonth(month, year) {
 				<div class="span8">
 					<aui:select type="select" name="startMonth" label="Start Month"
 					onChange='<%="getDaysInMonth(this.value,\'"+Calendar.YEAR+"\');"%>'>
-						<aui:option value="-1">--Select--</aui:option>
+						<aui:option value="-1" selected="true" >--Select--</aui:option>
 						<%String[] monthArray=DateFormatSymbols.getInstance().getMonths();
 						for(int i=0;i<monthArray.length;i++)
 						{
 							%>
-							<aui:option value="<%=i %>"><%=monthArray[i] %></aui:option>
+							<aui:option selected="<%=i==startMonth %>" value="<%=i %>"><%=monthArray[i] %></aui:option>
 							<%
 						}
 						%>
