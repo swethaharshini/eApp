@@ -830,10 +830,10 @@ public class EmployeeAction extends MVCPortlet {
 			empJob.setComments(comments);
 			empJob.setShiftId(workshift);
 			empJob.setCreateDate(date);
-			 empJob.setModifiedDate(date);
-			 empJob.setCompanyId(themeDisplay.getCompanyId());
-			 empJob.setGroupId(themeDisplay.getCompanyGroupId());
-			 empJob.setUserId(themeDisplay.getUserId());
+			empJob.setModifiedDate(date);
+			empJob.setCompanyId(themeDisplay.getCompanyId());
+			empJob.setGroupId(themeDisplay.getCompanyGroupId());
+			empJob.setUserId(themeDisplay.getUserId());
 			try {
 				EmpJobLocalServiceUtil.addEmpJob(empJob);
 			} catch (SystemException e) {
@@ -1063,6 +1063,38 @@ public void addEmployee(ActionRequest actionRequest,ActionResponse actionRespons
 					System.out.println("cannot upload file");
 					e1.printStackTrace();
 				}
+				if (fileEntry.getExpandoBridge().hasAttribute("employeeId")) 
+				{
+				fileEntry.getExpandoBridge().setAttribute("employeeId", String.valueOf(employee.getEmployeeId()));
+				/*try {
+					DLAppLocalServiceUtil.updateFileEntry(themeDisplay.getUserId(), fileEntry.getFileEntryId(),
+							uploadPhoto.getName(), contentType, uploadPhoto.getName(),uploadPhoto.getName(), 
+							changeLog, false,uploadPhoto, serviceContext);
+				} catch (PortalException e) {
+					e.printStackTrace();
+				}
+				System.out.println("expando value is=============="+fileEntry.getExpandoBridge().getAttribute("employeeId"));
+				}*/
+				}
+				else
+				{
+					System.out.println("no expando available");
+					try {
+						fileEntry.getExpandoBridge().addAttribute("employeeId");
+					} catch (PortalException e) {
+						e.printStackTrace();
+					}
+				}
+					fileEntry.getExpandoBridge().setAttribute("employeeId", String.valueOf(employee.getEmployeeId()));
+					try {
+						DLAppLocalServiceUtil.updateFileEntry(themeDisplay.getUserId(), fileEntry.getFileEntryId(),
+								uploadPhoto.getName(), contentType, uploadPhoto.getName(),uploadPhoto.getName(), 
+								changeLog, false,uploadPhoto, serviceContext);
+					} catch (PortalException e) {
+						e.printStackTrace();
+					}
+					System.out.println("expando value is=============="+fileEntry.getExpandoBridge().getAttribute("employeeId"));
+				
 		if(username!=null || password!=null )
 		{
 			User user=null;
@@ -1077,9 +1109,11 @@ public void addEmployee(ActionRequest actionRequest,ActionResponse actionRespons
 				{
 				user.getExpandoBridge().setAttribute("employeeId", String.valueOf(employee.getEmployeeId()));
 				UserLocalServiceUtil.updateUser(user);
+				System.out.println("expando value is=============="+user.getExpandoBridge().getAttribute("employeeId"));
 				}
 				else
 				{
+					System.out.println("no expando available");
 					user.getExpandoBridge().addAttribute("employeeId");
 					user.getExpandoBridge().setAttribute("employeeId", String.valueOf(employee.getEmployeeId()));
 					UserLocalServiceUtil.updateUser(user);
@@ -1113,7 +1147,7 @@ public void addEmployee(ActionRequest actionRequest,ActionResponse actionRespons
 			      EmployeeLocalServiceUtil.updateEmployee(employee3);
 				
 			}
-		}	
+		}
 		Map map=new HashMap();
 		map.put("empId", employee.getEmployeeId());
 		map.put("jsp", "jsp0");
@@ -1178,8 +1212,84 @@ public void updatePersonalDetails(ActionRequest actionRequest,
 		}
       }
 public void updateEmpDocuments(ActionRequest actionRequest, ActionResponse actionResponse)
-		throws IOException,PortletException,SystemException
+		throws PortletException,SystemException
 		{
+	ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+    Date date=new Date();
+	   UploadPortletRequest uploadRequest = PortalUtil
+			.getUploadPortletRequest(actionRequest);
+	   long employeeId=ParamUtil.getLong(uploadRequest, "docEmployeeId");
+	   System.out.println(employeeId);
+	   String docCategory=ParamUtil.getString(uploadRequest, "doc_related_to");
+	   File document=uploadRequest.getFile("emp_files");
+	   long fileEntryId=ParamUtil.getLong(uploadRequest, "QualFileId");
+	   System.out.println("image id is"+fileEntryId);
+	   ServiceContext serviceContext=null;
+	   String changeLog = ParamUtil.getString(uploadRequest, "changeLog");
+	   String contentType=MimeTypesUtil.getContentType(document);
+		 FileEntry fileEntry=null;
+		try {
+			serviceContext = ServiceContextFactory.getInstance(DLFileEntry.class.getName(), actionRequest);
+		} catch (PortalException e1) {
+			e1.printStackTrace();
+		}
+				try {
+					fileEntry = DLAppLocalServiceUtil.addFileEntry(themeDisplay.getUserId(),
+					themeDisplay.getScopeGroupId(),0,document.getName(),contentType,
+					docCategory,
+					""," ",document, 
+					serviceContext);
+				} catch (PortalException e1) {
+					System.out.println("cannot upload file");
+					e1.printStackTrace();
+				}
+				if(fileEntry!=null)
+				{
+					if (fileEntry.getExpandoBridge().hasAttribute("employeeId")) 
+					{
+					fileEntry.getExpandoBridge().setAttribute("employeeId", String.valueOf(employeeId));
+					}
+					/*try {
+						DLAppLocalServiceUtil.updateFileEntry(themeDisplay.getUserId(), fileEntry.getFileEntryId(),
+								document.getName(), contentType,document.getName(),document.getName(), 
+								changeLog, false,document, serviceContext);
+					} catch (PortalException e) {
+						e.printStackTrace();
+					}
+					System.out.println("expando value is=============="+fileEntry.getExpandoBridge().getAttribute("employeeId"));
+					}*/
+					else
+					{
+						System.out.println("no expando available");
+						try {
+							fileEntry.getExpandoBridge().addAttribute("employeeId");
+						} catch (PortalException e) {
+							e.printStackTrace();
+						}
+						fileEntry.getExpandoBridge().setAttribute("employeeId", String.valueOf(employeeId));
+					}
+					
+						try {
+							DLAppLocalServiceUtil.updateFileEntry(themeDisplay.getUserId(), fileEntry.getFileEntryId(),
+									document.getName(), contentType,document.getName(),document.getName(), 
+									changeLog, false,document, serviceContext);
+						} catch (PortalException e) {
+							e.printStackTrace();
+						}
+						System.out.println("expando value is=============="+fileEntry.getExpandoBridge().getAttribute("employeeId"));
+					
+					Map map=new HashMap();
+					map.put("jsp", "jsp12");
+					map.put("empId", employeeId);
+					map.put("fileId", fileEntryId);
+					actionRequest.getPortletSession(true).setAttribute("empId",
+							map,PortletSession.APPLICATION_SCOPE);
+					actionResponse.setRenderParameter("jspPage","/html/employee/edit_employee.jsp");
+				}
+				else
+				{
+					System.out.println("====error occured while processing the request");
+				}
 	
 		}
 public void addContactDetails(ActionRequest actionRequest,ActionResponse actionResponse) 
