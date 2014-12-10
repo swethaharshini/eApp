@@ -3,6 +3,7 @@ package com.rknowsys.eapp;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -121,10 +122,14 @@ public class LeaveTypeAction extends MVCPortlet{
 	}
 	public void addOrUpdateLeaveType(ActionRequest actionRequest,ActionResponse actionResponse)
 	{
+		 Date date = new Date();
+		 ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		//This method inserts or updates a record in leave_type table
+		
 		long leaveTypeId=ParamUtil.getLong(actionRequest, "leaveTypeId");
 		long nationalityId=ParamUtil.getLong(actionRequest, "nationalityId");
 		boolean isSituational=ParamUtil.getBoolean(actionRequest, "isSituational");
+		log.info("IsSituational........."+isSituational);
 		String leaveTypeName=ParamUtil.getString(actionRequest,"leaveTypeName" );
 		LeaveType leaveType=null;
 		if(leaveTypeId!=0)
@@ -137,6 +142,11 @@ public class LeaveTypeAction extends MVCPortlet{
 			} catch (SystemException e) {
 				e.printStackTrace();
 			}
+			leaveType.setCompanyId(themeDisplay.getCompanyId());
+			leaveType.setGroupId(themeDisplay.getCompanyGroupId());
+			leaveType.setUserId(themeDisplay.getUserId());
+			
+			leaveType.setModifiedDate(date);
 			leaveType.setLeaveTypeName(leaveTypeName);
 			leaveType.setIsSituational(isSituational);
 			leaveType.setNationalityId(nationalityId);
@@ -154,6 +164,14 @@ public class LeaveTypeAction extends MVCPortlet{
 			} catch (SystemException e1) {
 				e1.printStackTrace();
 			}
+			leaveType.setCompanyId(themeDisplay.getCompanyId());
+			leaveType.setGroupId(themeDisplay.getCompanyGroupId());
+			leaveType.setUserId(themeDisplay.getUserId());
+			
+			leaveType.setCreateDate(date);
+			leaveType.setModifiedDate(date);
+			
+			
 			leaveType.setLeaveTypeName(leaveTypeName);
 			leaveType.setIsSituational(isSituational);
 			leaveType.setNationalityId(nationalityId);
@@ -228,6 +246,8 @@ public class LeaveTypeAction extends MVCPortlet{
 	public void saveOrUpdateLeaveGeneral(ActionRequest actionRequest,ActionResponse actionResponse)
 	{
 		log.info("in saveOrUpdateLeaveGeneral method");
+		Date date = new Date();
+		 ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		long leaveGeneralId=ParamUtil.getLong(actionRequest,"leaveGeneralId");
 		long leaveTypeId=ParamUtil.getLong(actionRequest, "leaveTypeId");
 		LeaveType leaveType=null;
@@ -250,6 +270,13 @@ public class LeaveTypeAction extends MVCPortlet{
 		{
 			insertOrUpdateLeaveGeneralValues(leaveGeneral, actionRequest);
 			try {
+				leaveGeneral.setCompanyId(themeDisplay.getCompanyId());
+				leaveGeneral.setGroupId(themeDisplay.getCompanyGroupId());
+				leaveGeneral.setUserId(themeDisplay.getUserId());
+				
+				leaveGeneral.setModifiedDate(date);
+				leaveGeneral.setLeaveTypeId(leaveTypeId);
+				
 				LeaveGeneralLocalServiceUtil.updateLeaveGeneral(leaveGeneral);
 				} catch (SystemException e) {
 					e.printStackTrace();
@@ -264,6 +291,13 @@ public class LeaveTypeAction extends MVCPortlet{
 				}
 			insertOrUpdateLeaveGeneralValues(leaveGeneral, actionRequest);
 			try {
+				leaveGeneral.setCompanyId(themeDisplay.getCompanyId());
+				leaveGeneral.setGroupId(themeDisplay.getCompanyGroupId());
+				leaveGeneral.setUserId(themeDisplay.getUserId());
+				
+				leaveGeneral.setCreateDate(date);
+				leaveGeneral.setModifiedDate(date);
+				leaveGeneral.setLeaveTypeId(leaveTypeId);
 				LeaveGeneralLocalServiceUtil.addLeaveGeneral(leaveGeneral);
 			} catch (SystemException e) {
 				e.printStackTrace();
@@ -283,6 +317,9 @@ public class LeaveTypeAction extends MVCPortlet{
 	public void saveWhoCanApply(ActionRequest actionRequest,ActionResponse actionResponse)
 	{
 		System.out.println("====In saveWhoCanApply=====");
+		Date date = new Date();
+		 ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		 long leaveTypeId=ParamUtil.getLong(actionRequest, "leaveTypeId");
 		String jobTitleIds=ParamUtil.getString(actionRequest, "jobTitleId");
 		String[] jobTitles=jobTitleIds.split(",");
 		Set<String> jobTitlesNoDuplicates=new HashSet<String>();
@@ -313,6 +350,13 @@ public class LeaveTypeAction extends MVCPortlet{
 			}
 		}
 		try {
+			leaveRuleApplicable.setUserId(themeDisplay.getUserId());
+			leaveRuleApplicable.setCompanyId(themeDisplay.getCompanyId());
+			leaveRuleApplicable.setGroupId(themeDisplay.getCompanyGroupId());
+			
+			leaveRuleApplicable.setCreateDate(date);
+			leaveRuleApplicable.setModifiedDate(date);
+			leaveRuleApplicable.setLeaveTypeId(leaveTypeId);
 			LeaveRuleApplicableLocalServiceUtil.addLeaveRuleApplicable(leaveRuleApplicable);
 			} catch (SystemException e) {
 				e.printStackTrace();
@@ -347,7 +391,7 @@ public class LeaveTypeAction extends MVCPortlet{
 				} catch (SystemException e) {
 					e.printStackTrace();
 				}
-			if(leavePeriodList!=null)
+			if(leavePeriodList!=null&& leavePeriodList.size()!=0)
 			{
 				leavePeriod=leavePeriodList.get(0);
 			}
