@@ -70,18 +70,19 @@ public String getNationalityValue(long nationId) {
 %>
 <div class="panel">
 	<div class="panel-heading">
-		<h3>Leave Type</h3>
+		<h4>Leave Type</h4>
 	</div>
 	<div class="panel-body">
 		<div class="row-fluid">
-			<div class="span3">
+			<div class="span1">
 				<aui:button id="addLeaveType" value="Add"
 					onClick="<%=addLeaveType.toString()%>" />
 			</div>
-			<div class="span3">
+			<div class="span1">
 				<aui:button id="deleteLeaveType" name="deleteLeaveType"
 					value="Delete" />
 			</div>
+			<div class="span10"></div>
 		</div>
 <%
 

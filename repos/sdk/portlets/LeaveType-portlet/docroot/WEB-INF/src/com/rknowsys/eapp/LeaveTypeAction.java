@@ -12,6 +12,7 @@ import java.util.Set;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletException;
 import javax.portlet.PortletSession;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
@@ -36,12 +37,16 @@ import com.liferay.portal.model.Role;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.util.bridges.mvc.MVCPortlet;
+import com.rknowsys.eapp.hrm.model.EmploymentStatus;
+import com.rknowsys.eapp.hrm.model.JobCategory;
 import com.rknowsys.eapp.hrm.model.JobTitle;
 import com.rknowsys.eapp.hrm.model.LeaveCarryForwardPolicy;
 import com.rknowsys.eapp.hrm.model.LeaveGeneral;
 import com.rknowsys.eapp.hrm.model.LeavePeriod;
 import com.rknowsys.eapp.hrm.model.LeaveRuleApplicable;
 import com.rknowsys.eapp.hrm.model.LeaveType;
+import com.rknowsys.eapp.hrm.service.EmploymentStatusLocalServiceUtil;
+import com.rknowsys.eapp.hrm.service.JobCategoryLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.JobTitleLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.LeaveCarryForwardPolicyLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.LeaveGeneralLocalServiceUtil;
@@ -53,9 +58,94 @@ import com.rknowsys.eapp.hrm.model.LeaveRestriction;
 
 public class LeaveTypeAction extends MVCPortlet{
 	private static Logger log = Logger.getLogger(LeaveTypeAction.class);
-	public void serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse) throws IOException {
+	
+	
+	public void serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse) throws IOException, PortletException {
 		log.info("in serveResource method");
 		 PrintWriter out = resourceResponse.getWriter();
+		 if(resourceRequest.getResourceID().equals("getEmploymentStatus"))
+			{
+			 log.info("Entered Method.....getEmploymentStatus");
+			 System.out.println("in serve resource of multi auto complete");
+			  //This method gets the user entered text from ajax request and sends
+			  //JSON response data for auto completing the input field
+		       List<EmploymentStatus> employmentstatusList=null;
+			   try {
+				   employmentstatusList= EmploymentStatusLocalServiceUtil.getEmploymentStatuses(0,EmploymentStatusLocalServiceUtil.getEmploymentStatusesCount());
+						} catch (SystemException e) {
+							e.printStackTrace();
+						}
+			   if(employmentstatusList!=null)
+			   {
+				 String userEnteredText=ParamUtil.getString(resourceRequest, "empstatusText");
+				 String userEnteredTextId=ParamUtil.getString(resourceRequest, "empstatusValue");
+				 System.out.println("ids of the user entered text is"+userEnteredText+" "+userEnteredTextId);
+				 JSONArray usersJSONArray = JSONFactoryUtil.createJSONArray();
+				 DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(EmploymentStatus.class,PortletClassLoaderUtil.getClassLoader());
+				 Criterion criterion = RestrictionsFactoryUtil.like("employmentstatus", StringPool.PERCENT);
+				 userQuery.add(criterion);
+				 JSONObject userJSON = null;
+				 try {
+					 List<EmploymentStatus> empstatusList = EmploymentStatusLocalServiceUtil.dynamicQuery(userQuery);
+					 for (EmploymentStatus employmentstatusDetails : empstatusList) {
+					 userJSON = JSONFactoryUtil.createJSONObject();
+					 userJSON.put("employmentstatus", employmentstatusDetails.getEmploymentstatus());
+					 userJSON.put("employmentstatusId", employmentstatusDetails.getEmploymentStatusId());
+					 System.out.println(employmentstatusDetails.getEmploymentstatus());
+					 System.out.println(employmentstatusDetails.getEmploymentStatusId());
+					 usersJSONArray.put(userJSON);
+					 }
+					 } catch (Exception e) {
+				 }
+				 out.println(usersJSONArray.toString());
+				}
+			 
+			}
+		 
+		 
+		 
+		 
+		 
+		 if(resourceRequest.getResourceID().equals("getJobcategories"))
+			{
+			 log.info("Entered Method.....");
+			 System.out.println("in serve resource of multi auto complete");
+			  //This method gets the user entered text from ajax request and sends
+			  //JSON response data for auto completing the input field
+		       List<JobCategory> jobCategoryList=null;
+			   try {
+				   jobCategoryList= JobCategoryLocalServiceUtil.getJobCategories(-1, -1);
+						} catch (SystemException e) {
+							e.printStackTrace();
+						}
+			   if(jobCategoryList!=null)
+			   {
+				 String userEnteredText=ParamUtil.getString(resourceRequest, "jobCategoryText");
+				 String userEnteredTextId=ParamUtil.getString(resourceRequest, "jobCategoryValue");
+				 System.out.println("ids of the user entered text is"+userEnteredText+" "+userEnteredTextId);
+				 JSONArray usersJSONArray = JSONFactoryUtil.createJSONArray();
+				 DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(JobCategory.class,PortletClassLoaderUtil.getClassLoader());
+				 Criterion criterion = RestrictionsFactoryUtil.like("jobcategory", StringPool.PERCENT);
+				 userQuery.add(criterion);
+				 JSONObject userJSON = null;
+				 try {
+					 List<JobCategory> jobcategoryList = JobCategoryLocalServiceUtil.dynamicQuery(userQuery);
+					 for (JobCategory jobcategoryDetails : jobcategoryList) {
+					 userJSON = JSONFactoryUtil.createJSONObject();
+					 userJSON.put("jobcategory", jobcategoryDetails.getJobcategory());
+					 userJSON.put("jobCategoryId", jobcategoryDetails.getJobCategoryId());
+					 System.out.println(jobcategoryDetails.getJobcategory());
+					 System.out.println(jobcategoryDetails.getJobCategoryId());
+					 usersJSONArray.put(userJSON);
+					 }
+					 } catch (Exception e) {
+				 }
+				 out.println(usersJSONArray.toString());
+				}
+			 
+			}
+		 
+		 
 		if(resourceRequest.getResourceID().equals("deleteLeaveType"))
 		{
 			//This method deletes the leave type records or record from leave_type table based on the id received 
@@ -114,12 +204,11 @@ public class LeaveTypeAction extends MVCPortlet{
 			 out.println(usersJSONArray.toString());
 			}
 		 }
-		else
-		{
-			out.println("no records are available for job titles");
-		}
+		
 		
 	}
+		
+	
 	public void addOrUpdateLeaveType(ActionRequest actionRequest,ActionResponse actionResponse)
 	{
 		 Date date = new Date();
@@ -303,10 +392,12 @@ public class LeaveTypeAction extends MVCPortlet{
 				e.printStackTrace();
 			}
 		}
-    Map leaveInfo=setSessionForLeaveInfo(leaveTypeId);
+    Map<String, Object> leaveInfo=setSessionForLeaveInfo(leaveTypeId);
+    leaveInfo.put("jsp", "generalJsp");
 		actionRequest.getPortletSession(true).setAttribute("leaveInfo", 
 				leaveInfo,PortletSession.APPLICATION_SCOPE);
-		log.info(leaveType);
+		
+		log.info("Before returning to update_leaveGeneral.jsp, leaveType = "+leaveType);
 		actionResponse.setRenderParameter("mvcPath", "/html/leavetype/update_leaveGeneral.jsp");
 		
 	}
@@ -319,21 +410,55 @@ public class LeaveTypeAction extends MVCPortlet{
 		System.out.println("====In saveWhoCanApply=====");
 		Date date = new Date();
 		 ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
-		 long leaveTypeId=ParamUtil.getLong(actionRequest, "leaveTypeId");
+		
+		 
+		long leaveTypeId=ParamUtil.getLong(actionRequest, "leaveTypeId");
+		log.info("leaveTypeId === " +leaveTypeId);
 		String jobTitleIds=ParamUtil.getString(actionRequest, "jobTitleId");
+		String jobcategoryIds = ParamUtil.getString(actionRequest, "jobCategoryId");
+		String employmentstatusIds = ParamUtil.getString(actionRequest, "employmentStatusId");
+		String leaveApplicabilityId = ParamUtil.getString(actionRequest, "leaveApplicabilityId");
+		log.info("leaveRuleApplicabilityId === " +leaveApplicabilityId);
+		boolean isJobTitle = ParamUtil.getBoolean(actionRequest, "restrictToJobTitles");
+		boolean isJobCategory = ParamUtil.getBoolean(actionRequest, "restrictToJobCategories");
+		boolean isEmploymentStatus = ParamUtil.getBoolean(actionRequest, "restrictToEmploymentStatus");
+		boolean isGender = ParamUtil.getBoolean(actionRequest, "restrictToGender");
+		boolean isMale = ParamUtil.getBoolean(actionRequest, "applyToMale");
+		boolean isFemale = ParamUtil.getBoolean(actionRequest, "applyToFemale");
+		boolean yearsOfService = ParamUtil.getBoolean(actionRequest, "restrictToYearsOfService");
+		String fromDuration = ParamUtil.getString(actionRequest, "applyToFromYears");
+		String toDuration = ParamUtil.getString(actionRequest, "applyToYears");
+		
 		String[] jobTitles=jobTitleIds.split(",");
+		String[] jobCategories = jobcategoryIds.split(",");
+		String[] employmentstatus = employmentstatusIds.split(",");
 		Set<String> jobTitlesNoDuplicates=new HashSet<String>();
+		Set<String> jobCategorySet = new HashSet<String>();
+		Set<String> employmentstatusSet = new HashSet<String>();
+		
+		
 		for(int i=0;i<jobTitles.length;i++)
 		{
 			jobTitlesNoDuplicates.add(jobTitles[i]);
 			System.out.println("selected job title id is"+jobTitles[i]);
 		}
+		for(int i = 0;i<jobCategories.length;i++){
+			jobCategorySet.add(jobCategories[i]);
+		}
+		for(int i =0;i<employmentstatus.length;i++){
+			employmentstatusSet.add(employmentstatus[i]);
+		}
+		
+		
+		
 		LeaveRuleApplicable leaveRuleApplicable=null;
 		try {
 			leaveRuleApplicable=LeaveRuleApplicableLocalServiceUtil.createLeaveRuleApplicable(CounterLocalServiceUtil.increment());
 			} catch (SystemException e) {
 				e.printStackTrace();
 			}
+		
+		
 		if(jobTitlesNoDuplicates!=null)
 		{
 			int i=0;
@@ -349,6 +474,38 @@ public class LeaveTypeAction extends MVCPortlet{
 			i++;
 			}
 		}
+		if(jobCategorySet!=null)
+		{
+			int i=0;
+			Object[] jobCategoryIdArray=jobCategorySet.toArray();
+			while(i<jobCategoryIdArray.length)
+			{
+				try {
+					LeaveRuleApplicableLocalServiceUtil.addJobCategoryLeaveRuleApplicable(Long.valueOf(jobCategoryIdArray[i].toString()), leaveRuleApplicable);
+				System.out.println("added job title is"+jobCategoryIdArray[i]);
+				} catch (SystemException e) {
+					e.printStackTrace();
+				}
+			i++;
+			}
+		}
+		if(employmentstatusSet!=null)
+		{
+			int i=0;
+			Object[] employmentstatusIdArray=employmentstatusSet.toArray();
+			while(i<employmentstatusIdArray.length)
+			{
+				try {
+					LeaveRuleApplicableLocalServiceUtil.addEmploymentStatusLeaveRuleApplicable(Long.valueOf(employmentstatusIdArray[i].toString()), leaveRuleApplicable);
+				System.out.println("added job title is"+employmentstatusIdArray[i]);
+				} catch (SystemException e) {
+					e.printStackTrace();
+				}
+			i++;
+			}
+		}
+		
+		
 		try {
 			leaveRuleApplicable.setUserId(themeDisplay.getUserId());
 			leaveRuleApplicable.setCompanyId(themeDisplay.getCompanyId());
@@ -357,11 +514,28 @@ public class LeaveTypeAction extends MVCPortlet{
 			leaveRuleApplicable.setCreateDate(date);
 			leaveRuleApplicable.setModifiedDate(date);
 			leaveRuleApplicable.setLeaveTypeId(leaveTypeId);
+			
+			leaveRuleApplicable.setForJobTitles(isJobTitle);
+			leaveRuleApplicable.setForJobCategories(isJobCategory);
+			leaveRuleApplicable.setForEmploymentStatus(isEmploymentStatus);
+			leaveRuleApplicable.setForGender(isGender);
+			leaveRuleApplicable.setForMale(isMale);
+			leaveRuleApplicable.setForFemale(isFemale);
+			leaveRuleApplicable.setForYearsOfService(yearsOfService);
+			leaveRuleApplicable.setFromYears(fromDuration);
+			leaveRuleApplicable.setToYears(toDuration);
+			
 			LeaveRuleApplicableLocalServiceUtil.addLeaveRuleApplicable(leaveRuleApplicable);
 			} catch (SystemException e) {
 				e.printStackTrace();
 			}
 		System.out.println("successfully added");
+		Map<String, Object> leaveInfo=setSessionForLeaveInfo(leaveTypeId);
+	    leaveInfo.put("jsp", "leaveruleapplicabilityJsp");
+			actionRequest.getPortletSession(true).setAttribute("leaveInfo", 
+					leaveInfo,PortletSession.APPLICATION_SCOPE);
+		actionResponse.setRenderParameter("mvcPath", "/html/leavetype/update_leaveGeneral.jsp");
+		
 	}
 	/*
 	 * This method inserts or updates the records in leave_general table
@@ -631,7 +805,7 @@ public class LeaveTypeAction extends MVCPortlet{
 	/*
 	 * This methods returns a map of key values stored which has to be stored in the session
 	 */
-	public Map setSessionForLeaveInfo(Long leaveTypeId)
+	public Map<String, Object> setSessionForLeaveInfo(Long leaveTypeId)
 	{
 		List<LeaveGeneral> leaveGeneralList=null;
 		List<LeaveRestriction> leaveRestrictionList=null;
@@ -695,11 +869,16 @@ public class LeaveTypeAction extends MVCPortlet{
 		leaveInfo.put("editLeaveRestriction", leaveRestriction);
 		leaveInfo.put("leaveRuleApplicable", leaveRuleApplicable);
 		leaveInfo.put("leaveCarryForwardPolicy", leaveCarryForwardPolicy);
+		leaveInfo.put("jsp", "generalJsp");
 		return leaveInfo;
 	}
 	public void addOrUpdateLeaveAccrualRules(ActionRequest actionRequest,ActionResponse actionResponse)
 	{
 		
 	}
+	
+	
+	
+	
 }
 
