@@ -1,3 +1,4 @@
+<%@page import="com.rknowsys.eapp.hrm.model.LeaveRuleApplicable"%>
 <%@ include file="/html/leavetype/init.jsp" %>
 <aui:script>
 YUI().use(
@@ -17,10 +18,14 @@ YUI().use(
 </aui:script>
 <%Map leaveInfo=(Map)request.getSession().getAttribute("leaveInfo"); 
 		System.out.println("edit leave info is"+leaveInfo ); 
-		LeaveType editLeaveType=(LeaveType)leaveInfo.get("editLeaveType");
-		
+    
 	String activeJsp =(String)leaveInfo.get("jsp");
-		
+	LeaveType editLeaveType=(LeaveType)leaveInfo.get("editLeaveType");
+	LeaveGeneral leaveGeneral = (LeaveGeneral)leaveInfo.get("editLeaveGeneral");
+	LeaveRuleApplicable leaveRuleApplicable=(LeaveRuleApplicable)leaveInfo.get("leaveRuleApplicable");
+	System.out.println("LeaveType = "+editLeaveType);
+	System.out.println("leaveGeneral = "+leaveGeneral);
+	System.out.println("leaveRuleApplicable = "+leaveRuleApplicable);
 		%>
 <div id="leaveGeneralDetails">
 <ul class="span3" id="test">
@@ -86,7 +91,15 @@ YUI().use(
 			<jsp:include page="/html/leavetype/leave_general.jsp" />
 		</div>
 		<div id="whoCanApply" class="tab-pane">
+		   <%
+		   if(leaveRuleApplicable==null){ System.out.println("leaveRuleApplicable is null");
+		   %>
 			<jsp:include page="/html/leavetype/leave_applicability.jsp" />
+		   <%
+		   }else{ System.out.println("leaveRuleApplicable is not null");
+		   %>
+		   <jsp:include page="/html/leavetype/editleave_applicability.jsp" />
+		   <%}%>
 		</div>
 		<div id="applyRestrictions" class="tab-pane">
 			<jsp:include page="/html/leavetype/leave_restrictions.jsp" />
