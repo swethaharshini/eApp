@@ -1,12 +1,15 @@
 <%@ include file="/html/leavetype/init.jsp"%>
 <portlet:actionURL name="addOrUpdateLeaveType" var="saveLeaveType"></portlet:actionURL>
+<portlet:renderURL var="cancel">
+<portlet:param name="mvcPath" value="/html/leavetype/list_leaveType.jsp"/>
+</portlet:renderURL>
 <div class="panel">
 	<div class="panel-heading">
-		<h3>Leave Type</h3>
+		<h4>Leave Type</h4>
 	</div>
 	<div class="panel-body">
 		<aui:form name="myForm" action="<%=saveLeaveType.toString()%>">
-			<div class="span12">
+			<div class="row-fluid">
 				<div class="span2">
 					<label>Country *</label>
 				</div>
@@ -27,10 +30,10 @@
 						<% } %>
 						
 					</aui:select>
-				</div>
+				</div><div class="span7"></div>
 			</div>
 
-			<div class="span12">
+			<div class="row-fluid">
 				<div class="span2">
 					<label>Name</label>
 				</div>
@@ -38,22 +41,22 @@
 
 					<aui:input name="leaveTypeName" type="text" label=""
 						/>
-				</div>
+				</div><div class="span7"></div>
 			</div>
 
 
-			<div class="span12">
+			<div class="row-fluid">
 				<div class="span2">
 					<label>Is entitlement situational</label>
 				</div>
 				<div class="span3">
 					<aui:input name="isSituational" type="checkbox" label=""
 						/>
-				</div>
+				</div><div class="span7"></div>
 			</div>
 
-			<div class="span12">
-				<aui:button type="submit" id="save" value="save" />
+			<div class="row-fluid">
+				<aui:button type="submit" id="save" value="save" /><aui:button value="cancel" type="button" href="<%=cancel.toString()%>"></aui:button>
 			</div>
 
 		</aui:form>
