@@ -314,6 +314,7 @@ public class LeaveTypeAction extends MVCPortlet{
 		List<LeaveRestriction> leaveRestrictionList=null;
 		try {
 			leaveRestrictionList=LeaveRestrictionLocalServiceUtil.findByLeaveTypeId(leaveTypeId);
+			log.info("leaveRestrictionList =========" +leaveRestrictionList);
 		} catch (SystemException e) {
 			e.printStackTrace();
 		}
@@ -559,6 +560,7 @@ public class LeaveTypeAction extends MVCPortlet{
 	 */
 	public void insertOrUpdateLeaveGeneralValues(LeaveGeneral leaveGeneral,ActionRequest actionRequest)
 	{
+		
 		int startMonth=ParamUtil.getInteger(actionRequest, "startMonth");
 		int startDayOfMonth=ParamUtil.getInteger(actionRequest, "startDayOfMonth");
 		String duration=ParamUtil.getString(actionRequest, "duration");
@@ -639,6 +641,7 @@ public class LeaveTypeAction extends MVCPortlet{
 	 * */
 	public void addOrUpdateLeaveRestrictions(ActionRequest actionRequest,ActionResponse actionResponse) throws SystemException
 	{
+		 Date date = new Date();
 		long leaveTypeId=ParamUtil.getLong(actionRequest, "leaveTypeId");
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		List<Role> roles=null;
@@ -656,12 +659,15 @@ public class LeaveTypeAction extends MVCPortlet{
 			System.out.println("No LeaveRestriction found with leave type Id"+leaveTypeId);
 			try {
 				leaveRestriction= LeaveRestrictionLocalServiceUtil.createLeaveRestriction(CounterLocalServiceUtil.increment());
+				leaveRestriction.setCreateDate(date);
 				} catch (SystemException e1) {
 					e1.printStackTrace();
 				}
 		}
 		
 		List<Long> assignees=new ArrayList<Long>();
+		String tQuestion=null;
+		String errorTextIfTermsDeclinedTrimmed = null;
 		boolean canExceedBalance=ParamUtil.getBoolean(actionRequest, "cannotExceedBalance");
 		boolean canApplyForPartialDay=ParamUtil.getBoolean(actionRequest, "cannotApplyForPartialDay");
 		boolean cannotExceedBalance_defaultEss=ParamUtil.getBoolean(actionRequest, "cannotExceedBalance_defaultEss");
@@ -670,20 +676,40 @@ public class LeaveTypeAction extends MVCPortlet{
 		boolean isMinServiceApplicable_defaultEss=ParamUtil.getBoolean(actionRequest, "isMinServiceApplicable_defaultEss");
 		boolean isMaxConsecDays_defaultEss=ParamUtil.getBoolean(actionRequest, "isMaxConsecDays_defaultEss");
 		String termsQuestion=ParamUtil.getString(actionRequest, "termsQuestion");
+		if(termsQuestion!=null){
+			tQuestion = termsQuestion.trim();
+		}
+		
 		String errorTextIfTermsDeclined=ParamUtil.getString(actionRequest, "errorTextIfTermsDeclined");
+		if(errorTextIfTermsDeclined!=null){
+			errorTextIfTermsDeclinedTrimmed = errorTextIfTermsDeclined.trim();
+		}
 		String minimumServicePeriod=ParamUtil.getString(actionRequest, "minimumServicePeriod");
 		String maxConsecutiveLeaves=ParamUtil.getString(actionRequest, "maxConsecutiveLeaves");
 		String maxSmallChildAgeApplicable=ParamUtil.getString(actionRequest, "maxSmallChildAgeApplicable");
+		
+		
+		leaveRestriction.setCompanyId(themeDisplay.getCompanyId());
+		leaveRestriction.setGroupId(themeDisplay.getCompanyGroupId());
+		leaveRestriction.setUserId(themeDisplay.getUserId());
+		
+		leaveRestriction.setModifiedDate(date);
+		
 		leaveRestriction.setLeaveTypeId(leaveTypeId);
+		leaveRestriction.setMinimumServicePeriod(minimumServicePeriod);
+		leaveRestriction.setMaxConsecutiveLeaves(maxConsecutiveLeaves);
+		leaveRestriction.setMaxSmallChildAgeApplicable(maxSmallChildAgeApplicable);
 		leaveRestriction.setCannotExceedBalance(canExceedBalance);
 		leaveRestriction.setCannotApplyForPartialDay(canApplyForPartialDay);
 		try {
 			roles=RoleLocalServiceUtil.getRoles(themeDisplay.getCompanyId());
+			log.info("roles == " +roles.size()+ " " +roles);
 			} catch (SystemException e) {
 				e.printStackTrace();
 			}
 		if(canExceedBalance)
 		{
+			String canExceedBalanceString = null;
 		 if(roles!=null)
 			{
 			 for(int i=0;i<roles.size();i++)
@@ -692,17 +718,20 @@ public class LeaveTypeAction extends MVCPortlet{
 				 System.out.println(canAssignTo);
 				 if(canAssignTo)
 				 {
-					 assignees.add(roles.get(i).getRoleId());
+					
+					 canExceedBalanceString = canExceedBalanceString+","+String.valueOf(roles.get(i).getRoleId());
+					
 				 }
 			 }	
-			 System.out.println("can exceed balance for roleIds"+assignees.toString());
-			 leaveRestriction.setCantExceedBalForRoleIds(assignees.toString());
+			 System.out.println("can exceed balance for roleIds"+canExceedBalanceString);
+			 leaveRestriction.setCantExceedBalForRoleIds(canExceedBalanceString);
 			 assignees.clear();
 			}
 		 
 		}
 		if( canApplyForPartialDay)
 		{
+			String canApplyForPartialDayString = null;
 		 if(roles!=null)
 			{
 			 for(int i=0;i<roles.size();i++)
@@ -710,17 +739,20 @@ public class LeaveTypeAction extends MVCPortlet{
 				 boolean canAssignTo=ParamUtil.getBoolean(actionRequest, "cannotApplyForPartialDay"+roles.get(i).getName());
 				 if(canAssignTo)
 				 {
-					 assignees.add(roles.get(i).getRoleId());
+					
+						 canApplyForPartialDayString = canApplyForPartialDayString+","+String.valueOf(roles.get(i).getRoleId());
+					
 				 }
 			 }	
-			 System.out.println("cannotApplyForPartialDay for roleIds"+assignees.toString());
-			 leaveRestriction.setCantApplyPartialDayForRoleIds(assignees.toString());
+			 System.out.println("cannotApplyForPartialDay for roleIds ==== "+assignees.toString());
+			 leaveRestriction.setCantApplyPartialDayForRoleIds(canApplyForPartialDayString);
 			 assignees.clear();
 			}
 		 
 		}
-		if( termsQuestion!=null || termsQuestion!=" " || errorTextIfTermsDeclined !=null || errorTextIfTermsDeclined!=" ")
+		if( tQuestion!=null && tQuestion!=" " && errorTextIfTermsDeclinedTrimmed !=null && errorTextIfTermsDeclinedTrimmed!=" ")
 		{
+			String questionString = null;
 		 if(roles!=null)
 			{
 			 for(int i=0;i<roles.size();i++)
@@ -728,19 +760,22 @@ public class LeaveTypeAction extends MVCPortlet{
 				 boolean canAssignTo=ParamUtil.getBoolean(actionRequest, "ifATermsQuestion"+roles.get(i).getName());
 				 if(canAssignTo)
 				 {
-					 assignees.add(roles.get(i).getRoleId());
+					 
+						 questionString = questionString+","+String.valueOf(roles.get(i).getRoleId());
+					 
 				 }
 			 }	
 			 System.out.println("ifATermsQuestion for roleIds"+assignees.toString());
-			 leaveRestriction.setCantApplyPartialDayForRoleIds(assignees.toString());
-			 leaveRestriction.setTermsQuestion(termsQuestion);
-			 leaveRestriction.setErrorTextIfTermsDeclined(errorTextIfTermsDeclined);
+			 leaveRestriction.setTermsQsnForRoleIds(questionString);
+			 leaveRestriction.setTermsQuestion(tQuestion);
+			 leaveRestriction.setErrorTextIfTermsDeclined(errorTextIfTermsDeclinedTrimmed);
 			 assignees.clear();
 			}
 		 
 		}
 		if( minimumServicePeriod!=null || minimumServicePeriod != " ")
 		{
+			String minServicePeriodString = null;
 		 if(roles!=null)
 			{
 			 for(int i=0;i<roles.size();i++)
@@ -748,11 +783,13 @@ public class LeaveTypeAction extends MVCPortlet{
 				 boolean canAssignTo=ParamUtil.getBoolean(actionRequest, "isMinimumServicePeriodApplicable"+roles.get(i).getName());
 				 if(canAssignTo)
 				 {
-					 assignees.add(roles.get(i).getRoleId());
+					 
+						 minServicePeriodString = minServicePeriodString+","+String.valueOf(roles.get(i).getRoleId());
+					
 				 }
 			 }	
 			 System.out.println("isMinimumServicePeriodApplicable for roleIds"+assignees.toString());
-			 leaveRestriction.setMinServicePeriodForRoleIds(assignees.toString());
+			 leaveRestriction.setMinServicePeriodForRoleIds(minServicePeriodString);
 			 leaveRestriction.setMinimumServicePeriod(minimumServicePeriod);
 			 assignees.clear();
 			}
@@ -760,6 +797,7 @@ public class LeaveTypeAction extends MVCPortlet{
 		}
 		if( maxConsecutiveLeaves!=null || maxConsecutiveLeaves!= " ")
 		{
+			String maxConsecutiveString = null;
 		 if(roles!=null)
 			{
 			 for(int i=0;i<roles.size();i++)
@@ -767,11 +805,12 @@ public class LeaveTypeAction extends MVCPortlet{
 				 boolean canAssignTo=ParamUtil.getBoolean(actionRequest, "isMaxConsecutiveLeavesApplicable"+roles.get(i).getName());
 				 if(canAssignTo)
 				 {
-					 assignees.add(roles.get(i).getRoleId());
+						 maxConsecutiveString = maxConsecutiveString+","+String.valueOf(roles.get(i).getRoleId());
+					
 				 }
 			 }	
 			 System.out.println("isMaxConsecutiveLeavesApplicable for roleIds"+assignees.toString());
-			 leaveRestriction.setMaxConsecLeavesForRoleIds(assignees.toString());
+			 leaveRestriction.setMaxConsecLeavesForRoleIds(maxConsecutiveString);
 			 leaveRestriction.setMaxConsecutiveLeaves(maxConsecutiveLeaves);
 			 assignees.clear();
 			}
@@ -779,6 +818,7 @@ public class LeaveTypeAction extends MVCPortlet{
 		}
 		if(maxSmallChildAgeApplicable!=null || maxSmallChildAgeApplicable!=" ")
 		{
+			String maxSmallChildAgeApplicableString = null;
 		 if(roles!=null)
 			{
 			 for(int i=0;i<roles.size();i++)
@@ -786,11 +826,12 @@ public class LeaveTypeAction extends MVCPortlet{
 				 boolean canAssignTo=ParamUtil.getBoolean(actionRequest, "isSmallChildCriterionApplicable"+roles.get(i).getName());
 				 if(canAssignTo)
 				 {
-					 assignees.add(roles.get(i).getRoleId());
+					 	 maxSmallChildAgeApplicableString = maxSmallChildAgeApplicableString+","+String.valueOf(roles.get(i).getRoleId());
+					
 				 }
 			 }	
 			 System.out.println("isSmallChildCriterionApplicable for roleIds"+assignees.toString());
-			 leaveRestriction.setMaxSmallChildAgeForRoleIds(assignees.toString());
+			 leaveRestriction.setMaxSmallChildAgeForRoleIds(maxSmallChildAgeApplicableString);
 			 leaveRestriction.setMaxSmallChildAgeApplicable(maxSmallChildAgeApplicable);
 			 assignees.clear();
 			}
@@ -811,7 +852,7 @@ public class LeaveTypeAction extends MVCPortlet{
 			}
 		} 
         Map leaveInfo=setSessionForLeaveInfo(leaveTypeId);
-		
+        leaveInfo.put("jsp", "restrictionsJsp");
 		actionRequest.getPortletSession(true).setAttribute("leaveInfo", 
 				leaveInfo,PortletSession.APPLICATION_SCOPE);
 		log.info(leaveInfo);

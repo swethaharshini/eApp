@@ -1,18 +1,23 @@
-<%@ include file="/html/leavetype/init.jsp" %>
+<%@ include file="/html/leavetype/init.jsp"%>
 <portlet:actionURL name="addOrUpdateLeaveRestrictions"
-var="addOrUpdateLeaveRestrictions"></portlet:actionURL>
-<%Map leaveInfo=(Map)request.getSession().getAttribute("leaveInfo");
-		System.out.println("edit leave info is"+leaveInfo );
-		Long leaveTypeId=(Long)leaveInfo.get("leaveTypeId");
-		LeaveRestriction leaveRestriction=(LeaveRestriction)leaveInfo.get("editLeaveRestriction");%>
+	var="addOrUpdateLeaveRestrictions"></portlet:actionURL>
+<%
+	Map leaveInfo = (Map) request.getSession()
+			.getAttribute("leaveInfo");
+	System.out.println("edit leave info is" + leaveInfo);
+	Long leaveTypeId = (Long) leaveInfo.get("leaveTypeId");
+	LeaveRestriction leaveRestriction = (LeaveRestriction) leaveInfo
+			.get("editLeaveRestriction");
+%>
 <div class="panel">
 	<div class="panel-heading">
 		<h4>Apply/Assign Restrictions</h4>
 	</div>
 	<div class="panel-body">
-		<aui:form action="<%= addOrUpdateLeaveRestrictions %>" name="formLeaveRuleApplyRestriction"
+		<aui:form action="<%=addOrUpdateLeaveRestrictions%>"
+			name="formLeaveRuleApplyRestriction"
 			id="formLeaveRuleApplyRestriction">
-			<aui:input name="leaveTypeId" type="hidden" value="<%= leaveTypeId %>"></aui:input>
+			<aui:input name="leaveTypeId" type="hidden" value="<%=leaveTypeId%>"></aui:input>
 			<table class="table table-bordered table-hover table-striped">
 				<thead>
 					<tr>
@@ -35,13 +40,13 @@ var="addOrUpdateLeaveRestrictions"></portlet:actionURL>
 								label="Use projected balance for future dates"
 								id="leaveTypeRuleApplyRestriction_tbxFilterPram6"
 								type="checkbox" style="float: none; display: inline;"
-								name="cannotExceedBalance" ></aui:input>
+								name="cannotExceedBalance"></aui:input>
 						</td>
 						<td>
 							<ol>
-								<li><label> <aui:input id="cannotExceedBalance_defaultEss"
-											label="Default ESS" type="checkbox"
-											name="cannotExceedBalance_defaultEss"
+								<li><label> <aui:input
+											id="cannotExceedBalance_defaultEss" label="Default ESS"
+											type="checkbox" name="cannotExceedBalance_defaultEss"
 											value=""></aui:input>
 								</label></li>
 							</ol>
@@ -49,33 +54,34 @@ var="addOrUpdateLeaveRestrictions"></portlet:actionURL>
 						<td>
 							<ol>
 
-							<%
-								List<Role> roles=RoleLocalServiceUtil.getRoles(themeDisplay.getCompanyId());
-								for (Role role:roles)
-								{
-							%>
+								<%
+									List<Role> roles = RoleLocalServiceUtil.getRoles(themeDisplay
+												.getCompanyId());
+										for (Role role : roles) {
+								%>
 
-								<li> <aui:input id='<%="cannotExceedBalance"+ role.getName()%>'
-											type="checkbox"
-											name='<%="cannotExceedBalance"+role.getName() %>'
-										    label="<%= role.getName() %>"></aui:input>
-								</li>
-								<%} %>
+								<li><aui:input
+										id='<%="cannotExceedBalance" + role.getName()%>'
+										type="checkbox"
+										name='<%="cannotExceedBalance" + role.getName()%>'
+										label="<%=role.getName()%>"></aui:input></li>
+								<%
+									}
+								%>
 							</ol>
 						</td>
 					</tr>
 					<tr>
 						<td>Don't allow partial day leave.<br></br> <aui:input
-								label=""
-								id="cannotApplyForPartialDay"
-								type="checkbox" style="float: none; display: inline;"
+								label="" id="cannotApplyForPartialDay" type="checkbox"
+								style="float: none; display: inline;"
 								name="cannotApplyForPartialDay"></aui:input>
 						</td>
 						<td>
 							<ol>
-								<li><label> <aui:input id="cannotApplyForPartialDay_defaultEss"
-											label="Default ESS" type="checkbox"
-											name="cannotApplyForPartialDay_defaultEss"
+								<li><label> <aui:input
+											id="cannotApplyForPartialDay_defaultEss" label="Default ESS"
+											type="checkbox" name="cannotApplyForPartialDay_defaultEss"
 											value=""></aui:input>
 								</label></li>
 							</ol>
@@ -83,72 +89,70 @@ var="addOrUpdateLeaveRestrictions"></portlet:actionURL>
 						<td>
 							<ol>
 
-							<%
-								for (Role role:roles)
-								{
-							%>
+								<%
+									for (Role role : roles) {
+								%>
 
-								<li><label> <aui:input id='<%="cannotApplyForPartialDay"+role.getName() %>'
+								<li><label> <aui:input
+											id='<%="cannotApplyForPartialDay" + role.getName()%>'
 											type="checkbox"
-											name='<%="cannotApplyForPartialDay"+role.getName() %>'
-											value="<%= role.getRoleId() %>" label="<%= role.getName() %>"></aui:input>
+											name='<%="cannotApplyForPartialDay" + role.getName()%>'
+											value="<%=role.getRoleId()%>" label="<%=role.getName()%>"></aui:input>
 
 								</label></li>
-								<%} %>
+								<%
+									}
+								%>
 							</ol>
 						</td>
 					</tr>
 					<tr>
 						<td>Don't allow if employee answers NO to below question.
 							Show the error message that comes afterwards. <br></br> <aui:input
-								label="Questions"
-								id="questions"
-								style="float: none; display: inline;"
-								name="termsQuestion"></aui:input>
-							<aui:input label="Error Message"
-								id="errorTextIfTermsDeclined" 
+								label="Questions" id="questions"
+								style="float: none; display: inline;" name="termsQuestion"></aui:input>
+							<aui:input label="Error Message" id="errorTextIfTermsDeclined"
 								style="float: none; display: inline;"
 								name="errorTextIfTermsDeclined"></aui:input>
 						</td>
 						<td>
 							<ol>
-								<li><label> <aui:input id="ifAtermsQuestion_defaultEss"
-											label="Default ESS" type="checkbox"
-											name="ifAtermsQuestion_defaultEss"
-											value="2"></aui:input>
+								<li><label> <aui:input
+											id="ifAtermsQuestion_defaultEss" label="Default ESS"
+											type="checkbox" name="ifAtermsQuestion_defaultEss" value="2"></aui:input>
 								</label></li>
 							</ol>
 						</td>
 						<td>
 							<ol>
 
-							<%
-								for (Role role:roles)
-								{
-							%>
+								<%
+									for (Role role : roles) {
+								%>
 
-								<li><label> <aui:input id='<%="ifATermsQuestion"+role.getName()%>'
-											type="checkbox"
-											name='<%="ifATermsQuestion"+role.getName()%>'
-											label="<%= role.getName() %>"></aui:input>
+								<li><label> <aui:input
+											id='<%="ifATermsQuestion" + role.getName()%>' type="checkbox"
+											name='<%="ifATermsQuestion" + role.getName()%>'
+											label="<%=role.getName()%>"></aui:input>
 
 								</label></li>
-								<%} %>
+								<%
+									}
+								%>
 							</ol>
 						</td>
 					</tr>
 					<tr>
 						<td>Don't allow if Service Period is less than <br></br> <aui:input
-								id="leaveTypeRuleApplyRestriction_tbxFilterPram6" value="on"
+								id="leaveTypeRuleApplyRestriction_tbxFilterPram6" value=""
 								style="float: none; display: inline;"
-								name=""></aui:input><label>months</label>
+								name="minimumServicePeriod" label="Minimum Service Period"></aui:input><label>months</label>
 						</td>
 						<td>
 							<ol>
-								<li><label> <aui:input id="isMinServiceApplicable_defaultEss"
-											label="Default ESS"
-											name="isMinServiceApplicable_defaultEss"
-											value="2"></aui:input>
+								<li><label> <aui:input
+											id="isMinServiceApplicable_defaultEss" label="Default ESS"
+											name="isMinServiceApplicable_defaultEss" value=""></aui:input>
 								</label></li>
 							</ol>
 
@@ -156,18 +160,22 @@ var="addOrUpdateLeaveRestrictions"></portlet:actionURL>
 						<td>
 							<ol>
 
-							<%
-								for (Role role:roles)
-								{
-							%>
+								<%
+									for (Role role : roles) {
+								%>
 
-								<li><label> <aui:input id='<%="isMinimumServicePeriodApplicable"+role.getName()%>'
+								<li><label> <aui:input
+											id='<%="isMinimumServicePeriodApplicable"
+								+ role.getName()%>'
 											type="checkbox"
-											name='<%="isMinimumServicePeriodApplicable"+role.getName() %>'
-											label="<%= role.getName() %>"></aui:input>
+											name='<%="isMinimumServicePeriodApplicable"
+								+ role.getName()%>'
+											label="<%=role.getName()%>"></aui:input>
 
 								</label></li>
-								<%} %>
+								<%
+									}
+								%>
 							</ol>
 						</td>
 
@@ -175,15 +183,15 @@ var="addOrUpdateLeaveRestrictions"></portlet:actionURL>
 					<tr>
 						<td>Don't allow if number of consecutive leave days exceed <br></br>
 							<aui:input id="leaveTypeRuleApplyRestriction_tbxFilterPram6"
-								value="on" style="float: none; display: inline;"
-								name=""></aui:input><label>months</label>
+								value="" style="float: none; display: inline;"
+								name="maxConsecutiveLeaves" label="Max ConsecutiveLeaves"></aui:input><label>months</label>
 						</td>
 						<td>
 							<ol>
-								<li><label> <aui:input id="isMaxConsecutiveLeavesApplicable_defaultEss"
+								<li><label> <aui:input
+											id="isMaxConsecutiveLeavesApplicable_defaultEss"
 											label="Default ESS" type="checkbox"
-											name="isMaxConsecutiveLeavesApplicable_defaultEss"
-											></aui:input>
+											name="isMaxConsecutiveLeavesApplicable_defaultEss"></aui:input>
 								</label></li>
 							</ol>
 
@@ -191,25 +199,30 @@ var="addOrUpdateLeaveRestrictions"></portlet:actionURL>
 						<td>
 							<ol>
 
-							<%
-								for (Role role:roles)
-								{
-							%>
+								<%
+									for (Role role : roles) {
+								%>
 
-								<li><label> <aui:input id='<%="isMaxConsecutiveLeavesApplicable"+role.getName()%>'
+								<li><label> <aui:input
+											id='<%="isMaxConsecutiveLeavesApplicable"
+								+ role.getName()%>'
 											type="checkbox"
-											name='<%="isMaxConsecutiveLeavesApplicable"+role.getName()%>'
+											name='<%="isMaxConsecutiveLeavesApplicable"
+								+ role.getName()%>'
 											label="<%=role.getName()%>"></aui:input>
 								</label></li>
-								<%} %>
+								<%
+									}
+								%>
 							</ol>
 						</td>
 					</tr>
 					<tr>
 						<td>Don't allow if no child found aged less than <br></br> <aui:input
-								id="leaveTypeRuleApplyRestriction_tbxFilterPram6" 
+								id="leaveTypeRuleApplyRestriction_tbxFilterPram6"
 								style="float: none; display: inline;"
-								name=""></aui:input><label>months</label>
+								name="maxSmallChildAgeApplicable"
+								label="Max Small Child Age Applicable"></aui:input><label>months</label>
 						</td>
 						<td>
 							<ol>
@@ -223,18 +236,22 @@ var="addOrUpdateLeaveRestrictions"></portlet:actionURL>
 						<td>
 							<ol>
 
-							<%
-								for (Role role:roles)
-								{
-							%>
+								<%
+									for (Role role : roles) {
+								%>
 
-								<li><label> <aui:input id='<%="isSmallChildCriterionApplicable"+role.getName()%>'
+								<li><label> <aui:input
+											id='<%="isSmallChildCriterionApplicable"
+								+ role.getName()%>'
 											type="checkbox"
-											name='<%="isSmallChildCriterionApplicable"+role.getName()%>'
-											label="<%= role.getName()%>"></aui:input>
+											name='<%="isSmallChildCriterionApplicable"
+								+ role.getName()%>'
+											label="<%=role.getName()%>"></aui:input>
 
 								</label></li>
-								<%} %>
+								<%
+									}
+								%>
 							</ol>
 						</td>
 					</tr>
