@@ -933,6 +933,25 @@ public class LeaveTypeAction extends MVCPortlet{
 	{
 		
 	}
+	public void saveEmployeeGroup(ActionRequest actionRequest, ActionResponse actionResponse) throws SystemException{
+		
+		log.info("inside saveEmployeeGroup...");
+		Long leaveTypeId=ParamUtil.getLong(actionRequest, "leaveTypeId");
+		log.info("leaveTypeId == " +leaveTypeId);
+		
+		String groupName = ParamUtil.getString(actionRequest, "groupName");
+		String customgroupname = ParamUtil.getString(actionRequest, "customGroupName");
+		
+		log.info("groupName == " +groupName);
+		log.info("customGroupName == "+customgroupname);
+		log.info("end of the method...");
+		Map leaveInfo=setSessionForLeaveInfo(leaveTypeId);
+        leaveInfo.put("jsp", "restrictgroupsJsp");
+		actionRequest.getPortletSession(true).setAttribute("leaveInfo", 
+				leaveInfo,PortletSession.APPLICATION_SCOPE);
+		
+		actionResponse.setRenderParameter("mvcPath", "/html/leavetype/update_leaveGeneral.jsp");
+	}
 	
 	
 	
