@@ -144,9 +144,13 @@ function getDaysInMonth(month, year) {
 
 
 </aui:script>
-<div id="editLeaveRuleForm">
+
 	<aui:form name="myForm" action="<%=saveLeaveGeneral.toString()%>">
-		
+<div class="panel">
+	<div class="panel-heading">
+		<h4>General</h4>
+	</div>
+	<div class="panel-body">		
 		<% if(editLeaveGeneral==null){%>
 		<aui:input name="leaveGeneralId" type="hidden"
 			value="" />
@@ -281,5 +285,5 @@ function getDaysInMonth(month, year) {
 			</div>
 			<aui:button type="submit" id="save" value="save" />
 		</div>
+</div></div>
 	</aui:form>
-</div>

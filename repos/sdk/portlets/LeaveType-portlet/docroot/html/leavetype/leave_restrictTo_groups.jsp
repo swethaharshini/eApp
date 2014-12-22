@@ -1,6 +1,6 @@
 <%@page import="com.rknowsys.eapp.hrm.model.LeaveRuleApplicable"%>
 <%@ include file="/html/leavetype/init.jsp"%>
-<portlet:actionURL var="saveEmployeeGroup" name="saveEmployeeGroup"></portlet:actionURL>
+<portlet:actionURL var="saveemployeegroup" name="saveEmployeeGroup"></portlet:actionURL>
 <aui:script>
 AUI().ready('event', 'node', function(A){
  A.one(".addinput").hide();
@@ -17,12 +17,15 @@ AUI().ready('event', 'node', function(A){
 AUI().use(
   'aui-node',
   function(A) {
-   var node = A.one('#addNew');
-   var removenode = A.one('.removegroup');
+   var node = A.one('#addNew'); var groupArray = [];
+   var removenode = A.one('button');
     node.on(
       'click',
-      function() {
+      function(e) {
+      e.preventDefault();
      var newNodeObject = A.one('.addinput').get('innerHTML');
+     groupArray.push(i);
+   
        A.one('#addgroup').append('<div class="panel"><div class="panel-heading"><h5>Employee Group '+i+'</h5></div>'+newNodeObject+'</div>');
        i = i+1;
        
@@ -102,7 +105,15 @@ AUI().use(
 	   A.one("#groupYearsOfStatusDiv").hide();
 	  }
 	  });
+	  
+
 	 });
+ 
+	function submitForm(){
+
+console.log("submitted.....");
+}
+	
 	
 </aui:script>
 <%Map leaveInfo=(Map)request.getSession(false).getAttribute(
@@ -110,14 +121,14 @@ AUI().use(
 		LeaveType editLeaveType=(LeaveType)leaveInfo.get("editLeaveType");
 		LeaveRuleApplicable leaveRuleApplicable=(LeaveRuleApplicable)request.getSession().getAttribute("leaveRuleApplicable");%>
  <a href="#" id="addNew">AddGroup</a>
- <div>
  <div class="panel">
 	<div class="panel-heading">
 		<h4>Employee Groups</h4>
 	</div>
-	<div class="panel-body">
-	<aui:form name="whoCanApplyForLeave" id="whoCanApplyForLeave"
-			action="<%=saveEmployeeGroup%>" method="post">
+	
+	<aui:form name="whoCanApplyForLeave" action="<%=saveemployeegroup.toString()%>"
+			method="post" onSubmit="javascript:submitForm()">
+	<div class="panel-body" id="addgroup">
 		<div class="panel">
 	<div class="panel-heading">
 		<h5>Employee Group 1: Default</h5>
@@ -168,9 +179,9 @@ AUI().use(
 			</div>
 		</div></div>
 	<div class="addinput">
-			<aui:input name="leaveTypeId" value="<%=editLeaveType.getLeaveTypeId() %>" type="hidden"></aui:input>
-			<aui:input name="leaveApplicabilityId" value="" type="hidden"></aui:input>
-			<aui:input name="customGroupName" label="Group Name" inlineLabel="left"/>
+			<aui:input name="ss" value="<%=editLeaveType.getLeaveTypeId() %>" type="hidden"></aui:input>
+			<aui:input name="ss" value="" type="hidden"></aui:input>
+			<aui:input name="<portletnamespace/>customGroupName" label="Group Name" inlineLabel="left"/>
 			<hr/>
 			<aui:input name="grouprestrictToJobTitles" type="checkbox" 
 				label="Job Titles" checked="<%=leaveRuleApplicable==null?false:leaveRuleApplicable.getForJobTitles() %>"></aui:input>
@@ -214,14 +225,13 @@ AUI().use(
 			<a href="#" style="color: black" class="removegroup" >RemoveGroup</a>
 			
 			</div>
-			<div id="addgroup"></div>
+			</div>
 		<hr>
 			<aui:button type="submit" value="Save"></aui:button>
 		</aui:form>
-	</div>
+	
 </div>
 
-</div>
 
 
  
