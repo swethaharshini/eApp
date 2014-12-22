@@ -2,6 +2,7 @@ package com.rknowsys.eapp;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -10,9 +11,15 @@ import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
 import com.liferay.counter.service.CounterLocalServiceUtil;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.util.bridges.mvc.MVCPortlet;
@@ -50,17 +57,57 @@ public class TerminationReasonsAction extends MVCPortlet {
 					"terminationreasonsId");
 			String name = ParamUtil.getString(actionRequest,
 					"terminationreasonsName");
-			System.out.println("id == " + id + "Name = " + name);
-			if (id == "" || id == null) {
-				terminationReasons.setTerminationreasonsName(ParamUtil
-						.getString(actionRequest, "terminationreasonsName"));
-				terminationReasons.setCreateDate(date);
-				terminationReasons.setModifiedDate(date);
-				terminationReasons.setCompanyId(themeDisplay.getCompanyId());
-				terminationReasons.setGroupId(themeDisplay.getCompanyGroupId());
-				terminationReasons.setUserId(themeDisplay.getUserId());
-				terminationReasons = TerminationReasonsLocalServiceUtil
-						.addTerminationReasons(terminationReasons);
+			String terminationReason = name.trim();
+			if (terminationReason.equals("") || terminationReason == null) {
+
+				System.out.println("Empty value in TerminationReason...");
+				SessionMessages.add(actionRequest.getPortletSession(),
+						"termination-form-error");
+				actionResponse.setRenderParameter("mvcPath",
+						"/html/terminationreasons/add.jsp");
+			} else {
+
+				System.out.println("id == " + id + "Name = " + name);
+				if (id == "" || id == null) {
+
+					DynamicQuery dynamicQuery = DynamicQueryFactoryUtil
+							.forClass(TerminationReasons.class,
+									PortalClassLoaderUtil.getClassLoader());
+
+					dynamicQuery.add(RestrictionsFactoryUtil.eq(
+							"terminationreasonsName", name));
+					List<TerminationReasons> list = TerminationReasonsLocalServiceUtil
+							.dynamicQuery(dynamicQuery);
+
+					if (list.size() > 0) {
+						TerminationReasons terminationReasons2 = list.get(0);
+
+						if (terminationReasons2 != null) {
+
+							SessionMessages.add(
+									actionRequest.getPortletSession(),
+									"termination-form-duplicate-error");
+							actionResponse.setRenderParameter("mvcPath",
+									"/html/terminationreasons/add.jsp");
+
+						}
+					} else {
+
+						terminationReasons.setTerminationreasonsName(ParamUtil
+								.getString(actionRequest,
+										"terminationreasonsName"));
+						terminationReasons.setCreateDate(date);
+						terminationReasons.setModifiedDate(date);
+						terminationReasons.setCompanyId(themeDisplay
+								.getCompanyId());
+						terminationReasons.setGroupId(themeDisplay
+								.getCompanyGroupId());
+						terminationReasons.setUserId(themeDisplay.getUserId());
+						terminationReasons = TerminationReasonsLocalServiceUtil
+								.addTerminationReasons(terminationReasons);
+
+					}
+				}
 			}
 		} catch (SystemException e) {
 
@@ -94,17 +141,36 @@ public class TerminationReasonsAction extends MVCPortlet {
 		TerminationReasons terminationReasons;
 
 		try {
-			terminationReasons = TerminationReasonsLocalServiceUtil
-					.getTerminationReasons(Long.parseLong(id));
-			terminationReasons.setCreateDate(date);
-			terminationReasons.setModifiedDate(date);
-			terminationReasons.setCompanyId(themeDisplay.getCompanyId());
-			terminationReasons.setGroupId(themeDisplay.getCompanyGroupId());
-			terminationReasons.setUserId(themeDisplay.getUserId());
-			terminationReasons.setTerminationreasonsName(name);
-			terminationReasons = TerminationReasonsLocalServiceUtil
-					.updateTerminationReasons(terminationReasons);
+			String terminationReason = name.trim();
+			if (terminationReason.equals("") || terminationReason == null) {
 
+				System.out.println("Empty value in TerminationReason...");
+				TerminationReasons terminationReasons2 = TerminationReasonsLocalServiceUtil
+						.getTerminationReasons(Long.parseLong(id));
+
+				actionRequest.setAttribute("editTerminationReasons",
+						terminationReasons2);
+
+				SessionMessages.add(actionRequest.getPortletSession(),
+						"termination-form-error");
+				actionResponse.setRenderParameter("mvcPath",
+						"/html/terminationreasons/edit.jsp");
+			}
+
+			else {
+
+				terminationReasons = TerminationReasonsLocalServiceUtil
+						.getTerminationReasons(Long.parseLong(id));
+				terminationReasons.setCreateDate(date);
+				terminationReasons.setModifiedDate(date);
+				terminationReasons.setCompanyId(themeDisplay.getCompanyId());
+				terminationReasons.setGroupId(themeDisplay.getCompanyGroupId());
+				terminationReasons.setUserId(themeDisplay.getUserId());
+				terminationReasons.setTerminationreasonsName(name);
+				terminationReasons = TerminationReasonsLocalServiceUtil
+						.updateTerminationReasons(terminationReasons);
+
+			}
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
