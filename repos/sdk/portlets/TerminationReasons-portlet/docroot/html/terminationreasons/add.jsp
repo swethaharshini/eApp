@@ -1,3 +1,5 @@
+<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
+<%@page import="com.liferay.portal.kernel.servlet.SessionErrors"%>
 <%@page import="com.rknowsys.eapp.hrm.service.TerminationReasonsLocalServiceUtil"%>
 <%@page import="com.rknowsys.eapp.hrm.model.TerminationReasons"%>
 <%@ include file="/html/terminationreasons/init.jsp"%>
@@ -14,6 +16,9 @@
 }
 .table-last-header {
 	width: 15%;
+}
+em{
+color: red;
 }
 .aui input[type="text"]{
 border-radius: 4px;
@@ -82,10 +87,7 @@ AUI().use(
   }
 );
 
- AUI().ready('event', 'node', function(A){
 
-  A.one('#addterminationreasonsForm').hide();
- });
 
 AUI().use(
   'aui-node',
@@ -106,29 +108,36 @@ AUI().use(
 </head>
 
 <body>
-	<div id="terminationreasonsAddDelete" class="span12">
-		<a href="#" id="add">Add</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="delete">Delete</a>
+<div class="row-fluid">
+ <% if(SessionMessages.contains(renderRequest.getPortletSession(),"termination-form-error")){%>
+<liferay-ui:message key="Please Enter TerminationReason"/>
+<%} 
+ if(SessionMessages.contains(renderRequest.getPortletSession(),"termination-form-duplicate-error")){
+%>
+<liferay-ui:message key="TerminationName already Exits"/>
+<%} 
+%>
+</div>
 
-	</div>
-	<div  id="addterminationreasonsForm">
+	<div  id="addterminationreasonsForm" class="row-fluid">
 	<aui:form name="myForm" action="<%=saveterminationreasons.toString()%>" >
 		<aui:input name="terminationreasonsId" type="hidden" id="terminationreasonsId" />
 	
 		<div class="span12">
 			<div class="span2">
-				<label>Name</label>
+				<label>Name<em>*</em></label>
 		</div>
 		<div class="span3">		
 		 <input name="<portlet:namespace/>terminationreasonsName" type="text" required = "required">
 			</div>
 		</div>
 		<aui:button type="submit" value="Submit" />
-		<aui:button  type="reset" value="Cancel" id ="cancel"/>
-		
+		<aui:button  type="reset" value="Reset" id ="cancel"/>
+		<input type="button" class="btn" value="Delete" id ="delete"></input>
 	</aui:form>
 	</div>
 	
-	 <div><label style="color: white" >.</label></div>
+	 <div><em>*</em> Required Field</div>
 	
 </body>
 
