@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@ include file="/html/language/init.jsp"%>
 
 <portlet:actionURL var="saveLanguages" name="saveLanguage">
@@ -23,14 +24,14 @@ AUI().use(
       'click',
       function() {
      var idArray = [];
-      A.all('input[type=checkbox]:checked').each(function(object) {
+    A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
       idArray.push(object.get("value"));
-    alert(idArray.length);
+   
         });
        if(idArray==""){
 			  alert("Please select records!");
 		  }else{
-			  var d = confirm("Are you sure you want to delete the selected language ?");
+			  var d = confirm("Are you sure you want to delete the selected languages ?");
 		  if(d){
 		   var url = '<%=deleteLanguages%>';
           A.io.request(url,
@@ -102,10 +103,17 @@ AUI().use(
 </head>
 
 <body>
-	<div id="languageAddDelete" class="span12">
-		<a href="#" id="add">Add</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="delete">Delete</a>
+<% if(SessionMessages.contains(renderRequest.getPortletSession(),"languageName-empty-error")){%>
+<liferay-ui:message key="Please Enter LanguageName"/>
+<%} 
+ if(SessionMessages.contains(renderRequest.getPortletSession(),"languageName-duplicate-error")){
+%>
+<liferay-ui:message key="LanguageName already Exits"/>
+<%} 
+%>
 
-	</div>
+  <br/><br/>
+	
 	<div  id="addLanguageForm">
 	<aui:form name="myForm" action="<%=saveLanguages.toString()%>" >
 		<aui:input name="languageId" type="hidden" id="languageId" />
@@ -115,12 +123,13 @@ AUI().use(
 				<label>Name</label>
 		</div>
 		<div class="span3">		
-		 <input name="<portlet:namespace/>language_name" type="text" required = "required">
+		 <aui:input name="language_name" label="" type="text"></aui:input>
 			</div>
 		</div>
+		<br/>
 		<aui:button type="submit" value="Submit" />
 		<aui:button  type="reset" value="Cancel" id ="cancel"/>
-		
+		<input type="button" value="Delete" class="btn" id="delete">
 	</aui:form>
 	</div>
 	
@@ -177,7 +186,7 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 
 	</liferay-ui:search-container-results>
 	<liferay-ui:search-container-row className="Language"
-		keyProperty="licenseId" modelVar="licenseId" rowVar="curRow"
+		keyProperty="languageId" modelVar="languageId" rowVar="curRow"
 		escapedModel="<%= true %>">
 		<liferay-ui:search-container-column-text orderable="<%=true %>"
 			name="name" property="languageName"
