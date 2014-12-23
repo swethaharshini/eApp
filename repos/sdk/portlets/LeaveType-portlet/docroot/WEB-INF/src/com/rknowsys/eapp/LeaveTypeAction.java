@@ -183,10 +183,8 @@ public class LeaveTypeAction extends MVCPortlet{
 			 String userEnteredTextId=ParamUtil.getString(resourceRequest, "idOfEnteredValue");
 			 System.out.println("ids of the user entered text is"+userEnteredText+" "+userEnteredTextId);
 			 JSONArray usersJSONArray = JSONFactoryUtil.createJSONArray();
-			 DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(JobTitle.class,
-			 PortletClassLoaderUtil.getClassLoader());
-			 Criterion criterion = RestrictionsFactoryUtil.like("title",
-			 StringPool.PERCENT );
+			 DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(JobTitle.class,PortletClassLoaderUtil.getClassLoader());
+			 Criterion criterion = RestrictionsFactoryUtil.like("title",StringPool.PERCENT );
 			 userQuery.add(criterion);
 			 JSONObject userJSON = null;
 			 try {
@@ -293,7 +291,7 @@ public class LeaveTypeAction extends MVCPortlet{
 	 * Leave Information like leave_general,leave_restriction,leaveRuleApplicable,leave_type_applicability,leave_carryForward_policy
 	 * This methods updates or inserts the records in the above tables
 	 */
-	public void editLeaveRule(ActionRequest actionRequest, ActionResponse actionResponse)
+	public void editLeaveRule(ActionRequest actionRequest, ActionResponse actionResponse) throws SystemException
 	{
 		long leaveTypeId=ParamUtil.getLong(actionRequest, "leaveTypeId");
 		log.info("leave type id is"+leaveTypeId);
@@ -316,6 +314,7 @@ public class LeaveTypeAction extends MVCPortlet{
 		List<LeaveRestriction> leaveRestrictionList=null;
 		try {
 			leaveRestrictionList=LeaveRestrictionLocalServiceUtil.findByLeaveTypeId(leaveTypeId);
+			log.info("leaveRestrictionList =========" +leaveRestrictionList);
 		} catch (SystemException e) {
 			e.printStackTrace();
 		}
@@ -324,9 +323,11 @@ public class LeaveTypeAction extends MVCPortlet{
 			leaveRestriction=leaveRestrictionList.get(0);
 		}
 		Map leaveInfo=setSessionForLeaveInfo(leaveTypeId);
-		actionRequest.getPortletSession(true).setAttribute("leaveInfo", 
-				leaveInfo,PortletSession.APPLICATION_SCOPE);
+		
+		actionRequest.getPortletSession(true).setAttribute("leaveInfo",leaveInfo,PortletSession.APPLICATION_SCOPE);
+		
 		log.info(leaveType);
+		
 		actionResponse.setRenderParameter("mvcPath", "/html/leavetype/update_leaveGeneral.jsp");
 	}
 	/*
@@ -336,50 +337,18 @@ public class LeaveTypeAction extends MVCPortlet{
 	{
 		log.info("in saveOrUpdateLeaveGeneral method");
 		Date date = new Date();
-		 ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
-		long leaveGeneralId=ParamUtil.getLong(actionRequest,"leaveGeneralId");
+		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		String leaveGeneralId=ParamUtil.getString(actionRequest,"leaveGeneralId");
 		long leaveTypeId=ParamUtil.getLong(actionRequest, "leaveTypeId");
-		LeaveType leaveType=null;
+		
 		try {
-			leaveType=LeaveTypeLocalServiceUtil.getLeaveType(leaveTypeId);
-			} catch (PortalException e1) {
-				e1.printStackTrace();
-			} catch (SystemException e1) {
-				e1.printStackTrace();
-			}
-		LeaveGeneral leaveGeneral=null;
-		try {
-			leaveGeneral=LeaveGeneralLocalServiceUtil.getLeaveGeneral(leaveGeneralId);
-			} catch (PortalException e) {
-				System.out.println("No leave general exists");
-			} catch (SystemException e) {
-				System.out.println("No leave general exists");
-			}
-		if(leaveGeneral!=null)
+			
+		if(leaveGeneralId ==null || leaveGeneralId.equals("") || leaveGeneralId=="")
 		{
+			LeaveGeneral leaveGeneral=LeaveGeneralLocalServiceUtil.createLeaveGeneral(CounterLocalServiceUtil.increment());
+			
 			insertOrUpdateLeaveGeneralValues(leaveGeneral, actionRequest);
-			try {
-				leaveGeneral.setCompanyId(themeDisplay.getCompanyId());
-				leaveGeneral.setGroupId(themeDisplay.getCompanyGroupId());
-				leaveGeneral.setUserId(themeDisplay.getUserId());
-				
-				leaveGeneral.setModifiedDate(date);
-				leaveGeneral.setLeaveTypeId(leaveTypeId);
-				
-				LeaveGeneralLocalServiceUtil.updateLeaveGeneral(leaveGeneral);
-				} catch (SystemException e) {
-					e.printStackTrace();
-				}
-		}
-		else
-		{
-			try {
-				leaveGeneral=LeaveGeneralLocalServiceUtil.createLeaveGeneral(CounterLocalServiceUtil.increment());
-				} catch (SystemException e) {
-					e.printStackTrace();
-				}
-			insertOrUpdateLeaveGeneralValues(leaveGeneral, actionRequest);
-			try {
+		
 				leaveGeneral.setCompanyId(themeDisplay.getCompanyId());
 				leaveGeneral.setGroupId(themeDisplay.getCompanyGroupId());
 				leaveGeneral.setUserId(themeDisplay.getUserId());
@@ -388,24 +357,41 @@ public class LeaveTypeAction extends MVCPortlet{
 				leaveGeneral.setModifiedDate(date);
 				leaveGeneral.setLeaveTypeId(leaveTypeId);
 				LeaveGeneralLocalServiceUtil.addLeaveGeneral(leaveGeneral);
-			} catch (SystemException e) {
-				e.printStackTrace();
-			}
+		
+			
+		}
+		else
+		{
+			LeaveGeneral leaveGeneral2 = LeaveGeneralLocalServiceUtil.getLeaveGeneral(Long.parseLong(leaveGeneralId));
+			insertOrUpdateLeaveGeneralValues(leaveGeneral2, actionRequest);
+			
+				leaveGeneral2.setCompanyId(themeDisplay.getCompanyId());
+				leaveGeneral2.setGroupId(themeDisplay.getCompanyGroupId());
+				leaveGeneral2.setUserId(themeDisplay.getUserId());
+				
+				leaveGeneral2.setModifiedDate(date);
+				leaveGeneral2.setLeaveTypeId(leaveTypeId);
+				
+				leaveGeneral2 =  LeaveGeneralLocalServiceUtil.updateLeaveGeneral(leaveGeneral2);
 		}
     Map<String, Object> leaveInfo=setSessionForLeaveInfo(leaveTypeId);
     leaveInfo.put("jsp", "generalJsp");
 		actionRequest.getPortletSession(true).setAttribute("leaveInfo", 
 				leaveInfo,PortletSession.APPLICATION_SCOPE);
 		
-		log.info("Before returning to update_leaveGeneral.jsp, leaveType = "+leaveType);
+		
 		actionResponse.setRenderParameter("mvcPath", "/html/leavetype/update_leaveGeneral.jsp");
 		
+	}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	/*
 	 * Sets who can apply for a particular leave type based on their job title or Employment status 
 	 * or Job Category or Gender or years of service.
 	 */
-	public void saveWhoCanApply(ActionRequest actionRequest,ActionResponse actionResponse)
+	public void saveWhoCanApply(ActionRequest actionRequest,ActionResponse actionResponse) throws NumberFormatException, PortalException, SystemException
 	{
 		System.out.println("====In saveWhoCanApply=====");
 		Date date = new Date();
@@ -418,7 +404,7 @@ public class LeaveTypeAction extends MVCPortlet{
 		String jobcategoryIds = ParamUtil.getString(actionRequest, "jobCategoryId");
 		String employmentstatusIds = ParamUtil.getString(actionRequest, "employmentStatusId");
 		String leaveApplicabilityId = ParamUtil.getString(actionRequest, "leaveApplicabilityId");
-		log.info("leaveRuleApplicabilityId === " +leaveApplicabilityId);
+		log.info("leaveRuleApplicabilityId in Action class === " +leaveApplicabilityId);
 		boolean isJobTitle = ParamUtil.getBoolean(actionRequest, "restrictToJobTitles");
 		boolean isJobCategory = ParamUtil.getBoolean(actionRequest, "restrictToJobCategories");
 		boolean isEmploymentStatus = ParamUtil.getBoolean(actionRequest, "restrictToEmploymentStatus");
@@ -449,64 +435,70 @@ public class LeaveTypeAction extends MVCPortlet{
 			employmentstatusSet.add(employmentstatus[i]);
 		}
 		
-		
-		
-		LeaveRuleApplicable leaveRuleApplicable=null;
-		try {
-			leaveRuleApplicable=LeaveRuleApplicableLocalServiceUtil.createLeaveRuleApplicable(CounterLocalServiceUtil.increment());
-			} catch (SystemException e) {
-				e.printStackTrace();
-			}
-		
-		
-		if(jobTitlesNoDuplicates!=null)
-		{
-			int i=0;
-			Object[] jobTitleIdArray=jobTitlesNoDuplicates.toArray();
-			while(i<jobTitleIdArray.length)
+	try {
+		   if(leaveApplicabilityId==null || leaveApplicabilityId==""){
+			LeaveRuleApplicable leaveRuleApplicable=LeaveRuleApplicableLocalServiceUtil.createLeaveRuleApplicable(CounterLocalServiceUtil.increment());
+			
+			if(jobTitlesNoDuplicates!=null)
 			{
-				try {
-					LeaveRuleApplicableLocalServiceUtil.addJobTitleLeaveRuleApplicable(Long.valueOf(jobTitleIdArray[i].toString()), leaveRuleApplicable);
-				System.out.println("added job title is"+jobTitleIdArray[i]);
-				} catch (SystemException e) {
-					e.printStackTrace();
+				int i=0;
+				Object[] jobTitleIdArray=jobTitlesNoDuplicates.toArray();
+				while(i<jobTitleIdArray.length)
+				{
+					try {
+						 if(jobTitleIdArray[i]==""){
+							 log.info("jobTitleIdArray has empty value");
+						 }
+						 else{
+						LeaveRuleApplicableLocalServiceUtil.addJobTitleLeaveRuleApplicable(Long.valueOf(jobTitleIdArray[i].toString()), leaveRuleApplicable);
+					System.out.println("added job title is"+jobTitleIdArray[i]);
+					}} catch (SystemException e) {
+						e.printStackTrace();
+					}
+				i++;
 				}
-			i++;
 			}
-		}
-		if(jobCategorySet!=null)
-		{
-			int i=0;
-			Object[] jobCategoryIdArray=jobCategorySet.toArray();
-			while(i<jobCategoryIdArray.length)
+			if(jobCategorySet!=null)
 			{
-				try {
-					LeaveRuleApplicableLocalServiceUtil.addJobCategoryLeaveRuleApplicable(Long.valueOf(jobCategoryIdArray[i].toString()), leaveRuleApplicable);
-				System.out.println("added job title is"+jobCategoryIdArray[i]);
-				} catch (SystemException e) {
-					e.printStackTrace();
+				int i=0;
+				Object[] jobCategoryIdArray=jobCategorySet.toArray();
+				while(i<jobCategoryIdArray.length)
+				{
+					try {
+						 if(jobCategoryIdArray[i]==""){
+							 log.info("JobCategoryIdArray has empty value");
+						 }
+						 else{
+						log.info("jobCategoryIdArray length and value == "+jobCategoryIdArray.length+" " +jobCategoryIdArray[i]);
+						LeaveRuleApplicableLocalServiceUtil.addJobCategoryLeaveRuleApplicable(Long.valueOf(jobCategoryIdArray[i].toString()), leaveRuleApplicable);
+					System.out.println("added job title is"+jobCategoryIdArray[i]);
+						 }
+						 } catch (SystemException e) {
+						e.printStackTrace();
+					}
+				i++;
 				}
-			i++;
 			}
-		}
-		if(employmentstatusSet!=null)
-		{
-			int i=0;
-			Object[] employmentstatusIdArray=employmentstatusSet.toArray();
-			while(i<employmentstatusIdArray.length)
+			if(employmentstatusSet!=null)
 			{
-				try {
-					LeaveRuleApplicableLocalServiceUtil.addEmploymentStatusLeaveRuleApplicable(Long.valueOf(employmentstatusIdArray[i].toString()), leaveRuleApplicable);
-				System.out.println("added job title is"+employmentstatusIdArray[i]);
-				} catch (SystemException e) {
-					e.printStackTrace();
+				int i=0;
+				Object[] employmentstatusIdArray=employmentstatusSet.toArray();
+				while(i<employmentstatusIdArray.length)
+				{
+					try {
+						if(employmentstatusIdArray[i]==""){
+							 log.info("employmentstatusIdArray has empty value");
+						 }
+						 else{
+						LeaveRuleApplicableLocalServiceUtil.addEmploymentStatusLeaveRuleApplicable(Long.valueOf(employmentstatusIdArray[i].toString()), leaveRuleApplicable);
+					System.out.println("added job title is"+employmentstatusIdArray[i]);
+					} }catch (SystemException e) {
+						e.printStackTrace();
+					}
+				i++;
 				}
-			i++;
 			}
-		}
-		
-		
-		try {
+			
 			leaveRuleApplicable.setUserId(themeDisplay.getUserId());
 			leaveRuleApplicable.setCompanyId(themeDisplay.getCompanyId());
 			leaveRuleApplicable.setGroupId(themeDisplay.getCompanyGroupId());
@@ -526,6 +518,30 @@ public class LeaveTypeAction extends MVCPortlet{
 			leaveRuleApplicable.setToYears(toDuration);
 			
 			LeaveRuleApplicableLocalServiceUtil.addLeaveRuleApplicable(leaveRuleApplicable);
+		   }
+		   else{
+			   log.info("updating leaveApplicability....");
+			   LeaveRuleApplicable leaveRuleApplicable2 = LeaveRuleApplicableLocalServiceUtil.getLeaveRuleApplicable(Long.parseLong(leaveApplicabilityId));
+			   leaveRuleApplicable2.setUserId(themeDisplay.getUserId());
+				leaveRuleApplicable2.setCompanyId(themeDisplay.getCompanyId());
+				leaveRuleApplicable2.setGroupId(themeDisplay.getCompanyGroupId());
+				
+				leaveRuleApplicable2.setCreateDate(date);
+				leaveRuleApplicable2.setModifiedDate(date);
+				leaveRuleApplicable2.setLeaveTypeId(leaveTypeId);
+				
+				leaveRuleApplicable2.setForJobTitles(isJobTitle);
+				leaveRuleApplicable2.setForJobCategories(isJobCategory);
+				leaveRuleApplicable2.setForEmploymentStatus(isEmploymentStatus);
+				leaveRuleApplicable2.setForGender(isGender);
+				leaveRuleApplicable2.setForMale(isMale);
+				leaveRuleApplicable2.setForFemale(isFemale);
+				leaveRuleApplicable2.setForYearsOfService(yearsOfService);
+				leaveRuleApplicable2.setFromYears(fromDuration);
+				leaveRuleApplicable2.setToYears(toDuration);
+			   leaveRuleApplicable2 = LeaveRuleApplicableLocalServiceUtil.updateLeaveRuleApplicable(leaveRuleApplicable2);
+			   log.info("Update leaveApplicability.........");
+		   }
 			} catch (SystemException e) {
 				e.printStackTrace();
 			}
@@ -544,6 +560,7 @@ public class LeaveTypeAction extends MVCPortlet{
 	 */
 	public void insertOrUpdateLeaveGeneralValues(LeaveGeneral leaveGeneral,ActionRequest actionRequest)
 	{
+		
 		int startMonth=ParamUtil.getInteger(actionRequest, "startMonth");
 		int startDayOfMonth=ParamUtil.getInteger(actionRequest, "startDayOfMonth");
 		String duration=ParamUtil.getString(actionRequest, "duration");
@@ -622,8 +639,9 @@ public class LeaveTypeAction extends MVCPortlet{
 	 * maximum consecutive leaves Employee can apply for
 	 * and max small child age to apply
 	 * */
-	public void addOrUpdateLeaveRestrictions(ActionRequest actionRequest,ActionResponse actionResponse)
+	public void addOrUpdateLeaveRestrictions(ActionRequest actionRequest,ActionResponse actionResponse) throws SystemException
 	{
+		 Date date = new Date();
 		long leaveTypeId=ParamUtil.getLong(actionRequest, "leaveTypeId");
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		List<Role> roles=null;
@@ -641,12 +659,15 @@ public class LeaveTypeAction extends MVCPortlet{
 			System.out.println("No LeaveRestriction found with leave type Id"+leaveTypeId);
 			try {
 				leaveRestriction= LeaveRestrictionLocalServiceUtil.createLeaveRestriction(CounterLocalServiceUtil.increment());
+				leaveRestriction.setCreateDate(date);
 				} catch (SystemException e1) {
 					e1.printStackTrace();
 				}
 		}
 		
 		List<Long> assignees=new ArrayList<Long>();
+		String tQuestion=null;
+		String errorTextIfTermsDeclinedTrimmed = null;
 		boolean canExceedBalance=ParamUtil.getBoolean(actionRequest, "cannotExceedBalance");
 		boolean canApplyForPartialDay=ParamUtil.getBoolean(actionRequest, "cannotApplyForPartialDay");
 		boolean cannotExceedBalance_defaultEss=ParamUtil.getBoolean(actionRequest, "cannotExceedBalance_defaultEss");
@@ -655,20 +676,40 @@ public class LeaveTypeAction extends MVCPortlet{
 		boolean isMinServiceApplicable_defaultEss=ParamUtil.getBoolean(actionRequest, "isMinServiceApplicable_defaultEss");
 		boolean isMaxConsecDays_defaultEss=ParamUtil.getBoolean(actionRequest, "isMaxConsecDays_defaultEss");
 		String termsQuestion=ParamUtil.getString(actionRequest, "termsQuestion");
+		if(termsQuestion!=null){
+			tQuestion = termsQuestion.trim();
+		}
+		
 		String errorTextIfTermsDeclined=ParamUtil.getString(actionRequest, "errorTextIfTermsDeclined");
+		if(errorTextIfTermsDeclined!=null){
+			errorTextIfTermsDeclinedTrimmed = errorTextIfTermsDeclined.trim();
+		}
 		String minimumServicePeriod=ParamUtil.getString(actionRequest, "minimumServicePeriod");
 		String maxConsecutiveLeaves=ParamUtil.getString(actionRequest, "maxConsecutiveLeaves");
 		String maxSmallChildAgeApplicable=ParamUtil.getString(actionRequest, "maxSmallChildAgeApplicable");
+		
+		
+		leaveRestriction.setCompanyId(themeDisplay.getCompanyId());
+		leaveRestriction.setGroupId(themeDisplay.getCompanyGroupId());
+		leaveRestriction.setUserId(themeDisplay.getUserId());
+		
+		leaveRestriction.setModifiedDate(date);
+		
 		leaveRestriction.setLeaveTypeId(leaveTypeId);
+		leaveRestriction.setMinimumServicePeriod(minimumServicePeriod);
+		leaveRestriction.setMaxConsecutiveLeaves(maxConsecutiveLeaves);
+		leaveRestriction.setMaxSmallChildAgeApplicable(maxSmallChildAgeApplicable);
 		leaveRestriction.setCannotExceedBalance(canExceedBalance);
 		leaveRestriction.setCannotApplyForPartialDay(canApplyForPartialDay);
 		try {
 			roles=RoleLocalServiceUtil.getRoles(themeDisplay.getCompanyId());
+			log.info("roles == " +roles.size()+ " " +roles);
 			} catch (SystemException e) {
 				e.printStackTrace();
 			}
 		if(canExceedBalance)
 		{
+			String canExceedBalanceString = null;
 		 if(roles!=null)
 			{
 			 for(int i=0;i<roles.size();i++)
@@ -677,17 +718,20 @@ public class LeaveTypeAction extends MVCPortlet{
 				 System.out.println(canAssignTo);
 				 if(canAssignTo)
 				 {
-					 assignees.add(roles.get(i).getRoleId());
+					
+					 canExceedBalanceString = canExceedBalanceString+","+String.valueOf(roles.get(i).getRoleId());
+					
 				 }
 			 }	
-			 System.out.println("can exceed balance for roleIds"+assignees.toString());
-			 leaveRestriction.setCantExceedBalForRoleIds(assignees.toString());
+			 System.out.println("can exceed balance for roleIds"+canExceedBalanceString);
+			 leaveRestriction.setCantExceedBalForRoleIds(canExceedBalanceString);
 			 assignees.clear();
 			}
 		 
 		}
 		if( canApplyForPartialDay)
 		{
+			String canApplyForPartialDayString = null;
 		 if(roles!=null)
 			{
 			 for(int i=0;i<roles.size();i++)
@@ -695,17 +739,20 @@ public class LeaveTypeAction extends MVCPortlet{
 				 boolean canAssignTo=ParamUtil.getBoolean(actionRequest, "cannotApplyForPartialDay"+roles.get(i).getName());
 				 if(canAssignTo)
 				 {
-					 assignees.add(roles.get(i).getRoleId());
+					
+						 canApplyForPartialDayString = canApplyForPartialDayString+","+String.valueOf(roles.get(i).getRoleId());
+					
 				 }
 			 }	
-			 System.out.println("cannotApplyForPartialDay for roleIds"+assignees.toString());
-			 leaveRestriction.setCantApplyPartialDayForRoleIds(assignees.toString());
+			 System.out.println("cannotApplyForPartialDay for roleIds ==== "+assignees.toString());
+			 leaveRestriction.setCantApplyPartialDayForRoleIds(canApplyForPartialDayString);
 			 assignees.clear();
 			}
 		 
 		}
-		if( termsQuestion!=null || termsQuestion!=" " || errorTextIfTermsDeclined !=null || errorTextIfTermsDeclined!=" ")
+		if( tQuestion!=null && tQuestion!=" " && errorTextIfTermsDeclinedTrimmed !=null && errorTextIfTermsDeclinedTrimmed!=" ")
 		{
+			String questionString = null;
 		 if(roles!=null)
 			{
 			 for(int i=0;i<roles.size();i++)
@@ -713,19 +760,22 @@ public class LeaveTypeAction extends MVCPortlet{
 				 boolean canAssignTo=ParamUtil.getBoolean(actionRequest, "ifATermsQuestion"+roles.get(i).getName());
 				 if(canAssignTo)
 				 {
-					 assignees.add(roles.get(i).getRoleId());
+					 
+						 questionString = questionString+","+String.valueOf(roles.get(i).getRoleId());
+					 
 				 }
 			 }	
 			 System.out.println("ifATermsQuestion for roleIds"+assignees.toString());
-			 leaveRestriction.setCantApplyPartialDayForRoleIds(assignees.toString());
-			 leaveRestriction.setTermsQuestion(termsQuestion);
-			 leaveRestriction.setErrorTextIfTermsDeclined(errorTextIfTermsDeclined);
+			 leaveRestriction.setTermsQsnForRoleIds(questionString);
+			 leaveRestriction.setTermsQuestion(tQuestion);
+			 leaveRestriction.setErrorTextIfTermsDeclined(errorTextIfTermsDeclinedTrimmed);
 			 assignees.clear();
 			}
 		 
 		}
 		if( minimumServicePeriod!=null || minimumServicePeriod != " ")
 		{
+			String minServicePeriodString = null;
 		 if(roles!=null)
 			{
 			 for(int i=0;i<roles.size();i++)
@@ -733,11 +783,13 @@ public class LeaveTypeAction extends MVCPortlet{
 				 boolean canAssignTo=ParamUtil.getBoolean(actionRequest, "isMinimumServicePeriodApplicable"+roles.get(i).getName());
 				 if(canAssignTo)
 				 {
-					 assignees.add(roles.get(i).getRoleId());
+					 
+						 minServicePeriodString = minServicePeriodString+","+String.valueOf(roles.get(i).getRoleId());
+					
 				 }
 			 }	
 			 System.out.println("isMinimumServicePeriodApplicable for roleIds"+assignees.toString());
-			 leaveRestriction.setMinServicePeriodForRoleIds(assignees.toString());
+			 leaveRestriction.setMinServicePeriodForRoleIds(minServicePeriodString);
 			 leaveRestriction.setMinimumServicePeriod(minimumServicePeriod);
 			 assignees.clear();
 			}
@@ -745,6 +797,7 @@ public class LeaveTypeAction extends MVCPortlet{
 		}
 		if( maxConsecutiveLeaves!=null || maxConsecutiveLeaves!= " ")
 		{
+			String maxConsecutiveString = null;
 		 if(roles!=null)
 			{
 			 for(int i=0;i<roles.size();i++)
@@ -752,11 +805,12 @@ public class LeaveTypeAction extends MVCPortlet{
 				 boolean canAssignTo=ParamUtil.getBoolean(actionRequest, "isMaxConsecutiveLeavesApplicable"+roles.get(i).getName());
 				 if(canAssignTo)
 				 {
-					 assignees.add(roles.get(i).getRoleId());
+						 maxConsecutiveString = maxConsecutiveString+","+String.valueOf(roles.get(i).getRoleId());
+					
 				 }
 			 }	
 			 System.out.println("isMaxConsecutiveLeavesApplicable for roleIds"+assignees.toString());
-			 leaveRestriction.setMaxConsecLeavesForRoleIds(assignees.toString());
+			 leaveRestriction.setMaxConsecLeavesForRoleIds(maxConsecutiveString);
 			 leaveRestriction.setMaxConsecutiveLeaves(maxConsecutiveLeaves);
 			 assignees.clear();
 			}
@@ -764,6 +818,7 @@ public class LeaveTypeAction extends MVCPortlet{
 		}
 		if(maxSmallChildAgeApplicable!=null || maxSmallChildAgeApplicable!=" ")
 		{
+			String maxSmallChildAgeApplicableString = null;
 		 if(roles!=null)
 			{
 			 for(int i=0;i<roles.size();i++)
@@ -771,11 +826,12 @@ public class LeaveTypeAction extends MVCPortlet{
 				 boolean canAssignTo=ParamUtil.getBoolean(actionRequest, "isSmallChildCriterionApplicable"+roles.get(i).getName());
 				 if(canAssignTo)
 				 {
-					 assignees.add(roles.get(i).getRoleId());
+					 	 maxSmallChildAgeApplicableString = maxSmallChildAgeApplicableString+","+String.valueOf(roles.get(i).getRoleId());
+					
 				 }
 			 }	
 			 System.out.println("isSmallChildCriterionApplicable for roleIds"+assignees.toString());
-			 leaveRestriction.setMaxSmallChildAgeForRoleIds(assignees.toString());
+			 leaveRestriction.setMaxSmallChildAgeForRoleIds(maxSmallChildAgeApplicableString);
 			 leaveRestriction.setMaxSmallChildAgeApplicable(maxSmallChildAgeApplicable);
 			 assignees.clear();
 			}
@@ -796,7 +852,7 @@ public class LeaveTypeAction extends MVCPortlet{
 			}
 		} 
         Map leaveInfo=setSessionForLeaveInfo(leaveTypeId);
-		
+        leaveInfo.put("jsp", "restrictionsJsp");
 		actionRequest.getPortletSession(true).setAttribute("leaveInfo", 
 				leaveInfo,PortletSession.APPLICATION_SCOPE);
 		log.info(leaveInfo);
@@ -805,7 +861,7 @@ public class LeaveTypeAction extends MVCPortlet{
 	/*
 	 * This methods returns a map of key values stored which has to be stored in the session
 	 */
-	public Map<String, Object> setSessionForLeaveInfo(Long leaveTypeId)
+	public Map<String, Object> setSessionForLeaveInfo(Long leaveTypeId) throws SystemException
 	{
 		List<LeaveGeneral> leaveGeneralList=null;
 		List<LeaveRestriction> leaveRestrictionList=null;
@@ -851,6 +907,7 @@ public class LeaveTypeAction extends MVCPortlet{
 			if(leaveRuleApplicableList!=null && leaveRuleApplicableList.size()!=0)
 			{
 				leaveRuleApplicable=leaveRuleApplicableList.get(0);
+				
 			}
 			try {
 				leaveCarryForwardPolicyList=LeaveCarryForwardPolicyLocalServiceUtil.findByLeaveTypeId(leaveTypeId);
@@ -875,6 +932,25 @@ public class LeaveTypeAction extends MVCPortlet{
 	public void addOrUpdateLeaveAccrualRules(ActionRequest actionRequest,ActionResponse actionResponse)
 	{
 		
+	}
+	public void saveEmployeeGroup(ActionRequest actionRequest, ActionResponse actionResponse) throws SystemException{
+		
+		log.info("inside saveEmployeeGroup...");
+		Long leaveTypeId=ParamUtil.getLong(actionRequest, "leaveTypeId");
+		log.info("leaveTypeId == " +leaveTypeId);
+		
+		String groupName = ParamUtil.getString(actionRequest, "groupName");
+		String customgroupname = ParamUtil.getString(actionRequest, "customGroupName");
+		
+		log.info("groupName == " +groupName);
+		log.info("customGroupName == "+customgroupname);
+		log.info("end of the method...");
+		Map leaveInfo=setSessionForLeaveInfo(leaveTypeId);
+        leaveInfo.put("jsp", "restrictgroupsJsp");
+		actionRequest.getPortletSession(true).setAttribute("leaveInfo", 
+				leaveInfo,PortletSession.APPLICATION_SCOPE);
+		
+		actionResponse.setRenderParameter("mvcPath", "/html/leavetype/update_leaveGeneral.jsp");
 	}
 	
 	

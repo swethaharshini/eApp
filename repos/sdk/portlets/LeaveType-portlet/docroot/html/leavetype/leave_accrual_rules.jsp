@@ -1,31 +1,79 @@
 <%@ include file="/html/leavetype/init.jsp"%>
+<html><head>
+<style type="text/css">
+.aui select,.aui input[type="text"]{
+
+border-radius:5px;
+}
+/* input#smallInput{
+width: 61px;
+} */
+</style>
+<aui:script>
+AUI().ready('event', 'node', function(A){
+ A.one('#monthaccrual').hide();
+ A.one('#startaccruallabel').hide();
+ A.one('#biweeklyaccrual').hide();
+ A.one('#firstaccrualoptionforth').hide();
+});
+function selectFrequency(){
+alert("Hi");
+ var x = A.one('#accrualfrequency').get('value');
+ alert(x);
+}
+</aui:script>
+
+
+</head><body> 
+<aui:form name="leaveAccrualRuleForm" id="leaveAccrualRuleForm">
 <div class="panel">
 	<div class="panel-heading">
-		<h3>Accrual Rules</h3>
+		<h4>Accrual Rules</h4>
 	</div>
 	<div class="panel-body">
-		<aui:form name="leaveAccrualRuleForm" id="leaveAccrualRuleForm">
-			<aui:select name="accrualFrequency" label="Accrual Frequency">
-				<aui:option value="0"> Annual</aui:option>
-				<aui:option value="1">Monthly</aui:option>
-				<aui:option value="2">Weekly</aui:option>
-				<aui:option value="3">Bi-Weekly</aui:option>
-				<aui:option value="4">Semi-Weekly</aui:option>
-				<aui:option></aui:option>
-			</aui:select>
-			<aui:select name="annualAccrual" label="Accrue Every">
-				<aui:option>1 Year</aui:option>
-				<aui:option>2 Year</aui:option>
-				<aui:option>3 Year</aui:option>
-			</aui:select>
-			<aui:select name="monthlyAccrual" label="Accrue Every">
-				<aui:option>1 Month</aui:option>
-				<aui:option>2 Month</aui:option>
-				<aui:option>3 Month</aui:option>
-				<aui:option>4 Month</aui:option>
-				<aui:option>5 Month</aui:option>
-			</aui:select>
-			<aui:select name="weeklyAccrual" label="Day Of Crediting to Employee">
+	
+	<div class="row-fluid">
+	<div class="span3"><label>Accrual Frequency</label></div>
+	<div class="span4">
+	  <select name="accrualFrequency" id="accrualfrequency" onChange="selectFrequency()">
+				<option value="0"> Annual</option>
+				<option value="1">Monthly</option>
+				<option value="2">Weekly</option>
+				<option value="3">Bi-Weekly</option>
+				<option value="4">Semi-Monthly</option>
+	 </select>
+	 </div>
+	<div class="span5"></div>
+	</div>
+	<div class="row-fluid">
+	<div class="span3"><label>Accrual Every</label><label id="startaccruallabel">Start Accrual on</label> </div>
+	<div class="span4">
+	
+	<select id="monthaccrual" name="monthAccrual">
+	 <option value="1">1 Month</option>
+	 <option value="2">2 Month</option>
+	 <option value="3">3 Month</option>
+	 <option value="4">4 Month</option>
+	 <option value="5">5 Month</option>
+	 <option value="6">6 Month</option>
+	</select>
+	<select name="annualAccrual">
+				<option>1 Year</option>
+	</select>
+	
+	<select name="biWeeklyAccrual" id="biweeklyaccrual">
+				<option value="1st Week of Leave Period">1st Week of Leave Period</option>
+				<option value="2nd Week of Leave Period">2nd Week of Leave Period</option>
+	</select>
+	
+	</div>
+	<div class="span5"></div>
+	</div>
+	<div class="row-fluid">
+	<div class="span3"><label>Day Of Crediting to Employee</label></div>
+	<div class="span4">
+
+	<aui:select  name="weeklyAccrual" label="">
 				<aui:option>Sunday</aui:option>
 				<aui:option>Monday</aui:option>
 				<aui:option>Tuesday</aui:option>
@@ -34,73 +82,83 @@
 				<aui:option>Friday</aui:option>
 				<aui:option>Saturday</aui:option>
 			</aui:select>
-			<aui:select name="biWeeklyAccrual" label="Start Accrual on">
-				<aui:option>1st Week of Leave Period</aui:option>
-				<aui:option>2nd Week of Leave Period</aui:option>
-			</aui:select>
-			<aui:select name="accrualValidity" label="Accrual Valid from">
+	
+	</div>
+	<div class="span5"></div>
+	</div>
+	<div class="row-fluid">
+	<div class="span3"><label>Accrual Valid from</label></div>
+	<div class="span4">
+	 <aui:select name="accrualValidity" label="">
 				<aui:option>Date of Accrual</aui:option>
 				<aui:option>Leave Period Start Date</aui:option>
 			</aui:select>
-			<aui:select name="firstAccrual" label="First Accrual">
-				<aui:option>Always Accrue Full Amount</aui:option>
-				<aui:option>Skip First Accrual</aui:option>
-				<aui:option>Accrue full amount if joined in first half year</aui:option>
-				<aui:option>Prorate First Accrual</aui:option>
-			</aui:select>
+	</div>
+	<div class="span5"></div>
+	</div>
+	<div class="row-fluid">
+	<div class="span3"><label>First Accrual Of New Employees</label></div>
+	<div class="span9">
+	<select name="firstAccrual">
+				<option>Always Accrue Full Amount</option>
+				<option>Skip First Accrual</option>
+				<option>Accrue full amount if joined in first half year</option>
+				<option id="firstaccrualoptionforth">Accrue full amount if joined before 15th of month</option>
+				<option>Prorate First Accrual</option>
+			</select>
+	
+	</div>
+	
+	</div>		
+			
 			<hr>
-			<h2>Proration Settings</h2>
-				<ol>
-					<li>   <aui:select label="Proration Method"
-						id="leaveTypeRuleAccrualRule_prorationMethod" class="valid"
-						name="leaveTypeRuleAccrualRule[prorationMethod]">
-							<aui:option value="default">Default</aui:option>
-					</aui:select></li>
-				</ol>
-				<div id="eq_label">
-					<label> Prorated Amount = </label>
-				</div>
-				<div class="eq_container">
-					<span class="nom"> Accrual Amount <span class="operator">
-
-							× </span> <aui:select id="leaveTypeRuleAccrualRule_default_numerator"
-						class="valid" name="leaveTypeRuleAccrualRule[default][numerator]" label=" ">
-							<aui:option value="remaining_working" selected="selected">
-
-								Remaining working days in the year</aui:option>
-							<aui:option value="total_working">Total working days in the
-								year</aui:option>
-							<aui:option value="remaining_calendar">Remaining calendar
-								days in the year</aui:option>
-							<aui:option value="total_calendar">Total calendar days in
-								the year</aui:option>
-							<aui:option value="fixed">Fixed Number</aui:option>
-					</aui:select> <aui:input id="leaveTypeRuleAccrualRule_default_numerator_input"
-						type="text" label=""
-						name="leaveTypeRuleAccrualRule[default][numerator_input]"
-						style="display: inline;"></aui:input>
-
-					</span> <span class="den"> <aui:select label=""
-						id="leaveTypeRuleAccrualRule_default_denominator" class="valid"
-						name="leaveTypeRuleAccrualRule[default][denominator]">
-							<aui:option value="remaining_working" selected="selected">
-
-								Remaining working days in the year</aui:option>
-							<aui:option value="total_working">Total working days in the
-								year</aui:option>
-							<aui:option value="remaining_calendar">Remaining calendar
-								days in the year</aui:option>
-							<aui:option value="total_calendar">Total calendar days in
-								the year</aui:option>
-							<aui:option value="fixed">Fixed Number</aui:option>
-					</aui:select> <aui:input id="leaveTypeRuleAccrualRule_default_denominator_input"
-						type="text"
-						name="leaveTypeRuleAccrualRule[default][denominator_input]"
-						style="display: none;"></aui:input>
-					</span>
-
-				</div>
+			
 				<aui:button type="submit" cssClass="button btn-success"></aui:button>
-		</aui:form>
+		
 	</div>
 </div>
+<div class="panel">
+	<div class="panel-heading">
+		<h4>Leave Entitlements Per Employee Group</h4>
+	</div>
+	<div class="panel-body">
+ <aui:button type="button" value="Add"/>
+ <hr/>
+ <table class="table hover">
+ <tr>
+  <th></th>
+  <th>Group Name</th>
+  <th>Days to Accrue</th>
+  <th colspan="3">When to stop accrual</th>
+  </tr>
+ 
+ <tr>
+ <td>1</td>
+ <td>
+  <aui:select name="">
+   <aui:option value="Default" selected="true">Default</aui:option>
+   <aui:option>--Select--</aui:option>
+  </aui:select>
+ </td>
+ <td>
+  <aui:input name="" type="text" id="smallInput"><aui:validator name="number"></aui:validator></aui:input>
+ </td>
+ <td>
+  <aui:select name="">
+    <aui:option value="Do not Stop">Do not Stop</aui:option>
+   <aui:option value="When Entitlement reaches" selected="true">When Entitlement reaches</aui:option>
+   <aui:option value="When(balance-overdrawn)reaches">When(balance-overdrawn)reaches</aui:option>
+  </aui:select>
+ 
+ </td>
+ <td colspan="3">
+<%--  <aui:input name="" type="text" id="smallInput"><aui:validator name="number"></aui:validator></aui:input> --%>
+ </td>
+ </tr>
+</table>
+
+</div>
+</div>
+
+</aui:form>
+</body> </html>

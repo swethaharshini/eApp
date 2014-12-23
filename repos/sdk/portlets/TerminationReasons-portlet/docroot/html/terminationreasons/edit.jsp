@@ -11,6 +11,9 @@
 .table-first-header{
 width: 10%;
 }
+em{
+ color: red;
+}
 .table-last-header{
 width: 15%;
 }
@@ -108,25 +111,22 @@ AUI().use(
 </head>
 <body>
 <jsp:useBean id="editTerminationReasons" type="com.rknowsys.eapp.hrm.model.TerminationReasons" scope="request" />
-<div id="editterminationreasonsAddDelete" class="span12">
-		<a href="#" id="add">Add</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"
-			id="delete">Delete</a>
-	</div>
+
 	<div id="editterminationreasonsForm">
   <aui:form name="myForm" action="<%=updateterminationreasons.toString()%>">
 		<aui:input name="terminationreasonsId" type="hidden" id="terminationreasonsId"  value="<%=editTerminationReasons.getTerminationreasonsId()%>"/>
 			 	<div class="span12">
 			<div class="span2">
-				<label>Name</label>
+				<label>Name<em>*</em></label>
 		</div>
 		<div class="span3">		
 		 <input name="<portlet:namespace/>terminationreasonsName" type="text" required = "required" value="<%=editTerminationReasons.getTerminationreasonsName() %>" >
 			</div>
 			</div>
-	<aui:button type="submit" value="Submit"/> <aui:button  type="reset" value="Cancel" id ="editCancel"></aui:button>
+	<aui:button type="submit" value="Submit"/> <aui:button  type="reset" value="Cancel" id ="editCancel"></aui:button><input type="button" class="btn" value="Delete" id ="delete"></input>
 	</aui:form>
 	</div>
-	 <div><label style="color: white" >.</label></div>
+	 <div><em>*</em> Required Field</div>
 </body>
 <%
 PortletURL iteratorURL = renderResponse.createRenderURL();
