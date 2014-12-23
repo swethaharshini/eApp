@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@page import="com.liferay.portal.kernel.dao.orm.DynamicQuery"%>
 <%@page import="com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil"%>
 <%@page import="com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil"%>
@@ -156,7 +157,18 @@ System.out.println("id ======= " +paygradeid);
    <font class="panel-title"><b>Add Currency</b></font>
  </div>
  <div class="panel-body">
-   <div id="currencyform">
+ 
+   <% if(SessionMessages.contains(renderRequest.getPortletSession(),"paygradecurrency-empty-error")){%>
+<liferay-ui:message key="Please Enter PayGradeCurrency"/>
+<%} 
+ if(SessionMessages.contains(renderRequest.getPortletSession(),"paygradecurrency-duplicate-error")){
+%>
+<liferay-ui:message key="PayGradeCurrency already Exits"/>
+<%} 
+%>
+<br/>
+    <div id="currencyform"> 
+   
 	<aui:form name="myForm" action="<%=savepaygradecurrency.toString()%>">
 		 <aui:input name="paygradeId" type="hidden" id="paygradeId"  value="<%=paygrade3.getPayGradeId()%>"/>
 		 <aui:input name="paygradecurrencyId" type="hidden" id="paygradecurrencyId"/> 
@@ -181,7 +193,7 @@ System.out.println("id ======= " +paygradeid);
 		 <input name="<portlet:namespace/>minSalary" id="paygrade" type="text">
 			</div>
 		</div>
-		<div class="span12">
+		<div class="span12">	
 			<div class="span2">
 				<label>Maximum Salary</label>
 		</div>
