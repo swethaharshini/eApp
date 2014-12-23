@@ -96,7 +96,7 @@ AUI().use(
 <body>
 	<div class="row-fluid">
 		<div id="educationAddDelete" class="span12 text-right">
-			<a href="#" class="btn btn-success" id="add"><i class="icon-plus"></i></a>
+			<a href="#" class="btn btn-primary" id="add"><i class="icon-plus"></i></a>
 			<a href="#" class="btn btn-danger" id="delete"><i class="icon-trash"></i></a>
 		</div>
 		<div  id="addEducationForm">
