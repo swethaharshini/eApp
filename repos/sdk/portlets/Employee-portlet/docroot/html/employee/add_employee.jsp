@@ -61,7 +61,9 @@ A.ready(function()
 				<div class="row-fluid">
 					<div class="span6">
 						<aui:input id="emp_photograph" name="emp_photograph" label="01_image" type="file"
-							inlineLabel="left"></aui:input>
+							inlineLabel="left">
+							<aui:validator name="acceptFiles">'jpeg,jpg,png,git,img'</aui:validator>
+							</aui:input>
 					</div>
 				</div>
 				<div class="row-fluid">
@@ -89,7 +91,9 @@ A.ready(function()
 					<div class="row-fluid">
 						<div class="span6">
 							<aui:input name="confirm_password" label="01_confirm-password"
-							 type="password"></aui:input>
+							 type="password">
+							 <aui:validator name="equalTo">'#<portlet:namespace />password'</aui:validator>
+							 </aui:input>
 						</div>
 					</div>
 				</div>
