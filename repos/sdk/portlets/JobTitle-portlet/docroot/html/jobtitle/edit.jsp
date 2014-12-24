@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@page import="com.rknowsys.eapp.hrm.model.JobTitle"%>
 <%@page import="com.rknowsys.eapp.JobTitleAction"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -92,15 +93,20 @@ JobTitle jobtitle = (JobTitle) portletSession.getAttribute("editjobtitle");
  
 
 <body>
-	
+  
+  <% if(SessionMessages.contains(renderRequest.getPortletSession(),"jobtitleName-empty-error")){%>
+<liferay-ui:message key="Please Enter JobtitleName"/>
+<%}
+%>
+<br/><br/>  
 		<aui:form action="<%=savejobtitle%>">
 
 		<div class="row-fluid">	<input class="jobtitleId" type="hidden" id="jobtitleId"	name='<portlet:namespace/>jobtitleId' value="<%=jobtitle.getJobTitleId() %>"></div>
 
 		<div class="row-fluid">
-		<div class="span2">	<label>Job Title</label></div>
-			<div class="span2">	<input type="text" name="<portlet:namespace/>title" maxlength="100"
-				id="jobtitlename" value="<%=jobtitle.getTitle()%>" required = "required"/></div><div class="span10"></div></div>
+		<div class="span2">	<label>Job Title<em>*</em></label></div>
+			<div class="span2">	<aui:input type="text" label="" name="title" maxlength="100"
+				id="jobtitlename" value="<%=jobtitle.getTitle()%>"/></div><div class="span10"></div></div>
 	<div class="row-fluid">
 		<div class="span2">	<label for="jobTitle_jobDescription">Job Description</label></div><div class="span2"><textarea rows="4" cols="30"
 					name="<portlet:namespace/>description" maxlength="400"
@@ -123,7 +129,7 @@ JobTitle jobtitle = (JobTitle) portletSession.getAttribute("editjobtitle");
 			
 		</aui:form>
 	
-
+<div><em>*</em> Required Field</div>
 
 
 </body>

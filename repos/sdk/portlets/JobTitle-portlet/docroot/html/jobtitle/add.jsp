@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@page import="java.util.Collections"%>
 <%@page import="com.rknowsys.eapp.CustomComparatorUtil"%>
 <%@page import="com.liferay.portal.kernel.util.OrderByComparator"%>
@@ -83,12 +84,23 @@ em {
  </aui:script>
 </head>
 <body>
+<% if(SessionMessages.contains(renderRequest.getPortletSession(),"jobtitleName-empty-error")){%>
+<liferay-ui:message key="Please Enter JobtitleName"/>
+<%} 
+ if(SessionMessages.contains(renderRequest.getPortletSession(),"jobtitleName-duplicate-error")){
+%>
+<liferay-ui:message key="JobtitleName already Exits"/>
+<%} 
+%>
+<br/><br/>
+
+
 	<aui:form action="<%=savejobtitle%>">
 		<div class="row-fluid">
 	<input type="hidden" id="jobtitleId" name='<portlet:namespace/>jobtitleId'></div>
  <div class="row-fluid">
-	<div class="span2"><label>Job Title</label></div>
-	<div class="span2"><input type="text" required="required" name="<portlet:namespace/>title" maxlength="100"  id="jobtitlename"></div>
+	<div class="span2"><label>Job Title<em>*</em> </label></div>
+	<div class="span2"><aui:input type="text" label=""  name="title" maxlength="100"  id="jobtitlename"/></div>
 	<div class="span10"></div></div>
 	<div class="row-fluid">
 	<div class="span2"><label for="jobTitle_jobDescription">Job
@@ -110,6 +122,7 @@ em {
 			   <input type="button" class="btn" value="Delete" id="delete">
 			
 		</aui:form>
+	<div><em>*</em> Required Field</div>
 </body>
  <%
 
