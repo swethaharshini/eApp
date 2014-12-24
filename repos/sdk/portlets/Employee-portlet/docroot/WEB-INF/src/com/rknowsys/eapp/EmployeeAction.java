@@ -893,6 +893,9 @@ public class EmployeeAction extends MVCPortlet {
 						e.printStackTrace();
 					}
 			      }
+			PrintWriter out=resourceResponse.getWriter();
+			out.println("Image updated successfully");
+			
 		}
 	       
 		else if (resourceRequest.getResourceID().equals("displayImage"))
