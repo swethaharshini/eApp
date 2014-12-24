@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@ include file="/html/Interview/init.jsp"%>
 <html>
 <head>
@@ -111,19 +112,16 @@ AUI().use(
 </head>
 
 <body>
-	<!-- <div id="interviewadddelete" class="span12">
-		<a href="#" id="interviewadd">Add</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="interviewdelete">Delete</a>
-
-	</div> -->
-	<div class="row-fluid">
-	<div id="interviewadddelete" class="span12">
-		<div class="pull-right">
-		<button id="interviewadd" class="btn btn-success" type="button"><i class="icon-plus"></i> Add </button>
-		<button id="interviewdelete" class="btn btn-danger" type="button"><i class="icon-trash"></i> Delete </button> 
-		</div>
-	</div>
-	</div>
-	<div  id="addInterviewForm" class="form-horizontal">
+<% if(SessionMessages.contains(renderRequest.getPortletSession(),"interviewName-empty-error")){%>
+<liferay-ui:message key="Please Enter InterviewName"/>
+<%} 
+ if(SessionMessages.contains(renderRequest.getPortletSession(),"interviewName-duplicate-error")){
+%>
+<liferay-ui:message key="InterviewName already Exits"/>
+<%} 
+%>
+ <br/><br/>
+	<div  id="addInterviewForm">
 	<aui:form name="myForm" action="<%=saveinterview.toString()%>">
 		<aui:input name="interviewId" type="hidden" id="interviewId" />
 		<div class="span12">
@@ -131,24 +129,22 @@ AUI().use(
 				<label>Interview Name<em>*</em></label>
 		</div>
 		<div class="span3">		
-		 <input name="<portlet:namespace/>name" id="interview" type="text" required = "required">
+		 <aui:input name="name" id="interview" label="" type="text" required = "required"/>
 			</div>
 		</div>
-		
-		<div class="control-group">
+<div class="control-group">
 			<div class="controls">
 				<aui:button type="submit" value="Submit" />
 				<aui:button  type="reset" value="Cancel" id ="interviewcancel"/>
+				<input type="button" value="Delete" class="btn" id="interviewdelete">
 			</div>
 		</div>
 		
 	</aui:form>
 	
-	<em>*</em> Required field
-	
 	</div>
 	
-	 <div><label style="color: white" >.</label></div>
+	 <div><em>*</em> Required Field</div>
 	 
 	
 </body>
