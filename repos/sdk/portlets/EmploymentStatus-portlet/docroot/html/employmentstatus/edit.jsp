@@ -16,10 +16,11 @@
 <body>
 
 <%ResultRow rslt=(ResultRow)request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
-
+System.out.println("Result Row == " +rslt);
 EmploymentStatus j = (EmploymentStatus)rslt.getObject();
-
+System.out.println("Object j=== " +j);
 String prk=String.valueOf(j.getPrimaryKey());
+System.out.println("id==== " +prk);
 %>
 <liferay-ui:icon-menu>
 <portlet:actionURL var="editemploymentstatus" name="editEmploymentStatus">
