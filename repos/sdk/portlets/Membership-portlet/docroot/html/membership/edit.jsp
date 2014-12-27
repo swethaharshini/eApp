@@ -5,8 +5,26 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/membership/add.jsp" />
 </portlet:renderURL>
-
+<style>
+.aui input[type="text"]{
+height: initial;
+}
+em{
+ color: red;
+}
+</style>
 <aui:script>
+YUI().use(
+  'aui-form-validator',
+  function(Y) {
+    new Y.FormValidator(
+      {
+        boundingBox: '#myForm'
+      }
+    );
+  }
+);
+
 AUI().use(
   'aui-node',
   function(A) {
@@ -95,31 +113,32 @@ AUI().use(
 
 </head>
 <body>
-<jsp:useBean id="editMembership" type="com.rknowsys.eapp.hrm.model.Membership" scope="request" />
-<div class="row-fluid">
-	<div id="editMembershipAddDelete" class="span12 text-right">
-		<a href="#" class="btn btn-success" id="add">Add</a>
-		<a href="#" class="btn btn-success" id="delete">Delete</a>
-	</div>
-	<div id="editMembershipForm">
-  <aui:form name="myForm" action="<%=updateMemberships.toString()%>">
-  <aui:input name="membershipId" type="hidden" id="membershipId"  value="<%=editMembership.getMembershipId()%>"/>
-		<div class="row-fluid">
-			<div class="span3 text-right">
-				<label>Membership Name</label>
-			</div>
-			<div class="span6">		
-		 		<input name="<portlet:namespace/>membership_name" type="text" required = "required" value="<%=editMembership.getMembershipName() %>" >
-			</div>
-		</div>
-		<div class="row-fluid">
-			<div class="span6 offset3">
-				<aui:button type="submit" value="Submit"/> <aui:button  type="reset" value="Cancel" id ="editCancel"></aui:button>
-			</div>
-		</div>
-	</aui:form>
-	</div>
+<%
+Membership editMembership =(Membership) portletSession.getAttribute("editMembership");
+
+%> 
+
+
+<form id="myForm" action="<%=updateMemberships.toString()%>" method="post">
+				<input name="<portlet:namespace/>membershipId" value="<%=editMembership.getMembershipId() %>" type="hidden"/>
+				<div class="row-fluid">
+  <div class="form-group">
+   <div class="span2"> <label class="control-label" for="name">Membership Name:<em>*</em></label></div>
+    <div class="span3">
+    <div class="controls">
+      <input name="<portlet:namespace/>membership_name" id="myAutoComplete" value="<%=editMembership.getMembershipName() %>" class="form-control field-required" type="text">
+     </div>
+    </div>
+  </div>
 </div>
+<br/>
+<div>
+ <input class="btn btn-info" type="submit" value="Submit">
+  <input class="btn btn-primary" type="reset" value="Reset">
+  <aui:button name="" value="Delete" id="delete"/>
+</div>
+</form>
+<div><em>*</em> Required Field</div>
 </body>
 <%
 PortletURL iteratorURL = renderResponse.createRenderURL();

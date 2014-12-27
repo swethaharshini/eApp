@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@ include file="/html/membership/init.jsp"%>
 
 <portlet:actionURL var="saveMemberships" name="saveMembership">
@@ -7,9 +8,27 @@
 	<portlet:param name="mvcPath" value="/html/membership/add.jsp" />
 </portlet:renderURL>
 <style type="text/css">
-
+.aui input[type="text"]{
+height: initial;
+}
+em{
+color: red;
+}
 </style>
 <aui:script>
+YUI().use(
+  'aui-form-validator',
+  function(Y) {
+    new Y.FormValidator(
+      {
+        boundingBox: '#myForm'
+      }
+    );
+  }
+);
+
+
+
 AUI().use(
   'aui-node',
   function(A) {
@@ -18,10 +37,9 @@ AUI().use(
       'click',
       function() {
      var idArray = [];
-      A.all('input[type=checkbox]:checked').each(function(object) {
+     A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
       idArray.push(object.get("value"));
-    alert(idArray.length);
-        });
+       });
        if(idArray==""){
 			  alert("Please select records!");
 		  }else{
@@ -57,71 +75,39 @@ AUI().use(
   }
 );
 </aui:script>
-<aui:script>
-AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#add');
-    node.on(
-      'click',
-      function() {
-         A.one('#membershipAddDelete').hide();
-         A.one('#addMembershipForm').show();
-                     
-      }
-    );
-  }
-);
-
- AUI().ready('event', 'node', function(A){
-
-  A.one('#addMembershipForm').hide();
- });
-
-AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#cancel');
-    node.on(
-      'click',
-      function() {
-         A.one('#membershipAddDelete').show();
-         A.one('#addMembershipForm').hide();
-                     
-      }
-    );
-  }
-);
-
-</aui:script>
 </head>
 
 <body>
-	<div class="row-fluid">
-		<div id="membershipAddDelete" class="span12 text-right">
-			<a href="#" class="btn btn-success" id="add"><i class="icon-plus"></i></a>
-			<a href="#" class="btn btn-danger" id="delete"><i class="icon-trash"></i></a>
-		</div>
-		<div  id="addMembershipForm">
-			<aui:form name="myForm" action="<%=saveMemberships.toString()%>" >
-				<aui:input name="membershipId" type="hidden" id="membershipId" />
+<% if(SessionMessages.contains(renderRequest.getPortletSession(),"membershipName-empty-error")){%>
+<liferay-ui:message key="Please Enter MembershipName"/>
+<%} 
+ if(SessionMessages.contains(renderRequest.getPortletSession(),"membershipName-duplicate-error")){
+%>
+<liferay-ui:message key="MembershipName already Exits"/>
+<%} 
+%>
+ <br/><br/>
+		<form id="myForm" action="<%=saveMemberships.toString()%>" method="post">
+				<input name="<portlet:namespace/>membershipId" type="hidden" id="membershipId" />
 				<div class="row-fluid">
-					<div class="span3 text-right">
-						<label>Membership Name</label>
-					</div>
-					<div class="span3">		
-				 		<input name="<portlet:namespace/>membership_name" type="text" required = "required">
-					</div>
-				</div>
-				<div class="row-fluid">
-					<div class="span6 offset3">
-						<aui:button type="submit" value="Submit" />
-						<aui:button  type="reset" value="Cancel" id ="cancel"/>
-					</div>
-				</div>
-			</aui:form>
-		</div>
-	</div>
+  <div class="form-group">
+   <div class="span2"> <label class="control-label" for="name">Membership Name:<em>*</em></label></div>
+    <div class="span3">
+    <div class="controls">
+      <input name="<portlet:namespace/>membership_name" id="myAutoComplete" class="form-control field-required" type="text">
+     </div>
+    </div>
+  </div>
+</div>
+<br/>
+<div>
+ <input class="btn btn-info" type="submit" value="Submit">
+  <input class="btn btn-primary" type="reset" value="Reset">
+  <aui:button name="" value="Delete" id="delete"/>
+</div>
+</form>
+	
+<div><em>*</em> Required Field</div>
 	
 </body>
 
