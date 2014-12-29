@@ -1,6 +1,10 @@
 <%@ include file="/html/employee/init.jsp"%>
 <portlet:actionURL name="updateContactDetails"
 	var="updateContactDetails" ></portlet:actionURL>
+	<portlet:resourceURL var="deleteEmergencyContact" id="deleteEmergencyContact"></portlet:resourceURL>
+	<portlet:renderURL var="listview">
+	<portlet:param name="mvcPath" value="/html/employee/edit_employee.jsp"/>
+	</portlet:renderURL>
 <aui:script use="aui-base,aui-node,aui-io-request-deprecated">
 var A=new AUI();
 A.ready(function()
@@ -24,6 +28,54 @@ A.ready(function()
      A.one('#<portlet:namespace/>emgContactAdd').show();
    A.one('#<portlet:namespace/>emgContactDelete').show();
    });
+</aui:script>
+<aui:script>
+AUI().use(
+  'aui-node',
+  function(A) {
+    var node = A.one('#<portlet:namespace/>emgContactDelete');
+    node.on(
+      'click',
+      function() {
+     var idArray = [];
+      A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
+      idArray.push(object.get("value"));
+    
+        });
+       if(idArray==""){
+			  alert("Please select records!");
+		  }else{
+			  var d = confirm("Are you sure you want to delete the selected Emergency contact ?");
+		  if(d){
+		   var url = '<%=deleteEmergencyContact%>';
+          A.io.request(url,
+         {
+          data: {  
+                <portlet:namespace />emgContactIds: idArray,  
+                 },
+          on: {
+               success: function() { 
+                   alert('deleted successfully');
+                   window.location='<%=listview%>';
+              },
+               failure: function() {
+                  
+                 }
+                }
+                 }
+                );
+		  																		
+		  console.log(idArray);
+	  
+      return true;
+  }
+  else
+    return false;
+}             
+      }
+    );
+  }
+);
 </aui:script>
 <%
 Map empId = (Map) request.getSession(false).getAttribute(
@@ -51,31 +103,82 @@ long fileEntryId=(Long)empId.get("fileId");
 			 <aui:input name="conFileId" value="<%=fileEntryId %>" type="hidden"></aui:input>
 			<div class="row-fluid">
 				<div class="span10">
-					<aui:input name="emg_name" label="01_name" inlineLabel="left"></aui:input>
+					<aui:input name="emg_name" label="01_name" inlineLabel="left" showRequiredLabel="false">
+					<aui:validator name="required"></aui:validator>
+					</aui:input>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span10">
 					<aui:input name="emg_relationship" label="01_relationship"
-						inlineLabel="left"></aui:input>
+						inlineLabel="left" showRequiredLabel="false">
+						<aui:validator name="required"></aui:validator>
+						</aui:input>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span10">
 					<aui:input name="emg_hm_telephone" label="01_home-tele"
 						inlineLabel="left">
+							<aui:validator name="custom" errorMessage="Please enter a valid telephone number">
+						function(val,fieldNode,ruleValue)
+						{
+						var result=false;
+						var mobileno = /^\d{10}$/;  
+                        if(val.trim()==''||val.match(mobileno))  
+                        {  
+                         return true;  
+                        }  
+                       else  
+                       {  
+                         return false;  
+  					   }  
+						}
+						</aui:validator>
 					</aui:input>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span10">
-					<aui:input name="emg_mobile" label="01_mobile" inlineLabel="left"></aui:input>
+					<aui:input name="emg_mobile" label="01_mobile" inlineLabel="left">
+						<aui:validator name="custom" errorMessage="Please enter a valid mobile number">
+						function(val,fieldNode,ruleValue)
+						{
+						var result=false;
+						var mobileno = /^\d{10}$/;  
+                        if(val.trim()==''||val.match(mobileno))  
+                        {  
+                         return true;  
+                        }  
+                       else  
+                       {  
+                         return false;  
+  					   }  
+						}
+						</aui:validator>
+					</aui:input>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span10">
 					<aui:input name="emg_work_telephone" label="01_work-tele"
-						inlineLabel="left"></aui:input>
+						inlineLabel="left" >
+							<aui:validator name="custom" errorMessage="Please enter a valid telephone number">
+						function(val,fieldNode,ruleValue)
+						{
+						var result=false;
+						var mobileno = /^\d{10}$/;  
+                        if(val.trim()==''||val.match(mobileno))  
+                        {  
+                         return true;  
+                        }  
+                       else  
+                       {  
+                         return false;  
+  					   }  
+						}
+						</aui:validator>
+						</aui:input>
 				</div>
 			</div>
 			<aui:button type="submit" cssClass="button btn-primary" value="save"
