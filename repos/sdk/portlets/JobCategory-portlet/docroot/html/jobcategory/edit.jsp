@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@ include file="/html/jobcategory/init.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -16,6 +17,9 @@ width: 10%;
 }
 .table-last-header{
 width: 15%;
+}
+em{
+ color: red;
 }
 </style>
 <aui:script>
@@ -101,33 +105,46 @@ AUI().use(
     );																																
   }
 );
-
+AUI().use(
+  'aui-node',
+  function(A) {
+    var node = A.one('#reset');
+    node.on(
+      'click',
+      function() {
+       alert("hii")
+      
+     });
+     });
 </aui:script>
 
 
 
 </head>
 <body>
-<jsp:useBean id="editjobcategory" type="com.rknowsys.eapp.hrm.model.JobCategory" scope="request" />
-<div id="editjobadddelete" class="span12">
-		<a href="#" id="add">Add</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"
-			id="delete">Delete</a>
-	</div>
+<%
+ JobCategory editjobcategory = (JobCategory)portletSession.getAttribute("editjobcategory");
+%>
+<% if(SessionMessages.contains(renderRequest.getPortletSession(),"jobcategoryName-empty-error")){%>
+<liferay-ui:message key="Please Enter JobcategoryName"/>
+<%} 
+%>
+	<br/><br/>
 	<div id="editJobCategoryForm">
   <aui:form name="myForm" action="<%=savejobcategory.toString()%>">
 		<aui:input name="jobcategoryId" type="hidden" id="jobcategoryId"  value="<%=editjobcategory.getJobCategoryId()%>"/>
 		<div class="span12">
 				<div class="span2">
-						<label>Job Category</label>
+						<label>Job Category<em>*</em></label>
 			 </div>
 			 <div class="span3">
-			 <input name="<portlet:namespace/>jobcategory" id="editjobcategory" class="jobcategory" type="text" required = "required" value="<%=editjobcategory.getJobcategory()%>">
+			 <aui:input name="jobcategory" id="editjobcategory" class="jobcategory" type="text" label="" value="<%=editjobcategory.getJobcategory()%>"><aui:validator name="required"></aui:validator> </aui:input>
 						</div>
 					</div>
-	<aui:button type="submit" value="Submit"/> <aui:button  type="reset" value="Cancel" id ="editcancel"></aui:button>
+	<aui:button type="submit" value="Submit"/> <aui:button  type="reset" value="Cancel" id ="editcancel"></aui:button><input type="button" value="Delete" class="btn" id="delete">
 	</aui:form>
 	</div>
-	 <div><label style="color: white" >.</label></div>
+	 <div><em>*</em> Required Field</div>
 </body>
 <%
 PortletURL iteratorURL = renderResponse.createRenderURL();

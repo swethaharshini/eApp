@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@ include file="/html/Interview/init.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -25,7 +26,7 @@ em {
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#delete');
+    var node = A.one('#editinterviewdelete');
     node.on(
       'click',
       function() {
@@ -121,18 +122,12 @@ AUI().use(
 Interview editinterview = (Interview) portletSession.getAttribute("editinterview");
 
 %>
-
-	<div class="row-fluid">
-	<div id="editinterviewadddelete" class="span12">
-		<div class="pull-right">
-		<button id="add" class="btn btn-success" type="button"><i class="icon-plus"></i> Add </button>
-		<button id="delete" class="btn btn-danger" type="button"><i class="icon-trash"></i> Delete </button> 
-		</div>
-	</div>
-	</div>
-	
-	
-	<div id="editInterviewForm">
+<% if(SessionMessages.contains(renderRequest.getPortletSession(),"interviewName-empty-error")){%>
+<liferay-ui:message key="Please Enter InterviewName"/>
+<%}
+%>
+<br/><br/>
+<div id="editInterviewForm">
   <aui:form name="myForm" action="<%=saveinterview.toString()%>">
 		<input name="<portlet:namespace/>interviewId" type="hidden" id="interviewId" value="<%=editinterview.getInterviewId()%>">
 		<div class="span12">
@@ -140,7 +135,7 @@ Interview editinterview = (Interview) portletSession.getAttribute("editinterview
 						<label>Interview Name<em>*</em> </label>
 			 </div>
 			 <div class="span3">
-			 <input name="<portlet:namespace/>name" id="editinterview" class="interview" type="text" required = "required" value="<%=editinterview.getName()%>">
+			 <aui:input name="name" id="editinterview" label="" class="interview" type="text" value="<%=editinterview.getName()%>"/>
 						</div>
 					</div>
 	
@@ -148,6 +143,7 @@ Interview editinterview = (Interview) portletSession.getAttribute("editinterview
 			<div class="controls">
 				<aui:button type="submit" value="Submit" />
 				<aui:button  type="reset" value="Cancel" id ="editcancel"/>
+				<input type="button" value="Delete" class="btn" id="editinterviewdelete">
 			</div>
 		</div>
 	</aui:form>

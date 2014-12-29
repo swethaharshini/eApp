@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@page import="com.rknowsys.eapp.hrm.service.PayGradeLocalServiceUtil"%>
 <%@page import="com.rknowsys.eapp.hrm.model.PayGrade"%>
 <%@ include file="/html/paygrade/init.jsp"%>
@@ -20,6 +21,16 @@ em {
 
 </head>
 <body>
+
+<% if(SessionMessages.contains(renderRequest.getPortletSession(),"paygradeName-empty-error")){%>
+<liferay-ui:message key="Please Enter PayGradeName"/>
+<%} 
+ if(SessionMessages.contains(renderRequest.getPortletSession(),"paygradeName-duplicate-error")){
+%>
+<liferay-ui:message key="PayGradeName already Exits"/>
+<%} 
+%>
+<br/><br/>
 <div class="form-horizontal">
 <aui:form name="myForm" action="<%=savepaygrade.toString()%>">
 		<aui:input name="paygradeId" type="hidden" id="paygradeId" />

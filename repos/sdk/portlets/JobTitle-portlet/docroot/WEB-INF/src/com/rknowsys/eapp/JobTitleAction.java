@@ -3,6 +3,7 @@ package com.rknowsys.eapp;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -14,11 +15,16 @@ import javax.portlet.ResourceResponse;
 import org.apache.log4j.Logger;
 
 import com.liferay.counter.service.CounterLocalServiceUtil;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.util.bridges.mvc.MVCPortlet;
@@ -57,52 +63,111 @@ public class JobTitleAction extends MVCPortlet {
 		log.info("This is the first log message...!!!");
 
 		try {
-			JobTitle jobtitles = JobTitleLocalServiceUtil
-					.createJobTitle(CounterLocalServiceUtil.increment());
+
+			String id = ParamUtil.getString(actionRequest, "jobtitleId");
+			String title = ParamUtil.getString(actionRequest, "title");
+			String jobtitle = title.trim();
 
 			System.out.println("Name = "
 					+ ParamUtil.getString(actionRequest, "title"));
 			System.out.println("country = "
 					+ ParamUtil.getString(actionRequest, "description"));
-			String id = ParamUtil.getString(actionRequest, "jobtitleId");
+
 			System.out.println("id == " + id);
 			if (id == "" || id == null) {
 				System.out.println("inside if loop...");
-				jobtitles.setTitle(ParamUtil.getString(actionRequest, "title"));
-				jobtitles.setDescription(ParamUtil.getString(actionRequest,
-						"description"));
-				jobtitles.setNotes(ParamUtil.getString(actionRequest, "notes"));
-				jobtitles.setCreateDate(date);
-				jobtitles.setModifiedDate(date);
-				jobtitles.setCompanyId(themeDisplay.getCompanyId());
-				jobtitles.setGroupId(themeDisplay.getCompanyGroupId());
-				jobtitles.setUserId(themeDisplay.getUserId());
 
-				jobtitles = JobTitleLocalServiceUtil.addJobTitle(jobtitles);
+				if (jobtitle == null || jobtitle.equals("")) {
+
+					SessionMessages.add(actionRequest.getPortletSession(),
+							"jobtitleName-empty-error");
+					actionResponse.setRenderParameter("mvcPath",
+							"/html/jobtitle/add.jsp");
+
+				} else {
+
+					DynamicQuery dynamicQuery = DynamicQueryFactoryUtil
+							.forClass(JobTitle.class,
+									PortalClassLoaderUtil.getClassLoader());
+					dynamicQuery
+							.add(RestrictionsFactoryUtil.eq("title", title));
+					@SuppressWarnings("unchecked")
+					List<JobTitle> jobTitles = JobTitleLocalServiceUtil
+							.dynamicQuery(dynamicQuery);
+					if (jobTitles.size() > 0) {
+
+						JobTitle jobTitle2 = jobTitles.get(0);
+						if (jobTitle2.getTitle().equalsIgnoreCase(title)) {
+
+							SessionMessages.add(
+									actionRequest.getPortletSession(),
+									"jobtitleName-duplicate-error");
+							actionResponse.setRenderParameter("mvcPath",
+									"/html/jobtitle/add.jsp");
+
+						}
+
+					} else {
+
+						JobTitle jobtitles = JobTitleLocalServiceUtil
+								.createJobTitle(CounterLocalServiceUtil
+										.increment());
+						jobtitles.setTitle(ParamUtil.getString(actionRequest,
+								"title"));
+						jobtitles.setDescription(ParamUtil.getString(
+								actionRequest, "description"));
+						jobtitles.setNotes(ParamUtil.getString(actionRequest,
+								"notes"));
+						jobtitles.setCreateDate(date);
+						jobtitles.setModifiedDate(date);
+						jobtitles.setCompanyId(themeDisplay.getCompanyId());
+						jobtitles.setGroupId(themeDisplay.getCompanyGroupId());
+						jobtitles.setUserId(themeDisplay.getUserId());
+
+						jobtitles = JobTitleLocalServiceUtil
+								.addJobTitle(jobtitles);
+					}
+				}
 
 			} else {
 				System.out.println("else block to update...");
 
-				long jobtitleid = Long.parseLong(id);
-				JobTitle jobtitles1 = JobTitleLocalServiceUtil
-						.getJobTitle(jobtitleid);
+				if (jobtitle == null || jobtitle.equals("")) {
 
-				jobtitles1.setJobTitleId(ParamUtil.getLong(actionRequest,
-						"jobtitleId"));
-				jobtitles1
-						.setTitle(ParamUtil.getString(actionRequest, "title"));
-				jobtitles1.setDescription(ParamUtil.getString(actionRequest,
-						"description"));
-				jobtitles1
-						.setNotes(ParamUtil.getString(actionRequest, "notes"));
-				jobtitles1.setModifiedDate(date);
+					JobTitle jobTitle = JobTitleLocalServiceUtil
+							.getJobTitle(Long.parseLong(id));
+					PortletSession portletSession = actionRequest
+							.getPortletSession();
+					portletSession.setAttribute("editjobtitle", jobTitle);
 
-				jobtitles1.setCompanyId(themeDisplay.getCompanyId());
-				jobtitles1.setGroupId(themeDisplay.getCompanyGroupId());
-				jobtitles1.setUserId(themeDisplay.getUserId());
+					SessionMessages.add(actionRequest.getPortletSession(),
+							"jobtitleName-empty-error");
+					actionResponse.setRenderParameter("mvcPath",
+							"/html/jobtitle/edit.jsp");
 
-				jobtitles1 = JobTitleLocalServiceUtil
-						.updateJobTitle(jobtitles1);
+				} else {
+
+					long jobtitleid = Long.parseLong(id);
+					JobTitle jobtitles1 = JobTitleLocalServiceUtil
+							.getJobTitle(jobtitleid);
+
+					jobtitles1.setJobTitleId(ParamUtil.getLong(actionRequest,
+							"jobtitleId"));
+					jobtitles1.setTitle(ParamUtil.getString(actionRequest,
+							"title"));
+					jobtitles1.setDescription(ParamUtil.getString(
+							actionRequest, "description"));
+					jobtitles1.setNotes(ParamUtil.getString(actionRequest,
+							"notes"));
+					jobtitles1.setModifiedDate(date);
+
+					jobtitles1.setCompanyId(themeDisplay.getCompanyId());
+					jobtitles1.setGroupId(themeDisplay.getCompanyGroupId());
+					jobtitles1.setUserId(themeDisplay.getUserId());
+
+					jobtitles1 = JobTitleLocalServiceUtil
+							.updateJobTitle(jobtitles1);
+				}
 
 			}
 		} catch (SystemException e) {

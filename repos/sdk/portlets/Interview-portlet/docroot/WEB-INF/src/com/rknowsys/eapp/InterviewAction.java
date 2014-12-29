@@ -2,6 +2,7 @@ package com.rknowsys.eapp;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -11,11 +12,16 @@ import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
 import com.liferay.counter.service.CounterLocalServiceUtil;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.util.bridges.mvc.MVCPortlet;
@@ -23,8 +29,7 @@ import com.rknowsys.eapp.hrm.model.Interview;
 import com.rknowsys.eapp.hrm.service.InterviewLocalServiceUtil;
 
 public class InterviewAction extends MVCPortlet {
-	
-	
+
 	Date date = new Date();
 	private static Log log = LogFactoryUtil.getLog(InterviewAction.class);
 
@@ -50,53 +55,107 @@ public class InterviewAction extends MVCPortlet {
 		log.info("userId = " + themeDisplay.getUserId());
 		log.info("groupId = " + themeDisplay.getCompanyGroupId());
 		try {
-			
-			
-			log.info("id = "
-					+ ParamUtil.getString(actionRequest, "interviewId"));
-			log.info("name = "
-					+ ParamUtil.getString(actionRequest, "name"));
 			String id = ParamUtil.getString(actionRequest, "interviewId");
+			String inputName = ParamUtil.getString(actionRequest, "name");
+			String interviewName = inputName.trim();
+			log.info("id = " + id);
+			log.info("name = " + inputName);
+
 			log.info("id == " + id);
 			if (id == "" || id == null) {
 				log.info("inside if loop...");
-				Interview interview =  InterviewLocalServiceUtil.createInterview(CounterLocalServiceUtil.increment());
-				interview.setName(ParamUtil.getString(actionRequest,
-						"name"));
-				interview.setCreateDate(date);
-				interview.setModifiedDate(date);
-				interview.setCompanyId(themeDisplay.getCompanyId());
-				interview.setGroupId(themeDisplay.getCompanyGroupId());
-				interview.setUserId(themeDisplay.getUserId());
-				log.info("before...");
-				interview = InterviewLocalServiceUtil.addInterview(interview); 
-				log.info("end of if block");
+
+				if (interviewName == null || interviewName.equals("")) {
+
+					SessionMessages.add(actionRequest.getPortletSession(),
+							"interviewName-empty-error");
+					actionResponse.setRenderParameter("mvcPath",
+							"/html/Interview/add.jsp");
+
+				} else {
+
+					DynamicQuery dynamicQuery = DynamicQueryFactoryUtil
+							.forClass(Interview.class,
+									PortalClassLoaderUtil.getClassLoader());
+					dynamicQuery.add(RestrictionsFactoryUtil.eq("name",
+							inputName));
+					@SuppressWarnings("unchecked")
+					List<Interview> interviews = InterviewLocalServiceUtil
+							.dynamicQuery(dynamicQuery);
+					if (interviews.size() > 0) {
+
+						Interview interview = interviews.get(0);
+						if (interview.getName().equalsIgnoreCase(inputName)) {
+
+							SessionMessages.add(
+									actionRequest.getPortletSession(),
+									"interviewName-duplicate-error");
+							actionResponse.setRenderParameter("mvcPath",
+									"/html/Interview/add.jsp");
+
+						}
+
+					} else {
+
+						Interview interview = InterviewLocalServiceUtil
+								.createInterview(CounterLocalServiceUtil
+										.increment());
+						interview.setName(ParamUtil.getString(actionRequest,
+								"name"));
+						interview.setCreateDate(date);
+						interview.setModifiedDate(date);
+						interview.setCompanyId(themeDisplay.getCompanyId());
+						interview.setGroupId(themeDisplay.getCompanyGroupId());
+						interview.setUserId(themeDisplay.getUserId());
+						log.info("before...");
+						interview = InterviewLocalServiceUtil
+								.addInterview(interview);
+						log.info("end of if block");
+					}
+				}
 			} else {
-				
+
 				log.info("else block to update....");
+				if (interviewName == null || interviewName.equals("")) {
 
-				long interviewid = Long.parseLong(id);
+					Interview interview = InterviewLocalServiceUtil
+							.getInterview(Long.parseLong(id));
 
-				Interview interview1 = InterviewLocalServiceUtil.getInterview(interviewid);
+					PortletSession portletSession = actionRequest
+							.getPortletSession();
+					portletSession.setAttribute("editinterview", interview);
 
-				interview1.setInterviewId(ParamUtil.getLong(actionRequest,
-						"interviewId"));
+					SessionMessages.add(actionRequest.getPortletSession(),
+							"interviewName-empty-error");
+					actionResponse.setRenderParameter("mvcPath",
+							"/html/Interview/edit.jsp");
 
-				interview1.setName(ParamUtil.getString(actionRequest,
-						"name"));
-				interview1.setModifiedDate(date);
-				interview1.setCompanyId(themeDisplay.getCompanyId());
-				interview1.setGroupId(themeDisplay.getCompanyGroupId());
-				interview1.setUserId(themeDisplay.getUserId());
+				} else {
 
-				interview1 = InterviewLocalServiceUtil.updateInterview(interview1);
-				log.info("end of else block");
+					long interviewid = Long.parseLong(id);
 
+					Interview interview1 = InterviewLocalServiceUtil
+							.getInterview(interviewid);
+
+					interview1.setInterviewId(ParamUtil.getLong(actionRequest,
+							"interviewId"));
+
+					interview1.setName(ParamUtil.getString(actionRequest,
+							"name"));
+					interview1.setModifiedDate(date);
+					interview1.setCompanyId(themeDisplay.getCompanyId());
+					interview1.setGroupId(themeDisplay.getCompanyGroupId());
+					interview1.setUserId(themeDisplay.getUserId());
+
+					interview1 = InterviewLocalServiceUtil
+							.updateInterview(interview1);
+					log.info("end of else block");
+				}
 			}
 		} catch (SystemException e) {
-			
+
 			e.printStackTrace();
-		    log.info("system exception");
+			log.info("system exception");
 		} catch (PortalException e) {
 
 			e.printStackTrace();
@@ -109,8 +168,8 @@ public class InterviewAction extends MVCPortlet {
 
 	/**
 	 * <p>
-	 * This method deletes the interview record from database based on
-	 * interview record Id
+	 * This method deletes the interview record from database based on interview
+	 * record Id
 	 * </p>
 	 * 
 	 * @param resourceRequest
@@ -122,34 +181,36 @@ public class InterviewAction extends MVCPortlet {
 	 * @throws NumberFormatException
 	 */
 	public void serveResource(ResourceRequest resourceRequest,
-			ResourceResponse resourceResponse) throws IOException,NumberFormatException
-           {
+			ResourceResponse resourceResponse) throws IOException,
+			NumberFormatException {
 		if (resourceRequest.getResourceID().equals("deleteInterview")) {
 
 			log.info("inside deleteInterview... serveResource");
 			Interview interview;
 			try {
-				interview = InterviewLocalServiceUtil.createInterview(CounterLocalServiceUtil.increment());
+				interview = InterviewLocalServiceUtil
+						.createInterview(CounterLocalServiceUtil.increment());
 			} catch (SystemException e1) {
 
 				e1.printStackTrace();
 			}
 			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,
 					"interviewIds");
-		
+
 			log.info("idsArray== " + idsArray.length);
 			for (int i = 0; i <= idsArray.length - 1; i++) {
-				
-				log.info("ids == " +idsArray[i]);
+
+				log.info("ids == " + idsArray[i]);
 
 			}
 			for (int i = 0; i <= idsArray.length - 1; i++) {
-				log.info("id == " +idsArray[i]);
+				log.info("id == " + idsArray[i]);
 				if (idsArray[i].equals("on")) {
 					log.info("All records selected...");
 				} else {
 					try {
-						interview = InterviewLocalServiceUtil.deleteInterview(Long.parseLong(idsArray[i]));
+						interview = InterviewLocalServiceUtil
+								.deleteInterview(Long.parseLong(idsArray[i]));
 						log.info("end of try block in delete...");
 					} catch (PortalException e) {
 
@@ -159,15 +220,15 @@ public class InterviewAction extends MVCPortlet {
 
 						e.printStackTrace();
 						log.info("system exception...");
-						
+
 					}
 				}
-				
+
 			}
 			log.info("end of for loop..");
-			
+
 		}
-		
+
 		log.info("end of deleteInterview method...");
 
 	}
@@ -194,14 +255,15 @@ public class InterviewAction extends MVCPortlet {
 		log.info("inside editInterview...");
 		String s = ParamUtil.getString(actionRequest, "id");
 		log.info("id == " + s);
-		Interview interview =  InterviewLocalServiceUtil.getInterview(Long.parseLong(s));
+		Interview interview = InterviewLocalServiceUtil.getInterview(Long
+				.parseLong(s));
 
 		log.info(interview.getInterviewId());
 		log.info(interview.getName());
 		PortletSession portletSession = actionRequest.getPortletSession();
 		portletSession.setAttribute("editinterview", interview);
-		actionResponse.setRenderParameter("jspPage",
-				"/html/Interview/edit.jsp");
+		actionResponse
+				.setRenderParameter("jspPage", "/html/Interview/edit.jsp");
 	}
 
 }

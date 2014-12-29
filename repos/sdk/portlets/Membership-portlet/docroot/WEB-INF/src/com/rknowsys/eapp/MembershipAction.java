@@ -2,17 +2,24 @@ package com.rknowsys.eapp;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
+import javax.portlet.PortletSession;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
 import com.liferay.counter.service.CounterLocalServiceUtil;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.util.bridges.mvc.MVCPortlet;
@@ -23,61 +30,119 @@ import com.rknowsys.eapp.hrm.service.MembershipLocalServiceUtil;
  * Portlet implementation class MembershipAction
  */
 public class MembershipAction extends MVCPortlet {
-	Date date=new Date();
+	Date date = new Date();
+
 	public void saveMembership(ActionRequest actionRequest,
 			ActionResponse actionResponse) throws IOException,
 			PortletException, SystemException {
-		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest
+				.getAttribute(WebKeys.THEME_DISPLAY);
+		String id = ParamUtil.getString(actionRequest, "MembershipId");
+		String name = ParamUtil.getString(actionRequest, "membership_name");
+		String membershipName = name.trim();
 		try {
-			Membership membership = MembershipLocalServiceUtil
-					.createMembership(CounterLocalServiceUtil.increment());
-			String id = ParamUtil.getString(actionRequest, "MembershipId");
-			String name=ParamUtil.getString(actionRequest, "membership_name");
-			System.out.println("id == " + id);
-			if (id == "" || id == null) {
-				
+
+			if (membershipName == null || membershipName.equals("")) {
+
+				SessionMessages.add(actionRequest.getPortletSession(),
+						"membershipName-empty-error");
+				actionResponse.setRenderParameter("mvcPath",
+						"/html/membership/add.jsp");
+
+			} else {
+				DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
+						Membership.class,
+						PortalClassLoaderUtil.getClassLoader());
+				dynamicQuery.add(RestrictionsFactoryUtil.eq("membershipName",
+						name));
+				@SuppressWarnings("unchecked")
+				List<Membership> memberships = MembershipLocalServiceUtil
+						.dynamicQuery(dynamicQuery);
+				if (memberships.size() > 0) {
+
+					Membership membership = memberships.get(0);
+					if (membership.getMembershipName().equals(name)) {
+
+						SessionMessages.add(actionRequest.getPortletSession(),
+								"membershipName-duplicate-error");
+						actionResponse.setRenderParameter("mvcPath",
+								"/html/membership/add.jsp");
+
+					}
+
+				} else {
+
+					Membership membership = MembershipLocalServiceUtil
+							.createMembership(CounterLocalServiceUtil
+									.increment());
+
+					System.out.println("id == " + id);
+					if (id == "" || id == null) {
+
+						membership.setCreateDate(date);
+						membership.setModifiedDate(date);
+						membership.setCompanyId(themeDisplay.getCompanyId());
+						membership.setGroupId(themeDisplay.getCompanyGroupId());
+						membership.setUserId(themeDisplay.getUserId());
+						membership.setMembershipName(name);
+						membership = MembershipLocalServiceUtil
+								.addMembership(membership);
+					}
+				}
+			}
+		} catch (SystemException e) {
+
+			e.printStackTrace();
+		}
+
+	}
+
+	public void updateMembership(ActionRequest actionRequest,
+			ActionResponse actionResponse) throws IOException,
+			PortletException, SystemException {
+		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest
+				.getAttribute(WebKeys.THEME_DISPLAY);
+
+		String id = ParamUtil.getString(actionRequest, "membershipId");
+		String name = ParamUtil.getString(actionRequest, "membership_name");
+		String membershipName = name.trim();
+		System.out.println("id == " + id);
+		Membership membership;
+		try {
+			if (membershipName == null || membershipName.equals("")) {
+
+				Membership editmembership = MembershipLocalServiceUtil
+						.getMembership(Long.parseLong(id));
+				PortletSession portletSession = actionRequest
+						.getPortletSession();
+				portletSession.setAttribute("editMembership", editmembership);
+
+				SessionMessages.add(actionRequest.getPortletSession(),
+						"membershipName-empty-error");
+				actionResponse.setRenderParameter("mvcPath",
+						"/html/membership/edit.jsp");
+
+			} else {
+
+				membership = MembershipLocalServiceUtil.getMembership(Long
+						.parseLong(id));
 				membership.setCreateDate(date);
 				membership.setModifiedDate(date);
 				membership.setCompanyId(themeDisplay.getCompanyId());
 				membership.setGroupId(themeDisplay.getCompanyGroupId());
 				membership.setUserId(themeDisplay.getUserId());
 				membership.setMembershipName(name);
-				membership = MembershipLocalServiceUtil.addMembership(membership);
-			} 		} catch (SystemException e) {
-			
+				membership = MembershipLocalServiceUtil
+						.updateMembership(membership);
+			}
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (PortalException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
-	public void updateMembership(ActionRequest actionRequest,
-			ActionResponse actionResponse) throws IOException,
-			PortletException, SystemException {
-		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
-		
-			Long id = ParamUtil.getLong(actionRequest, "membershipId");
-			String name=ParamUtil.getString(actionRequest, "membership_name");
-			System.out.println("id == " + id);
-				Membership membership;
-				try {
-					membership = MembershipLocalServiceUtil.getMembership(id);
-					membership.setCreateDate(date);
-					membership.setModifiedDate(date);
-					membership.setCompanyId(themeDisplay.getCompanyId());
-					membership.setGroupId(themeDisplay.getCompanyGroupId());
-					membership.setUserId(themeDisplay.getUserId());
-					membership.setMembershipName(name);
-					membership = MembershipLocalServiceUtil.updateMembership(membership);
-
-				} catch (NumberFormatException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (PortalException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}						
-		}
-
-	
 
 	/**
 	 * <p>
@@ -94,60 +159,46 @@ public class MembershipAction extends MVCPortlet {
 	 * @throws NumberFormatException
 	 */
 	public void serveResource(ResourceRequest resourceRequest,
-			ResourceResponse resourceResponse) throws IOException
-           {
+			ResourceResponse resourceResponse) throws IOException {
 		if (resourceRequest.getResourceID().equals("deleteMembership")) {
-System.out.println("deleting thes membership");
-	
-	String[] idsArray = ParamUtil.getParameterValues(resourceRequest,
+			System.out.println("deleting thes membership");
+
+			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,
 					"membershipIds");
-						System.out.println(idsArray.length);
-						
-						for (int i = 0; i <= idsArray.length-1; i++) {
-				
-					
-							try
-							 {
-						 try {
-							MembershipLocalServiceUtil.deleteMembership(Long.parseLong(idsArray[i]));
-						} catch (PortalException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (SystemException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-							 }
-							 catch(NumberFormatException e)
-							 {
-							 }
-						 }
+			System.out.println(idsArray.length);
 
-								} 
-						
-				
-						
+			for (int i = 0; i <= idsArray.length - 1; i++) {
+
+				try {
+					try {
+						MembershipLocalServiceUtil.deleteMembership(Long
+								.parseLong(idsArray[i]));
+					} catch (PortalException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SystemException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} catch (NumberFormatException e) {
 				}
-				
-			
-			
-		
+			}
 
-	
+		}
+
+	}
+
 	public void editMembership(ActionRequest actionRequest,
 			ActionResponse actionResponse) throws IOException,
 			PortletException, NumberFormatException, PortalException,
 			SystemException {
 		Long membershipId = ParamUtil.getLong(actionRequest, "membershipId");
-		Membership membership = MembershipLocalServiceUtil.getMembership(membershipId);
-
-		actionRequest.setAttribute("editMembership", membership);
+		Membership membership = MembershipLocalServiceUtil
+				.getMembership(membershipId);
+		PortletSession portletSession = actionRequest.getPortletSession();
+		portletSession.setAttribute("editMembership", membership);
 		actionResponse.setRenderParameter("jspPage",
 				"/html/membership/edit.jsp");
 	}
-
- 
-
- 
 
 }

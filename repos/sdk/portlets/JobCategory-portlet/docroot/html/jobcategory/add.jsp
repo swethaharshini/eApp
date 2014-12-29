@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@ include file="/html/jobcategory/init.jsp"%>
 <html>
 <head>
@@ -15,6 +16,9 @@
 }
 .table-last-header {
 	width: 15%;
+}
+em{
+ color: red;
 }
 </style>
 <aui:script>
@@ -105,29 +109,34 @@ AUI().use(
 </head>
 
 <body>
-	<div id="jobadddelete" class="span12">
-		<a href="#" id="add">Add</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="delete">Delete</a>
-
-	</div>
+<% if(SessionMessages.contains(renderRequest.getPortletSession(),"jobcategoryName-empty-error")){%>
+<liferay-ui:message key="Please Enter JobcategoryName"/>
+<%} 
+ if(SessionMessages.contains(renderRequest.getPortletSession(),"jobCategoryName-duplicate-error")){
+%>
+<liferay-ui:message key="JobcategoryName already Exits"/>
+<%} 
+%>
+<br/><br/>
 	<div  id="addJobcategoryForm">
 	<aui:form name="myForm" action="<%=savejobcategory.toString()%>">
 		<aui:input name="jobcategoryId" type="hidden" id="jobcategoryId" />
 		<div class="span12">
 			<div class="span2">
-				<label>Job Category</label>
+				<label>Job Category<em>*</em></label>
 		</div>
 		<div class="span3">		
-		 <input name="<portlet:namespace/>jobcategory" id="jobcategory" type="text" required = "required">
+		 <aui:input name="jobcategory" label="" id="jobcategory" type="text"/>
 			</div>
 		</div>
 		
 		<aui:button type="submit" value="Submit" />
-		<aui:button  type="reset" value="Cancel" id ="cancel"/>
-		
+		<aui:button  type="reset" value="Reset" id ="cancel"/>
+		<input type="button" value="Delete" class="btn" id="delete">
 	</aui:form>
 	</div>
 	
-	 <div><label style="color: white" >.</label></div>
+	 <div><em>*</em> Required Field</div>
 	
 </body>
 

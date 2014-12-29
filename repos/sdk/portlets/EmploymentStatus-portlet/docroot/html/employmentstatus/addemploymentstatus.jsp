@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@ include file="/html/employmentstatus/init.jsp"%>
 <html>
 <head>
@@ -9,6 +10,11 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/employmentstatus/addemploymentstatus.jsp" />
 </portlet:renderURL>
+<style type="text/css">
+em{
+ color: red;
+}
+</style>
 <aui:script>
 AUI().use(
   'aui-node',
@@ -18,7 +24,7 @@ AUI().use(
       'click',
       function() {
      var idArray = [];
-      A.all('input[type=checkbox]:checked').each(function(object) {
+     A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
       idArray.push(object.get("value"));
     
         });
@@ -97,23 +103,32 @@ AUI().use(
 </head>
 
 <body>
-	<div class="row-fluid">
-		<div id="employmentstatusadddelete" class="span12 text-right">
-			<a href="#" id="add" class="btn btn-success"><i class="icon-plus"></i></a>
-			<a href="#" id="delete" class="btn btn-danger"><i class="icon-trash"></i></a>
-		</div>
+<% if(SessionMessages.contains(renderRequest.getPortletSession(),"employmentStatus-empty-error")){%>
+<liferay-ui:message key="Please Enter EmploymentStatus"/>
+<%} 
+ if(SessionMessages.contains(renderRequest.getPortletSession(),"employmentStatus-duplicate-error")){
+%>
+<liferay-ui:message key="EmploymentStatus already Exits"/>
+<%} 
+%>
+ <br/><br/>
+	
 		<div  id="addEmploymentstatusForm">
 			<aui:form name="myForm" action="<%=saveemploymentstatus.toString()%>">
 				<aui:input name="employmentstatusId" type="hidden" id="employmentstatusId" />
-				<div class="form-inline">
-				 <label>Employment Status: </label>
-				 <input name="<portlet:namespace/>employmentstatus" id="employmentstatus" type="text" required = "required">
-				 <button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
-				 <button  type="reset" class="btn btn-danger" id ="cancel"><i class="icon-remove"></i></button>
-				</div>
+				<div class="span12">
+				 <div class="span2">	<label>Employment Status:<em>*</em> </label></div>
+				<div class="span3">	 <aui:input name="employmentstatus" label="" id="employmentstatus" type="text"/></div>
+			 </div>
+				 <aui:button type="submit" value="Submit"/>
+				 <aui:button  type="reset" value="Cancel" id ="cancel"/>
+				 <input type="button" value="Delete" class="btn" id="delete">
+				
 			</aui:form>
 		</div>
-	</div>
+	
+	
+<div><em>*</em> Required Field</div>
 </body>
 
 <%
@@ -135,7 +150,6 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
  
 } else { 
  
-	
 	sortByType = portalPrefs.getValue("NAME_SPACE", "sort-by-type ", "asc");   
 }
 
@@ -151,7 +165,7 @@ System.out.println("sortByType == " +sortByType);
 <liferay-ui:search-container orderByCol="<%=sortByCol %>"
 	orderByType="<%=sortByType %>"
 	rowChecker="<%= new RowChecker(renderResponse) %>" delta="5"
-	emptyResultsMessage="No records is available for Employment Statuses."
+	emptyResultsMessage="No records is available for Employment Status."
 	deltaConfigurable="true" iteratorURL="<%=iteratorURL%>">
 	<liferay-ui:search-container-results>
 
@@ -176,7 +190,7 @@ System.out.println("sortByType == " +sortByType);
 
 	</liferay-ui:search-container-results>
 	<liferay-ui:search-container-row className="EmploymentStatus"
-		keyProperty="employmentStatusId" modelVar="employmentstatus" rowVar="curRow"
+		keyProperty="employmentStatusId" modelVar="EmploymentStatus" rowVar="curRow"
 		escapedModel="<%= true %>">
 		<liferay-ui:search-container-column-text orderable="<%=true %>"
 			name="Employment Status" property="employmentstatus"

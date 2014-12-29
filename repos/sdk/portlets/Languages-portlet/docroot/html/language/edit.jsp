@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@ include file="/html/language/init.jsp" %>
 <portlet:actionURL var="updateLanguages" name="updateLanguage">
 </portlet:actionURL>
@@ -22,14 +23,14 @@ AUI().use(
       'click',
       function() {
      var idArray = [];
-      A.all('input[type=checkbox]:checked').each(function(object) {
+      A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
       idArray.push(object.get("value"));
     
         });
        if(idArray==""){
 			  alert("Please select records!");
 		  }else{
-			  var d = confirm("Are you sure you want to delete the selected language?");
+			  var d = confirm("Are you sure you want to delete the selected languages ?");
 		  if(d){
 		   var url = '<%=deleteLanguages%>';
           A.io.request(url,
@@ -102,11 +103,18 @@ AUI().use(
 
 </head>
 <body>
-<jsp:useBean id="editLanguage" type="com.rknowsys.eapp.hrm.model.Language" scope="request" />
-<div id="editLanguageAddDelete" class="span12">
-		<a href="#" id="add">Add</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"
-			id="delete">Delete</a>
-	</div>
+<% if(SessionMessages.contains(renderRequest.getPortletSession(),"languageName-empty-error")){%>
+<liferay-ui:message key="Please Enter LanguageName"/>
+<%} 
+ if(SessionMessages.contains(renderRequest.getPortletSession(),"languageName-duplicate-error")){
+%>
+<liferay-ui:message key="LanguageName already Exits"/>
+<%} 
+%>
+<% 
+ Language editLanguage = (Language)portletSession.getAttribute("editLanguage");
+%>
+ <br/><br/>
 	<div id="editLanguageForm">
   <aui:form name="myForm" action="<%=updateLanguages.toString()%>">
 		<aui:input name="languageId" type="hidden" id="languageId"  value="<%=editLanguage.getLanguageId()%>"/>
@@ -115,10 +123,11 @@ AUI().use(
 				<label>Name</label>
 		</div>
 		<div class="span3">		
-		 <input name="<portlet:namespace/>language_name" type="text" required = "required" value="<%=editLanguage.getLanguageName() %>" >
+		 <aui:input name="language_name" label="" type="text" value="<%=editLanguage.getLanguageName() %>" />
 			</div>
 			</div>
-	<aui:button type="submit" value="Submit"/> <aui:button  type="reset" value="Cancel" id ="editCancel"></aui:button>
+	<br/>
+	<aui:button type="submit" value="Submit"/> <aui:button  type="reset" value="Cancel" id ="editCancel"></aui:button><input type="button" value="Delete" class="btn" id="delete">
 	</aui:form>
 	</div>
 	 <div><label style="color: white" >.</label></div>
@@ -160,7 +169,7 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
                pageContext.setAttribute("total", total);
  %>
 	</liferay-ui:search-container-results>
-	<liferay-ui:search-container-row className="Language" keyProperty="licenseId" modelVar="licenseId"  rowVar="curRow" escapedModel="<%= true %>">
+	<liferay-ui:search-container-row className="Language" keyProperty="languageId" modelVar="languageId"  rowVar="curRow" escapedModel="<%= true %>">
 	     <liferay-ui:search-container-column-text orderable="<%=true %>" name="name" property="languageName" orderableProperty="languageName"/>
 		
 		 <liferay-ui:search-container-column-jsp name="Edit"  path="/html/language/editClick.jsp"/>

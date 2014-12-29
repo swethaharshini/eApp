@@ -152,7 +152,7 @@ PayGradeCurrency editpaygradecurrency = (PayGradeCurrency)portletSession.getAttr
 	
 	<div class="panel panel-default">
 <div class="panel-heading">
-   <font class="panel-title"><b>Add Currency</b></font>
+   <font class="panel-title"><b>Edit Currency</b></font>
  </div>
  <div class="panel-body">
    <div id="currencyform">
