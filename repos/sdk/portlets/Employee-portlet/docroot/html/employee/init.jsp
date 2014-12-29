@@ -21,6 +21,7 @@
 <%@page import="com.rknowsys.eapp.hrm.service.EmpSupervisorLocalServiceUtil"%>
 <%@page import="com.rknowsys.eapp.hrm.model.EmpSupervisor"%>
 <%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page
 	import="com.rknowsys.eapp.hrm.service.MembershipLocalServiceUtil"%>
 <%@page import="com.rknowsys.eapp.hrm.model.Membership"%>

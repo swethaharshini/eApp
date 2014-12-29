@@ -20,6 +20,7 @@ A.all('#<portlet:namespace/>empContactDetailsEdit input[type=text]').set('disabl
 	A.all('#<portlet:namespace/>empContactDetailsEdit input[type=radio]').set('disabled',false);
 	A.one('#<portlet:namespace />saveContactDetails').show();
 	});
+var phoneValidation;
 </aui:script>
 <%
 Map empId = (Map) request.getSession(false).getAttribute(
@@ -129,31 +130,81 @@ Map empId = (Map) request.getSession(false).getAttribute(
 			<div class="row-fluid">
 				<div class="span10">
 					<aui:input name="home_telephone" label="01_home-tele"
-						inlineLabel="left" value="<%=homeTel%>"></aui:input>
+						inlineLabel="left" value="<%=homeTel%>" >
+						<aui:validator name="custom" errorMessage="Please enter a valid telephone number">
+						function(val,fieldNode,ruleValue)
+						{
+						var result=false;
+						var mobileno = /^\d{10}$/;  
+                        if(val.trim()==''||val.match(mobileno))  
+                        {  
+                         return true;  
+                        }  
+                       else  
+                       {  
+                         return false;  
+  					   }  
+						}
+						</aui:validator>
+						</aui:input>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span10">
 					<aui:input name="work_telephone" label="01_work-tele"
-						inlineLabel="left" value="<%=workTel%>"></aui:input>
+						inlineLabel="left" value="<%=workTel%>">
+							<aui:validator name="custom" errorMessage="Please enter a valid telephone number">
+						function(val,fieldNode,ruleValue)
+						{
+						var result=false;
+						var mobileno = /^\d{10}$/;  
+                        if(val.trim()==''||val.match(mobileno))  
+                        {  
+                         return true;  
+                        }  
+                       else  
+                       {  
+                         return false;  
+  					   }  
+						}
+						</aui:validator>
+						</aui:input>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span10">
 					<aui:input name="mobile" label="01_mobile" inlineLabel="left"
-						value="<%=mobile%>"></aui:input>
+						value="<%=mobile%>" placeholder="Enter your 10 digit mobile number">
+							<aui:validator name="custom" errorMessage="Please enter a valid mobile number">
+						function(val,fieldNode,ruleValue)
+						{
+						var result=false;
+						var mobileno = /^\d{10}$/;  
+                        if(val.trim()==''||val.match(mobileno))  
+                        {  
+                         return true;  
+                        }  
+                       else  
+                       {  
+                         return false;  
+  					   }  
+						}
+						</aui:validator>
+						</aui:input>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span10">
 					<aui:input name="work_email" label="01_work-mail" inlineLabel="left"
-						value="<%=workEmail%>"></aui:input>
+						value="<%=workEmail%>">
+						<aui:validator name="email"></aui:validator></aui:input>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span10">
 					<aui:input name="other_email" label="01_other-mail"
-						inlineLabel="left" value="<%=otherEmail%>"></aui:input>
+						inlineLabel="left" value="<%=otherEmail%>">
+						<aui:validator name="email"></aui:validator></aui:input>
 				</div>
 			</div>
 			<aui:button name="editContactDetails" id="editContactDetails"

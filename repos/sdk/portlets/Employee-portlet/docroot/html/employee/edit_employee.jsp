@@ -25,6 +25,9 @@ long fileEntryId=(Long)empId.get("fileId");
 	<portlet:param name="mvcPath" value="/html/employee/updateImage.jsp" />
 	<portlet:param name="imageId2" value="<%=String.valueOf(fileEntryId) %>"/>
 	</portlet:renderURL>
+	<portlet:renderURL var="refresh">
+	<portlet:param name="mvcPath" value="/html/employee/edit_employee.jsp"/>
+	</portlet:renderURL>
 <aui:script>
 function updateImage()
 {
@@ -34,7 +37,7 @@ function updateImage()
 	var popUpWindow=Liferay.Util.Window.getWindow(
 	{
 		dialog: {
-			destroyOnClose:true,
+			destroyOnHide:true,
 			centered: true,
 			constrain2view: true,
 			modal: true,
@@ -46,10 +49,13 @@ function updateImage()
 		   {
 				autoLoad: true,
 				iframeCssClass: 'dialog-iframe',
-				uri:'<%=updateImage.toString()%>'
+				uri:'<%=updateImage.toString()%>',
 			}).render();
-			popUpWindow.show();
-			popUpWindow.titleNode.html("Select an Image to Update");
+        	popUpWindow.titleNode.html("Select an Image to Update");
+			popUpWindow.show().after('destroy', function(event) {
+                window.location='<%=refresh%>';
+                
+        });
 			popUpWindow.io.start();
      });       
 }    

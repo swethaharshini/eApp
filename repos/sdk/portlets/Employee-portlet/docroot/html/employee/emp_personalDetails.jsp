@@ -21,9 +21,10 @@ var A=new AUI();
 	long fileEntryId = (Long) empId.get("fileId");
 	String firstName, middleName, lastName, empNo, otherId, licenseNumber, gender, nationality, maritslStatus;
 	Long personalDetailsId;
-	Date dateOfB, licenseExpDate;
+	String dateOfB, licenseExpDate;
 	nationality = "";
 	long nationalityId = 0;
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
 	//Date k = new Date();
 	//long employeeId = Long.parseLong(empId);
 	DynamicQuery personalDetailsDynamicQuery = DynamicQueryFactoryUtil
@@ -47,8 +48,8 @@ var A=new AUI();
 				.getOtherId() : "";
 		licenseNumber = empPersonalDetails.getLicenseNo() != null ? empPersonalDetails
 				.getLicenseNo() : "";
-		licenseExpDate = empPersonalDetails.getLicenseExpDate() != null ? empPersonalDetails
-				.getLicenseExpDate() : new Date();
+		licenseExpDate = empPersonalDetails.getLicenseExpDate() != null ? sdf.format(empPersonalDetails
+				.getLicenseExpDate()) : "";
 		gender = String.valueOf(empPersonalDetails.getGender()) != null ? String
 				.valueOf(empPersonalDetails.getGender()) : "";
 		Nationality empNationality2 = null;
@@ -71,8 +72,8 @@ var A=new AUI();
 		maritslStatus = String.valueOf(empPersonalDetails
 				.getMaritalStatus()) != null ? String
 				.valueOf(empPersonalDetails.getMaritalStatus()) : "";
-		dateOfB = empPersonalDetails.getDateOfBirth() != null ? empPersonalDetails
-				.getDateOfBirth() : new Date();
+		dateOfB = empPersonalDetails.getDateOfBirth() != null ?sdf.format( empPersonalDetails
+				.getDateOfBirth()) : "";
 	} else {
 		personalDetailsId = 0l;
 		firstName = "";
@@ -81,11 +82,11 @@ var A=new AUI();
 		empNo = "";
 		otherId = "";
 		licenseNumber = "";
-		licenseExpDate = new Date();
+		licenseExpDate = "";
 		gender = "";
 		nationality = "";
 		maritslStatus = "";
-		dateOfB = new Date();
+		dateOfB = "";
 	}
 %>
 <aui:script use="aui-base,aui-node,aui-io-request-deprecated">
@@ -250,7 +251,7 @@ if(maritalStatus=="single")
 			<div class="row-fluid">
 				<div class="span8">
 					<aui:input name="date_of_birth" label="01_date-of-birth"
-						inlineLabel="left" cssClass="dateEmployee" value='<%=dateOfB%>'>
+						inlineLabel="left" cssClass="dateEmployee" value='<%=dateOfB%>' >
 					</aui:input>
 				</div>
 			</div>
