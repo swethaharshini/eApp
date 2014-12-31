@@ -11,17 +11,6 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/jobcategory/add.jsp" />
 </portlet:renderURL>
-<style type="text/css">	
-.table-first-header{
-width: 10%;
-}
-.table-last-header{
-width: 15%;
-}
-em{
- color: red;
-}
-</style>
 <aui:script>
 AUI().use(
   'aui-node',
@@ -129,22 +118,25 @@ AUI().use(
 <liferay-ui:message key="Please Enter JobcategoryName"/>
 <%} 
 %>
-	<br/><br/>
-	<div id="editJobCategoryForm">
+<div id="editJobCategoryForm">
   <aui:form name="myForm" action="<%=savejobcategory.toString()%>">
-		<aui:input name="jobcategoryId" type="hidden" id="jobcategoryId"  value="<%=editjobcategory.getJobCategoryId()%>"/>
-		<div class="span12">
-				<div class="span2">
-						<label>Job Category<em>*</em></label>
-			 </div>
-			 <div class="span3">
-			 <aui:input name="jobcategory" id="editjobcategory" class="jobcategory" type="text" label="" value="<%=editjobcategory.getJobcategory()%>"><aui:validator name="required"></aui:validator> </aui:input>
-						</div>
-					</div>
-	<aui:button type="submit" value="Submit"/> <aui:button  type="reset" value="Cancel" id ="editcancel"></aui:button><input type="button" value="Delete" class="btn" id="delete">
+  		<div class="form-horizontal">
+			<aui:input name="jobcategoryId" type="hidden" id="jobcategoryId"  value="<%=editjobcategory.getJobCategoryId()%>"/>
+			<aui:input name="jobcategory" id="editjobcategory" class="jobcategory" type="text" label="* Job Category" value="<%=editjobcategory.getJobcategory()%>">
+			<aui:validator name="required"></aui:validator> 
+			</aui:input>
+			<div class="control-group">
+				<div class="controls">
+					<aui:button type="submit" value="Submit"/> 
+					<aui:button  type="reset" value="Cancel" id ="editcancel">
+					</aui:button><input type="button" value="Delete" class="btn" id="delete">
+					<div><em>*</em> Required Field</div>
+				</div>
+			</div>
+		</div>
 	</aui:form>
 	</div>
-	 <div><em>*</em> Required Field</div>
+	
 </body>
 <%
 PortletURL iteratorURL = renderResponse.createRenderURL();
