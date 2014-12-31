@@ -45,19 +45,6 @@
 <html>
 <head>
 <title>employeelist</title>
-<style type="text/css">
-.aui input[type="text"],.aui select {
-	border-radius: 4px;
-}
-
-.aui label {
-	color: #555;
-	font-size: 14px;
-	font-weight: 200;
-	font-family: sans-serif;
-	font: small-caption;
-}
-</style>
 </head>
 <body>
 	<%!public String getSupervisorName(long id) {
@@ -93,16 +80,16 @@
 	}%>
 	<aui:form action="<%=employeeSearchURL %>" method="get"
 		name="proposalForm">
+		<div class="employee-search">
 		<div class="row-fluid">
-			<div class="span3">
+			<div class="span4">
 				<aui:input name="firstName" label="01_emp-name" inlineLabel="left"></aui:input>
 
 			</div>
-			<div class="span3">
+			<div class="span4">
 				<aui:input name="employeeNo" label="01_id"></aui:input>
 			</div>
-			<div class="span6">
-				<div class="span8">
+			<div class="span4">
 					<%-- <aui:input name="" label="Employment Status"></aui:input> --%>
 
 					<aui:select name="employmentstatus" label="01_emp-status">
@@ -118,70 +105,63 @@
                             }
                         %>
 					</aui:select>
-
-
-				</div>
-				<div class="span4"></div>
-			</div>
-			<div class="row-fluid">
-				<div class="span3">
-					<aui:input name="supervisorname" label="01_sup-name"
-						id="supervisorname" />
-				</div>
-				<div class="span3">
-
-					<aui:select name="jobtitle001" label="01_jobtitle">
-						<aui:option value="" selected="true">--select--</aui:option>
-						<%
-                        List<JobTitle> jobtitlelist = JobTitleLocalServiceUtil.getJobTitles(-1,-1);
-                                    Iterator jobtitle = jobtitlelist.iterator();
-                                    while (jobtitle.hasNext()) {
-                                        JobTitle jobtitle2 = (JobTitle) jobtitle.next();
-                        %>
-						<aui:option value="<%=jobtitle2.getTitle()%>"><%=jobtitle2.getTitle()%></aui:option>
-						<%
-                            }
-                        %>
-					</aui:select>
-
-
-				</div>
-				<div class="span6">
-
-					<aui:select name="subunit" label="01_sub-unit">
-						<aui:option value="" selected="true">--select--</aui:option>
-						<%
-                        List<SubUnit> subunitlist =  SubUnitLocalServiceUtil.getSubUnits(-1, -1);
-                                    Iterator subunit = subunitlist.iterator();
-                                    while (subunit.hasNext()) {
-                                        SubUnit subunit2 = (SubUnit) subunit.next();
-                        %>
-						<aui:option value="<%=subunit2.getName()%>"><%=subunit2.getName()%></aui:option>
-						<%
-                            }
-                        %>
-					</aui:select>
-
-				</div>
 			</div>
 		</div>
-		<aui:button-row>
+		<div class="row-fluid">
+			<div class="span4">
+				<aui:input name="supervisorname" label="01_sup-name"
+					id="supervisorname" />
+			</div>
+			<div class="span4">
 
-			<aui:button type="submit" id="toggleColor" value="search"
+				<aui:select name="jobtitle001" label="01_jobtitle">
+					<aui:option value="" selected="true">--select--</aui:option>
+					<%
+                       List<JobTitle> jobtitlelist = JobTitleLocalServiceUtil.getJobTitles(-1,-1);
+                                   Iterator jobtitle = jobtitlelist.iterator();
+                                   while (jobtitle.hasNext()) {
+                                       JobTitle jobtitle2 = (JobTitle) jobtitle.next();
+                       %>
+					<aui:option value="<%=jobtitle2.getTitle()%>"><%=jobtitle2.getTitle()%></aui:option>
+					<%
+                           }
+                       %>
+				</aui:select>
+
+
+			</div>
+			<div class="span4">
+
+				<aui:select name="subunit" label="01_sub-unit">
+					<aui:option value="" selected="true">--select--</aui:option>
+					<%
+                       List<SubUnit> subunitlist =  SubUnitLocalServiceUtil.getSubUnits(-1, -1);
+                                   Iterator subunit = subunitlist.iterator();
+                                   while (subunit.hasNext()) {
+                                       SubUnit subunit2 = (SubUnit) subunit.next();
+                       %>
+					<aui:option value="<%=subunit2.getName()%>"><%=subunit2.getName()%></aui:option>
+					<%
+                           }
+                       %>
+				</aui:select>
+
+			</div>
+		</div>
+
+		<div class="row-fluid">
+			<div class="span12">
+			<aui:button-row>
+				<aui:button type="submit" id="toggleColor" value="search"
 				cssClass="btn btn-success" />
 			<aui:button type="reset" id="" value="reset"
-				cssClass="btn btn-danger">
-			</aui:button>
-		</aui:button-row>
-		<div class="row-fluid">
-			<div class="span3">
+				cssClass="btn btn-danger" />
 				<aui:button cssClass="button btn-success" name="addNewEmp"
 					id="addNewEmp" value="add" onClick="<%=addNewEmployee %>"></aui:button>
+			</aui:button-row>
 			</div>
-			<div class="span3"></div>
-			<div class="span6"></div>
 		</div>
-
+	</div>
 		<liferay-portlet:renderURLParams varImpl="employeeSearchURL" />
 		<liferay-portlet:renderURL varImpl="iteratorURL">
 			<portlet:param name="mvcPath" value="/html/employee/employeelist.jsp" />

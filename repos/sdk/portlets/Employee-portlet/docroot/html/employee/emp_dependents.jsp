@@ -46,24 +46,22 @@ A.ready(function()
 	<div class="panel-body">
 		<aui:form name="addDependent" id="addDependent"
 			action="<%=updateAssignedDependents%>" method="post">
-			<aui:input name="empDependentId" value="<%=employeeId %>" type="hidden" />
-			<aui:input name="dependentFileId" value="<%=fileEntryId %>" type="hidden" />
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:input name="dependent_name" label="01_name"
-						 inlineLabel="left"></aui:input>
+			<div class="form-horizontal">
+				<aui:input name="empDependentId" value="<%=employeeId %>" type="hidden" />
+				<aui:input name="dependentFileId" value="<%=fileEntryId %>" type="hidden" />
+				<aui:input name="dependent_name" label="01_name"
+					 inlineLabel="left"></aui:input>
+				<aui:input name="dependent_relationship" label="01_relationship"
+				inlineLabel="left"></aui:input>
+				<div class="control-group">
+					<div class="controls">
+						<aui:button type="submit" cssClass="button btn-primary" value="save"
+							id="submitDependentDetails"></aui:button>
+						<aui:button type="reset" value="Cancel" id="cancelDependentDetails"
+						cssClass="button btn-danger" name="cancelDependentDetails"></aui:button>
+					</div>
 				</div>
 			</div>
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:input name="dependent_relationship" label="01_relationship"
-				 inlineLabel="left"></aui:input>
-				</div>
-			</div>
-			<aui:button type="submit" cssClass="button btn-primary" value="save"
-				id="submitDependentDetails"></aui:button>
-			<aui:button type="reset" value="Cancel" id="cancelDependentDetails"
-			cssClass="button btn-danger" name="cancelDependentDetails"></aui:button>
 		</aui:form>
 	</div>
 </div>
@@ -72,10 +70,12 @@ A.ready(function()
 		<h3>Assigned Dependents</h3>
 	</div>
 	<div class="panel-body">
-		<aui:button id="dependentAdd" name="dependentAdd" value="Add" 
-		cssClass="button btn-primary"></aui:button>
-		<aui:button id="dependentDelete" value="Delete" name="dependentDelete"
-		cssClass="button btn-danger"></aui:button>
+		<div class="control-group">
+			<aui:button id="dependentAdd" name="dependentAdd" value="Add" 
+			cssClass="button btn-primary"></aui:button>
+			<aui:button id="dependentDelete" value="Delete" name="dependentDelete"
+			cssClass="button btn-danger"></aui:button>
+		</div>
 		<liferay-ui:search-container delta="5"
 			emptyResultsMessage="No records are available for EmpDependent"
 			deltaConfigurable="true" rowChecker="<%= new RowChecker(renderResponse) %>">

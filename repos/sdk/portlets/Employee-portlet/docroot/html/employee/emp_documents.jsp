@@ -107,12 +107,12 @@ A.ready(function()
 		<h3>Documents</h3>
 	</div>
 	<div class="panel-body">
-		<aui:button-row>
+		<div class="control-group">
 			<aui:button id="addNewDocument" name="addNewDocument" value="Add"
 				cssClass="button btn-primary"></aui:button>
 			<aui:button id="deleteDocument" name="deleteDocument" value="Delete"
 				cssClass="button btn-danger"></aui:button>
-		</aui:button-row>
+		</div>
 	</div>
 	<%!com.liferay.portal.kernel.dao.search.SearchContainer<DLFileEntry> searchContainer;%>
 	<liferay-ui:search-container delta="5"

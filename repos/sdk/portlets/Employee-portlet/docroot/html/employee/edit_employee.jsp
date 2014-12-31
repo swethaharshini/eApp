@@ -108,7 +108,7 @@ AUI().use(
 );
 </aui:script>
 <div id="employeeDetails">
-<ul class="span3" id="test">
+<ul class="span3 side-nav" id="test">
 		<div id="employeeImage" class="panel">
 			<div class="panel-heading">
 				<h3><%=empPersonalDetails.getFirstName()%></h3>
@@ -120,172 +120,172 @@ AUI().use(
 		</div>
 	<c:choose>
 		<c:when test='<%= jsp.equals("jsp0") || jsp.equals("jsp1") %>'>
-		<li class="active" ><a href="#tab-1" ><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
-		<li><a href="#tab-2" ><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
-		<li><a href="#tab-3" ><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
-		<li><a href="#tab-4"><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
-		<li><a href="#tab-5"><liferay-ui:message key="01_emp-immigration"></liferay-ui:message></a></li>
-		<li><a href="#tab-6"><liferay-ui:message key="01_emp-report-to"></liferay-ui:message></a></li>
-		<li><a href="#tab-7"><liferay-ui:message key="01_emp-qualifications"></liferay-ui:message></a></li>
-		<li><a href="#tab-8"><liferay-ui:message key="01_emp-membership"></liferay-ui:message></a></li>
-		<li><a href="#tab-9" ><liferay-ui:message key="01_emp-job-history"></liferay-ui:message></a></li>
-		<li><a href="#tab-10"><liferay-ui:message key="01_emp-salary-history"></liferay-ui:message></a></li>
-		<li><a href="#tab-11"><liferay-ui:message key="01_emp-direct-deposits"></liferay-ui:message></a></li>
-		<li><a href="#tab-12"><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
+		<li class="active" ><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-2" ><i class="icon-envelope"></i><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-3" ><i class="icon-phone-sign"></i><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
+		<li><a href="#tab-4"><i class="icon-male"></i><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
+		<li><a href="#tab-5"><i class="icon-fb-radio"></i><liferay-ui:message key="01_emp-immigration"></liferay-ui:message></a></li>
+		<li><a href="#tab-6"><i class="icon-table"></i><liferay-ui:message key="01_emp-report-to"></liferay-ui:message></a></li>
+		<li><a href="#tab-7"><i class="icon-stethoscope"></i><liferay-ui:message key="01_emp-qualifications"></liferay-ui:message></a></li>
+		<li><a href="#tab-8"><i class="icon-group"></i><liferay-ui:message key="01_emp-membership"></liferay-ui:message></a></li>
+		<li><a href="#tab-9" ><i class="icon-briefcase"></i><liferay-ui:message key="01_emp-job-history"></liferay-ui:message></a></li>
+		<li><a href="#tab-10"><i class="icon-money"></i><liferay-ui:message key="01_emp-salary-history"></liferay-ui:message></a></li>
+		<li><a href="#tab-11"><i class="icon-dollar"></i><liferay-ui:message key="01_emp-direct-deposits"></liferay-ui:message></a></li>
+		<li><a href="#tab-12"><i class="icon-file"></i><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
 		</c:when>
 		<c:when test='<%=jsp.equals("jsp2") %>' >
-		<li><a href="#tab-1" ><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
-		<li class="active" ><a href="#tab-2"><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
-		<li><a href="#tab-3" ><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
-		<li><a href="#tab-4"><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
-		<li><a href="#tab-5"><liferay-ui:message key="01_emp-immigration"></liferay-ui:message></a></li>
-		<li><a href="#tab-6"><liferay-ui:message key="01_emp-report-to"></liferay-ui:message></a></li>
-		<li><a href="#tab-7"><liferay-ui:message key="01_emp-qualifications"></liferay-ui:message></a></li>
-		<li><a href="#tab-8"><liferay-ui:message key="01_emp-membership"></liferay-ui:message></a></li>
-		<li><a href="#tab-9" ><liferay-ui:message key="01_emp-job-history"></liferay-ui:message></a></li>
-		<li><a href="#tab-10"><liferay-ui:message key="01_emp-salary-history"></liferay-ui:message></a></li>
-		<li><a href="#tab-11"><liferay-ui:message key="01_emp-direct-deposits"></liferay-ui:message></a></li>
-		<li><a href="#tab-12"><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
+		<li><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
+		<li class="active" ><a href="#tab-2" ><i class="icon-envelope"></i><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-3" ><i class="icon-phone-sign"></i><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
+		<li><a href="#tab-4"><i class="icon-male"></i><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
+		<li><a href="#tab-5"><i class="icon-fb-radio"></i><liferay-ui:message key="01_emp-immigration"></liferay-ui:message></a></li>
+		<li><a href="#tab-6"><i class="icon-table"></i><liferay-ui:message key="01_emp-report-to"></liferay-ui:message></a></li>
+		<li><a href="#tab-7"><i class="icon-stethoscope"></i><liferay-ui:message key="01_emp-qualifications"></liferay-ui:message></a></li>
+		<li><a href="#tab-8"><i class="icon-group"></i><liferay-ui:message key="01_emp-membership"></liferay-ui:message></a></li>
+		<li><a href="#tab-9" ><i class="icon-briefcase"></i><liferay-ui:message key="01_emp-job-history"></liferay-ui:message></a></li>
+		<li><a href="#tab-10"><i class="icon-money"></i><liferay-ui:message key="01_emp-salary-history"></liferay-ui:message></a></li>
+		<li><a href="#tab-11"><i class="icon-dollar"></i><liferay-ui:message key="01_emp-direct-deposits"></liferay-ui:message></a></li>
+		<li><a href="#tab-12"><i class="icon-file"></i><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
 		</c:when>
 		<c:when test='<%=jsp.equals("jsp3") %>' >
-		<li><a href="#tab-1" ><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
-		<li><a href="#tab-2"><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
-		<li class="active"><a href="#tab-3" ><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
-		<li><a href="#tab-4"><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
-		<li><a href="#tab-5"><liferay-ui:message key="01_emp-immigration"></liferay-ui:message></a></li>
-		<li><a href="#tab-6"><liferay-ui:message key="01_emp-report-to"></liferay-ui:message></a></li>
-		<li><a href="#tab-7"><liferay-ui:message key="01_emp-qualifications"></liferay-ui:message></a></li>
-		<li><a href="#tab-8"><liferay-ui:message key="01_emp-membership"></liferay-ui:message></a></li>
-		<li><a href="#tab-9" ><liferay-ui:message key="01_emp-job-history"></liferay-ui:message></a></li>
-		<li><a href="#tab-10"><liferay-ui:message key="01_emp-salary-history"></liferay-ui:message></a></li>
-		<li><a href="#tab-11"><liferay-ui:message key="01_emp-direct-deposits"></liferay-ui:message></a></li>
-		<li><a href="#tab-12"><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
+		<li class="active" ><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-2" ><i class="icon-envelope"></i><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
+		<li class="active"><a href="#tab-3" ><i class="icon-phone-sign"></i><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
+		<li><a href="#tab-4"><i class="icon-male"></i><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
+		<li><a href="#tab-5"><i class="icon-fb-radio"></i><liferay-ui:message key="01_emp-immigration"></liferay-ui:message></a></li>
+		<li><a href="#tab-6"><i class="icon-table"></i><liferay-ui:message key="01_emp-report-to"></liferay-ui:message></a></li>
+		<li><a href="#tab-7"><i class="icon-stethoscope"></i><liferay-ui:message key="01_emp-qualifications"></liferay-ui:message></a></li>
+		<li><a href="#tab-8"><i class="icon-group"></i><liferay-ui:message key="01_emp-membership"></liferay-ui:message></a></li>
+		<li><a href="#tab-9" ><i class="icon-briefcase"></i><liferay-ui:message key="01_emp-job-history"></liferay-ui:message></a></li>
+		<li><a href="#tab-10"><i class="icon-money"></i><liferay-ui:message key="01_emp-salary-history"></liferay-ui:message></a></li>
+		<li><a href="#tab-11"><i class="icon-dollar"></i><liferay-ui:message key="01_emp-direct-deposits"></liferay-ui:message></a></li>
+		<li><a href="#tab-12"><i class="icon-file"></i><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
 		</c:when>
 		<c:when test='<%=jsp.equals("jsp4") %>' >
-		<li><a href="#tab-1" ><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
-		<li><a href="#tab-2"><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
-		<li><a href="#tab-3" ><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
-		<li class="active"><a href="#tab-4"><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
-		<li><a href="#tab-5"><liferay-ui:message key="01_emp-immigration"></liferay-ui:message></a></li>
-		<li><a href="#tab-6"><liferay-ui:message key="01_emp-report-to"></liferay-ui:message></a></li>
-		<li><a href="#tab-7"><liferay-ui:message key="01_emp-qualifications"></liferay-ui:message></a></li>
-		<li><a href="#tab-8"><liferay-ui:message key="01_emp-membership"></liferay-ui:message></a></li>
-		<li><a href="#tab-9" ><liferay-ui:message key="01_emp-job-history"></liferay-ui:message></a></li>
-		<li><a href="#tab-10"><liferay-ui:message key="01_emp-salary-history"></liferay-ui:message></a></li>
-		<li><a href="#tab-11"><liferay-ui:message key="01_emp-direct-deposits"></liferay-ui:message></a></li>
-		<li><a href="#tab-12"><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
+		<li class="active" ><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-2" ><i class="icon-envelope"></i><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-3" ><i class="icon-phone-sign"></i><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
+		<li class="active"><a href="#tab-4"><i class="icon-male"></i><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
+		<li><a href="#tab-5"><i class="icon-fb-radio"></i><liferay-ui:message key="01_emp-immigration"></liferay-ui:message></a></li>
+		<li><a href="#tab-6"><i class="icon-table"></i><liferay-ui:message key="01_emp-report-to"></liferay-ui:message></a></li>
+		<li><a href="#tab-7"><i class="icon-stethoscope"></i><liferay-ui:message key="01_emp-qualifications"></liferay-ui:message></a></li>
+		<li><a href="#tab-8"><i class="icon-group"></i><liferay-ui:message key="01_emp-membership"></liferay-ui:message></a></li>
+		<li><a href="#tab-9" ><i class="icon-briefcase"></i><liferay-ui:message key="01_emp-job-history"></liferay-ui:message></a></li>
+		<li><a href="#tab-10"><i class="icon-money"></i><liferay-ui:message key="01_emp-salary-history"></liferay-ui:message></a></li>
+		<li><a href="#tab-11"><i class="icon-dollar"></i><liferay-ui:message key="01_emp-direct-deposits"></liferay-ui:message></a></li>
+		<li><a href="#tab-12"><i class="icon-file"></i><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
 		</c:when>
 		<c:when test='<%=jsp.equals("jsp5") %>' >
-		<li><a href="#tab-1" ><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
-		<li><a href="#tab-2"><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
-		<li><a href="#tab-3" ><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
-		<li><a href="#tab-4"><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
-		<li class="active"><a href="#tab-5"><liferay-ui:message key="01_emp-immigration"></liferay-ui:message></a></li>
-		<li><a href="#tab-6"><liferay-ui:message key="01_emp-report-to"></liferay-ui:message></a></li>
-		<li><a href="#tab-7"><liferay-ui:message key="01_emp-qualifications"></liferay-ui:message></a></li>
-		<li><a href="#tab-8"><liferay-ui:message key="01_emp-membership"></liferay-ui:message></a></li>
-		<li><a href="#tab-9" ><liferay-ui:message key="01_emp-job-history"></liferay-ui:message></a></li>
-		<li><a href="#tab-10"><liferay-ui:message key="01_emp-salary-history"></liferay-ui:message></a></li>
-		<li><a href="#tab-11"><liferay-ui:message key="01_emp-direct-deposits"></liferay-ui:message></a></li>
-		<li><a href="#tab-12"><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
+		<li class="active" ><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-2" ><i class="icon-envelope"></i><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-3" ><i class="icon-phone-sign"></i><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
+		<li><a href="#tab-4"><i class="icon-male"></i><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
+		<li class="active"><a href="#tab-5"><i class="icon-fb-radio"></i><liferay-ui:message key="01_emp-immigration"></liferay-ui:message></a></li>
+		<li><a href="#tab-6"><i class="icon-table"></i><liferay-ui:message key="01_emp-report-to"></liferay-ui:message></a></li>
+		<li><a href="#tab-7"><i class="icon-stethoscope"></i><liferay-ui:message key="01_emp-qualifications"></liferay-ui:message></a></li>
+		<li><a href="#tab-8"><i class="icon-group"></i><liferay-ui:message key="01_emp-membership"></liferay-ui:message></a></li>
+		<li><a href="#tab-9" ><i class="icon-briefcase"></i><liferay-ui:message key="01_emp-job-history"></liferay-ui:message></a></li>
+		<li><a href="#tab-10"><i class="icon-money"></i><liferay-ui:message key="01_emp-salary-history"></liferay-ui:message></a></li>
+		<li><a href="#tab-11"><i class="icon-dollar"></i><liferay-ui:message key="01_emp-direct-deposits"></liferay-ui:message></a></li>
+		<li><a href="#tab-12"><i class="icon-file"></i><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
 		</c:when>
 		<c:when test='<%=jsp.equals("jsp6") %>' >
-		<li><a href="#tab-1" ><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
-		<li><a href="#tab-2"><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
-		<li><a href="#tab-3" ><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
-		<li><a href="#tab-4"><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
-		<li><a href="#tab-5"><liferay-ui:message key="01_emp-immigration"></liferay-ui:message></a></li>
-		<li class="active"><a href="#tab-6"><liferay-ui:message key="01_emp-report-to"></liferay-ui:message></a></li>
-		<li><a href="#tab-7"><liferay-ui:message key="01_emp-qualifications"></liferay-ui:message></a></li>
-		<li><a href="#tab-8"><liferay-ui:message key="01_emp-membership"></liferay-ui:message></a></li>
-		<li><a href="#tab-9" ><liferay-ui:message key="01_emp-job-history"></liferay-ui:message></a></li>
-		<li><a href="#tab-10"><liferay-ui:message key="01_emp-salary-history"></liferay-ui:message></a></li>
-		<li><a href="#tab-11"><liferay-ui:message key="01_emp-direct-deposits"></liferay-ui:message></a></li>
-		<li><a href="#tab-12"><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
+		<li class="active" ><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-2" ><i class="icon-envelope"></i><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-3" ><i class="icon-phone-sign"></i><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
+		<li><a href="#tab-4"><i class="icon-male"></i><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
+		<li><a href="#tab-5"><i class="icon-fb-radio"></i><liferay-ui:message key="01_emp-immigration"></liferay-ui:message></a></li>
+		<li class="active"><a href="#tab-6"><i class="icon-table"></i><liferay-ui:message key="01_emp-report-to"></liferay-ui:message></a></li>
+		<li><a href="#tab-7"><i class="icon-stethoscope"></i><liferay-ui:message key="01_emp-qualifications"></liferay-ui:message></a></li>
+		<li><a href="#tab-8"><i class="icon-group"></i><liferay-ui:message key="01_emp-membership"></liferay-ui:message></a></li>
+		<li><a href="#tab-9" ><i class="icon-briefcase"></i><liferay-ui:message key="01_emp-job-history"></liferay-ui:message></a></li>
+		<li><a href="#tab-10"><i class="icon-money"></i><liferay-ui:message key="01_emp-salary-history"></liferay-ui:message></a></li>
+		<li><a href="#tab-11"><i class="icon-dollar"></i><liferay-ui:message key="01_emp-direct-deposits"></liferay-ui:message></a></li>
+		<li><a href="#tab-12"><i class="icon-file"></i><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
 		</c:when>
 		<c:when test='<%=jsp.equals("jsp7") %>' >
-		<li><a href="#tab-1" ><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
-		<li><a href="#tab-2"><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
-		<li><a href="#tab-3" ><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
-		<li><a href="#tab-4"><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
-		<li><a href="#tab-5"><liferay-ui:message key="01_emp-immigration"></liferay-ui:message></a></li>
-		<li><a href="#tab-6"><liferay-ui:message key="01_emp-report-to"></liferay-ui:message></a></li>
-		<li class="active"><a href="#tab-7"><liferay-ui:message key="01_emp-qualifications"></liferay-ui:message></a></li>
-		<li><a href="#tab-8"><liferay-ui:message key="01_emp-membership"></liferay-ui:message></a></li>
-		<li><a href="#tab-9" ><liferay-ui:message key="01_emp-job-history"></liferay-ui:message></a></li>
-		<li><a href="#tab-10"><liferay-ui:message key="01_emp-salary-history"></liferay-ui:message></a></li>
-		<li><a href="#tab-11"><liferay-ui:message key="01_emp-direct-deposits"></liferay-ui:message></a></li>
-		<li><a href="#tab-12"><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
+		<li class="active" ><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-2" ><i class="icon-envelope"></i><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-3" ><i class="icon-phone-sign"></i><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
+		<li><a href="#tab-4"><i class="icon-male"></i><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
+		<li><a href="#tab-5"><i class="icon-fb-radio"></i><liferay-ui:message key="01_emp-immigration"></liferay-ui:message></a></li>
+		<li><a href="#tab-6"><i class="icon-table"></i><liferay-ui:message key="01_emp-report-to"></liferay-ui:message></a></li>
+		<li class="active"><a href="#tab-7"><i class="icon-stethoscope"></i><liferay-ui:message key="01_emp-qualifications"></liferay-ui:message></a></li>
+		<li><a href="#tab-8"><i class="icon-group"></i><liferay-ui:message key="01_emp-membership"></liferay-ui:message></a></li>
+		<li><a href="#tab-9" ><i class="icon-briefcase"></i><liferay-ui:message key="01_emp-job-history"></liferay-ui:message></a></li>
+		<li><a href="#tab-10"><i class="icon-money"></i><liferay-ui:message key="01_emp-salary-history"></liferay-ui:message></a></li>
+		<li><a href="#tab-11"><i class="icon-dollar"></i><liferay-ui:message key="01_emp-direct-deposits"></liferay-ui:message></a></li>
+		<li><a href="#tab-12"><i class="icon-file"></i><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
 		</c:when>
 		<c:when test='<%=jsp.equals("jsp8") %>' >
-		<li><a href="#tab-1" ><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
-		<li><a href="#tab-2"><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
-		<li><a href="#tab-3" ><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
-		<li><a href="#tab-4"><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
-		<li><a href="#tab-5"><liferay-ui:message key="01_emp-immigration"></liferay-ui:message></a></li>
-		<li><a href="#tab-6"><liferay-ui:message key="01_emp-report-to"></liferay-ui:message></a></li>
-		<li><a href="#tab-7"><liferay-ui:message key="01_emp-qualifications"></liferay-ui:message></a></li>
-		<li class="active"><a href="#tab-8"><liferay-ui:message key="01_emp-membership"></liferay-ui:message></a></li>
-		<li><a href="#tab-9" ><liferay-ui:message key="01_emp-job-history"></liferay-ui:message></a></li>
-		<li><a href="#tab-10"><liferay-ui:message key="01_emp-salary-history"></liferay-ui:message></a></li>
-		<li><a href="#tab-11"><liferay-ui:message key="01_emp-direct-deposits"></liferay-ui:message></a></li>
-		<li><a href="#tab-12"><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
+		<li class="active" ><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-2" ><i class="icon-envelope"></i><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-3" ><i class="icon-phone-sign"></i><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
+		<li><a href="#tab-4"><i class="icon-male"></i><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
+		<li><a href="#tab-5"><i class="icon-fb-radio"></i><liferay-ui:message key="01_emp-immigration"></liferay-ui:message></a></li>
+		<li><a href="#tab-6"><i class="icon-table"></i><liferay-ui:message key="01_emp-report-to"></liferay-ui:message></a></li>
+		<li><a href="#tab-7"><i class="icon-stethoscope"></i><liferay-ui:message key="01_emp-qualifications"></liferay-ui:message></a></li>
+		<li class="active"><a href="#tab-8"><i class="icon-group"></i><liferay-ui:message key="01_emp-membership"></liferay-ui:message></a></li>
+		<li><a href="#tab-9" ><i class="icon-briefcase"></i><liferay-ui:message key="01_emp-job-history"></liferay-ui:message></a></li>
+		<li><a href="#tab-10"><i class="icon-money"></i><liferay-ui:message key="01_emp-salary-history"></liferay-ui:message></a></li>
+		<li><a href="#tab-11"><i class="icon-dollar"></i><liferay-ui:message key="01_emp-direct-deposits"></liferay-ui:message></a></li>
+		<li><a href="#tab-12"><i class="icon-file"></i><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
 		</c:when>
 		<c:when test='<%=jsp.equals("jsp9") %>' >
-		<li><a href="#tab-1" ><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
-		<li><a href="#tab-2"><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
-		<li><a href="#tab-3" ><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
-		<li><a href="#tab-4"><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
-		<li><a href="#tab-5"><liferay-ui:message key="01_emp-immigration"></liferay-ui:message></a></li>
-		<li><a href="#tab-6"><liferay-ui:message key="01_emp-report-to"></liferay-ui:message></a></li>
-		<li><a href="#tab-7"><liferay-ui:message key="01_emp-qualifications"></liferay-ui:message></a></li>
-		<li><a href="#tab-8"><liferay-ui:message key="01_emp-membership"></liferay-ui:message></a></li>
-		<li class="active"><a href="#tab-9" ><liferay-ui:message key="01_emp-job-history"></liferay-ui:message></a></li>
-		<li><a href="#tab-10"><liferay-ui:message key="01_emp-salary-history"></liferay-ui:message></a></li>
-		<li><a href="#tab-11"><liferay-ui:message key="01_emp-direct-deposits"></liferay-ui:message></a></li>
-		<li><a href="#tab-12"><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
+		<li class="active" ><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-2" ><i class="icon-envelope"></i><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-3" ><i class="icon-phone-sign"></i><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
+		<li><a href="#tab-4"><i class="icon-male"></i><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
+		<li><a href="#tab-5"><i class="icon-fb-radio"></i><liferay-ui:message key="01_emp-immigration"></liferay-ui:message></a></li>
+		<li><a href="#tab-6"><i class="icon-table"></i><liferay-ui:message key="01_emp-report-to"></liferay-ui:message></a></li>
+		<li><a href="#tab-7"><i class="icon-stethoscope"></i><liferay-ui:message key="01_emp-qualifications"></liferay-ui:message></a></li>
+		<li><a href="#tab-8"><i class="icon-group"></i><liferay-ui:message key="01_emp-membership"></liferay-ui:message></a></li>
+		<li class="active"><a href="#tab-9" ><i class="icon-briefcase"></i><liferay-ui:message key="01_emp-job-history"></liferay-ui:message></a></li>
+		<li><a href="#tab-10"><i class="icon-money"></i><liferay-ui:message key="01_emp-salary-history"></liferay-ui:message></a></li>
+		<li><a href="#tab-11"><i class="icon-dollar"></i><liferay-ui:message key="01_emp-direct-deposits"></liferay-ui:message></a></li>
+		<li><a href="#tab-12"><i class="icon-file"></i><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
 		</c:when>
 		<c:when test='<%=jsp.equals("jsp10") %>' >
-		<li><a href="#tab-1" ><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
-		<li><a href="#tab-2"><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
-		<li><a href="#tab-3" ><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
-		<li><a href="#tab-4"><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
-		<li><a href="#tab-5"><liferay-ui:message key="01_emp-immigration"></liferay-ui:message></a></li>
-		<li><a href="#tab-6"><liferay-ui:message key="01_emp-report-to"></liferay-ui:message></a></li>
-		<li><a href="#tab-7"><liferay-ui:message key="01_emp-qualifications"></liferay-ui:message></a></li>
-		<li><a href="#tab-8"><liferay-ui:message key="01_emp-membership"></liferay-ui:message></a></li>
-		<li><a href="#tab-9" ><liferay-ui:message key="01_emp-job-history"></liferay-ui:message></a></li>
-		<li class="active"><a href="#tab-10"><liferay-ui:message key="01_emp-salary-history"></liferay-ui:message></a></li>
-		<li><a href="#tab-11"><liferay-ui:message key="01_emp-direct-deposits"></liferay-ui:message></a></li>
-		<li><a href="#tab-12"><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
+		<li class="active" ><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-2" ><i class="icon-envelope"></i><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-3" ><i class="icon-phone-sign"></i><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
+		<li><a href="#tab-4"><i class="icon-male"></i><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
+		<li><a href="#tab-5"><i class="icon-fb-radio"></i><liferay-ui:message key="01_emp-immigration"></liferay-ui:message></a></li>
+		<li><a href="#tab-6"><i class="icon-table"></i><liferay-ui:message key="01_emp-report-to"></liferay-ui:message></a></li>
+		<li><a href="#tab-7"><i class="icon-stethoscope"></i><liferay-ui:message key="01_emp-qualifications"></liferay-ui:message></a></li>
+		<li><a href="#tab-8"><i class="icon-group"></i><liferay-ui:message key="01_emp-membership"></liferay-ui:message></a></li>
+		<li><a href="#tab-9" ><i class="icon-briefcase"></i><liferay-ui:message key="01_emp-job-history"></liferay-ui:message></a></li>
+		<li class="active"><a href="#tab-10"><i class="icon-money"></i><liferay-ui:message key="01_emp-salary-history"></liferay-ui:message></a></li>
+		<li><a href="#tab-11"><i class="icon-dollar"></i><liferay-ui:message key="01_emp-direct-deposits"></liferay-ui:message></a></li>
+		<li><a href="#tab-12"><i class="icon-file"></i><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
 		</c:when>
 		<c:when test='<%=jsp.equals("jsp11") %>' >
-		<li><a href="#tab-1" ><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
-		<li><a href="#tab-2"><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
-		<li><a href="#tab-3" ><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
-		<li><a href="#tab-4"><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
-		<li><a href="#tab-5"><liferay-ui:message key="01_emp-immigration"></liferay-ui:message></a></li>
-		<li><a href="#tab-6"><liferay-ui:message key="01_emp-report-to"></liferay-ui:message></a></li>
-		<li><a href="#tab-7"><liferay-ui:message key="01_emp-qualifications"></liferay-ui:message></a></li>
-		<li><a href="#tab-8"><liferay-ui:message key="01_emp-membership"></liferay-ui:message></a></li>
-		<li><a href="#tab-9" ><liferay-ui:message key="01_emp-job-history"></liferay-ui:message></a></li>
-		<li><a href="#tab-10"><liferay-ui:message key="01_emp-salary-history"></liferay-ui:message></a></li>
-		<li class="active"><a href="#tab-11"><liferay-ui:message key="01_emp-direct-deposits"></liferay-ui:message></a></li>
-		<li><a href="#tab-12"><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
+		<li class="active" ><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-2" ><i class="icon-envelope"></i><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-3" ><i class="icon-phone-sign"></i><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
+		<li><a href="#tab-4"><i class="icon-male"></i><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
+		<li><a href="#tab-5"><i class="icon-fb-radio"></i><liferay-ui:message key="01_emp-immigration"></liferay-ui:message></a></li>
+		<li><a href="#tab-6"><i class="icon-table"></i><liferay-ui:message key="01_emp-report-to"></liferay-ui:message></a></li>
+		<li><a href="#tab-7"><i class="icon-stethoscope"></i><liferay-ui:message key="01_emp-qualifications"></liferay-ui:message></a></li>
+		<li><a href="#tab-8"><i class="icon-group"></i><liferay-ui:message key="01_emp-membership"></liferay-ui:message></a></li>
+		<li><a href="#tab-9" ><i class="icon-briefcase"></i><liferay-ui:message key="01_emp-job-history"></liferay-ui:message></a></li>
+		<li><a href="#tab-10"><i class="icon-money"></i><liferay-ui:message key="01_emp-salary-history"></liferay-ui:message></a></li>
+		<li class="active"><a href="#tab-11"><i class="icon-dollar"></i><liferay-ui:message key="01_emp-direct-deposits"></liferay-ui:message></a></li>
+		<li><a href="#tab-12"><i class="icon-file"></i><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
 		</c:when>
 		<c:when test='<%=jsp.equals("jsp12") %>' >
-		<li><a href="#tab-1" ><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
-		<li><a href="#tab-2"><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
-		<li><a href="#tab-3" ><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
-		<li><a href="#tab-4"><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
-		<li><a href="#tab-5"><liferay-ui:message key="01_emp-immigration"></liferay-ui:message></a></li>
-		<li><a href="#tab-6"><liferay-ui:message key="01_emp-report-to"></liferay-ui:message></a></li>
-		<li><a href="#tab-7"><liferay-ui:message key="01_emp-qualifications"></liferay-ui:message></a></li>
-		<li><a href="#tab-8"><liferay-ui:message key="01_emp-membership"></liferay-ui:message></a></li>
-		<li><a href="#tab-9" ><liferay-ui:message key="01_emp-job-history"></liferay-ui:message></a></li>
-		<li><a href="#tab-10"><liferay-ui:message key="01_emp-salary-history"></liferay-ui:message></a></li>
-		<li><a href="#tab-11"><liferay-ui:message key="01_emp-direct-deposits"></liferay-ui:message></a></li>
-		<li class="active"><a href="#tab-12"><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
+		<li><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-2" ><i class="icon-envelope"></i><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-3" ><i class="icon-phone-sign"></i><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
+		<li><a href="#tab-4"><i class="icon-male"></i><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
+		<li><a href="#tab-5"><i class="icon-fb-radio"></i><liferay-ui:message key="01_emp-immigration"></liferay-ui:message></a></li>
+		<li><a href="#tab-6"><i class="icon-table"></i><liferay-ui:message key="01_emp-report-to"></liferay-ui:message></a></li>
+		<li><a href="#tab-7"><i class="icon-stethoscope"></i><liferay-ui:message key="01_emp-qualifications"></liferay-ui:message></a></li>
+		<li><a href="#tab-8"><i class="icon-group"></i><liferay-ui:message key="01_emp-membership"></liferay-ui:message></a></li>
+		<li><a href="#tab-9" ><i class="icon-briefcase"></i><liferay-ui:message key="01_emp-job-history"></liferay-ui:message></a></li>
+		<li><a href="#tab-10"><i class="icon-money"></i><liferay-ui:message key="01_emp-salary-history"></liferay-ui:message></a></li>
+		<li><a href="#tab-11"><i class="icon-dollar"></i><liferay-ui:message key="01_emp-direct-deposits"></liferay-ui:message></a></li>
+		<li class="active"><a href="#tab-12"><i class="icon-file"></i><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
 		</c:when>
 		</c:choose>
 		</ul>

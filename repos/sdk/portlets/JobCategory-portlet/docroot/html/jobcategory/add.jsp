@@ -10,17 +10,6 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/jobcategory/add.jsp" />
 </portlet:renderURL>
-<style type="text/css">
-.table-first-header {
-	width: 10%;
-}
-.table-last-header {
-	width: 15%;
-}
-em{
- color: red;
-}
-</style>
 <aui:script>
 AUI().use(
   'aui-node',
@@ -117,26 +106,28 @@ AUI().use(
 <liferay-ui:message key="JobcategoryName already Exits"/>
 <%} 
 %>
-<br/><br/>
-	<div  id="addJobcategoryForm">
-	<aui:form name="myForm" action="<%=savejobcategory.toString()%>">
-		<aui:input name="jobcategoryId" type="hidden" id="jobcategoryId" />
-		<div class="span12">
-			<div class="span2">
-				<label>Job Category<em>*</em></label>
+
+		<div class="row-fluid">
+		<div id="jobadddelete" class="span12 text-right">
+			<a href="#" class="btn btn-primary" id="add"><i class="icon-plus"></i></a>
+			<a href="#" class="btn btn-danger" id="delete"><i class="icon-trash"></i></a>
 		</div>
-		<div class="span3">		
-		 <aui:input name="jobcategory" label="" id="jobcategory" type="text"/>
+		<div  id="addJobcategoryForm">
+		<aui:form name="myForm" action="<%=savejobcategory.toString()%>">
+			<aui:input name="jobcategoryId" type="hidden" id="jobcategoryId" />
+			<div class="form-inline">
+				<label>Job Category</label>
+				<input name="<portlet:namespace/>jobcategory" type="text" required = "required">
+				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
+				<button  type="reset" id ="cancel" class="btn btn-danger"><i class="icon-remove"></i></button>
 			</div>
+		</aui:form>
 		</div>
-		
-		<aui:button type="submit" value="Submit" />
-		<aui:button  type="reset" value="Reset" id ="cancel"/>
-		<input type="button" value="Delete" class="btn" id="delete">
-	</aui:form>
 	</div>
+
+
 	
-	 <div><em>*</em> Required Field</div>
+	 
 	
 </body>
 

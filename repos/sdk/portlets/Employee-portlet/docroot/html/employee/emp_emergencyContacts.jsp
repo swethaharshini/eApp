@@ -99,25 +99,16 @@ long fileEntryId=(Long)empId.get("fileId");
 	<div class="panel-body">
 		<aui:form name="addEmergencyContact" id="addEmergencyContact"
 			 method="post" action="<%=updateContactDetails %>">
+			 <div class="form-horizontal">
 			 <aui:input name="emgEmpId" value="<%=employeeId %>" type="hidden"></aui:input>
 			 <aui:input name="conFileId" value="<%=fileEntryId %>" type="hidden"></aui:input>
-			<div class="row-fluid">
-				<div class="span10">
 					<aui:input name="emg_name" label="01_name" inlineLabel="left" showRequiredLabel="false">
 					<aui:validator name="required"></aui:validator>
 					</aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span10">
 					<aui:input name="emg_relationship" label="01_relationship"
 						inlineLabel="left" showRequiredLabel="false">
 						<aui:validator name="required"></aui:validator>
 						</aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span10">
 					<aui:input name="emg_hm_telephone" label="01_home-tele"
 						inlineLabel="left">
 							<aui:validator name="custom" errorMessage="Please enter a valid telephone number">
@@ -136,10 +127,6 @@ long fileEntryId=(Long)empId.get("fileId");
 						}
 						</aui:validator>
 					</aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span10">
 					<aui:input name="emg_mobile" label="01_mobile" inlineLabel="left">
 						<aui:validator name="custom" errorMessage="Please enter a valid mobile number">
 						function(val,fieldNode,ruleValue)
@@ -157,10 +144,6 @@ long fileEntryId=(Long)empId.get("fileId");
 						}
 						</aui:validator>
 					</aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span10">
 					<aui:input name="emg_work_telephone" label="01_work-tele"
 						inlineLabel="left" >
 							<aui:validator name="custom" errorMessage="Please enter a valid telephone number">
@@ -179,12 +162,15 @@ long fileEntryId=(Long)empId.get("fileId");
 						}
 						</aui:validator>
 						</aui:input>
-				</div>
+						<div class="control-group">
+							<div class="controls">
+								<aui:button type="submit" cssClass="button btn-primary" value="save"
+									id="submitEmgDetails"></aui:button>
+								<aui:button type="reset" id="cancelEmgContacts" name="cancelEmgContacts"
+								value="Cancel" cssClass="button btn-danger"></aui:button>
+							</div>
+						</div>
 			</div>
-			<aui:button type="submit" cssClass="button btn-primary" value="save"
-				id="submitEmgDetails"></aui:button>
-			<aui:button type="reset" id="cancelEmgContacts" name="cancelEmgContacts"
-			value="Cancel" cssClass="button btn-danger"></aui:button>
 		</aui:form>
 	</div>
 </div>
@@ -193,10 +179,12 @@ long fileEntryId=(Long)empId.get("fileId");
 		<h3>Assigned Emergency Contacts</h3>
 	</div>
 	<div class="panel-body">
+	<div class="control-group">
 		<aui:button id="emgContactAdd" name="emgContactAdd" value="Add" 
 		cssClass="button btn-primary"></aui:button>
 		<aui:button id="emgContactDelete" value="Delete"
 			name="emgContactDelete" cssClass="button btn-danger"></aui:button>
+	</div>
 		<liferay-ui:search-container delta="5"
 			emptyResultsMessage="No records are available for Emergency Contaccts"
 			deltaConfigurable="true" rowChecker="<%= new RowChecker(renderResponse) %>">

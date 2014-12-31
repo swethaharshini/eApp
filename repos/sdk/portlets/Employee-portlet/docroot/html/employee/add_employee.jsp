@@ -27,97 +27,49 @@ A.ready(function()
 	<div class="panel-body">
 		<aui:form name="addEmployeeForm" id="addEmployeeForm"
 			action="<%=saveEmpDetails%>" method="post" enctype="multipart/form-data">
-			<div class="container-fluid">
+			<div class="form-horizontal add-employee">
 				<aui:input name="employeeId" type="hidden" />
-				<div class="row-fluid">
-					<div class="span6">
-						<aui:input name="firstName" type="text" showRequiredLabel="false"
-							inlineLabel="left" label="01_firstName">
-							<aui:validator name="required"></aui:validator>
-						</aui:input>
-					</div>
-				</div>
-				<div class="row-fluid">
-					<div class="span6">
-						<aui:input name="middleName" type="text" label="01_middleName">
-						</aui:input>
-					</div>
-				</div>
-				<div class="row-fluid">
-					<div class="span6">
-						<aui:input name="lastName" type="text" showRequiredLabel="false"
-							inlineLabel="left" label="01_lastName">
-							<aui:validator name="required"></aui:validator>
-						</aui:input>
-					</div>
-				</div>
-				<div class="row-fluid">
-					<div class="span6">
-						<aui:input name="employee_no" label="01_emp-no"
-							inlineLabel="left">
-						</aui:input>
-					</div>
-				</div>
-				<div class="row-fluid">
-					<div class="span6">
-						<aui:input id="emp_photograph" name="emp_photograph" label="01_image" type="file"
-							inlineLabel="left">
-							<aui:validator name="acceptFiles">'jpeg,jpg,png,git,img'</aui:validator>
-							</aui:input>
-					</div>
-				</div>
-				<div class="row-fluid">
-					<div class="span1">
-						<aui:input name="createLoginDetails" id="createLoginDetails"
-							label="" type="checkbox" 
-							/>
-					</div>
-					<div class="span1"></div>
-					<div class="span10">
-						<label><b><liferay-ui:message key="01_create-emp-login-details"/></b></label>
-					</div>
+				<aui:input name="firstName" type="text" showRequiredLabel="false" label="01_firstName">
+				<aui:validator name="required"></aui:validator>
+				</aui:input>
+				<aui:input name="middleName" type="text" label="01_middleName">
+				</aui:input>
+				<aui:input name="lastName" type="text" showRequiredLabel="false" label="01_lastName">
+				<aui:validator name="required"></aui:validator>
+				</aui:input>
+				<aui:input name="employee_no" label="01_emp-no"></aui:input>
+				<aui:input id="emp_photograph" name="emp_photograph" label="01_image" type="file"></aui:input>
+				<div class="login-details">
+				<aui:input name="createLoginDetails" id="createLoginDetails" label="" type="checkbox" />
+				<label><b><liferay-ui:message key="01_create-emp-login-details"/></b></label>
 				</div>
 				<div id="createLoginDetailsDiv">
-					<div class="row-fluid">
-						<div class="span6">
-							<aui:input name="user_name" label="01_assigned-user-name"></aui:input>
-						</div>
-					</div>
-					<div class="row-fluid">
-						<div class="span6">
-							<aui:input name="password" label="01_password" type="password"></aui:input>
-						</div>
-					</div>
-					<div class="row-fluid">
-						<div class="span6">
-							<aui:input name="confirm_password" label="01_confirm-password"
-							 type="password">
-							 <aui:validator name="equalTo">'#<portlet:namespace />password'</aui:validator>
-							 </aui:input>
-						</div>
+					<aui:input name="user_name" label="01_assigned-user-name"></aui:input>
+					<aui:input name="password" label="01_password" type="password"></aui:input>
+					<aui:input name="confirm_password" label="01_confirm-password"
+					 type="password"></aui:input>
+				</div>
+				<aui:select name="location" label="01_location" inlineLabel="left">
+				<aui:option value="-1">--Select--</aui:option>
+					<%
+						List l = LocationLocalServiceUtil.getLocations(-1, -1);
+								Iterator locations = l.iterator();
+								while (locations.hasNext()) {
+									Location locations2 = (Location) locations.next();
+					%>
+					<aui:option value="<%=locations2.getLocationId()%>"><%=locations2.getName()%></aui:option>
+					<%
+						}
+					%>
+				</aui:select>
+				 <div class="control-group">
+					<div class="controls">
+						<aui:button type="submit" value="Submit"
+							cssClass="button btn-primary" id="submitEmployee" />
+						<aui:button type="reset" value="Cancel" id="cancel"
+							cssClass="button btn-danger" />
 					</div>
 				</div>
-				<div class="row-fluid">
-					<div class="span6">
-						<aui:select name="location" label="01_location" inlineLabel="left">
-						<aui:option value="-1">--Select--</aui:option>
-							<%
-								List l = LocationLocalServiceUtil.getLocations(-1, -1);
-										Iterator locations = l.iterator();
-										while (locations.hasNext()) {
-											Location locations2 = (Location) locations.next();
-							%>
-							<aui:option value="<%=locations2.getLocationId()%>"><%=locations2.getName()%></aui:option>
-							<%
-								}
-							%>
-						</aui:select>
-					</div>
-				</div>
-				<aui:button type="submit" value="Submit"
-					cssClass="button btn-primary" id="submitEmployee" />
-				<aui:button type="reset" value="Cancel" id="cancel"
-					cssClass="button btn-danger" />
 			</div>
 		</aui:form>
 	</div>

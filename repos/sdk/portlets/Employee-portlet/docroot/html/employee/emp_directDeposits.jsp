@@ -16,41 +16,22 @@
 			<h3>Salary Summary</h3>
 		</div>
 		<div class="panel-body">
-			<div class="row-fluid">
-				<div class="span10">
-					<aui:input name="deposit_amount" label="01_amount"></aui:input>
+			<div class="form-horizontal">
+				<aui:input name="deposit_amount" label="01_amount"></aui:input>
+				<aui:input name="deposit_acnt_number" label="01_acnt-number"></aui:input>
+				<aui:input name="fin_institute" label="01_name-financial-institute"></aui:input>
+				<aui:select name="acnt_type" label="01_acnt-type">
+				<aui:option value="check" label="01_check"></aui:option>
+				<aui:option value="saving" label="01_saving"></aui:option>
+				</aui:select>
+				<aui:input name="branch_location" label="01_branch-location"></aui:input>
+				<aui:input name="routing_number" label="01_routing-number"></aui:input>
+				<div class="control-group">
+					<div class="controls">
+						<aui:button type="submit" value="Save" id="submitDirectDeposits"></aui:button>
+					</div>
 				</div>
 			</div>
-			<div class="row-fluid">
-				<div class="span10">
-					<aui:input name="deposit_acnt_number" label="01_acnt-number"></aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span10">
-					<aui:input name="fin_institute"
-						label="01_name-financial-institute"></aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span10">
-					<aui:select name="acnt_type" label="01_acnt-type">
-					<aui:option value="check" label="01_check"></aui:option>
-					<aui:option value="saving" label="01_saving"></aui:option>
-					</aui:select>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span10">
-					<aui:input name="branch_location" label="01_branch-location"></aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span10">
-					<aui:input name="routing_number" label="01_routing-number"></aui:input>
-				</div>
-			</div>
-			<aui:button type="submit" value="Save" id="submitDirectDeposits"></aui:button>
 		</div>
 	</div>
 </aui:form>
