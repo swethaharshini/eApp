@@ -119,155 +119,125 @@ public String getCategoryValue(long jcId)
 	<div class="panel-body">
 		<aui:form name="jobHistoryDetails" id="jobHistoryDetails"
 			method="post" action="<%=updateEmpJobHistory %>">
-			<aui:input name="empJId" value="<%=employeeId %>" type="hidden"></aui:input>
-			<aui:input name="jobFileId" value="<%=fileEntryId%>" type="hidden"></aui:input>
-			<div class="row-fluid">
-				<div class="span6">
-					<aui:input name="joined_date" id="joined_date" label="01_joined-date"
-						cssClass="dateEmployee" inlineLabel="left" type="date"></aui:input>
-				</div>
-				<div class="span6">
-					<aui:input name="probation_date" label="01_probation-date"
-						cssClass="dateEmployee" inlineLabel="left" ></aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span6">
-					<aui:input name="date_permanency" label="01_date-of-permanency"
-						cssClass="dateEmployee" inlineLabel="left" ></aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span6">
-					<aui:select name="emp_job_title" label="01_jobtitle">
-						<%
-							List<JobTitle> jobTitle = JobTitleLocalServiceUtil
-											.getJobTitles(-1, -1);
-									{
-										Iterator<JobTitle> jobTitles = jobTitle.iterator();
-										while (jobTitles.hasNext()) {
-											JobTitle empjobTitle = jobTitles.next();
-						%>
-						<aui:option value="<%=empjobTitle.getJobTitleId()%>"
-							label="<%=empjobTitle.getTitle()%>"></aui:option>
-						<%
-							}
-									}
-						%>
-					</aui:select>
-				</div>
-				<div class="span6">
-					<aui:select name="emp_status" label="01_emp-status">
-						<%
-							List<EmploymentStatus> empStatus = EmploymentStatusLocalServiceUtil
-											.getEmploymentStatuses(-1, -1);
-									{
-										Iterator<EmploymentStatus> empStatuses = empStatus
-												.iterator();
-										while (empStatuses.hasNext()) {
-											EmploymentStatus empStatus9 = empStatuses.next();
-						%>
-						<aui:option value="<%=empStatus9.getEmploymentStatusId()%>"
-							label="<%=empStatus9.getEmploymentstatus()%>"></aui:option>
-						<%
-							}
-									}
-						%>
-					</aui:select>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span6">
-					<aui:select name="emp_job_category" label="01_job-category">
-						<%
-							List<JobCategory> jobCategories = JobCategoryLocalServiceUtil
-											.getJobCategories(-1, -1);
-									{
-										Iterator<JobCategory> jobCategory = jobCategories
-												.iterator();
-										while (jobCategory.hasNext()) {
-											JobCategory jobCategory9 = jobCategory.next();
-						%>
-						<aui:option value="<%=jobCategory9.getJobCategoryId()%>"
-							label="<%=jobCategory9.getJobcategory()%>"></aui:option>
-						<%
-							}
-									}
-						%>
-					</aui:select>
-				</div>
-				<div class="span6">
-					<aui:select name="emp_sub_unit" label="01_sub-unit">
-						<%
-							List<SubUnit> subUnit = SubUnitLocalServiceUtil
-											.getSubUnits(-1, -1);
-									{
-										Iterator<SubUnit> subUnits = subUnit.iterator();
-										while (subUnits.hasNext()) {
-											SubUnit subUnit9 = subUnits.next();
-						%>
-						<aui:option value="<%=subUnit9.getSubUnitId()%>"
-							label="<%=subUnit9.getName()%>"></aui:option>
-						<%
-							}
-									}
-						%>
-					</aui:select>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span6">
-					<aui:select name="emp_location" label="01_location">
-						<%
-							List<Location> location = LocationLocalServiceUtil
-											.getLocations(-1, -1);
-									{
-										Iterator<Location> locations = location.iterator();
-										while (locations.hasNext()) {
-											Location location9 = locations.next();
-						%>
-						<aui:option value="<%=location9.getLocationId()%>"
-							label="<%=location9.getName()%>"></aui:option>
-						<%
-							}
-									}
-						%>
-					</aui:select>
-				</div>
-				<div class="span6">
-					<aui:input name="effective_date" label="01_effective-date"
-						cssClass="dateEmployee"></aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span6">
-					<aui:select name="emp_workshift" label="01_work-shift">
-						<%
-							List<Workshift> workShift = WorkshiftLocalServiceUtil
-											.getWorkshifts(-1, -1);
-									{
-										Iterator<Workshift> workShifts = workShift.iterator();
-										while (workShifts.hasNext()) {
-											Workshift workShift9 = workShifts.next();
-						%>
-						<aui:option value="<%=workShift9.getShiftId()%>"
-							label="<%=workShift9.getWorkshiftName()%>"></aui:option>
-						<%
-							}
-									}
-						%>
-					</aui:select>
+			<div class="form-horizontal">
+				<aui:input name="empJId" value="<%=employeeId %>" type="hidden"></aui:input>
+				<aui:input name="jobFileId" value="<%=fileEntryId%>" type="hidden"></aui:input>
+				<aui:input name="joined_date" id="joined_date" label="01_joined-date"
+					cssClass="dateEmployee" inlineLabel="left" type="date"></aui:input>
+				<aui:input name="probation_date" label="01_probation-date"
+					cssClass="dateEmployee" inlineLabel="left" ></aui:input>
+				<aui:input name="date_permanency" label="01_date-of-permanency"
+					cssClass="dateEmployee" inlineLabel="left" ></aui:input>
+				<aui:select name="emp_job_title" label="01_jobtitle">
+				<%
+				List<JobTitle> jobTitle = JobTitleLocalServiceUtil
+								.getJobTitles(-1, -1);
+						{
+							Iterator<JobTitle> jobTitles = jobTitle.iterator();
+							while (jobTitles.hasNext()) {
+								JobTitle empjobTitle = jobTitles.next();
+				%>
+				<aui:option value="<%=empjobTitle.getJobTitleId()%>"
+				label="<%=empjobTitle.getTitle()%>"></aui:option>
+				<%
+				}
+						}
+				%>
+				</aui:select>
+				<aui:select name="emp_status" label="01_emp-status">
+				<%
+				List<EmploymentStatus> empStatus = EmploymentStatusLocalServiceUtil
+								.getEmploymentStatuses(-1, -1);
+						{
+							Iterator<EmploymentStatus> empStatuses = empStatus
+									.iterator();
+							while (empStatuses.hasNext()) {
+								EmploymentStatus empStatus9 = empStatuses.next();
+				%>
+				<aui:option value="<%=empStatus9.getEmploymentStatusId()%>"
+				label="<%=empStatus9.getEmploymentstatus()%>"></aui:option>
+				<%
+				}
+						}
+				%>
+				</aui:select>
+				<aui:select name="emp_job_category" label="01_job-category">
+				<%
+				List<JobCategory> jobCategories = JobCategoryLocalServiceUtil
+								.getJobCategories(-1, -1);
+						{
+							Iterator<JobCategory> jobCategory = jobCategories
+									.iterator();
+							while (jobCategory.hasNext()) {
+								JobCategory jobCategory9 = jobCategory.next();
+				%>
+				<aui:option value="<%=jobCategory9.getJobCategoryId()%>"
+				label="<%=jobCategory9.getJobcategory()%>"></aui:option>
+				<%
+				}
+						}
+				%>
+				</aui:select>
+				<aui:select name="emp_sub_unit" label="01_sub-unit">
+				<%
+				List<SubUnit> subUnit = SubUnitLocalServiceUtil
+								.getSubUnits(-1, -1);
+						{
+							Iterator<SubUnit> subUnits = subUnit.iterator();
+							while (subUnits.hasNext()) {
+								SubUnit subUnit9 = subUnits.next();
+				%>
+				<aui:option value="<%=subUnit9.getSubUnitId()%>"
+				label="<%=subUnit9.getName()%>"></aui:option>
+				<%
+				}
+						}
+				%>
+				</aui:select>
+				<aui:select name="emp_location" label="01_location">
+				<%
+				List<Location> location = LocationLocalServiceUtil
+								.getLocations(-1, -1);
+						{
+							Iterator<Location> locations = location.iterator();
+							while (locations.hasNext()) {
+								Location location9 = locations.next();
+				%>
+				<aui:option value="<%=location9.getLocationId()%>"
+				label="<%=location9.getName()%>"></aui:option>
+				<%
+				}
+						}
+				%>
+				</aui:select>
+				<aui:input name="effective_date" label="01_effective-date"
+					cssClass="dateEmployee"></aui:input>
+				<aui:select name="emp_workshift" label="01_work-shift">
+				<%
+				List<Workshift> workShift = WorkshiftLocalServiceUtil
+								.getWorkshifts(-1, -1);
+						{
+							Iterator<Workshift> workShifts = workShift.iterator();
+							while (workShifts.hasNext()) {
+								Workshift workShift9 = workShifts.next();
+				%>
+				<aui:option value="<%=workShift9.getShiftId()%>"
+				label="<%=workShift9.getWorkshiftName()%>"></aui:option>
+				<%
+				}
+						}
+				%>
+				</aui:select>
+				<aui:input name="job_comments" label="01_comments" type="textarea"></aui:input>
+				<div class="control-group">
+					<div class="controls">				
+					<aui:button type="submit" id="submitJobHistory"
+						cssClass="button btn-success"></aui:button>
+					<aui:button id="terminateEmployment" value="01_terminate-employment"
+						cssClass="button btn-danger"></aui:button>
+					</div>
 				</div>
 			</div>
-			<div class="row-fluid">
-				<div class="span6">
-					<aui:input name="job_comments" label="01_comments" type="textarea"></aui:input>
-				</div>
-			</div>
-			<aui:button type="submit" id="submitJobHistory"
-				cssClass="button btn-success"></aui:button>
-			<aui:button id="terminateEmployment" value="01_terminate-employment"
-				cssClass="button btn-danger"></aui:button>
 		</aui:form>
 	</div>
 </div>
@@ -276,8 +246,10 @@ public String getCategoryValue(long jcId)
 		<h3>Job History</h3>
 	</div>
 	<div class="panel-body">
+		<div class="control-group">
 		<aui:button name="deleteJobHistory" id="deleteJobHistory"
 			cssClass="button btn-danger" value="Delete"></aui:button>
+		</div>
 		<liferay-ui:search-container delta="5"
 			emptyResultsMessage="No records are available for EmpJob"
 			deltaConfigurable="true"

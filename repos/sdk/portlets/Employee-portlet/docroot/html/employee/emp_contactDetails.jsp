@@ -86,49 +86,24 @@ Map empId = (Map) request.getSession(false).getAttribute(
 		<aui:form name="empContactDetailsEdit" id="empContactDetailsEdit"
 			method="post" action="<%=addOrUpdateEmpContactDetails %>">
 			<aui:input name="conEmpId" type="hidden" value="<%=employeeId%>"></aui:input>
+			<div class="form-horizontal">
 			<aui:input name="conDetailsId" type="hidden"
 				value="<%=contactDetailsId %>"></aui:input>
 				<aui:input name="conFileId" type="hidden"
 				value="<%=fileEntryId %>"></aui:input>
-			<div class="row-fluid">
-				<div class="span10">
 					<aui:input name="address_street1" label="01_address-street1"
 						inlineLabel="left" value="<%=adressStreet1%>"></aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span10">
 					<aui:input name="address_street2" label="01_address-street2"
 						inlineLabel="left" value="<%=addressStreet2%>"></aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span10">
 					<aui:input name="city" label="01_city" inlineLabel="left"
 						value="<%=city%>"></aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span10">
 					<aui:input name="state" label="01_state" inlineLabel="left"
 						value="<%=state%>"></aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span10">
 					<aui:input name="zip" label="01_postal-code" value="<%=zip%>"
 						inlineLabel="left"></aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span10">
 					<aui:input name="country" label="01_country" inlineLabel="left"
 						value="<%=country%>">
 					</aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span10">
 					<aui:input name="home_telephone" label="01_home-tele"
 						inlineLabel="left" value="<%=homeTel%>" >
 						<aui:validator name="custom" errorMessage="Please enter a valid telephone number">
@@ -147,10 +122,6 @@ Map empId = (Map) request.getSession(false).getAttribute(
 						}
 						</aui:validator>
 						</aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span10">
 					<aui:input name="work_telephone" label="01_work-tele"
 						inlineLabel="left" value="<%=workTel%>">
 							<aui:validator name="custom" errorMessage="Please enter a valid telephone number">
@@ -169,10 +140,6 @@ Map empId = (Map) request.getSession(false).getAttribute(
 						}
 						</aui:validator>
 						</aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span10">
 					<aui:input name="mobile" label="01_mobile" inlineLabel="left"
 						value="<%=mobile%>" placeholder="Enter your 10 digit mobile number">
 							<aui:validator name="custom" errorMessage="Please enter a valid mobile number">
@@ -191,26 +158,22 @@ Map empId = (Map) request.getSession(false).getAttribute(
 						}
 						</aui:validator>
 						</aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span10">
 					<aui:input name="work_email" label="01_work-mail" inlineLabel="left"
 						value="<%=workEmail%>">
 						<aui:validator name="email"></aui:validator></aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span10">
+
 					<aui:input name="other_email" label="01_other-mail"
 						inlineLabel="left" value="<%=otherEmail%>">
 						<aui:validator name="email"></aui:validator></aui:input>
-				</div>
-			</div>
-			<aui:button name="editContactDetails" id="editContactDetails"
-				value="Edit" cssClass="button btn-success" />
-			<aui:button type="submit" id="saveContactDetails"
-				name="saveContactDetails" value="Save"  cssClass="button btn-primary"/>
+							<div class="control-group">
+									<div class="controls">
+									<aui:button name="editContactDetails" id="editContactDetails"
+										value="Edit" cssClass="button btn-success" />
+									<aui:button type="submit" id="saveContactDetails"
+										name="saveContactDetails" value="Save"  cssClass="button btn-primary"/>
+							</div>
+						</div>
+		</div>
 		</aui:form>
 	</div>
 </div>

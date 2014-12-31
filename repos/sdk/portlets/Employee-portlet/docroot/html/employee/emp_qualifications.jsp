@@ -317,47 +317,33 @@ A.ready(function()
 	<div class="panel-body">
 		<aui:form name="addWorkExperience" id="addWorkExperience"
 			action="<%=addWorkExp%>" method="post">
-			<aui:input name="empWrkExpId" value="<%=employeeId%>" type="hidden"></aui:input>
-			<aui:input name="QualFileId" value="<%=fileEntryId%>" type="hidden"></aui:input>
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:input name="exp_company" label="01_company" inlineLabel="left"
-						showRequiredLabel="false">
-						<aui:validator name="required"></aui:validator>
-					</aui:input>
+			<div class="form-horizontal">
+				<aui:input name="empWrkExpId" value="<%=employeeId%>" type="hidden"></aui:input>
+				<aui:input name="QualFileId" value="<%=fileEntryId%>" type="hidden"></aui:input>
+				<aui:input name="exp_company" label="01_company" inlineLabel="left"
+					showRequiredLabel="false">
+				<aui:validator name="required"></aui:validator>
+				</aui:input>
+				<aui:input name="exp_jobtitle" label="01_jobtitle" inlineLabel="left"
+					showRequiredLabel="false">
+				<aui:validator name="required"></aui:validator>
+				</aui:input>
+				<aui:input name="exp_from_date" label="01_from" inlineLabel="left"
+					cssClass="dateEmployee"></aui:input>
+				<aui:input name="exp_to_date" label="01_to" inlineLabel="left"
+					cssClass="dateEmployee">
+				</aui:input>
+				<aui:input name="exp_comments" type="textarea" label="01_comments"
+					inlineLabel="left"></aui:input>
+				<div class="control-group">
+					<div class="controls">
+						<aui:button type="submit" cssClass="button btn-primary" value="save"
+							id="submitExpDetails"></aui:button>
+						<aui:button type="reset" value="Cancel" cssClass="button btn-danger"
+							id="cancelWorkExp" name="cancelWorkExp"></aui:button>
+					</div>
 				</div>
 			</div>
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:input name="exp_jobtitle" label="01_jobtitle" inlineLabel="left"
-						showRequiredLabel="false">
-						<aui:validator name="required"></aui:validator>
-					</aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:input name="exp_from_date" label="01_from" inlineLabel="left"
-						cssClass="dateEmployee"></aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:input name="exp_to_date" label="01_to" inlineLabel="left"
-						cssClass="dateEmployee">
-					</aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:input name="exp_comments" type="textarea" label="01_comments"
-						inlineLabel="left"></aui:input>
-				</div>
-			</div>
-			<aui:button type="submit" cssClass="button btn-primary" value="save"
-				id="submitExpDetails"></aui:button>
-			<aui:button type="reset" value="Cancel" cssClass="button btn-danger"
-				id="cancelWorkExp" name="cancelWorkExp"></aui:button>
 		</aui:form>
 	</div>
 </div>
@@ -366,10 +352,12 @@ A.ready(function()
 		<h3><liferay-ui:message key="01_work-experience" /></h3>
 	</div>
 	<div class="panel-body">
-		<aui:button id="empWorkExpAdd" name="empWorkExpAdd" value="Add"
-			cssClass="button btn-primary"></aui:button>
-		<aui:button id="empWorkExpDelete" value="Delete"
-			name="empWorkExpDelete" cssClass="button btn-danger"></aui:button>
+		<div class="control-group">
+			<aui:button id="empWorkExpAdd" name="empWorkExpAdd" value="Add"
+				cssClass="button btn-primary"></aui:button>
+			<aui:button id="empWorkExpDelete" value="Delete"
+				name="empWorkExpDelete" cssClass="button btn-danger"></aui:button>
+		</div>
 		<liferay-ui:search-container delta="5"
 			emptyResultsMessage="No records are available for EmpWorkExp"
 			deltaConfigurable="true"
@@ -400,81 +388,58 @@ A.ready(function()
 		<h3><liferay-ui:message key="01_add-education"/></h3>
 	</div>
 	<div class="panel-body">
-		<aui:form name="addEmpEducation" id="addEmpEducation"
-			action="<%=addEducation%>" method="post">
-			<aui:input name="empEduId" value="<%=employeeId%>" type="hidden"></aui:input>
-			<aui:input name="QualFileId" value="<%=fileEntryId%>" type="hidden"></aui:input>
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:select name="edu_level" label="01_level" inlineLabel="left"
-						showRequiredLabel="false">
-						<aui:option value="-1">--Select--</aui:option>
-							<%
-								List<Education> eduList = EducationLocalServiceUtil.getEducations(-1, -1);
-										Iterator eduLevels = eduList.iterator();
-										while (eduLevels.hasNext()) {
-											Education educationLevel = (Education) eduLevels.next();
-							%>
-							<aui:option value="<%=educationLevel.getEducationId()%>">
-							<%=educationLevel.getEduLevel()%></aui:option>
-							<%
-								}
-							%>
-					</aui:select>
+		<aui:form name="addEmpEducation" id="addEmpEducation" action="<%=addEducation%>" method="post">
+			<div class="form-horizontal">
+				<aui:input name="empEduId" value="<%=employeeId%>" type="hidden"></aui:input>
+				<aui:input name="QualFileId" value="<%=fileEntryId%>" type="hidden"></aui:input>
+				<aui:select name="edu_level" label="01_level" inlineLabel="left"
+					showRequiredLabel="false">
+				<aui:option value="-1">--Select--</aui:option>
+				<%
+				List<Education> eduList = EducationLocalServiceUtil.getEducations(-1, -1);
+						Iterator eduLevels = eduList.iterator();
+						while (eduLevels.hasNext()) {
+							Education educationLevel = (Education) eduLevels.next();
+				%>
+				<aui:option value="<%=educationLevel.getEducationId()%>">
+				<%=educationLevel.getEduLevel()%></aui:option>
+				<%
+				}
+				%>
+				</aui:select>
+				<aui:input name="edu_institute" label="01_institute"
+					inlineLabel="left">
+				</aui:input>
+				<aui:input name="edu_major" label="01_specialization"
+					inlineLabel="left"></aui:input>
+				<aui:input name="edu_year" label="01_year" inlineLabel="left">
+				</aui:input>
+				<aui:input name="edu_score" label="01_score" inlineLabel="left"></aui:input>
+				<aui:input name="edu_from_date" label="01_from" inlineLabel="left"
+					cssClass="dateEmployee"></aui:input>
+				<aui:input name="edu_to_date" label="01_to" inlineLabel="left"
+					cssClass="dateEmployee"></aui:input>
+				<div class="control-group">
+					<div class="controls">
+						<aui:button type="submit" cssClass="button btn-primary" value="save"
+							id="submitEduDetails"></aui:button>
+						<aui:button type="reset" value="Cancel" cssClass="button btn-danger"
+							id="cancelEducation" name="cancelEducation"></aui:button>
+					</div>
 				</div>
 			</div>
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:input name="edu_institute" label="01_institute"
-						inlineLabel="left">
-					</aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:input name="edu_major" label="01_specialization"
-						inlineLabel="left"></aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:input name="edu_year" label="01_year" inlineLabel="left">
-					</aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:input name="edu_score" label="01_score" inlineLabel="left"></aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:input name="edu_from_date" label="01_from" inlineLabel="left"
-						cssClass="dateEmployee"></aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:input name="edu_to_date" label="01_to" inlineLabel="left"
-						cssClass="dateEmployee"></aui:input>
-				</div>
-			</div>
-			<aui:button type="submit" cssClass="button btn-primary" value="save"
-				id="submitEduDetails"></aui:button>
-			<aui:button type="reset" value="Cancel" cssClass="button btn-danger"
-				id="cancelEducation" name="cancelEducation"></aui:button>
 		</aui:form>
-	</div>
+</div>
 </div>
 <div id="empEducationAddDelete" class="panel">
 	<div class="panel-heading">
 		<h3><liferay-ui:message key="01_education" /></h3>
 	</div>
 	<div class="panel-body">
-		<aui:button id="empEducationAdd" name="empEducationAdd" value="Add"
-			cssClass="button btn-primary"></aui:button>
-		<aui:button id="empEducationDelete" value="Delete"
-			name="empEducationDelete" cssClass="button btn-danger"></aui:button>
+		<div class="control-group">
+			<aui:button id="empEducationAdd" name="empEducationAdd" value="Add" cssClass="button btn-primary"></aui:button>
+			<aui:button id="empEducationDelete" value="Delete" name="empEducationDelete" cssClass="button btn-danger"></aui:button>
+		</div>
 		<liferay-ui:search-container delta="5"
 			emptyResultsMessage="No records are available for EmpEducation"
 			deltaConfigurable="true"
@@ -507,44 +472,38 @@ A.ready(function()
 	<div class="panel-body">
 		<aui:form name="addEmpSkill" id="addEmpSkill" action="<%=addSkills%>"
 			method="post">
-			<aui:input name="empSkillId" value="<%=employeeId%>" type="hidden"></aui:input>
-			<aui:input name="QualFileId" value="<%=fileEntryId%>" type="hidden"></aui:input>
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:select name="emp_skill" label="01_level" inlineLabel="left"
-						showRequiredLabel="false">
-						<%
-							List<Skill> skillList = SkillLocalServiceUtil.getSkills(-1,
-											-1);
-									Iterator skillList2 = skillList.iterator();
-									while (skillList2.hasNext()) {
-										Skill skill = (Skill) skillList2.next();
-						%>
-						<aui:option value="<%=skill.getSkillId()%>"
-							><%=skill.getSkillName()%></aui:option>
-						<%
-							}
-						%>
-					</aui:select>
+			<div class="form-horizontal">
+				<aui:input name="empSkillId" value="<%=employeeId%>" type="hidden"></aui:input>
+				<aui:input name="QualFileId" value="<%=fileEntryId%>" type="hidden"></aui:input>
+				<aui:select name="emp_skill" label="01_level" inlineLabel="left"
+					showRequiredLabel="false">
+				<%
+				List<Skill> skillList = SkillLocalServiceUtil.getSkills(-1,
+								-1);
+						Iterator skillList2 = skillList.iterator();
+						while (skillList2.hasNext()) {
+							Skill skill = (Skill) skillList2.next();
+				%>
+				<aui:option value="<%=skill.getSkillId()%>"
+				><%=skill.getSkillName()%></aui:option>
+				<%
+				}
+				%>
+				</aui:select>
+				<aui:input name="skill_exp" label="01_years-of-exp"
+					inlineLabel="left">
+				</aui:input>
+				<aui:input type="textarea" name="skill_comments" label="01_comments"
+					inlineLabel="left"></aui:input>
+				<div class="control-group">
+					<div class="controls">
+						<aui:button type="submit" cssClass="button btn-primary" value="save"
+							id="submitEmpSkills"></aui:button>
+						<aui:button type="reset" value="Cancel" cssClass="button btn-danger"
+							id="cancelSkill" name="cancelSkill"></aui:button>
+					</div>
 				</div>
 			</div>
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:input name="skill_exp" label="01_years-of-exp"
-						inlineLabel="left">
-					</aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:input type="textarea" name="skill_comments" label="01_comments"
-						inlineLabel="left"></aui:input>
-				</div>
-			</div>
-			<aui:button type="submit" cssClass="button btn-primary" value="save"
-				id="submitEmpSkills"></aui:button>
-			<aui:button type="reset" value="Cancel" cssClass="button btn-danger"
-				id="cancelSkill" name="cancelSkill"></aui:button>
 		</aui:form>
 	</div>
 </div>
@@ -553,10 +512,12 @@ A.ready(function()
 		<h3>Skills</h3>
 	</div>
 	<div class="panel-body">
+		<div class="control-group">
 		<aui:button id="empSkillsAdd" name="empSkillsAdd" value="Add"
 			cssClass="button btn-primary"></aui:button>
 		<aui:button id="empSkillsDelete" value="Delete" name="empSkillsDelete"
 			cssClass="button btn-danger"></aui:button>
+		</div>
 		<liferay-ui:search-container delta="5"
 			emptyResultsMessage="No records are available for EmpSkill"
 			deltaConfigurable="true"
@@ -588,52 +549,46 @@ A.ready(function()
 	<div class="panel-body">
 		<aui:form name="addEmpLan" id="addEmpLan" action="<%=addLanguage%>"
 			method="post">
-			<aui:input name="empLanId" value="<%=employeeId%>" type="hidden"></aui:input>
-			<aui:input name="QualFileId" value="<%=fileEntryId%>" type="hidden"></aui:input>
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:select name="emp_language" label="01_language" inlineLabel="left"
-						showRequiredLabel="false">
-						<%
-							List<Language> languageList = LanguageLocalServiceUtil
-											.getLanguages(-1, -1);
-									Iterator languageList2 = languageList.iterator();
-									while (languageList2.hasNext()) {
-										Language language = (Language) languageList2.next();
-						%>
-						<aui:option value="<%=language.getLanguageId()%>"
-							><%=language.getLanguageName()%></aui:option>
-						<%
-							}
-						%>
-					</aui:select>
+			<div class="form-horizontal">
+				<aui:input name="empLanId" value="<%=employeeId%>" type="hidden"></aui:input>
+				<aui:input name="QualFileId" value="<%=fileEntryId%>" type="hidden"></aui:input>
+				<aui:select name="emp_language" label="01_language" inlineLabel="left"
+					showRequiredLabel="false">
+				<%
+				List<Language> languageList = LanguageLocalServiceUtil
+								.getLanguages(-1, -1);
+						Iterator languageList2 = languageList.iterator();
+						while (languageList2.hasNext()) {
+							Language language = (Language) languageList2.next();
+				%>
+				<aui:option value="<%=language.getLanguageId()%>"
+				><%=language.getLanguageName()%></aui:option>
+				<%
+				}
+				%>
+				</aui:select>
+				<aui:select name="lan_skill" label="01_skill" inlineLabel="left"
+					showRequiredLabel="false">
+				<aui:option>Writing</aui:option>
+				<aui:option>Reading</aui:option>
+				<aui:option>Speaking</aui:option>
+				</aui:select>
+				<aui:select name="lan_fluency" label="01_fluency-level"
+					inlineLabel="left" showRequiredLabel="false">
+				<aui:option>Poor</aui:option>
+				<aui:option>Basic</aui:option>
+				<aui:option>Good</aui:option>
+				<aui:option>Mother Toungue</aui:option>
+				</aui:select>
+				<div class="control-group">
+					<div class="controls">
+						<aui:button type="submit" cssClass="button btn-primary" value="save"
+						id="submitLanguage"></aui:button>
+						<aui:button type="reset" value="Cancel" cssClass="button btn-danger"
+							id="cancelLanguage" name="cancelLanguage"></aui:button>
+					</div>
 				</div>
 			</div>
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:select name="lan_skill" label="01_skill" inlineLabel="left"
-						showRequiredLabel="false">
-						<aui:option>Writing</aui:option>
-						<aui:option>Reading</aui:option>
-						<aui:option>Speaking</aui:option>
-					</aui:select>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:select name="lan_fluency" label="01_fluency-level"
-						inlineLabel="left" showRequiredLabel="false">
-						<aui:option>Poor</aui:option>
-						<aui:option>Basic</aui:option>
-						<aui:option>Good</aui:option>
-						<aui:option>Mother Toungue</aui:option>
-					</aui:select>
-				</div>
-			</div>
-			<aui:button type="submit" cssClass="button btn-primary" value="save"
-				id="submitLanguage"></aui:button>
-			<aui:button type="reset" value="Cancel" cssClass="button btn-danger"
-				id="cancelLanguage" name="cancelLanguage"></aui:button>
 		</aui:form>
 	</div>
 </div>
@@ -642,10 +597,12 @@ A.ready(function()
 		<h3>Language</h3>
 	</div>
 	<div class="panel-body">
-		<aui:button id="empLanguageAdd" name="empLanguageAdd" value="Add"
-			cssClass="button btn-primary"></aui:button>
-		<aui:button id="empLanguageDelete" value="Delete"
-			name="empLanguageDelete" cssClass="button btn-danger"></aui:button>
+		<div class="control-group">
+			<aui:button id="empLanguageAdd" name="empLanguageAdd" value="Add"
+				cssClass="button btn-primary"></aui:button>
+			<aui:button id="empLanguageDelete" value="Delete"
+				name="empLanguageDelete" cssClass="button btn-danger"></aui:button>
+		</div>
 		<liferay-ui:search-container delta="5"
 			emptyResultsMessage="No records are available for EmpLanguage"
 			deltaConfigurable="true"
@@ -679,51 +636,41 @@ A.ready(function()
 	<div class="panel-body">
 		<aui:form name="addEmpLicen" id="addEmpLicen" action="<%=addLicense%>"
 			method="post">
-			<aui:input name="empLicId" value="<%=employeeId%>" type="hidden"></aui:input>
-			<aui:input name="QualFileId" value="<%=fileEntryId%>" type="hidden"></aui:input>
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:select name="emp_license_type" label="01_license-type"
-						inlineLabel="left" showRequiredLabel="false">
-						<%
-							List<License> licenseList = LicenseLocalServiceUtil
-											.getLicenses(-1, -1);
-									Iterator licenseList2 = licenseList.iterator();
-									while (licenseList2.hasNext()) {
-										License license = (License) licenseList2.next();
-						%>
-						<aui:option value="<%=license.getLicenseId()%>"
-							><%=license.getLicenseName()%></aui:option>
-						<%
-							}
-						%>
-					</aui:select>
+			<div class="form-horizontal">
+				<aui:input name="empLicId" value="<%=employeeId%>" type="hidden"></aui:input>
+				<aui:input name="QualFileId" value="<%=fileEntryId%>" type="hidden"></aui:input>
+				<aui:select name="emp_license_type" label="01_license-type"
+					inlineLabel="left" showRequiredLabel="false">
+				<%
+				List<License> licenseList = LicenseLocalServiceUtil
+								.getLicenses(-1, -1);
+						Iterator licenseList2 = licenseList.iterator();
+						while (licenseList2.hasNext()) {
+							License license = (License) licenseList2.next();
+				%>
+				<aui:option value="<%=license.getLicenseId()%>"
+				><%=license.getLicenseName()%></aui:option>
+				<%
+				}
+				%>
+				</aui:select>
+				<aui:input name="emp_license_no" label="01_license-number"
+					inlineLabel="left">
+				</aui:input>
+				<aui:input name="license_issue_date" label="01_license-issue-date"
+					inlineLabel="left" cssClass="dateEmployee"></aui:input>
+				<aui:input name="license_exp_date" label="01_license-expiry-date"
+					inlineLabel="left" cssClass="dateEmployee">
+				</aui:input>
+				<div class="control-group">
+					<div class="controls">
+					<aui:button type="submit" cssClass="button btn-primary" value="save"
+						id="submitLicenseDetails"></aui:button>
+					<aui:button type="reset" value="Cancel" cssClass="button btn-danger"
+						id="cancelLicense" name="cancelLicense"></aui:button>
+					</div>
 				</div>
 			</div>
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:input name="emp_license_no" label="01_license-number"
-						inlineLabel="left">
-					</aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:input name="license_issue_date" label="01_license-issue-date"
-						inlineLabel="left" cssClass="dateEmployee"></aui:input>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:input name="license_exp_date" label="01_license-expiry-date"
-						inlineLabel="left" cssClass="dateEmployee">
-					</aui:input>
-				</div>
-			</div>
-			<aui:button type="submit" cssClass="button btn-primary" value="save"
-				id="submitLicenseDetails"></aui:button>
-			<aui:button type="reset" value="Cancel" cssClass="button btn-danger"
-				id="cancelLicense" name="cancelLicense"></aui:button>
 		</aui:form>
 	</div>
 </div>
@@ -732,10 +679,12 @@ A.ready(function()
 		<h3>License</h3>
 	</div>
 	<div class="panel-body">
-		<aui:button id="empLicenseAdd" name="empLicenseAdd" value="Add"
-			cssClass="button btn-primary"></aui:button>
-		<aui:button id="empLicenseDelete" value="Delete"
-			name="empLicenseDelete" cssClass="button btn-danger"></aui:button>
+		<div class="control-group">
+			<aui:button id="empLicenseAdd" name="empLicenseAdd" value="Add"
+				cssClass="button btn-primary"></aui:button>
+			<aui:button id="empLicenseDelete" value="Delete"
+				name="empLicenseDelete" cssClass="button btn-danger"></aui:button>
+		</div>
 		<liferay-ui:search-container delta="5"
 			emptyResultsMessage="No records are available for EmpLicense"
 			deltaConfigurable="true"

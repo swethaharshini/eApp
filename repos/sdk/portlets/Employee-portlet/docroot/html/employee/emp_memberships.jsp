@@ -36,40 +36,38 @@ A.ready(function()
 	<div class="panel-body">
 		<aui:form name="addEmployeeMembership" id="addEmployeeMembership"
 			action="<%=updateMembership%>" method="post">
-			<aui:input name="empMemId" value="<%=employeeId%>" type="hidden"></aui:input>
+			<div class="form-horizontal">
+				<aui:input name="empMemId" value="<%=employeeId%>" type="hidden"></aui:input>
 				<aui:input name="memFileId" value="<%=fileEntryId%>" type="hidden"></aui:input>
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:select name="emp_membership" label="01_membership"
-						inlineLabel="left" showRequiredLabel="false">
-						<%
-							List<Membership> membershipList = MembershipLocalServiceUtil
-											.getMemberships(-1, -1);
-									Iterator membershipList2 = membershipList.iterator();
-									while (membershipList2.hasNext()) {
-										Membership membership = (Membership) membershipList2
-												.next();
-						%>
-						<aui:option value="<%=membership.getMembershipName()%>"
-							label="<%=membership.getMembershipName()%>"></aui:option>
-						<%
-							}
-						%>
-					</aui:select>
+				<aui:select name="emp_membership" label="01_membership"
+					inlineLabel="left" showRequiredLabel="false">
+				<%
+				List<Membership> membershipList = MembershipLocalServiceUtil
+								.getMemberships(-1, -1);
+						Iterator membershipList2 = membershipList.iterator();
+						while (membershipList2.hasNext()) {
+							Membership membership = (Membership) membershipList2
+									.next();
+				%>
+				<aui:option value="<%=membership.getMembershipName()%>"
+				label="<%=membership.getMembershipName()%>"></aui:option>
+				<%
+				}
+				%>
+				</aui:select>
+				<aui:select name="sub_paid_by" label="01_subscription-paid-by">
+				<aui:option>Individual</aui:option>
+				<aui:option>Company</aui:option>
+				</aui:select>
+				<div class="control-group">
+					<div class="controls">
+						<aui:button type="submit" cssClass="button btn-primary" value="save"
+							id="submitMembershipDetails"></aui:button>
+						<aui:button type="reset" value="Cancel" cssClass="button btn-danger"
+							id="cancelMembership" name="cancelMembership"></aui:button>
+					</div>
 				</div>
 			</div>
-			<div class="row-fluid">
-				<div class="span8">
-					<aui:select name="sub_paid_by" label="01_subscription-paid-by">
-						<aui:option>Individual</aui:option>
-						<aui:option>Company</aui:option>
-					</aui:select>
-				</div>
-			</div>
-			<aui:button type="submit" cssClass="button btn-primary" value="save"
-				id="submitMembershipDetails"></aui:button>
-			<aui:button type="reset" value="Cancel" cssClass="button btn-danger"
-				id="cancelMembership" name="cancelMembership"></aui:button>
 		</aui:form>
 	</div>
 </div>
@@ -78,9 +76,9 @@ A.ready(function()
 		<h3><liferay-ui:message key="01_membership"/></h3>
 	</div>
 	<div class="panel-body">
-		<aui:button id="empMembershipAdd" name="empMembershipAdd" value="Add"
-			cssClass="button btn-primary"></aui:button>
-		<aui:button id="empMembershipDelete" value="Delete"
-			name="empMembershipDelete" cssClass="button btn-danger"></aui:button>
+		<div class="control-group">
+			<aui:button id="empMembershipAdd" name="empMembershipAdd" value="Add" cssClass="button btn-primary"></aui:button>
+			<aui:button id="empMembershipDelete" value="Delete" name="empMembershipDelete" cssClass="button btn-danger"></aui:button>
+		</div>
 	</div>
 </div>
