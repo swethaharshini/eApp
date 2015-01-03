@@ -7,6 +7,7 @@ import java.util.List;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
+import javax.portlet.PortletSession;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
@@ -16,7 +17,6 @@ import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
@@ -76,6 +76,7 @@ public class TerminationReasonsAction extends MVCPortlet {
 
 					dynamicQuery.add(RestrictionsFactoryUtil.eq(
 							"terminationreasonsName", name));
+					@SuppressWarnings("unchecked")
 					List<TerminationReasons> list = TerminationReasonsLocalServiceUtil
 							.dynamicQuery(dynamicQuery);
 
@@ -148,8 +149,8 @@ public class TerminationReasonsAction extends MVCPortlet {
 				TerminationReasons terminationReasons2 = TerminationReasonsLocalServiceUtil
 						.getTerminationReasons(Long.parseLong(id));
 
-				actionRequest.setAttribute("editTerminationReasons",
-						terminationReasons2);
+				PortletSession portletSession = actionRequest.getPortletSession();
+				portletSession.setAttribute("editTerminationReasons", terminationReasons2);
 
 				SessionMessages.add(actionRequest.getPortletSession(),
 						"termination-form-error");
@@ -245,11 +246,10 @@ public class TerminationReasonsAction extends MVCPortlet {
 			SystemException {
 		Long terminationreasonsId = ParamUtil.getLong(actionRequest,
 				"terminationreasonsId");
-		TerminationReasons terminationReasons = TerminationReasonsLocalServiceUtil
-				.getTerminationReasons(terminationreasonsId);
-
-		actionRequest
-				.setAttribute("editTerminationReasons", terminationReasons);
+		TerminationReasons terminationReasons = TerminationReasonsLocalServiceUtil.getTerminationReasons(terminationreasonsId);
+		PortletSession portletSession = actionRequest.getPortletSession();
+		portletSession.setAttribute("editTerminationReasons", terminationReasons);
+		
 		actionResponse.setRenderParameter("jspPage",
 				"/html/terminationreasons/edit.jsp");
 	}
