@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@ include file="/html/educationaction/init.jsp"%>
 
 <portlet:actionURL var="saveEducations" name="saveEducation">
@@ -6,19 +7,24 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/educationaction/addEducation.jsp" />
 </portlet:renderURL>
+<style>
+#addEducationMessage{
+ color: red;
+}
+
+</style>
 <aui:script>
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#delete');
+    var node = A.one('#deleteeducation');
     node.on(
       'click',
       function() {
      var idArray = [];
-      A.all('input[type=checkbox]:checked').each(function(object) {
+       A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
       idArray.push(object.get("value"));
-    alert(idArray.length);
-        });
+     });
        if(idArray==""){
 			  alert("Please select records!");
 		  }else{
@@ -58,7 +64,7 @@ AUI().use(
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#add');
+    var node = A.one('#addeducation');
     node.on(
       'click',
       function() {
@@ -70,15 +76,18 @@ AUI().use(
   }
 );
 
- AUI().ready('event', 'node', function(A){
-
+ AUI().ready('event', 'node','transition',function(A){
   A.one('#addEducationForm').hide();
+  setTimeout(function(){
+    A.one('#addEducationMessage').transition('fadeOut');
+},1000)
  });
+
 
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#cancel');
+    var node = A.one('#canceleducation');
     node.on(
       'click',
       function() {
@@ -94,19 +103,28 @@ AUI().use(
 </head>
 
 <body>
+<% 
+if(SessionMessages.contains(renderRequest.getPortletSession(),"educationName-empty-error")){%>
+<p id="addEducationMessage"><liferay-ui:message key="Please Enter Education Name"/></p>
+<%} 
+ if(SessionMessages.contains(renderRequest.getPortletSession(),"educationName-duplicate-error")){
+%>
+<p id="addEducationMessage"><liferay-ui:message key="Education Name already Exits"/></p>
+<%} 
+%>
 	<div class="row-fluid">
 		<div id="educationAddDelete" class="span12 text-right">
-			<a href="#" class="btn btn-primary" id="add"><i class="icon-plus"></i></a>
-			<a href="#" class="btn btn-danger" id="delete"><i class="icon-trash"></i></a>
+			<a href="#" class="btn btn-primary" id="addeducation"><i class="icon-plus"></i></a>
+			<a href="#" class="btn btn-danger" id="deleteeducation"><i class="icon-trash"></i></a>
 		</div>
 		<div  id="addEducationForm">
 		<aui:form name="myForm" action="<%=saveEducations.toString()%>" >
 			<aui:input name="educationId" type="hidden" id="educationId" />
 			<div class="form-inline">
 				<label>Level: </label>
-				<input name="<portlet:namespace/>education_level" type="text" required = "required">
+				<input name="<portlet:namespace/>education_level" type="text">
 				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
-				<button  type="reset" id ="cancel" class="btn btn-danger"><i class="icon-remove"></i></button>
+				<button  type="reset" id ="canceleducation" class="btn btn-danger"><i class="icon-remove"></i></button>
 			</div>
 		</aui:form>
 		</div>
