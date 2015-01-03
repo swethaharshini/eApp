@@ -9,7 +9,7 @@
 </portlet:actionURL>
 <portlet:resourceURL var="deleteinterview" id="deleteInterview"/>
 <portlet:renderURL var="listview">
-	<portlet:param name="mvcPath" value="/html/interview/add.jsp" />
+	<portlet:param name="mvcPath" value="/html/Interview/add.jsp" />
 </portlet:renderURL>
 <style type="text/css">	
 .table-first-header{
@@ -18,8 +18,8 @@ width: 10%;
 .table-last-header{
 width: 15%;
 }
-em {
-	color: red;
+ #editInterviewMessage{
+ color: red;
 }
 </style>
 <aui:script>
@@ -73,7 +73,7 @@ AUI().use(
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#add');
+    var node = A.one('#addinterview');
     node.on(
       'click',
       function() {
@@ -88,23 +88,20 @@ AUI().use(
   }
 );
 
-AUI().ready('event', 'node', function(A){
-
-  A.one('#editinterviewadddelete').hide();
- 
+AUI().ready('event', 'node','transition',function(A){
+ setTimeout(function(){
+    A.one('#editInterviewMessage').transition('fadeOut');
+},1000)
  });
 
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#editcancel');
+    var node = A.one('#editinterviewcancel');
     node.on(
       'click',
       function() {
-      	 A.one('#editinterviewadddelete').show();
-         A.	one('#editInterviewForm').hide();
-         A.one("#editinterview").set("value","");
-         A.one("#interviewId").set("value","");
+      	 window.location='<%=listview%>';
       	
           
       }
@@ -123,35 +120,27 @@ Interview editinterview = (Interview) portletSession.getAttribute("editinterview
 
 %>
 <% if(SessionMessages.contains(renderRequest.getPortletSession(),"interviewName-empty-error")){%>
-<liferay-ui:message key="Please Enter InterviewName"/>
+<p id="editInterviewMessage"><liferay-ui:message key="Please Enter InterviewName"/></p>
 <%}
 %>
-<br/><br/>
-<div id="editInterviewForm">
-  <aui:form name="myForm" action="<%=saveinterview.toString()%>">
-		<input name="<portlet:namespace/>interviewId" type="hidden" id="interviewId" value="<%=editinterview.getInterviewId()%>">
-		<div class="span12">
-				<div class="span2">
-						<label>Interview Name<em>*</em> </label>
-			 </div>
-			 <div class="span3">
-			 <aui:input name="name" id="editinterview" label="" class="interview" type="text" value="<%=editinterview.getName()%>"/>
-						</div>
-					</div>
-	
-	<div class="control-group">
-			<div class="controls">
-				<aui:button type="submit" value="Submit" />
-				<aui:button  type="reset" value="Cancel" id ="editcancel"/>
-				<input type="button" value="Delete" class="btn" id="editinterviewdelete">
-			</div>
+
+ <div class="row-fluid">
+		<div id="editinterviewadddelete" class="span12 text-right">
+			<a href="#" class="btn btn-primary" id="addinterview"><i class="icon-plus"></i></a>
+			<a href="#" class="btn btn-danger" id="editinterviewdelete"><i class="icon-trash"></i></a>
 		</div>
-	</aui:form>
-	
-	<em>*</em> Required field
-	
+		<div  id="editInterviewForm">
+		<aui:form name="myForm" action="<%=saveinterview.toString()%>" >
+			<aui:input name="interviewId" type="hidden" id="interviewId" value="<%=editinterview.getInterviewId()%>"/>
+			<div class="form-inline">
+				<label>Interview Name: </label>
+				<input name="<portlet:namespace/>name" id="editinterview" type="text" value="<%=editinterview.getName()%>">
+				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
+				<button  type="reset" id ="editinterviewcancel" class="btn btn-danger"><i class="icon-remove"></i></button>
+			</div>
+		</aui:form>
+		</div>
 	</div>
-	<div><label style="color: white" >.</label></div>
 </body>
 <%
 PortletURL iteratorURL = renderResponse.createRenderURL();

@@ -17,8 +17,8 @@
 .table-last-header {
 	width: 15%;
 }
-em {
-	color: red;
+ #addInterviewMessage{
+ color: red;
 }
 </style>
 <aui:script>
@@ -88,9 +88,11 @@ AUI().use(
   }
 );
 
- AUI().ready('event', 'node', function(A){
-
+AUI().ready('event', 'node','transition',function(A){
   A.one('#addInterviewForm').hide();
+  setTimeout(function(){
+    A.one('#addInterviewMessage').transition('fadeOut');
+},1000)
  });
 
 AUI().use(
@@ -113,40 +115,32 @@ AUI().use(
 
 <body>
 <% if(SessionMessages.contains(renderRequest.getPortletSession(),"interviewName-empty-error")){%>
-<liferay-ui:message key="Please Enter InterviewName"/>
+<p id="addInterviewMessage"><liferay-ui:message key="Please Enter InterviewName"/></p>
 <%} 
  if(SessionMessages.contains(renderRequest.getPortletSession(),"interviewName-duplicate-error")){
 %>
-<liferay-ui:message key="InterviewName already Exits"/>
+<p id="addInterviewMessage"><liferay-ui:message key="InterviewName already Exits"/></p>
 <%} 
 %>
- <br/><br/>
-	<div  id="addInterviewForm">
-	<aui:form name="myForm" action="<%=saveinterview.toString()%>">
-		<aui:input name="interviewId" type="hidden" id="interviewId" />
-		<div class="span12">
-			<div class="span2">
-				<label>Interview Name<em>*</em></label>
+
+ <div class="row-fluid">
+		<div id="interviewadddelete" class="span12 text-right">
+			<a href="#" class="btn btn-primary" id="interviewadd"><i class="icon-plus"></i></a>
+			<a href="#" class="btn btn-danger" id="interviewdelete"><i class="icon-trash"></i></a>
 		</div>
-		<div class="span3">		
-		 <aui:input name="name" id="interview" label="" type="text" required = "required"/>
+		<div  id="addInterviewForm">
+		<aui:form name="myForm" action="<%=saveinterview.toString()%>" >
+			<aui:input name="interviewId" type="hidden" id="interviewId" />
+			<div class="form-inline">
+				<label>Interview Name: </label>
+				<input name="<portlet:namespace/>name" type="text">
+				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
+				<button  type="reset" id ="interviewcancel" class="btn btn-danger"><i class="icon-remove"></i></button>
 			</div>
+		</aui:form>
 		</div>
-<div class="control-group">
-			<div class="controls">
-				<aui:button type="submit" value="Submit" />
-				<aui:button  type="reset" value="Cancel" id ="interviewcancel"/>
-				<input type="button" value="Delete" class="btn" id="interviewdelete">
-			</div>
-		</div>
-		
-	</aui:form>
-	
 	</div>
-	
-	 <div><em>*</em> Required Field</div>
-	 
-	
+ 	
 </body>
 
 <%
