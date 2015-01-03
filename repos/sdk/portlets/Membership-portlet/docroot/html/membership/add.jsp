@@ -11,28 +11,16 @@
 .aui input[type="text"]{
 height: initial;
 }
-em{
-color: red;
+ #addMembershipMessage{
+ color: red;
 }
 </style>
 <aui:script>
-YUI().use(
-  'aui-form-validator',
-  function(Y) {
-    new Y.FormValidator(
-      {
-        boundingBox: '#myForm'
-      }
-    );
-  }
-);
-
-
 
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#delete');
+    var node = A.one('#membershipdelete');
     node.on(
       'click',
       function() {
@@ -74,40 +62,80 @@ AUI().use(
     );
   }
 );
+
+AUI().ready('event', 'node','transition',function(A){
+  A.one('#addMembershipForm').hide();
+  setTimeout(function(){
+    A.one('#addMembershipMessage').transition('fadeOut');
+},1000)
+ });
+
+
+</aui:script>
+<aui:script>
+AUI().use(
+  'aui-node',
+  function(A) {
+    var node = A.one('#membershipadd');
+    node.on(
+      'click',
+      function() {
+         A.one('#membershipAddDelete').hide();
+         A.one('#addMembershipForm').show();
+                     
+      }
+    );
+  }
+);
+
+
+ 
+AUI().use(
+  'aui-node',
+  function(A) {
+    var node = A.one('#membershipcancel');
+    node.on(
+      'click',
+      function() {
+         A.one('#membershipAddDelete').show();
+         A.one('#addMembershipForm').hide();
+                     
+      }
+    );
+  }
+);
+
 </aui:script>
 </head>
 
 <body>
 <% if(SessionMessages.contains(renderRequest.getPortletSession(),"membershipName-empty-error")){%>
-<liferay-ui:message key="Please Enter MembershipName"/>
+<p id="addMembershipMessage"><liferay-ui:message key="Please Enter MembershipName"/></p>
 <%} 
  if(SessionMessages.contains(renderRequest.getPortletSession(),"membershipName-duplicate-error")){
 %>
-<liferay-ui:message key="MembershipName already Exits"/>
+<p id="addMembershipMessage"><liferay-ui:message key="MembershipName already Exits"/></p>
 <%} 
 %>
- <br/><br/>
-		<form id="myForm" action="<%=saveMemberships.toString()%>" method="post">
-				<input name="<portlet:namespace/>membershipId" type="hidden" id="membershipId" />
-				<div class="row-fluid">
-  <div class="form-group">
-   <div class="span2"> <label class="control-label" for="name">Membership Name:<em>*</em></label></div>
-    <div class="span3">
-    <div class="controls">
-      <input name="<portlet:namespace/>membership_name" id="myAutoComplete" class="form-control field-required" type="text">
-     </div>
-    </div>
-  </div>
-</div>
-<br/>
-<div>
- <input class="btn btn-info" type="submit" value="Submit">
-  <input class="btn btn-primary" type="reset" value="Reset">
-  <aui:button name="" value="Delete" id="delete"/>
-</div>
-</form>
-	
-<div><em>*</em> Required Field</div>
+ 		<div class="row-fluid">
+		<div id="membershipAddDelete" class="span12 text-right">
+			<a href="#" class="btn btn-primary" id="membershipadd"><i class="icon-plus"></i></a>
+			<a href="#" class="btn btn-danger" id="membershipdelete"><i class="icon-trash"></i></a>
+		</div>
+		<div  id="addMembershipForm">
+		<aui:form name="myForm" action="<%=saveMemberships.toString()%>" >
+			<aui:input name="membershipId" type="hidden" id="membershipId" />
+			<div class="form-inline">
+				<label>Membership Name: </label>
+				<input name="<portlet:namespace/>membership_name" type="text">
+				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
+				<button  type="reset" id ="membershipcancel" class="btn btn-danger"><i class="icon-remove"></i></button>
+			</div>
+		</aui:form>
+		</div>
+	</div>
+ 		
+ 
 	
 </body>
 
