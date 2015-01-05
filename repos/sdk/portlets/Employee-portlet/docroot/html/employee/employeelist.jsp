@@ -63,8 +63,10 @@
 
 				List<EmpPersonalDetails> userList = EmpPersonalDetailsLocalServiceUtil
 						.dynamicQuery(userQuery);
+				if(userList.size()!=0)
+				{
 				empSupervisor2 = userList.get(0);
-
+				}
 			} catch (SystemException e) {
 
 			}

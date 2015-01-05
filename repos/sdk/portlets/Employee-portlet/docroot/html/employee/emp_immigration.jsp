@@ -1,3 +1,5 @@
+<%@page import="com.liferay.portal.kernel.exception.SystemException"%>
+<%@page import="com.liferay.portal.kernel.exception.PortalException"%>
 <%@ include file="/html/employee/init.jsp"%>
 <portlet:actionURL name="addImmigrationDetails"
 	var="addImmigrationDetails" ></portlet:actionURL>
@@ -37,7 +39,24 @@ A.ready(function()
 			.eq(employeeId));
 	List<EmpImmigrationDocument> empImmigrationDocument =EmpImmigrationDocumentLocalServiceUtil
 			.dynamicQuery(dependentDynamicQuery);
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
 %>
+<%! public String getIssuedCountry(long id)
+{
+ if(id!=0)
+  {
+	 try
+	 {
+	Nationality nationality=NationalityLocalServiceUtil.getNationality(id);
+	return nationality.getName();
+	 }catch(PortalException e)
+    	 {
+	 }catch(SystemException f)
+	 {
+	     }
+	 }
+ return "";
+}%>
 <div id="empImmigrationAdd" class="panel">
 	<div class="panel-heading">
 		<h3>Add Immigration</h3>
@@ -60,15 +79,26 @@ A.ready(function()
 				<aui:validator name="required"></aui:validator>
 				</aui:input>
 				<aui:input name="img_issued_date" id="imgIssueDate"
-					label="01_issued-date" cssClass="dateEmployee" inlineLabel="left"></aui:input>
+					label="01_issued-date" cssClass="dateEmployee" inlineLabel="left"  placeholder="DD/MM/YYYY"></aui:input>
 				<aui:input name="img_exp_date" id="imgExpDate" label="01_expiry-date"
-					inlineLabel="left" cssClass="dateEmployee" ></aui:input>
+					inlineLabel="left" cssClass="dateEmployee" placeholder="DD/MM/YYYY"></aui:input>
 				<aui:input name="eligible_status" label="01_eligible-status"
 					inlineLabel="left"></aui:input>
 				<aui:select name="issued_by" label="01_issued-by">
+				<aui:option value="0">--Select--</aui:option>
+					<%
+						List l = NationalityLocalServiceUtil.getNationalities(-1, -1);
+								Iterator locations = l.iterator();
+								while (locations.hasNext()) {
+									Nationality locations2 = (Nationality) locations.next();
+					%>
+					<aui:option value="<%=locations2.getNationalityId()%>"><%=locations2.getName()%></aui:option>
+					<%
+						}
+					%>
 				</aui:select>
 				<aui:input name="review_date" id="reviewDate" label="01_review-date"
-				cssClass="dateEmployee"></aui:input>
+				cssClass="dateEmployee"  placeholder="DD/MM/YYYY"></aui:input>
 				<aui:input name="img_comments" type="textarea" label="01_comments"></aui:input>
 				<div class="control-group">
 				<div class="controls">
@@ -113,11 +143,11 @@ A.ready(function()
 				<liferay-ui:search-container-column-text name="01_document" property="docType" />
 				<liferay-ui:search-container-column-text name="01_number"
 					property="docNumber" />
-				<liferay-ui:search-container-column-text name="01_issued-by" property="issuedBy" />
+				<liferay-ui:search-container-column-text name="01_issued-by" value="<%= getIssuedCountry(id.getIssuedBy()) %>" />
 				<liferay-ui:search-container-column-text name="01_issued-date"
-					property="issuedDate" />
+				value='<%=sdf.format(id.getIssuedDate()) %>'/>
 				<liferay-ui:search-container-column-text name="01_expiry-date"
-					property="expiryDate" />
+					value='<%=sdf.format(id.getExpiryDate()) %>' />
 			</liferay-ui:search-container-row>
 			<liferay-ui:search-iterator />
 		</liferay-ui:search-container>

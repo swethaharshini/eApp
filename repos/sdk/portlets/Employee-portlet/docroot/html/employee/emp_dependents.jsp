@@ -38,6 +38,7 @@ A.ready(function()
 			.eq(employeeId));
 	List<EmpDependent> empDependentDetails = EmpDependentLocalServiceUtil
 			.dynamicQuery(dependentDynamicQuery);
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
 %>
 <div id="assignedDependentAdd" class="panel">
 	<div class="panel-heading">
@@ -49,10 +50,16 @@ A.ready(function()
 			<div class="form-horizontal">
 				<aui:input name="empDependentId" value="<%=employeeId %>" type="hidden" />
 				<aui:input name="dependentFileId" value="<%=fileEntryId %>" type="hidden" />
-				<aui:input name="dependent_name" label="01_name"
-					 inlineLabel="left"></aui:input>
+				<aui:input name="dependent_name" label="01_name" showRequiredLabel="false"
+					 inlineLabel="left">
+					 <aui:validator name="required"></aui:validator>
+					 </aui:input>
 				<aui:input name="dependent_relationship" label="01_relationship"
-				inlineLabel="left"></aui:input>
+				inlineLabel="left" showRequiredLabel="false">
+				 <aui:validator name="required"></aui:validator>
+				</aui:input>
+				<aui:input name="dateOfBirth" label="Date of Birth" inlineLabel="left" 
+				cssClass="dateEmployee" placeholder="DD/MM/YYYY"></aui:input>
 				<div class="control-group">
 					<div class="controls">
 						<aui:button type="submit" cssClass="button btn-primary" value="save"
@@ -98,6 +105,8 @@ A.ready(function()
 				<liferay-ui:search-container-column-text name="01_name" property="name" />
 				<liferay-ui:search-container-column-text name="01_relation"
 					property="relationship" />
+					<liferay-ui:search-container-column-text name="Date Of Birth"
+					 value='<%=id.getDateOfBirth()!=null?sdf.format(id.getDateOfBirth()):""%>'/>
 			</liferay-ui:search-container-row>
 			<liferay-ui:search-iterator />
 		</liferay-ui:search-container>

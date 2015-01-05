@@ -160,9 +160,9 @@ A.one('#assignedSubordinateAdd').hide();
 				</aui:input>
 				<aui:select name="reporting_sup_method" label="01_reporting-method"
 					inlineLabel="left" showRequiredLabel="false">
-				<aui:option name="direct">Direct</aui:option>
-				<aui:option name="direct">Indirect</aui:option>
-				<aui:option name="direct">Other</aui:option>
+				<aui:option name="Direct" value="Direct">Direct</aui:option>
+				<aui:option name="Indirect" value="Indirect">Indirect</aui:option>
+				<aui:option name="Other" value="Other">Other</aui:option>
 				</aui:select>
 				<div class="control-group">
 					<div class="controls">
@@ -193,9 +193,9 @@ A.one('#assignedSubordinateAdd').hide();
 				</aui:input>
 				<aui:select name="reporting_sub_method" label="01_reporting-method"
 					inlineLabel="left" showRequiredLabel="false">
-				<aui:option name="direct">Direct</aui:option>
-				<aui:option name="direct">Indirect</aui:option>
-				<aui:option name="direct">Other</aui:option>
+				<aui:option name="Direct">Direct</aui:option>
+				<aui:option name="Indirect">Indirect</aui:option>
+				<aui:option name="Other">Other</aui:option>
 				</aui:select>
 				<div class="control-group">
 					<div class="controls">
