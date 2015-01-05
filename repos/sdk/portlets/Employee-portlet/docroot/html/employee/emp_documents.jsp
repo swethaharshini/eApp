@@ -63,6 +63,11 @@ A.ready(function()
    });
   });
 </aui:script>
+<liferay-portlet:renderURL  varImpl="documentsURL">
+		<portlet:param name="jsp" value="jsp12"/>
+		<portlet:param name="empId" value="<%=String.valueOf(employeeId) %>" />
+		<portlet:param name="fileId" value="<%=String.valueOf(fileEntryId) %>"/>
+		</liferay-portlet:renderURL>
 <div id="addingDocuments" class="panel">
 	<div class="panel-heading">
 		<h3>
@@ -117,7 +122,7 @@ A.ready(function()
 	<%!com.liferay.portal.kernel.dao.search.SearchContainer<DLFileEntry> searchContainer;%>
 	<liferay-ui:search-container delta="5"
 		emptyResultsMessage="no-records-available-for-employee"
-		deltaConfigurable="true">
+		deltaConfigurable="true" iteratorURL="<%=documentsURL %>">
 		<liferay-ui:search-container-results>
 			<%
 				long classNameId = ClassNameLocalServiceUtil
@@ -153,15 +158,15 @@ A.ready(function()
 								////user with this primary key was not found in DB .....           
 							}//
 						}
-						List<DLFileEntry> FileEntries=new ArrayList<DLFileEntry>(files);
+						List<DLFileEntry> fileEntries=new ArrayList<DLFileEntry>(files);
 						/* DynamicQuery query = 
 						query.add(PropertyFactoryUtil.forName("employeeI­d").in(expandoValueUserIds));
 						try {
 						foundUsers.addAll(UserLocalServiceUtil.dynamicQuery(query));
 						} catch (SystemException e) {
 						}  */
-						results = FileEntries;
-						total = results.size();
+						results = ListUtil.subList(fileEntries, searchContainer.getStart(), searchContainer.getEnd());
+						total = fileEntries.size();
 						pageContext.setAttribute("results", results);
 						pageContext.setAttribute("total", total);
 			%>

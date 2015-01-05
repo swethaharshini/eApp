@@ -148,7 +148,7 @@ AUI().use(
 		<li><a href="#tab-12"><i class="icon-file"></i><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
 		</c:when>
 		<c:when test='<%=jsp.equals("jsp3") %>' >
-		<li class="active" ><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
 		<li><a href="#tab-2" ><i class="icon-envelope"></i><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
 		<li class="active"><a href="#tab-3" ><i class="icon-phone-sign"></i><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
 		<li><a href="#tab-4"><i class="icon-male"></i><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
@@ -162,7 +162,7 @@ AUI().use(
 		<li><a href="#tab-12"><i class="icon-file"></i><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
 		</c:when>
 		<c:when test='<%=jsp.equals("jsp4") %>' >
-		<li class="active" ><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
 		<li><a href="#tab-2" ><i class="icon-envelope"></i><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
 		<li><a href="#tab-3" ><i class="icon-phone-sign"></i><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
 		<li class="active"><a href="#tab-4"><i class="icon-male"></i><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
@@ -176,7 +176,7 @@ AUI().use(
 		<li><a href="#tab-12"><i class="icon-file"></i><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
 		</c:when>
 		<c:when test='<%=jsp.equals("jsp5") %>' >
-		<li class="active" ><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
 		<li><a href="#tab-2" ><i class="icon-envelope"></i><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
 		<li><a href="#tab-3" ><i class="icon-phone-sign"></i><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
 		<li><a href="#tab-4"><i class="icon-male"></i><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
@@ -190,7 +190,7 @@ AUI().use(
 		<li><a href="#tab-12"><i class="icon-file"></i><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
 		</c:when>
 		<c:when test='<%=jsp.equals("jsp6") %>' >
-		<li class="active" ><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
 		<li><a href="#tab-2" ><i class="icon-envelope"></i><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
 		<li><a href="#tab-3" ><i class="icon-phone-sign"></i><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
 		<li><a href="#tab-4"><i class="icon-male"></i><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
@@ -204,7 +204,7 @@ AUI().use(
 		<li><a href="#tab-12"><i class="icon-file"></i><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
 		</c:when>
 		<c:when test='<%=jsp.equals("jsp7") %>' >
-		<li class="active" ><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
 		<li><a href="#tab-2" ><i class="icon-envelope"></i><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
 		<li><a href="#tab-3" ><i class="icon-phone-sign"></i><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
 		<li><a href="#tab-4"><i class="icon-male"></i><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
@@ -218,7 +218,7 @@ AUI().use(
 		<li><a href="#tab-12"><i class="icon-file"></i><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
 		</c:when>
 		<c:when test='<%=jsp.equals("jsp8") %>' >
-		<li class="active" ><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
 		<li><a href="#tab-2" ><i class="icon-envelope"></i><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
 		<li><a href="#tab-3" ><i class="icon-phone-sign"></i><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
 		<li><a href="#tab-4"><i class="icon-male"></i><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
@@ -232,7 +232,7 @@ AUI().use(
 		<li><a href="#tab-12"><i class="icon-file"></i><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
 		</c:when>
 		<c:when test='<%=jsp.equals("jsp9") %>' >
-		<li class="active" ><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
 		<li><a href="#tab-2" ><i class="icon-envelope"></i><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
 		<li><a href="#tab-3" ><i class="icon-phone-sign"></i><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
 		<li><a href="#tab-4"><i class="icon-male"></i><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
@@ -246,7 +246,7 @@ AUI().use(
 		<li><a href="#tab-12"><i class="icon-file"></i><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
 		</c:when>
 		<c:when test='<%=jsp.equals("jsp10") %>' >
-		<li class="active" ><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
 		<li><a href="#tab-2" ><i class="icon-envelope"></i><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
 		<li><a href="#tab-3" ><i class="icon-phone-sign"></i><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
 		<li><a href="#tab-4"><i class="icon-male"></i><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>
@@ -260,7 +260,7 @@ AUI().use(
 		<li><a href="#tab-12"><i class="icon-file"></i><liferay-ui:message key="01_add-documents"></liferay-ui:message></a></li>
 		</c:when>
 		<c:when test='<%=jsp.equals("jsp11") %>' >
-		<li class="active" ><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
+		<li><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
 		<li><a href="#tab-2" ><i class="icon-envelope"></i><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
 		<li><a href="#tab-3" ><i class="icon-phone-sign"></i><liferay-ui:message key="01_emp-emergency-contacts"></liferay-ui:message></a></li>
 		<li><a href="#tab-4"><i class="icon-male"></i><liferay-ui:message key="01_emp-dependents"></liferay-ui:message></a></li>

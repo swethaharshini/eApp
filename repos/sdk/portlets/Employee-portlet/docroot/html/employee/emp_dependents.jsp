@@ -65,6 +65,11 @@ A.ready(function()
 		</aui:form>
 	</div>
 </div>
+	<liferay-portlet:renderURL  varImpl="dependentURL">
+		<portlet:param name="jsp" value="jsp4"/>
+		<portlet:param name="empId" value="<%=String.valueOf(employeeId) %>" />
+		<portlet:param name="fileId" value="<%=String.valueOf(fileEntryId) %>"/>
+		</liferay-portlet:renderURL>
 <div id="assignedDependentAddDelete" class="panel">
 	<div class="panel-heading">
 		<h3>Assigned Dependents</h3>
@@ -78,11 +83,11 @@ A.ready(function()
 		</div>
 		<liferay-ui:search-container delta="5"
 			emptyResultsMessage="No records are available for EmpDependent"
-			deltaConfigurable="true" rowChecker="<%= new RowChecker(renderResponse) %>">
+			deltaConfigurable="true" rowChecker="<%= new RowChecker(renderResponse) %>" iteratorURL="<%=dependentURL %>">
 			<liferay-ui:search-container-results>
 				<%
 					List<EmpDependent> dependentDetails = empDependentDetails;
-							results = dependentDetails;
+							results =ListUtil.subList(dependentDetails, searchContainer.getStart(),searchContainer.getEnd()) ;
 							total = dependentDetails.size();
 							pageContext.setAttribute("results", results);
 							pageContext.setAttribute("total", total);
