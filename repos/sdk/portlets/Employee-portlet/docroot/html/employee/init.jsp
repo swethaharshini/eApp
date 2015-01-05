@@ -107,4 +107,5 @@
 <%@page import="com.liferay.portlet.documentlibrary.model.DLFileEntry"%>
 <%@page
 	import="com.liferay.portlet.documentlibrary.service.DLAppService"%>
+	<%@ taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet" %>
 <portlet:defineObjects />

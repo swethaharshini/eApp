@@ -1,6 +1,7 @@
 <%@ include file="/html/employee/init.jsp"%>
 <portlet:actionURL name="updateEmpJobHistory" var="updateEmpJobHistory">
 </portlet:actionURL>
+
 <%
 	Map empId = (Map) request.getSession(false).getAttribute("empId");
 	long employeeId = (Long) empId.get("empId");
@@ -21,9 +22,9 @@ public String getJobTitleValue(long jobTId) {
 	JobTitle jobT = null;
 	try {
 		jobT = JobTitleLocalServiceUtil.getJobTitle(jobTId);
+		return jobT.getTitle();
 	} catch (Exception p) {
 	}
-	return jobT.getTitle();
 	}
 	return "";
 }
@@ -241,6 +242,11 @@ public String getCategoryValue(long jcId)
 		</aui:form>
 	</div>
 </div>
+<liferay-portlet:renderURL  varImpl="empJobURL">
+		<portlet:param name="jsp" value="jsp9"/>
+		<portlet:param name="empId" value="<%=String.valueOf(employeeId) %>" />
+		<portlet:param name="fileId" value="<%=String.valueOf(fileEntryId) %>"/>
+		</liferay-portlet:renderURL>
 <div class="panel">
 	<div class="panel-heading">
 		<h3>Job History</h3>
@@ -250,19 +256,18 @@ public String getCategoryValue(long jcId)
 		<aui:button name="deleteJobHistory" id="deleteJobHistory"
 			cssClass="button btn-danger" value="Delete"></aui:button>
 		</div>
-		<liferay-ui:search-container delta="5"
-			emptyResultsMessage="No records are available for EmpJob"
+		<liferay-ui:search-container  delta="5"
+			emptyResultsMessage="No records are available for EmpWorkExp"
 			deltaConfigurable="true"
-			rowChecker="<%= new RowChecker(renderResponse) %>">
-			<liferay-ui:search-container-results>
-				<%
-					List<EmpJob> empJobHistory = 
-						EmpJobLocalServiceUtil.getEmpJobs(-1, -1);
+			rowChecker="<%=new RowChecker(renderResponse)%>" iteratorURL="<%=empJobURL %>">
+			<liferay-ui:search-container-results >
+			<%List<EmpJob> empJobHistory = 
+						EmpJobLocalServiceUtil.getEmpJobs(searchContainer.getStart(), searchContainer.getEnd());
 							results = empJobHistory;
-							total = empJobHistory.size();
+							total = EmpJobLocalServiceUtil.getEmpJobsCount();
 							pageContext.setAttribute("results", results);
 							pageContext.setAttribute("total", total);
-				%>
+							%>
 			</liferay-ui:search-container-results>
 			<liferay-ui:search-container-row className="EmpJob" modelVar="id">
 				<liferay-ui:search-container-column-text name="01_effective-date" property="effectiveDate"/>

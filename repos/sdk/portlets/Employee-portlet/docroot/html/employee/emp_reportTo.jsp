@@ -209,6 +209,11 @@ A.one('#assignedSubordinateAdd').hide();
 		</aui:form>
 	</div>
 </div>
+<liferay-portlet:renderURL  varImpl="reportToURL">
+		<portlet:param name="jsp" value="jsp5"/>
+		<portlet:param name="empId" value="<%=String.valueOf(employeeId) %>" />
+		<portlet:param name="fileId" value="<%=String.valueOf(fileEntryId) %>"/>
+		</liferay-portlet:renderURL>
 <div id="supervisorAddDelete" class="panel">
 	<div class="panel-heading">
 		<h3><liferay-ui:message key="01_assigned-supervisors" /></h3>
@@ -220,11 +225,11 @@ A.one('#assignedSubordinateAdd').hide();
 		</div>
 			<liferay-ui:search-container delta="5"
 			emptyResultsMessage="No records are available for EmpSupervisor"
-			deltaConfigurable="true" rowChecker="<%= new RowChecker(renderResponse) %>">
+			deltaConfigurable="true" rowChecker="<%= new RowChecker(renderResponse) %>" iteratorURL="<%=reportToURL %>">
 			<liferay-ui:search-container-results>
 				<%
 					List<EmpSupervisor> supervisorDetails = empSupervisorDetails;
-							results = supervisorDetails;
+							results = ListUtil.subList(supervisorDetails,searchContainer.getStart(),searchContainer.getEnd());
 							total = supervisorDetails.size();
 							pageContext.setAttribute("results", results);
 							pageContext.setAttribute("total", total);
@@ -254,11 +259,11 @@ A.one('#assignedSubordinateAdd').hide();
 		</div>
 		<liferay-ui:search-container delta="5"
 			emptyResultsMessage="No records are available for EmpSubordinate"
-			deltaConfigurable="true" rowChecker="<%= new RowChecker(renderResponse) %>">
+			deltaConfigurable="true" rowChecker="<%= new RowChecker(renderResponse) %>" iteratorURL="<%=reportToURL %>">
 			<liferay-ui:search-container-results>
 				<%
 					List<EmpSubordinate> subordinateDetails = empSubordinateDetails;
-							results = subordinateDetails;
+							results =ListUtil.subList( subordinateDetails,searchContainer.getStart(),searchContainer.getEnd());
 							total = subordinateDetails.size();
 							pageContext.setAttribute("results", results);
 							pageContext.setAttribute("total", total);

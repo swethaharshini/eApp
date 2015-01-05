@@ -51,9 +51,9 @@ A.ready(function()
 				<div class="control-group form-inline">
 					<label class="ccontrol-label">Document</label>
 						<aui:input inlineLabel="right" name="document_type" type="radio"
-						value="Passport" label="01_passport" disabled="true" />
+						value="Passport" label="01_passport"  />
 						<aui:input checked="<%=true%>" inlineLabel="right" name="document_type"
-						type="radio" value="Visa" label="01_visa" disabled="true" />
+						type="radio" value="Visa" label="01_visa"  />
 				</div>
 				<aui:input name="img_number" label="01_number"
 					showRequiredLabel="false" inlineLabel="left">
@@ -82,6 +82,11 @@ A.ready(function()
 		</aui:form>
 	</div>
 </div>
+<liferay-portlet:renderURL  varImpl="emgImmigrationURL">
+		<portlet:param name="jsp" value="jsp5"/>
+		<portlet:param name="empId" value="<%=String.valueOf(employeeId) %>" />
+		<portlet:param name="fileId" value="<%=String.valueOf(fileEntryId) %>"/>
+		</liferay-portlet:renderURL>
 <div id="empImmigrationAddDelete" class="panel">
 	<div class="panel-heading">
 		<h3>Assigned Immigration Records</h3>
@@ -93,11 +98,11 @@ A.ready(function()
 			</div>
 			<liferay-ui:search-container delta="5"
 			emptyResultsMessage="No records are available for EmpImmigrationDocument"
-			deltaConfigurable="true" rowChecker="<%= new RowChecker(renderResponse) %>">
+			deltaConfigurable="true" rowChecker="<%= new RowChecker(renderResponse) %>" iteratorURL="<%=emgImmigrationURL %>">
 			<liferay-ui:search-container-results>
 				<%
 					List<EmpImmigrationDocument> immigrationDetails = empImmigrationDocument;
-							results = immigrationDetails;
+							results = ListUtil.subList(immigrationDetails,searchContainer.getStart(),searchContainer.getEnd());
 							total = immigrationDetails.size();
 							pageContext.setAttribute("results", results);
 							pageContext.setAttribute("total", total);

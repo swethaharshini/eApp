@@ -23,14 +23,12 @@
 		Skill skil = null;
 		try {
 			skil = SkillLocalServiceUtil.getSkill(skiId);
+			return skil.getSkillName();
 		} catch (Exception p) {
 		}
-		return skil.getSkillName();
 	}
-	else
-	{
-		return "";	}
-	}
+		return "";	
+		}
 	public String getEduLevel(long eduId)
 	{
 		if(eduId!=0)
@@ -38,13 +36,11 @@
 		Education eduLvl = null;
 		try {
 			eduLvl = EducationLocalServiceUtil.getEducation(eduId);
+			return eduLvl.getEduLevel();
 		} catch (Exception p) {
 		}
-		return eduLvl.getEduLevel();
 		}
-		else
-		{
-			return "";		}
+			return "";		
 	}
 	public String getLicnse(long licId)
 	{	
@@ -53,14 +49,12 @@
 		License licType = null;
 		try {
 			licType = LicenseLocalServiceUtil.getLicense(licId);
+			return licType.getLicenseName();
 		} catch (Exception p) {
 		}
-		return licType.getLicenseName();
 		}
-		else
-		{
+		
 			return "";
-		}
 	}
 	public String getLnguage(long lanId)
 	{	if(lanId!=0)
@@ -68,13 +62,11 @@
 		Language lan = null;
 		try {
 			lan = LanguageLocalServiceUtil.getLanguage(lanId);
+			return lan.getLanguageName();
 		} catch (Exception p) {
 		}
-		return lan.getLanguageName();
 		}
-	else
-	{
-		return "";	}
+		return "";	
 	}
 	
 	%>
@@ -358,14 +350,19 @@ A.ready(function()
 			<aui:button id="empWorkExpDelete" value="Delete"
 				name="empWorkExpDelete" cssClass="button btn-danger"></aui:button>
 		</div>
+	<liferay-portlet:renderURL  varImpl="qualificationURL">
+		<portlet:param name="jsp" value="jsp7"/>
+		<portlet:param name="empId" value="<%=String.valueOf(employeeId) %>" />
+		<portlet:param name="fileId" value="<%=String.valueOf(fileEntryId) %>"/>
+		</liferay-portlet:renderURL>
 		<liferay-ui:search-container delta="5"
 			emptyResultsMessage="No records are available for EmpWorkExp"
 			deltaConfigurable="true"
-			rowChecker="<%=new RowChecker(renderResponse)%>">
+			rowChecker="<%=new RowChecker(renderResponse)%>" iteratorURL="<%=qualificationURL %>">
 			<liferay-ui:search-container-results>
 				<%
 					List<EmpWorkExp> workExpList = empWrkExpDetails;
-							results = workExpList;
+							results =ListUtil.subList( workExpList, searchContainer.getStart(), searchContainer.getEnd());
 							total = workExpList.size();
 							pageContext.setAttribute("results", results);
 							pageContext.setAttribute("total", total);
@@ -431,6 +428,11 @@ A.ready(function()
 		</aui:form>
 </div>
 </div>
+<liferay-portlet:renderURL  varImpl="educationURL">
+		<portlet:param name="jsp" value="jsp7"/>
+		<portlet:param name="empId" value="<%=String.valueOf(employeeId) %>" />
+		<portlet:param name="fileId" value="<%=String.valueOf(fileEntryId) %>"/>
+		</liferay-portlet:renderURL>
 <div id="empEducationAddDelete" class="panel">
 	<div class="panel-heading">
 		<h3><liferay-ui:message key="01_education" /></h3>
@@ -443,11 +445,11 @@ A.ready(function()
 		<liferay-ui:search-container delta="5"
 			emptyResultsMessage="No records are available for EmpEducation"
 			deltaConfigurable="true"
-			rowChecker="<%=new RowChecker(renderResponse)%>">
+			rowChecker="<%=new RowChecker(renderResponse)%>" iteratorURL="<%=educationURL %>">
 			<liferay-ui:search-container-results>
 				<%
 					List<EmpEducation> educationList = empEducationDetails;
-							results = educationList;
+							results = ListUtil.subList(educationList, searchContainer.getStart(), searchContainer.getEnd());
 							total = educationList.size();
 							pageContext.setAttribute("results", results);
 							pageContext.setAttribute("total", total);
@@ -507,6 +509,11 @@ A.ready(function()
 		</aui:form>
 	</div>
 </div>
+<liferay-portlet:renderURL  varImpl="skillURL">
+		<portlet:param name="jsp" value="jsp7"/>
+		<portlet:param name="empId" value="<%=String.valueOf(employeeId) %>" />
+		<portlet:param name="fileId" value="<%=String.valueOf(fileEntryId) %>"/>
+		</liferay-portlet:renderURL>
 <div id="empSkillsAddDelete" class="panel">
 	<div class="panel-heading">
 		<h3>Skills</h3>
@@ -521,11 +528,11 @@ A.ready(function()
 		<liferay-ui:search-container delta="5"
 			emptyResultsMessage="No records are available for EmpSkill"
 			deltaConfigurable="true"
-			rowChecker="<%= new RowChecker(renderResponse) %>">
+			rowChecker="<%= new RowChecker(renderResponse) %>" iteratorURL="<%=skillURL %>">
 			<liferay-ui:search-container-results>
 				<%
 					List<EmpSkill> skillList = empSkillDetails;
-							results = skillList;
+							results = ListUtil.subList(skillList, searchContainer.getStart(), searchContainer.getEnd());
 							total = skillList.size();
 							pageContext.setAttribute("results", results);
 							pageContext.setAttribute("total", total);
@@ -592,6 +599,11 @@ A.ready(function()
 		</aui:form>
 	</div>
 </div>
+<liferay-portlet:renderURL  varImpl="languageURL">
+		<portlet:param name="jsp" value="jsp7"/>
+		<portlet:param name="empId" value="<%=String.valueOf(employeeId) %>" />
+		<portlet:param name="fileId" value="<%=String.valueOf(fileEntryId) %>"/>
+		</liferay-portlet:renderURL>
 <div id="empLanguageAddDelete" class="panel">
 	<div class="panel-heading">
 		<h3>Language</h3>
@@ -606,11 +618,11 @@ A.ready(function()
 		<liferay-ui:search-container delta="5"
 			emptyResultsMessage="No records are available for EmpLanguage"
 			deltaConfigurable="true"
-			rowChecker="<%=new RowChecker(renderResponse)%>">
+			rowChecker="<%=new RowChecker(renderResponse)%>" iteratorURL="<%=languageURL %>">
 			<liferay-ui:search-container-results>
 				<%
 					List<EmpLanguage> languageList = empLanguageDetails;
-							results = languageList;
+							results = ListUtil.subList(languageList, searchContainer.getStart(), searchContainer.getEnd());
 							total = languageList.size();
 							pageContext.setAttribute("results", results);
 							pageContext.setAttribute("total", total);
@@ -674,6 +686,11 @@ A.ready(function()
 		</aui:form>
 	</div>
 </div>
+<liferay-portlet:renderURL  varImpl="licenseURL">
+		<portlet:param name="jsp" value="jsp7"/>
+		<portlet:param name="empId" value="<%=String.valueOf(employeeId) %>" />
+		<portlet:param name="fileId" value="<%=String.valueOf(fileEntryId) %>"/>
+		</liferay-portlet:renderURL>
 <div id="empLicenseAddDelete" class="panel">
 	<div class="panel-heading">
 		<h3>License</h3>
@@ -688,11 +705,11 @@ A.ready(function()
 		<liferay-ui:search-container delta="5"
 			emptyResultsMessage="No records are available for EmpLicense"
 			deltaConfigurable="true"
-			rowChecker="<%= new RowChecker(renderResponse) %>">
+			rowChecker="<%= new RowChecker(renderResponse) %>" iteratorURL="<%=licenseURL%>">
 			<liferay-ui:search-container-results>
 				<%
 					List<EmpLicense> licenseList = empLicenseDetails;
-							results = licenseList;
+							results = ListUtil.subList(licenseList, searchContainer.getStart(), searchContainer.getEnd());
 							total = licenseList.size();
 							pageContext.setAttribute("results", results);
 							pageContext.setAttribute("total", total);
