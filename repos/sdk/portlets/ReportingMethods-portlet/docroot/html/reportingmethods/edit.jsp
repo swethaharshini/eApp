@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@page import="com.rknowsys.eapp.hrm.service.ReportingMethodsLocalServiceUtil"%>
 <%@page import="com.rknowsys.eapp.hrm.model.ReportingMethods"%>
 <%@ include file="/html/reportingmethods/init.jsp" %>
@@ -17,17 +18,20 @@ width: 15%;
 .aui input[type="text"]{
 border-radius: 4px;
 }
+ #editReportingMethodMessage{
+ color: red;
+}
 </style>
 <aui:script>
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#delete');
+    var node = A.one('#reportingmethoddelete');
     node.on(
       'click',
       function() {
      var idArray = [];
-      A.all('input[type=checkbox]:checked').each(function(object) {
+   A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
       idArray.push(object.get("value"));
     
         });
@@ -69,7 +73,7 @@ AUI().use(
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#add');
+    var node = A.one('#reportingmethodadd');
     node.on(
       'click',
       function() {
@@ -81,16 +85,15 @@ AUI().use(
   }
 );
 
-AUI().ready('event', 'node', function(A){
-
-  A.one('#editReportingMethodAddDelete').hide();
- 
+AUI().ready('event', 'node','transition',function(A){
+  setTimeout(function(){
+    A.one('#editReportingMethodMessage').transition('fadeOut');
+},1000)
  });
-
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#editCancel');
+    var node = A.one('#editreportingmethodcancel');
     node.on(
       'click',
       function() {
@@ -107,26 +110,30 @@ AUI().use(
 
 </head>
 <body>
-<jsp:useBean id="editReportingMethod" type="com.rknowsys.eapp.hrm.model.ReportingMethods" scope="request" />
-<div id="editReportingMethodAddDelete" class="span12">
-		<a href="#" id="add">Add</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"
-			id="delete">Delete</a>
-	</div>
-	<div id="editReportingMethodForm">
-  <aui:form name="myForm" action="<%=updatereportingmethod.toString()%>">
-		<aui:input name="reportingmethodId" type="hidden" id="reportingmethodId"  value="<%=editReportingMethod.getReportingmethodId()%>"/>
-			 	<div class="span12">
-			<div class="span2">
-				<label>Name</label>
+<% 
+ ReportingMethods editReportingMethod =(ReportingMethods) portletSession.getAttribute("editReportingMethod");
+if(SessionMessages.contains(renderRequest.getPortletSession(),"reportingmethodName-empty-error")){%>
+<p id="editReportingMethodMessage"><liferay-ui:message key="Please Enter ReportingmethodName"/></p>
+<%} 
+%>
+      <div class="row-fluid">
+		<div id="editReportingMethodAddDelete" class="span12 text-right">
+			<a href="#" class="btn btn-primary" id="reportingmethodadd"><i class="icon-plus"></i></a>
+			<a href="#" class="btn btn-danger" id="reportingmethoddelete"><i class="icon-trash"></i></a>
 		</div>
-		<div class="span3">		
-		 <input name="<portlet:namespace/>reportingmethodName" type="text" required = "required" value="<%=editReportingMethod.getReportingmethodName() %>" >
+		<div  id="editReportingMethodForm">
+		<aui:form name="myForm" action="<%=updatereportingmethod.toString()%>" >
+			<aui:input name="reportingmethodId" type="hidden" id="reportingmethodId" value="<%=editReportingMethod.getReportingmethodId()%>" />
+			<div class="form-inline">
+				<label>ReportingMethod Name: </label>
+				<input name="<portlet:namespace/>reportingmethodName" type="text" value="<%=editReportingMethod.getReportingmethodName() %>">
+				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
+				<button  type="reset" id ="reportingmethodcancel" class="btn btn-danger"><i class="icon-remove"></i></button>
 			</div>
-			</div>
-	<aui:button type="submit" value="Submit"/> <aui:button  type="reset" value="Cancel" id ="editCancel"></aui:button>
-	</aui:form>
+		</aui:form>
+		</div>
 	</div>
-	 <div><label style="color: white" >.</label></div>
+     
 </body>
 <%
 PortletURL iteratorURL = renderResponse.createRenderURL();

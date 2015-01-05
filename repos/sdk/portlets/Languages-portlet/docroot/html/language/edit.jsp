@@ -13,12 +13,15 @@ width: 10%;
 .table-last-header{
 width: 15%;
 }
+#editLanguageMessage{
+ color: red;
+}
 </style>
 <aui:script>
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#delete');
+    var node = A.one('#languagedelete');
     node.on(
       'click',
       function() {
@@ -65,7 +68,7 @@ AUI().use(
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#add');
+    var node = A.one('#languageadd');
     node.on(
       'click',
       function() {
@@ -77,16 +80,16 @@ AUI().use(
   }
 );
 
-AUI().ready('event', 'node', function(A){
-
-  A.one('#editLanguageAddDelete').hide();
- 
+ AUI().ready('event', 'node','transition',function(A){
+  setTimeout(function(){
+    A.one('#editLanguageMessage').transition('fadeOut');
+},1000)
  });
 
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#editCancel');
+    var node = A.one('#languagecancel');
     node.on(
       'click',
       function() {
@@ -104,33 +107,30 @@ AUI().use(
 </head>
 <body>
 <% if(SessionMessages.contains(renderRequest.getPortletSession(),"languageName-empty-error")){%>
-<liferay-ui:message key="Please Enter LanguageName"/>
-<%} 
- if(SessionMessages.contains(renderRequest.getPortletSession(),"languageName-duplicate-error")){
-%>
-<liferay-ui:message key="LanguageName already Exits"/>
-<%} 
+<p id="editLanguageMessage"><liferay-ui:message key="Please Enter LanguageName"/></p>
+<%}
 %>
 <% 
  Language editLanguage = (Language)portletSession.getAttribute("editLanguage");
 %>
- <br/><br/>
-	<div id="editLanguageForm">
-  <aui:form name="myForm" action="<%=updateLanguages.toString()%>">
-		<aui:input name="languageId" type="hidden" id="languageId"  value="<%=editLanguage.getLanguageId()%>"/>
-			 	<div class="span12">
-			<div class="span2">
-				<label>Name</label>
+   
+   <div class="row-fluid">
+		<div id="editLanguageAddDelete" class="span12 text-right">
+			<a href="#" class="btn btn-primary" id="languageadd"><i class="icon-plus"></i></a>
+			<a href="#" class="btn btn-danger" id="languagedelete"><i class="icon-trash"></i></a>
 		</div>
-		<div class="span3">		
-		 <aui:input name="language_name" label="" type="text" value="<%=editLanguage.getLanguageName() %>" />
+		<div  id="editLanguageForm">
+		<aui:form name="myForm" action="<%=updateLanguages.toString()%>" >
+			<aui:input name="languageId" type="hidden" id="languageId" value="<%=editLanguage.getLanguageId()%>"/>
+			<div class="form-inline">
+				<label>Language Name: </label>
+				<input name="<portlet:namespace/>language_name" type="text" value="<%=editLanguage.getLanguageName()%>">
+				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
+				<button  type="reset" id ="languagecancel" class="btn btn-danger"><i class="icon-remove"></i></button>
 			</div>
-			</div>
-	<br/>
-	<aui:button type="submit" value="Submit"/> <aui:button  type="reset" value="Cancel" id ="editCancel"></aui:button><input type="button" value="Delete" class="btn" id="delete">
-	</aui:form>
+		</aui:form>
+		</div>
 	</div>
-	 <div><label style="color: white" >.</label></div>
 </body>
 <%
 PortletURL iteratorURL = renderResponse.createRenderURL();

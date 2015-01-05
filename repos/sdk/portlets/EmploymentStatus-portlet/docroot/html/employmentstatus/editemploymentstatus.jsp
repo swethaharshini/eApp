@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>employmentstatus</title>
+<title>editEmploymentstatus</title>
 <portlet:actionURL var="saveemploymentstatus" name="saveEmploymentStatus">
 </portlet:actionURL>
 <portlet:resourceURL var="deleteemploymentstatus" id="deleteEmploymentstatus"/>
@@ -15,7 +15,7 @@
 	<portlet:param name="mvcPath" value="/html/employmentstatus/addemploymentstatus.jsp" />
 </portlet:renderURL>
 <style type="text/css">
-em{
+#editEmploymentStatusMessage{
  color: red;
 }
 </style>
@@ -23,7 +23,7 @@ em{
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#delete');
+    var node = A.one('#deleteemploymentstatus');
     node.on(
       'click',
       function() {
@@ -70,11 +70,11 @@ AUI().use(
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#add');
+    var node = A.one('#addemploymentstatus');
     node.on(
       'click',
       function() {
-         A.one('#editjobadddelete').hide();
+         A.one('#editemploymentstatusadddelete').hide();
          A.one('#editEmploymentStatusForm').show();
                      
       }
@@ -82,16 +82,16 @@ AUI().use(
   }
 );
 
-AUI().ready('event', 'node', function(A){
-
-  A.one('#editjobadddelete').hide();
- 
+ AUI().ready('event', 'node','transition',function(A){
+  setTimeout(function(){
+    A.one('#editEmploymentStatusMessage').transition('fadeOut');
+},1000)
  });
 
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#editcancel');
+    var node = A.one('#editemploymentstatuscancel');
     node.on(
       'click',
       function() {
@@ -109,28 +109,31 @@ AUI().use(
 
 </head>
 <body>
-<% if(SessionMessages.contains(renderRequest.getPortletSession(),"employmentStatus-empty-error")){%>
-<liferay-ui:message key="Please Enter EmploymentStatus"/>
-<%} 
-  EmploymentStatus editemploymentstatus =(EmploymentStatus)portletSession.getAttribute("editemploymentstatus");
+<% 
+ EmploymentStatus editemploymentstatus = (EmploymentStatus)portletSession.getAttribute("editemploymentstatus");
+if(SessionMessages.contains(renderRequest.getPortletSession(),"employmentStatus-empty-error")){%>
+<p id="editEmploymentStatusMessage"><liferay-ui:message key="Please Enter EmploymentStatus"/></p>
+<%}
 %>
 <br/><br/>
-
-		<div id="editEmploymentStatusForm">
-	    <aui:form name="myForm" action="<%=saveemploymentstatus.toString()%>">
-	  		<aui:input name="employmentstatusId" type="hidden" id="employmentstatusId"  value="<%=editemploymentstatus.getEmploymentStatusId()%>"/>
-	  		<div class="span12">
-			<div class="span2">	<label>Employment Status:<em>*</em> </label></div>
-			<div class="span3">	<aui:input label="" name="employmentstatus" id="editemploymentstatus" class="employmentstatus" type="text" value="<%=editemploymentstatus.getEmploymentstatus() %>"/></div>
-			</div>
-				<aui:button type="submit" value="Submit"/>
-				<aui:button  type="reset" id ="editcancel" value="Cancel"/>
-	  		    <input type="button" value="Delete" class="btn" id="delete">
-	  		
-	  	</aui:form>
+	
+	<div class="row-fluid">
+		<div id="editemploymentstatusadddelete" class="span12 text-right">
+			<a href="#" class="btn btn-primary" id="addemploymentstatus"><i class="icon-plus"></i></a>
+			<a href="#" class="btn btn-danger" id="deleteemploymentstatus"><i class="icon-trash"></i></a>
 		</div>
-
-<div><em>*</em> Required Field</div>
+		<div  id="editEmploymentStatusForm">
+		<aui:form name="myemploymentstatusForm" action="<%=saveemploymentstatus.toString()%>" >
+			<aui:input name="employmentstatusId" type="hidden" id="employmentstatusId" value="<%=editemploymentstatus.getEmploymentStatusId()%>" />
+			<div class="form-inline">
+				<label>Employment Status: </label>
+				<input name="<portlet:namespace/>employmentstatus" type="text" value="<%=editemploymentstatus.getEmploymentstatus() %>">
+				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
+				<button  type="reset" id ="editemploymentstatuscancel" class="btn btn-danger"><i class="icon-remove"></i></button>
+			</div>
+		</aui:form>
+		</div>
+	</div>
 </body>
 <%
 PortletURL iteratorURL = renderResponse.createRenderURL();

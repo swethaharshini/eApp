@@ -2,16 +2,22 @@ package com.rknowsys.eapp;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
+import javax.portlet.PortletSession;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
-
 import com.liferay.counter.service.CounterLocalServiceUtil;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.portlet.PortletClassLoaderUtil;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.theme.ThemeDisplay;
@@ -41,16 +47,43 @@ public class ReportingMethodAction extends MVCPortlet {
 			PortletException, SystemException {
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest
 				.getAttribute(WebKeys.THEME_DISPLAY);
+		String id = ParamUtil.getString(actionRequest, "reportingmethodId");
+		String name = ParamUtil.getString(actionRequest,
+				"reportingmethodName");
+		String reportingmethodName = name.trim();
 		try {
-
-			ReportingMethods reportingMethods = ReportingMethodsLocalServiceUtil
-					.createReportingMethods(CounterLocalServiceUtil.increment());
-
-			String id = ParamUtil.getString(actionRequest, "reportingmethodId");
-			String name = ParamUtil.getString(actionRequest,
-					"reportingmethodName");
+			
+			if(reportingmethodName == null || reportingmethodName.equals("")){
+				
+				SessionMessages.add(actionRequest.getPortletSession(),
+						"reportingmethodName-empty-error");
+				actionResponse.setRenderParameter("mvcPath",
+						"/html/reportingmethods/add.jsp");
+				
+			}
+			else{
+				DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(ReportingMethods.class, PortletClassLoaderUtil.getClassLoader());
+				dynamicQuery.add(RestrictionsFactoryUtil.eq("reportingmethodName", name));
+				List<ReportingMethods> list = ReportingMethodsLocalServiceUtil.dynamicQuery(dynamicQuery);
+				if(list.size()>0){
+					
+					ReportingMethods reportingMethods = list.get(0);
+					if(reportingMethods.getReportingmethodName().equalsIgnoreCase(name)){
+						
+						SessionMessages.add(
+								actionRequest.getPortletSession(),
+								"reportingmethodName-duplicate-error");
+						actionResponse.setRenderParameter("mvcPath",
+								"/html/reportingmethods/add.jsp");
+					}
+					
+				}
+				else{
+			
 			System.out.println("id == " + id + " Name = " + name);
 			if (id == "" || id == null) {
+				ReportingMethods reportingMethods = ReportingMethodsLocalServiceUtil
+						.createReportingMethods(CounterLocalServiceUtil.increment());
 				reportingMethods.setReportingmethodName(ParamUtil.getString(
 						actionRequest, "reportingmethodName"));
 				reportingMethods.setCreateDate(date);
@@ -60,6 +93,8 @@ public class ReportingMethodAction extends MVCPortlet {
 				reportingMethods.setUserId(themeDisplay.getUserId());
 				reportingMethods = ReportingMethodsLocalServiceUtil
 						.addReportingMethods(reportingMethods);
+			}
+			}
 			}
 		} catch (SystemException e) {
 
@@ -88,10 +123,26 @@ public class ReportingMethodAction extends MVCPortlet {
 
 		String id = ParamUtil.getString(actionRequest, "reportingmethodId");
 		String name = ParamUtil.getString(actionRequest, "reportingmethodName");
+		String reportingmethodName = name.trim();
 		System.out.println("id == " + id);
 		ReportingMethods reportingMethods;
 
 		try {
+			if(reportingmethodName==null || reportingmethodName.equals("")){
+				
+				ReportingMethods reportingMethod = ReportingMethodsLocalServiceUtil
+						.getReportingMethods(Long.parseLong(id));
+				PortletSession portletSession = actionRequest.getPortletSession();
+				portletSession.setAttribute("editReportingMethod", reportingMethod);
+				
+				SessionMessages.add(actionRequest.getPortletSession(),
+						"reportingmethodName-empty-error");
+				actionResponse.setRenderParameter("mvcPath",
+						"/html/reportingmethods/edit.jsp");
+				
+			}
+			else{
+			
 			reportingMethods = ReportingMethodsLocalServiceUtil
 					.getReportingMethods(Long.parseLong(id));
 			reportingMethods.setCreateDate(date);
@@ -102,6 +153,7 @@ public class ReportingMethodAction extends MVCPortlet {
 			reportingMethods.setReportingmethodName(name);
 			reportingMethods = ReportingMethodsLocalServiceUtil
 					.updateReportingMethods(reportingMethods);
+			}
 
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
@@ -179,9 +231,9 @@ public class ReportingMethodAction extends MVCPortlet {
 				"reportingmethodId");
 		ReportingMethods reportingMethods = ReportingMethodsLocalServiceUtil
 				.getReportingMethods(reportingmethodId);
-
-		actionRequest.setAttribute("editReportingMethod", reportingMethods);
-		actionResponse.setRenderParameter("jspPage",
+		PortletSession portletSession = actionRequest.getPortletSession();
+		portletSession.setAttribute("editReportingMethod", reportingMethods);
+    	actionResponse.setRenderParameter("jspPage",
 				"/html/reportingmethods/edit.jsp");
 	}
 

@@ -11,16 +11,27 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/jobcategory/add.jsp" />
 </portlet:renderURL>
+<style type="text/css">	
+.table-first-header{
+width: 10%;
+}
+.table-last-header{
+width: 15%;
+}
+ #editJobcategoryMessage{
+ color: red;
+}
+</style>
 <aui:script>
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#delete');
+    var node = A.one('#jobcategorydelete');
     node.on(
       'click',
       function() {
      var idArray = [];
-      A.all('input[type=checkbox]:checked').each(function(object) {
+      A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
       idArray.push(object.get("value"));
     
         });
@@ -62,7 +73,7 @@ AUI().use(
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#add');
+    var node = A.one('#jobcategoryadd');
     node.on(
       'click',
       function() {
@@ -74,16 +85,17 @@ AUI().use(
   }
 );
 
-AUI().ready('event', 'node', function(A){
-
-  A.one('#editjobadddelete').hide();
- 
+AUI().ready('event', 'node','transition',function(A){
+  setTimeout(function(){
+    A.one('#editJobcategoryMessage').transition('fadeOut');
+},1000)
  });
+
 
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#editcancel');
+    var node = A.one('#editjobcategorycancel');
     node.on(
       'click',
       function() {
@@ -94,17 +106,7 @@ AUI().use(
     );																																
   }
 );
-AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#reset');
-    node.on(
-      'click',
-      function() {
-       alert("hii")
-      
-     });
-     });
+
 </aui:script>
 
 
@@ -115,28 +117,27 @@ AUI().use(
  JobCategory editjobcategory = (JobCategory)portletSession.getAttribute("editjobcategory");
 %>
 <% if(SessionMessages.contains(renderRequest.getPortletSession(),"jobcategoryName-empty-error")){%>
-<liferay-ui:message key="Please Enter JobcategoryName"/>
+<p id="editJobcategoryMessage"><liferay-ui:message key="Please Enter JobcategoryName"/></p>
 <%} 
 %>
-<div id="editJobCategoryForm">
-  <aui:form name="myForm" action="<%=savejobcategory.toString()%>">
-  		<div class="form-horizontal">
-			<aui:input name="jobcategoryId" type="hidden" id="jobcategoryId"  value="<%=editjobcategory.getJobCategoryId()%>"/>
-			<aui:input name="jobcategory" id="editjobcategory" class="jobcategory" type="text" label="* Job Category" value="<%=editjobcategory.getJobcategory()%>">
-			<aui:validator name="required"></aui:validator> 
-			</aui:input>
-			<div class="control-group">
-				<div class="controls">
-					<aui:button type="submit" value="Submit"/> 
-					<aui:button  type="reset" value="Cancel" id ="editcancel">
-					</aui:button><input type="button" value="Delete" class="btn" id="delete">
-					<div><em>*</em> Required Field</div>
-				</div>
-			</div>
+   
+    <div class="row-fluid">
+		<div id="editjobadddelete" class="span12 text-right">
+			<a href="#" class="btn btn-primary" id="jobcategoryadd"><i class="icon-plus"></i></a>
+			<a href="#" class="btn btn-danger" id="jobcategorydelete"><i class="icon-trash"></i></a>
 		</div>
-	</aui:form>
+		<div  id="editJobCategoryForm">
+		<aui:form name="myForm" action="<%=savejobcategory.toString()%>" >
+			<aui:input name="jobcategoryId" type="hidden" id="jobcategoryId" value="<%=editjobcategory.getJobCategoryId()%>" />
+			<div class="form-inline">
+				<label>Job Category: </label>
+				<input name="<portlet:namespace/>jobcategory" type="text" value="<%=editjobcategory.getJobcategory()%>">
+				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
+				<button  type="reset" id ="editjobcategorycancel" class="btn btn-danger"><i class="icon-remove"></i></button>
+			</div>
+		</aui:form>
+		</div>
 	</div>
-	
 </body>
 <%
 PortletURL iteratorURL = renderResponse.createRenderURL();
