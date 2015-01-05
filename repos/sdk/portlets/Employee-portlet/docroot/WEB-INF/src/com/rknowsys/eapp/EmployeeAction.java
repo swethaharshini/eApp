@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,6 +16,8 @@ import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
 import javax.portlet.PortletSession;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
@@ -66,7 +67,6 @@ import com.rknowsys.eapp.hrm.model.EmpSkill;
 import com.rknowsys.eapp.hrm.model.EmpSupervisor;
 import com.rknowsys.eapp.hrm.model.EmpWorkExp;
 import com.rknowsys.eapp.hrm.model.Employee;
-import com.rknowsys.eapp.hrm.model.Location;
 import com.rknowsys.eapp.hrm.model.PayGradeCurrency;
 import com.rknowsys.eapp.hrm.service.EmpContactDetailsLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.EmpDependentLocalServiceUtil;
@@ -82,7 +82,6 @@ import com.rknowsys.eapp.hrm.service.EmpSkillLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.EmpSupervisorLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.EmpWorkExpLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.EmployeeLocalServiceUtil;
-import com.rknowsys.eapp.hrm.service.LocationLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.PayGradeCurrencyLocalServiceUtil;
 
 public class EmployeeAction extends MVCPortlet {
@@ -1456,4 +1455,94 @@ public class EmployeeAction extends MVCPortlet {
 			ActionResponse actionResponse) throws IOException,
 			PortletException, SystemException {
 	}
+	public void iterateEmpJobs(ActionRequest actionRequest,ActionResponse actionResponse)
+	{  
+		String jsp=actionRequest.getParameter("jsp");
+		String cur=actionRequest.getParameter("cur");
+		String delta=actionRequest.getParameter("delta");
+		String fileEntryId=actionRequest.getParameter("fileId");
+		String employeeId=actionRequest.getParameter("empId");
+		System.out.println("jsp"+jsp+"cur"+cur+"delta"+delta+"file"+fileEntryId+"emp"+employeeId);
+		actionRequest.setAttribute("cur",cur);
+		actionRequest.setAttribute("delta", delta);
+		Map map = new HashMap();
+		map.put("jsp", jsp);
+		map.put("empId", Long.parseLong(employeeId));
+		map.put("fileId", Long.parseLong(fileEntryId));
+		actionRequest.getPortletSession(true).setAttribute("empId", map,
+				PortletSession.APPLICATION_SCOPE);
+		actionResponse.setRenderParameter("jspPage",
+				"/html/employee/edit_employee.jsp");
+		/*try {
+			this.include(this.viewTemplate, actionRequest, actionResponse);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (PortletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
+	}
+	public void doView(RenderRequest renderRequest,RenderResponse renderResponse)
+	{
+		String jsp=renderRequest.getParameter("jsp");
+		long fileEntryId = ParamUtil.getLong(renderRequest, "fileId");
+		Long empId = ParamUtil.getLong(renderRequest, "empId");
+		String employeeJsp="/html/employee/edit_employee.jsp";
+		System.out.println(jsp);
+		if(jsp==null)
+		{
+			try {
+				this.include(viewTemplate, renderRequest, renderResponse);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (PortletException e) {
+				e.printStackTrace();
+			}
+		}
+		else if(jsp.equals("jsp0")||jsp.equals("jsp1")||jsp.equals("jsp2")||jsp.equals("jsp3")||jsp.equals("jsp4")||jsp.equals("jsp5")||
+				jsp.equals("jsp6")||jsp.equals("jsp7")||jsp.equals("jsp8")||jsp.equals("jsp9")||jsp.equals("jsp10")||jsp.equals("jsp11")||jsp.equals("jsp12"))
+		{
+			Map map = new HashMap();
+			map.put("jsp", jsp);
+			map.put("empId", empId );
+			map.put("fileId", fileEntryId);
+			renderRequest.getPortletSession(true).setAttribute("empId", map,
+					PortletSession.APPLICATION_SCOPE);
+			try {
+				this.include(employeeJsp, renderRequest, renderResponse);
+			} catch (IOException e) {
+				System.out.println("Error in getting requested jsp");
+			} catch (PortletException e) {
+				System.out.println("Error in getting requested jsp");
+			}
+		}
+		else
+		{
+			try {
+				this.include(viewTemplate, renderRequest, renderResponse);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (PortletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		/*String jsp="/html/employee/edit_employee.jsp";
+		String action=renderRequest.getParameter("action");
+		String tabs=renderRequest.getParameter("jsp");
+		System.out.println(tabs);
+		System.out.println(action);
+		EmpJobListUtil.searchContainerData(renderRequest, renderResponse);
+			try {
+				this.include(jsp, renderRequest, renderResponse);
+			} catch (IOException e) {
+				System.out.println("Error in getting requested jsp");
+			} catch (PortletException e) {
+				System.out.println("Error in getting requested jsp");
+			}*/
+	}
+	
 }

@@ -174,6 +174,11 @@ long fileEntryId=(Long)empId.get("fileId");
 		</aui:form>
 	</div>
 </div>
+<liferay-portlet:renderURL  varImpl="emgContactURL">
+		<portlet:param name="jsp" value="jsp3"/>
+		<portlet:param name="empId" value="<%=String.valueOf(employeeId) %>" />
+		<portlet:param name="fileId" value="<%=String.valueOf(fileEntryId) %>"/>
+		</liferay-portlet:renderURL>
 <div id="assignedEmergencyContactsAddDelete" class="panel">
 	<div class="panel-heading">
 		<h3>Assigned Emergency Contacts</h3>
@@ -187,11 +192,11 @@ long fileEntryId=(Long)empId.get("fileId");
 	</div>
 		<liferay-ui:search-container delta="5"
 			emptyResultsMessage="No records are available for Emergency Contaccts"
-			deltaConfigurable="true" rowChecker="<%= new RowChecker(renderResponse) %>">
+			deltaConfigurable="true" rowChecker="<%= new RowChecker(renderResponse) %>" iteratorURL="<%=emgContactURL %>">
 			<liferay-ui:search-container-results>
 				<%
 					List<EmpEmergencyContact> emergencyContactDetails = emergencyDetails;
-							results = emergencyContactDetails;
+							results =ListUtil.subList( emergencyContactDetails,searchContainer.getStart(),searchContainer.getEnd());
 							total = emergencyContactDetails.size();
 							pageContext.setAttribute("results", results);
 							pageContext.setAttribute("total", total);
