@@ -774,6 +774,7 @@ public class EmployeeAction extends MVCPortlet {
 		System.out.println("in updateEmpSalaryDetails method");
 		long empId = ParamUtil.getLong(actionRequest, "empSalId");
 		long fileEntryId = ParamUtil.getLong(actionRequest, "SalFileId");
+		
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest
 				.getAttribute(WebKeys.THEME_DISPLAY);
 		Date date = new Date();
