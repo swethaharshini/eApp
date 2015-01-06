@@ -161,7 +161,7 @@ if(maritalStatus=="single")
 						inlineLabel="left" disabled="true" value="<%=licenseNumber%>"></aui:input>
 					<aui:input name="expiry_date" label="01_expiry-date"
 						inlineLabel="left" disabled="true" value='<%=licenseExpDate%>'
-						cssClass="dateEmployee"></aui:input>
+						cssClass="dateEmployee" placeholder="DD/MM/YYYY"></aui:input>
 						 <div class="control-group form-inline">
 							<label class="control-label"><liferay-ui:message key="01_gender" /></label>
 							<aui:input inlineLabel="right" name="gender" type="radio"

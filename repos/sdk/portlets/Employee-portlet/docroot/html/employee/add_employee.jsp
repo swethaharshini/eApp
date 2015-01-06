@@ -47,7 +47,8 @@ A.ready(function()
 					<aui:input name="user_name" label="01_assigned-user-name"></aui:input>
 					<aui:input name="password" label="01_password" type="password"></aui:input>
 					<aui:input name="confirm_password" label="01_confirm-password"
-					 type="password"></aui:input>
+					 type="password">
+					  <aui:validator name="equalTo">'#<portlet:namespace />password'</aui:validator></aui:input>
 				</div>
 				<aui:select name="location" label="01_location" inlineLabel="left">
 				<aui:option value="-1">--Select--</aui:option>
