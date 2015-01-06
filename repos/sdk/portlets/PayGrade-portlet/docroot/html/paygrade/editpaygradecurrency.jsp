@@ -165,7 +165,7 @@ PayGradeCurrency editpaygradecurrency = (PayGradeCurrency)portletSession.getAttr
 		<div class="span2">
         <label>Currency:<em>*</em> </label></div>
         <div class="span3">
-        <input name="<portlet:namespace/>currency" id="myAutoComplete" required="required" type="text" value="<%=editpaygradecurrency.getCurrency()%>">
+        <input name="<portlet:namespace/>currency" id="myAutoComplete"  type="text" value="<%=editpaygradecurrency.getCurrency()%>">
         </div>
         </div>
 		
@@ -210,10 +210,20 @@ iteratorURL.setParameter("mvcPath", "/html/paygrade/editpaygrade.jsp");
 		DynamicQuery paygradecurrencyquery = DynamicQueryFactoryUtil.forClass(PayGradeCurrency.class, PortletClassLoaderUtil.getClassLoader());
 		paygradecurrencyquery.add(PropertyFactoryUtil.forName("payGradeId").eq(paygradeid));
 		 
-		 results =  PayGradeCurrencyLocalServiceUtil.dynamicQuery(paygradecurrencyquery);
+		List<PayGradeCurrency> list = PayGradeCurrencyLocalServiceUtil.dynamicQuery(paygradecurrencyquery);
+		if(list.size()>5){
+						
+		results = ListUtil.subList(list, searchContainer.getStart(), searchContainer.getEnd());
+		}
+		else{
+			System.out.println("else block...");
+			results = list;
+		}
 		
 		System.out.println("results == " +results.size());
-		total = results.size();
+		total = list.size();
+		
+		
 		pageContext.setAttribute("results", results);
 		pageContext.setAttribute("total", total);
 				
