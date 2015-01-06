@@ -3,6 +3,10 @@
 <%@ include file="/html/employee/init.jsp"%>
 <portlet:actionURL name="addImmigrationDetails"
 	var="addImmigrationDetails" ></portlet:actionURL>
+	<portlet:resourceURL var="deleteImmigrationDetails" id="deleteImmigrationDetails"></portlet:resourceURL>
+	<portlet:renderURL var="listview">
+	<portlet:param name="mvcPath" value="/html/employee/edit_employee.jsp"/>
+	</portlet:renderURL>
 <aui:script use="aui-base,aui-node,aui-io-request-deprecated">
 var A=new AUI();
 A.ready(function()
@@ -24,7 +28,53 @@ A.ready(function()
     A.one('#empImmigrationAddDelete').show();
     A.one('#<portlet:namespace/>immigrationAdd').show();
    A.one('#<portlet:namespace/>immigrationDelete').show();
-   })
+   });
+   AUI().use(
+  'aui-node',
+  function(A) {
+    var node = A.one('#<portlet:namespace/>immigrationDelete');
+    node.on(
+      'click',
+      function() {
+     var idArray = [];
+      A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
+      idArray.push(object.get("value"));
+    
+        });
+       if(idArray==""){
+			  alert("Please select records!");
+		  }else{
+			  var d = confirm("Are you sure you want to delete the selected Immigration Details ?");
+		  if(d){
+		   var url = '<%=deleteImmigrationDetails%>';
+          A.io.request(url,
+         {
+          data: {  
+                <portlet:namespace />immigrationIds: idArray,  
+                 },
+          on: {
+               success: function() { 
+                   alert('deleted successfully');
+                   window.location='<%=listview%>';
+              },
+               failure: function() {
+                  
+                 }
+                }
+                 }
+                );
+		  																		
+		  console.log(idArray);
+	  
+      return true;
+  }
+  else
+    return false;
+}             
+      }
+    );
+  }
+);
 </aui:script>
 <%
 	Map empId = (Map) request.getSession(false).getAttribute(
@@ -139,7 +189,7 @@ A.ready(function()
 				%>
 			</liferay-ui:search-container-results>
 			<liferay-ui:search-container-row className="EmpImmigrationDocument"
-				modelVar="id">
+				modelVar="id" rowVar="curRow" keyProperty="empImmigrationDocumentId">
 				<liferay-ui:search-container-column-text name="01_document" property="docType" />
 				<liferay-ui:search-container-column-text name="01_number"
 					property="docNumber" />

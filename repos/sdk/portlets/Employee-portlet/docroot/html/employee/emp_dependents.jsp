@@ -1,6 +1,10 @@
 <%@ include file="/html/employee/init.jsp"%>
 <portlet:actionURL name="updateAssignedDependents"
 	var="updateAssignedDependents" ></portlet:actionURL>
+<portlet:resourceURL var="deleteDependent" id="deleteDependent"></portlet:resourceURL>
+	<portlet:renderURL var="listview">
+	<portlet:param name="mvcPath" value="/html/employee/edit_employee.jsp"/>
+	</portlet:renderURL>
 <aui:script use="aui-base,aui-node,aui-io-request-deprecated">
 var A=new AUI();
 A.ready(function()
@@ -23,6 +27,52 @@ A.ready(function()
 	   A.one('#<portlet:namespace/>dependentAdd').show();
        A.one('#<portlet:namespace/>dependentDelete').show();
    });
+   AUI().use(
+  'aui-node',
+  function(A) {
+    var node = A.one('#<portlet:namespace/>dependentDelete');
+    node.on(
+      'click',
+      function() {
+     var idArray = [];
+      A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
+      idArray.push(object.get("value"));
+    
+        });
+       if(idArray==""){
+			  alert("Please select records!");
+		  }else{
+			  var d = confirm("Are you sure you want to delete the selected Dependent record?");
+		  if(d){
+		   var url = '<%=deleteDependent%>';
+          A.io.request(url,
+         {
+          data: {  
+                <portlet:namespace />dependentIds: idArray,  
+                 },
+          on: {
+               success: function() { 
+                   alert('deleted successfully');
+                   window.location='<%=listview%>';
+              },
+               failure: function() {
+                  
+                 }
+                }
+                 }
+                );
+		  																		
+		  console.log(idArray);
+	  
+      return true;
+  }
+  else
+    return false;
+}             
+      }
+    );
+  }
+);
 </aui:script>
 <%
 	Map empId = (Map) request.getSession(false).getAttribute(
@@ -101,7 +151,7 @@ A.ready(function()
 				%>
 			</liferay-ui:search-container-results>
 			<liferay-ui:search-container-row className="EmpDependent"
-				modelVar="id">
+				modelVar="id" keyProperty="empDependentId"  rowVar="curRow" >
 				<liferay-ui:search-container-column-text name="01_name" property="name" />
 				<liferay-ui:search-container-column-text name="01_relation"
 					property="relationship" />

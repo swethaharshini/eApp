@@ -203,7 +203,7 @@ long fileEntryId=(Long)empId.get("fileId");
 				%>
 			</liferay-ui:search-container-results>
 			<liferay-ui:search-container-row className="EmpEmergencyContact"
-				modelVar="id">
+				modelVar="id" keyProperty="empEmergencyContactId"  rowVar="curRow" >
 				<liferay-ui:search-container-column-text name="01_name" property="name" />
 				<liferay-ui:search-container-column-text name="01_relation"
 					property="relationship" />

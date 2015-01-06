@@ -1019,6 +1019,54 @@ public class EmployeeAction extends MVCPortlet {
 			}
 
 		}
+		else if (resourceRequest.getResourceID().equals("deleteDependent")) {
+			log.info("deleting Dependent records");
+			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,
+					"dependentIds");
+			System.out.println(idsArray.length);
+
+			for (int i = 0; i <= idsArray.length - 1; i++) {
+
+				try {
+					try {
+						EmpDependentLocalServiceUtil
+								.deleteEmpDependent((Long.parseLong(idsArray[i])));
+						log.info("deleted");
+					} catch (PortalException e) {
+						e.printStackTrace();
+					} catch (SystemException e) {
+						e.printStackTrace();
+					}
+				} catch (NumberFormatException e) {
+					log.info("selected all records to delete");
+				}
+			}
+
+		}
+		else if (resourceRequest.getResourceID().equals("deleteImmigrationDetails")) {
+			log.info("deleting Immigration records");
+			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,
+					"immigrationIds");
+			System.out.println(idsArray.length);
+
+			for (int i = 0; i <= idsArray.length - 1; i++) {
+
+				try {
+					try {
+						EmpImmigrationDocumentLocalServiceUtil
+								.deleteEmpImmigrationDocument((Long.parseLong(idsArray[i])));
+						log.info("deleted");
+					} catch (PortalException e) {
+						e.printStackTrace();
+					} catch (SystemException e) {
+						e.printStackTrace();
+					}
+				} catch (NumberFormatException e) {
+					log.info("selected all records to delete");
+				}
+			}
+
+		}
 
 		else if (resourceRequest.getResourceID().equals("updateImage9")) {
 			System.out.println("upadateImage9");
