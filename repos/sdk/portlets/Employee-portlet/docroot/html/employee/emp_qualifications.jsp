@@ -110,6 +110,7 @@
 			.eq(employeeId));
 	List<EmpLicense> empLicenseDetails = EmpLicenseLocalServiceUtil
 			.dynamicQuery(empLicenseDynamicQuery);
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
 %>
 <aui:script use="aui-base,aui-node,aui-io-request-deprecated">
 var A=new AUI();
@@ -321,9 +322,9 @@ A.ready(function()
 				<aui:validator name="required"></aui:validator>
 				</aui:input>
 				<aui:input name="exp_from_date" label="01_from" inlineLabel="left"
-					cssClass="dateEmployee"></aui:input>
+					cssClass="dateEmployee" placeholder="DD/MM/YYYY"></aui:input>
 				<aui:input name="exp_to_date" label="01_to" inlineLabel="left"
-					cssClass="dateEmployee">
+					cssClass="dateEmployee" placeholder="DD/MM/YYYY">
 				</aui:input>
 				<aui:input name="exp_comments" type="textarea" label="01_comments"
 					inlineLabel="left"></aui:input>
@@ -372,8 +373,8 @@ A.ready(function()
 				modelVar="id">
 				<liferay-ui:search-container-column-text name="01_company" property="company"/>
 				<liferay-ui:search-container-column-text name="01_jobtitle" property="jobTitle" />
-				<liferay-ui:search-container-column-text name="01_from" property="fromDate"/>
-				<liferay-ui:search-container-column-text name="01_to" property="toDate"/>
+				<liferay-ui:search-container-column-text name="01_from" value="<%=sdf.format(id.getFromDate()) %>"/>
+				<liferay-ui:search-container-column-text name="01_to" value="<%=sdf.format(id.getToDate()) %>"/>
 				<liferay-ui:search-container-column-text name="01_comment" property="comment"/>
 			</liferay-ui:search-container-row>
 			<liferay-ui:search-iterator />
@@ -391,7 +392,7 @@ A.ready(function()
 				<aui:input name="QualFileId" value="<%=fileEntryId%>" type="hidden"></aui:input>
 				<aui:select name="edu_level" label="01_level" inlineLabel="left"
 					showRequiredLabel="false">
-				<aui:option value="-1">--Select--</aui:option>
+				<aui:option value="0">--Select--</aui:option>
 				<%
 				List<Education> eduList = EducationLocalServiceUtil.getEducations(-1, -1);
 						Iterator eduLevels = eduList.iterator();
@@ -413,9 +414,9 @@ A.ready(function()
 				</aui:input>
 				<aui:input name="edu_score" label="01_score" inlineLabel="left"></aui:input>
 				<aui:input name="edu_from_date" label="01_from" inlineLabel="left"
-					cssClass="dateEmployee"></aui:input>
+					cssClass="dateEmployee" placeholder="DD/MM/YYYY"></aui:input>
 				<aui:input name="edu_to_date" label="01_to" inlineLabel="left"
-					cssClass="dateEmployee"></aui:input>
+					cssClass="dateEmployee" placeholder="DD/MM/YYYY"></aui:input>
 				<div class="control-group">
 					<div class="controls">
 						<aui:button type="submit" cssClass="button btn-primary" value="save"
@@ -670,9 +671,9 @@ A.ready(function()
 					inlineLabel="left">
 				</aui:input>
 				<aui:input name="license_issue_date" label="01_license-issue-date"
-					inlineLabel="left" cssClass="dateEmployee"></aui:input>
+					inlineLabel="left" cssClass="dateEmployee" placeholder="DD/MM/YYYY"></aui:input>
 				<aui:input name="license_exp_date" label="01_license-expiry-date"
-					inlineLabel="left" cssClass="dateEmployee">
+					inlineLabel="left" cssClass="dateEmployee" placeholder="DD/MM/YYYY">
 				</aui:input>
 				<div class="control-group">
 					<div class="controls">
@@ -720,8 +721,8 @@ A.ready(function()
 				<%licenseValue=getLicnse(id.getLicenseId())!=null?getLicnse(id.getLicenseId()):""; %>
 				<liferay-ui:search-container-column-text name="01_license-type" 
 				value='<%=licenseValue  %>'/>
-				<liferay-ui:search-container-column-text name="01_issued-date" property="issuedDate"/>
-				<liferay-ui:search-container-column-text name="01_expiry-date" property="expiryDate" />
+				<liferay-ui:search-container-column-text name="01_issued-date" value='<%=id.getIssuedDate()!=null?sdf.format(id.getIssuedDate()):""%>'/>
+				<liferay-ui:search-container-column-text name="01_expiry-date"  value='<%=id.getExpiryDate() !=null?sdf.format(id.getExpiryDate() ):""%>' />
 			</liferay-ui:search-container-row>
 			<liferay-ui:search-iterator />
 		</liferay-ui:search-container>

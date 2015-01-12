@@ -126,9 +126,9 @@ public String getCategoryValue(long jcId)
 				<aui:input name="joined_date" id="joined_date" label="01_joined-date"
 					cssClass="dateEmployee" inlineLabel="left" type="date"></aui:input>
 				<aui:input name="probation_date" label="01_probation-date"
-					cssClass="dateEmployee" inlineLabel="left" ></aui:input>
+					cssClass="dateEmployee" inlineLabel="left" placeholder="DD/MM/YYYY"></aui:input>
 				<aui:input name="date_permanency" label="01_date-of-permanency"
-					cssClass="dateEmployee" inlineLabel="left" ></aui:input>
+					cssClass="dateEmployee" inlineLabel="left" placeholder="DD/MM/YYYY" ></aui:input>
 				<aui:select name="emp_job_title" label="01_jobtitle">
 				<%
 				List<JobTitle> jobTitle = JobTitleLocalServiceUtil
@@ -261,10 +261,9 @@ public String getCategoryValue(long jcId)
 			deltaConfigurable="true"
 			rowChecker="<%=new RowChecker(renderResponse)%>" iteratorURL="<%=empJobURL %>">
 			<liferay-ui:search-container-results >
-			<%List<EmpJob> empJobHistory = 
-						EmpJobLocalServiceUtil.getEmpJobs(searchContainer.getStart(), searchContainer.getEnd());
-							results = empJobHistory;
-							total = EmpJobLocalServiceUtil.getEmpJobsCount();
+			<%List<EmpJob> empJobHistory = empJob;
+							results =ListUtil.subList(empJob,searchContainer.getStart(), searchContainer.getEnd());
+							total = empJob.size();
 							pageContext.setAttribute("results", results);
 							pageContext.setAttribute("total", total);
 							%>

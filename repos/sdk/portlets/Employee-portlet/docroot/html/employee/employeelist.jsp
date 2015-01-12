@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.util.ListUtil"%>
 <%@page import="com.liferay.portal.kernel.dao.orm.Criterion"%>
 <%@page import="com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil"%>
 <%@page import="com.liferay.portal.kernel.portlet.PortletClassLoaderUtil"%>
@@ -63,8 +64,10 @@
 
 				List<EmpPersonalDetails> userList = EmpPersonalDetailsLocalServiceUtil
 						.dynamicQuery(userQuery);
+				if(userList.size()!=0)
+				{
 				empSupervisor2 = userList.get(0);
-
+				}
 			} catch (SystemException e) {
 
 			}
@@ -184,8 +187,9 @@
 		String jobtitle = ParamUtil.getString(renderRequest, "jobtitle");
 		String subunit = ParamUtil.getString(renderRequest, "subunit");
 		System.out.println("before results....parameters.." +empname+ ", "+empid+", "+empstatus+", "+supervisorname+", "+jobtitle+", " +subunit);
-		searchContainer.setResults(EmpDetailsLocalServiceUtil.findEmpDetails(empname, empid, empstatus, supervisorname, jobtitle, subunit, searchContainer.getStart(),searchContainer.getEnd()));
-	     total = results.size(); 
+		List<EmpDetails> employeeList=EmpDetailsLocalServiceUtil.findEmpDetails(empname, empid, empstatus, supervisorname, jobtitle, subunit, -1,-1);
+	    results=ListUtil.subList(employeeList, searchContainer.getStart(), searchContainer.getEnd());
+		total = employeeList.size(); 
 	  	pageContext.setAttribute("results", results);
 		pageContext.setAttribute("total", total);
 		%>
