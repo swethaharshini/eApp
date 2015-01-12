@@ -14,7 +14,9 @@
 
 package com.rknowsys.eapp.hrm.service.impl;
 
+import com.rknowsys.eapp.hrm.model.LeaveRuleApplicable;
 import com.rknowsys.eapp.hrm.service.base.LeaveRuleApplicableLocalServiceBaseImpl;
+import com.rknowsys.eapp.hrm.service.persistence.LeaveRuleApplicableUtil;
 
 /**
  * The implementation of the leave rule applicable local service.
@@ -37,4 +39,13 @@ public class LeaveRuleApplicableLocalServiceImpl
 	 *
 	 * Never reference this interface directly. Always use {@link com.rknowsys.eapp.hrm.service.LeaveRuleApplicableLocalServiceUtil} to access the leave rule applicable local service.
 	 */
+	public  java.util.List<LeaveRuleApplicable>
+	 findByLeaveTypeId(
+				long leaveTypeId)
+
+	throws com.liferay.portal.kernel.exception.SystemException {
+
+	return LeaveRuleApplicableUtil.findByLeaveTypeId(leaveTypeId);
+
+	}
 }
