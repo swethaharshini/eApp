@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>employmentstatus</title>
+<title>AddEmploymentstatus</title>
 <portlet:actionURL var="saveemploymentstatus" name="saveEmploymentStatus">
 </portlet:actionURL>
 <portlet:resourceURL var="deleteemploymentstatus" id="deleteEmploymentStatus"/>
@@ -11,7 +11,7 @@
 	<portlet:param name="mvcPath" value="/html/employmentstatus/addemploymentstatus.jsp" />
 </portlet:renderURL>
 <style type="text/css">
-em{
+#addEmploymentStatusMessage{
  color: red;
 }
 </style>
@@ -19,7 +19,7 @@ em{
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#delete');
+    var node = A.one('#deleteemploymentstatus');
     node.on(
       'click',
       function() {
@@ -67,7 +67,7 @@ AUI().use(
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#add');
+    var node = A.one('#addemploymentstatus');
     node.on(
       'click',
       function() {
@@ -79,15 +79,17 @@ AUI().use(
   }
 );
 
- AUI().ready('event', 'node', function(A){
-
+  AUI().ready('event', 'node','transition',function(A){
   A.one('#addEmploymentstatusForm').hide();
+  setTimeout(function(){
+    A.one('#addEmploymentStatusMessage').transition('fadeOut');
+},1000)
  });
 
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#cancel');
+    var node = A.one('#cancelemploymentstatus');
     node.on(
       'click',
       function() {
@@ -104,31 +106,33 @@ AUI().use(
 
 <body>
 <% if(SessionMessages.contains(renderRequest.getPortletSession(),"employmentStatus-empty-error")){%>
-<liferay-ui:message key="Please Enter EmploymentStatus"/>
+<p id="addEmploymentStatusMessage"><liferay-ui:message key="Please Enter EmploymentStatus"/></p>
 <%} 
  if(SessionMessages.contains(renderRequest.getPortletSession(),"employmentStatus-duplicate-error")){
 %>
-<liferay-ui:message key="EmploymentStatus already Exits"/>
+<p id="addEmploymentStatusMessage"><liferay-ui:message key="EmploymentStatus already Exits"/></p>
 <%} 
 %>
  <br/><br/>
 	
-		<div  id="addEmploymentstatusForm">
-			<aui:form name="myForm" action="<%=saveemploymentstatus.toString()%>">
-				<aui:input name="employmentstatusId" type="hidden" id="employmentstatusId" />
-				<div class="span12">
-				 <div class="span2">	<label>Employment Status:<em>*</em> </label></div>
-				<div class="span3">	 <aui:input name="employmentstatus" label="" id="employmentstatus" type="text"/></div>
-			 </div>
-				 <aui:button type="submit" value="Submit"/>
-				 <aui:button  type="reset" value="Cancel" id ="cancel"/>
-				 <input type="button" value="Delete" class="btn" id="delete">
-				
-			</aui:form>
+	<div class="row-fluid">
+		<div id="employmentstatusadddelete" class="span12 text-right">
+			<a href="#" class="btn btn-primary" id="addemploymentstatus"><i class="icon-plus"></i></a>
+			<a href="#" class="btn btn-danger" id="deleteemploymentstatus"><i class="icon-trash"></i></a>
 		</div>
-	
-	
-<div><em>*</em> Required Field</div>
+		<div  id="addEmploymentstatusForm">
+		<aui:form name="myemploymentstatusForm" action="<%=saveemploymentstatus.toString()%>" >
+			<aui:input name="employmentstatusId" type="hidden" id="employmentstatusId" />
+			<div class="form-inline">
+				<label>Employment Status: </label>
+				<input name="<portlet:namespace/>employmentstatus" type="text">
+				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
+				<button  type="reset" id ="cancelemploymentstatus" class="btn btn-danger"><i class="icon-remove"></i></button>
+			</div>
+		</aui:form>
+		</div>
+	</div>
+
 </body>
 
 <%

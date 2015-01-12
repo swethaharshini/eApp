@@ -10,16 +10,27 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/jobcategory/add.jsp" />
 </portlet:renderURL>
+<style type="text/css">
+.table-first-header {
+	width: 10%;
+}
+.table-last-header {
+	width: 15%;
+}
+ #addJobcategoryMessage{
+ color: red;
+}
+</style>
 <aui:script>
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#delete');
+    var node = A.one('#jobcategorydelete');
     node.on(
       'click',
       function() {
      var idArray = [];
-      A.all('input[type=checkbox]:checked').each(function(object) {
+      A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
       idArray.push(object.get("value"));
     
         });
@@ -62,7 +73,7 @@ AUI().use(
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#add');
+    var node = A.one('#jobcategoryadd');
     node.on(
       'click',
       function() {
@@ -74,15 +85,18 @@ AUI().use(
   }
 );
 
- AUI().ready('event', 'node', function(A){
-
+AUI().ready('event', 'node','transition',function(A){
   A.one('#addJobcategoryForm').hide();
+  setTimeout(function(){
+    A.one('#addJobcategoryMessage').transition('fadeOut');
+},1000)
  });
+
 
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#cancel');
+    var node = A.one('#jobcategorycancel');
     node.on(
       'click',
       function() {
@@ -99,35 +113,32 @@ AUI().use(
 
 <body>
 <% if(SessionMessages.contains(renderRequest.getPortletSession(),"jobcategoryName-empty-error")){%>
-<liferay-ui:message key="Please Enter JobcategoryName"/>
+<p id="addJobcategoryMessage"><liferay-ui:message key="Please Enter JobcategoryName"/></p>
 <%} 
  if(SessionMessages.contains(renderRequest.getPortletSession(),"jobCategoryName-duplicate-error")){
 %>
-<liferay-ui:message key="JobcategoryName already Exits"/>
+<p id="addJobcategoryMessage"><liferay-ui:message key="JobcategoryName already Exits"/></p>
 <%} 
 %>
 
-		<div class="row-fluid">
+    <div class="row-fluid">
 		<div id="jobadddelete" class="span12 text-right">
-			<a href="#" class="btn btn-primary" id="add"><i class="icon-plus"></i></a>
-			<a href="#" class="btn btn-danger" id="delete"><i class="icon-trash"></i></a>
+			<a href="#" class="btn btn-primary" id="jobcategoryadd"><i class="icon-plus"></i></a>
+			<a href="#" class="btn btn-danger" id="jobcategorydelete"><i class="icon-trash"></i></a>
 		</div>
 		<div  id="addJobcategoryForm">
-		<aui:form name="myForm" action="<%=savejobcategory.toString()%>">
+		<aui:form name="myForm" action="<%=savejobcategory.toString()%>" >
 			<aui:input name="jobcategoryId" type="hidden" id="jobcategoryId" />
 			<div class="form-inline">
-				<label>Job Category</label>
-				<input name="<portlet:namespace/>jobcategory" type="text" required = "required">
+				<label>Job Category: </label>
+				<input name="<portlet:namespace/>jobcategory" type="text">
 				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
-				<button  type="reset" id ="cancel" class="btn btn-danger"><i class="icon-remove"></i></button>
+				<button  type="reset" id ="jobcategorycancel" class="btn btn-danger"><i class="icon-remove"></i></button>
 			</div>
 		</aui:form>
 		</div>
 	</div>
 
-
-	
-	 
 	
 </body>
 

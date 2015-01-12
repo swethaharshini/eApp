@@ -13,21 +13,28 @@
 	<portlet:param name="mvcPath" value="/html/paygrade/paygradelist.jsp" />
 </portlet:renderURL>
 <style type="text/css">
-em {
+#paygradeNameMessage,em {
 	color: red;
 }
 
 </style>
+<aui:script>
+AUI().ready('event', 'node','transition',function(A){
+ setTimeout(function(){
+    A.one('#paygradeNameMessage').transition('fadeOut');
+},1000)
+ });
 
+</aui:script>
 </head>
 <body>
 
 <% if(SessionMessages.contains(renderRequest.getPortletSession(),"paygradeName-empty-error")){%>
-<liferay-ui:message key="Please Enter PayGradeName"/>
+<p id="paygradeNameMessage"><liferay-ui:message key="Please Enter PayGradeName"/></p>
 <%} 
  if(SessionMessages.contains(renderRequest.getPortletSession(),"paygradeName-duplicate-error")){
 %>
-<liferay-ui:message key="PayGradeName already Exits"/>
+<p id="paygradeNameMessage"><liferay-ui:message key="PayGradeName already Exits"/></p>
 <%} 
 %>
 <br/><br/>
@@ -38,7 +45,7 @@ em {
 			<label><b>Name<em>*</em></b></label>
 		
 		<div class="controls">		
-		 <input name="<portlet:namespace/>paygradeName" id="paygrade" type="text" required = "required">
+		 <input name="<portlet:namespace/>paygradeName" id="paygrade" type="text">
 			</div>
 		</div>
 		<div class="control-group">

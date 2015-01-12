@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@page import="com.rknowsys.eapp.hrm.service.TerminationReasonsLocalServiceUtil"%>
 <%@page import="com.rknowsys.eapp.hrm.model.TerminationReasons"%>
 <%@ include file="/html/terminationreasons/init.jsp" %>
@@ -11,7 +12,7 @@
 .table-first-header{
 width: 10%;
 }
-em{
+ #editTerminationReasonMessage{
  color: red;
 }
 .table-last-header{
@@ -25,12 +26,12 @@ border-radius: 4px;
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#delete');
+    var node = A.one('#terminationreasondelete');
     node.on(
       'click',
       function() {
      var idArray = [];
-      A.all('input[type=checkbox]:checked').each(function(object) {
+      A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
       idArray.push(object.get("value"));
     
         });
@@ -72,7 +73,7 @@ AUI().use(
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#add');
+    var node = A.one('#terminationreasonadd');
     node.on(
       'click',
       function() {
@@ -84,16 +85,16 @@ AUI().use(
   }
 );
 
-AUI().ready('event', 'node', function(A){
-
-  A.one('#editterminationreasonsAddDelete').hide();
- 
+AUI().ready('event', 'node','transition',function(A){
+  
+  setTimeout(function(){
+    A.one('#editTerminationReasonMessage').transition('fadeOut');
+},1000)
  });
-
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#editCancel');
+    var node = A.one('#editterminationreasoncancel');
     node.on(
       'click',
       function() {
@@ -110,23 +111,33 @@ AUI().use(
 
 </head>
 <body>
-<jsp:useBean id="editTerminationReasons" type="com.rknowsys.eapp.hrm.model.TerminationReasons" scope="request" />
 
-	<div id="editterminationreasonsForm">
-  <aui:form name="myForm" action="<%=updateterminationreasons.toString()%>">
-		<aui:input name="terminationreasonsId" type="hidden" id="terminationreasonsId"  value="<%=editTerminationReasons.getTerminationreasonsId()%>"/>
-			 	<div class="span12">
-			<div class="span2">
-				<label>Name<em>*</em></label>
+ <% 
+   TerminationReasons editTerminationReasons = (TerminationReasons) portletSession.getAttribute("editTerminationReasons");
+ if(SessionMessages.contains(renderRequest.getPortletSession(),"termination-form-error")){%>
+<p id="editTerminationReasonMessage"><liferay-ui:message key="Please Enter TerminationReason"/></p>
+<%} 
+ 
+%>
+
+     <div class="row-fluid">
+		<div id="editterminationreasonsAddDelete" class="span12 text-right">
+			<a href="#" class="btn btn-primary" id="terminationreasonadd"><i class="icon-plus"></i></a>
+			<a href="#" class="btn btn-danger" id="terminationreasondelete"><i class="icon-trash"></i></a>
 		</div>
-		<div class="span3">		
-		 <input name="<portlet:namespace/>terminationreasonsName" type="text" required = "required" value="<%=editTerminationReasons.getTerminationreasonsName() %>" >
+		<div  id="addterminationreasonsForm">
+		<aui:form name="myForm" action="<%=updateterminationreasons.toString()%>" >
+			<aui:input name="terminationreasonsId" type="hidden" id="terminationreasonsId" value="<%=editTerminationReasons.getTerminationreasonsId()%>"/>
+			<div class="form-inline">
+				<label>TerminationReason Name: </label>
+				<input name="<portlet:namespace/>terminationreasonsName" type="text" value="<%=editTerminationReasons.getTerminationreasonsName() %>">
+				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
+				<button  type="reset" id ="editterminationreasoncancel" class="btn btn-danger"><i class="icon-remove"></i></button>
 			</div>
-			</div>
-	<aui:button type="submit" value="Submit"/> <aui:button  type="reset" value="Cancel" id ="editCancel"></aui:button><input type="button" class="btn" value="Delete" id ="delete"></input>
-	</aui:form>
+		</aui:form>
+		</div>
 	</div>
-	 <div><em>*</em> Required Field</div>
+
 </body>
 <%
 PortletURL iteratorURL = renderResponse.createRenderURL();

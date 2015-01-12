@@ -17,8 +17,8 @@
 .table-last-header {
 	width: 15%;
 }
-em{
-color: red;
+ #addTerminationReasonMessage{
+ color: red;
 }
 .aui input[type="text"]{
 border-radius: 4px;
@@ -28,12 +28,12 @@ border-radius: 4px;
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#delete');
+    var node = A.one('#terminationreasondelete');
     node.on(
       'click',
       function() {
      var idArray = [];
-      A.all('input[type=checkbox]:checked').each(function(object) {
+    A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
       idArray.push(object.get("value"));
       });
        if(idArray==""){
@@ -75,7 +75,7 @@ AUI().use(
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#add');
+    var node = A.one('#terminationreasonadd');
     node.on(
       'click',
       function() {
@@ -87,12 +87,17 @@ AUI().use(
   }
 );
 
-
+AUI().ready('event', 'node','transition',function(A){
+  A.one('#addterminationreasonsForm').hide();
+  setTimeout(function(){
+    A.one('#addTerminationReasonMessage').transition('fadeOut');
+},1000)
+ });
 
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#cancel');
+    var node = A.one('#terminationreasoncancel');
     node.on(
       'click',
       function() {
@@ -108,37 +113,34 @@ AUI().use(
 </head>
 
 <body>
-<div class="row-fluid">
+
  <% if(SessionMessages.contains(renderRequest.getPortletSession(),"termination-form-error")){%>
-<liferay-ui:message key="Please Enter TerminationReason"/>
+<p id="addTerminationReasonMessage"><liferay-ui:message key="Please Enter TerminationReason"/></p>
 <%} 
  if(SessionMessages.contains(renderRequest.getPortletSession(),"termination-form-duplicate-error")){
 %>
-<liferay-ui:message key="TerminationName already Exits"/>
+<p id="addTerminationReasonMessage"><liferay-ui:message key="TerminationName already Exits"/></p>
 <%} 
 %>
-</div>
-
-	<div  id="addterminationreasonsForm" class="row-fluid">
-	<aui:form name="myForm" action="<%=saveterminationreasons.toString()%>" >
-		<aui:input name="terminationreasonsId" type="hidden" id="terminationreasonsId" />
-	
-		<div class="span12">
-			<div class="span2">
-				<label>Name<em>*</em></label>
+		<div class="row-fluid">
+		<div id="terminationreasonsAddDelete" class="span12 text-right">
+			<a href="#" class="btn btn-primary" id="terminationreasonadd"><i class="icon-plus"></i></a>
+			<a href="#" class="btn btn-danger" id="terminationreasondelete"><i class="icon-trash"></i></a>
 		</div>
-		<div class="span3">		
-		 <input name="<portlet:namespace/>terminationreasonsName" type="text" required = "required">
+		<div  id="addterminationreasonsForm">
+		<aui:form name="myForm" action="<%=saveterminationreasons.toString()%>" >
+			<aui:input name="terminationreasonsId" type="hidden" id="terminationreasonsId" />
+			<div class="form-inline">
+				<label>TerminationReason Name: </label>
+				<input name="<portlet:namespace/>terminationreasonsName" type="text">
+				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
+				<button  type="reset" id ="terminationreasoncancel" class="btn btn-danger"><i class="icon-remove"></i></button>
 			</div>
+		</aui:form>
 		</div>
-		<aui:button type="submit" value="Submit" />
-		<aui:button  type="reset" value="Reset" id ="cancel"/>
-		<input type="button" class="btn" value="Delete" id ="delete"></input>
-	</aui:form>
 	</div>
-	
-	 <div><em>*</em> Required Field</div>
-	
+		
+		
 </body>
 
  <%

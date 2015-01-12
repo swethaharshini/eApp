@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@ include file="/html/educationaction/init.jsp" %>
 <portlet:actionURL var="updateEducations" name="updateEducation">
 </portlet:actionURL>
@@ -5,16 +6,22 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/educationaction/addEducation.jsp" />
 </portlet:renderURL>
+<style>
+#editEducationMessage{
+ color: red;
+}
+
+</style>
 <aui:script>
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#delete');
+    var node = A.one('#deleteeducation');
     node.on(
       'click',
       function() {
      var idArray = [];
-      A.all('input[type=checkbox]:checked').each(function(object) {
+      A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
       idArray.push(object.get("value"));
     
         });
@@ -56,7 +63,7 @@ AUI().use(
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#add');
+    var node = A.one('#addeducation');
     node.on(
       'click',
       function() {
@@ -68,16 +75,16 @@ AUI().use(
   }
 );
 
-AUI().ready('event', 'node', function(A){
-
-  A.one('#editEducationAddDelete').hide();
- 
+ AUI().ready('event', 'node','transition',function(A){
+  setTimeout(function(){
+    A.one('#editEducationMessage').transition('fadeOut');
+},1000)
  });
 
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#editCancel');
+    var node = A.one('#editcanceleducation');
     node.on(
       'click',
       function() {
@@ -95,11 +102,20 @@ AUI().use(
 
 </head>
 <body>
-<jsp:useBean id="editEducation" type="com.rknowsys.eapp.hrm.model.Education" scope="request" />
+<% 
+  Education editEducation = (Education) portletSession.getAttribute("editEducation");
+if(SessionMessages.contains(renderRequest.getPortletSession(),"educationName-empty-error")){%>
+<p id="editEducationMessage"><liferay-ui:message key="Please Enter Education Name"/></p>
+<%} 
+ 
+%>
+
+
+
 <div class="row-fluid">
-	<div id="editEducationAddDelete" class="span12">
-		<a href="#" class="btn btn-primary" id="add"><i class="icon-plus"></i></a>
-		<a href="#"  class="btn btn-danger" id="delete"><i class="icon-trash"></i></a>
+	<div id="editEducationAddDelete" class="span12 text-right">
+		<a href="#" class="btn btn-primary" id="addeducation"><i class="icon-plus"></i></a>
+		<a href="#"  class="btn btn-danger" id="deleteeducation"><i class="icon-trash"></i></a>
 	</div>
 	<div id="editEducationForm">
   	<aui:form name="myForm" action="<%=updateEducations.toString()%>">
@@ -108,7 +124,7 @@ AUI().use(
 				<label>Level: </label>
 		 		<input name="<portlet:namespace/>education_level" type="text" required = "required" value="<%=editEducation.getEduLevel() %>" >
 				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
-				<button  type="reset" id ="cancel" class="btn btn-danger"><i class="icon-remove"></i></button>
+				<button  type="reset" id ="editcanceleducation" class="btn btn-danger"><i class="icon-remove"></i></button>
 		</div>
 	</aui:form>
 	</div>

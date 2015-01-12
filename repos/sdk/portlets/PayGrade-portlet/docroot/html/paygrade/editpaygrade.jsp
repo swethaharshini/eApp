@@ -26,7 +26,7 @@
 </portlet:renderURL>
 
 <style type="text/css">
-em {
+#paygradecurrencyNameMessage,em {
 	color: red;
 }
 
@@ -55,6 +55,15 @@ em {
 
 </style>
 <aui:script>
+
+
+AUI().ready('event', 'node','transition',function(A){
+ setTimeout(function(){
+    A.one('#paygradecurrencyNameMessage').transition('fadeOut');
+},1000)
+ });
+
+
 AUI().use(
   'aui-node',
   function(A) {
@@ -143,7 +152,7 @@ System.out.println("id ======= " +paygradeid);
 				<label>Name<em>*</em> </label>
 		</div>
 		<div class="span3">		
-		 <input name="<portlet:namespace/>paygradeName" id="paygrade" type="text" required = "required" readonly="readonly" value="<%=paygrade3.getPayGradeName()%>">
+		 <input name="<portlet:namespace/>paygradeName" id="paygrade" type="text"  readonly="readonly" value="<%=paygrade3.getPayGradeName()%>">
 			</div>
 		</div>
 		
@@ -159,11 +168,11 @@ System.out.println("id ======= " +paygradeid);
  <div class="panel-body">
  
    <% if(SessionMessages.contains(renderRequest.getPortletSession(),"paygradecurrency-empty-error")){%>
-<liferay-ui:message key="Please Enter PayGradeCurrency"/>
+<p id="paygradecurrencyNameMessage"><liferay-ui:message key="Please Enter PayGradeCurrency"/></p>
 <%} 
  if(SessionMessages.contains(renderRequest.getPortletSession(),"paygradecurrency-duplicate-error")){
 %>
-<liferay-ui:message key="PayGradeCurrency already Exits"/>
+<p id="paygradecurrencyNameMessage"><liferay-ui:message key="PayGradeCurrency already Exits"/></p>
 <%} 
 %>
 <br/>
@@ -178,7 +187,7 @@ System.out.println("id ======= " +paygradeid);
 		<div class="span2">
         <label>Currency:<em>*</em> </label></div>
         <div class="span3">
-        <input name="<portlet:namespace/>currency" id="myAutoComplete" required="required" type="text" >
+        <input name="<portlet:namespace/>currency" id="myAutoComplete"  type="text" >
         
         </div>
         </div>
@@ -190,7 +199,7 @@ System.out.println("id ======= " +paygradeid);
 				<label>Minimum Salary</label>
 		</div>
 		<div class="span3">		
-		 <input name="<portlet:namespace/>minSalary" id="paygrade" type="text">
+		 <input name="<portlet:namespace/>minSalary" id="paygrade" type="text" class="form-control field-required field-digits">
 			</div>
 		</div>
 		<div class="span12">	
@@ -198,7 +207,7 @@ System.out.println("id ======= " +paygradeid);
 				<label>Maximum Salary</label>
 		</div>
 		<div class="span3">		
-		 <input name="<portlet:namespace/>maxSalary" id="paygrade" type="text">
+		 <input name="<portlet:namespace/>maxSalary" id="paygrade" type="text" class="form-control field-required field-digits">
 			</div>
 		</div>
 		
@@ -221,10 +230,20 @@ iteratorURL.setParameter("mvcPath", "/html/paygrade/editpaygrade.jsp");
 		<%
 		DynamicQuery paygradecurrencyquery = DynamicQueryFactoryUtil.forClass(PayGradeCurrency.class, PortletClassLoaderUtil.getClassLoader());
 		paygradecurrencyquery.add(PropertyFactoryUtil.forName("payGradeId").eq(paygradeid));
-		 
-		 results =  PayGradeCurrencyLocalServiceUtil.dynamicQuery(paygradecurrencyquery);
+		
+		List<PayGradeCurrency> list = PayGradeCurrencyLocalServiceUtil.dynamicQuery(paygradecurrencyquery);
+		if(list.size()>5){
+						
+		results = ListUtil.subList(list, searchContainer.getStart(), searchContainer.getEnd());
+		}
+		else{
+			System.out.println("else block...");
+			results = list;
+		}
 		System.out.println("results == " +results.size());
-		total = results.size();
+		total = list.size();
+		
+		
 		pageContext.setAttribute("results", results);
 		pageContext.setAttribute("total", total);
 				

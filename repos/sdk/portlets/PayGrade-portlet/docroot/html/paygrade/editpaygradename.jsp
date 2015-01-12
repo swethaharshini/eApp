@@ -165,7 +165,7 @@ portletSession.setAttribute("paygrade3", editpaygrade);
 				<label>Name<em>*</em> </label>
 		</div>
 		<div class="span3">		
-		 <input name="<portlet:namespace/>paygradeName" id="paygrade" type="text" required = "required" value="<%=editpaygrade.getPayGradeName()%>">
+		 <input name="<portlet:namespace/>paygradeName" id="paygrade" type="text" value="<%=editpaygrade.getPayGradeName()%>">
 			</div>
 		</div>
 		<br/><br/><br/>
@@ -194,10 +194,20 @@ iteratorURL.setParameter("mvcPath", "/html/paygrade/editpaygradename.jsp");
 		long id = editpaygrade.getPayGradeId();
 		DynamicQuery paygradecurrencyQuery = DynamicQueryFactoryUtil.forClass(PayGradeCurrency.class, PortletClassLoaderUtil.getClassLoader());
 		paygradecurrencyQuery.add(PropertyFactoryUtil.forName("payGradeId").eq(id));
-		List<PayGradeCurrency> paygradecurrencyList = PayGradeCurrencyLocalServiceUtil.dynamicQuery(paygradecurrencyQuery);
-		 results =  paygradecurrencyList;
+		 
+		List<PayGradeCurrency> list = PayGradeCurrencyLocalServiceUtil.dynamicQuery(paygradecurrencyQuery);
+		if(list.size()>5){
+						
+		results = ListUtil.subList(list, searchContainer.getStart(), searchContainer.getEnd());
+		}
+		else{
+			System.out.println("else block...");
+			results = list;
+		}
+		
 		System.out.println("results == " +results.size());
-		total = results.size();
+		total = list.size();
+		
 		pageContext.setAttribute("results", results);
 		pageContext.setAttribute("total", total);
 				
