@@ -2241,10 +2241,12 @@ html, body {
     text-align: right;
     top: -40px; }
   .aui .child-menu .menu-icon {
-    position: relative;
-    right: -30px; }
+    position: absolute;
+    right: 10px;
+    top: 40%; }
   .aui .grandchild-menu {
-    margin-left: 1px !important; }
+    margin-left: 1px !important;
+    left: -152px !important; }
     .aui .grandchild-menu .menu-icon {
       position: relative;
       right: -70px; }
