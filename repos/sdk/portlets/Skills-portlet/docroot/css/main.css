@@ -1,0 +1,24 @@
+.table-first-header {
+	width: 20px;
+	text-align:center !important;
+}
+table {
+	th:nth-child(2){
+		width:20%;
+	}
+}
+.table-last-header {
+	width: 40px;
+	text-align:center !important;
+}
+.table-cell.first{
+	text-align:center !important;
+}
+.table-cell.last{
+	text-align:center !important;
+}
+.form-horizontal {
+	label {
+		padding-right:20px;
+	}
+}

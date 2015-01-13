@@ -28,15 +28,7 @@ String prk=String.valueOf(i.getPrimaryKey());
 <portlet:actionURL var="editpaygrade" name="editPayGrade">
 <portlet:param name="id" value="<%=prk %>"/>
 </portlet:actionURL>
-
-
-<a href="#" class="edit-icon" onclick="window.location='<%=editpaygrade.toString()%>'"><img
-					width="18px" height="18px" alt="loading..." 
-					src="<%=request.getContextPath() %>/images/pencil.jpg">
-</a> 
+<a href="#" class="edit-icon" onclick="window.location='<%=editpaygrade.toString()%>'"><i class="icon-edit"></i></a> 
 </liferay-ui:icon-menu>
-
-
-
 </body>
 </html>

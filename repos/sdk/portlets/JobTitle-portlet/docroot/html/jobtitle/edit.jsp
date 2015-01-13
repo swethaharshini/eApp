@@ -16,25 +16,12 @@
 <portlet:resourceURL var="deletejobtitle" id="deleteJobtitle"></portlet:resourceURL>
 <html>
 <head>
-
-<style type="text/css">
-
-em {
-	color: red;
-}
-</style>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<style type="text/css">
-#button-set {
-	margin-left: 40px;
-}
-</style>
 <title>Edit Jobtitle</title>
 <aui:script>
  AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#delete');
+    var node = A.one('#jobtitledelete');
     node.on(
       'click',
       function() {
@@ -80,6 +67,45 @@ em {
  
  
  </aui:script>
+  <aui:script>
+AUI().use(
+  'aui-node',
+  function(A) {
+    var node = A.one('#jobtitleadd');
+    node.on(
+      'click',
+      function() {
+         A.one('#editJobAddDelete').hide();
+         A.one('#editJobForm').show();
+                     
+      }
+    );
+  }
+);
+
+AUI().ready('event', 'node', function(A){
+
+  A.one('#editJobAddDelete').hide();
+ 
+ });
+
+AUI().use(
+  'aui-node',
+  function(A) {
+    var node = A.one('#editJobtitleCancel');
+    node.on(
+      'click',
+      function() {
+      
+      	  window.location='<%=listview%>';
+      	
+          
+      }
+    );																																
+  }
+);
+
+</aui:script>
 </head>
 
 
@@ -98,37 +124,30 @@ JobTitle jobtitle = (JobTitle) portletSession.getAttribute("editjobtitle");
 <liferay-ui:message key="Please Enter JobtitleName"/>
 <%}
 %>
-<br/><br/>  
-		<aui:form action="<%=savejobtitle%>">
-
-		<div class="row-fluid">	<input class="jobtitleId" type="hidden" id="jobtitleId"	name='<portlet:namespace/>jobtitleId' value="<%=jobtitle.getJobTitleId() %>"></div>
-
-		<div class="row-fluid">
-		<div class="span2">	<label>Job Title<em>*</em></label></div>
-			<div class="span2">	<aui:input type="text" label="" name="title" maxlength="100"
-				id="jobtitlename" value="<%=jobtitle.getTitle()%>"/></div><div class="span10"></div></div>
-	<div class="row-fluid">
-		<div class="span2">	<label for="jobTitle_jobDescription">Job Description</label></div><div class="span2"><textarea rows="4" cols="30"
-					name="<portlet:namespace/>description" maxlength="400"
-					id="description"><%=jobtitle.getDescription()%></textarea></div><div class="10"></div></div>
-
-
-
 <div class="row-fluid">
-	<div class="span2">		<label for="jobTitle_note">Note</label></div>
-    <div class="span2">			<textarea rows="4" cols="30" name="<portlet:namespace/>notes"
-					id="notes"><%=jobtitle.getNotes()%></textarea></div><div class="span10"></div>
-
+		<div id="editJobAddDelete" class="span12 text-right">
+			<a href="#" class="btn btn-primary" id="jobtitleadd"><i class="icon-plus"></i></a>
+			<a href="#" class="btn btn-danger" id="jobtitledelete"><i class="icon-trash"></i></a>
 		</div>
-			
-			
-						
-			<aui:button type="submit" name="submit" value="Submit" id="submit"></aui:button>
-			   <aui:button type="reset" value="reset"></aui:button>
-			   <input type="button" class="btn" value="Delete" id="delete">
-			
-		</aui:form>
-	
+		<div  id="editJobForm">
+			<aui:form action="<%=savejobtitle%>">
+				<div class="form-horizontal">
+					<input class="jobtitleId" type="hidden" id="jobtitleId"	name='<portlet:namespace/>jobtitleId' value="<%=jobtitle.getJobTitleId() %>">
+					<label class="control-label">Job Title<em>*</em></label>
+					<aui:input type="text" label="" name="title" maxlength="100" id="jobtitlename" value="<%=jobtitle.getTitle()%>"/>
+					<aui:input type="textarea" label="Job Description" rows="4" cols="30" name="<portlet:namespace/>description" maxlength="400" id="description"><%=jobtitle.getDescription()%></aui:input>
+					<aui:input type="textarea" label="Note" rows="4" cols="30" name="<portlet:namespace/>notes" id="notes"><%=jobtitle.getNotes()%></aui:input>
+					<div class="control-group">
+						<div class="controls">
+							<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
+							<button type="reset" id ="jobtitlecancel" class="btn btn-danger"><i class="icon-remove"></i></button>
+							
+						</div>
+					</div>
+				</div>	
+			</aui:form>
+		</div>
+</div>	
 <div><em>*</em> Required Field</div>
 
 

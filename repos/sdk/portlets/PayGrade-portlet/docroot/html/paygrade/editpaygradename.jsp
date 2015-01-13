@@ -25,12 +25,6 @@
 <portlet:renderURL var="paygradelist">
 	<portlet:param name="mvcPath" value="/html/paygrade/paygradelist.jsp" />
 </portlet:renderURL>
-<style type="text/css">
-em {
-	color: red;
-}
-
-</style>
 <aui:script>
 AUI().use(
   'aui-node',
@@ -157,26 +151,30 @@ PayGrade editpaygrade =(PayGrade) portletSession.getAttribute("editpaygrade");
 portletSession.setAttribute("paygrade3", editpaygrade);
 
 %>
-
+<div class="form-horizontal">
 <aui:form name="myForm" action="<%=savepaygrade.toString()%>">
-		<aui:input name="paygradeId" type="hidden" id="paygradeId" value="<%=editpaygrade.getPayGradeId()%>" />
-		<div class="span12">
-			<div class="span2">
-				<label>Name<em>*</em> </label>
+	<aui:input name="paygradeId" type="hidden" id="paygradeId" value="<%=editpaygrade.getPayGradeId()%>" />
+	<div class="control-group">
+		<label class="control-label">Name<em>*</em> </label>
+		<div class="controls">
+		 <input name="<portlet:namespace/>paygradeName" id="paygrade" type="text" required = "required" value="<%=editpaygrade.getPayGradeName()%>">
 		</div>
-		<div class="span3">		
-		 <input name="<portlet:namespace/>paygradeName" id="paygrade" type="text" value="<%=editpaygrade.getPayGradeName()%>">
-			</div>
+	</div>
+	<div class="control-group">
+		<div class="controls">
+			<aui:button type="submit" value="Submit" />
+			<aui:button  type="reset" value="Cancel" href="<%=paygradelist.toString()%>" id ="cancel"/>
 		</div>
-		<br/><br/><br/>
-		<aui:button type="submit" value="Submit" />
-		<aui:button  type="reset" value="Cancel" href="<%=paygradelist.toString()%>" id ="cancel"/>
-		<button id="currencydelete" class="btn btn-danger" type="button"><i class="icon-trash"></i> Delete </button>
-		<aui:button  type="button" value="AddCurrency" href="<%=addCurrency.toString()%>" id ="cancel"/>
-	</aui:form>
-
-
-</body><br/>
+	</div>
+</aui:form>
+</div>
+<div class="form-horizontal">
+	<div class="control-group text-right">
+		<a class="btn btn-primary" id="cancel" href="<%=addCurrency.toString()%>"><i class="icon-plus"></i></a>
+		<a href="#" class="btn btn-danger" id="currencydelete"><i class="icon-trash"></i></a>
+	</div>
+</div>
+</body>
 
 <%
 
@@ -194,20 +192,10 @@ iteratorURL.setParameter("mvcPath", "/html/paygrade/editpaygradename.jsp");
 		long id = editpaygrade.getPayGradeId();
 		DynamicQuery paygradecurrencyQuery = DynamicQueryFactoryUtil.forClass(PayGradeCurrency.class, PortletClassLoaderUtil.getClassLoader());
 		paygradecurrencyQuery.add(PropertyFactoryUtil.forName("payGradeId").eq(id));
-		 
-		List<PayGradeCurrency> list = PayGradeCurrencyLocalServiceUtil.dynamicQuery(paygradecurrencyQuery);
-		if(list.size()>5){
-						
-		results = ListUtil.subList(list, searchContainer.getStart(), searchContainer.getEnd());
-		}
-		else{
-			System.out.println("else block...");
-			results = list;
-		}
-		
+		List<PayGradeCurrency> paygradecurrencyList = PayGradeCurrencyLocalServiceUtil.dynamicQuery(paygradecurrencyQuery);
+		 results =  paygradecurrencyList;
 		System.out.println("results == " +results.size());
-		total = list.size();
-		
+		total = results.size();
 		pageContext.setAttribute("results", results);
 		pageContext.setAttribute("total", total);
 				

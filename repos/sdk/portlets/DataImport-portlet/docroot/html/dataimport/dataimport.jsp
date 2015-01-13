@@ -33,23 +33,29 @@ var uploadSize=true;
 </head>
 <body>
 <aui:form id = "copyUpload" action="<%=dataimportURL %>" method="post" enctype="multipart/form-data">
-<div class="row-fluid">
-<aui:input name="fileName" type="file" label="Select File" inlineLabel="left"><aui:validator name="required" errorMessage="Please upload file"/>
+<div class="form-horizontal">
+<aui:input name="fileName" type="file" label="Select File" inlineLabel="left">
+<aui:validator name="required" errorMessage="Please upload file"/>
 <aui:validator name="acceptFiles" errorMessage="Please upload only .xlsx files">'xlsx'</aui:validator>
 </aui:input>
+<div class="control-group">
+	<div class="controls">
+		<aui:button type="submit" value="Upload"></aui:button>
+	</div>
 </div>
-<div class="row-fluid">
-	* Column order should not be changed<br/><br/>
-	* First Name and Last Name are compulsory<br/><br/>
-	* All date fields should be in YYYY-MM-DD format<br/><br/>
-	* If gender is specified, value should be either Male or Female<br/><br/>
-	* Each import file should be configured for 100 records or less<br/><br/>
-	* Multiple import files may be required<br/><br/>
-	* Sample CSV file:<a href="<%=downloadFile %>">Download</a><br/><br/>
-
 </div>
-<br/><br/>
-<aui:button type="submit" value="Upload"></aui:button>
 </aui:form>
+<div class="ins-panel clearfix">
+	<p><b>Instructions:</b></p>
+	<ul>
+		<li>* Column order should not be changed</li>
+		<li>* First Name and Last Name are compulsory</li>
+		<li>* All date fields should be in YYYY-MM-DD format</li>
+		<li>* If gender is specified, value should be either Male or Female</li>
+		<li>* Each import file should be configured for 100 records or less</li>
+		<li>* Multiple import files may be required</li>
+		<li>* Sample CSV file:<a href="<%=downloadFile %>">Download</a></li>
+	</ul>
+</div>
 </body>
 </html>
