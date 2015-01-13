@@ -138,7 +138,7 @@ public class EmpSupervisorClp extends BaseModelImpl<EmpSupervisor>
 			setReporterEmployeeId(reporterEmployeeId);
 		}
 
-		Long reportingMethod = (Long)attributes.get("reportingMethod");
+		String reportingMethod = (String)attributes.get("reportingMethod");
 
 		if (reportingMethod != null) {
 			setReportingMethod(reportingMethod);
@@ -341,19 +341,20 @@ public class EmpSupervisorClp extends BaseModelImpl<EmpSupervisor>
 	}
 
 	@Override
-	public long getReportingMethod() {
+	public String getReportingMethod() {
 		return _reportingMethod;
 	}
 
 	@Override
-	public void setReportingMethod(long reportingMethod) {
+	public void setReportingMethod(String reportingMethod) {
 		_reportingMethod = reportingMethod;
 
 		if (_empSupervisorRemoteModel != null) {
 			try {
 				Class<?> clazz = _empSupervisorRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setReportingMethod", long.class);
+				Method method = clazz.getMethod("setReportingMethod",
+						String.class);
 
 				method.invoke(_empSupervisorRemoteModel, reportingMethod);
 			}
@@ -574,6 +575,6 @@ public class EmpSupervisorClp extends BaseModelImpl<EmpSupervisor>
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _reporterEmployeeId;
-	private long _reportingMethod;
+	private String _reportingMethod;
 	private BaseModel<?> _empSupervisorRemoteModel;
 }

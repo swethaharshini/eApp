@@ -54,10 +54,10 @@ import com.rknowsys.eapp.hrm.model.JobCategoryClp;
 import com.rknowsys.eapp.hrm.model.JobTitleClp;
 import com.rknowsys.eapp.hrm.model.LanguageClp;
 import com.rknowsys.eapp.hrm.model.LeaveCarryForwardPolicyClp;
+import com.rknowsys.eapp.hrm.model.LeaveGeneralClp;
 import com.rknowsys.eapp.hrm.model.LeavePeriodClp;
 import com.rknowsys.eapp.hrm.model.LeaveRestrictionClp;
-import com.rknowsys.eapp.hrm.model.LeaveRuleClp;
-import com.rknowsys.eapp.hrm.model.LeaveTypeApplicabilityClp;
+import com.rknowsys.eapp.hrm.model.LeaveRuleApplicableClp;
 import com.rknowsys.eapp.hrm.model.LeaveTypeClp;
 import com.rknowsys.eapp.hrm.model.LicenseClp;
 import com.rknowsys.eapp.hrm.model.LocationClp;
@@ -266,6 +266,10 @@ public class ClpSerializer {
 			return translateInputLeaveCarryForwardPolicy(oldModel);
 		}
 
+		if (oldModelClassName.equals(LeaveGeneralClp.class.getName())) {
+			return translateInputLeaveGeneral(oldModel);
+		}
+
 		if (oldModelClassName.equals(LeavePeriodClp.class.getName())) {
 			return translateInputLeavePeriod(oldModel);
 		}
@@ -274,16 +278,12 @@ public class ClpSerializer {
 			return translateInputLeaveRestriction(oldModel);
 		}
 
-		if (oldModelClassName.equals(LeaveRuleClp.class.getName())) {
-			return translateInputLeaveRule(oldModel);
+		if (oldModelClassName.equals(LeaveRuleApplicableClp.class.getName())) {
+			return translateInputLeaveRuleApplicable(oldModel);
 		}
 
 		if (oldModelClassName.equals(LeaveTypeClp.class.getName())) {
 			return translateInputLeaveType(oldModel);
-		}
-
-		if (oldModelClassName.equals(LeaveTypeApplicabilityClp.class.getName())) {
-			return translateInputLeaveTypeApplicability(oldModel);
 		}
 
 		if (oldModelClassName.equals(LicenseClp.class.getName())) {
@@ -654,6 +654,16 @@ public class ClpSerializer {
 		return newModel;
 	}
 
+	public static Object translateInputLeaveGeneral(BaseModel<?> oldModel) {
+		LeaveGeneralClp oldClpModel = (LeaveGeneralClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getLeaveGeneralRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
 	public static Object translateInputLeavePeriod(BaseModel<?> oldModel) {
 		LeavePeriodClp oldClpModel = (LeavePeriodClp)oldModel;
 
@@ -674,10 +684,11 @@ public class ClpSerializer {
 		return newModel;
 	}
 
-	public static Object translateInputLeaveRule(BaseModel<?> oldModel) {
-		LeaveRuleClp oldClpModel = (LeaveRuleClp)oldModel;
+	public static Object translateInputLeaveRuleApplicable(
+		BaseModel<?> oldModel) {
+		LeaveRuleApplicableClp oldClpModel = (LeaveRuleApplicableClp)oldModel;
 
-		BaseModel<?> newModel = oldClpModel.getLeaveRuleRemoteModel();
+		BaseModel<?> newModel = oldClpModel.getLeaveRuleApplicableRemoteModel();
 
 		newModel.setModelAttributes(oldClpModel.getModelAttributes());
 
@@ -688,17 +699,6 @@ public class ClpSerializer {
 		LeaveTypeClp oldClpModel = (LeaveTypeClp)oldModel;
 
 		BaseModel<?> newModel = oldClpModel.getLeaveTypeRemoteModel();
-
-		newModel.setModelAttributes(oldClpModel.getModelAttributes());
-
-		return newModel;
-	}
-
-	public static Object translateInputLeaveTypeApplicability(
-		BaseModel<?> oldModel) {
-		LeaveTypeApplicabilityClp oldClpModel = (LeaveTypeApplicabilityClp)oldModel;
-
-		BaseModel<?> newModel = oldClpModel.getLeaveTypeApplicabilityRemoteModel();
 
 		newModel.setModelAttributes(oldClpModel.getModelAttributes());
 
@@ -1018,6 +1018,11 @@ public class ClpSerializer {
 		}
 
 		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.LeaveGeneralImpl")) {
+			return translateOutputLeaveGeneral(oldModel);
+		}
+
+		if (oldModelClassName.equals(
 					"com.rknowsys.eapp.hrm.model.impl.LeavePeriodImpl")) {
 			return translateOutputLeavePeriod(oldModel);
 		}
@@ -1028,18 +1033,13 @@ public class ClpSerializer {
 		}
 
 		if (oldModelClassName.equals(
-					"com.rknowsys.eapp.hrm.model.impl.LeaveRuleImpl")) {
-			return translateOutputLeaveRule(oldModel);
+					"com.rknowsys.eapp.hrm.model.impl.LeaveRuleApplicableImpl")) {
+			return translateOutputLeaveRuleApplicable(oldModel);
 		}
 
 		if (oldModelClassName.equals(
 					"com.rknowsys.eapp.hrm.model.impl.LeaveTypeImpl")) {
 			return translateOutputLeaveType(oldModel);
-		}
-
-		if (oldModelClassName.equals(
-					"com.rknowsys.eapp.hrm.model.impl.LeaveTypeApplicabilityImpl")) {
-			return translateOutputLeaveTypeApplicability(oldModel);
 		}
 
 		if (oldModelClassName.equals(
@@ -1327,6 +1327,11 @@ public class ClpSerializer {
 			return new com.rknowsys.eapp.hrm.NoSuchLeaveCarryForwardPolicyException();
 		}
 
+		if (className.equals(
+					"com.rknowsys.eapp.hrm.NoSuchLeaveGeneralException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchLeaveGeneralException();
+		}
+
 		if (className.equals("com.rknowsys.eapp.hrm.NoSuchLeavePeriodException")) {
 			return new com.rknowsys.eapp.hrm.NoSuchLeavePeriodException();
 		}
@@ -1336,17 +1341,13 @@ public class ClpSerializer {
 			return new com.rknowsys.eapp.hrm.NoSuchLeaveRestrictionException();
 		}
 
-		if (className.equals("com.rknowsys.eapp.hrm.NoSuchLeaveRuleException")) {
-			return new com.rknowsys.eapp.hrm.NoSuchLeaveRuleException();
+		if (className.equals(
+					"com.rknowsys.eapp.hrm.NoSuchLeaveRuleApplicableException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchLeaveRuleApplicableException();
 		}
 
 		if (className.equals("com.rknowsys.eapp.hrm.NoSuchLeaveTypeException")) {
 			return new com.rknowsys.eapp.hrm.NoSuchLeaveTypeException();
-		}
-
-		if (className.equals(
-					"com.rknowsys.eapp.hrm.NoSuchLeaveTypeApplicabilityException")) {
-			return new com.rknowsys.eapp.hrm.NoSuchLeaveTypeApplicabilityException();
 		}
 
 		if (className.equals("com.rknowsys.eapp.hrm.NoSuchLicenseException")) {
@@ -1712,6 +1713,16 @@ public class ClpSerializer {
 		return newModel;
 	}
 
+	public static Object translateOutputLeaveGeneral(BaseModel<?> oldModel) {
+		LeaveGeneralClp newModel = new LeaveGeneralClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setLeaveGeneralRemoteModel(oldModel);
+
+		return newModel;
+	}
+
 	public static Object translateOutputLeavePeriod(BaseModel<?> oldModel) {
 		LeavePeriodClp newModel = new LeavePeriodClp();
 
@@ -1732,12 +1743,13 @@ public class ClpSerializer {
 		return newModel;
 	}
 
-	public static Object translateOutputLeaveRule(BaseModel<?> oldModel) {
-		LeaveRuleClp newModel = new LeaveRuleClp();
+	public static Object translateOutputLeaveRuleApplicable(
+		BaseModel<?> oldModel) {
+		LeaveRuleApplicableClp newModel = new LeaveRuleApplicableClp();
 
 		newModel.setModelAttributes(oldModel.getModelAttributes());
 
-		newModel.setLeaveRuleRemoteModel(oldModel);
+		newModel.setLeaveRuleApplicableRemoteModel(oldModel);
 
 		return newModel;
 	}
@@ -1748,17 +1760,6 @@ public class ClpSerializer {
 		newModel.setModelAttributes(oldModel.getModelAttributes());
 
 		newModel.setLeaveTypeRemoteModel(oldModel);
-
-		return newModel;
-	}
-
-	public static Object translateOutputLeaveTypeApplicability(
-		BaseModel<?> oldModel) {
-		LeaveTypeApplicabilityClp newModel = new LeaveTypeApplicabilityClp();
-
-		newModel.setModelAttributes(oldModel.getModelAttributes());
-
-		newModel.setLeaveTypeApplicabilityRemoteModel(oldModel);
 
 		return newModel;
 	}

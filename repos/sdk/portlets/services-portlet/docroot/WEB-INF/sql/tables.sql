@@ -50,6 +50,24 @@ create table hrm_locations_holidays (
 	primary key (holidayId, locationId)
 );
 
+create table hrm_lra_employmentStatus (
+	employmentStatusId LONG not null,
+	leaveRuleApplicableId LONG not null,
+	primary key (employmentStatusId, leaveRuleApplicableId)
+);
+
+create table hrm_lra_jobCategories (
+	jobCategoryId LONG not null,
+	leaveRuleApplicableId LONG not null,
+	primary key (jobCategoryId, leaveRuleApplicableId)
+);
+
+create table hrm_lra_jobTitles (
+	jobTitleId LONG not null,
+	leaveRuleApplicableId LONG not null,
+	primary key (jobTitleId, leaveRuleApplicableId)
+);
+
 create table supervisor (
 	supervisorId LONG not null primary key,
 	employeeId LONG,

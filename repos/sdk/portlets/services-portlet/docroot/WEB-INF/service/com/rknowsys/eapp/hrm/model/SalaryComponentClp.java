@@ -83,7 +83,8 @@ public class SalaryComponentClp extends BaseModelImpl<SalaryComponent>
 		attributes.put("userId", getUserId());
 		attributes.put("componentName", getComponentName());
 		attributes.put("type", getType());
-		attributes.put("onlyCTC", getOnlyCTC());
+		attributes.put("totalPayable", getTotalPayable());
+		attributes.put("costToCompany", getCostToCompany());
 		attributes.put("valueType", getValueType());
 
 		return attributes;
@@ -133,16 +134,22 @@ public class SalaryComponentClp extends BaseModelImpl<SalaryComponent>
 			setComponentName(componentName);
 		}
 
-		Boolean type = (Boolean)attributes.get("type");
+		String type = (String)attributes.get("type");
 
 		if (type != null) {
 			setType(type);
 		}
 
-		Boolean onlyCTC = (Boolean)attributes.get("onlyCTC");
+		String totalPayable = (String)attributes.get("totalPayable");
 
-		if (onlyCTC != null) {
-			setOnlyCTC(onlyCTC);
+		if (totalPayable != null) {
+			setTotalPayable(totalPayable);
+		}
+
+		String costToCompany = (String)attributes.get("costToCompany");
+
+		if (costToCompany != null) {
+			setCostToCompany(costToCompany);
 		}
 
 		String valueType = (String)attributes.get("valueType");
@@ -325,24 +332,19 @@ public class SalaryComponentClp extends BaseModelImpl<SalaryComponent>
 	}
 
 	@Override
-	public boolean getType() {
+	public String getType() {
 		return _type;
 	}
 
 	@Override
-	public boolean isType() {
-		return _type;
-	}
-
-	@Override
-	public void setType(boolean type) {
+	public void setType(String type) {
 		_type = type;
 
 		if (_salaryComponentRemoteModel != null) {
 			try {
 				Class<?> clazz = _salaryComponentRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setType", boolean.class);
+				Method method = clazz.getMethod("setType", String.class);
 
 				method.invoke(_salaryComponentRemoteModel, type);
 			}
@@ -353,26 +355,44 @@ public class SalaryComponentClp extends BaseModelImpl<SalaryComponent>
 	}
 
 	@Override
-	public boolean getOnlyCTC() {
-		return _onlyCTC;
+	public String getTotalPayable() {
+		return _totalPayable;
 	}
 
 	@Override
-	public boolean isOnlyCTC() {
-		return _onlyCTC;
-	}
-
-	@Override
-	public void setOnlyCTC(boolean onlyCTC) {
-		_onlyCTC = onlyCTC;
+	public void setTotalPayable(String totalPayable) {
+		_totalPayable = totalPayable;
 
 		if (_salaryComponentRemoteModel != null) {
 			try {
 				Class<?> clazz = _salaryComponentRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setOnlyCTC", boolean.class);
+				Method method = clazz.getMethod("setTotalPayable", String.class);
 
-				method.invoke(_salaryComponentRemoteModel, onlyCTC);
+				method.invoke(_salaryComponentRemoteModel, totalPayable);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getCostToCompany() {
+		return _costToCompany;
+	}
+
+	@Override
+	public void setCostToCompany(String costToCompany) {
+		_costToCompany = costToCompany;
+
+		if (_salaryComponentRemoteModel != null) {
+			try {
+				Class<?> clazz = _salaryComponentRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCostToCompany", String.class);
+
+				method.invoke(_salaryComponentRemoteModel, costToCompany);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -482,7 +502,8 @@ public class SalaryComponentClp extends BaseModelImpl<SalaryComponent>
 		clone.setUserId(getUserId());
 		clone.setComponentName(getComponentName());
 		clone.setType(getType());
-		clone.setOnlyCTC(getOnlyCTC());
+		clone.setTotalPayable(getTotalPayable());
+		clone.setCostToCompany(getCostToCompany());
 		clone.setValueType(getValueType());
 
 		return clone;
@@ -532,7 +553,7 @@ public class SalaryComponentClp extends BaseModelImpl<SalaryComponent>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(23);
 
 		sb.append("{salaryComponentId=");
 		sb.append(getSalaryComponentId());
@@ -550,8 +571,10 @@ public class SalaryComponentClp extends BaseModelImpl<SalaryComponent>
 		sb.append(getComponentName());
 		sb.append(", type=");
 		sb.append(getType());
-		sb.append(", onlyCTC=");
-		sb.append(getOnlyCTC());
+		sb.append(", totalPayable=");
+		sb.append(getTotalPayable());
+		sb.append(", costToCompany=");
+		sb.append(getCostToCompany());
 		sb.append(", valueType=");
 		sb.append(getValueType());
 		sb.append("}");
@@ -561,7 +584,7 @@ public class SalaryComponentClp extends BaseModelImpl<SalaryComponent>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(34);
+		StringBundler sb = new StringBundler(37);
 
 		sb.append("<model><model-name>");
 		sb.append("com.rknowsys.eapp.hrm.model.SalaryComponent");
@@ -600,8 +623,12 @@ public class SalaryComponentClp extends BaseModelImpl<SalaryComponent>
 		sb.append(getType());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>onlyCTC</column-name><column-value><![CDATA[");
-		sb.append(getOnlyCTC());
+			"<column><column-name>totalPayable</column-name><column-value><![CDATA[");
+		sb.append(getTotalPayable());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>costToCompany</column-name><column-value><![CDATA[");
+		sb.append(getCostToCompany());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>valueType</column-name><column-value><![CDATA[");
@@ -621,8 +648,9 @@ public class SalaryComponentClp extends BaseModelImpl<SalaryComponent>
 	private long _userId;
 	private String _userUuid;
 	private String _componentName;
-	private boolean _type;
-	private boolean _onlyCTC;
+	private String _type;
+	private String _totalPayable;
+	private String _costToCompany;
 	private String _valueType;
 	private BaseModel<?> _salaryComponentRemoteModel;
 }

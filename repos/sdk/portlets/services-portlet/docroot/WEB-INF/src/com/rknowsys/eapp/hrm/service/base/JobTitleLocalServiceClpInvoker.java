@@ -106,74 +106,74 @@ public class JobTitleLocalServiceClpInvoker {
 				"com.rknowsys.eapp.hrm.model.JobTitle"
 			};
 
-		_methodName16 = "addLeaveTypeApplicabilityJobTitle";
+		_methodName16 = "addLeaveRuleApplicableJobTitle";
 
 		_methodParameterTypes16 = new String[] { "long", "long" };
 
-		_methodName17 = "addLeaveTypeApplicabilityJobTitle";
+		_methodName17 = "addLeaveRuleApplicableJobTitle";
 
 		_methodParameterTypes17 = new String[] {
 				"long", "com.rknowsys.eapp.hrm.model.JobTitle"
 			};
 
-		_methodName18 = "addLeaveTypeApplicabilityJobTitles";
+		_methodName18 = "addLeaveRuleApplicableJobTitles";
 
 		_methodParameterTypes18 = new String[] { "long", "long[][]" };
 
-		_methodName19 = "addLeaveTypeApplicabilityJobTitles";
+		_methodName19 = "addLeaveRuleApplicableJobTitles";
 
 		_methodParameterTypes19 = new String[] { "long", "java.util.List" };
 
-		_methodName20 = "clearLeaveTypeApplicabilityJobTitles";
+		_methodName20 = "clearLeaveRuleApplicableJobTitles";
 
 		_methodParameterTypes20 = new String[] { "long" };
 
-		_methodName21 = "deleteLeaveTypeApplicabilityJobTitle";
+		_methodName21 = "deleteLeaveRuleApplicableJobTitle";
 
 		_methodParameterTypes21 = new String[] { "long", "long" };
 
-		_methodName22 = "deleteLeaveTypeApplicabilityJobTitle";
+		_methodName22 = "deleteLeaveRuleApplicableJobTitle";
 
 		_methodParameterTypes22 = new String[] {
 				"long", "com.rknowsys.eapp.hrm.model.JobTitle"
 			};
 
-		_methodName23 = "deleteLeaveTypeApplicabilityJobTitles";
+		_methodName23 = "deleteLeaveRuleApplicableJobTitles";
 
 		_methodParameterTypes23 = new String[] { "long", "long[][]" };
 
-		_methodName24 = "deleteLeaveTypeApplicabilityJobTitles";
+		_methodName24 = "deleteLeaveRuleApplicableJobTitles";
 
 		_methodParameterTypes24 = new String[] { "long", "java.util.List" };
 
-		_methodName25 = "getLeaveTypeApplicabilityJobTitles";
+		_methodName25 = "getLeaveRuleApplicableJobTitles";
 
 		_methodParameterTypes25 = new String[] { "long" };
 
-		_methodName26 = "getLeaveTypeApplicabilityJobTitles";
+		_methodName26 = "getLeaveRuleApplicableJobTitles";
 
 		_methodParameterTypes26 = new String[] { "long", "int", "int" };
 
-		_methodName27 = "getLeaveTypeApplicabilityJobTitles";
+		_methodName27 = "getLeaveRuleApplicableJobTitles";
 
 		_methodParameterTypes27 = new String[] {
 				"long", "int", "int",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName28 = "getLeaveTypeApplicabilityJobTitlesCount";
+		_methodName28 = "getLeaveRuleApplicableJobTitlesCount";
 
 		_methodParameterTypes28 = new String[] { "long" };
 
-		_methodName29 = "hasLeaveTypeApplicabilityJobTitle";
+		_methodName29 = "hasLeaveRuleApplicableJobTitle";
 
 		_methodParameterTypes29 = new String[] { "long", "long" };
 
-		_methodName30 = "hasLeaveTypeApplicabilityJobTitles";
+		_methodName30 = "hasLeaveRuleApplicableJobTitles";
 
 		_methodParameterTypes30 = new String[] { "long" };
 
-		_methodName31 = "setLeaveTypeApplicabilityJobTitles";
+		_methodName31 = "setLeaveRuleApplicableJobTitles";
 
 		_methodParameterTypes31 = new String[] { "long", "long[][]" };
 
@@ -277,7 +277,7 @@ public class JobTitleLocalServiceClpInvoker {
 
 		if (_methodName16.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes16, parameterTypes)) {
-			JobTitleLocalServiceUtil.addLeaveTypeApplicabilityJobTitle(((Long)arguments[0]).longValue(),
+			JobTitleLocalServiceUtil.addLeaveRuleApplicableJobTitle(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue());
 
 			return null;
@@ -285,7 +285,7 @@ public class JobTitleLocalServiceClpInvoker {
 
 		if (_methodName17.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes17, parameterTypes)) {
-			JobTitleLocalServiceUtil.addLeaveTypeApplicabilityJobTitle(((Long)arguments[0]).longValue(),
+			JobTitleLocalServiceUtil.addLeaveRuleApplicableJobTitle(((Long)arguments[0]).longValue(),
 				(com.rknowsys.eapp.hrm.model.JobTitle)arguments[1]);
 
 			return null;
@@ -293,7 +293,7 @@ public class JobTitleLocalServiceClpInvoker {
 
 		if (_methodName18.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes18, parameterTypes)) {
-			JobTitleLocalServiceUtil.addLeaveTypeApplicabilityJobTitles(((Long)arguments[0]).longValue(),
+			JobTitleLocalServiceUtil.addLeaveRuleApplicableJobTitles(((Long)arguments[0]).longValue(),
 				(long[])arguments[1]);
 
 			return null;
@@ -301,7 +301,7 @@ public class JobTitleLocalServiceClpInvoker {
 
 		if (_methodName19.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes19, parameterTypes)) {
-			JobTitleLocalServiceUtil.addLeaveTypeApplicabilityJobTitles(((Long)arguments[0]).longValue(),
+			JobTitleLocalServiceUtil.addLeaveRuleApplicableJobTitles(((Long)arguments[0]).longValue(),
 				(java.util.List<com.rknowsys.eapp.hrm.model.JobTitle>)arguments[1]);
 
 			return null;
@@ -309,14 +309,14 @@ public class JobTitleLocalServiceClpInvoker {
 
 		if (_methodName20.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes20, parameterTypes)) {
-			JobTitleLocalServiceUtil.clearLeaveTypeApplicabilityJobTitles(((Long)arguments[0]).longValue());
+			JobTitleLocalServiceUtil.clearLeaveRuleApplicableJobTitles(((Long)arguments[0]).longValue());
 
 			return null;
 		}
 
 		if (_methodName21.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes21, parameterTypes)) {
-			JobTitleLocalServiceUtil.deleteLeaveTypeApplicabilityJobTitle(((Long)arguments[0]).longValue(),
+			JobTitleLocalServiceUtil.deleteLeaveRuleApplicableJobTitle(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue());
 
 			return null;
@@ -324,7 +324,7 @@ public class JobTitleLocalServiceClpInvoker {
 
 		if (_methodName22.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes22, parameterTypes)) {
-			JobTitleLocalServiceUtil.deleteLeaveTypeApplicabilityJobTitle(((Long)arguments[0]).longValue(),
+			JobTitleLocalServiceUtil.deleteLeaveRuleApplicableJobTitle(((Long)arguments[0]).longValue(),
 				(com.rknowsys.eapp.hrm.model.JobTitle)arguments[1]);
 
 			return null;
@@ -332,7 +332,7 @@ public class JobTitleLocalServiceClpInvoker {
 
 		if (_methodName23.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes23, parameterTypes)) {
-			JobTitleLocalServiceUtil.deleteLeaveTypeApplicabilityJobTitles(((Long)arguments[0]).longValue(),
+			JobTitleLocalServiceUtil.deleteLeaveRuleApplicableJobTitles(((Long)arguments[0]).longValue(),
 				(long[])arguments[1]);
 
 			return null;
@@ -340,7 +340,7 @@ public class JobTitleLocalServiceClpInvoker {
 
 		if (_methodName24.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes24, parameterTypes)) {
-			JobTitleLocalServiceUtil.deleteLeaveTypeApplicabilityJobTitles(((Long)arguments[0]).longValue(),
+			JobTitleLocalServiceUtil.deleteLeaveRuleApplicableJobTitles(((Long)arguments[0]).longValue(),
 				(java.util.List<com.rknowsys.eapp.hrm.model.JobTitle>)arguments[1]);
 
 			return null;
@@ -348,19 +348,19 @@ public class JobTitleLocalServiceClpInvoker {
 
 		if (_methodName25.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes25, parameterTypes)) {
-			return JobTitleLocalServiceUtil.getLeaveTypeApplicabilityJobTitles(((Long)arguments[0]).longValue());
+			return JobTitleLocalServiceUtil.getLeaveRuleApplicableJobTitles(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName26.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes26, parameterTypes)) {
-			return JobTitleLocalServiceUtil.getLeaveTypeApplicabilityJobTitles(((Long)arguments[0]).longValue(),
+			return JobTitleLocalServiceUtil.getLeaveRuleApplicableJobTitles(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue());
 		}
 
 		if (_methodName27.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes27, parameterTypes)) {
-			return JobTitleLocalServiceUtil.getLeaveTypeApplicabilityJobTitles(((Long)arguments[0]).longValue(),
+			return JobTitleLocalServiceUtil.getLeaveRuleApplicableJobTitles(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
 				(com.liferay.portal.kernel.util.OrderByComparator)arguments[3]);
@@ -368,23 +368,23 @@ public class JobTitleLocalServiceClpInvoker {
 
 		if (_methodName28.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes28, parameterTypes)) {
-			return JobTitleLocalServiceUtil.getLeaveTypeApplicabilityJobTitlesCount(((Long)arguments[0]).longValue());
+			return JobTitleLocalServiceUtil.getLeaveRuleApplicableJobTitlesCount(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName29.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes29, parameterTypes)) {
-			return JobTitleLocalServiceUtil.hasLeaveTypeApplicabilityJobTitle(((Long)arguments[0]).longValue(),
+			return JobTitleLocalServiceUtil.hasLeaveRuleApplicableJobTitle(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue());
 		}
 
 		if (_methodName30.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes30, parameterTypes)) {
-			return JobTitleLocalServiceUtil.hasLeaveTypeApplicabilityJobTitles(((Long)arguments[0]).longValue());
+			return JobTitleLocalServiceUtil.hasLeaveRuleApplicableJobTitles(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName31.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes31, parameterTypes)) {
-			JobTitleLocalServiceUtil.setLeaveTypeApplicabilityJobTitles(((Long)arguments[0]).longValue(),
+			JobTitleLocalServiceUtil.setLeaveRuleApplicableJobTitles(((Long)arguments[0]).longValue(),
 				(long[])arguments[1]);
 
 			return null;

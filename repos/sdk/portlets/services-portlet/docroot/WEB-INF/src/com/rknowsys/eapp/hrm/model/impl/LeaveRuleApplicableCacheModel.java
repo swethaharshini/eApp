@@ -38,7 +38,7 @@ public class LeaveRuleApplicableCacheModel implements CacheModel<LeaveRuleApplic
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(25);
+		StringBundler sb = new StringBundler(33);
 
 		sb.append("{leaveRuleApplicableId=");
 		sb.append(leaveRuleApplicableId);
@@ -64,6 +64,14 @@ public class LeaveRuleApplicableCacheModel implements CacheModel<LeaveRuleApplic
 		sb.append(fromYears);
 		sb.append(", toYears=");
 		sb.append(toYears);
+		sb.append(", forJobTitles=");
+		sb.append(forJobTitles);
+		sb.append(", forJobCategories=");
+		sb.append(forJobCategories);
+		sb.append(", forEmploymentStatus=");
+		sb.append(forEmploymentStatus);
+		sb.append(", forGender=");
+		sb.append(forGender);
 		sb.append("}");
 
 		return sb.toString();
@@ -111,6 +119,11 @@ public class LeaveRuleApplicableCacheModel implements CacheModel<LeaveRuleApplic
 			leaveRuleApplicableImpl.setToYears(toYears);
 		}
 
+		leaveRuleApplicableImpl.setForJobTitles(forJobTitles);
+		leaveRuleApplicableImpl.setForJobCategories(forJobCategories);
+		leaveRuleApplicableImpl.setForEmploymentStatus(forEmploymentStatus);
+		leaveRuleApplicableImpl.setForGender(forGender);
+
 		leaveRuleApplicableImpl.resetOriginalValues();
 
 		return leaveRuleApplicableImpl;
@@ -130,6 +143,10 @@ public class LeaveRuleApplicableCacheModel implements CacheModel<LeaveRuleApplic
 		forYearsOfService = objectInput.readBoolean();
 		fromYears = objectInput.readUTF();
 		toYears = objectInput.readUTF();
+		forJobTitles = objectInput.readBoolean();
+		forJobCategories = objectInput.readBoolean();
+		forEmploymentStatus = objectInput.readBoolean();
+		forGender = objectInput.readBoolean();
 	}
 
 	@Override
@@ -159,6 +176,11 @@ public class LeaveRuleApplicableCacheModel implements CacheModel<LeaveRuleApplic
 		else {
 			objectOutput.writeUTF(toYears);
 		}
+
+		objectOutput.writeBoolean(forJobTitles);
+		objectOutput.writeBoolean(forJobCategories);
+		objectOutput.writeBoolean(forEmploymentStatus);
+		objectOutput.writeBoolean(forGender);
 	}
 
 	public long leaveRuleApplicableId;
@@ -173,4 +195,8 @@ public class LeaveRuleApplicableCacheModel implements CacheModel<LeaveRuleApplic
 	public boolean forYearsOfService;
 	public String fromYears;
 	public String toYears;
+	public boolean forJobTitles;
+	public boolean forJobCategories;
+	public boolean forEmploymentStatus;
+	public boolean forGender;
 }

@@ -83,18 +83,16 @@ public class EmploymentStatusModelImpl extends BaseModelImpl<EmploymentStatus>
 				"value.object.finder.cache.enabled.com.rknowsys.eapp.hrm.model.EmploymentStatus"),
 			true);
 	public static final boolean COLUMN_BITMASK_ENABLED = false;
-	public static final String MAPPING_TABLE_HRM_APPLICABLE_EMPLOYMENT_STATUSES_NAME =
-		"hrm_applicable_employment_statuses";
-	public static final Object[][] MAPPING_TABLE_HRM_APPLICABLE_EMPLOYMENT_STATUSES_COLUMNS =
+	public static final String MAPPING_TABLE_HRM_LRA_EMPLOYMENTSTATUS_NAME = "hrm_lra_employmentStatus";
+	public static final Object[][] MAPPING_TABLE_HRM_LRA_EMPLOYMENTSTATUS_COLUMNS =
 		{
-			{ "leaveTypeApplicabilityId", Types.BIGINT },
+			{ "leaveRuleApplicableId", Types.BIGINT },
 			{ "employmentStatusId", Types.BIGINT }
 		};
-	public static final String MAPPING_TABLE_HRM_APPLICABLE_EMPLOYMENT_STATUSES_SQL_CREATE =
-		"create table hrm_applicable_employment_statuses (employmentStatusId LONG not null,leaveTypeApplicabilityId LONG not null,primary key (employmentStatusId, leaveTypeApplicabilityId))";
-	public static final boolean FINDER_CACHE_ENABLED_HRM_APPLICABLE_EMPLOYMENT_STATUSES =
-		GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
-				"value.object.finder.cache.enabled.hrm_applicable_employment_statuses"),
+	public static final String MAPPING_TABLE_HRM_LRA_EMPLOYMENTSTATUS_SQL_CREATE =
+		"create table hrm_lra_employmentStatus (employmentStatusId LONG not null,leaveRuleApplicableId LONG not null,primary key (employmentStatusId, leaveRuleApplicableId))";
+	public static final boolean FINDER_CACHE_ENABLED_HRM_LRA_EMPLOYMENTSTATUS = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
+				"value.object.finder.cache.enabled.hrm_lra_employmentStatus"),
 			true);
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.rknowsys.eapp.hrm.model.EmploymentStatus"));

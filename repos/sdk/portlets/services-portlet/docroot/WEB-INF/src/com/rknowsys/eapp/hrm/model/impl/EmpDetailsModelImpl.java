@@ -72,9 +72,9 @@ public class EmpDetailsModelImpl extends BaseModelImpl<EmpDetails>
 			{ "title", Types.VARCHAR },
 			{ "employmentstatus", Types.VARCHAR },
 			{ "name", Types.VARCHAR },
-			{ "supervisor", Types.VARCHAR }
+			{ "supervisor", Types.BIGINT }
 		};
-	public static final String TABLE_SQL_CREATE = "create table hrm_EmpDetails (empdetailsId LONG not null primary key,employeeNo VARCHAR(75) null,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,firstName VARCHAR(75) null,lastName VARCHAR(75) null,title VARCHAR(75) null,employmentstatus VARCHAR(75) null,name VARCHAR(75) null,supervisor VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table hrm_EmpDetails (empdetailsId LONG not null primary key,employeeNo VARCHAR(75) null,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,firstName VARCHAR(75) null,lastName VARCHAR(75) null,title VARCHAR(75) null,employmentstatus VARCHAR(75) null,name VARCHAR(75) null,supervisor LONG)";
 	public static final String TABLE_SQL_DROP = "drop table hrm_EmpDetails";
 	public static final String ORDER_BY_JPQL = " ORDER BY empDetails.empdetailsId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY hrm_EmpDetails.empdetailsId ASC";
@@ -212,7 +212,7 @@ public class EmpDetailsModelImpl extends BaseModelImpl<EmpDetails>
 			setName(name);
 		}
 
-		String supervisor = (String)attributes.get("supervisor");
+		Long supervisor = (Long)attributes.get("supervisor");
 
 		if (supervisor != null) {
 			setSupervisor(supervisor);
@@ -370,17 +370,12 @@ public class EmpDetailsModelImpl extends BaseModelImpl<EmpDetails>
 	}
 
 	@Override
-	public String getSupervisor() {
-		if (_supervisor == null) {
-			return StringPool.BLANK;
-		}
-		else {
-			return _supervisor;
-		}
+	public long getSupervisor() {
+		return _supervisor;
 	}
 
 	@Override
-	public void setSupervisor(String supervisor) {
+	public void setSupervisor(long supervisor) {
 		_supervisor = supervisor;
 	}
 
@@ -553,12 +548,6 @@ public class EmpDetailsModelImpl extends BaseModelImpl<EmpDetails>
 
 		empDetailsCacheModel.supervisor = getSupervisor();
 
-		String supervisor = empDetailsCacheModel.supervisor;
-
-		if ((supervisor != null) && (supervisor.length() == 0)) {
-			empDetailsCacheModel.supervisor = null;
-		}
-
 		return empDetailsCacheModel;
 	}
 
@@ -673,6 +662,6 @@ public class EmpDetailsModelImpl extends BaseModelImpl<EmpDetails>
 	private String _title;
 	private String _employmentstatus;
 	private String _name;
-	private String _supervisor;
+	private long _supervisor;
 	private EmpDetails _escapedModel;
 }

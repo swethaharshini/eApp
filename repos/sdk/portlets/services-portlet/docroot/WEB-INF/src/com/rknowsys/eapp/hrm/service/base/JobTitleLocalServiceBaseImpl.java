@@ -66,10 +66,10 @@ import com.rknowsys.eapp.hrm.service.persistence.JobCategoryPersistence;
 import com.rknowsys.eapp.hrm.service.persistence.JobTitlePersistence;
 import com.rknowsys.eapp.hrm.service.persistence.LanguagePersistence;
 import com.rknowsys.eapp.hrm.service.persistence.LeaveCarryForwardPolicyPersistence;
+import com.rknowsys.eapp.hrm.service.persistence.LeaveGeneralPersistence;
 import com.rknowsys.eapp.hrm.service.persistence.LeavePeriodPersistence;
 import com.rknowsys.eapp.hrm.service.persistence.LeaveRestrictionPersistence;
-import com.rknowsys.eapp.hrm.service.persistence.LeaveRulePersistence;
-import com.rknowsys.eapp.hrm.service.persistence.LeaveTypeApplicabilityPersistence;
+import com.rknowsys.eapp.hrm.service.persistence.LeaveRuleApplicablePersistence;
 import com.rknowsys.eapp.hrm.service.persistence.LeaveTypePersistence;
 import com.rknowsys.eapp.hrm.service.persistence.LicensePersistence;
 import com.rknowsys.eapp.hrm.service.persistence.LocationPersistence;
@@ -330,10 +330,9 @@ public abstract class JobTitleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void addLeaveTypeApplicabilityJobTitle(
-		long leaveTypeApplicabilityId, long jobTitleId)
-		throws SystemException {
-		leaveTypeApplicabilityPersistence.addJobTitle(leaveTypeApplicabilityId,
+	public void addLeaveRuleApplicableJobTitle(long leaveRuleApplicableId,
+		long jobTitleId) throws SystemException {
+		leaveRuleApplicablePersistence.addJobTitle(leaveRuleApplicableId,
 			jobTitleId);
 	}
 
@@ -341,10 +340,9 @@ public abstract class JobTitleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void addLeaveTypeApplicabilityJobTitle(
-		long leaveTypeApplicabilityId, JobTitle jobTitle)
-		throws SystemException {
-		leaveTypeApplicabilityPersistence.addJobTitle(leaveTypeApplicabilityId,
+	public void addLeaveRuleApplicableJobTitle(long leaveRuleApplicableId,
+		JobTitle jobTitle) throws SystemException {
+		leaveRuleApplicablePersistence.addJobTitle(leaveRuleApplicableId,
 			jobTitle);
 	}
 
@@ -352,10 +350,9 @@ public abstract class JobTitleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void addLeaveTypeApplicabilityJobTitles(
-		long leaveTypeApplicabilityId, long[] jobTitleIds)
-		throws SystemException {
-		leaveTypeApplicabilityPersistence.addJobTitles(leaveTypeApplicabilityId,
+	public void addLeaveRuleApplicableJobTitles(long leaveRuleApplicableId,
+		long[] jobTitleIds) throws SystemException {
+		leaveRuleApplicablePersistence.addJobTitles(leaveRuleApplicableId,
 			jobTitleIds);
 	}
 
@@ -363,10 +360,9 @@ public abstract class JobTitleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void addLeaveTypeApplicabilityJobTitles(
-		long leaveTypeApplicabilityId, List<JobTitle> JobTitles)
-		throws SystemException {
-		leaveTypeApplicabilityPersistence.addJobTitles(leaveTypeApplicabilityId,
+	public void addLeaveRuleApplicableJobTitles(long leaveRuleApplicableId,
+		List<JobTitle> JobTitles) throws SystemException {
+		leaveRuleApplicablePersistence.addJobTitles(leaveRuleApplicableId,
 			JobTitles);
 	}
 
@@ -374,19 +370,18 @@ public abstract class JobTitleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void clearLeaveTypeApplicabilityJobTitles(
-		long leaveTypeApplicabilityId) throws SystemException {
-		leaveTypeApplicabilityPersistence.clearJobTitles(leaveTypeApplicabilityId);
+	public void clearLeaveRuleApplicableJobTitles(long leaveRuleApplicableId)
+		throws SystemException {
+		leaveRuleApplicablePersistence.clearJobTitles(leaveRuleApplicableId);
 	}
 
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteLeaveTypeApplicabilityJobTitle(
-		long leaveTypeApplicabilityId, long jobTitleId)
-		throws SystemException {
-		leaveTypeApplicabilityPersistence.removeJobTitle(leaveTypeApplicabilityId,
+	public void deleteLeaveRuleApplicableJobTitle(long leaveRuleApplicableId,
+		long jobTitleId) throws SystemException {
+		leaveRuleApplicablePersistence.removeJobTitle(leaveRuleApplicableId,
 			jobTitleId);
 	}
 
@@ -394,10 +389,9 @@ public abstract class JobTitleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteLeaveTypeApplicabilityJobTitle(
-		long leaveTypeApplicabilityId, JobTitle jobTitle)
-		throws SystemException {
-		leaveTypeApplicabilityPersistence.removeJobTitle(leaveTypeApplicabilityId,
+	public void deleteLeaveRuleApplicableJobTitle(long leaveRuleApplicableId,
+		JobTitle jobTitle) throws SystemException {
+		leaveRuleApplicablePersistence.removeJobTitle(leaveRuleApplicableId,
 			jobTitle);
 	}
 
@@ -405,10 +399,9 @@ public abstract class JobTitleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteLeaveTypeApplicabilityJobTitles(
-		long leaveTypeApplicabilityId, long[] jobTitleIds)
-		throws SystemException {
-		leaveTypeApplicabilityPersistence.removeJobTitles(leaveTypeApplicabilityId,
+	public void deleteLeaveRuleApplicableJobTitles(long leaveRuleApplicableId,
+		long[] jobTitleIds) throws SystemException {
+		leaveRuleApplicablePersistence.removeJobTitles(leaveRuleApplicableId,
 			jobTitleIds);
 	}
 
@@ -416,10 +409,9 @@ public abstract class JobTitleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteLeaveTypeApplicabilityJobTitles(
-		long leaveTypeApplicabilityId, List<JobTitle> JobTitles)
-		throws SystemException {
-		leaveTypeApplicabilityPersistence.removeJobTitles(leaveTypeApplicabilityId,
+	public void deleteLeaveRuleApplicableJobTitles(long leaveRuleApplicableId,
+		List<JobTitle> JobTitles) throws SystemException {
+		leaveRuleApplicablePersistence.removeJobTitles(leaveRuleApplicableId,
 			JobTitles);
 	}
 
@@ -427,19 +419,19 @@ public abstract class JobTitleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<JobTitle> getLeaveTypeApplicabilityJobTitles(
-		long leaveTypeApplicabilityId) throws SystemException {
-		return leaveTypeApplicabilityPersistence.getJobTitles(leaveTypeApplicabilityId);
+	public List<JobTitle> getLeaveRuleApplicableJobTitles(
+		long leaveRuleApplicableId) throws SystemException {
+		return leaveRuleApplicablePersistence.getJobTitles(leaveRuleApplicableId);
 	}
 
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<JobTitle> getLeaveTypeApplicabilityJobTitles(
-		long leaveTypeApplicabilityId, int start, int end)
+	public List<JobTitle> getLeaveRuleApplicableJobTitles(
+		long leaveRuleApplicableId, int start, int end)
 		throws SystemException {
-		return leaveTypeApplicabilityPersistence.getJobTitles(leaveTypeApplicabilityId,
+		return leaveRuleApplicablePersistence.getJobTitles(leaveRuleApplicableId,
 			start, end);
 	}
 
@@ -447,10 +439,10 @@ public abstract class JobTitleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<JobTitle> getLeaveTypeApplicabilityJobTitles(
-		long leaveTypeApplicabilityId, int start, int end,
+	public List<JobTitle> getLeaveRuleApplicableJobTitles(
+		long leaveRuleApplicableId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		return leaveTypeApplicabilityPersistence.getJobTitles(leaveTypeApplicabilityId,
+		return leaveRuleApplicablePersistence.getJobTitles(leaveRuleApplicableId,
 			start, end, orderByComparator);
 	}
 
@@ -458,19 +450,18 @@ public abstract class JobTitleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getLeaveTypeApplicabilityJobTitlesCount(
-		long leaveTypeApplicabilityId) throws SystemException {
-		return leaveTypeApplicabilityPersistence.getJobTitlesSize(leaveTypeApplicabilityId);
+	public int getLeaveRuleApplicableJobTitlesCount(long leaveRuleApplicableId)
+		throws SystemException {
+		return leaveRuleApplicablePersistence.getJobTitlesSize(leaveRuleApplicableId);
 	}
 
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public boolean hasLeaveTypeApplicabilityJobTitle(
-		long leaveTypeApplicabilityId, long jobTitleId)
-		throws SystemException {
-		return leaveTypeApplicabilityPersistence.containsJobTitle(leaveTypeApplicabilityId,
+	public boolean hasLeaveRuleApplicableJobTitle(long leaveRuleApplicableId,
+		long jobTitleId) throws SystemException {
+		return leaveRuleApplicablePersistence.containsJobTitle(leaveRuleApplicableId,
 			jobTitleId);
 	}
 
@@ -478,19 +469,18 @@ public abstract class JobTitleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public boolean hasLeaveTypeApplicabilityJobTitles(
-		long leaveTypeApplicabilityId) throws SystemException {
-		return leaveTypeApplicabilityPersistence.containsJobTitles(leaveTypeApplicabilityId);
+	public boolean hasLeaveRuleApplicableJobTitles(long leaveRuleApplicableId)
+		throws SystemException {
+		return leaveRuleApplicablePersistence.containsJobTitles(leaveRuleApplicableId);
 	}
 
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void setLeaveTypeApplicabilityJobTitles(
-		long leaveTypeApplicabilityId, long[] jobTitleIds)
-		throws SystemException {
-		leaveTypeApplicabilityPersistence.setJobTitles(leaveTypeApplicabilityId,
+	public void setLeaveRuleApplicableJobTitles(long leaveRuleApplicableId,
+		long[] jobTitleIds) throws SystemException {
+		leaveRuleApplicablePersistence.setJobTitles(leaveRuleApplicableId,
 			jobTitleIds);
 	}
 
@@ -1664,6 +1654,44 @@ public abstract class JobTitleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	}
 
 	/**
+	 * Returns the leave general local service.
+	 *
+	 * @return the leave general local service
+	 */
+	public com.rknowsys.eapp.hrm.service.LeaveGeneralLocalService getLeaveGeneralLocalService() {
+		return leaveGeneralLocalService;
+	}
+
+	/**
+	 * Sets the leave general local service.
+	 *
+	 * @param leaveGeneralLocalService the leave general local service
+	 */
+	public void setLeaveGeneralLocalService(
+		com.rknowsys.eapp.hrm.service.LeaveGeneralLocalService leaveGeneralLocalService) {
+		this.leaveGeneralLocalService = leaveGeneralLocalService;
+	}
+
+	/**
+	 * Returns the leave general persistence.
+	 *
+	 * @return the leave general persistence
+	 */
+	public LeaveGeneralPersistence getLeaveGeneralPersistence() {
+		return leaveGeneralPersistence;
+	}
+
+	/**
+	 * Sets the leave general persistence.
+	 *
+	 * @param leaveGeneralPersistence the leave general persistence
+	 */
+	public void setLeaveGeneralPersistence(
+		LeaveGeneralPersistence leaveGeneralPersistence) {
+		this.leaveGeneralPersistence = leaveGeneralPersistence;
+	}
+
+	/**
 	 * Returns the leave period local service.
 	 *
 	 * @return the leave period local service
@@ -1740,41 +1768,41 @@ public abstract class JobTitleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	}
 
 	/**
-	 * Returns the leave rule local service.
+	 * Returns the leave rule applicable local service.
 	 *
-	 * @return the leave rule local service
+	 * @return the leave rule applicable local service
 	 */
-	public com.rknowsys.eapp.hrm.service.LeaveRuleLocalService getLeaveRuleLocalService() {
-		return leaveRuleLocalService;
+	public com.rknowsys.eapp.hrm.service.LeaveRuleApplicableLocalService getLeaveRuleApplicableLocalService() {
+		return leaveRuleApplicableLocalService;
 	}
 
 	/**
-	 * Sets the leave rule local service.
+	 * Sets the leave rule applicable local service.
 	 *
-	 * @param leaveRuleLocalService the leave rule local service
+	 * @param leaveRuleApplicableLocalService the leave rule applicable local service
 	 */
-	public void setLeaveRuleLocalService(
-		com.rknowsys.eapp.hrm.service.LeaveRuleLocalService leaveRuleLocalService) {
-		this.leaveRuleLocalService = leaveRuleLocalService;
+	public void setLeaveRuleApplicableLocalService(
+		com.rknowsys.eapp.hrm.service.LeaveRuleApplicableLocalService leaveRuleApplicableLocalService) {
+		this.leaveRuleApplicableLocalService = leaveRuleApplicableLocalService;
 	}
 
 	/**
-	 * Returns the leave rule persistence.
+	 * Returns the leave rule applicable persistence.
 	 *
-	 * @return the leave rule persistence
+	 * @return the leave rule applicable persistence
 	 */
-	public LeaveRulePersistence getLeaveRulePersistence() {
-		return leaveRulePersistence;
+	public LeaveRuleApplicablePersistence getLeaveRuleApplicablePersistence() {
+		return leaveRuleApplicablePersistence;
 	}
 
 	/**
-	 * Sets the leave rule persistence.
+	 * Sets the leave rule applicable persistence.
 	 *
-	 * @param leaveRulePersistence the leave rule persistence
+	 * @param leaveRuleApplicablePersistence the leave rule applicable persistence
 	 */
-	public void setLeaveRulePersistence(
-		LeaveRulePersistence leaveRulePersistence) {
-		this.leaveRulePersistence = leaveRulePersistence;
+	public void setLeaveRuleApplicablePersistence(
+		LeaveRuleApplicablePersistence leaveRuleApplicablePersistence) {
+		this.leaveRuleApplicablePersistence = leaveRuleApplicablePersistence;
 	}
 
 	/**
@@ -1813,44 +1841,6 @@ public abstract class JobTitleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	public void setLeaveTypePersistence(
 		LeaveTypePersistence leaveTypePersistence) {
 		this.leaveTypePersistence = leaveTypePersistence;
-	}
-
-	/**
-	 * Returns the leave type applicability local service.
-	 *
-	 * @return the leave type applicability local service
-	 */
-	public com.rknowsys.eapp.hrm.service.LeaveTypeApplicabilityLocalService getLeaveTypeApplicabilityLocalService() {
-		return leaveTypeApplicabilityLocalService;
-	}
-
-	/**
-	 * Sets the leave type applicability local service.
-	 *
-	 * @param leaveTypeApplicabilityLocalService the leave type applicability local service
-	 */
-	public void setLeaveTypeApplicabilityLocalService(
-		com.rknowsys.eapp.hrm.service.LeaveTypeApplicabilityLocalService leaveTypeApplicabilityLocalService) {
-		this.leaveTypeApplicabilityLocalService = leaveTypeApplicabilityLocalService;
-	}
-
-	/**
-	 * Returns the leave type applicability persistence.
-	 *
-	 * @return the leave type applicability persistence
-	 */
-	public LeaveTypeApplicabilityPersistence getLeaveTypeApplicabilityPersistence() {
-		return leaveTypeApplicabilityPersistence;
-	}
-
-	/**
-	 * Sets the leave type applicability persistence.
-	 *
-	 * @param leaveTypeApplicabilityPersistence the leave type applicability persistence
-	 */
-	public void setLeaveTypeApplicabilityPersistence(
-		LeaveTypeApplicabilityPersistence leaveTypeApplicabilityPersistence) {
-		this.leaveTypeApplicabilityPersistence = leaveTypeApplicabilityPersistence;
 	}
 
 	/**
@@ -2716,6 +2706,10 @@ public abstract class JobTitleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	protected com.rknowsys.eapp.hrm.service.LeaveCarryForwardPolicyLocalService leaveCarryForwardPolicyLocalService;
 	@BeanReference(type = LeaveCarryForwardPolicyPersistence.class)
 	protected LeaveCarryForwardPolicyPersistence leaveCarryForwardPolicyPersistence;
+	@BeanReference(type = com.rknowsys.eapp.hrm.service.LeaveGeneralLocalService.class)
+	protected com.rknowsys.eapp.hrm.service.LeaveGeneralLocalService leaveGeneralLocalService;
+	@BeanReference(type = LeaveGeneralPersistence.class)
+	protected LeaveGeneralPersistence leaveGeneralPersistence;
 	@BeanReference(type = com.rknowsys.eapp.hrm.service.LeavePeriodLocalService.class)
 	protected com.rknowsys.eapp.hrm.service.LeavePeriodLocalService leavePeriodLocalService;
 	@BeanReference(type = LeavePeriodPersistence.class)
@@ -2724,18 +2718,14 @@ public abstract class JobTitleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	protected com.rknowsys.eapp.hrm.service.LeaveRestrictionLocalService leaveRestrictionLocalService;
 	@BeanReference(type = LeaveRestrictionPersistence.class)
 	protected LeaveRestrictionPersistence leaveRestrictionPersistence;
-	@BeanReference(type = com.rknowsys.eapp.hrm.service.LeaveRuleLocalService.class)
-	protected com.rknowsys.eapp.hrm.service.LeaveRuleLocalService leaveRuleLocalService;
-	@BeanReference(type = LeaveRulePersistence.class)
-	protected LeaveRulePersistence leaveRulePersistence;
+	@BeanReference(type = com.rknowsys.eapp.hrm.service.LeaveRuleApplicableLocalService.class)
+	protected com.rknowsys.eapp.hrm.service.LeaveRuleApplicableLocalService leaveRuleApplicableLocalService;
+	@BeanReference(type = LeaveRuleApplicablePersistence.class)
+	protected LeaveRuleApplicablePersistence leaveRuleApplicablePersistence;
 	@BeanReference(type = com.rknowsys.eapp.hrm.service.LeaveTypeLocalService.class)
 	protected com.rknowsys.eapp.hrm.service.LeaveTypeLocalService leaveTypeLocalService;
 	@BeanReference(type = LeaveTypePersistence.class)
 	protected LeaveTypePersistence leaveTypePersistence;
-	@BeanReference(type = com.rknowsys.eapp.hrm.service.LeaveTypeApplicabilityLocalService.class)
-	protected com.rknowsys.eapp.hrm.service.LeaveTypeApplicabilityLocalService leaveTypeApplicabilityLocalService;
-	@BeanReference(type = LeaveTypeApplicabilityPersistence.class)
-	protected LeaveTypeApplicabilityPersistence leaveTypeApplicabilityPersistence;
 	@BeanReference(type = com.rknowsys.eapp.hrm.service.LicenseLocalService.class)
 	protected com.rknowsys.eapp.hrm.service.LicenseLocalService licenseLocalService;
 	@BeanReference(type = LicensePersistence.class)

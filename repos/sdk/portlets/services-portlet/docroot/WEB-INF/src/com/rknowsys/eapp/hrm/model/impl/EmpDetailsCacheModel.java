@@ -134,12 +134,7 @@ public class EmpDetailsCacheModel implements CacheModel<EmpDetails>,
 			empDetailsImpl.setName(name);
 		}
 
-		if (supervisor == null) {
-			empDetailsImpl.setSupervisor(StringPool.BLANK);
-		}
-		else {
-			empDetailsImpl.setSupervisor(supervisor);
-		}
+		empDetailsImpl.setSupervisor(supervisor);
 
 		empDetailsImpl.resetOriginalValues();
 
@@ -159,7 +154,7 @@ public class EmpDetailsCacheModel implements CacheModel<EmpDetails>,
 		title = objectInput.readUTF();
 		employmentstatus = objectInput.readUTF();
 		name = objectInput.readUTF();
-		supervisor = objectInput.readUTF();
+		supervisor = objectInput.readLong();
 	}
 
 	@Override
@@ -214,12 +209,7 @@ public class EmpDetailsCacheModel implements CacheModel<EmpDetails>,
 			objectOutput.writeUTF(name);
 		}
 
-		if (supervisor == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
-		}
-		else {
-			objectOutput.writeUTF(supervisor);
-		}
+		objectOutput.writeLong(supervisor);
 	}
 
 	public long empdetailsId;
@@ -233,5 +223,5 @@ public class EmpDetailsCacheModel implements CacheModel<EmpDetails>,
 	public String title;
 	public String employmentstatus;
 	public String name;
-	public String supervisor;
+	public long supervisor;
 }

@@ -99,44 +99,47 @@
 		</finder>
 	</entity>
 
-		<entity name="LeaveRuleApplicable" table="leave_rule_applicable" data-source="hrmDataSource"
-		local-service="true" remote-service="false" session-factory="hrmSessionFactory"
-		tx-manager="hrmTransactionManager">
+		 <entity name="LeaveRuleApplicable" table="leave_rule_applicable" data-source="hrmDataSource"
+        local-service="true" remote-service="false" session-factory="hrmSessionFactory"
+        tx-manager="hrmTransactionManager">
 
-		<!-- PK fields -->
-		<column name="leaveRuleApplicableId" type="long" primary="true" />
+        <!-- PK fields -->
+        <column name="leaveRuleApplicableId" type="long" primary="true" />
 
-		<!-- Audit fields -->
-		<column name="companyId" type="long" />
-		<column name="groupId" type="long" />
-		<column name="createDate" type="Date" />
-		<column name="modifiedDate" type="Date" />
-		<column name="userId" type="long" />
+        <!-- Audit fields -->
+        <column name="companyId" type="long" />
+        <column name="groupId" type="long" />
+        <column name="createDate" type="Date" />
+        <column name="modifiedDate" type="Date" />
+        <column name="userId" type="long" />
 
-		<!-- Other fields -->
-		<column name="leaveTypeId" type="long" />
-		<column name="forFemale" type="boolean"></column>
-		<column name="forMale" type="boolean"></column>
-		<column name="forYearsOfService" type="boolean" />
-		<column name="fromYears" type="String" />
-		<column name="toYears" type="String" />
-		
+        <!-- Other fields -->
+        <column name="leaveTypeId" type="long" />
+        <column name="forFemale" type="boolean"></column>
+        <column name="forMale" type="boolean"></column>
+        <column name="forYearsOfService" type="boolean" />
+        <column name="fromYears" type="String" />
+        <column name="toYears" type="String" />
+        <column name="forJobTitles" type="boolean"></column>
+        <column name="forJobCategories" type="boolean"></column>
+        <column name="forEmploymentStatus" type="boolean"></column>
+        <column name="forGender" type="boolean"></column>
+       
+        <!-- Order -->
+        <!-- Relationship fields -->
+        <column name="jobCategories" type="Collection" entity="JobCategory" mapping-table="lra_jobCategories"/>
+        <column name="jobTitles" type="Collection" entity="JobTitle" mapping-table="lra_jobTitles"/>
+        <column name="employmentStatus" type="Collection" entity="EmploymentStatus" mapping-table="lra_employmentStatus"/>
+        <!-- Finder methods -->
+        <finder name="GroupId" return-type="Collection">
+            <finder-column name="groupId" />
+        </finder>
+        <finder name="LeaveTypeId" return-type="Collection">
+            <finder-column name="leaveTypeId" />
+        </finder>
 
-		<!-- Order -->
-		<!-- Relationship fields -->
-		<column name="jobCategories" type="Collection" entity="JobCategory" mapping-table="lra_jobCategories"/>
-		<column name="jobTitles" type="Collection" entity="JobTitle" mapping-table="lra_jobTitles"/>
-		<column name="employmentStatus" type="Collection" entity="EmploymentStatus" mapping-table="lra_employmentStatus"/>
-		<!-- Finder methods -->
-		<finder name="GroupId" return-type="Collection">
-			<finder-column name="groupId" />
-		</finder>
-		<finder name="LeaveTypeId" return-type="Collection">
-			<finder-column name="leaveTypeId" />
-		</finder>
-
-	</entity>
-	<entity name="LeaveRestriction" table="leave_restriction" data-source="hrmDataSource"
+    </entity>
+		<entity name="LeaveRestriction" table="leave_restriction" data-source="hrmDataSource"
 		local-service="true" remote-service="false" session-factory="hrmSessionFactory"
 		tx-manager="hrmTransactionManager">
 

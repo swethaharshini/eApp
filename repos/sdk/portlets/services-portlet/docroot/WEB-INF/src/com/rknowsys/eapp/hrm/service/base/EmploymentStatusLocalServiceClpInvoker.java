@@ -106,74 +106,74 @@ public class EmploymentStatusLocalServiceClpInvoker {
 				"com.rknowsys.eapp.hrm.model.EmploymentStatus"
 			};
 
-		_methodName16 = "addLeaveTypeApplicabilityEmploymentStatus";
+		_methodName16 = "addLeaveRuleApplicableEmploymentStatus";
 
 		_methodParameterTypes16 = new String[] { "long", "long" };
 
-		_methodName17 = "addLeaveTypeApplicabilityEmploymentStatus";
+		_methodName17 = "addLeaveRuleApplicableEmploymentStatus";
 
 		_methodParameterTypes17 = new String[] {
 				"long", "com.rknowsys.eapp.hrm.model.EmploymentStatus"
 			};
 
-		_methodName18 = "addLeaveTypeApplicabilityEmploymentStatuses";
+		_methodName18 = "addLeaveRuleApplicableEmploymentStatuses";
 
 		_methodParameterTypes18 = new String[] { "long", "long[][]" };
 
-		_methodName19 = "addLeaveTypeApplicabilityEmploymentStatuses";
+		_methodName19 = "addLeaveRuleApplicableEmploymentStatuses";
 
 		_methodParameterTypes19 = new String[] { "long", "java.util.List" };
 
-		_methodName20 = "clearLeaveTypeApplicabilityEmploymentStatuses";
+		_methodName20 = "clearLeaveRuleApplicableEmploymentStatuses";
 
 		_methodParameterTypes20 = new String[] { "long" };
 
-		_methodName21 = "deleteLeaveTypeApplicabilityEmploymentStatus";
+		_methodName21 = "deleteLeaveRuleApplicableEmploymentStatus";
 
 		_methodParameterTypes21 = new String[] { "long", "long" };
 
-		_methodName22 = "deleteLeaveTypeApplicabilityEmploymentStatus";
+		_methodName22 = "deleteLeaveRuleApplicableEmploymentStatus";
 
 		_methodParameterTypes22 = new String[] {
 				"long", "com.rknowsys.eapp.hrm.model.EmploymentStatus"
 			};
 
-		_methodName23 = "deleteLeaveTypeApplicabilityEmploymentStatuses";
+		_methodName23 = "deleteLeaveRuleApplicableEmploymentStatuses";
 
 		_methodParameterTypes23 = new String[] { "long", "long[][]" };
 
-		_methodName24 = "deleteLeaveTypeApplicabilityEmploymentStatuses";
+		_methodName24 = "deleteLeaveRuleApplicableEmploymentStatuses";
 
 		_methodParameterTypes24 = new String[] { "long", "java.util.List" };
 
-		_methodName25 = "getLeaveTypeApplicabilityEmploymentStatuses";
+		_methodName25 = "getLeaveRuleApplicableEmploymentStatuses";
 
 		_methodParameterTypes25 = new String[] { "long" };
 
-		_methodName26 = "getLeaveTypeApplicabilityEmploymentStatuses";
+		_methodName26 = "getLeaveRuleApplicableEmploymentStatuses";
 
 		_methodParameterTypes26 = new String[] { "long", "int", "int" };
 
-		_methodName27 = "getLeaveTypeApplicabilityEmploymentStatuses";
+		_methodName27 = "getLeaveRuleApplicableEmploymentStatuses";
 
 		_methodParameterTypes27 = new String[] {
 				"long", "int", "int",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName28 = "getLeaveTypeApplicabilityEmploymentStatusesCount";
+		_methodName28 = "getLeaveRuleApplicableEmploymentStatusesCount";
 
 		_methodParameterTypes28 = new String[] { "long" };
 
-		_methodName29 = "hasLeaveTypeApplicabilityEmploymentStatus";
+		_methodName29 = "hasLeaveRuleApplicableEmploymentStatus";
 
 		_methodParameterTypes29 = new String[] { "long", "long" };
 
-		_methodName30 = "hasLeaveTypeApplicabilityEmploymentStatuses";
+		_methodName30 = "hasLeaveRuleApplicableEmploymentStatuses";
 
 		_methodParameterTypes30 = new String[] { "long" };
 
-		_methodName31 = "setLeaveTypeApplicabilityEmploymentStatuses";
+		_methodName31 = "setLeaveRuleApplicableEmploymentStatuses";
 
 		_methodParameterTypes31 = new String[] { "long", "long[][]" };
 
@@ -277,7 +277,7 @@ public class EmploymentStatusLocalServiceClpInvoker {
 
 		if (_methodName16.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes16, parameterTypes)) {
-			EmploymentStatusLocalServiceUtil.addLeaveTypeApplicabilityEmploymentStatus(((Long)arguments[0]).longValue(),
+			EmploymentStatusLocalServiceUtil.addLeaveRuleApplicableEmploymentStatus(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue());
 
 			return null;
@@ -285,7 +285,7 @@ public class EmploymentStatusLocalServiceClpInvoker {
 
 		if (_methodName17.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes17, parameterTypes)) {
-			EmploymentStatusLocalServiceUtil.addLeaveTypeApplicabilityEmploymentStatus(((Long)arguments[0]).longValue(),
+			EmploymentStatusLocalServiceUtil.addLeaveRuleApplicableEmploymentStatus(((Long)arguments[0]).longValue(),
 				(com.rknowsys.eapp.hrm.model.EmploymentStatus)arguments[1]);
 
 			return null;
@@ -293,7 +293,7 @@ public class EmploymentStatusLocalServiceClpInvoker {
 
 		if (_methodName18.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes18, parameterTypes)) {
-			EmploymentStatusLocalServiceUtil.addLeaveTypeApplicabilityEmploymentStatuses(((Long)arguments[0]).longValue(),
+			EmploymentStatusLocalServiceUtil.addLeaveRuleApplicableEmploymentStatuses(((Long)arguments[0]).longValue(),
 				(long[])arguments[1]);
 
 			return null;
@@ -301,7 +301,7 @@ public class EmploymentStatusLocalServiceClpInvoker {
 
 		if (_methodName19.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes19, parameterTypes)) {
-			EmploymentStatusLocalServiceUtil.addLeaveTypeApplicabilityEmploymentStatuses(((Long)arguments[0]).longValue(),
+			EmploymentStatusLocalServiceUtil.addLeaveRuleApplicableEmploymentStatuses(((Long)arguments[0]).longValue(),
 				(java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus>)arguments[1]);
 
 			return null;
@@ -309,14 +309,14 @@ public class EmploymentStatusLocalServiceClpInvoker {
 
 		if (_methodName20.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes20, parameterTypes)) {
-			EmploymentStatusLocalServiceUtil.clearLeaveTypeApplicabilityEmploymentStatuses(((Long)arguments[0]).longValue());
+			EmploymentStatusLocalServiceUtil.clearLeaveRuleApplicableEmploymentStatuses(((Long)arguments[0]).longValue());
 
 			return null;
 		}
 
 		if (_methodName21.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes21, parameterTypes)) {
-			EmploymentStatusLocalServiceUtil.deleteLeaveTypeApplicabilityEmploymentStatus(((Long)arguments[0]).longValue(),
+			EmploymentStatusLocalServiceUtil.deleteLeaveRuleApplicableEmploymentStatus(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue());
 
 			return null;
@@ -324,7 +324,7 @@ public class EmploymentStatusLocalServiceClpInvoker {
 
 		if (_methodName22.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes22, parameterTypes)) {
-			EmploymentStatusLocalServiceUtil.deleteLeaveTypeApplicabilityEmploymentStatus(((Long)arguments[0]).longValue(),
+			EmploymentStatusLocalServiceUtil.deleteLeaveRuleApplicableEmploymentStatus(((Long)arguments[0]).longValue(),
 				(com.rknowsys.eapp.hrm.model.EmploymentStatus)arguments[1]);
 
 			return null;
@@ -332,7 +332,7 @@ public class EmploymentStatusLocalServiceClpInvoker {
 
 		if (_methodName23.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes23, parameterTypes)) {
-			EmploymentStatusLocalServiceUtil.deleteLeaveTypeApplicabilityEmploymentStatuses(((Long)arguments[0]).longValue(),
+			EmploymentStatusLocalServiceUtil.deleteLeaveRuleApplicableEmploymentStatuses(((Long)arguments[0]).longValue(),
 				(long[])arguments[1]);
 
 			return null;
@@ -340,7 +340,7 @@ public class EmploymentStatusLocalServiceClpInvoker {
 
 		if (_methodName24.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes24, parameterTypes)) {
-			EmploymentStatusLocalServiceUtil.deleteLeaveTypeApplicabilityEmploymentStatuses(((Long)arguments[0]).longValue(),
+			EmploymentStatusLocalServiceUtil.deleteLeaveRuleApplicableEmploymentStatuses(((Long)arguments[0]).longValue(),
 				(java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus>)arguments[1]);
 
 			return null;
@@ -348,19 +348,19 @@ public class EmploymentStatusLocalServiceClpInvoker {
 
 		if (_methodName25.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes25, parameterTypes)) {
-			return EmploymentStatusLocalServiceUtil.getLeaveTypeApplicabilityEmploymentStatuses(((Long)arguments[0]).longValue());
+			return EmploymentStatusLocalServiceUtil.getLeaveRuleApplicableEmploymentStatuses(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName26.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes26, parameterTypes)) {
-			return EmploymentStatusLocalServiceUtil.getLeaveTypeApplicabilityEmploymentStatuses(((Long)arguments[0]).longValue(),
+			return EmploymentStatusLocalServiceUtil.getLeaveRuleApplicableEmploymentStatuses(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue());
 		}
 
 		if (_methodName27.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes27, parameterTypes)) {
-			return EmploymentStatusLocalServiceUtil.getLeaveTypeApplicabilityEmploymentStatuses(((Long)arguments[0]).longValue(),
+			return EmploymentStatusLocalServiceUtil.getLeaveRuleApplicableEmploymentStatuses(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
 				(com.liferay.portal.kernel.util.OrderByComparator)arguments[3]);
@@ -368,23 +368,23 @@ public class EmploymentStatusLocalServiceClpInvoker {
 
 		if (_methodName28.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes28, parameterTypes)) {
-			return EmploymentStatusLocalServiceUtil.getLeaveTypeApplicabilityEmploymentStatusesCount(((Long)arguments[0]).longValue());
+			return EmploymentStatusLocalServiceUtil.getLeaveRuleApplicableEmploymentStatusesCount(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName29.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes29, parameterTypes)) {
-			return EmploymentStatusLocalServiceUtil.hasLeaveTypeApplicabilityEmploymentStatus(((Long)arguments[0]).longValue(),
+			return EmploymentStatusLocalServiceUtil.hasLeaveRuleApplicableEmploymentStatus(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue());
 		}
 
 		if (_methodName30.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes30, parameterTypes)) {
-			return EmploymentStatusLocalServiceUtil.hasLeaveTypeApplicabilityEmploymentStatuses(((Long)arguments[0]).longValue());
+			return EmploymentStatusLocalServiceUtil.hasLeaveRuleApplicableEmploymentStatuses(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName31.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes31, parameterTypes)) {
-			EmploymentStatusLocalServiceUtil.setLeaveTypeApplicabilityEmploymentStatuses(((Long)arguments[0]).longValue(),
+			EmploymentStatusLocalServiceUtil.setLeaveRuleApplicableEmploymentStatuses(((Long)arguments[0]).longValue(),
 				(long[])arguments[1]);
 
 			return null;

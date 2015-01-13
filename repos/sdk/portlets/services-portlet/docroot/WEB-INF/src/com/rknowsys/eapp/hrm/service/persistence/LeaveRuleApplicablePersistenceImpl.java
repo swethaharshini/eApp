@@ -1383,6 +1383,10 @@ public class LeaveRuleApplicablePersistenceImpl extends BasePersistenceImpl<Leav
 		leaveRuleApplicableImpl.setForYearsOfService(leaveRuleApplicable.isForYearsOfService());
 		leaveRuleApplicableImpl.setFromYears(leaveRuleApplicable.getFromYears());
 		leaveRuleApplicableImpl.setToYears(leaveRuleApplicable.getToYears());
+		leaveRuleApplicableImpl.setForJobTitles(leaveRuleApplicable.isForJobTitles());
+		leaveRuleApplicableImpl.setForJobCategories(leaveRuleApplicable.isForJobCategories());
+		leaveRuleApplicableImpl.setForEmploymentStatus(leaveRuleApplicable.isForEmploymentStatus());
+		leaveRuleApplicableImpl.setForGender(leaveRuleApplicable.isForGender());
 
 		return leaveRuleApplicableImpl;
 	}

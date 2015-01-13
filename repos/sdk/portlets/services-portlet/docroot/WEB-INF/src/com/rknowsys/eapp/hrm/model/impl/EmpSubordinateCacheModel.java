@@ -15,6 +15,7 @@
 package com.rknowsys.eapp.hrm.model.impl;
 
 import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.CacheModel;
 
 import com.rknowsys.eapp.hrm.model.EmpSubordinate;
@@ -87,7 +88,13 @@ public class EmpSubordinateCacheModel implements CacheModel<EmpSubordinate>,
 		}
 
 		empSubordinateImpl.setReporterEmployeeId(reporterEmployeeId);
-		empSubordinateImpl.setReportingMethod(reportingMethod);
+
+		if (reportingMethod == null) {
+			empSubordinateImpl.setReportingMethod(StringPool.BLANK);
+		}
+		else {
+			empSubordinateImpl.setReportingMethod(reportingMethod);
+		}
 
 		empSubordinateImpl.resetOriginalValues();
 
@@ -104,7 +111,7 @@ public class EmpSubordinateCacheModel implements CacheModel<EmpSubordinate>,
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		reporterEmployeeId = objectInput.readLong();
-		reportingMethod = objectInput.readLong();
+		reportingMethod = objectInput.readUTF();
 	}
 
 	@Override
@@ -118,7 +125,13 @@ public class EmpSubordinateCacheModel implements CacheModel<EmpSubordinate>,
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 		objectOutput.writeLong(reporterEmployeeId);
-		objectOutput.writeLong(reportingMethod);
+
+		if (reportingMethod == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(reportingMethod);
+		}
 	}
 
 	public long empSubordinateId;
@@ -129,5 +142,5 @@ public class EmpSubordinateCacheModel implements CacheModel<EmpSubordinate>,
 	public long createDate;
 	public long modifiedDate;
 	public long reporterEmployeeId;
-	public long reportingMethod;
+	public String reportingMethod;
 }

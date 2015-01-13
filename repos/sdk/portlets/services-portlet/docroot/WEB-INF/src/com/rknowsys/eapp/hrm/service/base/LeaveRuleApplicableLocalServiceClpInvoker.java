@@ -326,6 +326,10 @@ public class LeaveRuleApplicableLocalServiceClpInvoker {
 		_methodName281 = "setBeanIdentifier";
 
 		_methodParameterTypes281 = new String[] { "java.lang.String" };
+
+		_methodName286 = "findByLeaveTypeId";
+
+		_methodParameterTypes286 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -774,6 +778,11 @@ public class LeaveRuleApplicableLocalServiceClpInvoker {
 			return null;
 		}
 
+		if (_methodName286.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes286, parameterTypes)) {
+			return LeaveRuleApplicableLocalServiceUtil.findByLeaveTypeId(((Long)arguments[0]).longValue());
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -909,4 +918,6 @@ public class LeaveRuleApplicableLocalServiceClpInvoker {
 	private String[] _methodParameterTypes280;
 	private String _methodName281;
 	private String[] _methodParameterTypes281;
+	private String _methodName286;
+	private String[] _methodParameterTypes286;
 }

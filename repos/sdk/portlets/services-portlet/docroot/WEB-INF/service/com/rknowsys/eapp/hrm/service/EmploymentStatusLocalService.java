@@ -233,67 +233,67 @@ public interface EmploymentStatusLocalService extends BaseLocalService,
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
-	public void addLeaveTypeApplicabilityEmploymentStatus(
-		long leaveTypeApplicabilityId, long employmentStatusId)
+	public void addLeaveRuleApplicableEmploymentStatus(
+		long leaveRuleApplicableId, long employmentStatusId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
-	public void addLeaveTypeApplicabilityEmploymentStatus(
-		long leaveTypeApplicabilityId,
+	public void addLeaveRuleApplicableEmploymentStatus(
+		long leaveRuleApplicableId,
 		com.rknowsys.eapp.hrm.model.EmploymentStatus employmentStatus)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
-	public void addLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId, long[] employmentStatusIds)
+	public void addLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId, long[] employmentStatusIds)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
-	public void addLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId,
+	public void addLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId,
 		java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> EmploymentStatuses)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
-	public void clearLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId)
+	public void clearLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
-	public void deleteLeaveTypeApplicabilityEmploymentStatus(
-		long leaveTypeApplicabilityId, long employmentStatusId)
+	public void deleteLeaveRuleApplicableEmploymentStatus(
+		long leaveRuleApplicableId, long employmentStatusId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
-	public void deleteLeaveTypeApplicabilityEmploymentStatus(
-		long leaveTypeApplicabilityId,
+	public void deleteLeaveRuleApplicableEmploymentStatus(
+		long leaveRuleApplicableId,
 		com.rknowsys.eapp.hrm.model.EmploymentStatus employmentStatus)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
-	public void deleteLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId, long[] employmentStatusIds)
+	public void deleteLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId, long[] employmentStatusIds)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
-	public void deleteLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId,
+	public void deleteLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId,
 		java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> EmploymentStatuses)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
@@ -301,24 +301,24 @@ public interface EmploymentStatusLocalService extends BaseLocalService,
 	* @throws SystemException if a system exception occurred
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> getLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId)
+	public java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> getLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> getLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId, int start, int end)
+	public java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> getLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> getLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId, int start, int end,
+	public java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> getLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
@@ -326,31 +326,31 @@ public interface EmploymentStatusLocalService extends BaseLocalService,
 	* @throws SystemException if a system exception occurred
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getLeaveTypeApplicabilityEmploymentStatusesCount(
-		long leaveTypeApplicabilityId)
+	public int getLeaveRuleApplicableEmploymentStatusesCount(
+		long leaveRuleApplicableId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public boolean hasLeaveTypeApplicabilityEmploymentStatus(
-		long leaveTypeApplicabilityId, long employmentStatusId)
+	public boolean hasLeaveRuleApplicableEmploymentStatus(
+		long leaveRuleApplicableId, long employmentStatusId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public boolean hasLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId)
+	public boolean hasLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
-	public void setLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId, long[] employmentStatusIds)
+	public void setLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId, long[] employmentStatusIds)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

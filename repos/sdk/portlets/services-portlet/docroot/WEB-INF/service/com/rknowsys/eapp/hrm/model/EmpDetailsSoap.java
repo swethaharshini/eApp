@@ -182,11 +182,11 @@ public class EmpDetailsSoap implements Serializable {
 		_name = name;
 	}
 
-	public String getSupervisor() {
+	public long getSupervisor() {
 		return _supervisor;
 	}
 
-	public void setSupervisor(String supervisor) {
+	public void setSupervisor(long supervisor) {
 		_supervisor = supervisor;
 	}
 
@@ -201,5 +201,5 @@ public class EmpDetailsSoap implements Serializable {
 	private String _title;
 	private String _employmentstatus;
 	private String _name;
-	private String _supervisor;
+	private long _supervisor;
 }
