@@ -87,6 +87,14 @@ public class JobCategoryModelImpl extends BaseModelImpl<JobCategory>
 			true);
 	public static long GROUPID_COLUMN_BITMASK = 1L;
 	public static long JOBCATEGORYID_COLUMN_BITMASK = 2L;
+	public static final String MAPPING_TABLE_HRM_LRA_JOBCATEGORIES_NAME = "hrm_lra_jobCategories";
+	public static final Object[][] MAPPING_TABLE_HRM_LRA_JOBCATEGORIES_COLUMNS = {
+			{ "leaveRuleApplicableId", Types.BIGINT },
+			{ "jobCategoryId", Types.BIGINT }
+		};
+	public static final String MAPPING_TABLE_HRM_LRA_JOBCATEGORIES_SQL_CREATE = "create table hrm_lra_jobCategories (jobCategoryId LONG not null,leaveRuleApplicableId LONG not null,primary key (jobCategoryId, leaveRuleApplicableId))";
+	public static final boolean FINDER_CACHE_ENABLED_HRM_LRA_JOBCATEGORIES = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
+				"value.object.finder.cache.enabled.hrm_lra_jobCategories"), true);
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.rknowsys.eapp.hrm.model.JobCategory"));
 

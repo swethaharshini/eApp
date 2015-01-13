@@ -154,8 +154,20 @@ public class EmpPersonalDetailsCacheModel implements CacheModel<EmpPersonalDetai
 			empPersonalDetailsImpl.setLicenseExpDate(new Date(licenseExpDate));
 		}
 
-		empPersonalDetailsImpl.setGender(gender);
-		empPersonalDetailsImpl.setMaritalStatus(maritalStatus);
+		if (gender == null) {
+			empPersonalDetailsImpl.setGender(StringPool.BLANK);
+		}
+		else {
+			empPersonalDetailsImpl.setGender(gender);
+		}
+
+		if (maritalStatus == null) {
+			empPersonalDetailsImpl.setMaritalStatus(StringPool.BLANK);
+		}
+		else {
+			empPersonalDetailsImpl.setMaritalStatus(maritalStatus);
+		}
+
 		empPersonalDetailsImpl.setNationalityId(nationalityId);
 
 		if (dateOfBirth == Long.MIN_VALUE) {
@@ -186,8 +198,8 @@ public class EmpPersonalDetailsCacheModel implements CacheModel<EmpPersonalDetai
 		otherId = objectInput.readUTF();
 		licenseNo = objectInput.readUTF();
 		licenseExpDate = objectInput.readLong();
-		gender = objectInput.readLong();
-		maritalStatus = objectInput.readLong();
+		gender = objectInput.readUTF();
+		maritalStatus = objectInput.readUTF();
 		nationalityId = objectInput.readLong();
 		dateOfBirth = objectInput.readLong();
 	}
@@ -246,8 +258,21 @@ public class EmpPersonalDetailsCacheModel implements CacheModel<EmpPersonalDetai
 		}
 
 		objectOutput.writeLong(licenseExpDate);
-		objectOutput.writeLong(gender);
-		objectOutput.writeLong(maritalStatus);
+
+		if (gender == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(gender);
+		}
+
+		if (maritalStatus == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(maritalStatus);
+		}
+
 		objectOutput.writeLong(nationalityId);
 		objectOutput.writeLong(dateOfBirth);
 	}
@@ -266,8 +291,8 @@ public class EmpPersonalDetailsCacheModel implements CacheModel<EmpPersonalDetai
 	public String otherId;
 	public String licenseNo;
 	public long licenseExpDate;
-	public long gender;
-	public long maritalStatus;
+	public String gender;
+	public String maritalStatus;
 	public long nationalityId;
 	public long dateOfBirth;
 }

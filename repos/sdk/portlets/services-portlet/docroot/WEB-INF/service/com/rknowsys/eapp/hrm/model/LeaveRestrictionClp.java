@@ -83,20 +83,23 @@ public class LeaveRestrictionClp extends BaseModelImpl<LeaveRestriction>
 		attributes.put("userId", getUserId());
 		attributes.put("leaveTypeId", getLeaveTypeId());
 		attributes.put("cannotExceedBalance", getCannotExceedBalance());
+		attributes.put("cantExceedBalForRoleIds", getCantExceedBalForRoleIds());
 		attributes.put("cannotApplyForPartialDay", getCannotApplyForPartialDay());
-		attributes.put("ifATermsQuestion", getIfATermsQuestion());
+		attributes.put("cantApplyPartialDayForRoleIds",
+			getCantApplyPartialDayForRoleIds());
 		attributes.put("termsQuestion", getTermsQuestion());
+		attributes.put("termsQsnForRoleIds", getTermsQsnForRoleIds());
 		attributes.put("errorTextIfTermsDeclined", getErrorTextIfTermsDeclined());
-		attributes.put("isMinimumServicePeriodApplicable",
-			getIsMinimumServicePeriodApplicable());
 		attributes.put("minimumServicePeriod", getMinimumServicePeriod());
-		attributes.put("isMaxConsecutiveLeavesApplicable",
-			getIsMaxConsecutiveLeavesApplicable());
+		attributes.put("minServicePeriodForRoleIds",
+			getMinServicePeriodForRoleIds());
 		attributes.put("maxConsecutiveLeaves", getMaxConsecutiveLeaves());
-		attributes.put("isSmallChildCriterionApplicable",
-			getIsSmallChildCriterionApplicable());
+		attributes.put("maxConsecLeavesForRoleIds",
+			getMaxConsecLeavesForRoleIds());
 		attributes.put("maxSmallChildAgeApplicable",
 			getMaxSmallChildAgeApplicable());
+		attributes.put("maxSmallChildAgeForRoleIds",
+			getMaxSmallChildAgeForRoleIds());
 
 		return attributes;
 	}
@@ -152,6 +155,13 @@ public class LeaveRestrictionClp extends BaseModelImpl<LeaveRestriction>
 			setCannotExceedBalance(cannotExceedBalance);
 		}
 
+		String cantExceedBalForRoleIds = (String)attributes.get(
+				"cantExceedBalForRoleIds");
+
+		if (cantExceedBalForRoleIds != null) {
+			setCantExceedBalForRoleIds(cantExceedBalForRoleIds);
+		}
+
 		Boolean cannotApplyForPartialDay = (Boolean)attributes.get(
 				"cannotApplyForPartialDay");
 
@@ -159,16 +169,23 @@ public class LeaveRestrictionClp extends BaseModelImpl<LeaveRestriction>
 			setCannotApplyForPartialDay(cannotApplyForPartialDay);
 		}
 
-		Boolean ifATermsQuestion = (Boolean)attributes.get("ifATermsQuestion");
+		String cantApplyPartialDayForRoleIds = (String)attributes.get(
+				"cantApplyPartialDayForRoleIds");
 
-		if (ifATermsQuestion != null) {
-			setIfATermsQuestion(ifATermsQuestion);
+		if (cantApplyPartialDayForRoleIds != null) {
+			setCantApplyPartialDayForRoleIds(cantApplyPartialDayForRoleIds);
 		}
 
 		String termsQuestion = (String)attributes.get("termsQuestion");
 
 		if (termsQuestion != null) {
 			setTermsQuestion(termsQuestion);
+		}
+
+		String termsQsnForRoleIds = (String)attributes.get("termsQsnForRoleIds");
+
+		if (termsQsnForRoleIds != null) {
+			setTermsQsnForRoleIds(termsQsnForRoleIds);
 		}
 
 		String errorTextIfTermsDeclined = (String)attributes.get(
@@ -178,13 +195,6 @@ public class LeaveRestrictionClp extends BaseModelImpl<LeaveRestriction>
 			setErrorTextIfTermsDeclined(errorTextIfTermsDeclined);
 		}
 
-		Boolean isMinimumServicePeriodApplicable = (Boolean)attributes.get(
-				"isMinimumServicePeriodApplicable");
-
-		if (isMinimumServicePeriodApplicable != null) {
-			setIsMinimumServicePeriodApplicable(isMinimumServicePeriodApplicable);
-		}
-
 		String minimumServicePeriod = (String)attributes.get(
 				"minimumServicePeriod");
 
@@ -192,11 +202,11 @@ public class LeaveRestrictionClp extends BaseModelImpl<LeaveRestriction>
 			setMinimumServicePeriod(minimumServicePeriod);
 		}
 
-		Boolean isMaxConsecutiveLeavesApplicable = (Boolean)attributes.get(
-				"isMaxConsecutiveLeavesApplicable");
+		String minServicePeriodForRoleIds = (String)attributes.get(
+				"minServicePeriodForRoleIds");
 
-		if (isMaxConsecutiveLeavesApplicable != null) {
-			setIsMaxConsecutiveLeavesApplicable(isMaxConsecutiveLeavesApplicable);
+		if (minServicePeriodForRoleIds != null) {
+			setMinServicePeriodForRoleIds(minServicePeriodForRoleIds);
 		}
 
 		String maxConsecutiveLeaves = (String)attributes.get(
@@ -206,11 +216,11 @@ public class LeaveRestrictionClp extends BaseModelImpl<LeaveRestriction>
 			setMaxConsecutiveLeaves(maxConsecutiveLeaves);
 		}
 
-		Boolean isSmallChildCriterionApplicable = (Boolean)attributes.get(
-				"isSmallChildCriterionApplicable");
+		String maxConsecLeavesForRoleIds = (String)attributes.get(
+				"maxConsecLeavesForRoleIds");
 
-		if (isSmallChildCriterionApplicable != null) {
-			setIsSmallChildCriterionApplicable(isSmallChildCriterionApplicable);
+		if (maxConsecLeavesForRoleIds != null) {
+			setMaxConsecLeavesForRoleIds(maxConsecLeavesForRoleIds);
 		}
 
 		String maxSmallChildAgeApplicable = (String)attributes.get(
@@ -218,6 +228,13 @@ public class LeaveRestrictionClp extends BaseModelImpl<LeaveRestriction>
 
 		if (maxSmallChildAgeApplicable != null) {
 			setMaxSmallChildAgeApplicable(maxSmallChildAgeApplicable);
+		}
+
+		String maxSmallChildAgeForRoleIds = (String)attributes.get(
+				"maxSmallChildAgeForRoleIds");
+
+		if (maxSmallChildAgeForRoleIds != null) {
+			setMaxSmallChildAgeForRoleIds(maxSmallChildAgeForRoleIds);
 		}
 	}
 
@@ -423,6 +440,31 @@ public class LeaveRestrictionClp extends BaseModelImpl<LeaveRestriction>
 	}
 
 	@Override
+	public String getCantExceedBalForRoleIds() {
+		return _cantExceedBalForRoleIds;
+	}
+
+	@Override
+	public void setCantExceedBalForRoleIds(String cantExceedBalForRoleIds) {
+		_cantExceedBalForRoleIds = cantExceedBalForRoleIds;
+
+		if (_leaveRestrictionRemoteModel != null) {
+			try {
+				Class<?> clazz = _leaveRestrictionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCantExceedBalForRoleIds",
+						String.class);
+
+				method.invoke(_leaveRestrictionRemoteModel,
+					cantExceedBalForRoleIds);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
 	public boolean getCannotApplyForPartialDay() {
 		return _cannotApplyForPartialDay;
 	}
@@ -453,27 +495,24 @@ public class LeaveRestrictionClp extends BaseModelImpl<LeaveRestriction>
 	}
 
 	@Override
-	public boolean getIfATermsQuestion() {
-		return _ifATermsQuestion;
+	public String getCantApplyPartialDayForRoleIds() {
+		return _cantApplyPartialDayForRoleIds;
 	}
 
 	@Override
-	public boolean isIfATermsQuestion() {
-		return _ifATermsQuestion;
-	}
-
-	@Override
-	public void setIfATermsQuestion(boolean ifATermsQuestion) {
-		_ifATermsQuestion = ifATermsQuestion;
+	public void setCantApplyPartialDayForRoleIds(
+		String cantApplyPartialDayForRoleIds) {
+		_cantApplyPartialDayForRoleIds = cantApplyPartialDayForRoleIds;
 
 		if (_leaveRestrictionRemoteModel != null) {
 			try {
 				Class<?> clazz = _leaveRestrictionRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setIfATermsQuestion",
-						boolean.class);
+				Method method = clazz.getMethod("setCantApplyPartialDayForRoleIds",
+						String.class);
 
-				method.invoke(_leaveRestrictionRemoteModel, ifATermsQuestion);
+				method.invoke(_leaveRestrictionRemoteModel,
+					cantApplyPartialDayForRoleIds);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -497,6 +536,30 @@ public class LeaveRestrictionClp extends BaseModelImpl<LeaveRestriction>
 				Method method = clazz.getMethod("setTermsQuestion", String.class);
 
 				method.invoke(_leaveRestrictionRemoteModel, termsQuestion);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getTermsQsnForRoleIds() {
+		return _termsQsnForRoleIds;
+	}
+
+	@Override
+	public void setTermsQsnForRoleIds(String termsQsnForRoleIds) {
+		_termsQsnForRoleIds = termsQsnForRoleIds;
+
+		if (_leaveRestrictionRemoteModel != null) {
+			try {
+				Class<?> clazz = _leaveRestrictionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setTermsQsnForRoleIds",
+						String.class);
+
+				method.invoke(_leaveRestrictionRemoteModel, termsQsnForRoleIds);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -530,37 +593,6 @@ public class LeaveRestrictionClp extends BaseModelImpl<LeaveRestriction>
 	}
 
 	@Override
-	public boolean getIsMinimumServicePeriodApplicable() {
-		return _isMinimumServicePeriodApplicable;
-	}
-
-	@Override
-	public boolean isIsMinimumServicePeriodApplicable() {
-		return _isMinimumServicePeriodApplicable;
-	}
-
-	@Override
-	public void setIsMinimumServicePeriodApplicable(
-		boolean isMinimumServicePeriodApplicable) {
-		_isMinimumServicePeriodApplicable = isMinimumServicePeriodApplicable;
-
-		if (_leaveRestrictionRemoteModel != null) {
-			try {
-				Class<?> clazz = _leaveRestrictionRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setIsMinimumServicePeriodApplicable",
-						boolean.class);
-
-				method.invoke(_leaveRestrictionRemoteModel,
-					isMinimumServicePeriodApplicable);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
 	public String getMinimumServicePeriod() {
 		return _minimumServicePeriod;
 	}
@@ -585,29 +617,23 @@ public class LeaveRestrictionClp extends BaseModelImpl<LeaveRestriction>
 	}
 
 	@Override
-	public boolean getIsMaxConsecutiveLeavesApplicable() {
-		return _isMaxConsecutiveLeavesApplicable;
+	public String getMinServicePeriodForRoleIds() {
+		return _minServicePeriodForRoleIds;
 	}
 
 	@Override
-	public boolean isIsMaxConsecutiveLeavesApplicable() {
-		return _isMaxConsecutiveLeavesApplicable;
-	}
-
-	@Override
-	public void setIsMaxConsecutiveLeavesApplicable(
-		boolean isMaxConsecutiveLeavesApplicable) {
-		_isMaxConsecutiveLeavesApplicable = isMaxConsecutiveLeavesApplicable;
+	public void setMinServicePeriodForRoleIds(String minServicePeriodForRoleIds) {
+		_minServicePeriodForRoleIds = minServicePeriodForRoleIds;
 
 		if (_leaveRestrictionRemoteModel != null) {
 			try {
 				Class<?> clazz = _leaveRestrictionRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setIsMaxConsecutiveLeavesApplicable",
-						boolean.class);
+				Method method = clazz.getMethod("setMinServicePeriodForRoleIds",
+						String.class);
 
 				method.invoke(_leaveRestrictionRemoteModel,
-					isMaxConsecutiveLeavesApplicable);
+					minServicePeriodForRoleIds);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -640,29 +666,23 @@ public class LeaveRestrictionClp extends BaseModelImpl<LeaveRestriction>
 	}
 
 	@Override
-	public boolean getIsSmallChildCriterionApplicable() {
-		return _isSmallChildCriterionApplicable;
+	public String getMaxConsecLeavesForRoleIds() {
+		return _maxConsecLeavesForRoleIds;
 	}
 
 	@Override
-	public boolean isIsSmallChildCriterionApplicable() {
-		return _isSmallChildCriterionApplicable;
-	}
-
-	@Override
-	public void setIsSmallChildCriterionApplicable(
-		boolean isSmallChildCriterionApplicable) {
-		_isSmallChildCriterionApplicable = isSmallChildCriterionApplicable;
+	public void setMaxConsecLeavesForRoleIds(String maxConsecLeavesForRoleIds) {
+		_maxConsecLeavesForRoleIds = maxConsecLeavesForRoleIds;
 
 		if (_leaveRestrictionRemoteModel != null) {
 			try {
 				Class<?> clazz = _leaveRestrictionRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setIsSmallChildCriterionApplicable",
-						boolean.class);
+				Method method = clazz.getMethod("setMaxConsecLeavesForRoleIds",
+						String.class);
 
 				method.invoke(_leaveRestrictionRemoteModel,
-					isSmallChildCriterionApplicable);
+					maxConsecLeavesForRoleIds);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -688,6 +708,31 @@ public class LeaveRestrictionClp extends BaseModelImpl<LeaveRestriction>
 
 				method.invoke(_leaveRestrictionRemoteModel,
 					maxSmallChildAgeApplicable);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getMaxSmallChildAgeForRoleIds() {
+		return _maxSmallChildAgeForRoleIds;
+	}
+
+	@Override
+	public void setMaxSmallChildAgeForRoleIds(String maxSmallChildAgeForRoleIds) {
+		_maxSmallChildAgeForRoleIds = maxSmallChildAgeForRoleIds;
+
+		if (_leaveRestrictionRemoteModel != null) {
+			try {
+				Class<?> clazz = _leaveRestrictionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setMaxSmallChildAgeForRoleIds",
+						String.class);
+
+				method.invoke(_leaveRestrictionRemoteModel,
+					maxSmallChildAgeForRoleIds);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -774,16 +819,18 @@ public class LeaveRestrictionClp extends BaseModelImpl<LeaveRestriction>
 		clone.setUserId(getUserId());
 		clone.setLeaveTypeId(getLeaveTypeId());
 		clone.setCannotExceedBalance(getCannotExceedBalance());
+		clone.setCantExceedBalForRoleIds(getCantExceedBalForRoleIds());
 		clone.setCannotApplyForPartialDay(getCannotApplyForPartialDay());
-		clone.setIfATermsQuestion(getIfATermsQuestion());
+		clone.setCantApplyPartialDayForRoleIds(getCantApplyPartialDayForRoleIds());
 		clone.setTermsQuestion(getTermsQuestion());
+		clone.setTermsQsnForRoleIds(getTermsQsnForRoleIds());
 		clone.setErrorTextIfTermsDeclined(getErrorTextIfTermsDeclined());
-		clone.setIsMinimumServicePeriodApplicable(getIsMinimumServicePeriodApplicable());
 		clone.setMinimumServicePeriod(getMinimumServicePeriod());
-		clone.setIsMaxConsecutiveLeavesApplicable(getIsMaxConsecutiveLeavesApplicable());
+		clone.setMinServicePeriodForRoleIds(getMinServicePeriodForRoleIds());
 		clone.setMaxConsecutiveLeaves(getMaxConsecutiveLeaves());
-		clone.setIsSmallChildCriterionApplicable(getIsSmallChildCriterionApplicable());
+		clone.setMaxConsecLeavesForRoleIds(getMaxConsecLeavesForRoleIds());
 		clone.setMaxSmallChildAgeApplicable(getMaxSmallChildAgeApplicable());
+		clone.setMaxSmallChildAgeForRoleIds(getMaxSmallChildAgeForRoleIds());
 
 		return clone;
 	}
@@ -832,7 +879,7 @@ public class LeaveRestrictionClp extends BaseModelImpl<LeaveRestriction>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(37);
+		StringBundler sb = new StringBundler(41);
 
 		sb.append("{leaveRestrictionId=");
 		sb.append(getLeaveRestrictionId());
@@ -850,26 +897,30 @@ public class LeaveRestrictionClp extends BaseModelImpl<LeaveRestriction>
 		sb.append(getLeaveTypeId());
 		sb.append(", cannotExceedBalance=");
 		sb.append(getCannotExceedBalance());
+		sb.append(", cantExceedBalForRoleIds=");
+		sb.append(getCantExceedBalForRoleIds());
 		sb.append(", cannotApplyForPartialDay=");
 		sb.append(getCannotApplyForPartialDay());
-		sb.append(", ifATermsQuestion=");
-		sb.append(getIfATermsQuestion());
+		sb.append(", cantApplyPartialDayForRoleIds=");
+		sb.append(getCantApplyPartialDayForRoleIds());
 		sb.append(", termsQuestion=");
 		sb.append(getTermsQuestion());
+		sb.append(", termsQsnForRoleIds=");
+		sb.append(getTermsQsnForRoleIds());
 		sb.append(", errorTextIfTermsDeclined=");
 		sb.append(getErrorTextIfTermsDeclined());
-		sb.append(", isMinimumServicePeriodApplicable=");
-		sb.append(getIsMinimumServicePeriodApplicable());
 		sb.append(", minimumServicePeriod=");
 		sb.append(getMinimumServicePeriod());
-		sb.append(", isMaxConsecutiveLeavesApplicable=");
-		sb.append(getIsMaxConsecutiveLeavesApplicable());
+		sb.append(", minServicePeriodForRoleIds=");
+		sb.append(getMinServicePeriodForRoleIds());
 		sb.append(", maxConsecutiveLeaves=");
 		sb.append(getMaxConsecutiveLeaves());
-		sb.append(", isSmallChildCriterionApplicable=");
-		sb.append(getIsSmallChildCriterionApplicable());
+		sb.append(", maxConsecLeavesForRoleIds=");
+		sb.append(getMaxConsecLeavesForRoleIds());
 		sb.append(", maxSmallChildAgeApplicable=");
 		sb.append(getMaxSmallChildAgeApplicable());
+		sb.append(", maxSmallChildAgeForRoleIds=");
+		sb.append(getMaxSmallChildAgeForRoleIds());
 		sb.append("}");
 
 		return sb.toString();
@@ -877,7 +928,7 @@ public class LeaveRestrictionClp extends BaseModelImpl<LeaveRestriction>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(58);
+		StringBundler sb = new StringBundler(64);
 
 		sb.append("<model><model-name>");
 		sb.append("com.rknowsys.eapp.hrm.model.LeaveRestriction");
@@ -916,44 +967,52 @@ public class LeaveRestrictionClp extends BaseModelImpl<LeaveRestriction>
 		sb.append(getCannotExceedBalance());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>cantExceedBalForRoleIds</column-name><column-value><![CDATA[");
+		sb.append(getCantExceedBalForRoleIds());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>cannotApplyForPartialDay</column-name><column-value><![CDATA[");
 		sb.append(getCannotApplyForPartialDay());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>ifATermsQuestion</column-name><column-value><![CDATA[");
-		sb.append(getIfATermsQuestion());
+			"<column><column-name>cantApplyPartialDayForRoleIds</column-name><column-value><![CDATA[");
+		sb.append(getCantApplyPartialDayForRoleIds());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>termsQuestion</column-name><column-value><![CDATA[");
 		sb.append(getTermsQuestion());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>errorTextIfTermsDeclined</column-name><column-value><![CDATA[");
-		sb.append(getErrorTextIfTermsDeclined());
+			"<column><column-name>termsQsnForRoleIds</column-name><column-value><![CDATA[");
+		sb.append(getTermsQsnForRoleIds());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>isMinimumServicePeriodApplicable</column-name><column-value><![CDATA[");
-		sb.append(getIsMinimumServicePeriodApplicable());
+			"<column><column-name>errorTextIfTermsDeclined</column-name><column-value><![CDATA[");
+		sb.append(getErrorTextIfTermsDeclined());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>minimumServicePeriod</column-name><column-value><![CDATA[");
 		sb.append(getMinimumServicePeriod());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>isMaxConsecutiveLeavesApplicable</column-name><column-value><![CDATA[");
-		sb.append(getIsMaxConsecutiveLeavesApplicable());
+			"<column><column-name>minServicePeriodForRoleIds</column-name><column-value><![CDATA[");
+		sb.append(getMinServicePeriodForRoleIds());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>maxConsecutiveLeaves</column-name><column-value><![CDATA[");
 		sb.append(getMaxConsecutiveLeaves());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>isSmallChildCriterionApplicable</column-name><column-value><![CDATA[");
-		sb.append(getIsSmallChildCriterionApplicable());
+			"<column><column-name>maxConsecLeavesForRoleIds</column-name><column-value><![CDATA[");
+		sb.append(getMaxConsecLeavesForRoleIds());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>maxSmallChildAgeApplicable</column-name><column-value><![CDATA[");
 		sb.append(getMaxSmallChildAgeApplicable());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>maxSmallChildAgeForRoleIds</column-name><column-value><![CDATA[");
+		sb.append(getMaxSmallChildAgeForRoleIds());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -970,15 +1029,17 @@ public class LeaveRestrictionClp extends BaseModelImpl<LeaveRestriction>
 	private String _userUuid;
 	private long _leaveTypeId;
 	private boolean _cannotExceedBalance;
+	private String _cantExceedBalForRoleIds;
 	private boolean _cannotApplyForPartialDay;
-	private boolean _ifATermsQuestion;
+	private String _cantApplyPartialDayForRoleIds;
 	private String _termsQuestion;
+	private String _termsQsnForRoleIds;
 	private String _errorTextIfTermsDeclined;
-	private boolean _isMinimumServicePeriodApplicable;
 	private String _minimumServicePeriod;
-	private boolean _isMaxConsecutiveLeavesApplicable;
+	private String _minServicePeriodForRoleIds;
 	private String _maxConsecutiveLeaves;
-	private boolean _isSmallChildCriterionApplicable;
+	private String _maxConsecLeavesForRoleIds;
 	private String _maxSmallChildAgeApplicable;
+	private String _maxSmallChildAgeForRoleIds;
 	private BaseModel<?> _leaveRestrictionRemoteModel;
 }

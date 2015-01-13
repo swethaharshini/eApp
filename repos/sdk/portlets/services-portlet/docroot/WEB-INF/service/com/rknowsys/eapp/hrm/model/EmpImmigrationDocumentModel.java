@@ -251,15 +251,14 @@ public interface EmpImmigrationDocumentModel extends BaseModel<EmpImmigrationDoc
 	 *
 	 * @return the issued by of this ImmigrationDocument
 	 */
-	@AutoEscape
-	public String getIssuedBy();
+	public long getIssuedBy();
 
 	/**
 	 * Sets the issued by of this ImmigrationDocument.
 	 *
 	 * @param issuedBy the issued by of this ImmigrationDocument
 	 */
-	public void setIssuedBy(String issuedBy);
+	public void setIssuedBy(long issuedBy);
 
 	/**
 	 * Returns the eligible review date of this ImmigrationDocument.

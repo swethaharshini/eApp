@@ -197,11 +197,11 @@ public class EmpImmigrationDocumentSoap implements Serializable {
 		_eligibleStatus = eligibleStatus;
 	}
 
-	public String getIssuedBy() {
+	public long getIssuedBy() {
 		return _issuedBy;
 	}
 
-	public void setIssuedBy(String issuedBy) {
+	public void setIssuedBy(long issuedBy) {
 		_issuedBy = issuedBy;
 	}
 
@@ -233,7 +233,7 @@ public class EmpImmigrationDocumentSoap implements Serializable {
 	private Date _issuedDate;
 	private Date _expiryDate;
 	private String _eligibleStatus;
-	private String _issuedBy;
+	private long _issuedBy;
 	private Date _eligibleReviewDate;
 	private String _comments;
 }

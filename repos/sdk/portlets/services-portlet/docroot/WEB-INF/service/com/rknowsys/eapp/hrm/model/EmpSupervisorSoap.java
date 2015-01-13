@@ -155,11 +155,11 @@ public class EmpSupervisorSoap implements Serializable {
 		_reporterEmployeeId = reporterEmployeeId;
 	}
 
-	public long getReportingMethod() {
+	public String getReportingMethod() {
 		return _reportingMethod;
 	}
 
-	public void setReportingMethod(long reportingMethod) {
+	public void setReportingMethod(String reportingMethod) {
 		_reportingMethod = reportingMethod;
 	}
 
@@ -171,5 +171,5 @@ public class EmpSupervisorSoap implements Serializable {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _reporterEmployeeId;
-	private long _reportingMethod;
+	private String _reportingMethod;
 }

@@ -183,13 +183,13 @@ public class EmpPersonalDetailsClp extends BaseModelImpl<EmpPersonalDetails>
 			setLicenseExpDate(licenseExpDate);
 		}
 
-		Long gender = (Long)attributes.get("gender");
+		String gender = (String)attributes.get("gender");
 
 		if (gender != null) {
 			setGender(gender);
 		}
 
-		Long maritalStatus = (Long)attributes.get("maritalStatus");
+		String maritalStatus = (String)attributes.get("maritalStatus");
 
 		if (maritalStatus != null) {
 			setMaritalStatus(maritalStatus);
@@ -543,19 +543,19 @@ public class EmpPersonalDetailsClp extends BaseModelImpl<EmpPersonalDetails>
 	}
 
 	@Override
-	public long getGender() {
+	public String getGender() {
 		return _gender;
 	}
 
 	@Override
-	public void setGender(long gender) {
+	public void setGender(String gender) {
 		_gender = gender;
 
 		if (_empPersonalDetailsRemoteModel != null) {
 			try {
 				Class<?> clazz = _empPersonalDetailsRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setGender", long.class);
+				Method method = clazz.getMethod("setGender", String.class);
 
 				method.invoke(_empPersonalDetailsRemoteModel, gender);
 			}
@@ -566,19 +566,19 @@ public class EmpPersonalDetailsClp extends BaseModelImpl<EmpPersonalDetails>
 	}
 
 	@Override
-	public long getMaritalStatus() {
+	public String getMaritalStatus() {
 		return _maritalStatus;
 	}
 
 	@Override
-	public void setMaritalStatus(long maritalStatus) {
+	public void setMaritalStatus(String maritalStatus) {
 		_maritalStatus = maritalStatus;
 
 		if (_empPersonalDetailsRemoteModel != null) {
 			try {
 				Class<?> clazz = _empPersonalDetailsRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setMaritalStatus", long.class);
+				Method method = clazz.getMethod("setMaritalStatus", String.class);
 
 				method.invoke(_empPersonalDetailsRemoteModel, maritalStatus);
 			}
@@ -915,8 +915,8 @@ public class EmpPersonalDetailsClp extends BaseModelImpl<EmpPersonalDetails>
 	private String _otherId;
 	private String _licenseNo;
 	private Date _licenseExpDate;
-	private long _gender;
-	private long _maritalStatus;
+	private String _gender;
+	private String _maritalStatus;
 	private long _nationalityId;
 	private Date _dateOfBirth;
 	private BaseModel<?> _empPersonalDetailsRemoteModel;

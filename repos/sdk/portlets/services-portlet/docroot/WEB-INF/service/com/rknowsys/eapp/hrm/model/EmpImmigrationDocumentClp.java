@@ -169,7 +169,7 @@ public class EmpImmigrationDocumentClp extends BaseModelImpl<EmpImmigrationDocum
 			setEligibleStatus(eligibleStatus);
 		}
 
-		String issuedBy = (String)attributes.get("issuedBy");
+		Long issuedBy = (Long)attributes.get("issuedBy");
 
 		if (issuedBy != null) {
 			setIssuedBy(issuedBy);
@@ -478,19 +478,19 @@ public class EmpImmigrationDocumentClp extends BaseModelImpl<EmpImmigrationDocum
 	}
 
 	@Override
-	public String getIssuedBy() {
+	public long getIssuedBy() {
 		return _issuedBy;
 	}
 
 	@Override
-	public void setIssuedBy(String issuedBy) {
+	public void setIssuedBy(long issuedBy) {
 		_issuedBy = issuedBy;
 
 		if (_empImmigrationDocumentRemoteModel != null) {
 			try {
 				Class<?> clazz = _empImmigrationDocumentRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setIssuedBy", String.class);
+				Method method = clazz.getMethod("setIssuedBy", long.class);
 
 				method.invoke(_empImmigrationDocumentRemoteModel, issuedBy);
 			}
@@ -806,7 +806,7 @@ public class EmpImmigrationDocumentClp extends BaseModelImpl<EmpImmigrationDocum
 	private Date _issuedDate;
 	private Date _expiryDate;
 	private String _eligibleStatus;
-	private String _issuedBy;
+	private long _issuedBy;
 	private Date _eligibleReviewDate;
 	private String _comments;
 	private BaseModel<?> _empImmigrationDocumentRemoteModel;

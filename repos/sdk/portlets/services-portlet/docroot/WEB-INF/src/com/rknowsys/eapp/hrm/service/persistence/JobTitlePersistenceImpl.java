@@ -733,7 +733,7 @@ public class JobTitlePersistenceImpl extends BasePersistenceImpl<JobTitle>
 	protected JobTitle removeImpl(JobTitle jobTitle) throws SystemException {
 		jobTitle = toUnwrappedModel(jobTitle);
 
-		jobTitleToLeaveTypeApplicabilityTableMapper.deleteLeftPrimaryKeyTableMappings(jobTitle.getPrimaryKey());
+		jobTitleToLeaveRuleApplicableTableMapper.deleteLeftPrimaryKeyTableMappings(jobTitle.getPrimaryKey());
 
 		Session session = null;
 
@@ -1120,21 +1120,20 @@ public class JobTitlePersistenceImpl extends BasePersistenceImpl<JobTitle>
 	}
 
 	/**
-	 * Returns all the leave type applicabilities associated with the job title.
+	 * Returns all the leave rule applicables associated with the job title.
 	 *
 	 * @param pk the primary key of the job title
-	 * @return the leave type applicabilities associated with the job title
+	 * @return the leave rule applicables associated with the job title
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> getLeaveTypeApplicabilities(
+	public List<com.rknowsys.eapp.hrm.model.LeaveRuleApplicable> getLeaveRuleApplicables(
 		long pk) throws SystemException {
-		return getLeaveTypeApplicabilities(pk, QueryUtil.ALL_POS,
-			QueryUtil.ALL_POS);
+		return getLeaveRuleApplicables(pk, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 	}
 
 	/**
-	 * Returns a range of all the leave type applicabilities associated with the job title.
+	 * Returns a range of all the leave rule applicables associated with the job title.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.rknowsys.eapp.hrm.model.impl.JobTitleModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
@@ -1143,17 +1142,17 @@ public class JobTitlePersistenceImpl extends BasePersistenceImpl<JobTitle>
 	 * @param pk the primary key of the job title
 	 * @param start the lower bound of the range of job titles
 	 * @param end the upper bound of the range of job titles (not inclusive)
-	 * @return the range of leave type applicabilities associated with the job title
+	 * @return the range of leave rule applicables associated with the job title
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> getLeaveTypeApplicabilities(
+	public List<com.rknowsys.eapp.hrm.model.LeaveRuleApplicable> getLeaveRuleApplicables(
 		long pk, int start, int end) throws SystemException {
-		return getLeaveTypeApplicabilities(pk, start, end, null);
+		return getLeaveRuleApplicables(pk, start, end, null);
 	}
 
 	/**
-	 * Returns an ordered range of all the leave type applicabilities associated with the job title.
+	 * Returns an ordered range of all the leave rule applicables associated with the job title.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.rknowsys.eapp.hrm.model.impl.JobTitleModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
@@ -1163,58 +1162,57 @@ public class JobTitlePersistenceImpl extends BasePersistenceImpl<JobTitle>
 	 * @param start the lower bound of the range of job titles
 	 * @param end the upper bound of the range of job titles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of leave type applicabilities associated with the job title
+	 * @return the ordered range of leave rule applicables associated with the job title
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> getLeaveTypeApplicabilities(
+	public List<com.rknowsys.eapp.hrm.model.LeaveRuleApplicable> getLeaveRuleApplicables(
 		long pk, int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
-		return jobTitleToLeaveTypeApplicabilityTableMapper.getRightBaseModels(pk,
+		return jobTitleToLeaveRuleApplicableTableMapper.getRightBaseModels(pk,
 			start, end, orderByComparator);
 	}
 
 	/**
-	 * Returns the number of leave type applicabilities associated with the job title.
+	 * Returns the number of leave rule applicables associated with the job title.
 	 *
 	 * @param pk the primary key of the job title
-	 * @return the number of leave type applicabilities associated with the job title
+	 * @return the number of leave rule applicables associated with the job title
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getLeaveTypeApplicabilitiesSize(long pk)
-		throws SystemException {
-		long[] pks = jobTitleToLeaveTypeApplicabilityTableMapper.getRightPrimaryKeys(pk);
+	public int getLeaveRuleApplicablesSize(long pk) throws SystemException {
+		long[] pks = jobTitleToLeaveRuleApplicableTableMapper.getRightPrimaryKeys(pk);
 
 		return pks.length;
 	}
 
 	/**
-	 * Returns <code>true</code> if the leave type applicability is associated with the job title.
+	 * Returns <code>true</code> if the leave rule applicable is associated with the job title.
 	 *
 	 * @param pk the primary key of the job title
-	 * @param leaveTypeApplicabilityPK the primary key of the leave type applicability
-	 * @return <code>true</code> if the leave type applicability is associated with the job title; <code>false</code> otherwise
+	 * @param leaveRuleApplicablePK the primary key of the leave rule applicable
+	 * @return <code>true</code> if the leave rule applicable is associated with the job title; <code>false</code> otherwise
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public boolean containsLeaveTypeApplicability(long pk,
-		long leaveTypeApplicabilityPK) throws SystemException {
-		return jobTitleToLeaveTypeApplicabilityTableMapper.containsTableMapping(pk,
-			leaveTypeApplicabilityPK);
+	public boolean containsLeaveRuleApplicable(long pk,
+		long leaveRuleApplicablePK) throws SystemException {
+		return jobTitleToLeaveRuleApplicableTableMapper.containsTableMapping(pk,
+			leaveRuleApplicablePK);
 	}
 
 	/**
-	 * Returns <code>true</code> if the job title has any leave type applicabilities associated with it.
+	 * Returns <code>true</code> if the job title has any leave rule applicables associated with it.
 	 *
-	 * @param pk the primary key of the job title to check for associations with leave type applicabilities
-	 * @return <code>true</code> if the job title has any leave type applicabilities associated with it; <code>false</code> otherwise
+	 * @param pk the primary key of the job title to check for associations with leave rule applicables
+	 * @return <code>true</code> if the job title has any leave rule applicables associated with it; <code>false</code> otherwise
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public boolean containsLeaveTypeApplicabilities(long pk)
+	public boolean containsLeaveRuleApplicables(long pk)
 		throws SystemException {
-		if (getLeaveTypeApplicabilitiesSize(pk) > 0) {
+		if (getLeaveRuleApplicablesSize(pk) > 0) {
 			return true;
 		}
 		else {
@@ -1223,200 +1221,199 @@ public class JobTitlePersistenceImpl extends BasePersistenceImpl<JobTitle>
 	}
 
 	/**
-	 * Adds an association between the job title and the leave type applicability. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 * Adds an association between the job title and the leave rule applicable. Also notifies the appropriate model listeners and clears the mapping table finder cache.
 	 *
 	 * @param pk the primary key of the job title
-	 * @param leaveTypeApplicabilityPK the primary key of the leave type applicability
+	 * @param leaveRuleApplicablePK the primary key of the leave rule applicable
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void addLeaveTypeApplicability(long pk, long leaveTypeApplicabilityPK)
+	public void addLeaveRuleApplicable(long pk, long leaveRuleApplicablePK)
 		throws SystemException {
-		jobTitleToLeaveTypeApplicabilityTableMapper.addTableMapping(pk,
-			leaveTypeApplicabilityPK);
+		jobTitleToLeaveRuleApplicableTableMapper.addTableMapping(pk,
+			leaveRuleApplicablePK);
 	}
 
 	/**
-	 * Adds an association between the job title and the leave type applicability. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 * Adds an association between the job title and the leave rule applicable. Also notifies the appropriate model listeners and clears the mapping table finder cache.
 	 *
 	 * @param pk the primary key of the job title
-	 * @param leaveTypeApplicability the leave type applicability
+	 * @param leaveRuleApplicable the leave rule applicable
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void addLeaveTypeApplicability(long pk,
-		com.rknowsys.eapp.hrm.model.LeaveTypeApplicability leaveTypeApplicability)
+	public void addLeaveRuleApplicable(long pk,
+		com.rknowsys.eapp.hrm.model.LeaveRuleApplicable leaveRuleApplicable)
 		throws SystemException {
-		jobTitleToLeaveTypeApplicabilityTableMapper.addTableMapping(pk,
-			leaveTypeApplicability.getPrimaryKey());
+		jobTitleToLeaveRuleApplicableTableMapper.addTableMapping(pk,
+			leaveRuleApplicable.getPrimaryKey());
 	}
 
 	/**
-	 * Adds an association between the job title and the leave type applicabilities. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 * Adds an association between the job title and the leave rule applicables. Also notifies the appropriate model listeners and clears the mapping table finder cache.
 	 *
 	 * @param pk the primary key of the job title
-	 * @param leaveTypeApplicabilityPKs the primary keys of the leave type applicabilities
+	 * @param leaveRuleApplicablePKs the primary keys of the leave rule applicables
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void addLeaveTypeApplicabilities(long pk,
-		long[] leaveTypeApplicabilityPKs) throws SystemException {
-		for (long leaveTypeApplicabilityPK : leaveTypeApplicabilityPKs) {
-			jobTitleToLeaveTypeApplicabilityTableMapper.addTableMapping(pk,
-				leaveTypeApplicabilityPK);
+	public void addLeaveRuleApplicables(long pk, long[] leaveRuleApplicablePKs)
+		throws SystemException {
+		for (long leaveRuleApplicablePK : leaveRuleApplicablePKs) {
+			jobTitleToLeaveRuleApplicableTableMapper.addTableMapping(pk,
+				leaveRuleApplicablePK);
 		}
 	}
 
 	/**
-	 * Adds an association between the job title and the leave type applicabilities. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 * Adds an association between the job title and the leave rule applicables. Also notifies the appropriate model listeners and clears the mapping table finder cache.
 	 *
 	 * @param pk the primary key of the job title
-	 * @param leaveTypeApplicabilities the leave type applicabilities
+	 * @param leaveRuleApplicables the leave rule applicables
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void addLeaveTypeApplicabilities(long pk,
-		List<com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> leaveTypeApplicabilities)
+	public void addLeaveRuleApplicables(long pk,
+		List<com.rknowsys.eapp.hrm.model.LeaveRuleApplicable> leaveRuleApplicables)
 		throws SystemException {
-		for (com.rknowsys.eapp.hrm.model.LeaveTypeApplicability leaveTypeApplicability : leaveTypeApplicabilities) {
-			jobTitleToLeaveTypeApplicabilityTableMapper.addTableMapping(pk,
-				leaveTypeApplicability.getPrimaryKey());
+		for (com.rknowsys.eapp.hrm.model.LeaveRuleApplicable leaveRuleApplicable : leaveRuleApplicables) {
+			jobTitleToLeaveRuleApplicableTableMapper.addTableMapping(pk,
+				leaveRuleApplicable.getPrimaryKey());
 		}
 	}
 
 	/**
-	 * Clears all associations between the job title and its leave type applicabilities. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 * Clears all associations between the job title and its leave rule applicables. Also notifies the appropriate model listeners and clears the mapping table finder cache.
 	 *
-	 * @param pk the primary key of the job title to clear the associated leave type applicabilities from
+	 * @param pk the primary key of the job title to clear the associated leave rule applicables from
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void clearLeaveTypeApplicabilities(long pk)
+	public void clearLeaveRuleApplicables(long pk) throws SystemException {
+		jobTitleToLeaveRuleApplicableTableMapper.deleteLeftPrimaryKeyTableMappings(pk);
+	}
+
+	/**
+	 * Removes the association between the job title and the leave rule applicable. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the job title
+	 * @param leaveRuleApplicablePK the primary key of the leave rule applicable
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void removeLeaveRuleApplicable(long pk, long leaveRuleApplicablePK)
 		throws SystemException {
-		jobTitleToLeaveTypeApplicabilityTableMapper.deleteLeftPrimaryKeyTableMappings(pk);
+		jobTitleToLeaveRuleApplicableTableMapper.deleteTableMapping(pk,
+			leaveRuleApplicablePK);
 	}
 
 	/**
-	 * Removes the association between the job title and the leave type applicability. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 * Removes the association between the job title and the leave rule applicable. Also notifies the appropriate model listeners and clears the mapping table finder cache.
 	 *
 	 * @param pk the primary key of the job title
-	 * @param leaveTypeApplicabilityPK the primary key of the leave type applicability
+	 * @param leaveRuleApplicable the leave rule applicable
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void removeLeaveTypeApplicability(long pk,
-		long leaveTypeApplicabilityPK) throws SystemException {
-		jobTitleToLeaveTypeApplicabilityTableMapper.deleteTableMapping(pk,
-			leaveTypeApplicabilityPK);
-	}
-
-	/**
-	 * Removes the association between the job title and the leave type applicability. Also notifies the appropriate model listeners and clears the mapping table finder cache.
-	 *
-	 * @param pk the primary key of the job title
-	 * @param leaveTypeApplicability the leave type applicability
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public void removeLeaveTypeApplicability(long pk,
-		com.rknowsys.eapp.hrm.model.LeaveTypeApplicability leaveTypeApplicability)
+	public void removeLeaveRuleApplicable(long pk,
+		com.rknowsys.eapp.hrm.model.LeaveRuleApplicable leaveRuleApplicable)
 		throws SystemException {
-		jobTitleToLeaveTypeApplicabilityTableMapper.deleteTableMapping(pk,
-			leaveTypeApplicability.getPrimaryKey());
+		jobTitleToLeaveRuleApplicableTableMapper.deleteTableMapping(pk,
+			leaveRuleApplicable.getPrimaryKey());
 	}
 
 	/**
-	 * Removes the association between the job title and the leave type applicabilities. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 * Removes the association between the job title and the leave rule applicables. Also notifies the appropriate model listeners and clears the mapping table finder cache.
 	 *
 	 * @param pk the primary key of the job title
-	 * @param leaveTypeApplicabilityPKs the primary keys of the leave type applicabilities
+	 * @param leaveRuleApplicablePKs the primary keys of the leave rule applicables
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void removeLeaveTypeApplicabilities(long pk,
-		long[] leaveTypeApplicabilityPKs) throws SystemException {
-		for (long leaveTypeApplicabilityPK : leaveTypeApplicabilityPKs) {
-			jobTitleToLeaveTypeApplicabilityTableMapper.deleteTableMapping(pk,
-				leaveTypeApplicabilityPK);
+	public void removeLeaveRuleApplicables(long pk,
+		long[] leaveRuleApplicablePKs) throws SystemException {
+		for (long leaveRuleApplicablePK : leaveRuleApplicablePKs) {
+			jobTitleToLeaveRuleApplicableTableMapper.deleteTableMapping(pk,
+				leaveRuleApplicablePK);
 		}
 	}
 
 	/**
-	 * Removes the association between the job title and the leave type applicabilities. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 * Removes the association between the job title and the leave rule applicables. Also notifies the appropriate model listeners and clears the mapping table finder cache.
 	 *
 	 * @param pk the primary key of the job title
-	 * @param leaveTypeApplicabilities the leave type applicabilities
+	 * @param leaveRuleApplicables the leave rule applicables
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void removeLeaveTypeApplicabilities(long pk,
-		List<com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> leaveTypeApplicabilities)
+	public void removeLeaveRuleApplicables(long pk,
+		List<com.rknowsys.eapp.hrm.model.LeaveRuleApplicable> leaveRuleApplicables)
 		throws SystemException {
-		for (com.rknowsys.eapp.hrm.model.LeaveTypeApplicability leaveTypeApplicability : leaveTypeApplicabilities) {
-			jobTitleToLeaveTypeApplicabilityTableMapper.deleteTableMapping(pk,
-				leaveTypeApplicability.getPrimaryKey());
+		for (com.rknowsys.eapp.hrm.model.LeaveRuleApplicable leaveRuleApplicable : leaveRuleApplicables) {
+			jobTitleToLeaveRuleApplicableTableMapper.deleteTableMapping(pk,
+				leaveRuleApplicable.getPrimaryKey());
 		}
 	}
 
 	/**
-	 * Sets the leave type applicabilities associated with the job title, removing and adding associations as necessary. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 * Sets the leave rule applicables associated with the job title, removing and adding associations as necessary. Also notifies the appropriate model listeners and clears the mapping table finder cache.
 	 *
 	 * @param pk the primary key of the job title
-	 * @param leaveTypeApplicabilityPKs the primary keys of the leave type applicabilities to be associated with the job title
+	 * @param leaveRuleApplicablePKs the primary keys of the leave rule applicables to be associated with the job title
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void setLeaveTypeApplicabilities(long pk,
-		long[] leaveTypeApplicabilityPKs) throws SystemException {
-		Set<Long> newLeaveTypeApplicabilityPKsSet = SetUtil.fromArray(leaveTypeApplicabilityPKs);
-		Set<Long> oldLeaveTypeApplicabilityPKsSet = SetUtil.fromArray(jobTitleToLeaveTypeApplicabilityTableMapper.getRightPrimaryKeys(
+	public void setLeaveRuleApplicables(long pk, long[] leaveRuleApplicablePKs)
+		throws SystemException {
+		Set<Long> newLeaveRuleApplicablePKsSet = SetUtil.fromArray(leaveRuleApplicablePKs);
+		Set<Long> oldLeaveRuleApplicablePKsSet = SetUtil.fromArray(jobTitleToLeaveRuleApplicableTableMapper.getRightPrimaryKeys(
 					pk));
 
-		Set<Long> removeLeaveTypeApplicabilityPKsSet = new HashSet<Long>(oldLeaveTypeApplicabilityPKsSet);
+		Set<Long> removeLeaveRuleApplicablePKsSet = new HashSet<Long>(oldLeaveRuleApplicablePKsSet);
 
-		removeLeaveTypeApplicabilityPKsSet.removeAll(newLeaveTypeApplicabilityPKsSet);
+		removeLeaveRuleApplicablePKsSet.removeAll(newLeaveRuleApplicablePKsSet);
 
-		for (long removeLeaveTypeApplicabilityPK : removeLeaveTypeApplicabilityPKsSet) {
-			jobTitleToLeaveTypeApplicabilityTableMapper.deleteTableMapping(pk,
-				removeLeaveTypeApplicabilityPK);
+		for (long removeLeaveRuleApplicablePK : removeLeaveRuleApplicablePKsSet) {
+			jobTitleToLeaveRuleApplicableTableMapper.deleteTableMapping(pk,
+				removeLeaveRuleApplicablePK);
 		}
 
-		newLeaveTypeApplicabilityPKsSet.removeAll(oldLeaveTypeApplicabilityPKsSet);
+		newLeaveRuleApplicablePKsSet.removeAll(oldLeaveRuleApplicablePKsSet);
 
-		for (long newLeaveTypeApplicabilityPK : newLeaveTypeApplicabilityPKsSet) {
-			jobTitleToLeaveTypeApplicabilityTableMapper.addTableMapping(pk,
-				newLeaveTypeApplicabilityPK);
+		for (long newLeaveRuleApplicablePK : newLeaveRuleApplicablePKsSet) {
+			jobTitleToLeaveRuleApplicableTableMapper.addTableMapping(pk,
+				newLeaveRuleApplicablePK);
 		}
 	}
 
 	/**
-	 * Sets the leave type applicabilities associated with the job title, removing and adding associations as necessary. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 * Sets the leave rule applicables associated with the job title, removing and adding associations as necessary. Also notifies the appropriate model listeners and clears the mapping table finder cache.
 	 *
 	 * @param pk the primary key of the job title
-	 * @param leaveTypeApplicabilities the leave type applicabilities to be associated with the job title
+	 * @param leaveRuleApplicables the leave rule applicables to be associated with the job title
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void setLeaveTypeApplicabilities(long pk,
-		List<com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> leaveTypeApplicabilities)
+	public void setLeaveRuleApplicables(long pk,
+		List<com.rknowsys.eapp.hrm.model.LeaveRuleApplicable> leaveRuleApplicables)
 		throws SystemException {
 		try {
-			long[] leaveTypeApplicabilityPKs = new long[leaveTypeApplicabilities.size()];
+			long[] leaveRuleApplicablePKs = new long[leaveRuleApplicables.size()];
 
-			for (int i = 0; i < leaveTypeApplicabilities.size(); i++) {
-				com.rknowsys.eapp.hrm.model.LeaveTypeApplicability leaveTypeApplicability =
-					leaveTypeApplicabilities.get(i);
+			for (int i = 0; i < leaveRuleApplicables.size(); i++) {
+				com.rknowsys.eapp.hrm.model.LeaveRuleApplicable leaveRuleApplicable =
+					leaveRuleApplicables.get(i);
 
-				leaveTypeApplicabilityPKs[i] = leaveTypeApplicability.getPrimaryKey();
+				leaveRuleApplicablePKs[i] = leaveRuleApplicable.getPrimaryKey();
 			}
 
-			setLeaveTypeApplicabilities(pk, leaveTypeApplicabilityPKs);
+			setLeaveRuleApplicables(pk, leaveRuleApplicablePKs);
 		}
 		catch (Exception e) {
 			throw processException(e);
 		}
 		finally {
-			FinderCacheUtil.clearCache(JobTitleModelImpl.MAPPING_TABLE_HRM_APPLICABLE_JOB_TITLES_NAME);
+			FinderCacheUtil.clearCache(JobTitleModelImpl.MAPPING_TABLE_HRM_LRA_JOBTITLES_NAME);
 		}
 	}
 
@@ -1444,9 +1441,9 @@ public class JobTitlePersistenceImpl extends BasePersistenceImpl<JobTitle>
 			}
 		}
 
-		jobTitleToLeaveTypeApplicabilityTableMapper = TableMapperFactory.getTableMapper("hrm_applicable_job_titles",
-				"jobTitleId", "leaveTypeApplicabilityId", this,
-				leaveTypeApplicabilityPersistence);
+		jobTitleToLeaveRuleApplicableTableMapper = TableMapperFactory.getTableMapper("hrm_lra_jobTitles",
+				"jobTitleId", "leaveRuleApplicableId", this,
+				leaveRuleApplicablePersistence);
 	}
 
 	public void destroy() {
@@ -1456,9 +1453,9 @@ public class JobTitlePersistenceImpl extends BasePersistenceImpl<JobTitle>
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 	}
 
-	@BeanReference(type = LeaveTypeApplicabilityPersistence.class)
-	protected LeaveTypeApplicabilityPersistence leaveTypeApplicabilityPersistence;
-	protected TableMapper<JobTitle, com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> jobTitleToLeaveTypeApplicabilityTableMapper;
+	@BeanReference(type = LeaveRuleApplicablePersistence.class)
+	protected LeaveRuleApplicablePersistence leaveRuleApplicablePersistence;
+	protected TableMapper<JobTitle, com.rknowsys.eapp.hrm.model.LeaveRuleApplicable> jobTitleToLeaveRuleApplicableTableMapper;
 	private static final String _SQL_SELECT_JOBTITLE = "SELECT jobTitle FROM JobTitle jobTitle";
 	private static final String _SQL_SELECT_JOBTITLE_WHERE = "SELECT jobTitle FROM JobTitle jobTitle WHERE ";
 	private static final String _SQL_COUNT_JOBTITLE = "SELECT COUNT(jobTitle) FROM JobTitle jobTitle";

@@ -240,15 +240,14 @@ public interface EmpDetailsModel extends BaseModel<EmpDetails> {
 	 *
 	 * @return the supervisor of this emp details
 	 */
-	@AutoEscape
-	public String getSupervisor();
+	public long getSupervisor();
 
 	/**
 	 * Sets the supervisor of this emp details.
 	 *
 	 * @param supervisor the supervisor of this emp details
 	 */
-	public void setSupervisor(String supervisor);
+	public void setSupervisor(long supervisor);
 
 	@Override
 	public boolean isNew();

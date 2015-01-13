@@ -1227,8 +1227,9 @@ public class SalaryComponentPersistenceImpl extends BasePersistenceImpl<SalaryCo
 		salaryComponentImpl.setModifiedDate(salaryComponent.getModifiedDate());
 		salaryComponentImpl.setUserId(salaryComponent.getUserId());
 		salaryComponentImpl.setComponentName(salaryComponent.getComponentName());
-		salaryComponentImpl.setType(salaryComponent.isType());
-		salaryComponentImpl.setOnlyCTC(salaryComponent.isOnlyCTC());
+		salaryComponentImpl.setType(salaryComponent.getType());
+		salaryComponentImpl.setTotalPayable(salaryComponent.getTotalPayable());
+		salaryComponentImpl.setCostToCompany(salaryComponent.getCostToCompany());
 		salaryComponentImpl.setValueType(salaryComponent.getValueType());
 
 		return salaryComponentImpl;
