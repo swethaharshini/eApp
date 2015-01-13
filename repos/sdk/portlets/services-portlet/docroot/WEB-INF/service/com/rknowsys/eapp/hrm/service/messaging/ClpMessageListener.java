@@ -46,6 +46,7 @@ import com.rknowsys.eapp.hrm.service.InterviewLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.JobCategoryLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.JobTitleLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.LanguageLocalServiceUtil;
+import com.rknowsys.eapp.hrm.service.LeaveAccrualLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.LeaveCarryForwardPolicyLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.LeaveGeneralLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.LeavePeriodLocalServiceUtil;
@@ -138,6 +139,8 @@ public class ClpMessageListener extends BaseMessageListener {
 			JobTitleLocalServiceUtil.clearService();
 
 			LanguageLocalServiceUtil.clearService();
+
+			LeaveAccrualLocalServiceUtil.clearService();
 
 			LeaveCarryForwardPolicyLocalServiceUtil.clearService();
 

@@ -712,6 +712,32 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
+	<mapped-superclass class="com.rknowsys.eapp.hrm.model.impl.LeaveAccrualModelImpl">
+		<attributes>
+			<id name="leaveAccrualId" />
+			<basic name="companyId" />
+			<basic name="groupId" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="userId" />
+			<basic name="leaveTypeId" />
+			<basic name="accrualFrequency" />
+			<basic name="accrueEvery" />
+			<basic name="dayOfCredit" />
+			<basic name="accrualStartsOn" />
+			<basic name="monthOfCredit" />
+			<basic name="accrualValidFrom" />
+			<basic name="firstAccrual" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
 	<mapped-superclass class="com.rknowsys.eapp.hrm.model.impl.LeaveCarryForwardPolicyModelImpl">
 		<attributes>
 			<id name="leaveCarryForwardPolicyId" />
@@ -801,16 +827,18 @@
 			<basic name="userId" />
 			<basic name="leaveTypeId" />
 			<basic name="cannotExceedBalance" />
+			<basic name="cantExceedBalForRoleIds" />
 			<basic name="cannotApplyForPartialDay" />
-			<basic name="ifATermsQuestion" />
+			<basic name="cantApplyPartialDayForRoleIds" />
 			<basic name="termsQuestion" />
+			<basic name="termsQsnForRoleIds" />
 			<basic name="errorTextIfTermsDeclined" />
-			<basic name="isMinimumServicePeriodApplicable" />
 			<basic name="minimumServicePeriod" />
-			<basic name="isMaxConsecutiveLeavesApplicable" />
+			<basic name="minServicePeriodForRoleIds" />
 			<basic name="maxConsecutiveLeaves" />
-			<basic name="isSmallChildCriterionApplicable" />
+			<basic name="maxConsecLeavesForRoleIds" />
 			<basic name="maxSmallChildAgeApplicable" />
+			<basic name="maxSmallChildAgeForRoleIds" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
@@ -1319,6 +1347,10 @@
 	</entity>
 	<entity class="com.rknowsys.eapp.hrm.model.impl.LanguageImpl" name="Language">
 		<table name="language" />
+		<attributes />
+	</entity>
+	<entity class="com.rknowsys.eapp.hrm.model.impl.LeaveAccrualImpl" name="LeaveAccrual">
+		<table name="leave_accrual" />
 		<attributes />
 	</entity>
 	<entity class="com.rknowsys.eapp.hrm.model.impl.LeaveCarryForwardPolicyImpl" name="LeaveCarryForwardPolicy">

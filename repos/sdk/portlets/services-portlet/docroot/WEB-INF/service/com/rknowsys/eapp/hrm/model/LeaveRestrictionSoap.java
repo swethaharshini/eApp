@@ -38,16 +38,18 @@ public class LeaveRestrictionSoap implements Serializable {
 		soapModel.setUserId(model.getUserId());
 		soapModel.setLeaveTypeId(model.getLeaveTypeId());
 		soapModel.setCannotExceedBalance(model.getCannotExceedBalance());
+		soapModel.setCantExceedBalForRoleIds(model.getCantExceedBalForRoleIds());
 		soapModel.setCannotApplyForPartialDay(model.getCannotApplyForPartialDay());
-		soapModel.setIfATermsQuestion(model.getIfATermsQuestion());
+		soapModel.setCantApplyPartialDayForRoleIds(model.getCantApplyPartialDayForRoleIds());
 		soapModel.setTermsQuestion(model.getTermsQuestion());
+		soapModel.setTermsQsnForRoleIds(model.getTermsQsnForRoleIds());
 		soapModel.setErrorTextIfTermsDeclined(model.getErrorTextIfTermsDeclined());
-		soapModel.setIsMinimumServicePeriodApplicable(model.getIsMinimumServicePeriodApplicable());
 		soapModel.setMinimumServicePeriod(model.getMinimumServicePeriod());
-		soapModel.setIsMaxConsecutiveLeavesApplicable(model.getIsMaxConsecutiveLeavesApplicable());
+		soapModel.setMinServicePeriodForRoleIds(model.getMinServicePeriodForRoleIds());
 		soapModel.setMaxConsecutiveLeaves(model.getMaxConsecutiveLeaves());
-		soapModel.setIsSmallChildCriterionApplicable(model.getIsSmallChildCriterionApplicable());
+		soapModel.setMaxConsecLeavesForRoleIds(model.getMaxConsecLeavesForRoleIds());
 		soapModel.setMaxSmallChildAgeApplicable(model.getMaxSmallChildAgeApplicable());
+		soapModel.setMaxSmallChildAgeForRoleIds(model.getMaxSmallChildAgeForRoleIds());
 
 		return soapModel;
 	}
@@ -170,6 +172,14 @@ public class LeaveRestrictionSoap implements Serializable {
 		_cannotExceedBalance = cannotExceedBalance;
 	}
 
+	public String getCantExceedBalForRoleIds() {
+		return _cantExceedBalForRoleIds;
+	}
+
+	public void setCantExceedBalForRoleIds(String cantExceedBalForRoleIds) {
+		_cantExceedBalForRoleIds = cantExceedBalForRoleIds;
+	}
+
 	public boolean getCannotApplyForPartialDay() {
 		return _cannotApplyForPartialDay;
 	}
@@ -182,16 +192,13 @@ public class LeaveRestrictionSoap implements Serializable {
 		_cannotApplyForPartialDay = cannotApplyForPartialDay;
 	}
 
-	public boolean getIfATermsQuestion() {
-		return _ifATermsQuestion;
+	public String getCantApplyPartialDayForRoleIds() {
+		return _cantApplyPartialDayForRoleIds;
 	}
 
-	public boolean isIfATermsQuestion() {
-		return _ifATermsQuestion;
-	}
-
-	public void setIfATermsQuestion(boolean ifATermsQuestion) {
-		_ifATermsQuestion = ifATermsQuestion;
+	public void setCantApplyPartialDayForRoleIds(
+		String cantApplyPartialDayForRoleIds) {
+		_cantApplyPartialDayForRoleIds = cantApplyPartialDayForRoleIds;
 	}
 
 	public String getTermsQuestion() {
@@ -202,25 +209,20 @@ public class LeaveRestrictionSoap implements Serializable {
 		_termsQuestion = termsQuestion;
 	}
 
+	public String getTermsQsnForRoleIds() {
+		return _termsQsnForRoleIds;
+	}
+
+	public void setTermsQsnForRoleIds(String termsQsnForRoleIds) {
+		_termsQsnForRoleIds = termsQsnForRoleIds;
+	}
+
 	public String getErrorTextIfTermsDeclined() {
 		return _errorTextIfTermsDeclined;
 	}
 
 	public void setErrorTextIfTermsDeclined(String errorTextIfTermsDeclined) {
 		_errorTextIfTermsDeclined = errorTextIfTermsDeclined;
-	}
-
-	public boolean getIsMinimumServicePeriodApplicable() {
-		return _isMinimumServicePeriodApplicable;
-	}
-
-	public boolean isIsMinimumServicePeriodApplicable() {
-		return _isMinimumServicePeriodApplicable;
-	}
-
-	public void setIsMinimumServicePeriodApplicable(
-		boolean isMinimumServicePeriodApplicable) {
-		_isMinimumServicePeriodApplicable = isMinimumServicePeriodApplicable;
 	}
 
 	public String getMinimumServicePeriod() {
@@ -231,17 +233,12 @@ public class LeaveRestrictionSoap implements Serializable {
 		_minimumServicePeriod = minimumServicePeriod;
 	}
 
-	public boolean getIsMaxConsecutiveLeavesApplicable() {
-		return _isMaxConsecutiveLeavesApplicable;
+	public String getMinServicePeriodForRoleIds() {
+		return _minServicePeriodForRoleIds;
 	}
 
-	public boolean isIsMaxConsecutiveLeavesApplicable() {
-		return _isMaxConsecutiveLeavesApplicable;
-	}
-
-	public void setIsMaxConsecutiveLeavesApplicable(
-		boolean isMaxConsecutiveLeavesApplicable) {
-		_isMaxConsecutiveLeavesApplicable = isMaxConsecutiveLeavesApplicable;
+	public void setMinServicePeriodForRoleIds(String minServicePeriodForRoleIds) {
+		_minServicePeriodForRoleIds = minServicePeriodForRoleIds;
 	}
 
 	public String getMaxConsecutiveLeaves() {
@@ -252,17 +249,12 @@ public class LeaveRestrictionSoap implements Serializable {
 		_maxConsecutiveLeaves = maxConsecutiveLeaves;
 	}
 
-	public boolean getIsSmallChildCriterionApplicable() {
-		return _isSmallChildCriterionApplicable;
+	public String getMaxConsecLeavesForRoleIds() {
+		return _maxConsecLeavesForRoleIds;
 	}
 
-	public boolean isIsSmallChildCriterionApplicable() {
-		return _isSmallChildCriterionApplicable;
-	}
-
-	public void setIsSmallChildCriterionApplicable(
-		boolean isSmallChildCriterionApplicable) {
-		_isSmallChildCriterionApplicable = isSmallChildCriterionApplicable;
+	public void setMaxConsecLeavesForRoleIds(String maxConsecLeavesForRoleIds) {
+		_maxConsecLeavesForRoleIds = maxConsecLeavesForRoleIds;
 	}
 
 	public String getMaxSmallChildAgeApplicable() {
@@ -273,6 +265,14 @@ public class LeaveRestrictionSoap implements Serializable {
 		_maxSmallChildAgeApplicable = maxSmallChildAgeApplicable;
 	}
 
+	public String getMaxSmallChildAgeForRoleIds() {
+		return _maxSmallChildAgeForRoleIds;
+	}
+
+	public void setMaxSmallChildAgeForRoleIds(String maxSmallChildAgeForRoleIds) {
+		_maxSmallChildAgeForRoleIds = maxSmallChildAgeForRoleIds;
+	}
+
 	private long _leaveRestrictionId;
 	private long _companyId;
 	private long _groupId;
@@ -281,14 +281,16 @@ public class LeaveRestrictionSoap implements Serializable {
 	private long _userId;
 	private long _leaveTypeId;
 	private boolean _cannotExceedBalance;
+	private String _cantExceedBalForRoleIds;
 	private boolean _cannotApplyForPartialDay;
-	private boolean _ifATermsQuestion;
+	private String _cantApplyPartialDayForRoleIds;
 	private String _termsQuestion;
+	private String _termsQsnForRoleIds;
 	private String _errorTextIfTermsDeclined;
-	private boolean _isMinimumServicePeriodApplicable;
 	private String _minimumServicePeriod;
-	private boolean _isMaxConsecutiveLeavesApplicable;
+	private String _minServicePeriodForRoleIds;
 	private String _maxConsecutiveLeaves;
-	private boolean _isSmallChildCriterionApplicable;
+	private String _maxConsecLeavesForRoleIds;
 	private String _maxSmallChildAgeApplicable;
+	private String _maxSmallChildAgeForRoleIds;
 }

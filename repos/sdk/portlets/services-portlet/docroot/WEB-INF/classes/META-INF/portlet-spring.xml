@@ -157,6 +157,11 @@
 		<property name="dataSource" ref="hrmDataSource" />
 		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.LeaveAccrualLocalService" class="com.rknowsys.eapp.hrm.service.impl.LeaveAccrualLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.LeaveAccrualPersistence" class="com.rknowsys.eapp.hrm.service.persistence.LeaveAccrualPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
 	<bean id="com.rknowsys.eapp.hrm.service.LeaveCarryForwardPolicyLocalService" class="com.rknowsys.eapp.hrm.service.impl.LeaveCarryForwardPolicyLocalServiceImpl" />
 	<bean id="com.rknowsys.eapp.hrm.service.persistence.LeaveCarryForwardPolicyPersistence" class="com.rknowsys.eapp.hrm.service.persistence.LeaveCarryForwardPolicyPersistenceImpl" parent="basePersistence">
 		<property name="dataSource" ref="hrmDataSource" />

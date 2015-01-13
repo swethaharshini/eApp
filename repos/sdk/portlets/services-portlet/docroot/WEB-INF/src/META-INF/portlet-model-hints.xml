@@ -371,6 +371,22 @@
 		<field name="userId" type="long" />
 		<field name="languageName" type="String" />
 	</model>
+	<model name="com.rknowsys.eapp.hrm.model.LeaveAccrual">
+		<field name="leaveAccrualId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="userId" type="long" />
+		<field name="leaveTypeId" type="long" />
+		<field name="accrualFrequency" type="String" />
+		<field name="accrueEvery" type="int" />
+		<field name="dayOfCredit" type="int" />
+		<field name="accrualStartsOn" type="String" />
+		<field name="monthOfCredit" type="int" />
+		<field name="accrualValidFrom" type="String" />
+		<field name="firstAccrual" type="String" />
+	</model>
 	<model name="com.rknowsys.eapp.hrm.model.LeaveCarryForwardPolicy">
 		<field name="leaveCarryForwardPolicyId" type="long" />
 		<field name="companyId" type="long" />
@@ -425,16 +441,18 @@
 		<field name="userId" type="long" />
 		<field name="leaveTypeId" type="long" />
 		<field name="cannotExceedBalance" type="boolean" />
+		<field name="cantExceedBalForRoleIds" type="String" />
 		<field name="cannotApplyForPartialDay" type="boolean" />
-		<field name="ifATermsQuestion" type="boolean" />
+		<field name="cantApplyPartialDayForRoleIds" type="String" />
 		<field name="termsQuestion" type="String" />
+		<field name="termsQsnForRoleIds" type="String" />
 		<field name="errorTextIfTermsDeclined" type="String" />
-		<field name="isMinimumServicePeriodApplicable" type="boolean" />
 		<field name="minimumServicePeriod" type="String" />
-		<field name="isMaxConsecutiveLeavesApplicable" type="boolean" />
+		<field name="minServicePeriodForRoleIds" type="String" />
 		<field name="maxConsecutiveLeaves" type="String" />
-		<field name="isSmallChildCriterionApplicable" type="boolean" />
+		<field name="maxConsecLeavesForRoleIds" type="String" />
 		<field name="maxSmallChildAgeApplicable" type="String" />
+		<field name="maxSmallChildAgeForRoleIds" type="String" />
 	</model>
 	<model name="com.rknowsys.eapp.hrm.model.LeaveRuleApplicable">
 		<field name="leaveRuleApplicableId" type="long" />

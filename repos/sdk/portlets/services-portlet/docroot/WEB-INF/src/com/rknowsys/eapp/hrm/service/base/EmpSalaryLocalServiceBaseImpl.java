@@ -65,6 +65,7 @@ import com.rknowsys.eapp.hrm.service.persistence.InterviewPersistence;
 import com.rknowsys.eapp.hrm.service.persistence.JobCategoryPersistence;
 import com.rknowsys.eapp.hrm.service.persistence.JobTitlePersistence;
 import com.rknowsys.eapp.hrm.service.persistence.LanguagePersistence;
+import com.rknowsys.eapp.hrm.service.persistence.LeaveAccrualPersistence;
 import com.rknowsys.eapp.hrm.service.persistence.LeaveCarryForwardPolicyPersistence;
 import com.rknowsys.eapp.hrm.service.persistence.LeaveGeneralPersistence;
 import com.rknowsys.eapp.hrm.service.persistence.LeavePeriodPersistence;
@@ -1462,6 +1463,44 @@ public abstract class EmpSalaryLocalServiceBaseImpl extends BaseLocalServiceImpl
 	}
 
 	/**
+	 * Returns the leave accrual local service.
+	 *
+	 * @return the leave accrual local service
+	 */
+	public com.rknowsys.eapp.hrm.service.LeaveAccrualLocalService getLeaveAccrualLocalService() {
+		return leaveAccrualLocalService;
+	}
+
+	/**
+	 * Sets the leave accrual local service.
+	 *
+	 * @param leaveAccrualLocalService the leave accrual local service
+	 */
+	public void setLeaveAccrualLocalService(
+		com.rknowsys.eapp.hrm.service.LeaveAccrualLocalService leaveAccrualLocalService) {
+		this.leaveAccrualLocalService = leaveAccrualLocalService;
+	}
+
+	/**
+	 * Returns the leave accrual persistence.
+	 *
+	 * @return the leave accrual persistence
+	 */
+	public LeaveAccrualPersistence getLeaveAccrualPersistence() {
+		return leaveAccrualPersistence;
+	}
+
+	/**
+	 * Sets the leave accrual persistence.
+	 *
+	 * @param leaveAccrualPersistence the leave accrual persistence
+	 */
+	public void setLeaveAccrualPersistence(
+		LeaveAccrualPersistence leaveAccrualPersistence) {
+		this.leaveAccrualPersistence = leaveAccrualPersistence;
+	}
+
+	/**
 	 * Returns the leave carry forward policy local service.
 	 *
 	 * @return the leave carry forward policy local service
@@ -2548,6 +2587,10 @@ public abstract class EmpSalaryLocalServiceBaseImpl extends BaseLocalServiceImpl
 	protected com.rknowsys.eapp.hrm.service.LanguageLocalService languageLocalService;
 	@BeanReference(type = LanguagePersistence.class)
 	protected LanguagePersistence languagePersistence;
+	@BeanReference(type = com.rknowsys.eapp.hrm.service.LeaveAccrualLocalService.class)
+	protected com.rknowsys.eapp.hrm.service.LeaveAccrualLocalService leaveAccrualLocalService;
+	@BeanReference(type = LeaveAccrualPersistence.class)
+	protected LeaveAccrualPersistence leaveAccrualPersistence;
 	@BeanReference(type = com.rknowsys.eapp.hrm.service.LeaveCarryForwardPolicyLocalService.class)
 	protected com.rknowsys.eapp.hrm.service.LeaveCarryForwardPolicyLocalService leaveCarryForwardPolicyLocalService;
 	@BeanReference(type = LeaveCarryForwardPolicyPersistence.class)

@@ -53,6 +53,7 @@ import com.rknowsys.eapp.hrm.model.InterviewClp;
 import com.rknowsys.eapp.hrm.model.JobCategoryClp;
 import com.rknowsys.eapp.hrm.model.JobTitleClp;
 import com.rknowsys.eapp.hrm.model.LanguageClp;
+import com.rknowsys.eapp.hrm.model.LeaveAccrualClp;
 import com.rknowsys.eapp.hrm.model.LeaveCarryForwardPolicyClp;
 import com.rknowsys.eapp.hrm.model.LeaveGeneralClp;
 import com.rknowsys.eapp.hrm.model.LeavePeriodClp;
@@ -260,6 +261,10 @@ public class ClpSerializer {
 
 		if (oldModelClassName.equals(LanguageClp.class.getName())) {
 			return translateInputLanguage(oldModel);
+		}
+
+		if (oldModelClassName.equals(LeaveAccrualClp.class.getName())) {
+			return translateInputLeaveAccrual(oldModel);
 		}
 
 		if (oldModelClassName.equals(LeaveCarryForwardPolicyClp.class.getName())) {
@@ -643,6 +648,16 @@ public class ClpSerializer {
 		return newModel;
 	}
 
+	public static Object translateInputLeaveAccrual(BaseModel<?> oldModel) {
+		LeaveAccrualClp oldClpModel = (LeaveAccrualClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getLeaveAccrualRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
 	public static Object translateInputLeaveCarryForwardPolicy(
 		BaseModel<?> oldModel) {
 		LeaveCarryForwardPolicyClp oldClpModel = (LeaveCarryForwardPolicyClp)oldModel;
@@ -1013,6 +1028,11 @@ public class ClpSerializer {
 		}
 
 		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.LeaveAccrualImpl")) {
+			return translateOutputLeaveAccrual(oldModel);
+		}
+
+		if (oldModelClassName.equals(
 					"com.rknowsys.eapp.hrm.model.impl.LeaveCarryForwardPolicyImpl")) {
 			return translateOutputLeaveCarryForwardPolicy(oldModel);
 		}
@@ -1320,6 +1340,11 @@ public class ClpSerializer {
 
 		if (className.equals("com.rknowsys.eapp.hrm.NoSuchLanguageException")) {
 			return new com.rknowsys.eapp.hrm.NoSuchLanguageException();
+		}
+
+		if (className.equals(
+					"com.rknowsys.eapp.hrm.NoSuchLeaveAccrualException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchLeaveAccrualException();
 		}
 
 		if (className.equals(
@@ -1698,6 +1723,16 @@ public class ClpSerializer {
 		newModel.setModelAttributes(oldModel.getModelAttributes());
 
 		newModel.setLanguageRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputLeaveAccrual(BaseModel<?> oldModel) {
+		LeaveAccrualClp newModel = new LeaveAccrualClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setLeaveAccrualRemoteModel(oldModel);
 
 		return newModel;
 	}

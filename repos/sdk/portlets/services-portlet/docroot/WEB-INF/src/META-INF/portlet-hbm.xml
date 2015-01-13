@@ -30,6 +30,7 @@
 	<import class="com.rknowsys.eapp.hrm.model.JobCategory" />
 	<import class="com.rknowsys.eapp.hrm.model.JobTitle" />
 	<import class="com.rknowsys.eapp.hrm.model.Language" />
+	<import class="com.rknowsys.eapp.hrm.model.LeaveAccrual" />
 	<import class="com.rknowsys.eapp.hrm.model.LeaveCarryForwardPolicy" />
 	<import class="com.rknowsys.eapp.hrm.model.LeaveGeneral" />
 	<import class="com.rknowsys.eapp.hrm.model.LeavePeriod" />
@@ -93,7 +94,7 @@
 		<one-to-one name="fileBlobModel" access="com.liferay.portal.dao.orm.hibernate.PrivatePropertyAccessor" class="com.rknowsys.eapp.hrm.model.EmpAttachmentFileBlobModel" cascade="save-update" outer-join="false" constrained="true" />
 		<property name="comment" type="com.liferay.portal.dao.orm.hibernate.StringType" column="comment_" />
 	</class>
-	<class name="com.rknowsys.eapp.hrm.model.EmpAttachmentFileBlobModel" table="emp_attachment" lazy="true">
+	<class name="com.rknowsys.eapp.hrm.model.EmpAttachmentFileBlobModel" table="emp_attachment" lazy="false">
 		<id name="empAttachmentId" column="empAttachmentId">
 			<generator class="foreign">
 				<param name="property">com.rknowsys.eapp.hrm.model.impl.EmpAttachmentImpl</param>
@@ -256,7 +257,7 @@
 		<property name="employmentContractEndDate" type="org.hibernate.type.TimestampType" />
 		<one-to-one name="contractDetailsBlobModel" access="com.liferay.portal.dao.orm.hibernate.PrivatePropertyAccessor" class="com.rknowsys.eapp.hrm.model.EmpJobContractDetailsBlobModel" cascade="save-update" outer-join="false" constrained="true" />
 	</class>
-	<class name="com.rknowsys.eapp.hrm.model.EmpJobContractDetailsBlobModel" table="emp_job" lazy="true">
+	<class name="com.rknowsys.eapp.hrm.model.EmpJobContractDetailsBlobModel" table="emp_job" lazy="false">
 		<id name="empJobId" column="empJobId">
 			<generator class="foreign">
 				<param name="property">com.rknowsys.eapp.hrm.model.impl.EmpJobImpl</param>
@@ -521,6 +522,25 @@
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="languageName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.LeaveAccrualImpl" table="leave_accrual">
+		<cache usage="read-write" />
+		<id name="leaveAccrualId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="leaveTypeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="accrualFrequency" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="accrueEvery" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="dayOfCredit" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="accrualStartsOn" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="monthOfCredit" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="accrualValidFrom" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="firstAccrual" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
 	<class name="com.rknowsys.eapp.hrm.model.impl.LeaveCarryForwardPolicyImpl" table="leave_carry_forward_policy">
 		<cache usage="read-write" />
 		<id name="leaveCarryForwardPolicyId" type="long">
@@ -587,16 +607,18 @@
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="leaveTypeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="cannotExceedBalance" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="cantExceedBalForRoleIds" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="cannotApplyForPartialDay" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
-		<property name="ifATermsQuestion" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="cantApplyPartialDayForRoleIds" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="termsQuestion" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="termsQsnForRoleIds" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="errorTextIfTermsDeclined" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="isMinimumServicePeriodApplicable" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 		<property name="minimumServicePeriod" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="isMaxConsecutiveLeavesApplicable" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="minServicePeriodForRoleIds" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="maxConsecutiveLeaves" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="isSmallChildCriterionApplicable" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="maxConsecLeavesForRoleIds" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="maxSmallChildAgeApplicable" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="maxSmallChildAgeForRoleIds" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.rknowsys.eapp.hrm.model.impl.LeaveRuleApplicableImpl" table="leave_rule_applicable">
 		<cache usage="read-write" />
