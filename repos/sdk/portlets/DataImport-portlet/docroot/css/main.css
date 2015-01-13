@@ -1,0 +1,13 @@
+.ins-panel {
+	margin-bottom:20px;
+	ul {
+		li {
+			list-style:none;
+		}
+	}
+}
+.form-horizontal {
+	.control-label {
+		margin-right:20px;
+	}
+}
