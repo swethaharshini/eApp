@@ -28,9 +28,7 @@ String prk=String.valueOf(j.getPrimaryKey());
 <portlet:param name="id" value="<%=prk %>"/>
 </portlet:actionURL>
 
-<a class="editlink" onclick="window.location='<%=editjobtitle.toString()%>'" href="#">
- 		<img width="18px" height="18px" alt="loading..."
-				src="<%=request.getContextPath() %>/images/pencil.jpg"></a>
+<a class="editlink" onclick="window.location='<%=editjobtitle.toString()%>'" href="#"><i class="icon-edit"></i></a>
 
 </liferay-ui:icon-menu>
 
