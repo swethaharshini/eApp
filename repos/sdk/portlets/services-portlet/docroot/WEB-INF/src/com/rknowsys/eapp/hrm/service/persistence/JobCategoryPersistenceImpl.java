@@ -14,6 +14,7 @@
 
 package com.rknowsys.eapp.hrm.service.persistence;
 
+import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
@@ -30,6 +31,7 @@ import com.liferay.portal.kernel.util.InstanceFactory;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
+import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -37,6 +39,8 @@ import com.liferay.portal.kernel.util.UnmodifiableList;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.service.persistence.impl.TableMapper;
+import com.liferay.portal.service.persistence.impl.TableMapperFactory;
 
 import com.rknowsys.eapp.hrm.NoSuchJobCategoryException;
 import com.rknowsys.eapp.hrm.model.JobCategory;
@@ -47,7 +51,9 @@ import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The persistence implementation for the job category service.
@@ -730,6 +736,8 @@ public class JobCategoryPersistenceImpl extends BasePersistenceImpl<JobCategory>
 		throws SystemException {
 		jobCategory = toUnwrappedModel(jobCategory);
 
+		jobCategoryToLeaveRuleApplicableTableMapper.deleteLeftPrimaryKeyTableMappings(jobCategory.getPrimaryKey());
+
 		Session session = null;
 
 		try {
@@ -1115,6 +1123,304 @@ public class JobCategoryPersistenceImpl extends BasePersistenceImpl<JobCategory>
 	}
 
 	/**
+	 * Returns all the leave rule applicables associated with the job category.
+	 *
+	 * @param pk the primary key of the job category
+	 * @return the leave rule applicables associated with the job category
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public List<com.rknowsys.eapp.hrm.model.LeaveRuleApplicable> getLeaveRuleApplicables(
+		long pk) throws SystemException {
+		return getLeaveRuleApplicables(pk, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+	}
+
+	/**
+	 * Returns a range of all the leave rule applicables associated with the job category.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.rknowsys.eapp.hrm.model.impl.JobCategoryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param pk the primary key of the job category
+	 * @param start the lower bound of the range of job categories
+	 * @param end the upper bound of the range of job categories (not inclusive)
+	 * @return the range of leave rule applicables associated with the job category
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public List<com.rknowsys.eapp.hrm.model.LeaveRuleApplicable> getLeaveRuleApplicables(
+		long pk, int start, int end) throws SystemException {
+		return getLeaveRuleApplicables(pk, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the leave rule applicables associated with the job category.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.rknowsys.eapp.hrm.model.impl.JobCategoryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param pk the primary key of the job category
+	 * @param start the lower bound of the range of job categories
+	 * @param end the upper bound of the range of job categories (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of leave rule applicables associated with the job category
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public List<com.rknowsys.eapp.hrm.model.LeaveRuleApplicable> getLeaveRuleApplicables(
+		long pk, int start, int end, OrderByComparator orderByComparator)
+		throws SystemException {
+		return jobCategoryToLeaveRuleApplicableTableMapper.getRightBaseModels(pk,
+			start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns the number of leave rule applicables associated with the job category.
+	 *
+	 * @param pk the primary key of the job category
+	 * @return the number of leave rule applicables associated with the job category
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public int getLeaveRuleApplicablesSize(long pk) throws SystemException {
+		long[] pks = jobCategoryToLeaveRuleApplicableTableMapper.getRightPrimaryKeys(pk);
+
+		return pks.length;
+	}
+
+	/**
+	 * Returns <code>true</code> if the leave rule applicable is associated with the job category.
+	 *
+	 * @param pk the primary key of the job category
+	 * @param leaveRuleApplicablePK the primary key of the leave rule applicable
+	 * @return <code>true</code> if the leave rule applicable is associated with the job category; <code>false</code> otherwise
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public boolean containsLeaveRuleApplicable(long pk,
+		long leaveRuleApplicablePK) throws SystemException {
+		return jobCategoryToLeaveRuleApplicableTableMapper.containsTableMapping(pk,
+			leaveRuleApplicablePK);
+	}
+
+	/**
+	 * Returns <code>true</code> if the job category has any leave rule applicables associated with it.
+	 *
+	 * @param pk the primary key of the job category to check for associations with leave rule applicables
+	 * @return <code>true</code> if the job category has any leave rule applicables associated with it; <code>false</code> otherwise
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public boolean containsLeaveRuleApplicables(long pk)
+		throws SystemException {
+		if (getLeaveRuleApplicablesSize(pk) > 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	/**
+	 * Adds an association between the job category and the leave rule applicable. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the job category
+	 * @param leaveRuleApplicablePK the primary key of the leave rule applicable
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void addLeaveRuleApplicable(long pk, long leaveRuleApplicablePK)
+		throws SystemException {
+		jobCategoryToLeaveRuleApplicableTableMapper.addTableMapping(pk,
+			leaveRuleApplicablePK);
+	}
+
+	/**
+	 * Adds an association between the job category and the leave rule applicable. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the job category
+	 * @param leaveRuleApplicable the leave rule applicable
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void addLeaveRuleApplicable(long pk,
+		com.rknowsys.eapp.hrm.model.LeaveRuleApplicable leaveRuleApplicable)
+		throws SystemException {
+		jobCategoryToLeaveRuleApplicableTableMapper.addTableMapping(pk,
+			leaveRuleApplicable.getPrimaryKey());
+	}
+
+	/**
+	 * Adds an association between the job category and the leave rule applicables. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the job category
+	 * @param leaveRuleApplicablePKs the primary keys of the leave rule applicables
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void addLeaveRuleApplicables(long pk, long[] leaveRuleApplicablePKs)
+		throws SystemException {
+		for (long leaveRuleApplicablePK : leaveRuleApplicablePKs) {
+			jobCategoryToLeaveRuleApplicableTableMapper.addTableMapping(pk,
+				leaveRuleApplicablePK);
+		}
+	}
+
+	/**
+	 * Adds an association between the job category and the leave rule applicables. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the job category
+	 * @param leaveRuleApplicables the leave rule applicables
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void addLeaveRuleApplicables(long pk,
+		List<com.rknowsys.eapp.hrm.model.LeaveRuleApplicable> leaveRuleApplicables)
+		throws SystemException {
+		for (com.rknowsys.eapp.hrm.model.LeaveRuleApplicable leaveRuleApplicable : leaveRuleApplicables) {
+			jobCategoryToLeaveRuleApplicableTableMapper.addTableMapping(pk,
+				leaveRuleApplicable.getPrimaryKey());
+		}
+	}
+
+	/**
+	 * Clears all associations between the job category and its leave rule applicables. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the job category to clear the associated leave rule applicables from
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void clearLeaveRuleApplicables(long pk) throws SystemException {
+		jobCategoryToLeaveRuleApplicableTableMapper.deleteLeftPrimaryKeyTableMappings(pk);
+	}
+
+	/**
+	 * Removes the association between the job category and the leave rule applicable. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the job category
+	 * @param leaveRuleApplicablePK the primary key of the leave rule applicable
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void removeLeaveRuleApplicable(long pk, long leaveRuleApplicablePK)
+		throws SystemException {
+		jobCategoryToLeaveRuleApplicableTableMapper.deleteTableMapping(pk,
+			leaveRuleApplicablePK);
+	}
+
+	/**
+	 * Removes the association between the job category and the leave rule applicable. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the job category
+	 * @param leaveRuleApplicable the leave rule applicable
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void removeLeaveRuleApplicable(long pk,
+		com.rknowsys.eapp.hrm.model.LeaveRuleApplicable leaveRuleApplicable)
+		throws SystemException {
+		jobCategoryToLeaveRuleApplicableTableMapper.deleteTableMapping(pk,
+			leaveRuleApplicable.getPrimaryKey());
+	}
+
+	/**
+	 * Removes the association between the job category and the leave rule applicables. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the job category
+	 * @param leaveRuleApplicablePKs the primary keys of the leave rule applicables
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void removeLeaveRuleApplicables(long pk,
+		long[] leaveRuleApplicablePKs) throws SystemException {
+		for (long leaveRuleApplicablePK : leaveRuleApplicablePKs) {
+			jobCategoryToLeaveRuleApplicableTableMapper.deleteTableMapping(pk,
+				leaveRuleApplicablePK);
+		}
+	}
+
+	/**
+	 * Removes the association between the job category and the leave rule applicables. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the job category
+	 * @param leaveRuleApplicables the leave rule applicables
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void removeLeaveRuleApplicables(long pk,
+		List<com.rknowsys.eapp.hrm.model.LeaveRuleApplicable> leaveRuleApplicables)
+		throws SystemException {
+		for (com.rknowsys.eapp.hrm.model.LeaveRuleApplicable leaveRuleApplicable : leaveRuleApplicables) {
+			jobCategoryToLeaveRuleApplicableTableMapper.deleteTableMapping(pk,
+				leaveRuleApplicable.getPrimaryKey());
+		}
+	}
+
+	/**
+	 * Sets the leave rule applicables associated with the job category, removing and adding associations as necessary. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the job category
+	 * @param leaveRuleApplicablePKs the primary keys of the leave rule applicables to be associated with the job category
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void setLeaveRuleApplicables(long pk, long[] leaveRuleApplicablePKs)
+		throws SystemException {
+		Set<Long> newLeaveRuleApplicablePKsSet = SetUtil.fromArray(leaveRuleApplicablePKs);
+		Set<Long> oldLeaveRuleApplicablePKsSet = SetUtil.fromArray(jobCategoryToLeaveRuleApplicableTableMapper.getRightPrimaryKeys(
+					pk));
+
+		Set<Long> removeLeaveRuleApplicablePKsSet = new HashSet<Long>(oldLeaveRuleApplicablePKsSet);
+
+		removeLeaveRuleApplicablePKsSet.removeAll(newLeaveRuleApplicablePKsSet);
+
+		for (long removeLeaveRuleApplicablePK : removeLeaveRuleApplicablePKsSet) {
+			jobCategoryToLeaveRuleApplicableTableMapper.deleteTableMapping(pk,
+				removeLeaveRuleApplicablePK);
+		}
+
+		newLeaveRuleApplicablePKsSet.removeAll(oldLeaveRuleApplicablePKsSet);
+
+		for (long newLeaveRuleApplicablePK : newLeaveRuleApplicablePKsSet) {
+			jobCategoryToLeaveRuleApplicableTableMapper.addTableMapping(pk,
+				newLeaveRuleApplicablePK);
+		}
+	}
+
+	/**
+	 * Sets the leave rule applicables associated with the job category, removing and adding associations as necessary. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the job category
+	 * @param leaveRuleApplicables the leave rule applicables to be associated with the job category
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void setLeaveRuleApplicables(long pk,
+		List<com.rknowsys.eapp.hrm.model.LeaveRuleApplicable> leaveRuleApplicables)
+		throws SystemException {
+		try {
+			long[] leaveRuleApplicablePKs = new long[leaveRuleApplicables.size()];
+
+			for (int i = 0; i < leaveRuleApplicables.size(); i++) {
+				com.rknowsys.eapp.hrm.model.LeaveRuleApplicable leaveRuleApplicable =
+					leaveRuleApplicables.get(i);
+
+				leaveRuleApplicablePKs[i] = leaveRuleApplicable.getPrimaryKey();
+			}
+
+			setLeaveRuleApplicables(pk, leaveRuleApplicablePKs);
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			FinderCacheUtil.clearCache(JobCategoryModelImpl.MAPPING_TABLE_HRM_LRA_JOBCATEGORIES_NAME);
+		}
+	}
+
+	/**
 	 * Initializes the job category persistence.
 	 */
 	public void afterPropertiesSet() {
@@ -1137,6 +1443,10 @@ public class JobCategoryPersistenceImpl extends BasePersistenceImpl<JobCategory>
 				_log.error(e);
 			}
 		}
+
+		jobCategoryToLeaveRuleApplicableTableMapper = TableMapperFactory.getTableMapper("hrm_lra_jobCategories",
+				"jobCategoryId", "leaveRuleApplicableId", this,
+				leaveRuleApplicablePersistence);
 	}
 
 	public void destroy() {
@@ -1146,6 +1456,9 @@ public class JobCategoryPersistenceImpl extends BasePersistenceImpl<JobCategory>
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 	}
 
+	@BeanReference(type = LeaveRuleApplicablePersistence.class)
+	protected LeaveRuleApplicablePersistence leaveRuleApplicablePersistence;
+	protected TableMapper<JobCategory, com.rknowsys.eapp.hrm.model.LeaveRuleApplicable> jobCategoryToLeaveRuleApplicableTableMapper;
 	private static final String _SQL_SELECT_JOBCATEGORY = "SELECT jobCategory FROM JobCategory jobCategory";
 	private static final String _SQL_SELECT_JOBCATEGORY_WHERE = "SELECT jobCategory FROM JobCategory jobCategory WHERE ";
 	private static final String _SQL_COUNT_JOBCATEGORY = "SELECT COUNT(jobCategory) FROM JobCategory jobCategory";

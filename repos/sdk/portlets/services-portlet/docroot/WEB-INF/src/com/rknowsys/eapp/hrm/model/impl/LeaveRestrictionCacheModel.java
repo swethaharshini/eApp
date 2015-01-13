@@ -38,7 +38,7 @@ public class LeaveRestrictionCacheModel implements CacheModel<LeaveRestriction>,
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(37);
+		StringBundler sb = new StringBundler(41);
 
 		sb.append("{leaveRestrictionId=");
 		sb.append(leaveRestrictionId);
@@ -56,26 +56,30 @@ public class LeaveRestrictionCacheModel implements CacheModel<LeaveRestriction>,
 		sb.append(leaveTypeId);
 		sb.append(", cannotExceedBalance=");
 		sb.append(cannotExceedBalance);
+		sb.append(", cantExceedBalForRoleIds=");
+		sb.append(cantExceedBalForRoleIds);
 		sb.append(", cannotApplyForPartialDay=");
 		sb.append(cannotApplyForPartialDay);
-		sb.append(", ifATermsQuestion=");
-		sb.append(ifATermsQuestion);
+		sb.append(", cantApplyPartialDayForRoleIds=");
+		sb.append(cantApplyPartialDayForRoleIds);
 		sb.append(", termsQuestion=");
 		sb.append(termsQuestion);
+		sb.append(", termsQsnForRoleIds=");
+		sb.append(termsQsnForRoleIds);
 		sb.append(", errorTextIfTermsDeclined=");
 		sb.append(errorTextIfTermsDeclined);
-		sb.append(", isMinimumServicePeriodApplicable=");
-		sb.append(isMinimumServicePeriodApplicable);
 		sb.append(", minimumServicePeriod=");
 		sb.append(minimumServicePeriod);
-		sb.append(", isMaxConsecutiveLeavesApplicable=");
-		sb.append(isMaxConsecutiveLeavesApplicable);
+		sb.append(", minServicePeriodForRoleIds=");
+		sb.append(minServicePeriodForRoleIds);
 		sb.append(", maxConsecutiveLeaves=");
 		sb.append(maxConsecutiveLeaves);
-		sb.append(", isSmallChildCriterionApplicable=");
-		sb.append(isSmallChildCriterionApplicable);
+		sb.append(", maxConsecLeavesForRoleIds=");
+		sb.append(maxConsecLeavesForRoleIds);
 		sb.append(", maxSmallChildAgeApplicable=");
 		sb.append(maxSmallChildAgeApplicable);
+		sb.append(", maxSmallChildAgeForRoleIds=");
+		sb.append(maxSmallChildAgeForRoleIds);
 		sb.append("}");
 
 		return sb.toString();
@@ -106,14 +110,35 @@ public class LeaveRestrictionCacheModel implements CacheModel<LeaveRestriction>,
 		leaveRestrictionImpl.setUserId(userId);
 		leaveRestrictionImpl.setLeaveTypeId(leaveTypeId);
 		leaveRestrictionImpl.setCannotExceedBalance(cannotExceedBalance);
+
+		if (cantExceedBalForRoleIds == null) {
+			leaveRestrictionImpl.setCantExceedBalForRoleIds(StringPool.BLANK);
+		}
+		else {
+			leaveRestrictionImpl.setCantExceedBalForRoleIds(cantExceedBalForRoleIds);
+		}
+
 		leaveRestrictionImpl.setCannotApplyForPartialDay(cannotApplyForPartialDay);
-		leaveRestrictionImpl.setIfATermsQuestion(ifATermsQuestion);
+
+		if (cantApplyPartialDayForRoleIds == null) {
+			leaveRestrictionImpl.setCantApplyPartialDayForRoleIds(StringPool.BLANK);
+		}
+		else {
+			leaveRestrictionImpl.setCantApplyPartialDayForRoleIds(cantApplyPartialDayForRoleIds);
+		}
 
 		if (termsQuestion == null) {
 			leaveRestrictionImpl.setTermsQuestion(StringPool.BLANK);
 		}
 		else {
 			leaveRestrictionImpl.setTermsQuestion(termsQuestion);
+		}
+
+		if (termsQsnForRoleIds == null) {
+			leaveRestrictionImpl.setTermsQsnForRoleIds(StringPool.BLANK);
+		}
+		else {
+			leaveRestrictionImpl.setTermsQsnForRoleIds(termsQsnForRoleIds);
 		}
 
 		if (errorTextIfTermsDeclined == null) {
@@ -123,8 +148,6 @@ public class LeaveRestrictionCacheModel implements CacheModel<LeaveRestriction>,
 			leaveRestrictionImpl.setErrorTextIfTermsDeclined(errorTextIfTermsDeclined);
 		}
 
-		leaveRestrictionImpl.setIsMinimumServicePeriodApplicable(isMinimumServicePeriodApplicable);
-
 		if (minimumServicePeriod == null) {
 			leaveRestrictionImpl.setMinimumServicePeriod(StringPool.BLANK);
 		}
@@ -132,7 +155,12 @@ public class LeaveRestrictionCacheModel implements CacheModel<LeaveRestriction>,
 			leaveRestrictionImpl.setMinimumServicePeriod(minimumServicePeriod);
 		}
 
-		leaveRestrictionImpl.setIsMaxConsecutiveLeavesApplicable(isMaxConsecutiveLeavesApplicable);
+		if (minServicePeriodForRoleIds == null) {
+			leaveRestrictionImpl.setMinServicePeriodForRoleIds(StringPool.BLANK);
+		}
+		else {
+			leaveRestrictionImpl.setMinServicePeriodForRoleIds(minServicePeriodForRoleIds);
+		}
 
 		if (maxConsecutiveLeaves == null) {
 			leaveRestrictionImpl.setMaxConsecutiveLeaves(StringPool.BLANK);
@@ -141,13 +169,25 @@ public class LeaveRestrictionCacheModel implements CacheModel<LeaveRestriction>,
 			leaveRestrictionImpl.setMaxConsecutiveLeaves(maxConsecutiveLeaves);
 		}
 
-		leaveRestrictionImpl.setIsSmallChildCriterionApplicable(isSmallChildCriterionApplicable);
+		if (maxConsecLeavesForRoleIds == null) {
+			leaveRestrictionImpl.setMaxConsecLeavesForRoleIds(StringPool.BLANK);
+		}
+		else {
+			leaveRestrictionImpl.setMaxConsecLeavesForRoleIds(maxConsecLeavesForRoleIds);
+		}
 
 		if (maxSmallChildAgeApplicable == null) {
 			leaveRestrictionImpl.setMaxSmallChildAgeApplicable(StringPool.BLANK);
 		}
 		else {
 			leaveRestrictionImpl.setMaxSmallChildAgeApplicable(maxSmallChildAgeApplicable);
+		}
+
+		if (maxSmallChildAgeForRoleIds == null) {
+			leaveRestrictionImpl.setMaxSmallChildAgeForRoleIds(StringPool.BLANK);
+		}
+		else {
+			leaveRestrictionImpl.setMaxSmallChildAgeForRoleIds(maxSmallChildAgeForRoleIds);
 		}
 
 		leaveRestrictionImpl.resetOriginalValues();
@@ -165,16 +205,18 @@ public class LeaveRestrictionCacheModel implements CacheModel<LeaveRestriction>,
 		userId = objectInput.readLong();
 		leaveTypeId = objectInput.readLong();
 		cannotExceedBalance = objectInput.readBoolean();
+		cantExceedBalForRoleIds = objectInput.readUTF();
 		cannotApplyForPartialDay = objectInput.readBoolean();
-		ifATermsQuestion = objectInput.readBoolean();
+		cantApplyPartialDayForRoleIds = objectInput.readUTF();
 		termsQuestion = objectInput.readUTF();
+		termsQsnForRoleIds = objectInput.readUTF();
 		errorTextIfTermsDeclined = objectInput.readUTF();
-		isMinimumServicePeriodApplicable = objectInput.readBoolean();
 		minimumServicePeriod = objectInput.readUTF();
-		isMaxConsecutiveLeavesApplicable = objectInput.readBoolean();
+		minServicePeriodForRoleIds = objectInput.readUTF();
 		maxConsecutiveLeaves = objectInput.readUTF();
-		isSmallChildCriterionApplicable = objectInput.readBoolean();
+		maxConsecLeavesForRoleIds = objectInput.readUTF();
 		maxSmallChildAgeApplicable = objectInput.readUTF();
+		maxSmallChildAgeForRoleIds = objectInput.readUTF();
 	}
 
 	@Override
@@ -188,14 +230,35 @@ public class LeaveRestrictionCacheModel implements CacheModel<LeaveRestriction>,
 		objectOutput.writeLong(userId);
 		objectOutput.writeLong(leaveTypeId);
 		objectOutput.writeBoolean(cannotExceedBalance);
+
+		if (cantExceedBalForRoleIds == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(cantExceedBalForRoleIds);
+		}
+
 		objectOutput.writeBoolean(cannotApplyForPartialDay);
-		objectOutput.writeBoolean(ifATermsQuestion);
+
+		if (cantApplyPartialDayForRoleIds == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(cantApplyPartialDayForRoleIds);
+		}
 
 		if (termsQuestion == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
 		}
 		else {
 			objectOutput.writeUTF(termsQuestion);
+		}
+
+		if (termsQsnForRoleIds == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(termsQsnForRoleIds);
 		}
 
 		if (errorTextIfTermsDeclined == null) {
@@ -205,8 +268,6 @@ public class LeaveRestrictionCacheModel implements CacheModel<LeaveRestriction>,
 			objectOutput.writeUTF(errorTextIfTermsDeclined);
 		}
 
-		objectOutput.writeBoolean(isMinimumServicePeriodApplicable);
-
 		if (minimumServicePeriod == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
 		}
@@ -214,7 +275,12 @@ public class LeaveRestrictionCacheModel implements CacheModel<LeaveRestriction>,
 			objectOutput.writeUTF(minimumServicePeriod);
 		}
 
-		objectOutput.writeBoolean(isMaxConsecutiveLeavesApplicable);
+		if (minServicePeriodForRoleIds == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(minServicePeriodForRoleIds);
+		}
 
 		if (maxConsecutiveLeaves == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
@@ -223,13 +289,25 @@ public class LeaveRestrictionCacheModel implements CacheModel<LeaveRestriction>,
 			objectOutput.writeUTF(maxConsecutiveLeaves);
 		}
 
-		objectOutput.writeBoolean(isSmallChildCriterionApplicable);
+		if (maxConsecLeavesForRoleIds == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(maxConsecLeavesForRoleIds);
+		}
 
 		if (maxSmallChildAgeApplicable == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
 		}
 		else {
 			objectOutput.writeUTF(maxSmallChildAgeApplicable);
+		}
+
+		if (maxSmallChildAgeForRoleIds == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(maxSmallChildAgeForRoleIds);
 		}
 	}
 
@@ -241,14 +319,16 @@ public class LeaveRestrictionCacheModel implements CacheModel<LeaveRestriction>,
 	public long userId;
 	public long leaveTypeId;
 	public boolean cannotExceedBalance;
+	public String cantExceedBalForRoleIds;
 	public boolean cannotApplyForPartialDay;
-	public boolean ifATermsQuestion;
+	public String cantApplyPartialDayForRoleIds;
 	public String termsQuestion;
+	public String termsQsnForRoleIds;
 	public String errorTextIfTermsDeclined;
-	public boolean isMinimumServicePeriodApplicable;
 	public String minimumServicePeriod;
-	public boolean isMaxConsecutiveLeavesApplicable;
+	public String minServicePeriodForRoleIds;
 	public String maxConsecutiveLeaves;
-	public boolean isSmallChildCriterionApplicable;
+	public String maxConsecLeavesForRoleIds;
 	public String maxSmallChildAgeApplicable;
+	public String maxSmallChildAgeForRoleIds;
 }

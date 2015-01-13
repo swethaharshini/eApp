@@ -58,20 +58,23 @@ public class LeaveRestrictionWrapper implements LeaveRestriction,
 		attributes.put("userId", getUserId());
 		attributes.put("leaveTypeId", getLeaveTypeId());
 		attributes.put("cannotExceedBalance", getCannotExceedBalance());
+		attributes.put("cantExceedBalForRoleIds", getCantExceedBalForRoleIds());
 		attributes.put("cannotApplyForPartialDay", getCannotApplyForPartialDay());
-		attributes.put("ifATermsQuestion", getIfATermsQuestion());
+		attributes.put("cantApplyPartialDayForRoleIds",
+			getCantApplyPartialDayForRoleIds());
 		attributes.put("termsQuestion", getTermsQuestion());
+		attributes.put("termsQsnForRoleIds", getTermsQsnForRoleIds());
 		attributes.put("errorTextIfTermsDeclined", getErrorTextIfTermsDeclined());
-		attributes.put("isMinimumServicePeriodApplicable",
-			getIsMinimumServicePeriodApplicable());
 		attributes.put("minimumServicePeriod", getMinimumServicePeriod());
-		attributes.put("isMaxConsecutiveLeavesApplicable",
-			getIsMaxConsecutiveLeavesApplicable());
+		attributes.put("minServicePeriodForRoleIds",
+			getMinServicePeriodForRoleIds());
 		attributes.put("maxConsecutiveLeaves", getMaxConsecutiveLeaves());
-		attributes.put("isSmallChildCriterionApplicable",
-			getIsSmallChildCriterionApplicable());
+		attributes.put("maxConsecLeavesForRoleIds",
+			getMaxConsecLeavesForRoleIds());
 		attributes.put("maxSmallChildAgeApplicable",
 			getMaxSmallChildAgeApplicable());
+		attributes.put("maxSmallChildAgeForRoleIds",
+			getMaxSmallChildAgeForRoleIds());
 
 		return attributes;
 	}
@@ -127,6 +130,13 @@ public class LeaveRestrictionWrapper implements LeaveRestriction,
 			setCannotExceedBalance(cannotExceedBalance);
 		}
 
+		String cantExceedBalForRoleIds = (String)attributes.get(
+				"cantExceedBalForRoleIds");
+
+		if (cantExceedBalForRoleIds != null) {
+			setCantExceedBalForRoleIds(cantExceedBalForRoleIds);
+		}
+
 		Boolean cannotApplyForPartialDay = (Boolean)attributes.get(
 				"cannotApplyForPartialDay");
 
@@ -134,16 +144,23 @@ public class LeaveRestrictionWrapper implements LeaveRestriction,
 			setCannotApplyForPartialDay(cannotApplyForPartialDay);
 		}
 
-		Boolean ifATermsQuestion = (Boolean)attributes.get("ifATermsQuestion");
+		String cantApplyPartialDayForRoleIds = (String)attributes.get(
+				"cantApplyPartialDayForRoleIds");
 
-		if (ifATermsQuestion != null) {
-			setIfATermsQuestion(ifATermsQuestion);
+		if (cantApplyPartialDayForRoleIds != null) {
+			setCantApplyPartialDayForRoleIds(cantApplyPartialDayForRoleIds);
 		}
 
 		String termsQuestion = (String)attributes.get("termsQuestion");
 
 		if (termsQuestion != null) {
 			setTermsQuestion(termsQuestion);
+		}
+
+		String termsQsnForRoleIds = (String)attributes.get("termsQsnForRoleIds");
+
+		if (termsQsnForRoleIds != null) {
+			setTermsQsnForRoleIds(termsQsnForRoleIds);
 		}
 
 		String errorTextIfTermsDeclined = (String)attributes.get(
@@ -153,13 +170,6 @@ public class LeaveRestrictionWrapper implements LeaveRestriction,
 			setErrorTextIfTermsDeclined(errorTextIfTermsDeclined);
 		}
 
-		Boolean isMinimumServicePeriodApplicable = (Boolean)attributes.get(
-				"isMinimumServicePeriodApplicable");
-
-		if (isMinimumServicePeriodApplicable != null) {
-			setIsMinimumServicePeriodApplicable(isMinimumServicePeriodApplicable);
-		}
-
 		String minimumServicePeriod = (String)attributes.get(
 				"minimumServicePeriod");
 
@@ -167,11 +177,11 @@ public class LeaveRestrictionWrapper implements LeaveRestriction,
 			setMinimumServicePeriod(minimumServicePeriod);
 		}
 
-		Boolean isMaxConsecutiveLeavesApplicable = (Boolean)attributes.get(
-				"isMaxConsecutiveLeavesApplicable");
+		String minServicePeriodForRoleIds = (String)attributes.get(
+				"minServicePeriodForRoleIds");
 
-		if (isMaxConsecutiveLeavesApplicable != null) {
-			setIsMaxConsecutiveLeavesApplicable(isMaxConsecutiveLeavesApplicable);
+		if (minServicePeriodForRoleIds != null) {
+			setMinServicePeriodForRoleIds(minServicePeriodForRoleIds);
 		}
 
 		String maxConsecutiveLeaves = (String)attributes.get(
@@ -181,11 +191,11 @@ public class LeaveRestrictionWrapper implements LeaveRestriction,
 			setMaxConsecutiveLeaves(maxConsecutiveLeaves);
 		}
 
-		Boolean isSmallChildCriterionApplicable = (Boolean)attributes.get(
-				"isSmallChildCriterionApplicable");
+		String maxConsecLeavesForRoleIds = (String)attributes.get(
+				"maxConsecLeavesForRoleIds");
 
-		if (isSmallChildCriterionApplicable != null) {
-			setIsSmallChildCriterionApplicable(isSmallChildCriterionApplicable);
+		if (maxConsecLeavesForRoleIds != null) {
+			setMaxConsecLeavesForRoleIds(maxConsecLeavesForRoleIds);
 		}
 
 		String maxSmallChildAgeApplicable = (String)attributes.get(
@@ -193,6 +203,13 @@ public class LeaveRestrictionWrapper implements LeaveRestriction,
 
 		if (maxSmallChildAgeApplicable != null) {
 			setMaxSmallChildAgeApplicable(maxSmallChildAgeApplicable);
+		}
+
+		String maxSmallChildAgeForRoleIds = (String)attributes.get(
+				"maxSmallChildAgeForRoleIds");
+
+		if (maxSmallChildAgeForRoleIds != null) {
+			setMaxSmallChildAgeForRoleIds(maxSmallChildAgeForRoleIds);
 		}
 	}
 
@@ -409,6 +426,27 @@ public class LeaveRestrictionWrapper implements LeaveRestriction,
 	}
 
 	/**
+	* Returns the cant exceed bal for role IDs of this leave restriction.
+	*
+	* @return the cant exceed bal for role IDs of this leave restriction
+	*/
+	@Override
+	public java.lang.String getCantExceedBalForRoleIds() {
+		return _leaveRestriction.getCantExceedBalForRoleIds();
+	}
+
+	/**
+	* Sets the cant exceed bal for role IDs of this leave restriction.
+	*
+	* @param cantExceedBalForRoleIds the cant exceed bal for role IDs of this leave restriction
+	*/
+	@Override
+	public void setCantExceedBalForRoleIds(
+		java.lang.String cantExceedBalForRoleIds) {
+		_leaveRestriction.setCantExceedBalForRoleIds(cantExceedBalForRoleIds);
+	}
+
+	/**
 	* Returns the cannot apply for partial day of this leave restriction.
 	*
 	* @return the cannot apply for partial day of this leave restriction
@@ -439,33 +477,24 @@ public class LeaveRestrictionWrapper implements LeaveRestriction,
 	}
 
 	/**
-	* Returns the if a terms question of this leave restriction.
+	* Returns the cant apply partial day for role IDs of this leave restriction.
 	*
-	* @return the if a terms question of this leave restriction
+	* @return the cant apply partial day for role IDs of this leave restriction
 	*/
 	@Override
-	public boolean getIfATermsQuestion() {
-		return _leaveRestriction.getIfATermsQuestion();
+	public java.lang.String getCantApplyPartialDayForRoleIds() {
+		return _leaveRestriction.getCantApplyPartialDayForRoleIds();
 	}
 
 	/**
-	* Returns <code>true</code> if this leave restriction is if a terms question.
+	* Sets the cant apply partial day for role IDs of this leave restriction.
 	*
-	* @return <code>true</code> if this leave restriction is if a terms question; <code>false</code> otherwise
+	* @param cantApplyPartialDayForRoleIds the cant apply partial day for role IDs of this leave restriction
 	*/
 	@Override
-	public boolean isIfATermsQuestion() {
-		return _leaveRestriction.isIfATermsQuestion();
-	}
-
-	/**
-	* Sets whether this leave restriction is if a terms question.
-	*
-	* @param ifATermsQuestion the if a terms question of this leave restriction
-	*/
-	@Override
-	public void setIfATermsQuestion(boolean ifATermsQuestion) {
-		_leaveRestriction.setIfATermsQuestion(ifATermsQuestion);
+	public void setCantApplyPartialDayForRoleIds(
+		java.lang.String cantApplyPartialDayForRoleIds) {
+		_leaveRestriction.setCantApplyPartialDayForRoleIds(cantApplyPartialDayForRoleIds);
 	}
 
 	/**
@@ -486,6 +515,26 @@ public class LeaveRestrictionWrapper implements LeaveRestriction,
 	@Override
 	public void setTermsQuestion(java.lang.String termsQuestion) {
 		_leaveRestriction.setTermsQuestion(termsQuestion);
+	}
+
+	/**
+	* Returns the terms qsn for role IDs of this leave restriction.
+	*
+	* @return the terms qsn for role IDs of this leave restriction
+	*/
+	@Override
+	public java.lang.String getTermsQsnForRoleIds() {
+		return _leaveRestriction.getTermsQsnForRoleIds();
+	}
+
+	/**
+	* Sets the terms qsn for role IDs of this leave restriction.
+	*
+	* @param termsQsnForRoleIds the terms qsn for role IDs of this leave restriction
+	*/
+	@Override
+	public void setTermsQsnForRoleIds(java.lang.String termsQsnForRoleIds) {
+		_leaveRestriction.setTermsQsnForRoleIds(termsQsnForRoleIds);
 	}
 
 	/**
@@ -510,37 +559,6 @@ public class LeaveRestrictionWrapper implements LeaveRestriction,
 	}
 
 	/**
-	* Returns the is minimum service period applicable of this leave restriction.
-	*
-	* @return the is minimum service period applicable of this leave restriction
-	*/
-	@Override
-	public boolean getIsMinimumServicePeriodApplicable() {
-		return _leaveRestriction.getIsMinimumServicePeriodApplicable();
-	}
-
-	/**
-	* Returns <code>true</code> if this leave restriction is is minimum service period applicable.
-	*
-	* @return <code>true</code> if this leave restriction is is minimum service period applicable; <code>false</code> otherwise
-	*/
-	@Override
-	public boolean isIsMinimumServicePeriodApplicable() {
-		return _leaveRestriction.isIsMinimumServicePeriodApplicable();
-	}
-
-	/**
-	* Sets whether this leave restriction is is minimum service period applicable.
-	*
-	* @param isMinimumServicePeriodApplicable the is minimum service period applicable of this leave restriction
-	*/
-	@Override
-	public void setIsMinimumServicePeriodApplicable(
-		boolean isMinimumServicePeriodApplicable) {
-		_leaveRestriction.setIsMinimumServicePeriodApplicable(isMinimumServicePeriodApplicable);
-	}
-
-	/**
 	* Returns the minimum service period of this leave restriction.
 	*
 	* @return the minimum service period of this leave restriction
@@ -561,34 +579,24 @@ public class LeaveRestrictionWrapper implements LeaveRestriction,
 	}
 
 	/**
-	* Returns the is max consecutive leaves applicable of this leave restriction.
+	* Returns the min service period for role IDs of this leave restriction.
 	*
-	* @return the is max consecutive leaves applicable of this leave restriction
+	* @return the min service period for role IDs of this leave restriction
 	*/
 	@Override
-	public boolean getIsMaxConsecutiveLeavesApplicable() {
-		return _leaveRestriction.getIsMaxConsecutiveLeavesApplicable();
+	public java.lang.String getMinServicePeriodForRoleIds() {
+		return _leaveRestriction.getMinServicePeriodForRoleIds();
 	}
 
 	/**
-	* Returns <code>true</code> if this leave restriction is is max consecutive leaves applicable.
+	* Sets the min service period for role IDs of this leave restriction.
 	*
-	* @return <code>true</code> if this leave restriction is is max consecutive leaves applicable; <code>false</code> otherwise
+	* @param minServicePeriodForRoleIds the min service period for role IDs of this leave restriction
 	*/
 	@Override
-	public boolean isIsMaxConsecutiveLeavesApplicable() {
-		return _leaveRestriction.isIsMaxConsecutiveLeavesApplicable();
-	}
-
-	/**
-	* Sets whether this leave restriction is is max consecutive leaves applicable.
-	*
-	* @param isMaxConsecutiveLeavesApplicable the is max consecutive leaves applicable of this leave restriction
-	*/
-	@Override
-	public void setIsMaxConsecutiveLeavesApplicable(
-		boolean isMaxConsecutiveLeavesApplicable) {
-		_leaveRestriction.setIsMaxConsecutiveLeavesApplicable(isMaxConsecutiveLeavesApplicable);
+	public void setMinServicePeriodForRoleIds(
+		java.lang.String minServicePeriodForRoleIds) {
+		_leaveRestriction.setMinServicePeriodForRoleIds(minServicePeriodForRoleIds);
 	}
 
 	/**
@@ -612,34 +620,24 @@ public class LeaveRestrictionWrapper implements LeaveRestriction,
 	}
 
 	/**
-	* Returns the is small child criterion applicable of this leave restriction.
+	* Returns the max consec leaves for role IDs of this leave restriction.
 	*
-	* @return the is small child criterion applicable of this leave restriction
+	* @return the max consec leaves for role IDs of this leave restriction
 	*/
 	@Override
-	public boolean getIsSmallChildCriterionApplicable() {
-		return _leaveRestriction.getIsSmallChildCriterionApplicable();
+	public java.lang.String getMaxConsecLeavesForRoleIds() {
+		return _leaveRestriction.getMaxConsecLeavesForRoleIds();
 	}
 
 	/**
-	* Returns <code>true</code> if this leave restriction is is small child criterion applicable.
+	* Sets the max consec leaves for role IDs of this leave restriction.
 	*
-	* @return <code>true</code> if this leave restriction is is small child criterion applicable; <code>false</code> otherwise
+	* @param maxConsecLeavesForRoleIds the max consec leaves for role IDs of this leave restriction
 	*/
 	@Override
-	public boolean isIsSmallChildCriterionApplicable() {
-		return _leaveRestriction.isIsSmallChildCriterionApplicable();
-	}
-
-	/**
-	* Sets whether this leave restriction is is small child criterion applicable.
-	*
-	* @param isSmallChildCriterionApplicable the is small child criterion applicable of this leave restriction
-	*/
-	@Override
-	public void setIsSmallChildCriterionApplicable(
-		boolean isSmallChildCriterionApplicable) {
-		_leaveRestriction.setIsSmallChildCriterionApplicable(isSmallChildCriterionApplicable);
+	public void setMaxConsecLeavesForRoleIds(
+		java.lang.String maxConsecLeavesForRoleIds) {
+		_leaveRestriction.setMaxConsecLeavesForRoleIds(maxConsecLeavesForRoleIds);
 	}
 
 	/**
@@ -661,6 +659,27 @@ public class LeaveRestrictionWrapper implements LeaveRestriction,
 	public void setMaxSmallChildAgeApplicable(
 		java.lang.String maxSmallChildAgeApplicable) {
 		_leaveRestriction.setMaxSmallChildAgeApplicable(maxSmallChildAgeApplicable);
+	}
+
+	/**
+	* Returns the max small child age for role IDs of this leave restriction.
+	*
+	* @return the max small child age for role IDs of this leave restriction
+	*/
+	@Override
+	public java.lang.String getMaxSmallChildAgeForRoleIds() {
+		return _leaveRestriction.getMaxSmallChildAgeForRoleIds();
+	}
+
+	/**
+	* Sets the max small child age for role IDs of this leave restriction.
+	*
+	* @param maxSmallChildAgeForRoleIds the max small child age for role IDs of this leave restriction
+	*/
+	@Override
+	public void setMaxSmallChildAgeForRoleIds(
+		java.lang.String maxSmallChildAgeForRoleIds) {
+		_leaveRestriction.setMaxSmallChildAgeForRoleIds(maxSmallChildAgeForRoleIds);
 	}
 
 	@Override

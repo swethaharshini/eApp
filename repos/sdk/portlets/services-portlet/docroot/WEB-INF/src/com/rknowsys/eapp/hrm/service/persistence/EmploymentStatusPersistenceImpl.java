@@ -250,7 +250,7 @@ public class EmploymentStatusPersistenceImpl extends BasePersistenceImpl<Employm
 		throws SystemException {
 		employmentStatus = toUnwrappedModel(employmentStatus);
 
-		employmentStatusToLeaveTypeApplicabilityTableMapper.deleteLeftPrimaryKeyTableMappings(employmentStatus.getPrimaryKey());
+		employmentStatusToLeaveRuleApplicableTableMapper.deleteLeftPrimaryKeyTableMappings(employmentStatus.getPrimaryKey());
 
 		Session session = null;
 
@@ -619,21 +619,20 @@ public class EmploymentStatusPersistenceImpl extends BasePersistenceImpl<Employm
 	}
 
 	/**
-	 * Returns all the leave type applicabilities associated with the employment status.
+	 * Returns all the leave rule applicables associated with the employment status.
 	 *
 	 * @param pk the primary key of the employment status
-	 * @return the leave type applicabilities associated with the employment status
+	 * @return the leave rule applicables associated with the employment status
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> getLeaveTypeApplicabilities(
+	public List<com.rknowsys.eapp.hrm.model.LeaveRuleApplicable> getLeaveRuleApplicables(
 		long pk) throws SystemException {
-		return getLeaveTypeApplicabilities(pk, QueryUtil.ALL_POS,
-			QueryUtil.ALL_POS);
+		return getLeaveRuleApplicables(pk, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 	}
 
 	/**
-	 * Returns a range of all the leave type applicabilities associated with the employment status.
+	 * Returns a range of all the leave rule applicables associated with the employment status.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.rknowsys.eapp.hrm.model.impl.EmploymentStatusModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
@@ -642,17 +641,17 @@ public class EmploymentStatusPersistenceImpl extends BasePersistenceImpl<Employm
 	 * @param pk the primary key of the employment status
 	 * @param start the lower bound of the range of employment statuses
 	 * @param end the upper bound of the range of employment statuses (not inclusive)
-	 * @return the range of leave type applicabilities associated with the employment status
+	 * @return the range of leave rule applicables associated with the employment status
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> getLeaveTypeApplicabilities(
+	public List<com.rknowsys.eapp.hrm.model.LeaveRuleApplicable> getLeaveRuleApplicables(
 		long pk, int start, int end) throws SystemException {
-		return getLeaveTypeApplicabilities(pk, start, end, null);
+		return getLeaveRuleApplicables(pk, start, end, null);
 	}
 
 	/**
-	 * Returns an ordered range of all the leave type applicabilities associated with the employment status.
+	 * Returns an ordered range of all the leave rule applicables associated with the employment status.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.rknowsys.eapp.hrm.model.impl.EmploymentStatusModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
@@ -662,58 +661,57 @@ public class EmploymentStatusPersistenceImpl extends BasePersistenceImpl<Employm
 	 * @param start the lower bound of the range of employment statuses
 	 * @param end the upper bound of the range of employment statuses (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of leave type applicabilities associated with the employment status
+	 * @return the ordered range of leave rule applicables associated with the employment status
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> getLeaveTypeApplicabilities(
+	public List<com.rknowsys.eapp.hrm.model.LeaveRuleApplicable> getLeaveRuleApplicables(
 		long pk, int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
-		return employmentStatusToLeaveTypeApplicabilityTableMapper.getRightBaseModels(pk,
+		return employmentStatusToLeaveRuleApplicableTableMapper.getRightBaseModels(pk,
 			start, end, orderByComparator);
 	}
 
 	/**
-	 * Returns the number of leave type applicabilities associated with the employment status.
+	 * Returns the number of leave rule applicables associated with the employment status.
 	 *
 	 * @param pk the primary key of the employment status
-	 * @return the number of leave type applicabilities associated with the employment status
+	 * @return the number of leave rule applicables associated with the employment status
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getLeaveTypeApplicabilitiesSize(long pk)
-		throws SystemException {
-		long[] pks = employmentStatusToLeaveTypeApplicabilityTableMapper.getRightPrimaryKeys(pk);
+	public int getLeaveRuleApplicablesSize(long pk) throws SystemException {
+		long[] pks = employmentStatusToLeaveRuleApplicableTableMapper.getRightPrimaryKeys(pk);
 
 		return pks.length;
 	}
 
 	/**
-	 * Returns <code>true</code> if the leave type applicability is associated with the employment status.
+	 * Returns <code>true</code> if the leave rule applicable is associated with the employment status.
 	 *
 	 * @param pk the primary key of the employment status
-	 * @param leaveTypeApplicabilityPK the primary key of the leave type applicability
-	 * @return <code>true</code> if the leave type applicability is associated with the employment status; <code>false</code> otherwise
+	 * @param leaveRuleApplicablePK the primary key of the leave rule applicable
+	 * @return <code>true</code> if the leave rule applicable is associated with the employment status; <code>false</code> otherwise
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public boolean containsLeaveTypeApplicability(long pk,
-		long leaveTypeApplicabilityPK) throws SystemException {
-		return employmentStatusToLeaveTypeApplicabilityTableMapper.containsTableMapping(pk,
-			leaveTypeApplicabilityPK);
+	public boolean containsLeaveRuleApplicable(long pk,
+		long leaveRuleApplicablePK) throws SystemException {
+		return employmentStatusToLeaveRuleApplicableTableMapper.containsTableMapping(pk,
+			leaveRuleApplicablePK);
 	}
 
 	/**
-	 * Returns <code>true</code> if the employment status has any leave type applicabilities associated with it.
+	 * Returns <code>true</code> if the employment status has any leave rule applicables associated with it.
 	 *
-	 * @param pk the primary key of the employment status to check for associations with leave type applicabilities
-	 * @return <code>true</code> if the employment status has any leave type applicabilities associated with it; <code>false</code> otherwise
+	 * @param pk the primary key of the employment status to check for associations with leave rule applicables
+	 * @return <code>true</code> if the employment status has any leave rule applicables associated with it; <code>false</code> otherwise
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public boolean containsLeaveTypeApplicabilities(long pk)
+	public boolean containsLeaveRuleApplicables(long pk)
 		throws SystemException {
-		if (getLeaveTypeApplicabilitiesSize(pk) > 0) {
+		if (getLeaveRuleApplicablesSize(pk) > 0) {
 			return true;
 		}
 		else {
@@ -722,200 +720,199 @@ public class EmploymentStatusPersistenceImpl extends BasePersistenceImpl<Employm
 	}
 
 	/**
-	 * Adds an association between the employment status and the leave type applicability. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 * Adds an association between the employment status and the leave rule applicable. Also notifies the appropriate model listeners and clears the mapping table finder cache.
 	 *
 	 * @param pk the primary key of the employment status
-	 * @param leaveTypeApplicabilityPK the primary key of the leave type applicability
+	 * @param leaveRuleApplicablePK the primary key of the leave rule applicable
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void addLeaveTypeApplicability(long pk, long leaveTypeApplicabilityPK)
+	public void addLeaveRuleApplicable(long pk, long leaveRuleApplicablePK)
 		throws SystemException {
-		employmentStatusToLeaveTypeApplicabilityTableMapper.addTableMapping(pk,
-			leaveTypeApplicabilityPK);
+		employmentStatusToLeaveRuleApplicableTableMapper.addTableMapping(pk,
+			leaveRuleApplicablePK);
 	}
 
 	/**
-	 * Adds an association between the employment status and the leave type applicability. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 * Adds an association between the employment status and the leave rule applicable. Also notifies the appropriate model listeners and clears the mapping table finder cache.
 	 *
 	 * @param pk the primary key of the employment status
-	 * @param leaveTypeApplicability the leave type applicability
+	 * @param leaveRuleApplicable the leave rule applicable
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void addLeaveTypeApplicability(long pk,
-		com.rknowsys.eapp.hrm.model.LeaveTypeApplicability leaveTypeApplicability)
+	public void addLeaveRuleApplicable(long pk,
+		com.rknowsys.eapp.hrm.model.LeaveRuleApplicable leaveRuleApplicable)
 		throws SystemException {
-		employmentStatusToLeaveTypeApplicabilityTableMapper.addTableMapping(pk,
-			leaveTypeApplicability.getPrimaryKey());
+		employmentStatusToLeaveRuleApplicableTableMapper.addTableMapping(pk,
+			leaveRuleApplicable.getPrimaryKey());
 	}
 
 	/**
-	 * Adds an association between the employment status and the leave type applicabilities. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 * Adds an association between the employment status and the leave rule applicables. Also notifies the appropriate model listeners and clears the mapping table finder cache.
 	 *
 	 * @param pk the primary key of the employment status
-	 * @param leaveTypeApplicabilityPKs the primary keys of the leave type applicabilities
+	 * @param leaveRuleApplicablePKs the primary keys of the leave rule applicables
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void addLeaveTypeApplicabilities(long pk,
-		long[] leaveTypeApplicabilityPKs) throws SystemException {
-		for (long leaveTypeApplicabilityPK : leaveTypeApplicabilityPKs) {
-			employmentStatusToLeaveTypeApplicabilityTableMapper.addTableMapping(pk,
-				leaveTypeApplicabilityPK);
+	public void addLeaveRuleApplicables(long pk, long[] leaveRuleApplicablePKs)
+		throws SystemException {
+		for (long leaveRuleApplicablePK : leaveRuleApplicablePKs) {
+			employmentStatusToLeaveRuleApplicableTableMapper.addTableMapping(pk,
+				leaveRuleApplicablePK);
 		}
 	}
 
 	/**
-	 * Adds an association between the employment status and the leave type applicabilities. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 * Adds an association between the employment status and the leave rule applicables. Also notifies the appropriate model listeners and clears the mapping table finder cache.
 	 *
 	 * @param pk the primary key of the employment status
-	 * @param leaveTypeApplicabilities the leave type applicabilities
+	 * @param leaveRuleApplicables the leave rule applicables
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void addLeaveTypeApplicabilities(long pk,
-		List<com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> leaveTypeApplicabilities)
+	public void addLeaveRuleApplicables(long pk,
+		List<com.rknowsys.eapp.hrm.model.LeaveRuleApplicable> leaveRuleApplicables)
 		throws SystemException {
-		for (com.rknowsys.eapp.hrm.model.LeaveTypeApplicability leaveTypeApplicability : leaveTypeApplicabilities) {
-			employmentStatusToLeaveTypeApplicabilityTableMapper.addTableMapping(pk,
-				leaveTypeApplicability.getPrimaryKey());
+		for (com.rknowsys.eapp.hrm.model.LeaveRuleApplicable leaveRuleApplicable : leaveRuleApplicables) {
+			employmentStatusToLeaveRuleApplicableTableMapper.addTableMapping(pk,
+				leaveRuleApplicable.getPrimaryKey());
 		}
 	}
 
 	/**
-	 * Clears all associations between the employment status and its leave type applicabilities. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 * Clears all associations between the employment status and its leave rule applicables. Also notifies the appropriate model listeners and clears the mapping table finder cache.
 	 *
-	 * @param pk the primary key of the employment status to clear the associated leave type applicabilities from
+	 * @param pk the primary key of the employment status to clear the associated leave rule applicables from
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void clearLeaveTypeApplicabilities(long pk)
+	public void clearLeaveRuleApplicables(long pk) throws SystemException {
+		employmentStatusToLeaveRuleApplicableTableMapper.deleteLeftPrimaryKeyTableMappings(pk);
+	}
+
+	/**
+	 * Removes the association between the employment status and the leave rule applicable. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 *
+	 * @param pk the primary key of the employment status
+	 * @param leaveRuleApplicablePK the primary key of the leave rule applicable
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void removeLeaveRuleApplicable(long pk, long leaveRuleApplicablePK)
 		throws SystemException {
-		employmentStatusToLeaveTypeApplicabilityTableMapper.deleteLeftPrimaryKeyTableMappings(pk);
+		employmentStatusToLeaveRuleApplicableTableMapper.deleteTableMapping(pk,
+			leaveRuleApplicablePK);
 	}
 
 	/**
-	 * Removes the association between the employment status and the leave type applicability. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 * Removes the association between the employment status and the leave rule applicable. Also notifies the appropriate model listeners and clears the mapping table finder cache.
 	 *
 	 * @param pk the primary key of the employment status
-	 * @param leaveTypeApplicabilityPK the primary key of the leave type applicability
+	 * @param leaveRuleApplicable the leave rule applicable
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void removeLeaveTypeApplicability(long pk,
-		long leaveTypeApplicabilityPK) throws SystemException {
-		employmentStatusToLeaveTypeApplicabilityTableMapper.deleteTableMapping(pk,
-			leaveTypeApplicabilityPK);
-	}
-
-	/**
-	 * Removes the association between the employment status and the leave type applicability. Also notifies the appropriate model listeners and clears the mapping table finder cache.
-	 *
-	 * @param pk the primary key of the employment status
-	 * @param leaveTypeApplicability the leave type applicability
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public void removeLeaveTypeApplicability(long pk,
-		com.rknowsys.eapp.hrm.model.LeaveTypeApplicability leaveTypeApplicability)
+	public void removeLeaveRuleApplicable(long pk,
+		com.rknowsys.eapp.hrm.model.LeaveRuleApplicable leaveRuleApplicable)
 		throws SystemException {
-		employmentStatusToLeaveTypeApplicabilityTableMapper.deleteTableMapping(pk,
-			leaveTypeApplicability.getPrimaryKey());
+		employmentStatusToLeaveRuleApplicableTableMapper.deleteTableMapping(pk,
+			leaveRuleApplicable.getPrimaryKey());
 	}
 
 	/**
-	 * Removes the association between the employment status and the leave type applicabilities. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 * Removes the association between the employment status and the leave rule applicables. Also notifies the appropriate model listeners and clears the mapping table finder cache.
 	 *
 	 * @param pk the primary key of the employment status
-	 * @param leaveTypeApplicabilityPKs the primary keys of the leave type applicabilities
+	 * @param leaveRuleApplicablePKs the primary keys of the leave rule applicables
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void removeLeaveTypeApplicabilities(long pk,
-		long[] leaveTypeApplicabilityPKs) throws SystemException {
-		for (long leaveTypeApplicabilityPK : leaveTypeApplicabilityPKs) {
-			employmentStatusToLeaveTypeApplicabilityTableMapper.deleteTableMapping(pk,
-				leaveTypeApplicabilityPK);
+	public void removeLeaveRuleApplicables(long pk,
+		long[] leaveRuleApplicablePKs) throws SystemException {
+		for (long leaveRuleApplicablePK : leaveRuleApplicablePKs) {
+			employmentStatusToLeaveRuleApplicableTableMapper.deleteTableMapping(pk,
+				leaveRuleApplicablePK);
 		}
 	}
 
 	/**
-	 * Removes the association between the employment status and the leave type applicabilities. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 * Removes the association between the employment status and the leave rule applicables. Also notifies the appropriate model listeners and clears the mapping table finder cache.
 	 *
 	 * @param pk the primary key of the employment status
-	 * @param leaveTypeApplicabilities the leave type applicabilities
+	 * @param leaveRuleApplicables the leave rule applicables
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void removeLeaveTypeApplicabilities(long pk,
-		List<com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> leaveTypeApplicabilities)
+	public void removeLeaveRuleApplicables(long pk,
+		List<com.rknowsys.eapp.hrm.model.LeaveRuleApplicable> leaveRuleApplicables)
 		throws SystemException {
-		for (com.rknowsys.eapp.hrm.model.LeaveTypeApplicability leaveTypeApplicability : leaveTypeApplicabilities) {
-			employmentStatusToLeaveTypeApplicabilityTableMapper.deleteTableMapping(pk,
-				leaveTypeApplicability.getPrimaryKey());
+		for (com.rknowsys.eapp.hrm.model.LeaveRuleApplicable leaveRuleApplicable : leaveRuleApplicables) {
+			employmentStatusToLeaveRuleApplicableTableMapper.deleteTableMapping(pk,
+				leaveRuleApplicable.getPrimaryKey());
 		}
 	}
 
 	/**
-	 * Sets the leave type applicabilities associated with the employment status, removing and adding associations as necessary. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 * Sets the leave rule applicables associated with the employment status, removing and adding associations as necessary. Also notifies the appropriate model listeners and clears the mapping table finder cache.
 	 *
 	 * @param pk the primary key of the employment status
-	 * @param leaveTypeApplicabilityPKs the primary keys of the leave type applicabilities to be associated with the employment status
+	 * @param leaveRuleApplicablePKs the primary keys of the leave rule applicables to be associated with the employment status
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void setLeaveTypeApplicabilities(long pk,
-		long[] leaveTypeApplicabilityPKs) throws SystemException {
-		Set<Long> newLeaveTypeApplicabilityPKsSet = SetUtil.fromArray(leaveTypeApplicabilityPKs);
-		Set<Long> oldLeaveTypeApplicabilityPKsSet = SetUtil.fromArray(employmentStatusToLeaveTypeApplicabilityTableMapper.getRightPrimaryKeys(
+	public void setLeaveRuleApplicables(long pk, long[] leaveRuleApplicablePKs)
+		throws SystemException {
+		Set<Long> newLeaveRuleApplicablePKsSet = SetUtil.fromArray(leaveRuleApplicablePKs);
+		Set<Long> oldLeaveRuleApplicablePKsSet = SetUtil.fromArray(employmentStatusToLeaveRuleApplicableTableMapper.getRightPrimaryKeys(
 					pk));
 
-		Set<Long> removeLeaveTypeApplicabilityPKsSet = new HashSet<Long>(oldLeaveTypeApplicabilityPKsSet);
+		Set<Long> removeLeaveRuleApplicablePKsSet = new HashSet<Long>(oldLeaveRuleApplicablePKsSet);
 
-		removeLeaveTypeApplicabilityPKsSet.removeAll(newLeaveTypeApplicabilityPKsSet);
+		removeLeaveRuleApplicablePKsSet.removeAll(newLeaveRuleApplicablePKsSet);
 
-		for (long removeLeaveTypeApplicabilityPK : removeLeaveTypeApplicabilityPKsSet) {
-			employmentStatusToLeaveTypeApplicabilityTableMapper.deleteTableMapping(pk,
-				removeLeaveTypeApplicabilityPK);
+		for (long removeLeaveRuleApplicablePK : removeLeaveRuleApplicablePKsSet) {
+			employmentStatusToLeaveRuleApplicableTableMapper.deleteTableMapping(pk,
+				removeLeaveRuleApplicablePK);
 		}
 
-		newLeaveTypeApplicabilityPKsSet.removeAll(oldLeaveTypeApplicabilityPKsSet);
+		newLeaveRuleApplicablePKsSet.removeAll(oldLeaveRuleApplicablePKsSet);
 
-		for (long newLeaveTypeApplicabilityPK : newLeaveTypeApplicabilityPKsSet) {
-			employmentStatusToLeaveTypeApplicabilityTableMapper.addTableMapping(pk,
-				newLeaveTypeApplicabilityPK);
+		for (long newLeaveRuleApplicablePK : newLeaveRuleApplicablePKsSet) {
+			employmentStatusToLeaveRuleApplicableTableMapper.addTableMapping(pk,
+				newLeaveRuleApplicablePK);
 		}
 	}
 
 	/**
-	 * Sets the leave type applicabilities associated with the employment status, removing and adding associations as necessary. Also notifies the appropriate model listeners and clears the mapping table finder cache.
+	 * Sets the leave rule applicables associated with the employment status, removing and adding associations as necessary. Also notifies the appropriate model listeners and clears the mapping table finder cache.
 	 *
 	 * @param pk the primary key of the employment status
-	 * @param leaveTypeApplicabilities the leave type applicabilities to be associated with the employment status
+	 * @param leaveRuleApplicables the leave rule applicables to be associated with the employment status
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void setLeaveTypeApplicabilities(long pk,
-		List<com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> leaveTypeApplicabilities)
+	public void setLeaveRuleApplicables(long pk,
+		List<com.rknowsys.eapp.hrm.model.LeaveRuleApplicable> leaveRuleApplicables)
 		throws SystemException {
 		try {
-			long[] leaveTypeApplicabilityPKs = new long[leaveTypeApplicabilities.size()];
+			long[] leaveRuleApplicablePKs = new long[leaveRuleApplicables.size()];
 
-			for (int i = 0; i < leaveTypeApplicabilities.size(); i++) {
-				com.rknowsys.eapp.hrm.model.LeaveTypeApplicability leaveTypeApplicability =
-					leaveTypeApplicabilities.get(i);
+			for (int i = 0; i < leaveRuleApplicables.size(); i++) {
+				com.rknowsys.eapp.hrm.model.LeaveRuleApplicable leaveRuleApplicable =
+					leaveRuleApplicables.get(i);
 
-				leaveTypeApplicabilityPKs[i] = leaveTypeApplicability.getPrimaryKey();
+				leaveRuleApplicablePKs[i] = leaveRuleApplicable.getPrimaryKey();
 			}
 
-			setLeaveTypeApplicabilities(pk, leaveTypeApplicabilityPKs);
+			setLeaveRuleApplicables(pk, leaveRuleApplicablePKs);
 		}
 		catch (Exception e) {
 			throw processException(e);
 		}
 		finally {
-			FinderCacheUtil.clearCache(EmploymentStatusModelImpl.MAPPING_TABLE_HRM_APPLICABLE_EMPLOYMENT_STATUSES_NAME);
+			FinderCacheUtil.clearCache(EmploymentStatusModelImpl.MAPPING_TABLE_HRM_LRA_EMPLOYMENTSTATUS_NAME);
 		}
 	}
 
@@ -943,9 +940,9 @@ public class EmploymentStatusPersistenceImpl extends BasePersistenceImpl<Employm
 			}
 		}
 
-		employmentStatusToLeaveTypeApplicabilityTableMapper = TableMapperFactory.getTableMapper("hrm_applicable_employment_statuses",
-				"employmentStatusId", "leaveTypeApplicabilityId", this,
-				leaveTypeApplicabilityPersistence);
+		employmentStatusToLeaveRuleApplicableTableMapper = TableMapperFactory.getTableMapper("hrm_lra_employmentStatus",
+				"employmentStatusId", "leaveRuleApplicableId", this,
+				leaveRuleApplicablePersistence);
 	}
 
 	public void destroy() {
@@ -955,9 +952,9 @@ public class EmploymentStatusPersistenceImpl extends BasePersistenceImpl<Employm
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 	}
 
-	@BeanReference(type = LeaveTypeApplicabilityPersistence.class)
-	protected LeaveTypeApplicabilityPersistence leaveTypeApplicabilityPersistence;
-	protected TableMapper<EmploymentStatus, com.rknowsys.eapp.hrm.model.LeaveTypeApplicability> employmentStatusToLeaveTypeApplicabilityTableMapper;
+	@BeanReference(type = LeaveRuleApplicablePersistence.class)
+	protected LeaveRuleApplicablePersistence leaveRuleApplicablePersistence;
+	protected TableMapper<EmploymentStatus, com.rknowsys.eapp.hrm.model.LeaveRuleApplicable> employmentStatusToLeaveRuleApplicableTableMapper;
 	private static final String _SQL_SELECT_EMPLOYMENTSTATUS = "SELECT employmentStatus FROM EmploymentStatus employmentStatus";
 	private static final String _SQL_COUNT_EMPLOYMENTSTATUS = "SELECT COUNT(employmentStatus) FROM EmploymentStatus employmentStatus";
 	private static final String _ORDER_BY_ENTITY_ALIAS = "employmentStatus.";

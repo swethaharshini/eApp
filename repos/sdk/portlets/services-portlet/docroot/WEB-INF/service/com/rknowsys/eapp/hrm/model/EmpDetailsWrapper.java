@@ -133,7 +133,7 @@ public class EmpDetailsWrapper implements EmpDetails, ModelWrapper<EmpDetails> {
 			setName(name);
 		}
 
-		String supervisor = (String)attributes.get("supervisor");
+		Long supervisor = (Long)attributes.get("supervisor");
 
 		if (supervisor != null) {
 			setSupervisor(supervisor);
@@ -408,7 +408,7 @@ public class EmpDetailsWrapper implements EmpDetails, ModelWrapper<EmpDetails> {
 	* @return the supervisor of this emp details
 	*/
 	@Override
-	public java.lang.String getSupervisor() {
+	public long getSupervisor() {
 		return _empDetails.getSupervisor();
 	}
 
@@ -418,7 +418,7 @@ public class EmpDetailsWrapper implements EmpDetails, ModelWrapper<EmpDetails> {
 	* @param supervisor the supervisor of this emp details
 	*/
 	@Override
-	public void setSupervisor(java.lang.String supervisor) {
+	public void setSupervisor(long supervisor) {
 		_empDetails.setSupervisor(supervisor);
 	}
 

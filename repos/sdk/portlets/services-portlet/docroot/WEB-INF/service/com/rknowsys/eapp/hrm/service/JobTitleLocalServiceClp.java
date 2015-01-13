@@ -106,74 +106,74 @@ public class JobTitleLocalServiceClp implements JobTitleLocalService {
 				"com.rknowsys.eapp.hrm.model.JobTitle"
 			};
 
-		_methodName16 = "addLeaveTypeApplicabilityJobTitle";
+		_methodName16 = "addLeaveRuleApplicableJobTitle";
 
 		_methodParameterTypes16 = new String[] { "long", "long" };
 
-		_methodName17 = "addLeaveTypeApplicabilityJobTitle";
+		_methodName17 = "addLeaveRuleApplicableJobTitle";
 
 		_methodParameterTypes17 = new String[] {
 				"long", "com.rknowsys.eapp.hrm.model.JobTitle"
 			};
 
-		_methodName18 = "addLeaveTypeApplicabilityJobTitles";
+		_methodName18 = "addLeaveRuleApplicableJobTitles";
 
 		_methodParameterTypes18 = new String[] { "long", "long[][]" };
 
-		_methodName19 = "addLeaveTypeApplicabilityJobTitles";
+		_methodName19 = "addLeaveRuleApplicableJobTitles";
 
 		_methodParameterTypes19 = new String[] { "long", "java.util.List" };
 
-		_methodName20 = "clearLeaveTypeApplicabilityJobTitles";
+		_methodName20 = "clearLeaveRuleApplicableJobTitles";
 
 		_methodParameterTypes20 = new String[] { "long" };
 
-		_methodName21 = "deleteLeaveTypeApplicabilityJobTitle";
+		_methodName21 = "deleteLeaveRuleApplicableJobTitle";
 
 		_methodParameterTypes21 = new String[] { "long", "long" };
 
-		_methodName22 = "deleteLeaveTypeApplicabilityJobTitle";
+		_methodName22 = "deleteLeaveRuleApplicableJobTitle";
 
 		_methodParameterTypes22 = new String[] {
 				"long", "com.rknowsys.eapp.hrm.model.JobTitle"
 			};
 
-		_methodName23 = "deleteLeaveTypeApplicabilityJobTitles";
+		_methodName23 = "deleteLeaveRuleApplicableJobTitles";
 
 		_methodParameterTypes23 = new String[] { "long", "long[][]" };
 
-		_methodName24 = "deleteLeaveTypeApplicabilityJobTitles";
+		_methodName24 = "deleteLeaveRuleApplicableJobTitles";
 
 		_methodParameterTypes24 = new String[] { "long", "java.util.List" };
 
-		_methodName25 = "getLeaveTypeApplicabilityJobTitles";
+		_methodName25 = "getLeaveRuleApplicableJobTitles";
 
 		_methodParameterTypes25 = new String[] { "long" };
 
-		_methodName26 = "getLeaveTypeApplicabilityJobTitles";
+		_methodName26 = "getLeaveRuleApplicableJobTitles";
 
 		_methodParameterTypes26 = new String[] { "long", "int", "int" };
 
-		_methodName27 = "getLeaveTypeApplicabilityJobTitles";
+		_methodName27 = "getLeaveRuleApplicableJobTitles";
 
 		_methodParameterTypes27 = new String[] {
 				"long", "int", "int",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName28 = "getLeaveTypeApplicabilityJobTitlesCount";
+		_methodName28 = "getLeaveRuleApplicableJobTitlesCount";
 
 		_methodParameterTypes28 = new String[] { "long" };
 
-		_methodName29 = "hasLeaveTypeApplicabilityJobTitle";
+		_methodName29 = "hasLeaveRuleApplicableJobTitle";
 
 		_methodParameterTypes29 = new String[] { "long", "long" };
 
-		_methodName30 = "hasLeaveTypeApplicabilityJobTitles";
+		_methodName30 = "hasLeaveRuleApplicableJobTitles";
 
 		_methodParameterTypes30 = new String[] { "long" };
 
-		_methodName31 = "setLeaveTypeApplicabilityJobTitles";
+		_methodName31 = "setLeaveRuleApplicableJobTitles";
 
 		_methodParameterTypes31 = new String[] { "long", "long[][]" };
 
@@ -683,13 +683,13 @@ public class JobTitleLocalServiceClp implements JobTitleLocalService {
 	}
 
 	@Override
-	public void addLeaveTypeApplicabilityJobTitle(
-		long leaveTypeApplicabilityId, long jobTitleId)
+	public void addLeaveRuleApplicableJobTitle(long leaveRuleApplicableId,
+		long jobTitleId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		try {
 			_invokableLocalService.invokeMethod(_methodName16,
 				_methodParameterTypes16,
-				new Object[] { leaveTypeApplicabilityId, jobTitleId });
+				new Object[] { leaveRuleApplicableId, jobTitleId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -709,15 +709,14 @@ public class JobTitleLocalServiceClp implements JobTitleLocalService {
 	}
 
 	@Override
-	public void addLeaveTypeApplicabilityJobTitle(
-		long leaveTypeApplicabilityId,
+	public void addLeaveRuleApplicableJobTitle(long leaveRuleApplicableId,
 		com.rknowsys.eapp.hrm.model.JobTitle jobTitle)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		try {
 			_invokableLocalService.invokeMethod(_methodName17,
 				_methodParameterTypes17,
 				new Object[] {
-					leaveTypeApplicabilityId,
+					leaveRuleApplicableId,
 					
 				ClpSerializer.translateInput(jobTitle)
 				});
@@ -740,14 +739,14 @@ public class JobTitleLocalServiceClp implements JobTitleLocalService {
 	}
 
 	@Override
-	public void addLeaveTypeApplicabilityJobTitles(
-		long leaveTypeApplicabilityId, long[] jobTitleIds)
+	public void addLeaveRuleApplicableJobTitles(long leaveRuleApplicableId,
+		long[] jobTitleIds)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		try {
 			_invokableLocalService.invokeMethod(_methodName18,
 				_methodParameterTypes18,
 				new Object[] {
-					leaveTypeApplicabilityId,
+					leaveRuleApplicableId,
 					
 				ClpSerializer.translateInput(jobTitleIds)
 				});
@@ -770,15 +769,14 @@ public class JobTitleLocalServiceClp implements JobTitleLocalService {
 	}
 
 	@Override
-	public void addLeaveTypeApplicabilityJobTitles(
-		long leaveTypeApplicabilityId,
+	public void addLeaveRuleApplicableJobTitles(long leaveRuleApplicableId,
 		java.util.List<com.rknowsys.eapp.hrm.model.JobTitle> JobTitles)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		try {
 			_invokableLocalService.invokeMethod(_methodName19,
 				_methodParameterTypes19,
 				new Object[] {
-					leaveTypeApplicabilityId,
+					leaveRuleApplicableId,
 					
 				ClpSerializer.translateInput(JobTitles)
 				});
@@ -801,13 +799,11 @@ public class JobTitleLocalServiceClp implements JobTitleLocalService {
 	}
 
 	@Override
-	public void clearLeaveTypeApplicabilityJobTitles(
-		long leaveTypeApplicabilityId)
+	public void clearLeaveRuleApplicableJobTitles(long leaveRuleApplicableId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		try {
 			_invokableLocalService.invokeMethod(_methodName20,
-				_methodParameterTypes20,
-				new Object[] { leaveTypeApplicabilityId });
+				_methodParameterTypes20, new Object[] { leaveRuleApplicableId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -827,13 +823,13 @@ public class JobTitleLocalServiceClp implements JobTitleLocalService {
 	}
 
 	@Override
-	public void deleteLeaveTypeApplicabilityJobTitle(
-		long leaveTypeApplicabilityId, long jobTitleId)
+	public void deleteLeaveRuleApplicableJobTitle(long leaveRuleApplicableId,
+		long jobTitleId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		try {
 			_invokableLocalService.invokeMethod(_methodName21,
 				_methodParameterTypes21,
-				new Object[] { leaveTypeApplicabilityId, jobTitleId });
+				new Object[] { leaveRuleApplicableId, jobTitleId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -853,15 +849,14 @@ public class JobTitleLocalServiceClp implements JobTitleLocalService {
 	}
 
 	@Override
-	public void deleteLeaveTypeApplicabilityJobTitle(
-		long leaveTypeApplicabilityId,
+	public void deleteLeaveRuleApplicableJobTitle(long leaveRuleApplicableId,
 		com.rknowsys.eapp.hrm.model.JobTitle jobTitle)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		try {
 			_invokableLocalService.invokeMethod(_methodName22,
 				_methodParameterTypes22,
 				new Object[] {
-					leaveTypeApplicabilityId,
+					leaveRuleApplicableId,
 					
 				ClpSerializer.translateInput(jobTitle)
 				});
@@ -884,14 +879,14 @@ public class JobTitleLocalServiceClp implements JobTitleLocalService {
 	}
 
 	@Override
-	public void deleteLeaveTypeApplicabilityJobTitles(
-		long leaveTypeApplicabilityId, long[] jobTitleIds)
+	public void deleteLeaveRuleApplicableJobTitles(long leaveRuleApplicableId,
+		long[] jobTitleIds)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		try {
 			_invokableLocalService.invokeMethod(_methodName23,
 				_methodParameterTypes23,
 				new Object[] {
-					leaveTypeApplicabilityId,
+					leaveRuleApplicableId,
 					
 				ClpSerializer.translateInput(jobTitleIds)
 				});
@@ -914,15 +909,14 @@ public class JobTitleLocalServiceClp implements JobTitleLocalService {
 	}
 
 	@Override
-	public void deleteLeaveTypeApplicabilityJobTitles(
-		long leaveTypeApplicabilityId,
+	public void deleteLeaveRuleApplicableJobTitles(long leaveRuleApplicableId,
 		java.util.List<com.rknowsys.eapp.hrm.model.JobTitle> JobTitles)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		try {
 			_invokableLocalService.invokeMethod(_methodName24,
 				_methodParameterTypes24,
 				new Object[] {
-					leaveTypeApplicabilityId,
+					leaveRuleApplicableId,
 					
 				ClpSerializer.translateInput(JobTitles)
 				});
@@ -945,15 +939,15 @@ public class JobTitleLocalServiceClp implements JobTitleLocalService {
 	}
 
 	@Override
-	public java.util.List<com.rknowsys.eapp.hrm.model.JobTitle> getLeaveTypeApplicabilityJobTitles(
-		long leaveTypeApplicabilityId)
+	public java.util.List<com.rknowsys.eapp.hrm.model.JobTitle> getLeaveRuleApplicableJobTitles(
+		long leaveRuleApplicableId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName25,
 					_methodParameterTypes25,
-					new Object[] { leaveTypeApplicabilityId });
+					new Object[] { leaveRuleApplicableId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -975,15 +969,15 @@ public class JobTitleLocalServiceClp implements JobTitleLocalService {
 	}
 
 	@Override
-	public java.util.List<com.rknowsys.eapp.hrm.model.JobTitle> getLeaveTypeApplicabilityJobTitles(
-		long leaveTypeApplicabilityId, int start, int end)
+	public java.util.List<com.rknowsys.eapp.hrm.model.JobTitle> getLeaveRuleApplicableJobTitles(
+		long leaveRuleApplicableId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName26,
 					_methodParameterTypes26,
-					new Object[] { leaveTypeApplicabilityId, start, end });
+					new Object[] { leaveRuleApplicableId, start, end });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -1005,8 +999,8 @@ public class JobTitleLocalServiceClp implements JobTitleLocalService {
 	}
 
 	@Override
-	public java.util.List<com.rknowsys.eapp.hrm.model.JobTitle> getLeaveTypeApplicabilityJobTitles(
-		long leaveTypeApplicabilityId, int start, int end,
+	public java.util.List<com.rknowsys.eapp.hrm.model.JobTitle> getLeaveRuleApplicableJobTitles(
+		long leaveRuleApplicableId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -1015,7 +1009,7 @@ public class JobTitleLocalServiceClp implements JobTitleLocalService {
 			returnObj = _invokableLocalService.invokeMethod(_methodName27,
 					_methodParameterTypes27,
 					new Object[] {
-						leaveTypeApplicabilityId,
+						leaveRuleApplicableId,
 						
 					start,
 						
@@ -1044,15 +1038,14 @@ public class JobTitleLocalServiceClp implements JobTitleLocalService {
 	}
 
 	@Override
-	public int getLeaveTypeApplicabilityJobTitlesCount(
-		long leaveTypeApplicabilityId)
+	public int getLeaveRuleApplicableJobTitlesCount(long leaveRuleApplicableId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName28,
 					_methodParameterTypes28,
-					new Object[] { leaveTypeApplicabilityId });
+					new Object[] { leaveRuleApplicableId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -1074,15 +1067,15 @@ public class JobTitleLocalServiceClp implements JobTitleLocalService {
 	}
 
 	@Override
-	public boolean hasLeaveTypeApplicabilityJobTitle(
-		long leaveTypeApplicabilityId, long jobTitleId)
+	public boolean hasLeaveRuleApplicableJobTitle(long leaveRuleApplicableId,
+		long jobTitleId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName29,
 					_methodParameterTypes29,
-					new Object[] { leaveTypeApplicabilityId, jobTitleId });
+					new Object[] { leaveRuleApplicableId, jobTitleId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -1104,15 +1097,14 @@ public class JobTitleLocalServiceClp implements JobTitleLocalService {
 	}
 
 	@Override
-	public boolean hasLeaveTypeApplicabilityJobTitles(
-		long leaveTypeApplicabilityId)
+	public boolean hasLeaveRuleApplicableJobTitles(long leaveRuleApplicableId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName30,
 					_methodParameterTypes30,
-					new Object[] { leaveTypeApplicabilityId });
+					new Object[] { leaveRuleApplicableId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -1134,14 +1126,14 @@ public class JobTitleLocalServiceClp implements JobTitleLocalService {
 	}
 
 	@Override
-	public void setLeaveTypeApplicabilityJobTitles(
-		long leaveTypeApplicabilityId, long[] jobTitleIds)
+	public void setLeaveRuleApplicableJobTitles(long leaveRuleApplicableId,
+		long[] jobTitleIds)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		try {
 			_invokableLocalService.invokeMethod(_methodName31,
 				_methodParameterTypes31,
 				new Object[] {
-					leaveTypeApplicabilityId,
+					leaveRuleApplicableId,
 					
 				ClpSerializer.translateInput(jobTitleIds)
 				});

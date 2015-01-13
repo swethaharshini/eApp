@@ -14,6 +14,7 @@
 
 package com.rknowsys.eapp.hrm.model;
 
+import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.CacheModel;
@@ -191,14 +192,15 @@ public interface EmpSupervisorModel extends BaseModel<EmpSupervisor> {
 	 *
 	 * @return the reporting method of this EmpSupervisor
 	 */
-	public long getReportingMethod();
+	@AutoEscape
+	public String getReportingMethod();
 
 	/**
 	 * Sets the reporting method of this EmpSupervisor.
 	 *
 	 * @param reportingMethod the reporting method of this EmpSupervisor
 	 */
-	public void setReportingMethod(long reportingMethod);
+	public void setReportingMethod(String reportingMethod);
 
 	@Override
 	public boolean isNew();

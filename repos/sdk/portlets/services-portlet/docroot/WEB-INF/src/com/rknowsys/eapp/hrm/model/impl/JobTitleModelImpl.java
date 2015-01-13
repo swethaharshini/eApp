@@ -90,17 +90,14 @@ public class JobTitleModelImpl extends BaseModelImpl<JobTitle>
 			true);
 	public static long GROUPID_COLUMN_BITMASK = 1L;
 	public static long JOBTITLEID_COLUMN_BITMASK = 2L;
-	public static final String MAPPING_TABLE_HRM_APPLICABLE_JOB_TITLES_NAME = "hrm_applicable_job_titles";
-	public static final Object[][] MAPPING_TABLE_HRM_APPLICABLE_JOB_TITLES_COLUMNS =
-		{
-			{ "leaveTypeApplicabilityId", Types.BIGINT },
+	public static final String MAPPING_TABLE_HRM_LRA_JOBTITLES_NAME = "hrm_lra_jobTitles";
+	public static final Object[][] MAPPING_TABLE_HRM_LRA_JOBTITLES_COLUMNS = {
+			{ "leaveRuleApplicableId", Types.BIGINT },
 			{ "jobTitleId", Types.BIGINT }
 		};
-	public static final String MAPPING_TABLE_HRM_APPLICABLE_JOB_TITLES_SQL_CREATE =
-		"create table hrm_applicable_job_titles (jobTitleId LONG not null,leaveTypeApplicabilityId LONG not null,primary key (jobTitleId, leaveTypeApplicabilityId))";
-	public static final boolean FINDER_CACHE_ENABLED_HRM_APPLICABLE_JOB_TITLES = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
-				"value.object.finder.cache.enabled.hrm_applicable_job_titles"),
-			true);
+	public static final String MAPPING_TABLE_HRM_LRA_JOBTITLES_SQL_CREATE = "create table hrm_lra_jobTitles (jobTitleId LONG not null,leaveRuleApplicableId LONG not null,primary key (jobTitleId, leaveRuleApplicableId))";
+	public static final boolean FINDER_CACHE_ENABLED_HRM_LRA_JOBTITLES = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
+				"value.object.finder.cache.enabled.hrm_lra_jobTitles"), true);
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.rknowsys.eapp.hrm.model.JobTitle"));
 

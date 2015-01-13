@@ -145,7 +145,7 @@ public class EmpImmigrationDocumentWrapper implements EmpImmigrationDocument,
 			setEligibleStatus(eligibleStatus);
 		}
 
-		String issuedBy = (String)attributes.get("issuedBy");
+		Long issuedBy = (Long)attributes.get("issuedBy");
 
 		if (issuedBy != null) {
 			setIssuedBy(issuedBy);
@@ -452,7 +452,7 @@ public class EmpImmigrationDocumentWrapper implements EmpImmigrationDocument,
 	* @return the issued by of this ImmigrationDocument
 	*/
 	@Override
-	public java.lang.String getIssuedBy() {
+	public long getIssuedBy() {
 		return _empImmigrationDocument.getIssuedBy();
 	}
 
@@ -462,7 +462,7 @@ public class EmpImmigrationDocumentWrapper implements EmpImmigrationDocument,
 	* @param issuedBy the issued by of this ImmigrationDocument
 	*/
 	@Override
-	public void setIssuedBy(java.lang.String issuedBy) {
+	public void setIssuedBy(long issuedBy) {
 		_empImmigrationDocument.setIssuedBy(issuedBy);
 	}
 
