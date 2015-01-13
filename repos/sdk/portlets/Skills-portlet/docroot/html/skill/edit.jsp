@@ -106,34 +106,24 @@ AUI().use(
 <body>
 <jsp:useBean id="editSkill" type="com.rknowsys.eapp.hrm.model.Skill" scope="request" />
 <div id="editSkillAddDelete" class="span12">
-		<a href="#" id="add">Add</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"
-			id="delete">Delete</a>
-	</div>
-	<div id="editSkillForm">
+	<a href="#" class="btn btn-primary" id="add"><i class="icon-plus"></i></a>
+	<a href="#" class="btn btn-danger" id="delete"><i class="icon-trash"></i></a>
+</div>
+<div id="editSkillForm">
   <aui:form name="myForm" action="<%=updateSkills.toString()%>">
+  	<div class="form-horizontal">
 		<aui:input name="skillId" type="hidden" id="skillId"  value="<%=editSkill.getSkillId()%>"/>
-				<div class="span12">
-			<div class="span3">
-				<label>Name</label>
-		</div>
-		<div class="span3">		
-		 <input name="<portlet:namespace/>skill_name" type="text" required = "required" value="<%=editSkill.getSkillName() %>">
+		<aui:input label="name" name="<portlet:namespace/>skill_name" type="text" required = "required" value="<%=editSkill.getSkillName() %>"></aui:input>
+		<aui:input type="textarea" label="Description" name="<portlet:namespace/>skill_description" rows="5" cols="5" ></aui:input>	 
+		<div class="control-group">	
+			<div class="controls">	
+			<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
+			<button  type="reset" id ="cancel" class="btn btn-danger"><i class="icon-remove"></i></button>
 			</div>
 		</div>
-		<div class="span12">
-			<div class="span3">
-				<label>Description</label>
-		</div>
-		<div class="span3">		
-		 <textarea name="<portlet:namespace/>skill_description" rows="5" cols="5"  ></textarea>
-			</div>
-		</div>
-		
-			 
-	<aui:button type="submit" value="Submit"/> <aui:button  type="reset" value="Cancel" id ="editCancel"></aui:button>
-	</aui:form>
 	</div>
-	 <div><label style="color: white" >.</label></div>
+	</aui:form>
+</div>
 </body>
 <%
 PortletURL iteratorURL = renderResponse.createRenderURL();
