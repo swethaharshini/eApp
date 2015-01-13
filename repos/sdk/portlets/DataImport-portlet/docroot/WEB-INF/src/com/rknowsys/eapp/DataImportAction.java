@@ -87,7 +87,7 @@ public class DataImportAction extends MVCPortlet {
 			if (!newDirectory.exists()) {
 				System.out.println("directory does not exist");
 				Path directoryPath = Paths.get(uploadDirectory);
-				Files.createDirectory(directoryPath.getParent());
+				Files.createDirectory(directoryPath);
 			}
 			newFile = new File(uploadDirectory + "/" + d
 					+ Calendar.getInstance().getTimeInMillis() + fileName);
