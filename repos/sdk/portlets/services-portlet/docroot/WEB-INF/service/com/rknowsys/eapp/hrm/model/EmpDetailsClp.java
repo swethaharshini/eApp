@@ -159,7 +159,7 @@ public class EmpDetailsClp extends BaseModelImpl<EmpDetails>
 			setName(name);
 		}
 
-		String supervisor = (String)attributes.get("supervisor");
+		Long supervisor = (Long)attributes.get("supervisor");
 
 		if (supervisor != null) {
 			setSupervisor(supervisor);
@@ -431,19 +431,19 @@ public class EmpDetailsClp extends BaseModelImpl<EmpDetails>
 	}
 
 	@Override
-	public String getSupervisor() {
+	public long getSupervisor() {
 		return _supervisor;
 	}
 
 	@Override
-	public void setSupervisor(String supervisor) {
+	public void setSupervisor(long supervisor) {
 		_supervisor = supervisor;
 
 		if (_empDetailsRemoteModel != null) {
 			try {
 				Class<?> clazz = _empDetailsRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setSupervisor", String.class);
+				Method method = clazz.getMethod("setSupervisor", long.class);
 
 				method.invoke(_empDetailsRemoteModel, supervisor);
 			}
@@ -687,6 +687,6 @@ public class EmpDetailsClp extends BaseModelImpl<EmpDetails>
 	private String _title;
 	private String _employmentstatus;
 	private String _name;
-	private String _supervisor;
+	private long _supervisor;
 	private BaseModel<?> _empDetailsRemoteModel;
 }

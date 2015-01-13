@@ -72,9 +72,13 @@ public class LeaveRuleApplicableModelImpl extends BaseModelImpl<LeaveRuleApplica
 			{ "forMale", Types.BOOLEAN },
 			{ "forYearsOfService", Types.BOOLEAN },
 			{ "fromYears", Types.VARCHAR },
-			{ "toYears", Types.VARCHAR }
+			{ "toYears", Types.VARCHAR },
+			{ "forJobTitles", Types.BOOLEAN },
+			{ "forJobCategories", Types.BOOLEAN },
+			{ "forEmploymentStatus", Types.BOOLEAN },
+			{ "forGender", Types.BOOLEAN }
 		};
-	public static final String TABLE_SQL_CREATE = "create table leave_rule_applicable (leaveRuleApplicableId LONG not null primary key,companyId LONG,groupId LONG,createDate DATE null,modifiedDate DATE null,userId LONG,leaveTypeId LONG,forFemale BOOLEAN,forMale BOOLEAN,forYearsOfService BOOLEAN,fromYears VARCHAR(75) null,toYears VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table leave_rule_applicable (leaveRuleApplicableId LONG not null primary key,companyId LONG,groupId LONG,createDate DATE null,modifiedDate DATE null,userId LONG,leaveTypeId LONG,forFemale BOOLEAN,forMale BOOLEAN,forYearsOfService BOOLEAN,fromYears VARCHAR(75) null,toYears VARCHAR(75) null,forJobTitles BOOLEAN,forJobCategories BOOLEAN,forEmploymentStatus BOOLEAN,forGender BOOLEAN)";
 	public static final String TABLE_SQL_DROP = "drop table leave_rule_applicable";
 	public static final String ORDER_BY_JPQL = " ORDER BY leaveRuleApplicable.leaveRuleApplicableId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY leave_rule_applicable.leaveRuleApplicableId ASC";
@@ -172,6 +176,10 @@ public class LeaveRuleApplicableModelImpl extends BaseModelImpl<LeaveRuleApplica
 		attributes.put("forYearsOfService", getForYearsOfService());
 		attributes.put("fromYears", getFromYears());
 		attributes.put("toYears", getToYears());
+		attributes.put("forJobTitles", getForJobTitles());
+		attributes.put("forJobCategories", getForJobCategories());
+		attributes.put("forEmploymentStatus", getForEmploymentStatus());
+		attributes.put("forGender", getForGender());
 
 		return attributes;
 	}
@@ -249,6 +257,31 @@ public class LeaveRuleApplicableModelImpl extends BaseModelImpl<LeaveRuleApplica
 
 		if (toYears != null) {
 			setToYears(toYears);
+		}
+
+		Boolean forJobTitles = (Boolean)attributes.get("forJobTitles");
+
+		if (forJobTitles != null) {
+			setForJobTitles(forJobTitles);
+		}
+
+		Boolean forJobCategories = (Boolean)attributes.get("forJobCategories");
+
+		if (forJobCategories != null) {
+			setForJobCategories(forJobCategories);
+		}
+
+		Boolean forEmploymentStatus = (Boolean)attributes.get(
+				"forEmploymentStatus");
+
+		if (forEmploymentStatus != null) {
+			setForEmploymentStatus(forEmploymentStatus);
+		}
+
+		Boolean forGender = (Boolean)attributes.get("forGender");
+
+		if (forGender != null) {
+			setForGender(forGender);
 		}
 	}
 
@@ -431,6 +464,66 @@ public class LeaveRuleApplicableModelImpl extends BaseModelImpl<LeaveRuleApplica
 		_toYears = toYears;
 	}
 
+	@Override
+	public boolean getForJobTitles() {
+		return _forJobTitles;
+	}
+
+	@Override
+	public boolean isForJobTitles() {
+		return _forJobTitles;
+	}
+
+	@Override
+	public void setForJobTitles(boolean forJobTitles) {
+		_forJobTitles = forJobTitles;
+	}
+
+	@Override
+	public boolean getForJobCategories() {
+		return _forJobCategories;
+	}
+
+	@Override
+	public boolean isForJobCategories() {
+		return _forJobCategories;
+	}
+
+	@Override
+	public void setForJobCategories(boolean forJobCategories) {
+		_forJobCategories = forJobCategories;
+	}
+
+	@Override
+	public boolean getForEmploymentStatus() {
+		return _forEmploymentStatus;
+	}
+
+	@Override
+	public boolean isForEmploymentStatus() {
+		return _forEmploymentStatus;
+	}
+
+	@Override
+	public void setForEmploymentStatus(boolean forEmploymentStatus) {
+		_forEmploymentStatus = forEmploymentStatus;
+	}
+
+	@Override
+	public boolean getForGender() {
+		return _forGender;
+	}
+
+	@Override
+	public boolean isForGender() {
+		return _forGender;
+	}
+
+	@Override
+	public void setForGender(boolean forGender) {
+		_forGender = forGender;
+	}
+
 	public long getColumnBitmask() {
 		return _columnBitmask;
 	}
@@ -474,6 +567,10 @@ public class LeaveRuleApplicableModelImpl extends BaseModelImpl<LeaveRuleApplica
 		leaveRuleApplicableImpl.setForYearsOfService(getForYearsOfService());
 		leaveRuleApplicableImpl.setFromYears(getFromYears());
 		leaveRuleApplicableImpl.setToYears(getToYears());
+		leaveRuleApplicableImpl.setForJobTitles(getForJobTitles());
+		leaveRuleApplicableImpl.setForJobCategories(getForJobCategories());
+		leaveRuleApplicableImpl.setForEmploymentStatus(getForEmploymentStatus());
+		leaveRuleApplicableImpl.setForGender(getForGender());
 
 		leaveRuleApplicableImpl.resetOriginalValues();
 
@@ -591,12 +688,20 @@ public class LeaveRuleApplicableModelImpl extends BaseModelImpl<LeaveRuleApplica
 			leaveRuleApplicableCacheModel.toYears = null;
 		}
 
+		leaveRuleApplicableCacheModel.forJobTitles = getForJobTitles();
+
+		leaveRuleApplicableCacheModel.forJobCategories = getForJobCategories();
+
+		leaveRuleApplicableCacheModel.forEmploymentStatus = getForEmploymentStatus();
+
+		leaveRuleApplicableCacheModel.forGender = getForGender();
+
 		return leaveRuleApplicableCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(25);
+		StringBundler sb = new StringBundler(33);
 
 		sb.append("{leaveRuleApplicableId=");
 		sb.append(getLeaveRuleApplicableId());
@@ -622,6 +727,14 @@ public class LeaveRuleApplicableModelImpl extends BaseModelImpl<LeaveRuleApplica
 		sb.append(getFromYears());
 		sb.append(", toYears=");
 		sb.append(getToYears());
+		sb.append(", forJobTitles=");
+		sb.append(getForJobTitles());
+		sb.append(", forJobCategories=");
+		sb.append(getForJobCategories());
+		sb.append(", forEmploymentStatus=");
+		sb.append(getForEmploymentStatus());
+		sb.append(", forGender=");
+		sb.append(getForGender());
 		sb.append("}");
 
 		return sb.toString();
@@ -629,7 +742,7 @@ public class LeaveRuleApplicableModelImpl extends BaseModelImpl<LeaveRuleApplica
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(40);
+		StringBundler sb = new StringBundler(52);
 
 		sb.append("<model><model-name>");
 		sb.append("com.rknowsys.eapp.hrm.model.LeaveRuleApplicable");
@@ -683,6 +796,22 @@ public class LeaveRuleApplicableModelImpl extends BaseModelImpl<LeaveRuleApplica
 			"<column><column-name>toYears</column-name><column-value><![CDATA[");
 		sb.append(getToYears());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>forJobTitles</column-name><column-value><![CDATA[");
+		sb.append(getForJobTitles());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>forJobCategories</column-name><column-value><![CDATA[");
+		sb.append(getForJobCategories());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>forEmploymentStatus</column-name><column-value><![CDATA[");
+		sb.append(getForEmploymentStatus());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>forGender</column-name><column-value><![CDATA[");
+		sb.append(getForGender());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -710,6 +839,10 @@ public class LeaveRuleApplicableModelImpl extends BaseModelImpl<LeaveRuleApplica
 	private boolean _forYearsOfService;
 	private String _fromYears;
 	private String _toYears;
+	private boolean _forJobTitles;
+	private boolean _forJobCategories;
+	private boolean _forEmploymentStatus;
+	private boolean _forGender;
 	private long _columnBitmask;
 	private LeaveRuleApplicable _escapedModel;
 }

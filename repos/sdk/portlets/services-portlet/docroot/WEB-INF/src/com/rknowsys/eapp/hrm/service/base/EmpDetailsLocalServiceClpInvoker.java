@@ -106,17 +106,17 @@ public class EmpDetailsLocalServiceClpInvoker {
 				"com.rknowsys.eapp.hrm.model.EmpDetails"
 			};
 
-		_methodName232 = "getBeanIdentifier";
+		_methodName236 = "getBeanIdentifier";
 
-		_methodParameterTypes232 = new String[] {  };
+		_methodParameterTypes236 = new String[] {  };
 
-		_methodName233 = "setBeanIdentifier";
+		_methodName237 = "setBeanIdentifier";
 
-		_methodParameterTypes233 = new String[] { "java.lang.String" };
+		_methodParameterTypes237 = new String[] { "java.lang.String" };
 
-		_methodName238 = "findEmpDetails";
+		_methodName242 = "findEmpDetails";
 
-		_methodParameterTypes238 = new String[] {
+		_methodParameterTypes242 = new String[] {
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"int", "int"
@@ -212,20 +212,20 @@ public class EmpDetailsLocalServiceClpInvoker {
 			return EmpDetailsLocalServiceUtil.updateEmpDetails((com.rknowsys.eapp.hrm.model.EmpDetails)arguments[0]);
 		}
 
-		if (_methodName232.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes232, parameterTypes)) {
+		if (_methodName236.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes236, parameterTypes)) {
 			return EmpDetailsLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName233.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes233, parameterTypes)) {
+		if (_methodName237.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes237, parameterTypes)) {
 			EmpDetailsLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName238.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes238, parameterTypes)) {
+		if (_methodName242.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes242, parameterTypes)) {
 			return EmpDetailsLocalServiceUtil.findEmpDetails((java.lang.String)arguments[0],
 				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
 				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
@@ -269,10 +269,10 @@ public class EmpDetailsLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName232;
-	private String[] _methodParameterTypes232;
-	private String _methodName233;
-	private String[] _methodParameterTypes233;
-	private String _methodName238;
-	private String[] _methodParameterTypes238;
+	private String _methodName236;
+	private String[] _methodParameterTypes236;
+	private String _methodName237;
+	private String[] _methodParameterTypes237;
+	private String _methodName242;
+	private String[] _methodParameterTypes242;
 }

@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.service.ServiceContext;
@@ -68,9 +69,9 @@ public class EmpSupervisorModelImpl extends BaseModelImpl<EmpSupervisor>
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "reporterEmployeeId", Types.BIGINT },
-			{ "reportingMethod", Types.BIGINT }
+			{ "reportingMethod", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table emp_supervisor (empSupervisorId LONG not null primary key,employeeId LONG,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,reporterEmployeeId LONG,reportingMethod LONG)";
+	public static final String TABLE_SQL_CREATE = "create table emp_supervisor (empSupervisorId LONG not null primary key,employeeId LONG,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,reporterEmployeeId LONG,reportingMethod VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table emp_supervisor";
 	public static final String ORDER_BY_JPQL = " ORDER BY empSupervisor.empSupervisorId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY emp_supervisor.empSupervisorId ASC";
@@ -187,7 +188,7 @@ public class EmpSupervisorModelImpl extends BaseModelImpl<EmpSupervisor>
 			setReporterEmployeeId(reporterEmployeeId);
 		}
 
-		Long reportingMethod = (Long)attributes.get("reportingMethod");
+		String reportingMethod = (String)attributes.get("reportingMethod");
 
 		if (reportingMethod != null) {
 			setReportingMethod(reportingMethod);
@@ -285,12 +286,17 @@ public class EmpSupervisorModelImpl extends BaseModelImpl<EmpSupervisor>
 	}
 
 	@Override
-	public long getReportingMethod() {
-		return _reportingMethod;
+	public String getReportingMethod() {
+		if (_reportingMethod == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _reportingMethod;
+		}
 	}
 
 	@Override
-	public void setReportingMethod(long reportingMethod) {
+	public void setReportingMethod(String reportingMethod) {
 		_reportingMethod = reportingMethod;
 	}
 
@@ -418,6 +424,12 @@ public class EmpSupervisorModelImpl extends BaseModelImpl<EmpSupervisor>
 
 		empSupervisorCacheModel.reportingMethod = getReportingMethod();
 
+		String reportingMethod = empSupervisorCacheModel.reportingMethod;
+
+		if ((reportingMethod != null) && (reportingMethod.length() == 0)) {
+			empSupervisorCacheModel.reportingMethod = null;
+		}
+
 		return empSupervisorCacheModel;
 	}
 
@@ -511,6 +523,6 @@ public class EmpSupervisorModelImpl extends BaseModelImpl<EmpSupervisor>
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _reporterEmployeeId;
-	private long _reportingMethod;
+	private String _reportingMethod;
 	private EmpSupervisor _escapedModel;
 }

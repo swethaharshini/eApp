@@ -179,42 +179,45 @@ public interface SalaryComponentModel extends BaseModel<SalaryComponent> {
 	 *
 	 * @return the type of this salary component
 	 */
-	public boolean getType();
+	@AutoEscape
+	public String getType();
 
 	/**
-	 * Returns <code>true</code> if this salary component is type.
-	 *
-	 * @return <code>true</code> if this salary component is type; <code>false</code> otherwise
-	 */
-	public boolean isType();
-
-	/**
-	 * Sets whether this salary component is type.
+	 * Sets the type of this salary component.
 	 *
 	 * @param type the type of this salary component
 	 */
-	public void setType(boolean type);
+	public void setType(String type);
 
 	/**
-	 * Returns the only c t c of this salary component.
+	 * Returns the total payable of this salary component.
 	 *
-	 * @return the only c t c of this salary component
+	 * @return the total payable of this salary component
 	 */
-	public boolean getOnlyCTC();
+	@AutoEscape
+	public String getTotalPayable();
 
 	/**
-	 * Returns <code>true</code> if this salary component is only c t c.
+	 * Sets the total payable of this salary component.
 	 *
-	 * @return <code>true</code> if this salary component is only c t c; <code>false</code> otherwise
+	 * @param totalPayable the total payable of this salary component
 	 */
-	public boolean isOnlyCTC();
+	public void setTotalPayable(String totalPayable);
 
 	/**
-	 * Sets whether this salary component is only c t c.
+	 * Returns the cost to company of this salary component.
 	 *
-	 * @param onlyCTC the only c t c of this salary component
+	 * @return the cost to company of this salary component
 	 */
-	public void setOnlyCTC(boolean onlyCTC);
+	@AutoEscape
+	public String getCostToCompany();
+
+	/**
+	 * Sets the cost to company of this salary component.
+	 *
+	 * @param costToCompany the cost to company of this salary component
+	 */
+	public void setCostToCompany(String costToCompany);
 
 	/**
 	 * Returns the value type of this salary component.

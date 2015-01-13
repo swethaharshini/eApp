@@ -195,6 +195,21 @@ public interface LeaveRestrictionModel extends BaseModel<LeaveRestriction> {
 	public void setCannotExceedBalance(boolean cannotExceedBalance);
 
 	/**
+	 * Returns the cant exceed bal for role IDs of this leave restriction.
+	 *
+	 * @return the cant exceed bal for role IDs of this leave restriction
+	 */
+	@AutoEscape
+	public String getCantExceedBalForRoleIds();
+
+	/**
+	 * Sets the cant exceed bal for role IDs of this leave restriction.
+	 *
+	 * @param cantExceedBalForRoleIds the cant exceed bal for role IDs of this leave restriction
+	 */
+	public void setCantExceedBalForRoleIds(String cantExceedBalForRoleIds);
+
+	/**
 	 * Returns the cannot apply for partial day of this leave restriction.
 	 *
 	 * @return the cannot apply for partial day of this leave restriction
@@ -216,25 +231,20 @@ public interface LeaveRestrictionModel extends BaseModel<LeaveRestriction> {
 	public void setCannotApplyForPartialDay(boolean cannotApplyForPartialDay);
 
 	/**
-	 * Returns the if a terms question of this leave restriction.
+	 * Returns the cant apply partial day for role IDs of this leave restriction.
 	 *
-	 * @return the if a terms question of this leave restriction
+	 * @return the cant apply partial day for role IDs of this leave restriction
 	 */
-	public boolean getIfATermsQuestion();
+	@AutoEscape
+	public String getCantApplyPartialDayForRoleIds();
 
 	/**
-	 * Returns <code>true</code> if this leave restriction is if a terms question.
+	 * Sets the cant apply partial day for role IDs of this leave restriction.
 	 *
-	 * @return <code>true</code> if this leave restriction is if a terms question; <code>false</code> otherwise
+	 * @param cantApplyPartialDayForRoleIds the cant apply partial day for role IDs of this leave restriction
 	 */
-	public boolean isIfATermsQuestion();
-
-	/**
-	 * Sets whether this leave restriction is if a terms question.
-	 *
-	 * @param ifATermsQuestion the if a terms question of this leave restriction
-	 */
-	public void setIfATermsQuestion(boolean ifATermsQuestion);
+	public void setCantApplyPartialDayForRoleIds(
+		String cantApplyPartialDayForRoleIds);
 
 	/**
 	 * Returns the terms question of this leave restriction.
@@ -252,6 +262,21 @@ public interface LeaveRestrictionModel extends BaseModel<LeaveRestriction> {
 	public void setTermsQuestion(String termsQuestion);
 
 	/**
+	 * Returns the terms qsn for role IDs of this leave restriction.
+	 *
+	 * @return the terms qsn for role IDs of this leave restriction
+	 */
+	@AutoEscape
+	public String getTermsQsnForRoleIds();
+
+	/**
+	 * Sets the terms qsn for role IDs of this leave restriction.
+	 *
+	 * @param termsQsnForRoleIds the terms qsn for role IDs of this leave restriction
+	 */
+	public void setTermsQsnForRoleIds(String termsQsnForRoleIds);
+
+	/**
 	 * Returns the error text if terms declined of this leave restriction.
 	 *
 	 * @return the error text if terms declined of this leave restriction
@@ -265,28 +290,6 @@ public interface LeaveRestrictionModel extends BaseModel<LeaveRestriction> {
 	 * @param errorTextIfTermsDeclined the error text if terms declined of this leave restriction
 	 */
 	public void setErrorTextIfTermsDeclined(String errorTextIfTermsDeclined);
-
-	/**
-	 * Returns the is minimum service period applicable of this leave restriction.
-	 *
-	 * @return the is minimum service period applicable of this leave restriction
-	 */
-	public boolean getIsMinimumServicePeriodApplicable();
-
-	/**
-	 * Returns <code>true</code> if this leave restriction is is minimum service period applicable.
-	 *
-	 * @return <code>true</code> if this leave restriction is is minimum service period applicable; <code>false</code> otherwise
-	 */
-	public boolean isIsMinimumServicePeriodApplicable();
-
-	/**
-	 * Sets whether this leave restriction is is minimum service period applicable.
-	 *
-	 * @param isMinimumServicePeriodApplicable the is minimum service period applicable of this leave restriction
-	 */
-	public void setIsMinimumServicePeriodApplicable(
-		boolean isMinimumServicePeriodApplicable);
 
 	/**
 	 * Returns the minimum service period of this leave restriction.
@@ -304,26 +307,19 @@ public interface LeaveRestrictionModel extends BaseModel<LeaveRestriction> {
 	public void setMinimumServicePeriod(String minimumServicePeriod);
 
 	/**
-	 * Returns the is max consecutive leaves applicable of this leave restriction.
+	 * Returns the min service period for role IDs of this leave restriction.
 	 *
-	 * @return the is max consecutive leaves applicable of this leave restriction
+	 * @return the min service period for role IDs of this leave restriction
 	 */
-	public boolean getIsMaxConsecutiveLeavesApplicable();
+	@AutoEscape
+	public String getMinServicePeriodForRoleIds();
 
 	/**
-	 * Returns <code>true</code> if this leave restriction is is max consecutive leaves applicable.
+	 * Sets the min service period for role IDs of this leave restriction.
 	 *
-	 * @return <code>true</code> if this leave restriction is is max consecutive leaves applicable; <code>false</code> otherwise
+	 * @param minServicePeriodForRoleIds the min service period for role IDs of this leave restriction
 	 */
-	public boolean isIsMaxConsecutiveLeavesApplicable();
-
-	/**
-	 * Sets whether this leave restriction is is max consecutive leaves applicable.
-	 *
-	 * @param isMaxConsecutiveLeavesApplicable the is max consecutive leaves applicable of this leave restriction
-	 */
-	public void setIsMaxConsecutiveLeavesApplicable(
-		boolean isMaxConsecutiveLeavesApplicable);
+	public void setMinServicePeriodForRoleIds(String minServicePeriodForRoleIds);
 
 	/**
 	 * Returns the max consecutive leaves of this leave restriction.
@@ -341,26 +337,19 @@ public interface LeaveRestrictionModel extends BaseModel<LeaveRestriction> {
 	public void setMaxConsecutiveLeaves(String maxConsecutiveLeaves);
 
 	/**
-	 * Returns the is small child criterion applicable of this leave restriction.
+	 * Returns the max consec leaves for role IDs of this leave restriction.
 	 *
-	 * @return the is small child criterion applicable of this leave restriction
+	 * @return the max consec leaves for role IDs of this leave restriction
 	 */
-	public boolean getIsSmallChildCriterionApplicable();
+	@AutoEscape
+	public String getMaxConsecLeavesForRoleIds();
 
 	/**
-	 * Returns <code>true</code> if this leave restriction is is small child criterion applicable.
+	 * Sets the max consec leaves for role IDs of this leave restriction.
 	 *
-	 * @return <code>true</code> if this leave restriction is is small child criterion applicable; <code>false</code> otherwise
+	 * @param maxConsecLeavesForRoleIds the max consec leaves for role IDs of this leave restriction
 	 */
-	public boolean isIsSmallChildCriterionApplicable();
-
-	/**
-	 * Sets whether this leave restriction is is small child criterion applicable.
-	 *
-	 * @param isSmallChildCriterionApplicable the is small child criterion applicable of this leave restriction
-	 */
-	public void setIsSmallChildCriterionApplicable(
-		boolean isSmallChildCriterionApplicable);
+	public void setMaxConsecLeavesForRoleIds(String maxConsecLeavesForRoleIds);
 
 	/**
 	 * Returns the max small child age applicable of this leave restriction.
@@ -376,6 +365,21 @@ public interface LeaveRestrictionModel extends BaseModel<LeaveRestriction> {
 	 * @param maxSmallChildAgeApplicable the max small child age applicable of this leave restriction
 	 */
 	public void setMaxSmallChildAgeApplicable(String maxSmallChildAgeApplicable);
+
+	/**
+	 * Returns the max small child age for role IDs of this leave restriction.
+	 *
+	 * @return the max small child age for role IDs of this leave restriction
+	 */
+	@AutoEscape
+	public String getMaxSmallChildAgeForRoleIds();
+
+	/**
+	 * Sets the max small child age for role IDs of this leave restriction.
+	 *
+	 * @param maxSmallChildAgeForRoleIds the max small child age for role IDs of this leave restriction
+	 */
+	public void setMaxSmallChildAgeForRoleIds(String maxSmallChildAgeForRoleIds);
 
 	@Override
 	public boolean isNew();

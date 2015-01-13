@@ -135,12 +135,7 @@ public class EmpImmigrationDocumentCacheModel implements CacheModel<EmpImmigrati
 			empImmigrationDocumentImpl.setEligibleStatus(eligibleStatus);
 		}
 
-		if (issuedBy == null) {
-			empImmigrationDocumentImpl.setIssuedBy(StringPool.BLANK);
-		}
-		else {
-			empImmigrationDocumentImpl.setIssuedBy(issuedBy);
-		}
+		empImmigrationDocumentImpl.setIssuedBy(issuedBy);
 
 		if (eligibleReviewDate == Long.MIN_VALUE) {
 			empImmigrationDocumentImpl.setEligibleReviewDate(null);
@@ -176,7 +171,7 @@ public class EmpImmigrationDocumentCacheModel implements CacheModel<EmpImmigrati
 		issuedDate = objectInput.readLong();
 		expiryDate = objectInput.readLong();
 		eligibleStatus = objectInput.readUTF();
-		issuedBy = objectInput.readUTF();
+		issuedBy = objectInput.readLong();
 		eligibleReviewDate = objectInput.readLong();
 		comments = objectInput.readUTF();
 	}
@@ -216,13 +211,7 @@ public class EmpImmigrationDocumentCacheModel implements CacheModel<EmpImmigrati
 			objectOutput.writeUTF(eligibleStatus);
 		}
 
-		if (issuedBy == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
-		}
-		else {
-			objectOutput.writeUTF(issuedBy);
-		}
-
+		objectOutput.writeLong(issuedBy);
 		objectOutput.writeLong(eligibleReviewDate);
 
 		if (comments == null) {
@@ -245,7 +234,7 @@ public class EmpImmigrationDocumentCacheModel implements CacheModel<EmpImmigrati
 	public long issuedDate;
 	public long expiryDate;
 	public String eligibleStatus;
-	public String issuedBy;
+	public long issuedBy;
 	public long eligibleReviewDate;
 	public String comments;
 }

@@ -108,74 +108,74 @@ public class EmploymentStatusLocalServiceClp
 				"com.rknowsys.eapp.hrm.model.EmploymentStatus"
 			};
 
-		_methodName16 = "addLeaveTypeApplicabilityEmploymentStatus";
+		_methodName16 = "addLeaveRuleApplicableEmploymentStatus";
 
 		_methodParameterTypes16 = new String[] { "long", "long" };
 
-		_methodName17 = "addLeaveTypeApplicabilityEmploymentStatus";
+		_methodName17 = "addLeaveRuleApplicableEmploymentStatus";
 
 		_methodParameterTypes17 = new String[] {
 				"long", "com.rknowsys.eapp.hrm.model.EmploymentStatus"
 			};
 
-		_methodName18 = "addLeaveTypeApplicabilityEmploymentStatuses";
+		_methodName18 = "addLeaveRuleApplicableEmploymentStatuses";
 
 		_methodParameterTypes18 = new String[] { "long", "long[][]" };
 
-		_methodName19 = "addLeaveTypeApplicabilityEmploymentStatuses";
+		_methodName19 = "addLeaveRuleApplicableEmploymentStatuses";
 
 		_methodParameterTypes19 = new String[] { "long", "java.util.List" };
 
-		_methodName20 = "clearLeaveTypeApplicabilityEmploymentStatuses";
+		_methodName20 = "clearLeaveRuleApplicableEmploymentStatuses";
 
 		_methodParameterTypes20 = new String[] { "long" };
 
-		_methodName21 = "deleteLeaveTypeApplicabilityEmploymentStatus";
+		_methodName21 = "deleteLeaveRuleApplicableEmploymentStatus";
 
 		_methodParameterTypes21 = new String[] { "long", "long" };
 
-		_methodName22 = "deleteLeaveTypeApplicabilityEmploymentStatus";
+		_methodName22 = "deleteLeaveRuleApplicableEmploymentStatus";
 
 		_methodParameterTypes22 = new String[] {
 				"long", "com.rknowsys.eapp.hrm.model.EmploymentStatus"
 			};
 
-		_methodName23 = "deleteLeaveTypeApplicabilityEmploymentStatuses";
+		_methodName23 = "deleteLeaveRuleApplicableEmploymentStatuses";
 
 		_methodParameterTypes23 = new String[] { "long", "long[][]" };
 
-		_methodName24 = "deleteLeaveTypeApplicabilityEmploymentStatuses";
+		_methodName24 = "deleteLeaveRuleApplicableEmploymentStatuses";
 
 		_methodParameterTypes24 = new String[] { "long", "java.util.List" };
 
-		_methodName25 = "getLeaveTypeApplicabilityEmploymentStatuses";
+		_methodName25 = "getLeaveRuleApplicableEmploymentStatuses";
 
 		_methodParameterTypes25 = new String[] { "long" };
 
-		_methodName26 = "getLeaveTypeApplicabilityEmploymentStatuses";
+		_methodName26 = "getLeaveRuleApplicableEmploymentStatuses";
 
 		_methodParameterTypes26 = new String[] { "long", "int", "int" };
 
-		_methodName27 = "getLeaveTypeApplicabilityEmploymentStatuses";
+		_methodName27 = "getLeaveRuleApplicableEmploymentStatuses";
 
 		_methodParameterTypes27 = new String[] {
 				"long", "int", "int",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName28 = "getLeaveTypeApplicabilityEmploymentStatusesCount";
+		_methodName28 = "getLeaveRuleApplicableEmploymentStatusesCount";
 
 		_methodParameterTypes28 = new String[] { "long" };
 
-		_methodName29 = "hasLeaveTypeApplicabilityEmploymentStatus";
+		_methodName29 = "hasLeaveRuleApplicableEmploymentStatus";
 
 		_methodParameterTypes29 = new String[] { "long", "long" };
 
-		_methodName30 = "hasLeaveTypeApplicabilityEmploymentStatuses";
+		_methodName30 = "hasLeaveRuleApplicableEmploymentStatuses";
 
 		_methodParameterTypes30 = new String[] { "long" };
 
-		_methodName31 = "setLeaveTypeApplicabilityEmploymentStatuses";
+		_methodName31 = "setLeaveRuleApplicableEmploymentStatuses";
 
 		_methodParameterTypes31 = new String[] { "long", "long[][]" };
 
@@ -692,13 +692,13 @@ public class EmploymentStatusLocalServiceClp
 	}
 
 	@Override
-	public void addLeaveTypeApplicabilityEmploymentStatus(
-		long leaveTypeApplicabilityId, long employmentStatusId)
+	public void addLeaveRuleApplicableEmploymentStatus(
+		long leaveRuleApplicableId, long employmentStatusId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		try {
 			_invokableLocalService.invokeMethod(_methodName16,
 				_methodParameterTypes16,
-				new Object[] { leaveTypeApplicabilityId, employmentStatusId });
+				new Object[] { leaveRuleApplicableId, employmentStatusId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -718,15 +718,15 @@ public class EmploymentStatusLocalServiceClp
 	}
 
 	@Override
-	public void addLeaveTypeApplicabilityEmploymentStatus(
-		long leaveTypeApplicabilityId,
+	public void addLeaveRuleApplicableEmploymentStatus(
+		long leaveRuleApplicableId,
 		com.rknowsys.eapp.hrm.model.EmploymentStatus employmentStatus)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		try {
 			_invokableLocalService.invokeMethod(_methodName17,
 				_methodParameterTypes17,
 				new Object[] {
-					leaveTypeApplicabilityId,
+					leaveRuleApplicableId,
 					
 				ClpSerializer.translateInput(employmentStatus)
 				});
@@ -749,14 +749,14 @@ public class EmploymentStatusLocalServiceClp
 	}
 
 	@Override
-	public void addLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId, long[] employmentStatusIds)
+	public void addLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId, long[] employmentStatusIds)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		try {
 			_invokableLocalService.invokeMethod(_methodName18,
 				_methodParameterTypes18,
 				new Object[] {
-					leaveTypeApplicabilityId,
+					leaveRuleApplicableId,
 					
 				ClpSerializer.translateInput(employmentStatusIds)
 				});
@@ -779,15 +779,15 @@ public class EmploymentStatusLocalServiceClp
 	}
 
 	@Override
-	public void addLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId,
+	public void addLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId,
 		java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> EmploymentStatuses)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		try {
 			_invokableLocalService.invokeMethod(_methodName19,
 				_methodParameterTypes19,
 				new Object[] {
-					leaveTypeApplicabilityId,
+					leaveRuleApplicableId,
 					
 				ClpSerializer.translateInput(EmploymentStatuses)
 				});
@@ -810,13 +810,12 @@ public class EmploymentStatusLocalServiceClp
 	}
 
 	@Override
-	public void clearLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId)
+	public void clearLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		try {
 			_invokableLocalService.invokeMethod(_methodName20,
-				_methodParameterTypes20,
-				new Object[] { leaveTypeApplicabilityId });
+				_methodParameterTypes20, new Object[] { leaveRuleApplicableId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -836,13 +835,13 @@ public class EmploymentStatusLocalServiceClp
 	}
 
 	@Override
-	public void deleteLeaveTypeApplicabilityEmploymentStatus(
-		long leaveTypeApplicabilityId, long employmentStatusId)
+	public void deleteLeaveRuleApplicableEmploymentStatus(
+		long leaveRuleApplicableId, long employmentStatusId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		try {
 			_invokableLocalService.invokeMethod(_methodName21,
 				_methodParameterTypes21,
-				new Object[] { leaveTypeApplicabilityId, employmentStatusId });
+				new Object[] { leaveRuleApplicableId, employmentStatusId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -862,15 +861,15 @@ public class EmploymentStatusLocalServiceClp
 	}
 
 	@Override
-	public void deleteLeaveTypeApplicabilityEmploymentStatus(
-		long leaveTypeApplicabilityId,
+	public void deleteLeaveRuleApplicableEmploymentStatus(
+		long leaveRuleApplicableId,
 		com.rknowsys.eapp.hrm.model.EmploymentStatus employmentStatus)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		try {
 			_invokableLocalService.invokeMethod(_methodName22,
 				_methodParameterTypes22,
 				new Object[] {
-					leaveTypeApplicabilityId,
+					leaveRuleApplicableId,
 					
 				ClpSerializer.translateInput(employmentStatus)
 				});
@@ -893,14 +892,14 @@ public class EmploymentStatusLocalServiceClp
 	}
 
 	@Override
-	public void deleteLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId, long[] employmentStatusIds)
+	public void deleteLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId, long[] employmentStatusIds)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		try {
 			_invokableLocalService.invokeMethod(_methodName23,
 				_methodParameterTypes23,
 				new Object[] {
-					leaveTypeApplicabilityId,
+					leaveRuleApplicableId,
 					
 				ClpSerializer.translateInput(employmentStatusIds)
 				});
@@ -923,15 +922,15 @@ public class EmploymentStatusLocalServiceClp
 	}
 
 	@Override
-	public void deleteLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId,
+	public void deleteLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId,
 		java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> EmploymentStatuses)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		try {
 			_invokableLocalService.invokeMethod(_methodName24,
 				_methodParameterTypes24,
 				new Object[] {
-					leaveTypeApplicabilityId,
+					leaveRuleApplicableId,
 					
 				ClpSerializer.translateInput(EmploymentStatuses)
 				});
@@ -954,15 +953,15 @@ public class EmploymentStatusLocalServiceClp
 	}
 
 	@Override
-	public java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> getLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId)
+	public java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> getLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName25,
 					_methodParameterTypes25,
-					new Object[] { leaveTypeApplicabilityId });
+					new Object[] { leaveRuleApplicableId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -984,15 +983,15 @@ public class EmploymentStatusLocalServiceClp
 	}
 
 	@Override
-	public java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> getLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId, int start, int end)
+	public java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> getLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName26,
 					_methodParameterTypes26,
-					new Object[] { leaveTypeApplicabilityId, start, end });
+					new Object[] { leaveRuleApplicableId, start, end });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -1014,8 +1013,8 @@ public class EmploymentStatusLocalServiceClp
 	}
 
 	@Override
-	public java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> getLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId, int start, int end,
+	public java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> getLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -1024,7 +1023,7 @@ public class EmploymentStatusLocalServiceClp
 			returnObj = _invokableLocalService.invokeMethod(_methodName27,
 					_methodParameterTypes27,
 					new Object[] {
-						leaveTypeApplicabilityId,
+						leaveRuleApplicableId,
 						
 					start,
 						
@@ -1053,15 +1052,15 @@ public class EmploymentStatusLocalServiceClp
 	}
 
 	@Override
-	public int getLeaveTypeApplicabilityEmploymentStatusesCount(
-		long leaveTypeApplicabilityId)
+	public int getLeaveRuleApplicableEmploymentStatusesCount(
+		long leaveRuleApplicableId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName28,
 					_methodParameterTypes28,
-					new Object[] { leaveTypeApplicabilityId });
+					new Object[] { leaveRuleApplicableId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -1083,15 +1082,15 @@ public class EmploymentStatusLocalServiceClp
 	}
 
 	@Override
-	public boolean hasLeaveTypeApplicabilityEmploymentStatus(
-		long leaveTypeApplicabilityId, long employmentStatusId)
+	public boolean hasLeaveRuleApplicableEmploymentStatus(
+		long leaveRuleApplicableId, long employmentStatusId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName29,
 					_methodParameterTypes29,
-					new Object[] { leaveTypeApplicabilityId, employmentStatusId });
+					new Object[] { leaveRuleApplicableId, employmentStatusId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -1113,15 +1112,15 @@ public class EmploymentStatusLocalServiceClp
 	}
 
 	@Override
-	public boolean hasLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId)
+	public boolean hasLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName30,
 					_methodParameterTypes30,
-					new Object[] { leaveTypeApplicabilityId });
+					new Object[] { leaveRuleApplicableId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -1143,14 +1142,14 @@ public class EmploymentStatusLocalServiceClp
 	}
 
 	@Override
-	public void setLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId, long[] employmentStatusIds)
+	public void setLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId, long[] employmentStatusIds)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		try {
 			_invokableLocalService.invokeMethod(_methodName31,
 				_methodParameterTypes31,
 				new Object[] {
-					leaveTypeApplicabilityId,
+					leaveRuleApplicableId,
 					
 				ClpSerializer.translateInput(employmentStatusIds)
 				});

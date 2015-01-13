@@ -158,13 +158,13 @@ public class EmpPersonalDetailsWrapper implements EmpPersonalDetails,
 			setLicenseExpDate(licenseExpDate);
 		}
 
-		Long gender = (Long)attributes.get("gender");
+		String gender = (String)attributes.get("gender");
 
 		if (gender != null) {
 			setGender(gender);
 		}
 
-		Long maritalStatus = (Long)attributes.get("maritalStatus");
+		String maritalStatus = (String)attributes.get("maritalStatus");
 
 		if (maritalStatus != null) {
 			setMaritalStatus(maritalStatus);
@@ -511,7 +511,7 @@ public class EmpPersonalDetailsWrapper implements EmpPersonalDetails,
 	* @return the gender of this EmpPersonalDetails
 	*/
 	@Override
-	public long getGender() {
+	public java.lang.String getGender() {
 		return _empPersonalDetails.getGender();
 	}
 
@@ -521,7 +521,7 @@ public class EmpPersonalDetailsWrapper implements EmpPersonalDetails,
 	* @param gender the gender of this EmpPersonalDetails
 	*/
 	@Override
-	public void setGender(long gender) {
+	public void setGender(java.lang.String gender) {
 		_empPersonalDetails.setGender(gender);
 	}
 
@@ -531,7 +531,7 @@ public class EmpPersonalDetailsWrapper implements EmpPersonalDetails,
 	* @return the marital status of this EmpPersonalDetails
 	*/
 	@Override
-	public long getMaritalStatus() {
+	public java.lang.String getMaritalStatus() {
 		return _empPersonalDetails.getMaritalStatus();
 	}
 
@@ -541,7 +541,7 @@ public class EmpPersonalDetailsWrapper implements EmpPersonalDetails,
 	* @param maritalStatus the marital status of this EmpPersonalDetails
 	*/
 	@Override
-	public void setMaritalStatus(long maritalStatus) {
+	public void setMaritalStatus(java.lang.String maritalStatus) {
 		_empPersonalDetails.setMaritalStatus(maritalStatus);
 	}
 

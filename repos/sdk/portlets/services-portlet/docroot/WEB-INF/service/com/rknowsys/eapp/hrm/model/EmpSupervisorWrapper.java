@@ -113,7 +113,7 @@ public class EmpSupervisorWrapper implements EmpSupervisor,
 			setReporterEmployeeId(reporterEmployeeId);
 		}
 
-		Long reportingMethod = (Long)attributes.get("reportingMethod");
+		String reportingMethod = (String)attributes.get("reportingMethod");
 
 		if (reportingMethod != null) {
 			setReportingMethod(reportingMethod);
@@ -328,7 +328,7 @@ public class EmpSupervisorWrapper implements EmpSupervisor,
 	* @return the reporting method of this EmpSupervisor
 	*/
 	@Override
-	public long getReportingMethod() {
+	public java.lang.String getReportingMethod() {
 		return _empSupervisor.getReportingMethod();
 	}
 
@@ -338,7 +338,7 @@ public class EmpSupervisorWrapper implements EmpSupervisor,
 	* @param reportingMethod the reporting method of this EmpSupervisor
 	*/
 	@Override
-	public void setReportingMethod(long reportingMethod) {
+	public void setReportingMethod(java.lang.String reportingMethod) {
 		_empSupervisor.setReportingMethod(reportingMethod);
 	}
 

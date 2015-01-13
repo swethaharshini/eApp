@@ -79,7 +79,7 @@
 		<field name="title" type="String" />
 		<field name="employmentstatus" type="String" />
 		<field name="name" type="String" />
-		<field name="supervisor" type="String" />
+		<field name="supervisor" type="long" />
 	</model>
 	<model name="com.rknowsys.eapp.hrm.model.EmpDirectDeposit">
 		<field name="empDirectDepositId" type="long" />
@@ -138,7 +138,7 @@
 		<field name="issuedDate" type="Date" />
 		<field name="expiryDate" type="Date" />
 		<field name="eligibleStatus" type="String" />
-		<field name="issuedBy" type="String" />
+		<field name="issuedBy" type="long" />
 		<field name="eligibleReviewDate" type="Date" />
 		<field name="comments" type="String" />
 	</model>
@@ -241,8 +241,8 @@
 		<field name="otherId" type="String" />
 		<field name="licenseNo" type="String" />
 		<field name="licenseExpDate" type="Date" />
-		<field name="gender" type="long" />
-		<field name="maritalStatus" type="long" />
+		<field name="gender" type="String" />
+		<field name="maritalStatus" type="String" />
 		<field name="nationalityId" type="long" />
 		<field name="dateOfBirth" type="Date" />
 	</model>
@@ -291,7 +291,7 @@
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="reporterEmployeeId" type="long" />
-		<field name="reportingMethod" type="long" />
+		<field name="reportingMethod" type="String" />
 	</model>
 	<model name="com.rknowsys.eapp.hrm.model.EmpSupervisor">
 		<field name="empSupervisorId" type="long" />
@@ -302,7 +302,7 @@
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="reporterEmployeeId" type="long" />
-		<field name="reportingMethod" type="long" />
+		<field name="reportingMethod" type="String" />
 	</model>
 	<model name="com.rknowsys.eapp.hrm.model.EmpWorkExp">
 		<field name="empWorkExpId" type="long" />
@@ -371,6 +371,22 @@
 		<field name="userId" type="long" />
 		<field name="languageName" type="String" />
 	</model>
+	<model name="com.rknowsys.eapp.hrm.model.LeaveAccrual">
+		<field name="leaveAccrualId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="userId" type="long" />
+		<field name="leaveTypeId" type="long" />
+		<field name="accrualFrequency" type="String" />
+		<field name="accrueEvery" type="int" />
+		<field name="dayOfCredit" type="int" />
+		<field name="accrualStartsOn" type="String" />
+		<field name="monthOfCredit" type="int" />
+		<field name="accrualValidFrom" type="String" />
+		<field name="firstAccrual" type="String" />
+	</model>
 	<model name="com.rknowsys.eapp.hrm.model.LeaveCarryForwardPolicy">
 		<field name="leaveCarryForwardPolicyId" type="long" />
 		<field name="companyId" type="long" />
@@ -383,6 +399,27 @@
 		<field name="expiryDurationUOM" type="String" />
 		<field name="isMaxCarryForwardLimitApplicable" type="boolean" />
 		<field name="maxCarryForwardLimit" type="String" />
+	</model>
+	<model name="com.rknowsys.eapp.hrm.model.LeaveGeneral">
+		<field name="leaveGeneralId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="userId" type="long" />
+		<field name="leaveTypeId" type="long" />
+		<field name="leavePeriodTypeId" type="int" />
+		<field name="startMonth" type="int" />
+		<field name="startDayOfMonth" type="int" />
+		<field name="duration" type="String" />
+		<field name="ifEmployeesCanApply" type="boolean" />
+		<field name="ifAdminCanAssign" type="boolean" />
+		<field name="ifAdminCanManageEntitlements" type="boolean" />
+		<field name="ifLeaveAccruable" type="boolean" />
+		<field name="ifCarryForwardable" type="boolean" />
+		<field name="showProjectBalance" type="boolean" />
+		<field name="enableAttachment" type="boolean" />
+		<field name="isAttachmentMandatory" type="boolean" />
 	</model>
 	<model name="com.rknowsys.eapp.hrm.model.LeavePeriod">
 		<field name="leavePeriodId" type="long" />
@@ -404,34 +441,36 @@
 		<field name="userId" type="long" />
 		<field name="leaveTypeId" type="long" />
 		<field name="cannotExceedBalance" type="boolean" />
+		<field name="cantExceedBalForRoleIds" type="String" />
 		<field name="cannotApplyForPartialDay" type="boolean" />
-		<field name="ifATermsQuestion" type="boolean" />
+		<field name="cantApplyPartialDayForRoleIds" type="String" />
 		<field name="termsQuestion" type="String" />
+		<field name="termsQsnForRoleIds" type="String" />
 		<field name="errorTextIfTermsDeclined" type="String" />
-		<field name="isMinimumServicePeriodApplicable" type="boolean" />
 		<field name="minimumServicePeriod" type="String" />
-		<field name="isMaxConsecutiveLeavesApplicable" type="boolean" />
+		<field name="minServicePeriodForRoleIds" type="String" />
 		<field name="maxConsecutiveLeaves" type="String" />
-		<field name="isSmallChildCriterionApplicable" type="boolean" />
+		<field name="maxConsecLeavesForRoleIds" type="String" />
 		<field name="maxSmallChildAgeApplicable" type="String" />
+		<field name="maxSmallChildAgeForRoleIds" type="String" />
 	</model>
-	<model name="com.rknowsys.eapp.hrm.model.LeaveRule">
-		<field name="leaveRuleId" type="long" />
+	<model name="com.rknowsys.eapp.hrm.model.LeaveRuleApplicable">
+		<field name="leaveRuleApplicableId" type="long" />
 		<field name="companyId" type="long" />
 		<field name="groupId" type="long" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="userId" type="long" />
 		<field name="leaveTypeId" type="long" />
-		<field name="leavePeriodTypeId" type="int" />
-		<field name="startMonth" type="int" />
-		<field name="startDayOfMonth" type="int" />
-		<field name="duration" type="String" />
-		<field name="ifEmployeesCanApply" type="boolean" />
-		<field name="ifAdminCanAssign" type="boolean" />
-		<field name="ifAdminCanManageEntitlements" type="boolean" />
-		<field name="ifLeaveAccruable" type="boolean" />
-		<field name="ifCarryForwardable" type="boolean" />
+		<field name="forFemale" type="boolean" />
+		<field name="forMale" type="boolean" />
+		<field name="forYearsOfService" type="boolean" />
+		<field name="fromYears" type="String" />
+		<field name="toYears" type="String" />
+		<field name="forJobTitles" type="boolean" />
+		<field name="forJobCategories" type="boolean" />
+		<field name="forEmploymentStatus" type="boolean" />
+		<field name="forGender" type="boolean" />
 	</model>
 	<model name="com.rknowsys.eapp.hrm.model.LeaveType">
 		<field name="leaveTypeId" type="long" />
@@ -443,18 +482,6 @@
 		<field name="nationalityId" type="long" />
 		<field name="leaveTypeName" type="String" />
 		<field name="isSituational" type="boolean" />
-	</model>
-	<model name="com.rknowsys.eapp.hrm.model.LeaveTypeApplicability">
-		<field name="leaveTypeApplicabilityId" type="long" />
-		<field name="companyId" type="long" />
-		<field name="groupId" type="long" />
-		<field name="createDate" type="Date" />
-		<field name="modifiedDate" type="Date" />
-		<field name="userId" type="long" />
-		<field name="leaveTypeId" type="long" />
-		<field name="ifYearsOfServiceCriterionApplicable" type="boolean" />
-		<field name="minYearsOfService" type="String" />
-		<field name="maxYearsOfService" type="String" />
 	</model>
 	<model name="com.rknowsys.eapp.hrm.model.License">
 		<field name="licenseId" type="long" />
@@ -573,8 +600,9 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="userId" type="long" />
 		<field name="componentName" type="String" />
-		<field name="type" type="boolean" />
-		<field name="onlyCTC" type="boolean" />
+		<field name="type" type="String" />
+		<field name="totalPayable" type="String" />
+		<field name="costToCompany" type="String" />
 		<field name="valueType" type="String" />
 	</model>
 	<model name="com.rknowsys.eapp.hrm.model.Skill">

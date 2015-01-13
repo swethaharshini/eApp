@@ -1364,16 +1364,18 @@ public class LeaveRestrictionPersistenceImpl extends BasePersistenceImpl<LeaveRe
 		leaveRestrictionImpl.setUserId(leaveRestriction.getUserId());
 		leaveRestrictionImpl.setLeaveTypeId(leaveRestriction.getLeaveTypeId());
 		leaveRestrictionImpl.setCannotExceedBalance(leaveRestriction.isCannotExceedBalance());
+		leaveRestrictionImpl.setCantExceedBalForRoleIds(leaveRestriction.getCantExceedBalForRoleIds());
 		leaveRestrictionImpl.setCannotApplyForPartialDay(leaveRestriction.isCannotApplyForPartialDay());
-		leaveRestrictionImpl.setIfATermsQuestion(leaveRestriction.isIfATermsQuestion());
+		leaveRestrictionImpl.setCantApplyPartialDayForRoleIds(leaveRestriction.getCantApplyPartialDayForRoleIds());
 		leaveRestrictionImpl.setTermsQuestion(leaveRestriction.getTermsQuestion());
+		leaveRestrictionImpl.setTermsQsnForRoleIds(leaveRestriction.getTermsQsnForRoleIds());
 		leaveRestrictionImpl.setErrorTextIfTermsDeclined(leaveRestriction.getErrorTextIfTermsDeclined());
-		leaveRestrictionImpl.setIsMinimumServicePeriodApplicable(leaveRestriction.isIsMinimumServicePeriodApplicable());
 		leaveRestrictionImpl.setMinimumServicePeriod(leaveRestriction.getMinimumServicePeriod());
-		leaveRestrictionImpl.setIsMaxConsecutiveLeavesApplicable(leaveRestriction.isIsMaxConsecutiveLeavesApplicable());
+		leaveRestrictionImpl.setMinServicePeriodForRoleIds(leaveRestriction.getMinServicePeriodForRoleIds());
 		leaveRestrictionImpl.setMaxConsecutiveLeaves(leaveRestriction.getMaxConsecutiveLeaves());
-		leaveRestrictionImpl.setIsSmallChildCriterionApplicable(leaveRestriction.isIsSmallChildCriterionApplicable());
+		leaveRestrictionImpl.setMaxConsecLeavesForRoleIds(leaveRestriction.getMaxConsecLeavesForRoleIds());
 		leaveRestrictionImpl.setMaxSmallChildAgeApplicable(leaveRestriction.getMaxSmallChildAgeApplicable());
+		leaveRestrictionImpl.setMaxSmallChildAgeForRoleIds(leaveRestriction.getMaxSmallChildAgeForRoleIds());
 
 		return leaveRestrictionImpl;
 	}
