@@ -25,7 +25,7 @@ AUI().use(
      var idArray = [];
       A.all('input[type=checkbox]:checked').each(function(object) {
       idArray.push(object.get("value"));
-    alert(idArray.length);
+    
         });
        if(idArray==""){
 			  alert("Please select records!");
