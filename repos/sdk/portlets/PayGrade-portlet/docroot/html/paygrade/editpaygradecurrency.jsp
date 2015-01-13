@@ -21,40 +21,6 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/paygrade/editpaygrade.jsp" />
 </portlet:renderURL>
-<style type="text/css">
-em {
-	color: red;
-}
-.table-first-header {
-	width: 10%;
-}
-.table-last-header {
-	width: 15%;
-}
-.panel {
-  padding: 15px;
-  margin-bottom: 20px;
-  background-color: #ffffff;
-  border: 1px solid #dddddd;
-  border-radius: 4px;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-}
-
-.panel-heading {
-  padding: 10px 15px;
-  margin: -15px -15px 15px;
-  font-size: 12.5px;
-  font-weight: 500;      
-  background-color: #f5f5f5;
-  border-bottom: 1px solid #dddddd;
-  border-top-right-radius: 3px;
-  border-top-left-radius: 3px;
-}
-
-
-
-</style>
 <aui:script>
 
 AUI().use(
@@ -134,66 +100,59 @@ PayGradeCurrency editpaygradecurrency = (PayGradeCurrency)portletSession.getAttr
 %>
 <div class="panel panel-default">
 <div class="panel-heading">
-<font  class="panel-title"><b>PayGrade</b></font>
+	<font  class="panel-title"><b>PayGrade</b></font>
  </div>
 <aui:form name="paygradeForm">
+	<div class="form-horizontal">
 		<aui:input name="paygradeId" type="hidden" id="paygradeId"  value="<%=paygrade3.getPayGradeId()%>"/>
-		<div class="row-fluid">
-			<div class="span2">
-				<label>Name<em>*</em> </label>
-		</div>
-		<div class="span3">		
-		 <input name="<portlet:namespace/>paygradeName" id="paygrade" type="text" required = "required" readonly="readonly" value="<%=paygrade3.getPayGradeName()%>">
+		<div class="control-group">
+			<label class="control-label">Name<em>*</em> </label>
+			<div class="controls">
+			<input name="<portlet:namespace/>paygradeName" id="paygrade" type="text" required = "required" readonly="readonly" value="<%=paygrade3.getPayGradeName()%>">
 			</div>
 		</div>
-	</aui:form>
 	</div>
-	
-	
-	<div class="panel panel-default">
+</aui:form>
+</div>
+<div class="panel panel-default">
 <div class="panel-heading">
    <font class="panel-title"><b>Edit Currency</b></font>
  </div>
  <div class="panel-body">
    <div id="currencyform">
   <aui:form name="myForm" action="<%=savepaygradecurrency.toString()%>">
+  	<div class="form-horizontal">
 		<aui:input name="paygradeId" type="hidden" id="paygradeId"  value="<%=paygrade3.getPayGradeId()%>"/>
 		<aui:input name="paygradecurrencyId" type="hidden" id="paygradecurrencyId"  value="<%=editpaygradecurrency.getPayGradeCurrencyId()%>"/>
-		<div class="span12">
-		
-		<div class="span12">
-		<div class="span2">
-        <label>Currency:<em>*</em> </label></div>
-        <div class="span3">
-        <input name="<portlet:namespace/>currency" id="myAutoComplete"  type="text" value="<%=editpaygradecurrency.getCurrency()%>">
-        </div>
-        </div>
-		
-		
+        <div class="control-group">
+        <label class="control-label">Currency:<em>*</em> </label>
+        <div class="controls">
+        <input name="<portlet:namespace/>currency" id="myAutoComplete" required="required" type="text" value="<%=editpaygradecurrency.getCurrency()%>">
 		</div>
-		<div class="span12">
-			<div class="span2">
-				<label>Minimum Salary</label>
 		</div>
-		<div class="span3">		
+		<div class="control-group">
+		<label class="control-label">Minimum Salary</label>
+		<div class="controls">
 		 <input name="<portlet:namespace/>minSalary" id="paygrade" type="text" value="<%=editpaygradecurrency.getMinSalary()%>">
-			</div>
 		</div>
-		<div class="span12">
-			<div class="span2">
-				<label>Maximum Salary</label>
 		</div>
-		<div class="span3">		
+		<div class="control-group">
+		<label class="control-label">Maximum Salary</label>	
+		 <div class="controls">
 		 <input name="<portlet:namespace/>maxSalary" id="paygrade" type="text" value="<%=editpaygradecurrency.getMaxSalary()%>">
+		</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<aui:button type="Submit" value="Submit" />
+				<aui:button  type="reset" href="<%=paygrade.toString()%>" value="Cancel" id ="currencycancel"/>
+				<button id="currencydelete" class="btn btn-danger" type="button"><i class="icon-trash"></i> Delete </button>
 			</div>
 		</div>
-		
-		<aui:button type="Submit" value="Submit" />
-		<aui:button  type="reset" href="<%=paygrade.toString()%>" value="Cancel" id ="currencycancel"/>
-			
-	</aui:form>
 	</div>
-<button id="currencydelete" class="btn btn-danger" type="button"><i class="icon-trash"></i> Delete </button>
+</aui:form>
+	</div>
+
 	<%
 
 PortletURL iteratorURL = renderResponse.createRenderURL();
@@ -210,20 +169,10 @@ iteratorURL.setParameter("mvcPath", "/html/paygrade/editpaygrade.jsp");
 		DynamicQuery paygradecurrencyquery = DynamicQueryFactoryUtil.forClass(PayGradeCurrency.class, PortletClassLoaderUtil.getClassLoader());
 		paygradecurrencyquery.add(PropertyFactoryUtil.forName("payGradeId").eq(paygradeid));
 		 
-		List<PayGradeCurrency> list = PayGradeCurrencyLocalServiceUtil.dynamicQuery(paygradecurrencyquery);
-		if(list.size()>5){
-						
-		results = ListUtil.subList(list, searchContainer.getStart(), searchContainer.getEnd());
-		}
-		else{
-			System.out.println("else block...");
-			results = list;
-		}
+		 results =  PayGradeCurrencyLocalServiceUtil.dynamicQuery(paygradecurrencyquery);
 		
 		System.out.println("results == " +results.size());
-		total = list.size();
-		
-		
+		total = results.size();
 		pageContext.setAttribute("results", results);
 		pageContext.setAttribute("total", total);
 				

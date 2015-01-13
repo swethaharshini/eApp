@@ -12,50 +12,37 @@
 <portlet:renderURL var="paygradelist">
 	<portlet:param name="mvcPath" value="/html/paygrade/paygradelist.jsp" />
 </portlet:renderURL>
-<style type="text/css">
-#paygradeNameMessage,em {
-	color: red;
-}
-
-</style>
-<aui:script>
-AUI().ready('event', 'node','transition',function(A){
- setTimeout(function(){
-    A.one('#paygradeNameMessage').transition('fadeOut');
-},1000)
- });
-
-</aui:script>
 </head>
 <body>
 
 <% if(SessionMessages.contains(renderRequest.getPortletSession(),"paygradeName-empty-error")){%>
-<p id="paygradeNameMessage"><liferay-ui:message key="Please Enter PayGradeName"/></p>
+<liferay-ui:message key="Please Enter PayGradeName"/>
 <%} 
  if(SessionMessages.contains(renderRequest.getPortletSession(),"paygradeName-duplicate-error")){
 %>
-<p id="paygradeNameMessage"><liferay-ui:message key="PayGradeName already Exits"/></p>
+<liferay-ui:message key="PayGradeName already Exits"/>
 <%} 
 %>
-<br/><br/>
-<div class="form-horizontal">
+
 <aui:form name="myForm" action="<%=savepaygrade.toString()%>">
+	<div class="form-horizontal clearfix">
 		<aui:input name="paygradeId" type="hidden" id="paygradeId" />
 		<div class="control-group">
-			<label><b>Name<em>*</em></b></label>
-		
-		<div class="controls">		
-		 <input name="<portlet:namespace/>paygradeName" id="paygrade" type="text">
-			</div>
-		</div>
+		<label class="control-label"><b>Name<em>*</em></b></label>
+		<div class="controls">
+	 	<input name="<portlet:namespace/>paygradeName" id="paygrade" type="text" required="required"/>
+	 	</div>
+	 	</div>
 		<div class="control-group">
 			<div class="controls">
-		<aui:button type="submit" value="Submit" />
-		<aui:button  type="reset" value="Cancel" href="<%=paygradelist.toString()%>" id ="cancel"/>
-		</div></div>	
-	</aui:form>
+				<aui:button type="submit" value="Submit" />
+				<aui:button  type="reset" value="Cancel" href="<%=paygradelist.toString()%>" id ="cancel"/>
+			</div>
+		</div>	
 	</div>
-</body><br/><br/>
+</aui:form>
+
+</body>
 
 
 </html>
