@@ -10,7 +10,7 @@ if(selectedValue.equalsIgnoreCase("Specify the maximum number"))
 <aui:form>
 <div class="panel">
 	<div class="panel-heading">
-		<h4>Carry Forward Rules</h4>
+		<h3>Carry Forward Rules</h3>
 	</div>
 	<div class="panel-body">
 	<div class="row-fluid">
