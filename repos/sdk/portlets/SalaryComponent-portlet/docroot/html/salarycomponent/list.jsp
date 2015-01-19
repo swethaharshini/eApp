@@ -16,17 +16,6 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/salarycomponent/list.jsp" />
 </portlet:renderURL>
-<style type="text/css">
-em {
-	color: red;
-}
-.table-first-header {
-	width: 10%;
-}
-.table-last-header {
-	width: 15%;
-}
-</style>
 
 <aui:script>
 AUI().use(
@@ -80,10 +69,13 @@ AUI().use(
 
 </head>
 <body>
-<h6></h6>
 
-<a href="<%=addcomponent%>">Add</a> &nbsp;&nbsp;&nbsp;&nbsp;    <a href="#" id="delete">Delete</a>
-
+<div class="row-fluid">
+	<div class="span12 text-right">
+		<a href="<%=addcomponent%>" class="btn btn-primary"><i class="icon-plus"></i></a>
+		<a href="#" id="delete" class="btn btn-danger"><i class="icon-trash"></i></a>
+	</div>
+</div>
 <%
 
 PortletURL iteratorURL = renderResponse.createRenderURL();
