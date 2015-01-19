@@ -120,113 +120,115 @@ console.log("submitted.....");
 		"leaveInfo");
 		LeaveType editLeaveType=(LeaveType)leaveInfo.get("editLeaveType");
 		LeaveRuleApplicable leaveRuleApplicable=(LeaveRuleApplicable)request.getSession().getAttribute("leaveRuleApplicable");%>
- <a href="#" id="addNew">AddGroup</a>
+ 
  <div class="panel">
 	<div class="panel-heading">
-		<h4>Employee Groups</h4>
+		<h3>Employee Groups
+			<a href="#" id="addNew" class="btn btn-primary add-group pull-right"><i class="icon-plus"></i> AddGroup</a>
+		</h3>
 	</div>
 	
 	<aui:form name="whoCanApplyForLeave" action="<%=saveemployeegroup.toString()%>"
 			method="post" onSubmit="javascript:submitForm()">
 	<div class="panel-body" id="addgroup">
 		<div class="panel">
-	<div class="panel-heading">
-		<h5>Employee Group 1: Default</h5>
-	</div>
-	<div class="panel-body">
-			<aui:input name="leaveTypeId" value="<%=editLeaveType.getLeaveTypeId() %>" type="hidden"></aui:input>
-			<aui:input name="leaveApplicabilityId" value="" type="hidden"></aui:input>
-			<aui:input name="groupName" label="Group Name" inlineLabel="left" value="Default"></aui:input>
-			<hr/>
-			<aui:input name="grouprestrictToJobTitles" type="checkbox" 
-				label="Job Titles" checked="<%=leaveRuleApplicable==null?false:leaveRuleApplicable.getForJobTitles() %>"></aui:input>
-			<div id="groupJobTitlesDiv">
-				<aui:input name="applyToJobTitles" id="applyToJobTitles" value="" label=""></aui:input>
+			<div class="panel-heading">
+			<h5>Employee Group 1: Default</h5>
+			</div>
+			<div class="panel-body">
+				<aui:input name="leaveTypeId" value="<%=editLeaveType.getLeaveTypeId() %>" type="hidden"></aui:input>
+				<aui:input name="leaveApplicabilityId" value="" type="hidden"></aui:input>
+				<aui:input name="groupName" label="Group Name" inlineLabel="left" value="Default"></aui:input>
+				<hr/>
+				<aui:input name="grouprestrictToJobTitles" type="checkbox" 
+					label="Job Titles" checked="<%=leaveRuleApplicable==null?false:leaveRuleApplicable.getForJobTitles() %>"></aui:input>
+				<div id="groupJobTitlesDiv">
+					<aui:input name="applyToJobTitles" id="applyToJobTitles" value="" label=""></aui:input>
 				<aui:input type="hidden" name="jobTitleId" id="jobTitleId" value="" ></aui:input>
-			</div>
-			<hr>
-			<aui:input name="grouprestrictToJobCategories" type="checkbox"
-				label="Job Categories" checked="<%=leaveRuleApplicable==null?false:leaveRuleApplicable.getForJobCategories() %>"></aui:input>
-			<div id="groupJobCategoriesDiv">
-				<aui:input name="applyToJobCategories" id="applyToJobCategories" label=""/>
+				</div>
+				<hr>
+				<aui:input name="grouprestrictToJobCategories" type="checkbox"
+					label="Job Categories" checked="<%=leaveRuleApplicable==null?false:leaveRuleApplicable.getForJobCategories() %>"></aui:input>
+				<div id="groupJobCategoriesDiv">
+					<aui:input name="applyToJobCategories" id="applyToJobCategories" label=""/>
 				<aui:input type="hidden" name="jobCategoryId" id="jobCategoryId" value=""/>
-			</div>
-			<hr>
-			<aui:input name="grouprestrictToEmploymentStatus" type="checkbox"
-				label="Employment Status" checked="<%=leaveRuleApplicable==null?false:leaveRuleApplicable.getForEmploymentStatus() %>"></aui:input>
-			<div id="groupEmploymentStatusDiv">
-				<aui:input name="applyToEmploymentStatus" label=""></aui:input>
+				</div>
+				<hr>
+				<aui:input name="grouprestrictToEmploymentStatus" type="checkbox"
+					label="Employment Status" checked="<%=leaveRuleApplicable==null?false:leaveRuleApplicable.getForEmploymentStatus() %>"></aui:input>
+				<div id="groupEmploymentStatusDiv">
+					<aui:input name="applyToEmploymentStatus" label=""></aui:input>
 				<aui:input type="hidden" name="employmentStatusId" id="employmentStatusId" value=""></aui:input>
-			</div>
-			<hr>
-			<aui:input name="grouprestrictToGender" type="checkbox" label="Gender" 
-			checked="<%=leaveRuleApplicable==null?false:leaveRuleApplicable.getForGender() %>"></aui:input>
-			<div id="groupGenderDiv">
-			<div class="row-fluid">
-			<div class="span2">  <aui:input name="applyToFemale" label="Female" type="checkbox"></aui:input></div>
-			<div class="span3">  <aui:input name="applyToMale" label="Male" type="checkbox"></aui:input></div>
-				<div class="span7"></div>
+				</div>
+				<hr>
+				<aui:input name="grouprestrictToGender" type="checkbox" label="Gender" 
+				checked="<%=leaveRuleApplicable==null?false:leaveRuleApplicable.getForGender() %>"></aui:input>
+				<div id="groupGenderDiv">
+				<div class="row-fluid">
+				<div class="span2">  <aui:input name="applyToFemale" label="Female" type="checkbox"></aui:input></div>
+				<div class="span3">  <aui:input name="applyToMale" label="Male" type="checkbox"></aui:input></div>
+					<div class="span7"></div>
+					</div>
+				</div>
+				<hr>
+				<aui:input name="grouprestrictToYearsOfService" type="checkbox"
+					label="Years of Service" checked="<%=leaveRuleApplicable==null?false:leaveRuleApplicable.getForYearsOfService() %>"></aui:input>
+				<div id="groupYearsOfStatusDiv">
+					<p>Only employees with joined dates and corresponding years of
+						service will be allowed to apply for this leave type.</p>
+					<aui:input name="applyToFromYears" label="From"></aui:input>
+				<aui:input name="applyToYears" label="To"></aui:input>
 				</div>
 			</div>
-			<hr>
-			<aui:input name="grouprestrictToYearsOfService" type="checkbox"
-				label="Years of Service" checked="<%=leaveRuleApplicable==null?false:leaveRuleApplicable.getForYearsOfService() %>"></aui:input>
-			<div id="groupYearsOfStatusDiv">
-				<p>Only employees with joined dates and corresponding years of
-					service will be allowed to apply for this leave type.</p>
-				<aui:input name="applyToFromYears" label="From"></aui:input>
-				<aui:input name="applyToYears" label="To"></aui:input>
-			</div>
-		</div></div>
-	<div class="addinput">
-			<aui:input name="ss" value="<%=editLeaveType.getLeaveTypeId() %>" type="hidden"></aui:input>
-			<aui:input name="ss" value="" type="hidden"></aui:input>
-			<aui:input name="<portletnamespace/>customGroupName" label="Group Name" inlineLabel="left"/>
-			<hr/>
-			<aui:input name="grouprestrictToJobTitles" type="checkbox" 
-				label="Job Titles" checked="<%=leaveRuleApplicable==null?false:leaveRuleApplicable.getForJobTitles() %>"></aui:input>
-			<div id="groupJobTitlesDiv">
-				<aui:input name="<portletnamespace/>groupJobTitles" id="applyToJobTitles" value="" label=""></aui:input>
-				<aui:input type="hidden" name="jobTitleId" id="jobTitleId" value="" ></aui:input>
-			</div>
-			<hr>
-			<aui:input name="grouprestrictToJobCategories" type="checkbox"
-				label="Job Categories" checked="<%=leaveRuleApplicable==null?false:leaveRuleApplicable.getForJobCategories() %>"></aui:input>
-			<div id="customgroupJobCategoriesDiv">
-				<aui:input name="applyToJobCategories" id="applyToJobCategories" label=""/>
-				<aui:input type="hidden" name="jobCategoryId" id="jobCategoryId" value=""/>
-			</div>
-			<hr>
-			<aui:input name="grouprestrictToEmploymentStatus" type="checkbox"
-				label="Employment Status" checked="<%=leaveRuleApplicable==null?false:leaveRuleApplicable.getForEmploymentStatus() %>"></aui:input>
-			<div id="groupEmploymentStatusDiv">
-				<aui:input name="applyToEmploymentStatus" label=""></aui:input>
-				<aui:input type="hidden" name="employmentStatusId" id="employmentStatusId" value=""></aui:input>
-			</div>
-			<hr>
-			<aui:input name="grouprestrictToGender" type="checkbox" label="Gender" 
-			checked="<%=leaveRuleApplicable==null?false:leaveRuleApplicable.getForGender() %>"></aui:input>
-			<div id="groupGenderDiv">
-			<div class="row-fluid">
-			<div class="span2">  <aui:input name="applyToFemale" label="Female" type="checkbox"></aui:input></div>
-			<div class="span3">  <aui:input name="applyToMale" label="Male" type="checkbox"></aui:input></div>
-				<div class="span7"></div>
-				</div>
-			</div>
-			<hr>
-			<aui:input name="grouprestrictToYearsOfService" type="checkbox"
-				label="Years of Service" checked="<%=leaveRuleApplicable==null?false:leaveRuleApplicable.getForYearsOfService() %>"></aui:input>
-			<div id="groupYearsOfStatusDiv">
-				<p>Only employees with joined dates and corresponding years of
-					service will be allowed to apply for this leave type.</p>
-				<aui:input name="applyToFromYears" label="From"></aui:input>
-				<aui:input name="applyToYears" label="To"></aui:input>
-			</div>
-			<a href="#" style="color: black" class="removegroup" >RemoveGroup</a>
-			
-			</div>
-			</div>
+		</div>
+		<div class="addinput">
+				<aui:input name="ss" value="<%=editLeaveType.getLeaveTypeId() %>" type="hidden"></aui:input>
+		<aui:input name="ss" value="" type="hidden"></aui:input>
+		<aui:input name="<portletnamespace/>customGroupName" label="Group Name" inlineLabel="left"/>
+		<hr/>
+		<aui:input name="grouprestrictToJobTitles" type="checkbox" 
+			label="Job Titles" checked="<%=leaveRuleApplicable==null?false:leaveRuleApplicable.getForJobTitles() %>"></aui:input>
+		<div id="groupJobTitlesDiv">
+			<aui:input name="<portletnamespace/>groupJobTitles" id="applyToJobTitles" value="" label=""></aui:input>
+		<aui:input type="hidden" name="jobTitleId" id="jobTitleId" value="" ></aui:input>
+		</div>
 		<hr>
+		<aui:input name="grouprestrictToJobCategories" type="checkbox"
+			label="Job Categories" checked="<%=leaveRuleApplicable==null?false:leaveRuleApplicable.getForJobCategories() %>"></aui:input>
+		<div id="customgroupJobCategoriesDiv">
+			<aui:input name="applyToJobCategories" id="applyToJobCategories" label=""/>
+		<aui:input type="hidden" name="jobCategoryId" id="jobCategoryId" value=""/>
+		</div>
+		<hr>
+		<aui:input name="grouprestrictToEmploymentStatus" type="checkbox"
+			label="Employment Status" checked="<%=leaveRuleApplicable==null?false:leaveRuleApplicable.getForEmploymentStatus() %>"></aui:input>
+		<div id="groupEmploymentStatusDiv">
+			<aui:input name="applyToEmploymentStatus" label=""></aui:input>
+		<aui:input type="hidden" name="employmentStatusId" id="employmentStatusId" value=""></aui:input>
+		</div>
+		<hr>
+		<aui:input name="grouprestrictToGender" type="checkbox" label="Gender" 
+		checked="<%=leaveRuleApplicable==null?false:leaveRuleApplicable.getForGender() %>"></aui:input>
+		<div id="groupGenderDiv">
+		<div class="row-fluid">
+		<div class="span2">  <aui:input name="applyToFemale" label="Female" type="checkbox"></aui:input></div>
+		<div class="span3">  <aui:input name="applyToMale" label="Male" type="checkbox"></aui:input></div>
+			<div class="span7"></div>
+			</div>
+		</div>
+		<hr>
+		<aui:input name="grouprestrictToYearsOfService" type="checkbox"
+			label="Years of Service" checked="<%=leaveRuleApplicable==null?false:leaveRuleApplicable.getForYearsOfService() %>"></aui:input>
+		<div id="groupYearsOfStatusDiv">
+			<p>Only employees with joined dates and corresponding years of
+				service will be allowed to apply for this leave type.</p>
+			<aui:input name="applyToFromYears" label="From"></aui:input>
+		<aui:input name="applyToYears" label="To"></aui:input>
+		</div>
+		<a href="#" class="remove-group btn btn-danger" ><i class="icon-trash"></i>RemoveGroup</a>
+		
+		</div>
+			</div>
 			<aui:button type="submit" value="Save"></aui:button>
 		</aui:form>
 	

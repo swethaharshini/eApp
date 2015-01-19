@@ -11,7 +11,7 @@
 %>
 <div class="panel">
 	<div class="panel-heading">
-		<h4>Apply/Assign Restrictions</h4>
+		<h3>Apply/Assign Restrictions</h3>
 	</div>
 	<div class="panel-body">
 		<aui:form action="<%=addOrUpdateLeaveRestrictions%>"
@@ -21,8 +21,8 @@
 			<table class="table table-bordered table-hover table-striped">
 				<thead>
 					<tr>
-						<th rowspan="2">Restriction</th>
-						<th colspan="2">Restriction to user roles</th>
+						<th rowspan="2" style="vertical-align:middle" width="30%">Restriction</th>
+						<th colspan="2"  width="70%">Restriction to user roles</th>
 					</tr>
 					<tr>
 						<th>Apply</th>
@@ -31,16 +31,12 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>
-				<tbody>
-					<tr>
 						<td>Don't allow more than current leave net balance. Net
 							Balance = [Total Entitlements] - [Leave Taken + Leave Scheduled +
 							Leave Pending Approval] <br></br> <aui:input
 								label="Use projected balance for future dates"
 								id="leaveTypeRuleApplyRestriction_tbxFilterPram6"
-								type="checkbox" style="float: none; display: inline;"
-								name="cannotExceedBalance"></aui:input>
+								type="checkbox" name="cannotExceedBalance"></aui:input>
 						</td>
 						<td>
 							<ol>
@@ -72,10 +68,8 @@
 						</td>
 					</tr>
 					<tr>
-						<td>Don't allow partial day leave.<br></br> <aui:input
-								label="" id="cannotApplyForPartialDay" type="checkbox"
-								style="float: none; display: inline;"
-								name="cannotApplyForPartialDay"></aui:input>
+						<td>
+						<aui:input label="Don't allow partial day leave" id="cannotApplyForPartialDay" type="checkbox" name="cannotApplyForPartialDay"></aui:input>
 						</td>
 						<td>
 							<ol>
@@ -110,9 +104,8 @@
 						<td>Don't allow if employee answers NO to below question.
 							Show the error message that comes afterwards. <br></br> <aui:input
 								label="Questions" id="questions"
-								style="float: none; display: inline;" name="termsQuestion"></aui:input>
+								 name="termsQuestion"></aui:input>
 							<aui:input label="Error Message" id="errorTextIfTermsDeclined"
-								style="float: none; display: inline;"
 								name="errorTextIfTermsDeclined"></aui:input>
 						</td>
 						<td>
@@ -143,10 +136,12 @@
 						</td>
 					</tr>
 					<tr>
-						<td>Don't allow if Service Period is less than <br></br> <aui:input
-								id="leaveTypeRuleApplyRestriction_tbxFilterPram6" value=""
-								style="float: none; display: inline;"
-								name="minimumServicePeriod" label="Minimum Service Period"></aui:input><label>months</label>
+						<td>Don't allow if Service Period is less than <br></br> 
+						<label>Minimum Service Period</label>
+						<div class="input-append">
+							<input id="leaveTypeRuleApplyRestriction_tbxFilterPram6" type="text" value="" name="minimumServicePeriod" />
+							<span class="add-on">months</span>
+						</div>
 						</td>
 						<td>
 							<ol>
@@ -182,9 +177,12 @@
 					</tr>
 					<tr>
 						<td>Don't allow if number of consecutive leave days exceed <br></br>
-							<aui:input id="leaveTypeRuleApplyRestriction_tbxFilterPram6"
-								value="" style="float: none; display: inline;"
-								name="maxConsecutiveLeaves" label="Max ConsecutiveLeaves"></aui:input><label>months</label>
+						<label>Max ConsecutiveLeaves</label>
+						<div class="input-append">
+							<input id="leaveTypeRuleApplyRestriction_tbxFilterPram6"
+								value="" name="maxConsecutiveLeaves" type="text"/>
+								<span class="add-on">months</span>
+						</div>
 						</td>
 						<td>
 							<ol>
@@ -218,11 +216,12 @@
 						</td>
 					</tr>
 					<tr>
-						<td>Don't allow if no child found aged less than <br></br> <aui:input
-								id="leaveTypeRuleApplyRestriction_tbxFilterPram6"
-								style="float: none; display: inline;"
-								name="maxSmallChildAgeApplicable"
-								label="Max Small Child Age Applicable"></aui:input><label>months</label>
+						<td>Don't allow if no child found aged less than <br></br> 
+							<label>Max Small Child Age Applicable</label>
+							<div class="input-append">
+								<input id="leaveTypeRuleApplyRestriction_tbxFilterPram6" name="maxSmallChildAgeApplicable" type="text" />
+								<span class="add-on">months</span>
+							</div>
 						</td>
 						<td>
 							<ol>
@@ -255,6 +254,7 @@
 							</ol>
 						</td>
 					</tr>
+				</tbody>
 			</table>
 			<aui:button value="Save" name="leaveRestrictionsButton" type="submit"
 				id="leaveRestrictionsButton" class="button btn-success"></aui:button>

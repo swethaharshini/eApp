@@ -35,90 +35,93 @@ YUI().use(
 	System.out.println("leaveRuleApplicable = " + leaveRuleApplicable);
 %>
 <div id="leaveGeneralDetails">
-	<ul class="span3" id="test">
-		<div id="leaveTypeName" class="panel">
-			<div class="panel-heading">
-				<h4><%=editLeaveType.getLeaveTypeName()%></h4>
-			</div>
+	<ul class="span3 side-nav" id="test">
+		<div id="leaveTypeName">
+				<h3><%=editLeaveType.getLeaveTypeName()%></h3>
 		</div>
 		<c:choose>
 			<c:when test='<%=activeJsp.equals("generalJsp")%>'>
-				<li class="active"><a href="#general"><liferay-ui:message
+				<li class="active"><a href="#general"><i class="icon-th-large"></i><liferay-ui:message
 							key="General"></liferay-ui:message></a></li>
-				<li><a href="#whoCanApply"><liferay-ui:message
+				<li><a href="#whoCanApply"><i class="icon-user"></i><liferay-ui:message
 							key="Who Can Apply"></liferay-ui:message></a></li>
-				<li><a href="#applyRestrictions"><liferay-ui:message
+				<li><a href="#applyRestrictions"><i class="icon-time"></i><liferay-ui:message
 							key="Apply/Assign Leave Restrictions"></liferay-ui:message></a></li>
-				<li><a href="#restrictToGroups"><liferay-ui:message
+				<li><a href="#restrictToGroups"><i class="icon-group"></i><liferay-ui:message
 							key="Employee Groups"></liferay-ui:message></a></li>
-				<li><a href="#accrualRules"><liferay-ui:message
+				<li><a href="#accrualRules"><i class="icon-info-sign"></i><liferay-ui:message
 							key="Accrual Rules"></liferay-ui:message></a></li>
-				<li><a href="#carryForwardRules"><liferay-ui:message
+				<li><a href="#carryForwardRules"><i class="icon-forward"></i><liferay-ui:message
 							key="Carry Forward Rules"></liferay-ui:message></a></li>
 			</c:when>
 			<c:when test='<%=activeJsp.equals("leaveruleapplicabilityJsp")%>'>
-				<li><a href="#general"><liferay-ui:message key="General"></liferay-ui:message></a></li>
-				<li class="active"><a href="#whoCanApply"><liferay-ui:message
+				<li><a href="#general"><i class="icon-th-large"></i><liferay-ui:message
+							key="General"></liferay-ui:message></a></li>
+				<li class="active"><a href="#whoCanApply"><i class="icon-user"></i><liferay-ui:message
 							key="Who Can Apply"></liferay-ui:message></a></li>
-				<li><a href="#applyRestrictions"><liferay-ui:message
+				<li><a href="#applyRestrictions"><i class="icon-time"></i><liferay-ui:message
 							key="Apply/Assign Leave Restrictions"></liferay-ui:message></a></li>
-				<li><a href="#restrictToGroups"><liferay-ui:message
+				<li><a href="#restrictToGroups"><i class="icon-group"></i><liferay-ui:message
 							key="Employee Groups"></liferay-ui:message></a></li>
-				<li><a href="#accrualRules"><liferay-ui:message
+				<li><a href="#accrualRules"><i class="icon-info-sign"></i><liferay-ui:message
 							key="Accrual Rules"></liferay-ui:message></a></li>
-				<li><a href="#carryForwardRules"><liferay-ui:message
+				<li><a href="#carryForwardRules"><i class="icon-forward"></i><liferay-ui:message
 							key="Carry Forward Rules"></liferay-ui:message></a></li>
 			</c:when>
 			<c:when test='<%=activeJsp.equals("restrictionsJsp")%>'>
-				<li><a href="#general"><liferay-ui:message key="General"></liferay-ui:message></a></li>
-				<li><a href="#whoCanApply"><liferay-ui:message
+				<li><a href="#general"><i class="icon-th-large"></i><liferay-ui:message
+							key="General"></liferay-ui:message></a></li>
+				<li><a href="#whoCanApply"><i class="icon-user"></i><liferay-ui:message
 							key="Who Can Apply"></liferay-ui:message></a></li>
-				<li class="active"><a href="#applyRestrictions"><liferay-ui:message
+				<li class="active"><a href="#applyRestrictions"><i class="icon-time"></i><liferay-ui:message
 							key="Apply/Assign Leave Restrictions"></liferay-ui:message></a></li>
-				<li><a href="#restrictToGroups"><liferay-ui:message
+				<li><a href="#restrictToGroups"><i class="icon-group"></i><liferay-ui:message
 							key="Employee Groups"></liferay-ui:message></a></li>
-				<li><a href="#accrualRules"><liferay-ui:message
+				<li><a href="#accrualRules"><i class="icon-info-sign"></i><liferay-ui:message
 							key="Accrual Rules"></liferay-ui:message></a></li>
-				<li><a href="#carryForwardRules"><liferay-ui:message
+				<li><a href="#carryForwardRules"><i class="icon-forward"></i><liferay-ui:message
 							key="Carry Forward Rules"></liferay-ui:message></a></li>
 			</c:when>
 			<c:when test='<%=activeJsp.equals("restrictgroupsJsp")%>'>
-				<li><a href="#general"><liferay-ui:message key="General"></liferay-ui:message></a></li>
-				<li><a href="#whoCanApply"><liferay-ui:message
+				<li><a href="#general"><i class="icon-th-large"></i><liferay-ui:message
+							key="General"></liferay-ui:message></a></li>
+				<li><a href="#whoCanApply"><i class="icon-user"></i><liferay-ui:message
 							key="Who Can Apply"></liferay-ui:message></a></li>
-				<li><a href="#applyRestrictions"><liferay-ui:message
+				<li><a href="#applyRestrictions"><i class="icon-time"></i><liferay-ui:message
 							key="Apply/Assign Leave Restrictions"></liferay-ui:message></a></li>
-				<li class="active"><a href="#restrictToGroups"><liferay-ui:message
+				<li class="active"><a href="#restrictToGroups"><i class="icon-group"></i><liferay-ui:message
 							key="Employee Groups"></liferay-ui:message></a></li>
-				<li><a href="#accrualRules"><liferay-ui:message
+				<li><a href="#accrualRules"><i class="icon-info-sign"></i><liferay-ui:message
 							key="Accrual Rules"></liferay-ui:message></a></li>
-				<li><a href="#carryForwardRules"><liferay-ui:message
+				<li><a href="#carryForwardRules"><i class="icon-forward"></i><liferay-ui:message
 							key="Carry Forward Rules"></liferay-ui:message></a></li>
 			</c:when>
 			<c:when test='<%=activeJsp.equals("accrualrulesJsp")%>'>
-				<li><a href="#general"><liferay-ui:message key="General"></liferay-ui:message></a></li>
-				<li><a href="#whoCanApply"><liferay-ui:message
+				<li><a href="#general"><i class="icon-th-large"></i><liferay-ui:message
+							key="General"></liferay-ui:message></a></li>
+				<li><a href="#whoCanApply"><i class="icon-user"></i><liferay-ui:message
 							key="Who Can Apply"></liferay-ui:message></a></li>
-				<li><a href="#applyRestrictions"><liferay-ui:message
+				<li><a href="#applyRestrictions"><i class="icon-time"></i><liferay-ui:message
 							key="Apply/Assign Leave Restrictions"></liferay-ui:message></a></li>
-				<li><a href="#restrictToGroups"><liferay-ui:message
+				<li><a href="#restrictToGroups"><i class="icon-group"></i><liferay-ui:message
 							key="Employee Groups"></liferay-ui:message></a></li>
-				<li class="active"><a href="#accrualRules"><liferay-ui:message
+				<li class="active"><a href="#accrualRules"><i class="icon-info-sign"></i><liferay-ui:message
 							key="Accrual Rules"></liferay-ui:message></a></li>
-				<li><a href="#carryForwardRules"><liferay-ui:message
+				<li><a href="#carryForwardRules"><i class="icon-forward"></i><liferay-ui:message
 							key="Carry Forward Rules"></liferay-ui:message></a></li>
 			</c:when>
 			<c:when test='<%=activeJsp.equals("carryforwardJsp")%>'>
-				<li><a href="#general"><liferay-ui:message key="General"></liferay-ui:message></a></li>
-				<li><a href="#whoCanApply"><liferay-ui:message
+				<li><a href="#general"><i class="icon-th-large"></i><liferay-ui:message
+							key="General"></liferay-ui:message></a></li>
+				<li><a href="#whoCanApply"><i class="icon-user"></i><liferay-ui:message
 							key="Who Can Apply"></liferay-ui:message></a></li>
-				<li><a href="#applyRestrictions"><liferay-ui:message
+				<li><a href="#applyRestrictions"><i class="icon-time"></i><liferay-ui:message
 							key="Apply/Assign Leave Restrictions"></liferay-ui:message></a></li>
-				<li><a href="#restrictToGroups"><liferay-ui:message
+				<li><a href="#restrictToGroups"><i class="icon-group"></i><liferay-ui:message
 							key="Employee Groups"></liferay-ui:message></a></li>
-				<li><a href="#accrualRules"><liferay-ui:message
+				<li><a href="#accrualRules"><i class="icon-info-sign"></i><liferay-ui:message
 							key="Accrual Rules"></liferay-ui:message></a></li>
-				<li class="active"><a href="#carryForwardRules"><liferay-ui:message
+				<li class="active"><a href="#carryForwardRules"><i class="icon-forward"></i><liferay-ui:message
 							key="Carry Forward Rules"></liferay-ui:message></a></li>
 			</c:when>
 

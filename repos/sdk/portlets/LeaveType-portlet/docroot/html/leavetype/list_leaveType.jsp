@@ -7,15 +7,6 @@
 <portlet:param name="mvcPath" value="/html/leavetype/add_edit_leaveType.jsp"/>
 </portlet:renderURL>
 
-<style type="text/css">
-.table-first-header {
-	width: 10%;
-}
-.table-last-header {
-	width: 15%;
-}
-</style>
-
 <aui:script>
 AUI().use('aui-node',function(A) {
     var node = A.one('#<portlet:namespace/>deleteLeaveType');
@@ -68,22 +59,14 @@ public String getNationalityValue(long nationId) {
 	return "";
 }
 %>
-<div class="panel">
-	<div class="panel-heading">
-		<h4>Leave Type</h4>
+<body>
+<div class="row-fluid">
+	<div class="span12 text-right">
+		<a id="addLeaveType" class="btn btn-primary" href="<%=addLeaveType.toString()%>"><i class="icon-plus"></i></a>
+		<a id="deleteLeaveType" class="btn btn-danger"><i class="icon-trash"></i></a>
 	</div>
-	<div class="panel-body">
-		<div class="row-fluid">
-			<div class="span1">
-				<aui:button id="addLeaveType" value="Add"
-					onClick="<%=addLeaveType.toString()%>" />
-			</div>
-			<div class="span1">
-				<aui:button id="deleteLeaveType" name="deleteLeaveType"
-					value="Delete" />
-			</div>
-			<div class="span10"></div>
-		</div>
+</div>
+</body>
 <%
 
 	PortletURL iteratorURL = renderResponse.createRenderURL();
@@ -165,7 +148,4 @@ java.util.List<LeaveType> leaveTypeList=LeaveTypeLocalServiceUtil.getLeaveTypes(
 	<liferay-ui:search-iterator />
 
 </liferay-ui:search-container>
-</div>
-
-</div>
 </div>
