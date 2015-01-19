@@ -58,7 +58,8 @@ public class SalaryComponentWrapper implements SalaryComponent,
 		attributes.put("userId", getUserId());
 		attributes.put("componentName", getComponentName());
 		attributes.put("type", getType());
-		attributes.put("onlyCTC", getOnlyCTC());
+		attributes.put("totalPayable", getTotalPayable());
+		attributes.put("costToCompany", getCostToCompany());
 		attributes.put("valueType", getValueType());
 
 		return attributes;
@@ -108,16 +109,22 @@ public class SalaryComponentWrapper implements SalaryComponent,
 			setComponentName(componentName);
 		}
 
-		Boolean type = (Boolean)attributes.get("type");
+		String type = (String)attributes.get("type");
 
 		if (type != null) {
 			setType(type);
 		}
 
-		Boolean onlyCTC = (Boolean)attributes.get("onlyCTC");
+		String totalPayable = (String)attributes.get("totalPayable");
 
-		if (onlyCTC != null) {
-			setOnlyCTC(onlyCTC);
+		if (totalPayable != null) {
+			setTotalPayable(totalPayable);
+		}
+
+		String costToCompany = (String)attributes.get("costToCompany");
+
+		if (costToCompany != null) {
+			setCostToCompany(costToCompany);
 		}
 
 		String valueType = (String)attributes.get("valueType");
@@ -315,58 +322,58 @@ public class SalaryComponentWrapper implements SalaryComponent,
 	* @return the type of this salary component
 	*/
 	@Override
-	public boolean getType() {
+	public java.lang.String getType() {
 		return _salaryComponent.getType();
 	}
 
 	/**
-	* Returns <code>true</code> if this salary component is type.
-	*
-	* @return <code>true</code> if this salary component is type; <code>false</code> otherwise
-	*/
-	@Override
-	public boolean isType() {
-		return _salaryComponent.isType();
-	}
-
-	/**
-	* Sets whether this salary component is type.
+	* Sets the type of this salary component.
 	*
 	* @param type the type of this salary component
 	*/
 	@Override
-	public void setType(boolean type) {
+	public void setType(java.lang.String type) {
 		_salaryComponent.setType(type);
 	}
 
 	/**
-	* Returns the only c t c of this salary component.
+	* Returns the total payable of this salary component.
 	*
-	* @return the only c t c of this salary component
+	* @return the total payable of this salary component
 	*/
 	@Override
-	public boolean getOnlyCTC() {
-		return _salaryComponent.getOnlyCTC();
+	public java.lang.String getTotalPayable() {
+		return _salaryComponent.getTotalPayable();
 	}
 
 	/**
-	* Returns <code>true</code> if this salary component is only c t c.
+	* Sets the total payable of this salary component.
 	*
-	* @return <code>true</code> if this salary component is only c t c; <code>false</code> otherwise
+	* @param totalPayable the total payable of this salary component
 	*/
 	@Override
-	public boolean isOnlyCTC() {
-		return _salaryComponent.isOnlyCTC();
+	public void setTotalPayable(java.lang.String totalPayable) {
+		_salaryComponent.setTotalPayable(totalPayable);
 	}
 
 	/**
-	* Sets whether this salary component is only c t c.
+	* Returns the cost to company of this salary component.
 	*
-	* @param onlyCTC the only c t c of this salary component
+	* @return the cost to company of this salary component
 	*/
 	@Override
-	public void setOnlyCTC(boolean onlyCTC) {
-		_salaryComponent.setOnlyCTC(onlyCTC);
+	public java.lang.String getCostToCompany() {
+		return _salaryComponent.getCostToCompany();
+	}
+
+	/**
+	* Sets the cost to company of this salary component.
+	*
+	* @param costToCompany the cost to company of this salary component
+	*/
+	@Override
+	public void setCostToCompany(java.lang.String costToCompany) {
+		_salaryComponent.setCostToCompany(costToCompany);
 	}
 
 	/**

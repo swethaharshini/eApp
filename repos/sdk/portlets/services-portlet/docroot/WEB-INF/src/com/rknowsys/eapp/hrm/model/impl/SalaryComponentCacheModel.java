@@ -38,7 +38,7 @@ public class SalaryComponentCacheModel implements CacheModel<SalaryComponent>,
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(23);
 
 		sb.append("{salaryComponentId=");
 		sb.append(salaryComponentId);
@@ -56,8 +56,10 @@ public class SalaryComponentCacheModel implements CacheModel<SalaryComponent>,
 		sb.append(componentName);
 		sb.append(", type=");
 		sb.append(type);
-		sb.append(", onlyCTC=");
-		sb.append(onlyCTC);
+		sb.append(", totalPayable=");
+		sb.append(totalPayable);
+		sb.append(", costToCompany=");
+		sb.append(costToCompany);
 		sb.append(", valueType=");
 		sb.append(valueType);
 		sb.append("}");
@@ -96,8 +98,26 @@ public class SalaryComponentCacheModel implements CacheModel<SalaryComponent>,
 			salaryComponentImpl.setComponentName(componentName);
 		}
 
-		salaryComponentImpl.setType(type);
-		salaryComponentImpl.setOnlyCTC(onlyCTC);
+		if (type == null) {
+			salaryComponentImpl.setType(StringPool.BLANK);
+		}
+		else {
+			salaryComponentImpl.setType(type);
+		}
+
+		if (totalPayable == null) {
+			salaryComponentImpl.setTotalPayable(StringPool.BLANK);
+		}
+		else {
+			salaryComponentImpl.setTotalPayable(totalPayable);
+		}
+
+		if (costToCompany == null) {
+			salaryComponentImpl.setCostToCompany(StringPool.BLANK);
+		}
+		else {
+			salaryComponentImpl.setCostToCompany(costToCompany);
+		}
 
 		if (valueType == null) {
 			salaryComponentImpl.setValueType(StringPool.BLANK);
@@ -120,8 +140,9 @@ public class SalaryComponentCacheModel implements CacheModel<SalaryComponent>,
 		modifiedDate = objectInput.readLong();
 		userId = objectInput.readLong();
 		componentName = objectInput.readUTF();
-		type = objectInput.readBoolean();
-		onlyCTC = objectInput.readBoolean();
+		type = objectInput.readUTF();
+		totalPayable = objectInput.readUTF();
+		costToCompany = objectInput.readUTF();
 		valueType = objectInput.readUTF();
 	}
 
@@ -142,8 +163,26 @@ public class SalaryComponentCacheModel implements CacheModel<SalaryComponent>,
 			objectOutput.writeUTF(componentName);
 		}
 
-		objectOutput.writeBoolean(type);
-		objectOutput.writeBoolean(onlyCTC);
+		if (type == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(type);
+		}
+
+		if (totalPayable == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(totalPayable);
+		}
+
+		if (costToCompany == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(costToCompany);
+		}
 
 		if (valueType == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
@@ -160,7 +199,8 @@ public class SalaryComponentCacheModel implements CacheModel<SalaryComponent>,
 	public long modifiedDate;
 	public long userId;
 	public String componentName;
-	public boolean type;
-	public boolean onlyCTC;
+	public String type;
+	public String totalPayable;
+	public String costToCompany;
 	public String valueType;
 }

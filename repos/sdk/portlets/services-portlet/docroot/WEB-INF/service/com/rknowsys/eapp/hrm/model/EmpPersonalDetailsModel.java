@@ -282,28 +282,30 @@ public interface EmpPersonalDetailsModel extends BaseModel<EmpPersonalDetails> {
 	 *
 	 * @return the gender of this EmpPersonalDetails
 	 */
-	public long getGender();
+	@AutoEscape
+	public String getGender();
 
 	/**
 	 * Sets the gender of this EmpPersonalDetails.
 	 *
 	 * @param gender the gender of this EmpPersonalDetails
 	 */
-	public void setGender(long gender);
+	public void setGender(String gender);
 
 	/**
 	 * Returns the marital status of this EmpPersonalDetails.
 	 *
 	 * @return the marital status of this EmpPersonalDetails
 	 */
-	public long getMaritalStatus();
+	@AutoEscape
+	public String getMaritalStatus();
 
 	/**
 	 * Sets the marital status of this EmpPersonalDetails.
 	 *
 	 * @param maritalStatus the marital status of this EmpPersonalDetails
 	 */
-	public void setMaritalStatus(long maritalStatus);
+	public void setMaritalStatus(String maritalStatus);
 
 	/**
 	 * Returns the nationality ID of this EmpPersonalDetails.

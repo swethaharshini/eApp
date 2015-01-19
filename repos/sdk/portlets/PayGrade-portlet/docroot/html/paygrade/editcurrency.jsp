@@ -31,10 +31,7 @@ String prk=String.valueOf(i.getPrimaryKey());
 </portlet:actionURL>
 
 
-<a href="#" class="edit-icon" onclick="window.location='<%=editpaygradecurrency.toString()%>'"><img
-					width="18px" height="18px" alt="loading..." 
-					src="<%=request.getContextPath() %>/images/pencil.jpg">
-</a> 
+<a href="#" class="edit-icon" onclick="window.location='<%=editpaygradecurrency.toString()%>'"><i class="icon-edit"></i></a> 
 </liferay-ui:icon-menu>
 
 

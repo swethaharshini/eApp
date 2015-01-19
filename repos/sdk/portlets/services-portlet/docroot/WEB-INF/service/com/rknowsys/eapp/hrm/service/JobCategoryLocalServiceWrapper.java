@@ -260,6 +260,182 @@ public class JobCategoryLocalServiceWrapper implements JobCategoryLocalService,
 	}
 
 	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public void addLeaveRuleApplicableJobCategory(long leaveRuleApplicableId,
+		long jobCategoryId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_jobCategoryLocalService.addLeaveRuleApplicableJobCategory(leaveRuleApplicableId,
+			jobCategoryId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public void addLeaveRuleApplicableJobCategory(long leaveRuleApplicableId,
+		com.rknowsys.eapp.hrm.model.JobCategory jobCategory)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_jobCategoryLocalService.addLeaveRuleApplicableJobCategory(leaveRuleApplicableId,
+			jobCategory);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public void addLeaveRuleApplicableJobCategories(
+		long leaveRuleApplicableId, long[] jobCategoryIds)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_jobCategoryLocalService.addLeaveRuleApplicableJobCategories(leaveRuleApplicableId,
+			jobCategoryIds);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public void addLeaveRuleApplicableJobCategories(
+		long leaveRuleApplicableId,
+		java.util.List<com.rknowsys.eapp.hrm.model.JobCategory> JobCategories)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_jobCategoryLocalService.addLeaveRuleApplicableJobCategories(leaveRuleApplicableId,
+			JobCategories);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public void clearLeaveRuleApplicableJobCategories(
+		long leaveRuleApplicableId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_jobCategoryLocalService.clearLeaveRuleApplicableJobCategories(leaveRuleApplicableId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public void deleteLeaveRuleApplicableJobCategory(
+		long leaveRuleApplicableId, long jobCategoryId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_jobCategoryLocalService.deleteLeaveRuleApplicableJobCategory(leaveRuleApplicableId,
+			jobCategoryId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public void deleteLeaveRuleApplicableJobCategory(
+		long leaveRuleApplicableId,
+		com.rknowsys.eapp.hrm.model.JobCategory jobCategory)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_jobCategoryLocalService.deleteLeaveRuleApplicableJobCategory(leaveRuleApplicableId,
+			jobCategory);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public void deleteLeaveRuleApplicableJobCategories(
+		long leaveRuleApplicableId, long[] jobCategoryIds)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_jobCategoryLocalService.deleteLeaveRuleApplicableJobCategories(leaveRuleApplicableId,
+			jobCategoryIds);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public void deleteLeaveRuleApplicableJobCategories(
+		long leaveRuleApplicableId,
+		java.util.List<com.rknowsys.eapp.hrm.model.JobCategory> JobCategories)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_jobCategoryLocalService.deleteLeaveRuleApplicableJobCategories(leaveRuleApplicableId,
+			JobCategories);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public java.util.List<com.rknowsys.eapp.hrm.model.JobCategory> getLeaveRuleApplicableJobCategories(
+		long leaveRuleApplicableId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _jobCategoryLocalService.getLeaveRuleApplicableJobCategories(leaveRuleApplicableId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public java.util.List<com.rknowsys.eapp.hrm.model.JobCategory> getLeaveRuleApplicableJobCategories(
+		long leaveRuleApplicableId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _jobCategoryLocalService.getLeaveRuleApplicableJobCategories(leaveRuleApplicableId,
+			start, end);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public java.util.List<com.rknowsys.eapp.hrm.model.JobCategory> getLeaveRuleApplicableJobCategories(
+		long leaveRuleApplicableId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _jobCategoryLocalService.getLeaveRuleApplicableJobCategories(leaveRuleApplicableId,
+			start, end, orderByComparator);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public int getLeaveRuleApplicableJobCategoriesCount(
+		long leaveRuleApplicableId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _jobCategoryLocalService.getLeaveRuleApplicableJobCategoriesCount(leaveRuleApplicableId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public boolean hasLeaveRuleApplicableJobCategory(
+		long leaveRuleApplicableId, long jobCategoryId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _jobCategoryLocalService.hasLeaveRuleApplicableJobCategory(leaveRuleApplicableId,
+			jobCategoryId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public boolean hasLeaveRuleApplicableJobCategories(
+		long leaveRuleApplicableId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _jobCategoryLocalService.hasLeaveRuleApplicableJobCategories(leaveRuleApplicableId);
+	}
+
+	/**
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public void setLeaveRuleApplicableJobCategories(
+		long leaveRuleApplicableId, long[] jobCategoryIds)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_jobCategoryLocalService.setLeaveRuleApplicableJobCategories(leaveRuleApplicableId,
+			jobCategoryIds);
+	}
+
+	/**
 	* Returns the Spring bean ID for this bean.
 	*
 	* @return the Spring bean ID for this bean

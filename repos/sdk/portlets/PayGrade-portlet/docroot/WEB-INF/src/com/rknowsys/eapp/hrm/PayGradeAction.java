@@ -198,7 +198,7 @@ public class PayGradeAction extends MVCPortlet {
 		if (id == "" || id == null) {
 			
 			DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(PayGradeCurrency.class,PortalClassLoaderUtil.getClassLoader());
-			dynamicQuery.add(RestrictionsFactoryUtil.eq("currency", currency));
+			dynamicQuery.add(RestrictionsFactoryUtil.eq("currency", payGradeCurrency));
 			dynamicQuery.add(RestrictionsFactoryUtil.eq("payGradeId", paygradeid));
 			@SuppressWarnings("unchecked")
 			List<PayGradeCurrency> payGradeCurrencies = PayGradeLocalServiceUtil.dynamicQuery(dynamicQuery);

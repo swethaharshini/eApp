@@ -254,177 +254,177 @@ public class EmploymentStatusLocalServiceUtil {
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
-	public static void addLeaveTypeApplicabilityEmploymentStatus(
-		long leaveTypeApplicabilityId, long employmentStatusId)
+	public static void addLeaveRuleApplicableEmploymentStatus(
+		long leaveRuleApplicableId, long employmentStatusId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		getService()
-			.addLeaveTypeApplicabilityEmploymentStatus(leaveTypeApplicabilityId,
+			.addLeaveRuleApplicableEmploymentStatus(leaveRuleApplicableId,
 			employmentStatusId);
 	}
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
-	public static void addLeaveTypeApplicabilityEmploymentStatus(
-		long leaveTypeApplicabilityId,
+	public static void addLeaveRuleApplicableEmploymentStatus(
+		long leaveRuleApplicableId,
 		com.rknowsys.eapp.hrm.model.EmploymentStatus employmentStatus)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		getService()
-			.addLeaveTypeApplicabilityEmploymentStatus(leaveTypeApplicabilityId,
+			.addLeaveRuleApplicableEmploymentStatus(leaveRuleApplicableId,
 			employmentStatus);
 	}
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
-	public static void addLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId, long[] employmentStatusIds)
+	public static void addLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId, long[] employmentStatusIds)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		getService()
-			.addLeaveTypeApplicabilityEmploymentStatuses(leaveTypeApplicabilityId,
+			.addLeaveRuleApplicableEmploymentStatuses(leaveRuleApplicableId,
 			employmentStatusIds);
 	}
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
-	public static void addLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId,
+	public static void addLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId,
 		java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> EmploymentStatuses)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		getService()
-			.addLeaveTypeApplicabilityEmploymentStatuses(leaveTypeApplicabilityId,
+			.addLeaveRuleApplicableEmploymentStatuses(leaveRuleApplicableId,
 			EmploymentStatuses);
 	}
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
-	public static void clearLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId)
+	public static void clearLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		getService()
-			.clearLeaveTypeApplicabilityEmploymentStatuses(leaveTypeApplicabilityId);
+			.clearLeaveRuleApplicableEmploymentStatuses(leaveRuleApplicableId);
 	}
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
-	public static void deleteLeaveTypeApplicabilityEmploymentStatus(
-		long leaveTypeApplicabilityId, long employmentStatusId)
+	public static void deleteLeaveRuleApplicableEmploymentStatus(
+		long leaveRuleApplicableId, long employmentStatusId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		getService()
-			.deleteLeaveTypeApplicabilityEmploymentStatus(leaveTypeApplicabilityId,
+			.deleteLeaveRuleApplicableEmploymentStatus(leaveRuleApplicableId,
 			employmentStatusId);
 	}
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
-	public static void deleteLeaveTypeApplicabilityEmploymentStatus(
-		long leaveTypeApplicabilityId,
+	public static void deleteLeaveRuleApplicableEmploymentStatus(
+		long leaveRuleApplicableId,
 		com.rknowsys.eapp.hrm.model.EmploymentStatus employmentStatus)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		getService()
-			.deleteLeaveTypeApplicabilityEmploymentStatus(leaveTypeApplicabilityId,
+			.deleteLeaveRuleApplicableEmploymentStatus(leaveRuleApplicableId,
 			employmentStatus);
 	}
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
-	public static void deleteLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId, long[] employmentStatusIds)
+	public static void deleteLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId, long[] employmentStatusIds)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		getService()
-			.deleteLeaveTypeApplicabilityEmploymentStatuses(leaveTypeApplicabilityId,
+			.deleteLeaveRuleApplicableEmploymentStatuses(leaveRuleApplicableId,
 			employmentStatusIds);
 	}
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
-	public static void deleteLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId,
+	public static void deleteLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId,
 		java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> EmploymentStatuses)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		getService()
-			.deleteLeaveTypeApplicabilityEmploymentStatuses(leaveTypeApplicabilityId,
+			.deleteLeaveRuleApplicableEmploymentStatuses(leaveRuleApplicableId,
 			EmploymentStatuses);
 	}
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
-	public static java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> getLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId)
+	public static java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> getLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .getLeaveTypeApplicabilityEmploymentStatuses(leaveTypeApplicabilityId);
+				   .getLeaveRuleApplicableEmploymentStatuses(leaveRuleApplicableId);
 	}
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
-	public static java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> getLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId, int start, int end)
+	public static java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> getLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .getLeaveTypeApplicabilityEmploymentStatuses(leaveTypeApplicabilityId,
+				   .getLeaveRuleApplicableEmploymentStatuses(leaveRuleApplicableId,
 			start, end);
 	}
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
-	public static java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> getLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId, int start, int end,
+	public static java.util.List<com.rknowsys.eapp.hrm.model.EmploymentStatus> getLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .getLeaveTypeApplicabilityEmploymentStatuses(leaveTypeApplicabilityId,
+				   .getLeaveRuleApplicableEmploymentStatuses(leaveRuleApplicableId,
 			start, end, orderByComparator);
 	}
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
-	public static int getLeaveTypeApplicabilityEmploymentStatusesCount(
-		long leaveTypeApplicabilityId)
+	public static int getLeaveRuleApplicableEmploymentStatusesCount(
+		long leaveRuleApplicableId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .getLeaveTypeApplicabilityEmploymentStatusesCount(leaveTypeApplicabilityId);
+				   .getLeaveRuleApplicableEmploymentStatusesCount(leaveRuleApplicableId);
 	}
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
-	public static boolean hasLeaveTypeApplicabilityEmploymentStatus(
-		long leaveTypeApplicabilityId, long employmentStatusId)
+	public static boolean hasLeaveRuleApplicableEmploymentStatus(
+		long leaveRuleApplicableId, long employmentStatusId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .hasLeaveTypeApplicabilityEmploymentStatus(leaveTypeApplicabilityId,
+				   .hasLeaveRuleApplicableEmploymentStatus(leaveRuleApplicableId,
 			employmentStatusId);
 	}
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
-	public static boolean hasLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId)
+	public static boolean hasLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .hasLeaveTypeApplicabilityEmploymentStatuses(leaveTypeApplicabilityId);
+				   .hasLeaveRuleApplicableEmploymentStatuses(leaveRuleApplicableId);
 	}
 
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
-	public static void setLeaveTypeApplicabilityEmploymentStatuses(
-		long leaveTypeApplicabilityId, long[] employmentStatusIds)
+	public static void setLeaveRuleApplicableEmploymentStatuses(
+		long leaveRuleApplicableId, long[] employmentStatusIds)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		getService()
-			.setLeaveTypeApplicabilityEmploymentStatuses(leaveTypeApplicabilityId,
+			.setLeaveRuleApplicableEmploymentStatuses(leaveRuleApplicableId,
 			employmentStatusIds);
 	}
 

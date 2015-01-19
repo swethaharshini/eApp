@@ -13,15 +13,7 @@
 <portlet:renderURL var="addpaygrade">
 	<portlet:param name="mvcPath" value="/html/paygrade/addpaygrade.jsp" />
 </portlet:renderURL>
-<style type="text/css">
-.table-first-header {
-	width: 10%;
-}
-.table-last-header {
-	width: 15%;
-}
 
-</style>
 <aui:script>
 
 AUI().use(
@@ -80,13 +72,11 @@ function addPayGrade(){
 </head>
 <body>
 <div class="row-fluid">
-	<div id="interviewadddelete" class="span12">
-		<div class="pull-left">
-		<button  onclick="addPayGrade()" class="btn btn-success" type="button"><i class="icon-plus"></i> Add </button>
-		<button id="delete" class="btn btn-danger" type="button"><i class="icon-trash"></i> Delete </button> 
-		</div>
+	<div id="interviewadddelete" class="span12 text-right">
+		<a onclick="addPayGrade()" class="btn btn-success"><i class="icon-plus"></i></a>
+		<a id="delete" class="btn btn-danger"><i class="icon-trash"></i></a> 
 	</div>
-	</div>
+</div>
 
 <%
 

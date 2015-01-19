@@ -38,7 +38,8 @@ public class SalaryComponentSoap implements Serializable {
 		soapModel.setUserId(model.getUserId());
 		soapModel.setComponentName(model.getComponentName());
 		soapModel.setType(model.getType());
-		soapModel.setOnlyCTC(model.getOnlyCTC());
+		soapModel.setTotalPayable(model.getTotalPayable());
+		soapModel.setCostToCompany(model.getCostToCompany());
 		soapModel.setValueType(model.getValueType());
 
 		return soapModel;
@@ -150,28 +151,28 @@ public class SalaryComponentSoap implements Serializable {
 		_componentName = componentName;
 	}
 
-	public boolean getType() {
+	public String getType() {
 		return _type;
 	}
 
-	public boolean isType() {
-		return _type;
-	}
-
-	public void setType(boolean type) {
+	public void setType(String type) {
 		_type = type;
 	}
 
-	public boolean getOnlyCTC() {
-		return _onlyCTC;
+	public String getTotalPayable() {
+		return _totalPayable;
 	}
 
-	public boolean isOnlyCTC() {
-		return _onlyCTC;
+	public void setTotalPayable(String totalPayable) {
+		_totalPayable = totalPayable;
 	}
 
-	public void setOnlyCTC(boolean onlyCTC) {
-		_onlyCTC = onlyCTC;
+	public String getCostToCompany() {
+		return _costToCompany;
+	}
+
+	public void setCostToCompany(String costToCompany) {
+		_costToCompany = costToCompany;
 	}
 
 	public String getValueType() {
@@ -189,7 +190,8 @@ public class SalaryComponentSoap implements Serializable {
 	private Date _modifiedDate;
 	private long _userId;
 	private String _componentName;
-	private boolean _type;
-	private boolean _onlyCTC;
+	private String _type;
+	private String _totalPayable;
+	private String _costToCompany;
 	private String _valueType;
 }

@@ -46,11 +46,12 @@ import com.rknowsys.eapp.hrm.service.InterviewLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.JobCategoryLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.JobTitleLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.LanguageLocalServiceUtil;
+import com.rknowsys.eapp.hrm.service.LeaveAccrualLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.LeaveCarryForwardPolicyLocalServiceUtil;
+import com.rknowsys.eapp.hrm.service.LeaveGeneralLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.LeavePeriodLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.LeaveRestrictionLocalServiceUtil;
-import com.rknowsys.eapp.hrm.service.LeaveRuleLocalServiceUtil;
-import com.rknowsys.eapp.hrm.service.LeaveTypeApplicabilityLocalServiceUtil;
+import com.rknowsys.eapp.hrm.service.LeaveRuleApplicableLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.LeaveTypeLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.LicenseLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.LocationLocalServiceUtil;
@@ -139,17 +140,19 @@ public class ClpMessageListener extends BaseMessageListener {
 
 			LanguageLocalServiceUtil.clearService();
 
+			LeaveAccrualLocalServiceUtil.clearService();
+
 			LeaveCarryForwardPolicyLocalServiceUtil.clearService();
+
+			LeaveGeneralLocalServiceUtil.clearService();
 
 			LeavePeriodLocalServiceUtil.clearService();
 
 			LeaveRestrictionLocalServiceUtil.clearService();
 
-			LeaveRuleLocalServiceUtil.clearService();
+			LeaveRuleApplicableLocalServiceUtil.clearService();
 
 			LeaveTypeLocalServiceUtil.clearService();
-
-			LeaveTypeApplicabilityLocalServiceUtil.clearService();
 
 			LicenseLocalServiceUtil.clearService();
 

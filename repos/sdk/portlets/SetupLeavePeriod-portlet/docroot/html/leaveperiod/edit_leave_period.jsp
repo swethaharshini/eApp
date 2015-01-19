@@ -22,16 +22,6 @@
 	<%-- 	<portlet:param name="mvcPath" value="/html/contactdetails/edit_contact_details.jsp" /> --%>
  </portlet:renderURL>
 
-
- <style type="text/css">	
-.table-first-header{
-width: 10%;
-}
-.table-last-header{
-width: 15%;
-}
-</style>
-
 <aui:script>
 AUI().use(
   'aui-node',
@@ -61,132 +51,61 @@ AUI().ready('event', 'node', function(A){
 
  <jsp:useBean id="editLeavePeriod" type="com.rknowsys.eapp.ui.LeavePeriod" scope="request" />
  
- <div id="editLeavePeriodReadOnly">
- 
+ <div id="editLeavePeriodReadOnly" class="form-horizontal clearfix">
 		<aui:input name="leavePeriodId" type="hidden" value="<%=editLeavePeriod.getLeavePeriodId() %>"/>
-
-		<div class="span12">
-			<div class="span2">
-				<label>Start Month</label>
-		</div>
-		<div class="span3">
-		
-			<aui:select type="select" name="startMonth" label="" disabled="true" >
-				<aui:option value="-1">--Select--</aui:option>
-	         <% 			
-	         	List<IdNamePair> idNameList = editLeavePeriod.getMonths();
-				String storedId=String.valueOf(editLeavePeriod.getStartMonth());
-	         	for (IdNamePair idName:idNameList) { %>
-    	        <aui:option selected="<%=idName.getId().equals(storedId)%>"
-                        value="<%=idName.getId() %>">
-                	<%=idName.getName()%>
-            	</aui:option>
-           	 <% } %>
-
-			</aui:select>
-		
+		<aui:select type="select" name="startMonth" label="Start Month" disabled="true" >
+		<aui:option value="-1">--Select--</aui:option>
+		<% 			
+		      	List<IdNamePair> idNameList = editLeavePeriod.getMonths();
+		String storedId=String.valueOf(editLeavePeriod.getStartMonth());
+		      	for (IdNamePair idName:idNameList) { %>
+		<aui:option selected="<%=idName.getId().equals(storedId)%>"
+		value="<%=idName.getId() %>">
+		<%=idName.getName()%>
+		</aui:option>
+		<% } %>
+		</aui:select>
 		<%--  <aui:input name="startMonth" type="text" label="" disabled="true" value="<%=editLeavePeriod.getStartMonth() %>"/> --%>
+		<aui:input name="startDate" type="text" label="Start Date" disabled="true" value="<%=editLeavePeriod.getStartDate() %>"/>
+		<aui:input name="endDate" type="text" label="End Date" disabled="true" value="<%=editLeavePeriod.getEndDate() %>"/>
+		<aui:input name="currentLeavePeriod" type="text" label="Current Leave Period" disabled="true" value="<%=editLeavePeriod.getCurrentLeavePeriod()%>"/>
+		<div class="control-group">
+			<div class="controls">
+				<aui:button type="button" id="edit" value="Edit" />
 			</div>
 		</div>
-
-		<div class="span12">
-			<div class="span2">
-				<label>Start Date</label>
-			</div>
-			<div class="span3">	
-		 		<aui:input name="startDate" type="text" label="" disabled="true" value="<%=editLeavePeriod.getStartDate() %>"/>
-			</div>
-		</div>
-
-		<div class="span12">
-			<div class="span2">
-				<label>End Date</label>
-		</div>
-		<div class="span3">
-		 <aui:input name="endDate" type="text" label="" disabled="true" value="<%=editLeavePeriod.getEndDate() %>"/>
-			</div>
-		</div>
-
-		<div class="span12">
-			<div class="span2">
-				<label>Current Leave Period</label>
-		</div>
-		<div class="span3">		
-		 <aui:input name="currentLeavePeriod" type="text" label="" disabled="true" value="<%=editLeavePeriod.getCurrentLeavePeriod()%>"/>
-			</div>
-		</div>
-
-		<div class="span12">
-			<aui:button type="button" id="edit" value="Edit" />
-		</div>
-
 </div>
 
 
 
-<div id="editLeavePeriodForm">
-  <aui:form name="myForm" action="<%=saveLeavePeriod.toString()%>">
-  
-		<aui:input name="leavePeriodId" type="hidden" value="<%=editLeavePeriod.getLeavePeriodId() %>"/>
-
-		<div class="span12">
-			<div class="span2">
-				<label>Start Month</label>
-		</div>
-		<div class="span3">
-		
-			<aui:select type="select" name="startMonth" label="" >
-				<aui:option value="-1">--Select--</aui:option>
-	         <% 			
-	         	List<IdNamePair> idNameList = editLeavePeriod.getMonths();
-				String storedId=String.valueOf(editLeavePeriod.getStartMonth());
-	         	for (IdNamePair idName:idNameList) { %>
-    	        <aui:option selected="<%=idName.getId().equals(storedId)%>"
-                        value="<%=idName.getId() %>">
-                	<%=idName.getName()%>
-            	</aui:option>
-           	 <% } %>
-
-			</aui:select>
-		
-		<%--  <aui:input name="startMonth" type="text" label="" disabled="true" value="<%=editLeavePeriod.getStartMonth() %>"/> --%>
-			</div>
-		</div>
-
-		<div class="span12">
-			<div class="span2">
-				<label>Start Date</label>
-			</div>
-			<div class="span3">	
-		 		<aui:input name="startDate" type="text" label="" value="<%=editLeavePeriod.getStartDate() %>"/>
-			</div>
-		</div>
-
-		<div class="span12">
-			<div class="span2">
-				<label>End Date</label>
-		</div>
-		<div class="span3">
-		 <aui:input name="endDate" type="text" label="" disabled="true" value="<%=editLeavePeriod.getEndDate() %>"/>
-			</div>
-		</div>
-
-		<div class="span12">
-			<div class="span2">
-				<label>Current Leave Period</label>
-		</div>
-		<div class="span3">		
-		 <aui:input name="currentLeavePeriod" type="text" label="" disabled="true" value="<%=editLeavePeriod.getCurrentLeavePeriod()%>"/>
-			</div>
-		</div>
-
+<div id="editLeavePeriodForm" class="form-horizontal clearfix">
+	<aui:form name="myForm" action="<%=saveLeavePeriod.toString()%>">
+	<aui:input name="leavePeriodId" type="hidden" value="<%=editLeavePeriod.getLeavePeriodId() %>"/>
+	<aui:select type="select" name="startMonth" label="Start Month" >
+	<aui:option value="-1">--Select--</aui:option>
+	<% 			
+	      	List<IdNamePair> idNameList = editLeavePeriod.getMonths();
+	String storedId=String.valueOf(editLeavePeriod.getStartMonth());
+	      	for (IdNamePair idName:idNameList) { %>
+	<aui:option selected="<%=idName.getId().equals(storedId)%>"
+	          value="<%=idName.getId() %>">
+	  	<%=idName.getName()%>
+	</aui:option>
+	<% } %>
+	</aui:select>
+	<%--  <aui:input name="startMonth" type="text" label="" disabled="true" value="<%=editLeavePeriod.getStartMonth() %>"/> --%>
+	<aui:input name="startDate" type="text" label="Start Date" value="<%=editLeavePeriod.getStartDate() %>"/>
+	<aui:input name="endDate" type="text" label="End Date" disabled="true" value="<%=editLeavePeriod.getEndDate() %>"/>
+	<aui:input name="currentLeavePeriod" type="text" label="Current Leave Period" disabled="true" value="<%=editLeavePeriod.getCurrentLeavePeriod()%>"/>	
+	<div class="control-group">
+		<div class="controls">
 		<aui:button type="submit" id="save" value="Submit" />
-		<%-- <aui:button  type="reset" value="Cancel" id ="cancel"/> --%>
-
+		</div>
+	</div>
+	<%-- <aui:button  type="reset" value="Cancel" id ="cancel"/> --%>
 	</aui:form>
 </div>
-	 <div><label style="color: white" >.</label>
-</div>
+
 </body>
 
 </html>

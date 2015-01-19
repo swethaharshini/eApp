@@ -28,7 +28,7 @@ alert("Hi");
 <aui:form name="leaveAccrualRuleForm" id="leaveAccrualRuleForm">
 <div class="panel">
 	<div class="panel-heading">
-		<h4>Accrual Rules</h4>
+		<h3>Accrual Rules</h3>
 	</div>
 	<div class="panel-body">
 	

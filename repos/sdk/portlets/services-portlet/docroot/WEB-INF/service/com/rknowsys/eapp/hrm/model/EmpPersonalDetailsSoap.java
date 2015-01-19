@@ -215,19 +215,19 @@ public class EmpPersonalDetailsSoap implements Serializable {
 		_licenseExpDate = licenseExpDate;
 	}
 
-	public long getGender() {
+	public String getGender() {
 		return _gender;
 	}
 
-	public void setGender(long gender) {
+	public void setGender(String gender) {
 		_gender = gender;
 	}
 
-	public long getMaritalStatus() {
+	public String getMaritalStatus() {
 		return _maritalStatus;
 	}
 
-	public void setMaritalStatus(long maritalStatus) {
+	public void setMaritalStatus(String maritalStatus) {
 		_maritalStatus = maritalStatus;
 	}
 
@@ -261,8 +261,8 @@ public class EmpPersonalDetailsSoap implements Serializable {
 	private String _otherId;
 	private String _licenseNo;
 	private Date _licenseExpDate;
-	private long _gender;
-	private long _maritalStatus;
+	private String _gender;
+	private String _maritalStatus;
 	private long _nationalityId;
 	private Date _dateOfBirth;
 }

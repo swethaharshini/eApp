@@ -73,11 +73,11 @@ public class EmpImmigrationDocumentModelImpl extends BaseModelImpl<EmpImmigratio
 			{ "issuedDate", Types.TIMESTAMP },
 			{ "expiryDate", Types.TIMESTAMP },
 			{ "eligibleStatus", Types.VARCHAR },
-			{ "issuedBy", Types.VARCHAR },
+			{ "issuedBy", Types.BIGINT },
 			{ "eligibleReviewDate", Types.TIMESTAMP },
 			{ "comments", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table emp_immigration_document (empImmigrationDocumentId LONG not null primary key,employeeId LONG,groupId LONG,companyId LONG,createDate DATE null,modifiedDate DATE null,userId LONG,docType VARCHAR(75) null,docNumber VARCHAR(75) null,issuedDate DATE null,expiryDate DATE null,eligibleStatus VARCHAR(75) null,issuedBy VARCHAR(75) null,eligibleReviewDate DATE null,comments VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table emp_immigration_document (empImmigrationDocumentId LONG not null primary key,employeeId LONG,groupId LONG,companyId LONG,createDate DATE null,modifiedDate DATE null,userId LONG,docType VARCHAR(75) null,docNumber VARCHAR(75) null,issuedDate DATE null,expiryDate DATE null,eligibleStatus VARCHAR(75) null,issuedBy LONG,eligibleReviewDate DATE null,comments VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table emp_immigration_document";
 	public static final String ORDER_BY_JPQL = " ORDER BY empImmigrationDocument.empImmigrationDocumentId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY emp_immigration_document.empImmigrationDocumentId ASC";
@@ -230,7 +230,7 @@ public class EmpImmigrationDocumentModelImpl extends BaseModelImpl<EmpImmigratio
 			setEligibleStatus(eligibleStatus);
 		}
 
-		String issuedBy = (String)attributes.get("issuedBy");
+		Long issuedBy = (Long)attributes.get("issuedBy");
 
 		if (issuedBy != null) {
 			setIssuedBy(issuedBy);
@@ -431,17 +431,12 @@ public class EmpImmigrationDocumentModelImpl extends BaseModelImpl<EmpImmigratio
 	}
 
 	@Override
-	public String getIssuedBy() {
-		if (_issuedBy == null) {
-			return StringPool.BLANK;
-		}
-		else {
-			return _issuedBy;
-		}
+	public long getIssuedBy() {
+		return _issuedBy;
 	}
 
 	@Override
-	public void setIssuedBy(String issuedBy) {
+	public void setIssuedBy(long issuedBy) {
 		_issuedBy = issuedBy;
 	}
 
@@ -659,12 +654,6 @@ public class EmpImmigrationDocumentModelImpl extends BaseModelImpl<EmpImmigratio
 
 		empImmigrationDocumentCacheModel.issuedBy = getIssuedBy();
 
-		String issuedBy = empImmigrationDocumentCacheModel.issuedBy;
-
-		if ((issuedBy != null) && (issuedBy.length() == 0)) {
-			empImmigrationDocumentCacheModel.issuedBy = null;
-		}
-
 		Date eligibleReviewDate = getEligibleReviewDate();
 
 		if (eligibleReviewDate != null) {
@@ -821,7 +810,7 @@ public class EmpImmigrationDocumentModelImpl extends BaseModelImpl<EmpImmigratio
 	private Date _issuedDate;
 	private Date _expiryDate;
 	private String _eligibleStatus;
-	private String _issuedBy;
+	private long _issuedBy;
 	private Date _eligibleReviewDate;
 	private String _comments;
 	private long _columnBitmask;
