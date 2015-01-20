@@ -228,8 +228,11 @@
         <column name="leaveTypeId" type="long" />
         <column name="expiryDuration" type="int" />
         <column name="expiryDurationUOM" type="String" />
-        <column name="isMaxCarryForwardLimitApplicable" type="boolean" />
         <column name="maxCarryForwardLimit" type="String" />
+        <!-- columns added -->
+        <column name="isMaxCarryForwardLimitApplicable" type="boolean" />
+        <column name="isNegetiveValueCarryForwardble" type="boolean"></column>
+        <column name="specifiedAmountToCarryForward" type="int"></column>
 
         <!-- Order -->
 
