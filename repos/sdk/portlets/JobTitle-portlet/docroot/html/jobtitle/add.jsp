@@ -114,35 +114,44 @@ A.one('#addJobMessage').transition('fadeOut');
 </head>
 <body>
 <% if(SessionMessages.contains(renderRequest.getPortletSession(),"jobtitleName-empty-error")){%>
-<p id="addJobMessage"><liferay-ui:message key="Please Enter JobtitleName"/></p>
+<p id="addJobMessage" class="alert alert-error"><liferay-ui:message key="Please Enter JobtitleName"/></p>
 <%} 
  if(SessionMessages.contains(renderRequest.getPortletSession(),"jobtitleName-duplicate-error")){
 %>
-<p id="addJobMessage"><liferay-ui:message key="JobtitleName already Exits"/></p>
+<p id="addJobMessage" class="alert alert-error"><liferay-ui:message key="JobtitleName already Exits"/></p>
 <%} 
 %>
 <div class="row-fluid">
 	<div id="jobAddDelete" class="span12 text-right">
-			<a href="#" class="btn btn-primary" id="jobtitleadd"><i class="icon-plus"></i></a>
-			<a href="#" class="btn btn-danger" id="jobtitledelete"><i class="icon-trash"></i></a>
+		<div class="control-group">
+			<a href="#" class="btn btn-primary" id="jobtitleadd"><i class="icon-plus"></i> Add</a>
+			<a href="#" class="btn btn-danger" id="jobtitledelete"><i class="icon-trash"></i> Delete</a>
+		</div>
 	</div>
 	<div id="addJobForm">
-		<aui:form action="<%=savejobtitle%>">
-			<div class="form-horizontal">
-				<input type="hidden" id="jobtitleId" name='<portlet:namespace/>jobtitleId'>
-				<label class="control-label">Job Title<em>*</em> </label>
-				<aui:input type="text" label=""  name="title" maxlength="100"  id="jobtitlename"></aui:input>
-				<aui:input type="textarea" label="Description" rows="4" cols="30" name="<portlet:namespace/>description" maxlength="400" id="description"></aui:input>
-				<aui:input type="textarea" label="Note" rows="4" cols="30" name="<portlet:namespace/>notes" id="notes"></aui:input>
-				<div class="control-group">	
-					<div class="controls">	
-						<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
-						<button type="reset" id ="jobtitlecancel" class="btn btn-danger"><i class="icon-remove"></i></button>
-					</div>
-				</div>
+		<div class="panel">
+			<div class="panel-heading">
+				<h4>Add</h4>
 			</div>
-		</aui:form>
-		<div><em>*</em> Required Field</div>
+			<div class="panel-body">
+				<aui:form action="<%=savejobtitle%>">
+					<div class="form-horizontal">
+						<input type="hidden" id="jobtitleId" name='<portlet:namespace/>jobtitleId'>
+						<label class="control-label">Job Title<em>*</em> </label>
+						<aui:input type="text" label=""  name="title" maxlength="100"  id="jobtitlename"></aui:input>
+						<aui:input type="textarea" label="Description" rows="4" cols="30" name="<portlet:namespace/>description" maxlength="400" id="description"></aui:input>
+						<aui:input type="textarea" label="Note" rows="4" cols="30" name="<portlet:namespace/>notes" id="notes"></aui:input>
+						<div class="control-group">	
+							<div class="controls">	
+								<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
+								<button type="reset" id ="jobtitlecancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
+							</div>
+						</div>
+					</div>
+				</aui:form>
+				<div><em>*</em> Required Field</div>
+			</div>
+		</div>
 	</div>
 </div>
 </body>
