@@ -31,10 +31,6 @@ AUI().use(
        
       }
     );
-   removenode.on('click',function(){
-    alert("heee####");
-    this.remove('div');
-   });
   }
 );
 

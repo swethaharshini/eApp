@@ -52,9 +52,9 @@ public String getNationalityValue(long nationId) {
 		Nationality nation = null;
 		try {
 		nation = NationalityLocalServiceUtil.getNationality(nationId);
+		return nation.getName();
 		} catch (Exception p) {
 		}
-	return nation.getName();
 	}
 	return "";
 }
