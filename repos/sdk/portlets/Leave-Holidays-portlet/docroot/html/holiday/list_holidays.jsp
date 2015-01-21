@@ -38,14 +38,6 @@
 	<portlet:param name="mvcPath" value="/html/holiday/list_holidays.jsp" />
 </portlet:renderURL>
 
-<style type="text/css">
-.table-first-header {
-	width: 10%;
-}
-.table-last-header {
-	width: 15%;
-}
-</style>
 <%-- <jsp:useBean id="holidaySearch" type="com.rknowsys.eapp.ui.Holiday" scope="application" /> --%>
     <% com.rknowsys.eapp.ui.Holiday holidaySearch =  (Holiday)portletSession.getAttribute("holidaySearch", javax.portlet.PortletSession.APPLICATION_SCOPE);
     %>
@@ -211,33 +203,17 @@ AUI().use(
 
 <body>
 
-<aui:form action="<%=searchHolidays.toString() %>" method="post" name="myForm">
 
-		<div class="span12">
-			<div class="span4">
-				<label>From Date</label>
-			</div>
-			<div class="span8">	
-				<aui:input name="holidayFromDate" label="" value="<%=holidaySearch.getSearchFromDate() %>"></aui:input>
-			</div>
-		</div>
-
-		<div class="span12">
-			<div class="span4">
-				<label>To Date</label>
-			</div>
-			<div class="span8">	
-				<aui:input name="holidayToDate" label="" value="<%=holidaySearch.getSearchToDate() %>"></aui:input>
-			</div>
-		</div>
-
-
-		<div class="span12">
-			<div class="span4">
-				<label>Country *</label>
-			</div>
-			<div class="span8">	
-			     <aui:select type="select" name="nationalityId" label="" onchange="callServeResource()">
+<div class="panel">
+	<div class="panel-heading">
+		<h4>Search</h4>
+	</div>
+	<div class="panel-body">
+		<div class="form-horizontal">
+		<aui:form action="<%=searchHolidays.toString() %>" method="post" name="myForm">
+			<aui:input name="holidayFromDate" label="From Date" value="<%=holidaySearch.getSearchFromDate() %>"></aui:input>
+			<aui:input name="holidayToDate" label="To Date" value="<%=holidaySearch.getSearchToDate() %>"></aui:input>
+			<aui:select type="select" name="nationalityId" label="Country" onchange="callServeResource()">
 					<aui:option value="-1" selected="true">--Select--</aui:option>
 		        <%    
 		           List<IdNamePair> idNameList = holidaySearch.getOrgCountries(); 
@@ -248,35 +224,33 @@ AUI().use(
 		                 <%=idName.getName()%>
 		             </aui:option>
 		             <% } %>
-				</aui:select>
+			</aui:select>
+			<div class="control-group">
+				<label class="control-label">Locations *</label>
+				<div class="controls">
+					<div id="locationsDiv">	
+						<%=(holidaySearch.getLocationsDivContent() == null) ? "" : holidaySearch.getLocationsDivContent() %>
+						<%-- <aui:input name="locationId1" type="checkbox" label="" checked="false" />
+				 			<aui:input name="locationId2" type="checkbox" label="" checked="true" /> --%>
+					</div>
+					<aui:input name="locationsDivContent" type="hidden"></aui:input>
+				</div>
 			</div>
+			<div class="controls">
+				<button type="submit" id="search" class="btn btn-success"><i class="icon-search"></i> Search</button>
+			</div>
+			</aui:form>
 		</div>
-
-		<div class="span12">
-			<div class="span4">
-				<label>Locations *</label>
-			</div>
-			<div class="span8" id="locationsDiv">	
-			<%=(holidaySearch.getLocationsDivContent() == null) ? "" : holidaySearch.getLocationsDivContent() %>
-<%-- 	 			<aui:input name="locationId1" type="checkbox" label="" checked="false" />
-	 			<aui:input name="locationId2" type="checkbox" label="" checked="true" /> --%>
-	 			
-			</div>
-			<aui:input name="locationsDivContent" type="hidden"></aui:input>
-		</div>
-
-	<div>
-
-	<aui:button-row>
-			<aui:button type="submit" id="search" value="Search" />
-	</aui:button-row>
+	</div>
 </div>
-</aui:form>
-
-	<div id="adddelete" class="span12">
-		<a href="<%=addEditHoliday.toString() %>" id="add">Add</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="delete">Delete</a>
-
-	</div><div>&nbsp;</div>
+<div class="row-fluid">
+	<div id="adddelete" class="span12 text-right">
+		<div class="control-group">
+			<a href="<%=addEditHoliday.toString() %>" class="btn btn-primary" id="add"><i class="icon-plus"></i> Add</a>
+			<a href="#" id="delete" class="btn btn-danger"><i class="icon-trash"></i> Delete</a>
+		</div>
+	</div>
+</div>
 
 
 <%

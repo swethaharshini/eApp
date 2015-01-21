@@ -25,16 +25,6 @@
 <portlet:renderURL var="initialView">
 	<%-- 	<portlet:param name="mvcPath" value="/html/holiday/add_edit_holiday.jsp" /> --%>
  </portlet:renderURL>
-
-
- <style type="text/css">	
-.table-first-header{
-width: 10%;
-}
-.table-last-header{
-width: 15%;
-}
-</style>
 <%-- <jsp:useBean id="editHoliday" type="com.rknowsys.eapp.ui.Holiday" scope="request" /> --%>
  <% com.rknowsys.eapp.ui.Holiday editHoliday =  (Holiday)portletSession.getAttribute("editHoliday", javax.portlet.PortletSession.APPLICATION_SCOPE);
     %>
@@ -120,97 +110,66 @@ AUI().use(
 </head>
 
 <body>
- <div>&nbsp;</div>
- <div id="editHolidayForm">
- <aui:form name="myForm" action="<%=saveHoliday.toString()%>">
-		<aui:input name="holidayId" type="hidden" value="<%=editHoliday.getHolidayId() %>"/>
-
-		<div class="span12">
-			<div class="span2">
-				<label>Name</label>
+ <div id="editHolidayForm" class="clearfix">
+	 <div class="panel">
+	 	<div class="panel-heading">
+	 		<h4>Add / Edit</h4>
+	 	</div>
+	 	<div class="panel-body">
+	 		<div class="form-horizontal">
+				 <aui:form name="myForm" action="<%=saveHoliday.toString()%>">
+						<aui:input name="holidayId" type="hidden" value="<%=editHoliday.getHolidayId() %>"/>
+						<aui:input name="holidayName" type="text" label="Name" value="<%=editHoliday.getHolidayName() %>">
+						<aui:validator name="required"></aui:validator>
+						</aui:input>
+						<aui:input name="holidayDate" type="text" label="Date" value="<%=editHoliday.getHolidayDate() %>">
+						<aui:validator name="required"></aui:validator>
+						</aui:input>
+						<div class="control-group">
+							<label class="control-label">Repeats Annually</label>
+							<div class="controls">
+								<aui:input name="isAnnual" type="checkbox" label="" checked="<%=\"Yes\".equalsIgnoreCase(editHoliday.getIsAnnual()) %>" />
+							</div>
+						</div>
+						<aui:select name="isFullDay" label="Full Day/Half Day" >
+						<aui:option value="true"  selected="<%=\"Full Day\".equals(editHoliday.getIsFullDay())%>" >Full Day</aui:option>
+						<aui:option value="false"  selected="<%=\"Half Day\".equals(editHoliday.getIsFullDay())%>" >Half Day</aui:option>
+						</aui:select>
+						<aui:select name="nationalityId" label="Country" onchange="callServeResource()">
+						<aui:option value="-1">--Select--</aui:option>
+						<% 
+						    System.out.println("editHoliday = " + editHoliday);
+						     List<IdNamePair> idNameList = editHoliday.getOrgCountries(); 
+						String storedId=editHoliday.getNationalityId();
+						     for (IdNamePair idName:idNameList) { %>
+						<aui:option selected="<%=idName.getId().equals(storedId)%>"
+						value="<%=idName.getId() %>">
+						<%=idName.getName()%>
+						</aui:option>
+						<% } %>
+						
+						</aui:select>
+						<div id="locationsDiv">
+							<div class="control-group">
+								<label class="control-label">Locations</label>
+								<div class="controls">
+								<% 
+								List<IdNamePair> idNameList = editHoliday.getOrgLocations(); 
+								for (IdNamePair idName:idNameList) { %>
+								<input id="<portlet:namespace/>location" name="<portlet:namespace/>location" type="checkbox" value="<%=idName.getId() %>" /> <%=idName.getName()%>
+								<% } %>
+								 </div>
+							 </div>
+						</div>
+						<div class="control-group">
+							<div class="controls">
+							<button type="submit" id="save" class="btn btn-success"><i class="icon-save"></i> Save</button>
+							</div>
+						</div>
+				</aui:form>
 			</div>
-			<div class="span3">
-		 		<aui:input name="holidayName" type="text" label="" value="<%=editHoliday.getHolidayName() %>">
-		 			<aui:validator name="required"></aui:validator>
-		 		</aui:input>
-			</div>
-		</div>
-
-		<div class="span12">
-			<div class="span2">
-				<label>Date</label>
-			</div>
-			<div class="span3">	
-		 		<aui:input name="holidayDate" type="text" label="" value="<%=editHoliday.getHolidayDate() %>">
-		 			<aui:validator name="required"></aui:validator>
-		 		</aui:input>
-			</div>
-		</div>
-
-		<div class="span12">
-			<div class="span2">
-				<label>Repeats Annually</label>
-			</div>
-			<div class="span3">
-				 <aui:input name="isAnnual" type="checkbox" label="" checked="<%=\"Yes\".equalsIgnoreCase(editHoliday.getIsAnnual()) %>" />
-			</div>
-		</div>
-
-		<div class="span12">
-			<div class="span2">
-				<label>Full Day/Half Day</label>
-			</div>
-			<div class="span3">		
-		  		<aui:select name="isFullDay" label="" >
-		    		<aui:option value="true"  selected="<%=\"Full Day\".equals(editHoliday.getIsFullDay())%>" >Full Day</aui:option>
-		    		<aui:option value="false"  selected="<%=\"Half Day\".equals(editHoliday.getIsFullDay())%>" >Half Day</aui:option>
-		   		</aui:select>
-
-			</div>
-		</div>
-		
-		<div class="span12">
-			<div class="span2">
-				<label>Country</label>
-			</div>
-			<div class="span3">		
-		  		<aui:select name="nationalityId" label="" onchange="callServeResource()">
-		    		<aui:option value="-1">--Select--</aui:option>
-		          <% 
-		          System.out.println("editHoliday = " + editHoliday);
-		           List<IdNamePair> idNameList = editHoliday.getOrgCountries(); 
-		    		String storedId=editHoliday.getNationalityId();
-		           for (IdNamePair idName:idNameList) { %>
-		             <aui:option selected="<%=idName.getId().equals(storedId)%>"
-		                        value="<%=idName.getId() %>">
-		                 <%=idName.getName()%>
-		             </aui:option>
-		             <% } %>
-		
-		   		</aui:select>
-			</div>
-		</div>
-
-		<div class="span12">
-			<div class="span2">
-				<label>Locations</label>
-		</div>
-		<div class="span3" id="locationsDiv">
-		<div class="span8">
-		<p>
-		<% 
-		           List<IdNamePair> idNameList = editHoliday.getOrgLocations(); 
-		           for (IdNamePair idName:idNameList) { %>
-		             <input id="<portlet:namespace/>location" name="<portlet:namespace/>location" type="checkbox" value="<%=idName.getId() %>"><%=idName.getName()%></input>
-		             <br/>
-		             <% } %>
-		</div></div>
-</div>
-		<div class="span12">
-			<aui:button type="submit" id="save" value="save" />
-		</div>
-
-</aui:form>
+		</div>	
+	</div>
 </div>
 
  </body>
