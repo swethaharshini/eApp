@@ -7,12 +7,6 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/license/add.jsp" />
 </portlet:renderURL>
-<style>
- #addLicenseMessage{
- color: red;
-}
-
-</style>
 <aui:script>
 AUI().use(
   'aui-node',
@@ -106,29 +100,38 @@ AUI().use(
 <% 
 
 if(SessionMessages.contains(renderRequest.getPortletSession(),"licenseName-empty-error")){%>
-<p id="addLicenseMessage"><liferay-ui:message key="Please Enter LicenseName"/></p>
+<p id="addLicenseMessage" class="alert alert-error"><liferay-ui:message key="Please Enter LicenseName"/></p>
 <%} 
  if(SessionMessages.contains(renderRequest.getPortletSession(),"licenseName-duplicate-error")){
 %>
-<p id="addLicenseMessage"><liferay-ui:message key="LicenseName already Exits"/></p>
+<p id="addLicenseMessage" class="alert alert-error"><liferay-ui:message key="LicenseName already Exits"/></p>
 <%} 
 %>
     
     <div class="row-fluid">
 		<div id="licenseAddDelete" class="span12 text-right">
-			<a href="#" class="btn btn-primary" id="licenseadd"><i class="icon-plus"></i></a>
-			<a href="#" class="btn btn-danger" id="licensedelete"><i class="icon-trash"></i></a>
+			<div class="control-group">
+				<a href="#" class="btn btn-primary" id="licenseadd"><i class="icon-plus"></i> Add</a>
+				<a href="#" class="btn btn-danger" id="licensedelete"><i class="icon-trash"></i> Delete</a>
+			</div>
 		</div>
 		<div  id="addLicenseForm">
-		<aui:form name="myForm" action="<%=saveLicenses.toString()%>" >
-			<aui:input name="licenseId" type="hidden" id="licenseId" />
-			<div class="form-inline">
-				<label>License Name: </label>
-				<input name="<portlet:namespace/>license_name" type="text">
-				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
-				<button  type="reset" id ="licensecancel" class="btn btn-danger"><i class="icon-remove"></i></button>
+			<div class="panel">
+				<div class="panel-heading">
+					<h4>Add</h4>
+				</div>
+				<div class="panel-body">
+					<aui:form name="myForm" action="<%=saveLicenses.toString()%>" >
+						<aui:input name="licenseId" type="hidden" id="licenseId" />
+						<div class="form-inline">
+							<label>License Name: </label>
+							<input name="<portlet:namespace/>license_name" type="text">
+							<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
+							<button  type="reset" id ="licensecancel" class="btn btn-danger"><i class="icon-remove"> Cancel</i></button>
+						</div>
+					</aui:form>
+				</div>
 			</div>
-		</aui:form>
 		</div>
 	</div>
     
