@@ -1005,7 +1005,22 @@ public class LeaveTypeAction extends MVCPortlet{
 		return leaveInfo;
 	}
 	public void addOrUpdateLeaveAccrualRules(ActionRequest actionRequest,ActionResponse actionResponse)
-	{
+	{	
+		System.out.println("addOrUpdateLeaveAccrualRules method().......");
+		String s = ParamUtil.getString(actionRequest, "accrualFrequency");
+		System.out.println("s ==== " +s);
+		long leaveTypeId=ParamUtil.getLong(actionRequest, "leaveTypeId");
+		Map leaveInfo=null;
+		try {
+			leaveInfo = setSessionForLeaveInfo(leaveTypeId);
+		} catch (SystemException e) {
+			e.printStackTrace();
+		}
+		leaveInfo.put("jsp", "accrualrulesJsp");
+		actionRequest.getPortletSession(true).setAttribute("leaveInfo",
+		leaveInfo,PortletSession.APPLICATION_SCOPE);
+
+		actionResponse.setRenderParameter("mvcPath", "/html/leavetype/update_leaveGeneral.jsp");
 		
 	}
 	public void saveEmployeeGroup(ActionRequest actionRequest, ActionResponse actionResponse) throws SystemException{
