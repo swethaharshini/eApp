@@ -70,12 +70,13 @@ AUI().use(
 
 </aui:script>
 	<div class="row-fluid">
-		<div class="pull-">
-		<button id="addLocation1" class="btn btn-success" type="button" ><i class="icon-plus"></i> Add </button>
-		<button id="delLocation" class="btn btn-danger" type="button"><i class="icon-trash"></i> Delete </button> 
+		<div class="span12 text-right">
+			<div class="control-group">
+				<button id="addLocation1" class="btn btn-success" type="button" ><i class="icon-plus"></i> Add </button>
+				<button id="delLocation" class="btn btn-danger" type="button"><i class="icon-trash"></i> Delete </button> 
+			</div>
 		</div>
 	</div>
-<hr>
 <%
 PortletURL iteratorURL = renderResponse.createRenderURL();
 iteratorURL.setParameter("mvcPath", "/html/locations/view.jsp");

@@ -7,17 +7,6 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/language/add.jsp" />
 </portlet:renderURL>
-<style type="text/css">
-.table-first-header {
-	width: 10%;
-}
-.table-last-header {
-	width: 15%;
-}
- #addLanguageMessage{
- color: red;
-}
-</style>
 <aui:script>
 AUI().use(
   'aui-node',
@@ -110,29 +99,38 @@ AUI().use(
 
 <body>
 <% if(SessionMessages.contains(renderRequest.getPortletSession(),"languageName-empty-error")){%>
-<p id="addLanguageMessage"><liferay-ui:message key="Please Enter LanguageName"/></p>
+<p id="addLanguageMessage" class="alert alert-error"><liferay-ui:message key="Please Enter LanguageName"/></p>
 <%} 
  if(SessionMessages.contains(renderRequest.getPortletSession(),"languageName-duplicate-error")){
 %>
-<p id="addLanguageMessage"><liferay-ui:message key="LanguageName already Exits"/></p>
+<p id="addLanguageMessage" class="alert alert-error"><liferay-ui:message key="LanguageName already Exits"/></p>
 <%} 
 %>
 
   <div class="row-fluid">
 		<div id="languageAddDelete" class="span12 text-right">
-			<a href="#" class="btn btn-primary" id="languageadd"><i class="icon-plus"></i></a>
-			<a href="#" class="btn btn-danger" id="languagedelete"><i class="icon-trash"></i></a>
+			<div class="control-group">
+				<a href="#" class="btn btn-primary" id="languageadd"><i class="icon-plus"></i> Add</a>
+				<a href="#" class="btn btn-danger" id="languagedelete"><i class="icon-trash"></i> Delete</a>
+			</div>
 		</div>
 		<div  id="addLanguageForm">
-		<aui:form name="myForm" action="<%=saveLanguages.toString()%>" >
-			<aui:input name="languageId" type="hidden" id="languageId" />
-			<div class="form-inline">
-				<label>Language Name: </label>
-				<input name="<portlet:namespace/>language_name" type="text">
-				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
-				<button  type="reset" id ="languagecancel" class="btn btn-danger"><i class="icon-remove"></i></button>
+			<div class="panel">
+				<div class="panel-heading">
+					<h4>Add</h4>
+				</div>
+				<div class="panel-body">
+					<aui:form name="myForm" action="<%=saveLanguages.toString()%>" >
+						<aui:input name="languageId" type="hidden" id="languageId" />
+						<div class="form-inline">
+							<label>Language Name: </label>
+							<input name="<portlet:namespace/>language_name" type="text">
+							<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
+							<button  type="reset" id ="languagecancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
+						</div>
+					</aui:form>
+				</div>
 			</div>
-		</aui:form>
 		</div>
 	</div>
 	

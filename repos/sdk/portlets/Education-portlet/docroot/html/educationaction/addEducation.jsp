@@ -7,12 +7,7 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/educationaction/addEducation.jsp" />
 </portlet:renderURL>
-<style>
-#addEducationMessage{
- color: red;
-}
 
-</style>
 <aui:script>
 AUI().use(
   'aui-node',
@@ -77,11 +72,12 @@ AUI().use(
 );
 
  AUI().ready('event', 'node','transition',function(A){
-  A.one('#addEducationForm').hide();
-  setTimeout(function(){
-    A.one('#addEducationMessage').transition('fadeOut');
+A.one('#addEducationForm').hide();
+setTimeout(function(){
+A.one('#addEducationMessage').transition('fadeOut');
 },1000)
- });
+A.one('#addEducationMessage').hide();
+});
 
 
 AUI().use(
@@ -105,28 +101,37 @@ AUI().use(
 <body>
 <% 
 if(SessionMessages.contains(renderRequest.getPortletSession(),"educationName-empty-error")){%>
-<p id="addEducationMessage"><liferay-ui:message key="Please Enter Education Name"/></p>
+<p id="addEducationMessage" class="alert alert-error"><liferay-ui:message key="Please Enter Education Name"/></p>
 <%} 
  if(SessionMessages.contains(renderRequest.getPortletSession(),"educationName-duplicate-error")){
 %>
-<p id="addEducationMessage"><liferay-ui:message key="Education Name already Exits"/></p>
+<p id="addEducationMessage" class="alert alert-error"><liferay-ui:message key="Education Name already Exits"/></p>
 <%} 
 %>
 	<div class="row-fluid">
 		<div id="educationAddDelete" class="span12 text-right">
-			<a href="#" class="btn btn-primary" id="addeducation"><i class="icon-plus"></i></a>
-			<a href="#" class="btn btn-danger" id="deleteeducation"><i class="icon-trash"></i></a>
-		</div>
-		<div  id="addEducationForm">
-		<aui:form name="myForm" action="<%=saveEducations.toString()%>" >
-			<aui:input name="educationId" type="hidden" id="educationId" />
-			<div class="form-inline">
-				<label>Level: </label>
-				<input name="<portlet:namespace/>education_level" type="text">
-				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
-				<button  type="reset" id ="canceleducation" class="btn btn-danger"><i class="icon-remove"></i></button>
+			<div class="control-group">
+			<a href="#" class="btn btn-primary" id="addeducation"><i class="icon-plus"></i> Add</a>
+			<a href="#" class="btn btn-danger" id="deleteeducation"><i class="icon-trash"></i> Delete</a>
 			</div>
-		</aui:form>
+		</div>
+		<div id="addEducationForm">
+			<div class="panel">
+				<div class="panel-heading">
+					<h4>Add</h4>
+				</div>
+				<div class="panel-body">
+					<aui:form name="myForm" action="<%=saveEducations.toString()%>" >
+						<aui:input name="educationId" type="hidden" id="educationId" />
+						<div class="form-inline">
+							<label>Level: </label>
+							<input name="<portlet:namespace/>education_level" type="text">
+							<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
+							<button  type="reset" id ="canceleducation" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
+						</div>
+					</aui:form>
+				</div>
+			</div>
 		</div>
 	</div>
 	

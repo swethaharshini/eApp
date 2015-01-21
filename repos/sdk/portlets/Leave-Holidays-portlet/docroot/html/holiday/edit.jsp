@@ -29,9 +29,7 @@ System.out.println("in edit.jsp, prk="+prk);
 </portlet:actionURL>
 
 
-<a href="#" onclick="window.location='<%=addEditHoliday.toString()%>'"><img
-					width="18px" height="18px" alt="loading..." 
-					src="<%=request.getContextPath() %>/images/pencil.jpg"></a> 
+<a href="#" onclick="window.location='<%=addEditHoliday.toString()%>'"><i class="icon-edit"></i></a> 
 </liferay-ui:icon-menu>
 </body>
 </html>

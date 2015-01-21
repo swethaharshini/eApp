@@ -11,17 +11,6 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/jobcategory/add.jsp" />
 </portlet:renderURL>
-<style type="text/css">	
-.table-first-header{
-width: 10%;
-}
-.table-last-header{
-width: 15%;
-}
- #editJobcategoryMessage{
- color: red;
-}
-</style>
 <aui:script>
 AUI().use(
   'aui-node',
@@ -120,24 +109,24 @@ AUI().use(
 <p id="editJobcategoryMessage"><liferay-ui:message key="Please Enter JobcategoryName"/></p>
 <%} 
 %>
-   
-    <div class="row-fluid">
-		<div id="editjobadddelete" class="span12 text-right">
-			<a href="#" class="btn btn-primary" id="jobcategoryadd"><i class="icon-plus"></i></a>
-			<a href="#" class="btn btn-danger" id="jobcategorydelete"><i class="icon-trash"></i></a>
-		</div>
-		<div  id="editJobCategoryForm">
-		<aui:form name="myForm" action="<%=savejobcategory.toString()%>" >
-			<aui:input name="jobcategoryId" type="hidden" id="jobcategoryId" value="<%=editjobcategory.getJobCategoryId()%>" />
-			<div class="form-inline">
-				<label>Job Category: </label>
-				<input name="<portlet:namespace/>jobcategory" type="text" value="<%=editjobcategory.getJobcategory()%>">
-				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
-				<button  type="reset" id ="editjobcategorycancel" class="btn btn-danger"><i class="icon-remove"></i></button>
+<div class="row-fluid">
+	<div id="editJobCategoryForm">
+		<div class="panel">
+			<div class="panel-heading"><h4>Edit</h4></div>
+			<div class="panel-body">
+				<aui:form name="myForm" action="<%=savejobcategory.toString()%>" >
+					<aui:input name="jobcategoryId" type="hidden" id="jobcategoryId" value="<%=editjobcategory.getJobCategoryId()%>" />
+					<div class="form-inline">
+						<label>Job Category: </label>
+						<input name="<portlet:namespace/>jobcategory" type="text" value="<%=editjobcategory.getJobcategory()%>">
+						<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
+						<button  type="reset" id ="editjobcategorycancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
+					</div>
+				</aui:form>
 			</div>
-		</aui:form>
 		</div>
 	</div>
+</div>
 </body>
 <%
 PortletURL iteratorURL = renderResponse.createRenderURL();

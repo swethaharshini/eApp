@@ -82,6 +82,8 @@ html, body {
     transition: color 300ms, background-color 300ms; }
     .aui a:hover, .aui a:focus {
       color: #686868; }
+  .aui .m-bottom {
+    margin-bottom: 20px !important; }
   .aui .btn-danger {
     background-image: linear-gradient(#f36d5e, #ed2c17); }
     .aui .btn-danger:hover {
@@ -244,4 +246,37 @@ html, body {
     .aui .portlet .portlet-content {
       background: #fff;
       padding: 20px 20px 0 20px; }
+  .aui .lfr-search-container {
+    margin: 0 !important; }
+  .aui .panel {
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05); }
+  .aui .panel-heading {
+    padding: 0 15px;
+    margin: -15px -15px 15px;
+    font-weight: 500;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #dddddd;
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px; }
+    .aui .panel-heading h4 {
+      margin: 0;
+      padding: 7px 0; }
+  .aui .table-first-header {
+    width: 20px;
+    text-align: center !important; }
+  .aui .table-last-header {
+    width: 40px;
+    text-align: center !important; }
+  .aui .table-cell.first {
+    text-align: center !important; }
+  .aui .table-cell.last {
+    text-align: center !important; }
+  .aui .form-horizontal label {
+    padding-right: 20px; }
 
