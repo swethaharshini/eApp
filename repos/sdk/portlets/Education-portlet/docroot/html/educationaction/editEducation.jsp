@@ -6,12 +6,6 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/educationaction/addEducation.jsp" />
 </portlet:renderURL>
-<style>
-#editEducationMessage{
- color: red;
-}
-
-</style>
 <aui:script>
 AUI().use(
   'aui-node',
@@ -105,7 +99,7 @@ AUI().use(
 <% 
   Education editEducation = (Education) portletSession.getAttribute("editEducation");
 if(SessionMessages.contains(renderRequest.getPortletSession(),"educationName-empty-error")){%>
-<p id="editEducationMessage"><liferay-ui:message key="Please Enter Education Name"/></p>
+<p id="editEducationMessage" class="alert alert-error"><liferay-ui:message key="Please Enter Education Name"/></p>
 <%} 
  
 %>
@@ -113,20 +107,23 @@ if(SessionMessages.contains(renderRequest.getPortletSession(),"educationName-emp
 
 
 <div class="row-fluid">
-	<div id="editEducationAddDelete" class="span12 text-right">
-		<a href="#" class="btn btn-primary" id="addeducation"><i class="icon-plus"></i></a>
-		<a href="#"  class="btn btn-danger" id="deleteeducation"><i class="icon-trash"></i></a>
-	</div>
 	<div id="editEducationForm">
-  	<aui:form name="myForm" action="<%=updateEducations.toString()%>">
-		<aui:input name="educationId" type="hidden" id="educationId"  value="<%=editEducation.getEducationId()%>"/>
-		<div class="form-inline">
-				<label>Level: </label>
-		 		<input name="<portlet:namespace/>education_level" type="text" required = "required" value="<%=editEducation.getEduLevel() %>" >
-				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
-				<button  type="reset" id ="editcanceleducation" class="btn btn-danger"><i class="icon-remove"></i></button>
+		<div class="panel">
+			<div class="panel-heading">
+				<h4>Edit</h4>
+			</div>
+			<div class="panel-body">
+			  	<aui:form name="myForm" action="<%=updateEducations.toString()%>">
+					<aui:input name="educationId" type="hidden" id="educationId"  value="<%=editEducation.getEducationId()%>"/>
+					<div class="form-inline">
+							<label>Level: </label>
+					 		<input name="<portlet:namespace/>education_level" type="text" required = "required" value="<%=editEducation.getEduLevel() %>" >
+							<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
+							<button  type="reset" id ="editcanceleducation" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
+					</div>
+				</aui:form>
+			</div>
 		</div>
-	</aui:form>
 	</div>
 </div>
 </body>
