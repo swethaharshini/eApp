@@ -63,6 +63,9 @@
 		  	color: lighten($col2,10%);
 		  }
 	}
+	.m-bottom {
+		margin-bottom:20px !important;
+	}
 	.btn-danger {
 			background-image: linear-gradient(lighten(#ed2c17,15%), #ed2c17);
 			&:hover {
@@ -227,5 +230,49 @@
 			padding:20px 20px 0 20px;
 		}
 	}
-
+	.lfr-search-container {
+		margin:0 !important;
+	}
+	.panel {
+	  padding: 15px;
+	  margin-bottom: 20px;
+	  background-color: #ffffff;
+	  border: 1px solid #dddddd;
+	  border-radius: 2px;
+	  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+	  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+	}
+	
+	.panel-heading {
+	  padding:0 15px;
+	  margin: -15px -15px 15px;
+	  font-weight: 500;      
+	  background-color: #f5f5f5;
+	  border-bottom: 1px solid #dddddd;
+	  border-top-right-radius: 2px;
+	  border-top-left-radius: 2px;
+	  h4 {
+	  	margin:0;
+	  	padding:7px 0;
+	  }
+	}
+	.table-first-header {
+		width: 20px;
+		text-align:center !important;
+	}
+	.table-last-header {
+		width: 40px;
+		text-align:center !important;
+	}
+	.table-cell.first{
+		text-align:center !important;
+	}
+	.table-cell.last{
+		text-align:center !important;
+	}
+	.form-horizontal {
+		label {
+			padding-right:20px;
+		}
+	}
 }

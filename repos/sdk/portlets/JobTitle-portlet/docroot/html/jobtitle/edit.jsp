@@ -125,32 +125,36 @@ JobTitle jobtitle = (JobTitle) portletSession.getAttribute("editjobtitle");
 <%}
 %>
 <div class="row-fluid">
-		<div id="editJobAddDelete" class="span12 text-right">
-			<a href="#" class="btn btn-primary" id="jobtitleadd"><i class="icon-plus"></i></a>
-			<a href="#" class="btn btn-danger" id="jobtitledelete"><i class="icon-trash"></i></a>
-		</div>
-		<div  id="editJobForm">
-			<aui:form action="<%=savejobtitle%>">
-				<div class="form-horizontal">
-					<input class="jobtitleId" type="hidden" id="jobtitleId"	name='<portlet:namespace/>jobtitleId' value="<%=jobtitle.getJobTitleId() %>">
-					<label class="control-label">Job Title<em>*</em></label>
-					<aui:input type="text" label="" name="title" maxlength="100" id="jobtitlename" value="<%=jobtitle.getTitle()%>"/>
-					<aui:input type="textarea" label="Job Description" rows="4" cols="30" name="<portlet:namespace/>description" maxlength="400" id="description"><%=jobtitle.getDescription()%></aui:input>
-					<aui:input type="textarea" label="Note" rows="4" cols="30" name="<portlet:namespace/>notes" id="notes"><%=jobtitle.getNotes()%></aui:input>
-					<div class="control-group">
-						<div class="controls">
-							<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
-							<button type="reset" id ="jobtitlecancel" class="btn btn-danger"><i class="icon-remove"></i></button>
-							
+	<div id="editJobAddDelete" class="span12 text-right">
+		<a href="#" class="btn btn-primary" id="jobtitleadd"><i class="icon-plus"></i></a>
+		<a href="#" class="btn btn-danger" id="jobtitledelete"><i class="icon-trash"></i></a>
+	</div>
+	<div  id="editJobForm">
+		<div class="panel">
+			<div class="panel-heading">
+				<h4>Edit</h4>
+			</div>
+			<div class="panel-body">
+				<aui:form action="<%=savejobtitle%>">
+					<div class="form-horizontal">
+						<input class="jobtitleId" type="hidden" id="jobtitleId"	name='<portlet:namespace/>jobtitleId' value="<%=jobtitle.getJobTitleId() %>">
+						<label class="control-label">Job Title<em>*</em></label>
+						<aui:input type="text" label="" name="title" maxlength="100" id="jobtitlename" value="<%=jobtitle.getTitle()%>"/>
+						<aui:input type="textarea" label="Job Description" rows="4" cols="30" name="<portlet:namespace/>description" maxlength="400" id="description"><%=jobtitle.getDescription()%></aui:input>
+						<aui:input type="textarea" label="Note" rows="4" cols="30" name="<portlet:namespace/>notes" id="notes"><%=jobtitle.getNotes()%></aui:input>
+						<div class="control-group">
+							<div class="controls">
+								<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
+								<button type="reset" id ="jobtitlecancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
+							</div>
 						</div>
-					</div>
-				</div>	
-			</aui:form>
+					</div>	
+				</aui:form>
+				<div><em>*</em> Required Field</div>
+			</div>
 		</div>
+	</div>
 </div>	
-<div><em>*</em> Required Field</div>
-
-
 </body>
 <%
 
