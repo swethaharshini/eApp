@@ -78,7 +78,11 @@ public class EducationAction extends MVCPortlet {
 						educations.setCreateDate(date);
 						educations.setModifiedDate(date);
 						educations.setCompanyId(themeDisplay.getCompanyId());
-						educations.setGroupId(themeDisplay.getCompanyGroupId());
+						try {
+							educations.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
+						} catch (PortalException e) {
+							e.printStackTrace();
+						}
 						educations.setUserId(themeDisplay.getUserId());
 						educations.setEduLevel(eduLevel);
 						educations = EducationLocalServiceUtil
@@ -126,7 +130,11 @@ public class EducationAction extends MVCPortlet {
 				educations.setCreateDate(date);
 				educations.setModifiedDate(date);
 				educations.setCompanyId(themeDisplay.getCompanyId());
-				educations.setGroupId(themeDisplay.getCompanyGroupId());
+				try {
+					educations.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
+				} catch (PortalException e) {
+					e.printStackTrace();
+				}
 				educations.setUserId(themeDisplay.getUserId());
 				educations.setEduLevel(eduLevel);
 				educations = EducationLocalServiceUtil
