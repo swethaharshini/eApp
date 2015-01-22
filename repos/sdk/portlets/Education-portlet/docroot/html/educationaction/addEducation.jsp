@@ -158,6 +158,14 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 	
 	sortByType = portalPrefs.getValue("NAME_SPACE", "sort-by-type ", "asc");   
 }
+long groupId=themeDisplay.getLayout().getGroup().getGroupId();
+DynamicQuery educationDynamicQuery = DynamicQueryFactoryUtil
+.forClass(Education.class,
+		PortletClassLoaderUtil.getClassLoader());
+educationDynamicQuery.add(PropertyFactoryUtil.forName("groupId")
+.eq(groupId));
+List<Education> educationDetails = EducationLocalServiceUtil
+.dynamicQuery(educationDynamicQuery);
 
 %>
 <%!
@@ -172,13 +180,13 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 	<liferay-ui:search-container-results>
 
 		<%
-            List<Education> educationList = EducationLocalServiceUtil.getEducations(searchContainer.getStart(), searchContainer.getEnd());
-		OrderByComparator orderByComparator =  CustomComparatorUtil.getEducationOrderByComparator(sortByCol, sortByType);
-   
-               Collections.sort(educationList,orderByComparator);
-  
-               results = educationList;
-               total = EducationLocalServiceUtil.getEducationsCount();
+		  List<Education> educationList = educationDetails;
+				OrderByComparator orderByComparator =  CustomComparatorUtil.getEducationOrderByComparator(sortByCol, sortByType);
+		   
+		               Collections.sort(educationList,orderByComparator);
+		  
+		               results = ListUtil.subList(educationList, searchContainer.getStart(), searchContainer.getEnd());
+		               total = educationList!=null && educationList.size()!=0  ?educationList.size():0;
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);
 
