@@ -6,17 +6,6 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/language/add.jsp" />
 </portlet:renderURL>
-<style type="text/css">	
-.table-first-header{
-width: 10%;
-}
-.table-last-header{
-width: 15%;
-}
-#editLanguageMessage{
- color: red;
-}
-</style>
 <aui:script>
 AUI().use(
   'aui-node',
@@ -107,7 +96,7 @@ AUI().use(
 </head>
 <body>
 <% if(SessionMessages.contains(renderRequest.getPortletSession(),"languageName-empty-error")){%>
-<p id="editLanguageMessage"><liferay-ui:message key="Please Enter LanguageName"/></p>
+<p id="editLanguageMessage" class="alert alert-error"><liferay-ui:message key="Please Enter LanguageName"/></p>
 <%}
 %>
 <% 
@@ -115,20 +104,23 @@ AUI().use(
 %>
    
    <div class="row-fluid">
-		<div id="editLanguageAddDelete" class="span12 text-right">
-			<a href="#" class="btn btn-primary" id="languageadd"><i class="icon-plus"></i></a>
-			<a href="#" class="btn btn-danger" id="languagedelete"><i class="icon-trash"></i></a>
-		</div>
 		<div  id="editLanguageForm">
-		<aui:form name="myForm" action="<%=updateLanguages.toString()%>" >
-			<aui:input name="languageId" type="hidden" id="languageId" value="<%=editLanguage.getLanguageId()%>"/>
-			<div class="form-inline">
-				<label>Language Name: </label>
-				<input name="<portlet:namespace/>language_name" type="text" value="<%=editLanguage.getLanguageName()%>">
-				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
-				<button  type="reset" id ="languagecancel" class="btn btn-danger"><i class="icon-remove"></i></button>
+			<div class="panel">
+				<div class="panel-heading">
+					<h4>Edit</h4>
+				</div>
+				<div class="panel-body">
+					<aui:form name="myForm" action="<%=updateLanguages.toString()%>" >
+						<aui:input name="languageId" type="hidden" id="languageId" value="<%=editLanguage.getLanguageId()%>"/>
+						<div class="form-inline">
+							<label>Language Name: </label>
+							<input name="<portlet:namespace/>language_name" type="text" value="<%=editLanguage.getLanguageName()%>">
+							<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
+							<button  type="reset" id ="languagecancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
+						</div>
+					</aui:form>
+				</div>
 			</div>
-		</aui:form>
 		</div>
 	</div>
 </body>

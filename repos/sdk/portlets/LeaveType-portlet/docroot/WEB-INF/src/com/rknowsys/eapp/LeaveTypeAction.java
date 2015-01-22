@@ -858,6 +858,81 @@ public class LeaveTypeAction extends MVCPortlet{
 		log.info(leaveInfo);
 		actionResponse.setRenderParameter("mvcPath", "/html/leavetype/update_leaveGeneral.jsp");
 	}
+	
+	public void addOrEditLeaveCryFwdRules(ActionRequest actionRequest,ActionResponse actionResponse)
+	{
+		log.info("inside addOrEditLeaveCryFwdRules....");
+		Long leaveTypeId=ParamUtil.getLong(actionRequest, "leaveTypeId");
+		int specifiedAmount=ParamUtil.getInteger(actionRequest, "specifiedAmount");
+		boolean isMaxCarryForwardLimitApplicable=ParamUtil.getBoolean(actionRequest, "includeOverdrawnLeaveWhenCarrying");
+		boolean areNegetiveIntValuesAllowed=ParamUtil.getBoolean(actionRequest, "carryForwardNegetiveRules");
+		String expiryDurationUOM=ParamUtil.getString(actionRequest, "leaveExpireFrequency");
+		String maxCarryForwardLimit=ParamUtil.getString(actionRequest, "maximumAmountToCarryForward");
+		int expiryDuration=ParamUtil.getInteger(actionRequest, "expireAfter");
+		log.info("form elements are leaveTypeId=="+leaveTypeId+"===max carry forward limit="+maxCarryForwardLimit+
+				"isMaxCryFwdLmtApplicable="+isMaxCarryForwardLimitApplicable+" expiry duration= "+expiryDuration+
+				"expiryDurationUOM ="+expiryDurationUOM+" neg values allowed ? "+areNegetiveIntValuesAllowed);
+		
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		LeaveCarryForwardPolicy leaveCarryForwardPolicy=null;
+		List<LeaveCarryForwardPolicy> leaveCarryForwardPolicyList=null;
+		try {
+			leaveCarryForwardPolicyList=LeaveCarryForwardPolicyLocalServiceUtil.findByLeaveTypeId(leaveTypeId);
+		} catch (SystemException e2) {
+			e2.printStackTrace();
+		}
+		if (leaveCarryForwardPolicyList!=null && leaveCarryForwardPolicyList.size()!=0) {
+			leaveCarryForwardPolicy=leaveCarryForwardPolicyList.get(0);
+		}
+		else {
+			System.out.println("No LeaveCarryFOrwardPolicy found with leave type Id"+leaveTypeId);
+			try {
+				leaveCarryForwardPolicy= LeaveCarryForwardPolicyLocalServiceUtil.createLeaveCarryForwardPolicy(CounterLocalServiceUtil.increment());
+				leaveCarryForwardPolicy.setCreateDate(new Date());
+				} catch (SystemException e1) {
+					e1.printStackTrace();
+				}
+		}
+		leaveCarryForwardPolicy.setLeaveTypeId(leaveTypeId);
+		leaveCarryForwardPolicy.setCreateDate(new Date());
+		leaveCarryForwardPolicy.setUserId(themeDisplay.getUserId());
+		leaveCarryForwardPolicy.setIsMaxCarryForwardLimitApplicable(isMaxCarryForwardLimitApplicable);
+		leaveCarryForwardPolicy.setIsNegetiveValueCarryForwardble(areNegetiveIntValuesAllowed);
+		leaveCarryForwardPolicy.setMaxCarryForwardLimit(maxCarryForwardLimit);
+		leaveCarryForwardPolicy.setExpiryDuration(expiryDuration);
+		leaveCarryForwardPolicy.setExpiryDurationUOM(expiryDurationUOM);
+		leaveCarryForwardPolicy.setSpecifiedAmountToCarryForward(specifiedAmount);
+		leaveCarryForwardPolicy.setCompanyId(themeDisplay.getCompanyGroupId());
+		if (leaveCarryForwardPolicyList!=null && leaveCarryForwardPolicyList.size()!=0) {
+			try {
+				LeaveCarryForwardPolicyLocalServiceUtil.updateLeaveCarryForwardPolicy(leaveCarryForwardPolicy);
+			} catch (SystemException e) {
+				e.printStackTrace();
+			}
+		}
+		if (leaveCarryForwardPolicyList==null ||leaveCarryForwardPolicyList.size()==0) {
+			try {
+				LeaveCarryForwardPolicyLocalServiceUtil.addLeaveCarryForwardPolicy(leaveCarryForwardPolicy);
+			} catch (SystemException e) {
+				e.printStackTrace();
+			}
+		} 
+		Map leaveInfo=null;
+		try {
+			leaveInfo = setSessionForLeaveInfo(leaveTypeId);
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        leaveInfo.put("jsp", "carryforwardJsp");
+		actionRequest.getPortletSession(true).setAttribute("leaveInfo", 
+				leaveInfo,PortletSession.APPLICATION_SCOPE);
+		log.info(leaveInfo);
+		actionResponse.setRenderParameter("mvcPath", "/html/leavetype/update_leaveGeneral.jsp");
+		
+	}
+	
+	
 	/*
 	 * This methods returns a map of key values stored which has to be stored in the session
 	 */
@@ -930,7 +1005,22 @@ public class LeaveTypeAction extends MVCPortlet{
 		return leaveInfo;
 	}
 	public void addOrUpdateLeaveAccrualRules(ActionRequest actionRequest,ActionResponse actionResponse)
-	{
+	{	
+		System.out.println("addOrUpdateLeaveAccrualRules method().......");
+		String s = ParamUtil.getString(actionRequest, "accrualFrequency");
+		System.out.println("s ==== " +s);
+		long leaveTypeId=ParamUtil.getLong(actionRequest, "leaveTypeId");
+		Map leaveInfo=null;
+		try {
+			leaveInfo = setSessionForLeaveInfo(leaveTypeId);
+		} catch (SystemException e) {
+			e.printStackTrace();
+		}
+		leaveInfo.put("jsp", "accrualrulesJsp");
+		actionRequest.getPortletSession(true).setAttribute("leaveInfo",
+		leaveInfo,PortletSession.APPLICATION_SCOPE);
+
+		actionResponse.setRenderParameter("mvcPath", "/html/leavetype/update_leaveGeneral.jsp");
 		
 	}
 	public void saveEmployeeGroup(ActionRequest actionRequest, ActionResponse actionResponse) throws SystemException{
@@ -952,9 +1042,6 @@ public class LeaveTypeAction extends MVCPortlet{
 		
 		actionResponse.setRenderParameter("mvcPath", "/html/leavetype/update_leaveGeneral.jsp");
 	}
-	
-	
-	
 	
 }
 
