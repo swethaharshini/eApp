@@ -17,75 +17,7 @@ width: 15%;
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#delete');
-    node.on(
-      'click',
-      function() {
-     var idArray = [];
-      A.all('input[type=checkbox]:checked').each(function(object) {
-      idArray.push(object.get("value"));
-    
-        });
-       if(idArray==""){
-			  alert("Please select records!");
-		  }else{
-			  var d = confirm("Are you sure you want to delete the selected skill?");
-		  if(d){
-		   var url = '<%=deleteSkills%>';
-          A.io.request(url,
-         {
-          data: {  
-                <portlet:namespace />skillIds: idArray,  
-                 },
-          on: {
-               success: function() { 
-                   alert('deleted successfully');
-                   window.location='<%=listview%>';
-              },
-               failure: function() {
-                  
-                 }
-                }
-                 }
-                );
-		  																		
-		  console.log(idArray);
-	  
-      return true;
-  }
-  else
-    return false;
-}             
-      }
-    );
-  }
-);
-</aui:script><aui:script>
-AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#add');
-    node.on(
-      'click',
-      function() {
-         A.one('#editSkillAddDelete').hide();
-         A.one('#editSkillForm').show();
-                     
-      }
-    );
-  }
-);
-
-AUI().ready('event', 'node', function(A){
-
-  A.one('#editSkillAddDelete').hide();
- 
- });
-
-AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#editCancel');
+    var node = A.one('#cancel');
     node.on(
       'click',
       function() {
@@ -104,17 +36,19 @@ AUI().use(
 
 </head>
 <body>
-<jsp:useBean id="editSkill" type="com.rknowsys.eapp.hrm.model.Skill" scope="request" />
-<div id="editSkillAddDelete" class="span12">
-	<a href="#" class="btn btn-primary" id="add"><i class="icon-plus"></i></a>
-	<a href="#" class="btn btn-danger" id="delete"><i class="icon-trash"></i></a>
-</div>
+<% 
+  Skill editSkill = (Skill) portletSession.getAttribute("editSkill");
+if(SessionMessages.contains(renderRequest.getPortletSession(),"skillName-empty-error")){%>
+<p id="editSkillMessage" class="alert alert-error"><liferay-ui:message key="Please Enter Skill Name"/></p>
+<%} 
+ 
+%>
 <div id="editSkillForm">
   <aui:form name="myForm" action="<%=updateSkills.toString()%>">
   	<div class="form-horizontal">
 		<aui:input name="skillId" type="hidden" id="skillId"  value="<%=editSkill.getSkillId()%>"/>
-		<aui:input label="name" name="<portlet:namespace/>skill_name" type="text" required = "required" value="<%=editSkill.getSkillName() %>"></aui:input>
-		<aui:input type="textarea" label="Description" name="<portlet:namespace/>skill_description" rows="5" cols="5" ></aui:input>	 
+		<aui:input label="name" name="skill_name" type="text" required ="true" value="<%=editSkill.getSkillName() %>" showRequiredLabel="false"></aui:input>
+		<aui:input type="textarea" label="Description" name="skill_description" rows="5" cols="5" ></aui:input>	 
 		<div class="control-group">	
 			<div class="controls">	
 			<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
@@ -140,6 +74,14 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 } else { 
 	sortByType = portalPrefs.getValue("NAME_SPACE", "sort-by-type ", "asc");   
 }
+long groupId=themeDisplay.getLayout().getGroup().getGroupId();
+DynamicQuery skillDynamicQuery = DynamicQueryFactoryUtil
+.forClass(Skill.class,
+		PortletClassLoaderUtil.getClassLoader());
+skillDynamicQuery.add(PropertyFactoryUtil.forName("groupId")
+.eq(groupId));
+List<Skill> skillDetails = SkillLocalServiceUtil
+.dynamicQuery(skillDynamicQuery);
 %>
 <%!
   com.liferay.portal.kernel.dao.search.SearchContainer<Skill> searchContainer;
@@ -148,16 +90,13 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 		<liferay-ui:search-container-results>
 				
 		<%
-            List<Skill> listOfSkills = SkillLocalServiceUtil.getSkills(searchContainer.getStart(), searchContainer.getEnd());
-            OrderByComparator orderByComparator = CustomComparatorUtil.getSkillsrOrderByComparator(sortByCol, sortByType);         
+		 List<Skill> skillList = skillDetails;
+		OrderByComparator orderByComparator =  CustomComparatorUtil.getSkillsrOrderByComparator(sortByCol, sortByType);
+   
+               Collections.sort(skillList,orderByComparator);
   
-           Collections.sort(listOfSkills,orderByComparator);
-  
-          results = listOfSkills;
-          
-           
-     
-               total = SkillLocalServiceUtil.getSkillsCount();
+               results = ListUtil.subList(skillList, searchContainer.getStart(), searchContainer.getEnd());
+               total = skillList!=null && skillList.size()!=0  ?skillList.size():0;
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);
  %>
