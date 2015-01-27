@@ -50,9 +50,9 @@ if(SessionMessages.contains(renderRequest.getPortletSession(),"skillName-empty-e
 		<aui:input label="name" name="skill_name" type="text" required ="true" value="<%=editSkill.getSkillName() %>" showRequiredLabel="false"></aui:input>
 		<aui:input type="textarea" label="Description" name="skill_description" rows="5" cols="5" ></aui:input>	 
 		<div class="control-group">	
-			<div class="controls">	
-			<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
-			<button  type="reset" id ="cancel" class="btn btn-danger"><i class="icon-remove"></i></button>
+			<div class="controls">
+			<button type="submit" class="btn btn-primary"><i class="icon-ok"></i>Submit</button>
+			<button  type="reset" id ="cancel" class="btn btn-danger"><i class="icon-remove"></i>Cancel</button>
 			</div>
 		</div>
 	</div>
