@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil"%>
 <%@page import="com.liferay.portal.kernel.util.ListUtil"%>
 <%@page import="com.liferay.portal.kernel.dao.orm.Criterion"%>
 <%@page import="com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil"%>
@@ -179,6 +181,7 @@
 			deltaConfigurable="true" iteratorURL="<%=iteratorURL%>">
 			<liferay-ui:search-container-results>
 				<%
+		long layoutGroupId=themeDisplay.getLayout().getGroup().getGroupId();
 		DisplayTerms displayTerms =searchContainer.getDisplayTerms();
 		String empname = ParamUtil.getString(renderRequest, "firstName");
 		String empid = ParamUtil.getString(renderRequest, "employeeNo");
@@ -188,8 +191,20 @@
 		String subunit = ParamUtil.getString(renderRequest, "subunit");
 		System.out.println("before results....parameters.." +empname+ ", "+empid+", "+empstatus+", "+supervisorname+", "+jobtitle+", " +subunit);
 		List<EmpDetails> employeeList=EmpDetailsLocalServiceUtil.findEmpDetails(empname, empid, empstatus, supervisorname, jobtitle, subunit, -1,-1);
-	    results=ListUtil.subList(employeeList, searchContainer.getStart(), searchContainer.getEnd());
-		total = employeeList.size(); 
+		
+		List<EmpDetails> empDetailsList=new ArrayList();
+		Iterator<EmpDetails> i=employeeList.iterator();
+		while(i.hasNext())
+		{
+			EmpDetails employee=i.next();
+			System.out.println("==="+employee.getGroupId());
+			System.out.println("==="+layoutGroupId);
+			if(employee.getGroupId()==layoutGroupId)
+				empDetailsList.add(employee);
+		}
+	    results=ListUtil.subList(empDetailsList, searchContainer.getStart(), searchContainer.getEnd());
+		total = empDetailsList.size(); 
+		System.out.println("===total is"+empDetailsList.size());
 	  	pageContext.setAttribute("results", results);
 		pageContext.setAttribute("total", total);
 		%>

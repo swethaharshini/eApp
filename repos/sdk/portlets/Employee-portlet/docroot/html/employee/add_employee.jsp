@@ -1,6 +1,6 @@
 <%@ include file="/html/employee/init.jsp"%>
 <portlet:actionURL name="saveEmpDetails" var="saveEmpDetails"></portlet:actionURL>
-<aui:script use="aui-base,aui-node">
+<aui:script use="aui-base,aui-nodeuse,aui-form-validator, aui-overlay-context-panel">
 var A=new AUI();
 A.ready(function()
 {
@@ -19,6 +19,18 @@ A.ready(function()
 	   A.one("#createLoginDetailsDiv").hide();
 	  }
 	  });
+		var validator1 = new A.FormValidator({
+		boundingBox: document.<portlet:namespace />addEmployeeForm,
+		rules: {
+		<portlet:namespace />location: {
+		required: true
+		}},
+		fieldStrings: {
+		<portlet:namespace />location: {
+		required: 'Please select employee location'
+		}
+		}
+		});
 </aui:script>
 <div id="search_form" class="panel">
 	<div class="panel-heading">
@@ -50,15 +62,15 @@ A.ready(function()
 					 type="password">
 					  <aui:validator name="equalTo">'#<portlet:namespace />password'</aui:validator></aui:input>
 				</div>
-				<aui:select name="location" label="01_location" inlineLabel="left">
-				<aui:option value="-1">--Select--</aui:option>
+				<aui:select name="location" id="location" label="01_location" inlineLabel="left">
+				<aui:option value="">--Select--</aui:option>
 					<%
-						List l = LocationLocalServiceUtil.getLocations(-1, -1);
-								Iterator locations = l.iterator();
-								while (locations.hasNext()) {
-									Location locations2 = (Location) locations.next();
+						List listRegions = RegionServiceUtil.getRegions();
+								Iterator regions = listRegions.iterator();
+								while (regions.hasNext()) {
+									Region region = (Region) regions.next();
 					%>
-					<aui:option value="<%=locations2.getLocationId()%>"><%=locations2.getName()%></aui:option>
+					<aui:option value="<%=region.getRegionId()%>"><%=region.getName()%></aui:option>
 					<%
 						}
 					%>

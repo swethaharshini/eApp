@@ -1457,6 +1457,7 @@
 		
 		<column name="companyId" type="long"></column>
 		<column name="userId" type="long"></column>
+		<column name="groupId" type="long"></column>
 		<column name="createDate" type="Date"></column>
 		<column name="modifiedDate" type="Date"></column>
 		

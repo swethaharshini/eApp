@@ -977,6 +977,26 @@ public class EmployeeAction extends MVCPortlet {
 			System.out.println("cannot add job");
 			e.printStackTrace();
 		}
+		/*
+		 * To update the location column in employee when updated in emp_job table
+		 */
+		Employee employee=null;
+		try {
+			employee=EmployeeLocalServiceUtil.getEmployee(empId);
+		} catch (PortalException e) {
+			e.printStackTrace();
+		} catch (SystemException e) {
+			e.printStackTrace();
+		}
+		if(employee!=null)
+		{
+			employee.setLocationId(location);
+			try {
+				EmployeeLocalServiceUtil.updateEmployee(employee);
+			} catch (SystemException e) {
+				e.printStackTrace();
+			}
+		}
 		Map map = new HashMap();
 		map.put("empId", empId);
 		map.put("jsp", "jsp9");
@@ -1247,6 +1267,11 @@ public class EmployeeAction extends MVCPortlet {
 		employee.setLocationId(location);
 		employee.setUserId(themeDisplay.getUserId());
 		employee.setCompanyId(themeDisplay.getCompanyId());
+		try {
+			employee.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
+		} catch (PortalException e2) {
+			e2.printStackTrace();
+		}
 		employee.setCreateDate(date);
 		employee.setModifiedDate(date);
 		EmployeeLocalServiceUtil.addEmployee(employee);
@@ -1263,6 +1288,16 @@ public class EmployeeAction extends MVCPortlet {
 		empPersonalDetails.setModifiedDate(date);
 		EmpPersonalDetailsLocalServiceUtil
 				.addEmpPersonalDetails(empPersonalDetails);
+		EmpJob empJob=EmpJobLocalServiceUtil.createEmpJob(CounterLocalServiceUtil.increment());
+		empJob.setCreateDate(date);
+		try {
+			empJob.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
+		} catch (PortalException e2) {
+			e2.printStackTrace();
+		}
+		empJob.setUserId(themeDisplay.getUserId());
+		empJob.setCompanyId(themeDisplay.getCompanyGroupId());
+		EmpJobLocalServiceUtil.addEmpJob(empJob);
 		ServiceContext serviceContext = null;
 		FileEntry fileEntry = null;
 		try {
@@ -1331,7 +1366,6 @@ public class EmployeeAction extends MVCPortlet {
 					UserLocalServiceUtil.updateUser(user);
 				}
 			} catch (PortalException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			if (user != null) {
@@ -1340,7 +1374,6 @@ public class EmployeeAction extends MVCPortlet {
 					employee2 = EmployeeLocalServiceUtil.getEmployee(employee
 							.getEmployeeId());
 				} catch (PortalException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				employee2.setAssignedUserId(user.getUserId());
@@ -1352,7 +1385,6 @@ public class EmployeeAction extends MVCPortlet {
 					employee3 = EmployeeLocalServiceUtil.getEmployee(employee
 							.getEmployeeId());
 				} catch (PortalException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				employee3.setImageId(fileEntry.getFileEntryId());

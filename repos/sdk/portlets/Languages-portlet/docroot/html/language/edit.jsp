@@ -1,4 +1,3 @@
-<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@ include file="/html/language/init.jsp" %>
 <portlet:actionURL var="updateLanguages" name="updateLanguage">
 </portlet:actionURL>
@@ -139,6 +138,14 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 } else { 
 	sortByType = portalPrefs.getValue("NAME_SPACE", "sort-by-type ", "asc");   
 }
+long groupId=themeDisplay.getLayout().getGroup().getGroupId();
+DynamicQuery languageDynamicQuery = DynamicQueryFactoryUtil
+.forClass(Language.class,
+		PortletClassLoaderUtil.getClassLoader());
+languageDynamicQuery.add(PropertyFactoryUtil.forName("groupId")
+.eq(groupId));
+List<Language> languageDetails = LanguageLocalServiceUtil
+.dynamicQuery(languageDynamicQuery);
 %>
 <%!
   com.liferay.portal.kernel.dao.search.SearchContainer<Language> searchContainer;
@@ -147,16 +154,13 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 		<liferay-ui:search-container-results>
 				
 		<%
-            List<Language> listOfLanguages = LanguageLocalServiceUtil.getLanguages(searchContainer.getStart(), searchContainer.getEnd());
-            OrderByComparator orderByComparator = CustomComparatorUtil.getLanguagesOrderByComparator(sortByCol, sortByType);         
-  
-           Collections.sort(listOfLanguages,orderByComparator);
-  
-          results = listOfLanguages;
-          
-           
-     
-               total = LanguageLocalServiceUtil.getLanguagesCount();
+		   List<Language> languageList = languageDetails;
+			OrderByComparator orderByComparator =  CustomComparatorUtil.getLanguagesOrderByComparator(sortByCol, sortByType);
+	   
+	               Collections.sort(languageList,orderByComparator);
+	  
+	               results = ListUtil.subList(languageList, searchContainer.getStart(), searchContainer.getEnd());
+	               total = languageList!=null && languageList.size()!=0?languageList.size():0;
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);
  %>
