@@ -158,7 +158,14 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 	
 	sortByType = portalPrefs.getValue("NAME_SPACE", "sort-by-type ", "asc");   
 }
-
+long groupId=themeDisplay.getLayout().getGroup().getGroupId();
+DynamicQuery licenseDynamicQuery = DynamicQueryFactoryUtil
+.forClass(License.class,
+		PortletClassLoaderUtil.getClassLoader());
+licenseDynamicQuery.add(PropertyFactoryUtil.forName("groupId")
+.eq(groupId));
+List<License> licenseDetails = LicenseLocalServiceUtil
+.dynamicQuery(licenseDynamicQuery);
 %>
 <%!
   com.liferay.portal.kernel.dao.search.SearchContainer<License> searchContainer;
@@ -172,13 +179,13 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 	<liferay-ui:search-container-results>
 
 		<%
-            List<License> licenseList = LicenseLocalServiceUtil.getLicenses(searchContainer.getStart(), searchContainer.getEnd());
+            List<License> licenseList = licenseDetails;
 		OrderByComparator orderByComparator =  CustomComparatorUtil.getLicensesOrderByComparator(sortByCol, sortByType);
    
                Collections.sort(licenseList,orderByComparator);
   
-               results = licenseList;
-               total = LicenseLocalServiceUtil.getLicensesCount();
+               results =ListUtil.subList(licenseList,searchContainer.getStart(),searchContainer.getEnd());
+               total =licenseList!=null && licenseList.size()!=0  ?licenseList.size():0;
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);
 

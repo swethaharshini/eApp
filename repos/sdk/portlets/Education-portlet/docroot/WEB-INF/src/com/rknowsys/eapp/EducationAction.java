@@ -10,7 +10,9 @@ import javax.portlet.PortletException;
 import javax.portlet.PortletSession;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
+
 import com.liferay.counter.service.CounterLocalServiceUtil;
+import com.liferay.portal.kernel.dao.orm.Criterion;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
@@ -49,11 +51,20 @@ public class EducationAction extends MVCPortlet {
 						"/html/educationaction/addEducation.jsp");
 
 			} else {
+				Criterion criterion=null;
 				DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
 						Education.class,
 						PortletClassLoaderUtil.getClassLoader());
-				dynamicQuery.add(RestrictionsFactoryUtil.eq("eduLevel",
-						eduLevel));
+				criterion=RestrictionsFactoryUtil
+						.eq("eduLevel", eduLevel);
+				try {
+					criterion=RestrictionsFactoryUtil.and(criterion,RestrictionsFactoryUtil
+							.eq("groupId", themeDisplay.getLayout().getGroup().getGroupId()));
+				} catch (PortalException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				dynamicQuery.add(criterion);
 				@SuppressWarnings("unchecked")
 				List<Education> list = EducationLocalServiceUtil
 						.dynamicQuery(dynamicQuery);
@@ -78,7 +89,11 @@ public class EducationAction extends MVCPortlet {
 						educations.setCreateDate(date);
 						educations.setModifiedDate(date);
 						educations.setCompanyId(themeDisplay.getCompanyId());
-						educations.setGroupId(themeDisplay.getCompanyGroupId());
+						try {
+							educations.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
+						} catch (PortalException e) {
+							e.printStackTrace();
+						}
 						educations.setUserId(themeDisplay.getUserId());
 						educations.setEduLevel(eduLevel);
 						educations = EducationLocalServiceUtil
@@ -126,7 +141,11 @@ public class EducationAction extends MVCPortlet {
 				educations.setCreateDate(date);
 				educations.setModifiedDate(date);
 				educations.setCompanyId(themeDisplay.getCompanyId());
-				educations.setGroupId(themeDisplay.getCompanyGroupId());
+				try {
+					educations.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
+				} catch (PortalException e) {
+					e.printStackTrace();
+				}
 				educations.setUserId(themeDisplay.getUserId());
 				educations.setEduLevel(eduLevel);
 				educations = EducationLocalServiceUtil

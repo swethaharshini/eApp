@@ -12,6 +12,7 @@ import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
 import com.liferay.counter.service.CounterLocalServiceUtil;
+import com.liferay.portal.kernel.dao.orm.Criterion;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
@@ -49,10 +50,14 @@ public class LicensesAction extends MVCPortlet {
 						"/html/license/add.jsp");
 
 			} else {
+				Criterion criterion=null;
 				DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
 						License.class, PortletClassLoaderUtil.getClassLoader());
-				dynamicQuery.add(RestrictionsFactoryUtil
-						.eq("licenseName", name));
+				criterion=RestrictionsFactoryUtil
+						.eq("licenseName", name);
+				criterion=RestrictionsFactoryUtil.and(criterion,RestrictionsFactoryUtil
+						.eq("groupId", themeDisplay.getLayout().getGroup().getGroupId()));
+				dynamicQuery.add(criterion);
 				@SuppressWarnings("unchecked")
 				List<License> licensesList = LicenseLocalServiceUtil
 						.dynamicQuery(dynamicQuery);
@@ -77,14 +82,18 @@ public class LicensesAction extends MVCPortlet {
 						licenses.setCreateDate(date);
 						licenses.setModifiedDate(date);
 						licenses.setCompanyId(themeDisplay.getCompanyId());
-						licenses.setGroupId(themeDisplay.getCompanyGroupId());
+						try {
+							licenses.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
+						} catch (PortalException e) {
+							e.printStackTrace();
+						}
 						licenses.setUserId(themeDisplay.getUserId());
 						licenses.setLicenseName(name);
 						licenses = LicenseLocalServiceUtil.addLicense(licenses);
 					}
 				}
 			}
-		} catch (SystemException e) {
+		} catch (SystemException | PortalException e) {
 
 			e.printStackTrace();
 		}
@@ -122,7 +131,11 @@ public class LicensesAction extends MVCPortlet {
 			licenses.setCreateDate(date);
 			licenses.setModifiedDate(date);
 			licenses.setCompanyId(themeDisplay.getCompanyId());
-			licenses.setGroupId(themeDisplay.getCompanyGroupId());
+			try {
+				licenses.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
+			} catch (PortalException e) {
+				e.printStackTrace();
+			}
 			licenses.setUserId(themeDisplay.getUserId());
 			licenses.setLicenseName(name);
 			licenses = LicenseLocalServiceUtil.updateLicense(licenses);

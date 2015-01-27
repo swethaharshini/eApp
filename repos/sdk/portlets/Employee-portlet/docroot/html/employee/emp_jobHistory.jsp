@@ -5,6 +5,7 @@
 <%
 	Map empId = (Map) request.getSession(false).getAttribute("empId");
 	long employeeId = (Long) empId.get("empId");
+	long empLocationId=EmployeeLocalServiceUtil.getEmployee(employeeId).getLocationId();
 	String jsp = (String) empId.get("jsp");
 	long fileEntryId=(Long)empId.get("fileId");
 DynamicQuery jobDynamicQuery = DynamicQueryFactoryUtil
@@ -79,9 +80,9 @@ public String getLocationValue(long lId)
 {	
 	if(lId!=0)
 	{
-	Location loc = null;
+	Region loc = null;
 	try {
-		loc = LocationLocalServiceUtil.getLocation(lId);
+		loc = RegionServiceUtil.getRegion(lId);
 	} catch (Exception p) {
 	}
 	if(loc==null)
@@ -197,15 +198,17 @@ public String getCategoryValue(long jcId)
 				</aui:select>
 				<aui:select name="emp_location" label="01_location">
 				<%
-				List<Location> location = LocationLocalServiceUtil
-								.getLocations(-1, -1);
+				List<Region> regionList = RegionServiceUtil.getRegions();
 						{
-							Iterator<Location> locations = location.iterator();
-							while (locations.hasNext()) {
-								Location location9 = locations.next();
+							%>
+							<aui:option selected="<%=empLocationId==0 %>">--Select--</aui:option>
+							<%
+							Iterator<Region> regions = regionList.iterator();
+							while (regions.hasNext()) {
+								Region region =regions.next();
 				%>
-				<aui:option value="<%=location9.getLocationId()%>"
-				label="<%=location9.getName()%>"></aui:option>
+				<aui:option value="<%=region.getRegionId()%>"
+				label="<%=region.getName()%>" selected="<%= empLocationId==region.getRegionId()%>" ></aui:option>
 				<%
 				}
 						}
@@ -261,7 +264,10 @@ public String getCategoryValue(long jcId)
 			deltaConfigurable="true"
 			rowChecker="<%=new RowChecker(renderResponse)%>" iteratorURL="<%=empJobURL %>">
 			<liferay-ui:search-container-results >
-			<%List<EmpJob> empJobHistory = empJob;
+			<% if(empJob!=null && empJob.size()!=0)
+			{
+			}
+			List<EmpJob> empJobHistory = empJob;
 							results =ListUtil.subList(empJob,searchContainer.getStart(), searchContainer.getEnd());
 							total = empJob.size();
 							pageContext.setAttribute("results", results);
