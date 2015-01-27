@@ -12,11 +12,13 @@ import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
 import com.liferay.counter.service.CounterLocalServiceUtil;
+import com.liferay.portal.kernel.dao.orm.Criterion;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.portlet.PortletClassLoaderUtil;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
@@ -49,10 +51,20 @@ public class LanguageAction extends MVCPortlet {
 						"/html/language/add.jsp");
 
 			} else {
+				Criterion criterion=null;
 				DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
-						Language.class, PortalClassLoaderUtil.getClassLoader());
-				dynamicQuery.add(RestrictionsFactoryUtil.eq("languageName",
-						name));
+						Language.class,
+						PortletClassLoaderUtil.getClassLoader());
+				criterion=RestrictionsFactoryUtil
+						.eq("languageName", name);
+				try {
+					criterion=RestrictionsFactoryUtil.and(criterion,RestrictionsFactoryUtil
+							.eq("groupId", themeDisplay.getLayout().getGroup().getGroupId()));
+				} catch (PortalException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				dynamicQuery.add(criterion);
 				@SuppressWarnings("unchecked")
 				List<Language> languages = LanguageLocalServiceUtil
 						.dynamicQuery(dynamicQuery);
@@ -81,7 +93,11 @@ public class LanguageAction extends MVCPortlet {
 						language.setCreateDate(date);
 						language.setModifiedDate(date);
 						language.setCompanyId(themeDisplay.getCompanyId());
-						language.setGroupId(themeDisplay.getCompanyGroupId());
+						try {
+							language.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
+						} catch (PortalException e) {
+							e.printStackTrace();
+						}
 						language.setUserId(themeDisplay.getUserId());
 						language.setLanguageName(name);
 						language = LanguageLocalServiceUtil
@@ -133,7 +149,7 @@ public class LanguageAction extends MVCPortlet {
 				languages.setCreateDate(date);
 				languages.setModifiedDate(date);
 				languages.setCompanyId(themeDisplay.getCompanyId());
-				languages.setGroupId(themeDisplay.getCompanyGroupId());
+				languages.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
 				languages.setUserId(themeDisplay.getUserId());
 				languages.setLanguageName(name);
 				languages = LanguageLocalServiceUtil.updateLanguage(languages);

@@ -17,4 +17,10 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.rknowsys.eapp.hrm.model.License" %>
 <%@ page import="com.rknowsys.eapp.hrm.service.LicenseLocalServiceUtil" %>
+<%@page import="com.liferay.portal.kernel.util.ListUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.portlet.PortletClassLoaderUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.DynamicQuery"%>
 <portlet:defineObjects />
+<theme:defineObjects/>
