@@ -1,7 +1,3 @@
-<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
-<%@page import="com.rknowsys.eapp.hrm.model.EmploymentStatus"%>
-<%@page import="com.liferay.portal.kernel.util.WebKeys"%>
-<%@page import="com.liferay.portal.kernel.dao.search.ResultRow"%>
 <%@ include file="/html/employmentstatus/init.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -20,68 +16,6 @@
 }
 </style>
 <aui:script>
-AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#deleteemploymentstatus');
-    node.on(
-      'click',
-      function() {
-     var idArray = [];
-     A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
-      idArray.push(object.get("value"));
-    
-        });
-       if(idArray==""){
-			  alert("Please select records!");
-		  }else{
-			  var d = confirm("Are you sure you want to delete the selected employmentstatus ?");
-		  if(d){
-		   var url = '<%=deleteemploymentstatus%>';
-          A.io.request(url,
-         {
-          data: {  
-                <portlet:namespace />employmentstatusIds: idArray,  
-                 },
-          on: {
-               success: function() { 
-                   alert('deleted successfully');
-                   window.location='<%=listview%>';
-              },
-               failure: function() {
-                  
-                 }
-                }
-                 }
-                );
-		  																		
-		  console.log(idArray);
-	  
-      return true;
-  }
-  else
-    return false;
-}             
-      }
-    );
-  }
-);
-</aui:script><aui:script>
-AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#addemploymentstatus');
-    node.on(
-      'click',
-      function() {
-         A.one('#editemploymentstatusadddelete').hide();
-         A.one('#editEmploymentStatusForm').show();
-                     
-      }
-    );
-  }
-);
-
  AUI().ready('event', 'node','transition',function(A){
   setTimeout(function(){
     A.one('#editEmploymentStatusMessage').transition('fadeOut');
@@ -96,17 +30,12 @@ AUI().use(
       'click',
       function() {
         window.location='<%=listview%>';
-      	
-          
       }
     );																																
   }
 );
 
 </aui:script>
-
-
-
 </head>
 <body>
 <% 
@@ -118,18 +47,14 @@ if(SessionMessages.contains(renderRequest.getPortletSession(),"employmentStatus-
 <br/><br/>
 	
 	<div class="row-fluid">
-		<div id="editemploymentstatusadddelete" class="span12 text-right">
-			<a href="#" class="btn btn-primary" id="addemploymentstatus"><i class="icon-plus"></i></a>
-			<a href="#" class="btn btn-danger" id="deleteemploymentstatus"><i class="icon-trash"></i></a>
-		</div>
-		<div  id="editEmploymentStatusForm">
+			<div  id="editEmploymentStatusForm">
 		<aui:form name="myemploymentstatusForm" action="<%=saveemploymentstatus.toString()%>" >
 			<aui:input name="employmentstatusId" type="hidden" id="employmentstatusId" value="<%=editemploymentstatus.getEmploymentStatusId()%>" />
 			<div class="form-inline">
 				<label>Employment Status: </label>
 				<input name="<portlet:namespace/>employmentstatus" type="text" value="<%=editemploymentstatus.getEmploymentstatus() %>">
-				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
-				<button  type="reset" id ="editemploymentstatuscancel" class="btn btn-danger"><i class="icon-remove"></i></button>
+				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i>Submit</button>
+				<button  type="reset" id ="editemploymentstatuscancel" class="btn btn-danger"><i class="icon-remove">Cancel</i></button>
 			</div>
 		</aui:form>
 		</div>
@@ -156,6 +81,14 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 System.out.println("after....");
 System.out.println("sortByCol == " +sortByCol);
 System.out.println("sortByType == " +sortByType);
+long groupId=themeDisplay.getLayout().getGroup().getGroupId();
+DynamicQuery empStatusDynamicQuery = DynamicQueryFactoryUtil
+.forClass(EmploymentStatus.class,
+		PortletClassLoaderUtil.getClassLoader());
+empStatusDynamicQuery.add(PropertyFactoryUtil.forName("groupId")
+.eq(groupId));
+List<EmploymentStatus> empDetails = EmploymentStatusLocalServiceUtil
+.dynamicQuery(empStatusDynamicQuery);
 %>
 <%!
   com.liferay.portal.kernel.dao.search.SearchContainer<EmploymentStatus> searchContainer;
@@ -164,18 +97,18 @@ System.out.println("sortByType == " +sortByType);
 		<liferay-ui:search-container-results>
 				
 		<%
-            List<EmploymentStatus> employmentstatusList = EmploymentStatusLocalServiceUtil.getEmploymentStatuses(searchContainer.getStart(), searchContainer.getEnd());
-            System.out.println("list size == " +employmentstatusList.size());
-            OrderByComparator orderByComparator = CustomComparatorUtil.getEmploymentStatusrOrderByComparator(sortByCol, sortByType);         
-  
-           Collections.sort(employmentstatusList,orderByComparator);
-  
-          results = employmentstatusList;
-          
-            System.out.println("results == " +results);
-           
-     
-               total = EmploymentStatusLocalServiceUtil.getEmploymentStatusesCount();
+		 System.out.println("addemployee jsp =========");
+        List<EmploymentStatus> employmentstatusList =empDetails;
+        OrderByComparator orderByComparator = CustomComparatorUtil.getEmploymentStatusrOrderByComparator(sortByCol, sortByType);         
+
+       Collections.sort(employmentstatusList,orderByComparator);
+
+      results = ListUtil.subList(employmentstatusList, searchContainer.getStart(), searchContainer.getEnd());
+      
+        System.out.println("results == " +results);
+       
+ 
+           total = employmentstatusList!=null && employmentstatusList.size()!=0?employmentstatusList.size():0;
                System.out.println("total == " +total);
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);

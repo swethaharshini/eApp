@@ -1,4 +1,3 @@
-<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@ include file="/html/Interview/init.jsp"%>
 <html>
 <head>
@@ -125,8 +124,8 @@ AUI().use(
 
  <div class="row-fluid">
 		<div id="interviewadddelete" class="span12 text-right">
-			<a href="#" class="btn btn-primary" id="interviewadd"><i class="icon-plus"></i></a>
-			<a href="#" class="btn btn-danger" id="interviewdelete"><i class="icon-trash"></i></a>
+			<a href="#" class="btn btn-primary" id="interviewadd"><i class="icon-plus"></i>Add</a>
+			<a href="#" class="btn btn-danger" id="interviewdelete"><i class="icon-trash"></i>Delete</a>
 		</div>
 		<div  id="addInterviewForm">
 		<aui:form name="myForm" action="<%=saveinterview.toString()%>" >
@@ -134,8 +133,8 @@ AUI().use(
 			<div class="form-inline">
 				<label>Interview Name: </label>
 				<input name="<portlet:namespace/>name" type="text">
-				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
-				<button  type="reset" id ="interviewcancel" class="btn btn-danger"><i class="icon-remove"></i></button>
+				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i>Submit</button>
+				<button  type="reset" id ="interviewcancel" class="btn btn-danger"><i class="icon-remove"></i>Cancel</button>
 			</div>
 		</aui:form>
 		</div>
@@ -169,7 +168,14 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 System.out.println("after....");
 System.out.println("sortByCol == " +sortByCol);
 System.out.println("sortByType == " +sortByType);
-
+long groupId=themeDisplay.getLayout().getGroup().getGroupId();
+DynamicQuery interviewDynamicQuery = DynamicQueryFactoryUtil
+.forClass(Interview.class,
+		PortletClassLoaderUtil.getClassLoader());
+interviewDynamicQuery.add(PropertyFactoryUtil.forName("groupId")
+.eq(groupId));
+List<Interview> interviewDetails = InterviewLocalServiceUtil
+.dynamicQuery(interviewDynamicQuery);
 %>
 <%!
   com.liferay.portal.kernel.dao.search.SearchContainer<Interview> searchContainer;
@@ -182,18 +188,17 @@ System.out.println("sortByType == " +sortByType);
 	deltaConfigurable="true" iteratorURL="<%=iteratorURL%>">
 	<liferay-ui:search-container-results>
 	<%
-			List<Interview> interviewList =  InterviewLocalServiceUtil.getInterviews(searchContainer.getStart(), searchContainer.getEnd());
-            System.out.println("list size == " +interviewList.size());
+			List<Interview> interviewList =  interviewDetails;
             OrderByComparator orderByComparator = CustomComparatorUtil.getInterviewrOrderByComparator(sortByCol, sortByType);         
   
            Collections.sort(interviewList,orderByComparator);
   
-          results = interviewList;
+           results = ListUtil.subList(interviewList, searchContainer.getStart(), searchContainer.getEnd());
           
             System.out.println("results == " +results);
            
      
-               total = InterviewLocalServiceUtil.getInterviewsCount();
+               total = interviewList!=null && interviewDetails.size()!=0?interviewDetails.size():0;
                System.out.println("total == " +total);
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);

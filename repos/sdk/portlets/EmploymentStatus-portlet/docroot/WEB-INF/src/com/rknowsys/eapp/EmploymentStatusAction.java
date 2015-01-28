@@ -14,11 +14,13 @@ import javax.portlet.ResourceResponse;
 import org.apache.log4j.Logger;
 
 import com.liferay.counter.service.CounterLocalServiceUtil;
+import com.liferay.portal.kernel.dao.orm.Criterion;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.portlet.PortletClassLoaderUtil;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
@@ -54,7 +56,11 @@ public class EmploymentStatusAction extends MVCPortlet {
 				.getAttribute(WebKeys.THEME_DISPLAY);
 		log.info("company Id == " + themeDisplay.getCompanyId());
 		log.info("userId = " + themeDisplay.getUserId());
-		log.info("groupId = " + themeDisplay.getCompanyGroupId());
+		try {
+			log.info("groupId = " + themeDisplay.getLayout().getGroup().getGroupId());
+		} catch (PortalException e2) {
+			e2.printStackTrace();
+		}
 		try {
 			String id = ParamUtil
 					.getString(actionRequest, EMPLOYMENT_STATUS_ID);
@@ -79,12 +85,20 @@ public class EmploymentStatusAction extends MVCPortlet {
 							"/html/employmentstatus/addemploymentstatus.jsp");
 
 				} else {
-
-					DynamicQuery dynamicQuery = DynamicQueryFactoryUtil
-							.forClass(EmploymentStatus.class,
-									PortalClassLoaderUtil.getClassLoader());
-					dynamicQuery.add(RestrictionsFactoryUtil.eq(
-							"employmentstatus", inputName));
+					Criterion criterion=null;
+					DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
+							EmploymentStatus.class,
+							PortletClassLoaderUtil.getClassLoader());
+					criterion=RestrictionsFactoryUtil
+							.eq("employmentstatus", inputName);
+					try {
+						criterion=RestrictionsFactoryUtil.and(criterion,RestrictionsFactoryUtil
+								.eq("groupId", themeDisplay.getLayout().getGroup().getGroupId()));
+					} catch (PortalException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					dynamicQuery.add(criterion);
 					List<EmploymentStatus> employmentStatuslist = EmploymentStatusLocalServiceUtil
 							.dynamicQuery(dynamicQuery);
 					if (employmentStatuslist.size() > 0) {
@@ -118,7 +132,7 @@ public class EmploymentStatusAction extends MVCPortlet {
 						employmentStatus2.setCompanyId(themeDisplay
 								.getCompanyId());
 						employmentStatus2.setGroupId(themeDisplay
-								.getCompanyGroupId());
+								.getLayout().getGroup().getGroupId());
 						employmentStatus2.setUserId(themeDisplay.getUserId());
 						employmentStatus2 = EmploymentStatusLocalServiceUtil
 								.addEmploymentStatus(employmentStatus2);
@@ -138,7 +152,7 @@ public class EmploymentStatusAction extends MVCPortlet {
 					SessionMessages.add(actionRequest.getPortletSession(),
 							"employmentStatus-empty-error");
 					actionResponse.setRenderParameter("mvcPath",
-							"/html/employmentstatus/editemploymentstatus.jsp");
+							"/html/employmentstatus/addemploymentstatus.jsp");
 
 				} else {
 
@@ -155,7 +169,7 @@ public class EmploymentStatusAction extends MVCPortlet {
 					employmentStatus1.setModifiedDate(date);
 					employmentStatus1.setCompanyId(themeDisplay.getCompanyId());
 					employmentStatus1.setGroupId(themeDisplay
-							.getCompanyGroupId());
+							.getLayout().getGroup().getGroupId());
 					employmentStatus1.setUserId(themeDisplay.getUserId());
 
 					employmentStatus1 = EmploymentStatusLocalServiceUtil

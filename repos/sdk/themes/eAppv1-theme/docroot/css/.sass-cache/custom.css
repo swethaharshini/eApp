@@ -59,7 +59,7 @@ html, body {
   /*--------------------- Navigation ----------------------*/
   /*--------------------- breadcrumbs ----------------------*/ }
   .aui body {
-    background: url(../images/tiny_grid.png);
+    background: url(../images/custom/tiny_grid.png);
     font-family: 'Open Sans', sans-serif;
     color: #4e4e4e;
     font-size: 13px; }
@@ -129,14 +129,18 @@ html, body {
   .aui .push {
     height: 45px !important; }
   .aui .site-title {
-    text-align: center;
-    padding: 10px;
-    display: block;
-    margin: 0 auto; }
-    .aui .site-title span {
-      display: none; }
-  .aui .logo {
-    line-height: 55px; }
+    margin: 0; }
+    .aui .site-title .logo {
+      line-height: 60px; }
+      .aui .site-title .logo img {
+        max-height: 48px; }
+    .aui .site-title .site-name {
+      color: #FFF;
+      display: inline-block;
+      font-weight: bolder;
+      font-size: 24px;
+      margin-left: 10px;
+      vertical-align: middle; }
   .aui #navigation {
     float: right; }
   .aui .jMenu {
@@ -218,10 +222,12 @@ html, body {
     border-left: solid 2px #23dbdb;
     margin-left: 1px !important; }
   .aui #breadcrumbs {
-    margin-top: 15px; }
+    margin-top: 0px; }
     .aui #breadcrumbs .breadcrumb {
       background: none !important;
       margin-bottom: 15px; }
+  .aui #content {
+    margin-top: 15px; }
   .aui .portlet {
     -webkit-box-shadow: 0 4px 0 0 #e2e2e2;
     -moz-box-shadow: 0 4px 0 0 #e2e2e2;
