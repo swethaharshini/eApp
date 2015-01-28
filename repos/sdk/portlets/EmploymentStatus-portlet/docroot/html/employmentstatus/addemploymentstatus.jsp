@@ -1,4 +1,3 @@
-<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@ include file="/html/employmentstatus/init.jsp"%>
 <html>
 <head>
@@ -117,8 +116,8 @@ AUI().use(
 	
 	<div class="row-fluid">
 		<div id="employmentstatusadddelete" class="span12 text-right">
-			<a href="#" class="btn btn-primary" id="addemploymentstatus"><i class="icon-plus"></i></a>
-			<a href="#" class="btn btn-danger" id="deleteemploymentstatus"><i class="icon-trash"></i></a>
+			<a href="#" class="btn btn-primary" id="addemploymentstatus"><i class="icon-plus">Add</i></a>
+			<a href="#" class="btn btn-danger" id="deleteemploymentstatus"><i class="icon-trash"></i>Delete</a>
 		</div>
 		<div  id="addEmploymentstatusForm">
 		<aui:form name="myemploymentstatusForm" action="<%=saveemploymentstatus.toString()%>" >
@@ -126,8 +125,8 @@ AUI().use(
 			<div class="form-inline">
 				<label>Employment Status: </label>
 				<input name="<portlet:namespace/>employmentstatus" type="text">
-				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
-				<button  type="reset" id ="cancelemploymentstatus" class="btn btn-danger"><i class="icon-remove"></i></button>
+				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i>Submit</button>
+				<button  type="reset" id ="cancelemploymentstatus" class="btn btn-danger"><i class="icon-remove"></i>Cancel</button>
 			</div>
 		</aui:form>
 		</div>
@@ -160,6 +159,14 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 System.out.println("after....");
 System.out.println("sortByCol == " +sortByCol);
 System.out.println("sortByType == " +sortByType);
+long groupId=themeDisplay.getLayout().getGroup().getGroupId();
+DynamicQuery empStatusDynamicQuery = DynamicQueryFactoryUtil
+.forClass(EmploymentStatus.class,
+		PortletClassLoaderUtil.getClassLoader());
+empStatusDynamicQuery.add(PropertyFactoryUtil.forName("groupId")
+.eq(groupId));
+List<EmploymentStatus> empDetails = EmploymentStatusLocalServiceUtil
+.dynamicQuery(empStatusDynamicQuery);
 
 %>
 <%!
@@ -175,18 +182,17 @@ System.out.println("sortByType == " +sortByType);
 
 		<% 
 		 System.out.println("addemployee jsp =========");
-            List<EmploymentStatus> employmentstatusList = EmploymentStatusLocalServiceUtil.getEmploymentStatuses(searchContainer.getStart(), searchContainer.getEnd());
-            System.out.println("list size == " +employmentstatusList.size());
+            List<EmploymentStatus> employmentstatusList =empDetails;
             OrderByComparator orderByComparator = CustomComparatorUtil.getEmploymentStatusrOrderByComparator(sortByCol, sortByType);         
   
            Collections.sort(employmentstatusList,orderByComparator);
   
-          results = employmentstatusList;
+          results = ListUtil.subList(employmentstatusList, searchContainer.getStart(), searchContainer.getEnd());
           
             System.out.println("results == " +results);
            
      
-               total = EmploymentStatusLocalServiceUtil.getEmploymentStatusesCount();
+               total = employmentstatusList!=null && employmentstatusList.size()!=0?employmentstatusList.size():0;
                System.out.println("total == " +total);
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);

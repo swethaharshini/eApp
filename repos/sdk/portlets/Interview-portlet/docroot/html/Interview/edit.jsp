@@ -26,77 +26,6 @@ width: 15%;
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#editinterviewdelete');
-    node.on(
-      'click',
-      function() {
-     var idArray = [];
-      A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
-      idArray.push(object.get("value"));
-    
-        });
-       if(idArray==""){
-			  alert("Please select records!");
-		  }else{
-			  var d = confirm("Are you sure you want to delete the selected records ?");
-		  if(d){
-		   var url = '<%=deleteinterview%>';
-          A.io.request(url,
-         {
-          data: {  
-                <portlet:namespace />interviewIds: idArray,  
-                 },
-          on: {
-               success: function() { 
-                   alert('deleted successfully');
-                   window.location='<%=listview%>';
-              },
-               failure: function() {
-                  
-                 }
-                }
-                 }
-                );
-		  																		
-		  console.log(idArray);
-	  
-      return true;
-  }
-  else
-    return false;
-}             
-      }
-    );
-  }
-);
-</aui:script><aui:script>
-AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#addinterview');
-    node.on(
-      'click',
-      function() {
-         A.one('#editinterviewadddelete').hide();
-         A.one('#editInterviewForm').show();
-         A.one("#interviewId").set("value","");
-         A.one("#editinterview").set("value","");
-         
-                     
-      }
-    );
-  }
-);
-
-AUI().ready('event', 'node','transition',function(A){
- setTimeout(function(){
-    A.one('#editInterviewMessage').transition('fadeOut');
-},1000)
- });
-
-AUI().use(
-  'aui-node',
-  function(A) {
     var node = A.one('#editinterviewcancel');
     node.on(
       'click',
@@ -125,18 +54,14 @@ Interview editinterview = (Interview) portletSession.getAttribute("editinterview
 %>
 
  <div class="row-fluid">
-		<div id="editinterviewadddelete" class="span12 text-right">
-			<a href="#" class="btn btn-primary" id="addinterview"><i class="icon-plus"></i></a>
-			<a href="#" class="btn btn-danger" id="editinterviewdelete"><i class="icon-trash"></i></a>
-		</div>
 		<div  id="editInterviewForm">
 		<aui:form name="myForm" action="<%=saveinterview.toString()%>" >
 			<aui:input name="interviewId" type="hidden" id="interviewId" value="<%=editinterview.getInterviewId()%>"/>
 			<div class="form-inline">
 				<label>Interview Name: </label>
 				<input name="<portlet:namespace/>name" id="editinterview" type="text" value="<%=editinterview.getName()%>">
-				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
-				<button  type="reset" id ="editinterviewcancel" class="btn btn-danger"><i class="icon-remove"></i></button>
+				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i>Submit</button>
+				<button  type="reset" id ="editinterviewcancel" class="btn btn-danger"><i class="icon-remove"></i>Cancel</button>
 			</div>
 		</aui:form>
 		</div>
@@ -163,6 +88,14 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 System.out.println("after....");
 System.out.println("sortByCol == " +sortByCol);
 System.out.println("sortByType == " +sortByType);
+long groupId=themeDisplay.getLayout().getGroup().getGroupId();
+DynamicQuery interviewDynamicQuery = DynamicQueryFactoryUtil
+.forClass(Interview.class,
+		PortletClassLoaderUtil.getClassLoader());
+interviewDynamicQuery.add(PropertyFactoryUtil.forName("groupId")
+.eq(groupId));
+List<Interview> interviewDetails = InterviewLocalServiceUtil
+.dynamicQuery(interviewDynamicQuery);
 %>
 <%!
   com.liferay.portal.kernel.dao.search.SearchContainer<Interview> searchContainer;
@@ -171,18 +104,17 @@ System.out.println("sortByType == " +sortByType);
 		<liferay-ui:search-container-results>
 				
 		<%
-            List<Interview> interviewList = InterviewLocalServiceUtil.getInterviews(searchContainer.getStart(), searchContainer.getEnd());
-            System.out.println("list size == " +interviewList.size());
-            OrderByComparator orderByComparator = CustomComparatorUtil.getInterviewrOrderByComparator(sortByCol, sortByType);         
-  
-           Collections.sort(interviewList,orderByComparator);
-  
-          results = interviewList;
-          
-            System.out.println("results == " +results);
-           
-     
-               total = InterviewLocalServiceUtil.getInterviewsCount();
+		List<Interview> interviewList =  interviewDetails;
+        OrderByComparator orderByComparator = CustomComparatorUtil.getInterviewrOrderByComparator(sortByCol, sortByType);         
+
+       Collections.sort(interviewList,orderByComparator);
+
+       results = ListUtil.subList(interviewList, searchContainer.getStart(), searchContainer.getEnd());
+      
+        System.out.println("results == " +results);
+       
+ 
+           total = interviewList!=null && interviewDetails.size()!=0?interviewDetails.size():0;
                System.out.println("total == " +total);
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);

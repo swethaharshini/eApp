@@ -1,13 +1,4 @@
-<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
-<%@page import="com.rknowsys.eapp.hrm.model.JobTitle"%>
-<%@page import="com.rknowsys.eapp.JobTitleAction"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@page import="java.util.List"%>
-<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet"%>
-<%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui"%>
 <%@ include file="/html/jobtitle/init.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <portlet:actionURL var="savejobtitle" name="saveJobtitle">
 </portlet:actionURL>
 <portlet:renderURL var="listview">
@@ -92,7 +83,7 @@ AUI().ready('event', 'node', function(A){
 AUI().use(
   'aui-node',
   function(A) {
-    var node = A.one('#editJobtitleCancel');
+    var node = A.one('#jobtitlecancel');
     node.on(
       'click',
       function() {
@@ -121,7 +112,7 @@ JobTitle jobtitle = (JobTitle) portletSession.getAttribute("editjobtitle");
 <body>
   
   <% if(SessionMessages.contains(renderRequest.getPortletSession(),"jobtitleName-empty-error")){%>
-<liferay-ui:message key="Please Enter JobtitleName"/>
+<p id="addJobMessage" class="alert alert-error"><liferay-ui:message key="Please Enter JobtitleName"/></p>
 <%}
 %>
 <div class="row-fluid">
@@ -178,7 +169,14 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 	
 	sortByType = portalPrefs.getValue("NAME_SPACE", "sort-by-type ", "asc");   
 }
-
+long groupId=themeDisplay.getLayout().getGroup().getGroupId();
+DynamicQuery jobTitleDynamicQuery = DynamicQueryFactoryUtil
+.forClass(JobTitle.class,
+		PortletClassLoaderUtil.getClassLoader());
+jobTitleDynamicQuery.add(PropertyFactoryUtil.forName("groupId")
+.eq(groupId));
+List<JobTitle> jobTitleDetails = JobTitleLocalServiceUtil
+.dynamicQuery(jobTitleDynamicQuery);
 System.out.println("after....");
 System.out.println("sortByCol == " +sortByCol);
 System.out.println("sortByType == " +sortByType);
@@ -192,18 +190,17 @@ System.out.println("sortByType == " +sortByType);
 		<liferay-ui:search-container-results>
 				
 		<%
-            List<JobTitle> jobtitleList = JobTitleLocalServiceUtil.getJobTitles(searchContainer.getStart(), searchContainer.getEnd()); //UserLocalServiceUtil.getUser(-1,-1);
-            System.out.println("list size == " +jobtitleList.size());
-            OrderByComparator orderByComparator = CustomComparatorUtil.getJobtitleOrderByComparator(sortByCol, sortByType);         
+		 List<JobTitle> jobtitleList = jobTitleDetails;
+         OrderByComparator orderByComparator = CustomComparatorUtil.getJobtitleOrderByComparator(sortByCol, sortByType);         
+
+        Collections.sort(jobtitleList,orderByComparator);
+
+       results = ListUtil.subList(jobtitleList, searchContainer.getStart(), searchContainer.getEnd());
+       
+         System.out.println("results == " +results);
+        
   
-           Collections.sort(jobtitleList,orderByComparator);
-  
-          results = jobtitleList;
-          
-            System.out.println("results == " +results);
-           
-     
-               total = JobTitleLocalServiceUtil.getJobTitlesCount();
+            total = jobtitleList!=null && jobtitleList.size()!=0?jobtitleList.size():0;
                System.out.println("total == " +total);
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);
@@ -215,7 +212,7 @@ System.out.println("sortByType == " +sortByType);
 	      <liferay-ui:search-container-column-text orderable="true" name="Job Title" property="title" orderableProperty="title"/>
 		<liferay-ui:search-container-column-text orderable="true" name="Description" property="description" orderableProperty="description"/>
 		<liferay-ui:search-container-column-text orderable="true" name="Notes" property="notes" orderableProperty="notes"/>
-				<liferay-ui:search-container-column-jsp name="Edit"  path="/html/jobtitle/editclick.jsp"/>
+		<liferay-ui:search-container-column-jsp name="Edit"  path="/html/jobtitle/editclick.jsp"/>
 		
 	     
 	</liferay-ui:search-container-row>

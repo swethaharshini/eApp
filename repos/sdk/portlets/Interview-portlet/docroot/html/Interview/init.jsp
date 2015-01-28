@@ -25,6 +25,13 @@
 <%@page import="java.util.Date"%>
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui"%>
 <%@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util"%>
+<%@ taglib uri="http://liferay.com/tld/theme" prefix="theme" %>
 <%@page import="com.liferay.portal.kernel.dao.search.SearchContainer"%>
 <%@ page import="javax.portlet.PortletPreferences" %>
+<%@page import="com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.portlet.PortletClassLoaderUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.DynamicQuery"%>
+<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <portlet:defineObjects />
+<theme:defineObjects />
