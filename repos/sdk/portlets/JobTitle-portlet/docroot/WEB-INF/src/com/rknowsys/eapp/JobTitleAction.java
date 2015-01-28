@@ -15,6 +15,7 @@ import javax.portlet.ResourceResponse;
 import org.apache.log4j.Logger;
 
 import com.liferay.counter.service.CounterLocalServiceUtil;
+import com.liferay.portal.kernel.dao.orm.Criterion;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
@@ -22,6 +23,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.portlet.PortletClassLoaderUtil;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
@@ -29,6 +31,7 @@ import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 import com.rknowsys.eapp.hrm.model.JobTitle;
+import com.rknowsys.eapp.hrm.model.Language;
 import com.rknowsys.eapp.hrm.service.JobTitleLocalServiceUtil;
 
 /**
@@ -85,15 +88,21 @@ public class JobTitleAction extends MVCPortlet {
 							"/html/jobtitle/add.jsp");
 
 				} else {
-
-					DynamicQuery dynamicQuery = DynamicQueryFactoryUtil
-							.forClass(JobTitle.class,
-									PortalClassLoaderUtil.getClassLoader());
-					dynamicQuery
-							.add(RestrictionsFactoryUtil.eq("title", title));
+					Criterion criterion=null;
+					DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
+							JobTitle.class,
+							PortletClassLoaderUtil.getClassLoader());
+					criterion=RestrictionsFactoryUtil
+							.eq("title", title);
+					try {
+						criterion=RestrictionsFactoryUtil.and(criterion,RestrictionsFactoryUtil
+								.eq("groupId", themeDisplay.getLayout().getGroup().getGroupId()));
+						dynamicQuery.add(criterion);
+					} catch (PortalException e1) {
+						e1.printStackTrace();
+					}
 					@SuppressWarnings("unchecked")
-					List<JobTitle> jobTitles = JobTitleLocalServiceUtil
-							.dynamicQuery(dynamicQuery);
+					List<JobTitle> jobTitles = JobTitleLocalServiceUtil.dynamicQuery(dynamicQuery);
 					if (jobTitles.size() > 0) {
 
 						JobTitle jobTitle2 = jobTitles.get(0);
@@ -121,7 +130,7 @@ public class JobTitleAction extends MVCPortlet {
 						jobtitles.setCreateDate(date);
 						jobtitles.setModifiedDate(date);
 						jobtitles.setCompanyId(themeDisplay.getCompanyId());
-						jobtitles.setGroupId(themeDisplay.getCompanyGroupId());
+						jobtitles.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
 						jobtitles.setUserId(themeDisplay.getUserId());
 
 						jobtitles = JobTitleLocalServiceUtil
@@ -143,7 +152,7 @@ public class JobTitleAction extends MVCPortlet {
 					SessionMessages.add(actionRequest.getPortletSession(),
 							"jobtitleName-empty-error");
 					actionResponse.setRenderParameter("mvcPath",
-							"/html/jobtitle/edit.jsp");
+							"/html/jobtitle/add.jsp");
 
 				} else {
 
@@ -162,7 +171,7 @@ public class JobTitleAction extends MVCPortlet {
 					jobtitles1.setModifiedDate(date);
 
 					jobtitles1.setCompanyId(themeDisplay.getCompanyId());
-					jobtitles1.setGroupId(themeDisplay.getCompanyGroupId());
+					jobtitles1.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
 					jobtitles1.setUserId(themeDisplay.getUserId());
 
 					jobtitles1 = JobTitleLocalServiceUtil
@@ -177,6 +186,8 @@ public class JobTitleAction extends MVCPortlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		actionResponse.setRenderParameter("mvcPath",
+				"/html/jobtitle/add.jsp");
 
 	}
 
