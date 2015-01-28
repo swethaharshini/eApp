@@ -1,16 +1,8 @@
-<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
-<%@page import="java.util.Collections"%>
-<%@page import="com.rknowsys.eapp.CustomComparatorUtil"%>
-<%@page import="com.liferay.portal.kernel.util.OrderByComparator"%>
-<%@page import="com.rknowsys.eapp.hrm.model.JobTitle"%>
-<%@page import="com.rknowsys.eapp.hrm.service.JobTitleLocalServiceUtil"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@page import="java.util.List"%>
-<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet"%>
-<%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.portlet.PortletClassLoaderUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.DynamicQuery"%>
 <%@ include file="/html/jobtitle/init.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <portlet:actionURL var="savejobtitle" name="saveJobtitle">
 </portlet:actionURL>
 <portlet:renderURL var="listview">
@@ -29,7 +21,7 @@
       'click',
       function() {
      var idArray = [];
-      A.all('input[type=checkbox]:checked').each(function(object) {
+      A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
       idArray.push(object.get("value"));
     
         });
@@ -181,6 +173,14 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 System.out.println("after....");
 System.out.println("sortByCol == " +sortByCol);
 System.out.println("sortByType == " +sortByType);
+long groupId=themeDisplay.getLayout().getGroup().getGroupId();
+DynamicQuery jobTitleDynamicQuery = DynamicQueryFactoryUtil
+.forClass(JobTitle.class,
+		PortletClassLoaderUtil.getClassLoader());
+jobTitleDynamicQuery.add(PropertyFactoryUtil.forName("groupId")
+.eq(groupId));
+List<JobTitle> jobTitleDetails = JobTitleLocalServiceUtil
+.dynamicQuery(jobTitleDynamicQuery);
 
 %>
 <%!
@@ -191,18 +191,17 @@ System.out.println("sortByType == " +sortByType);
 		<liferay-ui:search-container-results>
 				
 		<%
-            List<JobTitle> jobtitleList = JobTitleLocalServiceUtil.getJobTitles(searchContainer.getStart(), searchContainer.getEnd()); //UserLocalServiceUtil.getUser(-1,-1);
-            System.out.println("list size == " +jobtitleList.size());
+            List<JobTitle> jobtitleList = jobTitleDetails;
             OrderByComparator orderByComparator = CustomComparatorUtil.getJobtitleOrderByComparator(sortByCol, sortByType);         
   
            Collections.sort(jobtitleList,orderByComparator);
   
-          results = jobtitleList;
+          results = ListUtil.subList(jobtitleList, searchContainer.getStart(), searchContainer.getEnd());
           
             System.out.println("results == " +results);
            
      
-               total = JobTitleLocalServiceUtil.getJobTitlesCount();
+               total = jobtitleList!=null && jobtitleList.size()!=0?jobtitleList.size():0;
                System.out.println("total == " +total);
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);
