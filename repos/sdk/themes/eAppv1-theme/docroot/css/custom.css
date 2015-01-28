@@ -33,7 +33,7 @@
 
 .aui {
 	body {
-	  background:url(../images/tiny_grid.png);
+	  background:url(../images/custom/tiny_grid.png);
 	  font-family: 'Open Sans', sans-serif;
 	  color:$col2;
 	  font-size:13px;
@@ -140,16 +140,21 @@
 	
 	/*--------------------- Header ----------------------*/
 	.site-title {
-		text-align:center;
-		padding:10px;
-		display:block;
-		margin:0 auto;
-		span {
-			display:none;
+		margin: 0;
+		.logo {
+			line-height:60px;
+			img {
+				max-height:48px;
+			}
 		}
-	}
-	.logo {
-		line-height: 55px;
+		.site-name {
+			color: #FFF;
+			display: inline-block;
+			font-weight: bolder;
+			font-size:24px;
+			margin-left:10px;
+			vertical-align:middle;
+		}
 	}
 	/*--------------------- Navigation ----------------------*/
 	#navigation {
@@ -200,11 +205,14 @@
 	}
 	/*--------------------- breadcrumbs ----------------------*/
 	#breadcrumbs {
-		margin-top:15px;
+		margin-top:0px;
 		.breadcrumb {
 			background:none !important;
 			margin-bottom: 15px;
 		}
+	}
+	#content {
+		margin-top:15px;
 	}
 
 	.portlet {

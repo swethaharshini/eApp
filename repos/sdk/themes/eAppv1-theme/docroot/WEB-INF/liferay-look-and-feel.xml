@@ -6,6 +6,11 @@
 		<version>6.2.0+</version>
 	</compatibility>
 	<theme id="eAppv1" name="eAppv1">
+		<settings>
+			<setting configurable="true" key="display-company-logo" type="checkbox" value="false" />
+			<setting configurable="true" key="portlet-setup-show-borders-default" type="checkbox" value="false" />
+			<setting configurable="true" key="show-breadcrumb" type="checkbox" value="true" />
+		</settings>
 		<color-scheme id="01" name="blue">
 			<css-class>blue</css-class>
 			<color-scheme-images-path>${images-path}/color_schemes/${css-class}</color-scheme-images-path>

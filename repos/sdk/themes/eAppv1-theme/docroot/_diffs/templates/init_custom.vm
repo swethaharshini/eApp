@@ -1,3 +1,11 @@
-#*
-This file allows you to override and define new Velocity variables.
-*#
+
+
+
+## ---------- Logo ---------- ##
+#if (($company.getLogoId() == 0) && $use_company_logo && $theme_settings.display-company-logo != true)
+#set ($site_logo = "${images_folder}/custom/logo.png")
+#set($site_logo_height = "auto")
+#set($site_logo_width = "auto")
+#end
+
+#set ($show_breadcrumb = $theme_display.getThemeSetting('show-breadcrumb'))
