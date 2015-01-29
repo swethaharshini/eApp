@@ -1,4 +1,3 @@
-<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@ include file="/html/jobcategory/init.jsp"%>
 <html>
 <head>
@@ -166,7 +165,11 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 System.out.println("after....");
 System.out.println("sortByCol == " +sortByCol);
 System.out.println("sortByType == " +sortByType);
-
+long groupID=themeDisplay.getLayout().getGroup().getGroupId();
+DynamicQuery dynamicQuery=DynamicQueryFactoryUtil.forClass(JobCategory.class,PortletClassLoaderUtil
+		.getClassLoader());
+dynamicQuery.add(RestrictionsFactoryUtil.eq("groupId", groupID));
+List<JobCategory> jobCategoryList=JobCategoryLocalServiceUtil.dynamicQuery(dynamicQuery);
 %>
 <%!
   com.liferay.portal.kernel.dao.search.SearchContainer<JobCategory> searchContainer;
@@ -180,19 +183,13 @@ System.out.println("sortByType == " +sortByType);
 	<liferay-ui:search-container-results>
 
 		<%
-            List<JobCategory> jobcategoryList = JobCategoryLocalServiceUtil.getJobCategories(searchContainer.getStart(), searchContainer.getEnd());
-            System.out.println("list size == " +jobcategoryList.size());
+		
             OrderByComparator orderByComparator = CustomComparatorUtil.getJobcategoryrOrderByComparator(sortByCol, sortByType);         
   
-           Collections.sort(jobcategoryList,orderByComparator);
+           Collections.sort(jobCategoryList,orderByComparator);
   
-          results = jobcategoryList;
-          
-            System.out.println("results == " +results);
-           
-     
-               total = JobCategoryLocalServiceUtil.getJobCategoriesCount();
-               System.out.println("total == " +total);
+          results = ListUtil.subList(jobCategoryList, searchContainer.getStart(), searchContainer.getEnd());
+               total = jobCategoryList!=null && jobCategoryList.size()!=0?jobCategoryList.size():0;
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);
  %>

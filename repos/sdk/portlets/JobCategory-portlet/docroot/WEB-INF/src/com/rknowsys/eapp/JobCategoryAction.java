@@ -59,7 +59,11 @@ public class JobCategoryAction extends MVCPortlet {
 		String jobcategoryName = inputName.trim();
 		System.out.println("company Id == " + themeDisplay.getCompanyId());
 		System.out.println("userId = " + themeDisplay.getUserId());
-		System.out.println("groupId = " + themeDisplay.getCompanyGroupId());
+		try {
+			System.out.println("groupId = " + themeDisplay.getLayout().getGroup().getGroupId());
+		} catch (PortalException e1) {
+			e1.printStackTrace();
+		}
 		try {
 			System.out.println("id == " + id);
 			if (id == "" || id == null) {
@@ -77,6 +81,8 @@ public class JobCategoryAction extends MVCPortlet {
 									PortalClassLoaderUtil.getClassLoader());
 					dynamicQuery.add(RestrictionsFactoryUtil.eq("jobcategory",
 							inputName));
+					dynamicQuery.add(RestrictionsFactoryUtil.eq("groupId", 
+							themeDisplay.getLayout().getGroup().getGroupId()));
 					@SuppressWarnings("unchecked")
 					List<JobCategory> jobCategories = JobCategoryLocalServiceUtil
 							.dynamicQuery(dynamicQuery);
@@ -108,7 +114,7 @@ public class JobCategoryAction extends MVCPortlet {
 						jobcategory.setModifiedDate(date);
 						jobcategory.setCompanyId(themeDisplay.getCompanyId());
 						jobcategory
-								.setGroupId(themeDisplay.getCompanyGroupId());
+								.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
 						jobcategory.setUserId(themeDisplay.getUserId());
 						jobcategory = JobCategoryLocalServiceUtil
 								.addJobCategory(jobcategory);
@@ -143,7 +149,7 @@ public class JobCategoryAction extends MVCPortlet {
 							actionRequest, "jobcategory"));
 					jobcategory1.setModifiedDate(date);
 					jobcategory1.setCompanyId(themeDisplay.getCompanyId());
-					jobcategory1.setGroupId(themeDisplay.getCompanyGroupId());
+					jobcategory1.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
 					jobcategory1.setUserId(themeDisplay.getUserId());
 
 					jobcategory1 = JobCategoryLocalServiceUtil
