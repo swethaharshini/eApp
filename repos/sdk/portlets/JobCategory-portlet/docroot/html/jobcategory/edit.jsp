@@ -1,4 +1,3 @@
-<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@ include file="/html/jobcategory/init.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -12,68 +11,6 @@
 	<portlet:param name="mvcPath" value="/html/jobcategory/add.jsp" />
 </portlet:renderURL>
 <aui:script>
-AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#jobcategorydelete');
-    node.on(
-      'click',
-      function() {
-     var idArray = [];
-      A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
-      idArray.push(object.get("value"));
-    
-        });
-       if(idArray==""){
-			  alert("Please select records!");
-		  }else{
-			  var d = confirm("Are you sure you want to delete the selected jobcategory ?");
-		  if(d){
-		   var url = '<%=deletejobcategory%>';
-          A.io.request(url,
-         {
-          data: {  
-                <portlet:namespace />jobcategoryIds: idArray,  
-                 },
-          on: {
-               success: function() { 
-                   alert('deleted successfully');
-                   window.location='<%=listview%>';
-              },
-               failure: function() {
-                  
-                 }
-                }
-                 }
-                );
-		  																		
-		  console.log(idArray);
-	  
-      return true;
-  }
-  else
-    return false;
-}             
-      }
-    );
-  }
-);
-</aui:script><aui:script>
-AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#jobcategoryadd');
-    node.on(
-      'click',
-      function() {
-         A.one('#editjobadddelete').hide();
-         A.one('#editJobCategoryForm').show();
-                     
-      }
-    );
-  }
-);
-
 AUI().ready('event', 'node','transition',function(A){
   setTimeout(function(){
     A.one('#editJobcategoryMessage').transition('fadeOut');
@@ -106,7 +43,7 @@ AUI().use(
  JobCategory editjobcategory = (JobCategory)portletSession.getAttribute("editjobcategory");
 %>
 <% if(SessionMessages.contains(renderRequest.getPortletSession(),"jobcategoryName-empty-error")){%>
-<p id="editJobcategoryMessage"><liferay-ui:message key="Please Enter JobcategoryName"/></p>
+<p id="editJobcategoryMessage" class="alert alert-error"><liferay-ui:message key="Please Enter JobcategoryName"/></p>
 <%} 
 %>
 <div class="row-fluid">
@@ -149,6 +86,11 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 System.out.println("after....");
 System.out.println("sortByCol == " +sortByCol);
 System.out.println("sortByType == " +sortByType);
+long groupID=themeDisplay.getLayout().getGroup().getGroupId();
+DynamicQuery dynamicQuery=DynamicQueryFactoryUtil.forClass(JobCategory.class,PortletClassLoaderUtil
+		.getClassLoader());
+dynamicQuery.add(RestrictionsFactoryUtil.eq("groupId", groupID));
+List<JobCategory> jobCategoryList=JobCategoryLocalServiceUtil.dynamicQuery(dynamicQuery);
 %>
 <%!
   com.liferay.portal.kernel.dao.search.SearchContainer<JobCategory> searchContainer;
@@ -157,18 +99,12 @@ System.out.println("sortByType == " +sortByType);
 		<liferay-ui:search-container-results>
 				
 		<%
-            List<JobCategory> jobcategoryList = JobCategoryLocalServiceUtil.getJobCategories(searchContainer.getStart(), searchContainer.getEnd());
-            System.out.println("list size == " +jobcategoryList.size());
-            OrderByComparator orderByComparator = CustomComparatorUtil.getJobcategoryrOrderByComparator(sortByCol, sortByType);         
-  
-           Collections.sort(jobcategoryList,orderByComparator);
-  
-          results = jobcategoryList;
-          
-            System.out.println("results == " +results);
-           
-     
-               total = JobCategoryLocalServiceUtil.getJobCategoriesCount();
+		OrderByComparator orderByComparator = CustomComparatorUtil.getJobcategoryrOrderByComparator(sortByCol, sortByType);         
+		  
+        Collections.sort(jobCategoryList,orderByComparator);
+
+       results = ListUtil.subList(jobCategoryList, searchContainer.getStart(), searchContainer.getEnd());
+            total = jobCategoryList!=null && jobCategoryList.size()!=0?jobCategoryList.size():0;
                System.out.println("total == " +total);
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);

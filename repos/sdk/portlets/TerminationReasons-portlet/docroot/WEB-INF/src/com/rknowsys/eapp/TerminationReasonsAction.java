@@ -76,6 +76,12 @@ public class TerminationReasonsAction extends MVCPortlet {
 
 					dynamicQuery.add(RestrictionsFactoryUtil.eq(
 							"terminationreasonsName", name));
+					try {
+						dynamicQuery.add(RestrictionsFactoryUtil.eq("groupId", 
+								themeDisplay.getLayout().getGroup().getGroupId()));
+					} catch (PortalException e1) {
+						e1.printStackTrace();
+					}
 					@SuppressWarnings("unchecked")
 					List<TerminationReasons> list = TerminationReasonsLocalServiceUtil
 							.dynamicQuery(dynamicQuery);
@@ -101,8 +107,12 @@ public class TerminationReasonsAction extends MVCPortlet {
 						terminationReasons.setModifiedDate(date);
 						terminationReasons.setCompanyId(themeDisplay
 								.getCompanyId());
-						terminationReasons.setGroupId(themeDisplay
-								.getCompanyGroupId());
+						try {
+							terminationReasons.setGroupId(themeDisplay
+									.getLayout().getGroup().getGroupId());
+						} catch (PortalException e) {
+							e.printStackTrace();
+						}
 						terminationReasons.setUserId(themeDisplay.getUserId());
 						terminationReasons = TerminationReasonsLocalServiceUtil
 								.addTerminationReasons(terminationReasons);
@@ -165,7 +175,7 @@ public class TerminationReasonsAction extends MVCPortlet {
 				terminationReasons.setCreateDate(date);
 				terminationReasons.setModifiedDate(date);
 				terminationReasons.setCompanyId(themeDisplay.getCompanyId());
-				terminationReasons.setGroupId(themeDisplay.getCompanyGroupId());
+				terminationReasons.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
 				terminationReasons.setUserId(themeDisplay.getUserId());
 				terminationReasons.setTerminationreasonsName(name);
 				terminationReasons = TerminationReasonsLocalServiceUtil
