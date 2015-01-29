@@ -34,7 +34,7 @@ AUI().ready('event', 'node','transition',function(A){
 	<aui:input name="componentName" showRequiredLabel="false" id="componentname" label="Component Name" inlineLabel="left"><aui:validator name="required"></aui:validator> </aui:input>
 	<div class="control-group">
 		<label class="control-label">Type</label>
-		<aui:input name="type" type="radio" value="Earning" label="Earning" inlineField="true"></aui:input>
+		<aui:input name="type" type="radio" value="Earning" checked="true" label="Earning" inlineField="true"></aui:input>
 		<aui:input name="type" type="radio" value="Deduction" label="Deduction" inlineField="true"></aui:input>
 	</div>
 	<div class="control-group">
@@ -52,7 +52,7 @@ AUI().ready('event', 'node','transition',function(A){
 			<aui:button type="submit" value="Submit"/> 
 			<aui:button type="reset" href="<%=listview%>" value="Cancel"/>
 		</div>
-	</div>
+	</div>										
 </div>
 </aui:form>
 </body>
