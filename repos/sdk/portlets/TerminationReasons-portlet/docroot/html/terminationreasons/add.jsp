@@ -1,7 +1,3 @@
-<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
-<%@page import="com.liferay.portal.kernel.servlet.SessionErrors"%>
-<%@page import="com.rknowsys.eapp.hrm.service.TerminationReasonsLocalServiceUtil"%>
-<%@page import="com.rknowsys.eapp.hrm.model.TerminationReasons"%>
 <%@ include file="/html/terminationreasons/init.jsp"%>
 
 <portlet:actionURL var="saveterminationreasons" name="saveTerminationReasons">
@@ -124,8 +120,8 @@ AUI().use(
 %>
 		<div class="row-fluid">
 		<div id="terminationreasonsAddDelete" class="span12 text-right">
-			<a href="#" class="btn btn-primary" id="terminationreasonadd"><i class="icon-plus"></i></a>
-			<a href="#" class="btn btn-danger" id="terminationreasondelete"><i class="icon-trash"></i></a>
+			<a href="#" class="btn btn-primary" id="terminationreasonadd"><i class="icon-plus"></i>Add</a>
+			<a href="#" class="btn btn-danger" id="terminationreasondelete"><i class="icon-trash"></i>Delete</a>
 		</div>
 		<div  id="addterminationreasonsForm">
 		<aui:form name="myForm" action="<%=saveterminationreasons.toString()%>" >
@@ -133,8 +129,8 @@ AUI().use(
 			<div class="form-inline">
 				<label>TerminationReason Name: </label>
 				<input name="<portlet:namespace/>terminationreasonsName" type="text">
-				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
-				<button  type="reset" id ="terminationreasoncancel" class="btn btn-danger"><i class="icon-remove"></i></button>
+				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i>Submit</button>
+				<button  type="reset" id ="terminationreasoncancel" class="btn btn-danger"><i class="icon-remove"></i>Cancel</button>
 			</div>
 		</aui:form>
 		</div>
@@ -164,7 +160,12 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 	
 	sortByType = portalPrefs.getValue("NAME_SPACE", "sort-by-type ", "asc");   
 }
-
+long groupID=themeDisplay.getLayout().getGroup().getGroupId();
+DynamicQuery dynamicQuery=DynamicQueryFactoryUtil.
+forClass(TerminationReasons.class, PortletClassLoaderUtil.getClassLoader());
+dynamicQuery.add(RestrictionsFactoryUtil.eq("groupId", groupID));
+List<TerminationReasons> terminationReasonsList=TerminationReasonsLocalServiceUtil
+.dynamicQuery(dynamicQuery);
 %>
 <%!
   com.liferay.portal.kernel.dao.search.SearchContainer<TerminationReasons> searchContainer;
@@ -178,13 +179,14 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 	<liferay-ui:search-container-results>
 
 		<%
-            List<TerminationReasons> terminationReasonsList = TerminationReasonsLocalServiceUtil.getTerminationReasonses(searchContainer.getStart(), searchContainer.getEnd());
 		OrderByComparator orderByComparator =  CustomComparatorUtil.getterminationreasonsOrderByComparator(sortByCol, sortByType);
    
                Collections.sort(terminationReasonsList,orderByComparator);
   
-               results = terminationReasonsList;
-               total = TerminationReasonsLocalServiceUtil.getTerminationReasonsesCount();
+               results = ListUtil.subList(terminationReasonsList, searchContainer.getStart(), 
+            		   searchContainer.getEnd());
+               total = terminationReasonsList!=null && terminationReasonsList.size()!=0?
+            		   terminationReasonsList.size():0;
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);
 
@@ -195,7 +197,7 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 		keyProperty="terminationreasonsId" modelVar="terminationreasonsId" rowVar="curRow"
 		escapedModel="<%= true %>">
 		<liferay-ui:search-container-column-text orderable="<%=true %>"
-			name="TerminationReason Name" property="terminationreasonsName"
+			name="Name" property="terminationreasonsName"
 			orderableProperty="terminationreasonsName" />
 		<liferay-ui:search-container-column-jsp name="Edit"
 			path="/html/terminationreasons/editClick.jsp" />

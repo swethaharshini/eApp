@@ -18,8 +18,8 @@
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title>TerminationReasons</title>
-			<short-title>TerminationReasons</short-title>
+			<title>Termination Reasons</title>
+			<short-title>Termination Reasons</short-title>
 			<keywords>TerminationReasons</keywords>
 		</portlet-info>
 		<security-role-ref>
