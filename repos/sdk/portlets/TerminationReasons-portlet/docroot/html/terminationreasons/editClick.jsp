@@ -1,4 +1,3 @@
-<%@page import="com.rknowsys.eapp.hrm.model.TerminationReasons"%>
 <%@ include file="/html/terminationreasons/init.jsp" %>
 
 <%ResultRow rslt=(ResultRow)request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);

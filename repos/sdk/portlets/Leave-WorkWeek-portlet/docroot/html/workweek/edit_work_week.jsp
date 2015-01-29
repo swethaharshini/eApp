@@ -1,6 +1,5 @@
 <%@page import="com.rknowsys.eapp.hrm.util.IdNamePair"%>
 <%@page import="com.liferay.portal.kernel.util.WebKeys"%>
-<%@page import="com.liferay.portal.kernel.dao.search.ResultRow"%>
 <%@ include file="/html/workweek/init.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -69,7 +68,7 @@ AUI().ready('event', 'node', function(A){
 		<aui:input name="workWeekId" type="hidden" value="<%=editWorkWeek.getWorkWeekId() %>"/>
 
 		
-		     <aui:select type="select" label="Country" name="nationalityId" label="" disabled="true" >
+		     <aui:select type="select" label="Country" name="nationalityId" disabled="true" >
 				<aui:option value="-1">--Select--</aui:option>
 	         <% 			
 	         	List<IdNamePair> idNameList = editWorkWeek.getNationalities(); 
@@ -83,7 +82,7 @@ AUI().ready('event', 'node', function(A){
 
 			</aui:select>
 
-		     <aui:select type="select" label="Monday" name="mondayWorkSchedule" label="" disabled="true" >
+		     <aui:select type="select" label="Monday" name="mondayWorkSchedule" disabled="true" >
 				<aui:option value="-1">--Select--</aui:option>
 	         <% 			
 	         	List<IdNamePair> idNameList = editWorkWeek.getWorkSchedules(); 
@@ -98,7 +97,7 @@ AUI().ready('event', 'node', function(A){
 			</aui:select>
 
 
-		     <aui:select type="select"  label="Tuesday" name="tuesdayWorkSchedule" label="" disabled="true" >
+		     <aui:select type="select"  label="Tuesday" name="tuesdayWorkSchedule" disabled="true" >
 				<aui:option value="-1">--Select--</aui:option>
 	         <% 			
 	         	List<IdNamePair> idNameList = editWorkWeek.getWorkSchedules(); 
@@ -113,7 +112,7 @@ AUI().ready('event', 'node', function(A){
 			</aui:select>
 
 
-		     <aui:select type="select" label="Wednesday" name="wednesdayWorkSchedule" label="" disabled="true" >
+		     <aui:select type="select" label="Wednesday" name="wednesdayWorkSchedule" disabled="true" >
 				<aui:option value="-1">--Select--</aui:option>
 	         <% 			
 	         	List<IdNamePair> idNameList = editWorkWeek.getWorkSchedules(); 
@@ -127,7 +126,7 @@ AUI().ready('event', 'node', function(A){
 
 			</aui:select>
 
-		     <aui:select type="select" label="Thursday" name="thursdayWorkSchedule" label="" disabled="true" >
+		     <aui:select type="select" label="Thursday" name="thursdayWorkSchedule"  disabled="true" >
 				<aui:option value="-1">--Select--</aui:option>
 	         <% 			
 	         	List<IdNamePair> idNameList = editWorkWeek.getWorkSchedules(); 
@@ -141,7 +140,7 @@ AUI().ready('event', 'node', function(A){
 
 			</aui:select>
 
-		     <aui:select type="select" label="Friday" name="fridayWorkSchedule" label="" disabled="true" >
+		     <aui:select type="select" label="Friday" name="fridayWorkSchedule" disabled="true" >
 				<aui:option value="-1">--Select--</aui:option>
 	         <% 			
 	         	List<IdNamePair> idNameList = editWorkWeek.getWorkSchedules();
@@ -155,7 +154,7 @@ AUI().ready('event', 'node', function(A){
 
 			</aui:select>
 
-		     <aui:select type="select" label="Saturday" name="saturdayWorkSchedule" label="" disabled="true" >
+		     <aui:select type="select" label="Saturday" name="saturdayWorkSchedule" disabled="true" >
 				<aui:option value="-1">--Select--</aui:option>
 	         <% 			
 	         	List<IdNamePair> idNameList = editWorkWeek.getWorkSchedules(); 
@@ -169,7 +168,7 @@ AUI().ready('event', 'node', function(A){
 
 			</aui:select>
 
-		     <aui:select type="select" label="Sunday" name="sundayWorkSchedule" label="" disabled="true" >
+		     <aui:select type="select" label="Sunday" name="sundayWorkSchedule" disabled="true" >
 				<aui:option value="-1">--Select--</aui:option>
 	         <% 			
 	         	List<IdNamePair> idNameList = editWorkWeek.getWorkSchedules(); 
@@ -191,7 +190,7 @@ AUI().ready('event', 'node', function(A){
 <div id="editWorkWeekFormDiv"  class="form-horizontal">
   <aui:form name="editWorkWeekForm" action="<%=saveWorkWeek.toString()%>">
 		<aui:input name="workWeekId" type="hidden" value="<%=editWorkWeek.getWorkWeekId() %>"/>
-		     <aui:select type="select" class="Country" name="nationalityId" label="" onchange="callServeResource()">
+		     <aui:select type="select" label="Country" name="nationalityId" onchange="callServeResource()">
 				<aui:option value="-1">--Select--</aui:option>
 	         <% 			
 	         	List<IdNamePair> idNameList = editWorkWeek.getNationalities(); 
@@ -206,7 +205,7 @@ AUI().ready('event', 'node', function(A){
 
 			</aui:select>
 	
-		     <aui:select type="select" label="Monday" name="mondayWorkScheduleEdit" label="" >
+		     <aui:select type="select" label="Monday" name="mondayWorkScheduleEdit">
 				<aui:option value="-1">--Select--</aui:option>
 	         <% 			
 	         	List<IdNamePair> idNameList = editWorkWeek.getWorkSchedules(); 
@@ -221,7 +220,7 @@ AUI().ready('event', 'node', function(A){
 			</aui:select>
 
 
-		     <aui:select type="select" label="Tuesday" name="tuesdayWorkScheduleEdit"  label=""  >
+		     <aui:select type="select" label="Tuesday" name="tuesdayWorkScheduleEdit">
 				<aui:option value="-1">--Select--</aui:option>
 	         <% 			
 	         	List<IdNamePair> idNameList = editWorkWeek.getWorkSchedules(); 
@@ -235,7 +234,7 @@ AUI().ready('event', 'node', function(A){
 
 			</aui:select>
 
-		     <aui:select type="select" label="Wednesday" name="wednesdayWorkScheduleEdit" label=""  >
+		     <aui:select type="select" label="Wednesday" name="wednesdayWorkScheduleEdit">
 				<aui:option value="-1">--Select--</aui:option>
 	         <% 			
 	         	List<IdNamePair> idNameList = editWorkWeek.getWorkSchedules(); 
@@ -249,7 +248,7 @@ AUI().ready('event', 'node', function(A){
 
 			</aui:select>
 
-		     <aui:select type="select" label="Thursday" name="thursdayWorkScheduleEdit" label=""  >
+		     <aui:select type="select" label="Thursday" name="thursdayWorkScheduleEdit">
 				<aui:option value="-1">--Select--</aui:option>
 	         <% 			
 	         	List<IdNamePair> idNameList = editWorkWeek.getWorkSchedules(); 
@@ -264,7 +263,7 @@ AUI().ready('event', 'node', function(A){
 			</aui:select>
 
 
-		     <aui:select type="select" label="Friday" name="fridayWorkScheduleEdit" label="" >
+		     <aui:select type="select" label="Friday" name="fridayWorkScheduleEdit" >
 				<aui:option value="-1">--Select--</aui:option>
 	         <% 			
 	         	List<IdNamePair> idNameList = editWorkWeek.getWorkSchedules();
@@ -278,7 +277,7 @@ AUI().ready('event', 'node', function(A){
 
 			</aui:select>
 
-		     <aui:select type="select" label="Saturday" name="saturdayWorkScheduleEdit" label=""  >
+		     <aui:select type="select" label="Saturday" name="saturdayWorkScheduleEdit">
 				<aui:option value="-1">--Select--</aui:option>
 	         <% 			
 	         	List<IdNamePair> idNameList = editWorkWeek.getWorkSchedules(); 
@@ -293,7 +292,7 @@ AUI().ready('event', 'node', function(A){
 			</aui:select>
 
 
-		     <aui:select type="select" label="Sunday" name="sundayWorkScheduleEdit" label=""  >
+		     <aui:select type="select" label="Sunday" name="sundayWorkScheduleEdit">
 				<aui:option value="-1">--Select--</aui:option>
 	         <% 			
 	         	List<IdNamePair> idNameList = editWorkWeek.getWorkSchedules(); 

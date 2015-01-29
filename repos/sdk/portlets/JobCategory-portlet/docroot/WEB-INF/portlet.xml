@@ -18,8 +18,8 @@
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title>JobCategory</title>
-			<short-title>JobCategory</short-title>
+			<title>Job Category</title>
+			<short-title>Job Category</short-title>
 			<keywords>JobCategory</keywords>
 		</portlet-info>
 		<security-role-ref>
