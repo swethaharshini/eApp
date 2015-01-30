@@ -71,18 +71,24 @@ function addPayGrade(){
 
 </head>
 <body>
-<div class="row-fluid">
-	<div id="interviewadddelete" class="span12 text-right">
-		<a onclick="addPayGrade()" class="btn btn-success"><i class="icon-plus"></i></a>
-		<a id="delete" class="btn btn-danger"><i class="icon-trash"></i></a> 
+	<div id="interviewadddelete" class="control-group text-right">
+		<a onclick="addPayGrade()" class="btn btn-success"><i class="icon-plus"></i> Add</a>
+		<a id="delete" class="btn btn-danger"><i class="icon-trash"></i> Delete</a> 
 	</div>
-</div>
 
 <%
 
 PortletURL iteratorURL = renderResponse.createRenderURL();
 
 iteratorURL.setParameter("mvcPath", "/html/paygrade/paygradelist.jsp");
+long groupId=themeDisplay.getLayout().getGroup().getGroupId();
+DynamicQuery dynamicQuery = DynamicQueryFactoryUtil
+.forClass(PayGrade.class,
+		PortletClassLoaderUtil.getClassLoader());
+dynamicQuery.add(PropertyFactoryUtil.forName("groupId")
+.eq(groupId));
+List<PayGrade> paygrades = PayGradeLocalServiceUtil
+.dynamicQuery(dynamicQuery);
 %>
 <%!
   com.liferay.portal.kernel.dao.search.SearchContainer<PayGrade> searchContainer;
@@ -92,9 +98,8 @@ iteratorURL.setParameter("mvcPath", "/html/paygrade/paygradelist.jsp");
 		<liferay-ui:search-container-results>
 		<%
 		 
-		 results =  PayGradeLocalServiceUtil.getPayGrades(searchContainer.getStart(), searchContainer.getEnd());
-		System.out.println("results == " +results.size());
-		total = PayGradeLocalServiceUtil.getPayGradesCount();
+		 results =  ListUtil.subList(paygrades, searchContainer.getStart(), searchContainer.getEnd());
+		total = paygrades!=null && paygrades.size()!=0?paygrades.size():0;
 		pageContext.setAttribute("results", results);
 		pageContext.setAttribute("total", total);
 				

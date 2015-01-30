@@ -13,17 +13,6 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/nationality/addnationality.jsp" />
 </portlet:renderURL>
-<style type="text/css">	
-.table-first-header{
-width: 10%;
-}
-.table-last-header{
-width: 15%;
-}
- #editNationalityMessage,em{
- color: red;
-}
-</style>
 <aui:script>
 AUI().use(
   'aui-node',
@@ -122,27 +111,26 @@ AUI().use(
  Nationality editnationality = (Nationality)portletSession.getAttribute("editnationality"); 
 
 if(SessionMessages.contains(renderRequest.getPortletSession(),"nationalityName-empty-error")){%>
-<p id="editNationalityMessage"><liferay-ui:message key="Please Enter Nationality Name"/></p>
+<p id="editNationalityMessage" class="alert alert-error"><liferay-ui:message key="Please Enter Nationality Name"/></p>
 <%} 
 %>
 
-  <div class="row-fluid">
-		<div id="editnationalityadddelete" class="span12 text-right">
-			<a href="#" class="btn btn-primary" id="nationalityadd"><i class="icon-plus"></i></a>
-			<a href="#" class="btn btn-danger" id="nationalitydelete"><i class="icon-trash"></i></a>
-		</div>
-		<div  id="editNationalityForm">
-		<aui:form name="myForm" action="<%=savenationality.toString()%>" >
-			<aui:input name="nationalityId" type="hidden" id="nationalityId" value="<%=editnationality.getNationalityId()%>"/>
-			<div class="form-inline">
-				<label>Nationality: </label>
-				<input name="<portlet:namespace/>nationalityName" type="text" value="<%=editnationality.getName()%>">
-				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
-				<button  type="reset" id ="editnationalitycancel" class="btn btn-danger"><i class="icon-remove"></i></button>
+		<div  id="editNationalityForm" class="panel">
+			<div class="panel-heading">
+				<h4>Edit</h4>
 			</div>
-		</aui:form>
+			<div class="panel-body">
+				<aui:form name="myForm" action="<%=savenationality.toString()%>" >
+					<aui:input name="nationalityId" type="hidden" id="nationalityId" value="<%=editnationality.getNationalityId()%>"/>
+					<div class="form-inline">
+						<label>Nationality: </label>
+						<input name="<portlet:namespace/>nationalityName" type="text" value="<%=editnationality.getName()%>">
+						<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
+						<button  type="reset" id ="editnationalitycancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
+					</div>
+				</aui:form>
+			</div>
 		</div>
-	</div>
 
 </body>
 <%
