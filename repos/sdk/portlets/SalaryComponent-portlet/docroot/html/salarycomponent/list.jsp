@@ -70,11 +70,9 @@ AUI().use(
 </head>
 <body>
 
-<div class="row-fluid">
-	<div class="span12 text-right">
-		<a href="<%=addcomponent%>" class="btn btn-primary"><i class="icon-plus"></i></a>
-		<a href="#" id="delete" class="btn btn-danger"><i class="icon-trash"></i></a>
-	</div>
+<div class="control-group text-right">
+	<a href="<%=addcomponent%>" class="btn btn-primary"><i class="icon-plus"></i> Add</a>
+	<a href="#" id="delete" class="btn btn-danger"><i class="icon-trash"></i> Delete</a>
 </div>
 <%
 
