@@ -10,6 +10,7 @@
 			<setting configurable="true" key="display-company-logo" type="checkbox" value="false" />
 			<setting configurable="true" key="portlet-setup-show-borders-default" type="checkbox" value="false" />
 			<setting configurable="true" key="show-breadcrumb" type="checkbox" value="true" />
+			<setting configurable="false" key="show-site-name-default" type="checkbox" value="false" />
 		</settings>
 		<color-scheme id="01" name="blue">
 			<css-class>blue</css-class>

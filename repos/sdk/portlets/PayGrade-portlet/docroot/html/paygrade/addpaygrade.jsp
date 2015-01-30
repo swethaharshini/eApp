@@ -1,6 +1,3 @@
-<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
-<%@page import="com.rknowsys.eapp.hrm.service.PayGradeLocalServiceUtil"%>
-<%@page import="com.rknowsys.eapp.hrm.model.PayGrade"%>
 <%@ include file="/html/paygrade/init.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -23,25 +20,30 @@
 <liferay-ui:message key="PayGradeName already Exits"/>
 <%} 
 %>
-
-<aui:form name="myForm" action="<%=savepaygrade.toString()%>">
-	<div class="form-horizontal clearfix">
-		<aui:input name="paygradeId" type="hidden" id="paygradeId" />
-		<div class="control-group">
-		<label class="control-label"><b>Name<em>*</em></b></label>
-		<div class="controls">
-	 	<input name="<portlet:namespace/>paygradeName" id="paygrade" type="text" required="required"/>
-	 	</div>
-	 	</div>
-		<div class="control-group">
-			<div class="controls">
-				<aui:button type="submit" value="Submit" />
-				<aui:button  type="reset" value="Cancel" href="<%=paygradelist.toString()%>" id ="cancel"/>
-			</div>
-		</div>	
+<div class="clearfix">
+	<div class="panel">
+		<div class="panel-heading">
+			<h4>Add</h4>
+		</div>
+		<div class="panel-body">
+			<aui:form name="myForm" action="<%=savepaygrade.toString()%>">
+				<div class="form-horizontal clearfix">
+					<aui:input name="paygradeId" type="hidden" id="paygradeId" />
+					<div class="control-group">
+					<label class="control-label"><b>Name<em>*</em></b></label>
+					<div class="controls">
+				 	<input name="<portlet:namespace/>paygradeName" id="paygrade" type="text" required="required"/>
+				 	</div>
+				 	</div>
+					<div class="controls">
+						<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
+						<a class="btn btn-danger" href="<%=paygradelist.toString()%>" id ="cancel"><i class="icon-remove"></i> Cancel</a>
+					</div>
+				</div>
+			</aui:form>
+		</div>
 	</div>
-</aui:form>
-
+</div>
 </body>
 
 

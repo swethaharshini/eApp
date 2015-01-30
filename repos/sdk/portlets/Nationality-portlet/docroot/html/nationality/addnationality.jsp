@@ -12,17 +12,6 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/nationality/addnationality.jsp" />
 </portlet:renderURL>
-<style type="text/css">
-.table-first-header {
-	width: 10%;
-}
-.table-last-header {
-	width: 15%;
-}
- #addNationalityMessage,em{
- color: red;
-}
-</style>
 <aui:script>
 AUI().use(
   'aui-node',
@@ -114,31 +103,34 @@ AUI().use(
 
 <body>
 <% if(SessionMessages.contains(renderRequest.getPortletSession(),"nationalityName-empty-error")){%>
-<p id="addNationalityMessage"><liferay-ui:message key="Please Enter Nationality Name"/></p>
+<p id="addNationalityMessage" class="alert alert-error"><liferay-ui:message key="Please Enter Nationality Name"/></p>
 <%} 
  if(SessionMessages.contains(renderRequest.getPortletSession(),"nationalityName-duplicate-error")){
 %>
-<p id="addNationalityMessage"><liferay-ui:message key="Nationality Name already Exits"/></p>
+<p id="addNationalityMessage" class="alert alert-error"><liferay-ui:message key="Nationality Name already Exits"/></p>
 <%} 
 %>
 
-		<div class="row-fluid">
-		<div id="nationalityadddelete" class="span12 text-right">
-			<a href="#" class="btn btn-primary" id="nationalityadd"><i class="icon-plus"></i></a>
-			<a href="#" class="btn btn-danger" id="nationalitydelete"><i class="icon-trash"></i></a>
+		<div id="nationalityadddelete" class="control-group text-right">
+			<a href="#" class="btn btn-primary" id="nationalityadd"><i class="icon-plus"></i> Add</a>
+			<a href="#" class="btn btn-danger" id="nationalitydelete"><i class="icon-trash"></i> Delete</a>
 		</div>
-		<div  id="addNationalityForm">
-		<aui:form name="myForm" action="<%=savenationality.toString()%>" >
-			<aui:input name="nationalityId" type="hidden" id="nationalityId" />
-			<div class="form-inline">
-				<label>Nationality: </label>
-				<input name="<portlet:namespace/>nationalityName" type="text">
-				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
-				<button  type="reset" id ="nationalitycancel" class="btn btn-danger"><i class="icon-remove"></i></button>
+		<div  id="addNationalityForm" class="panel">
+			<div class="panel-heading">
+				<h4>Add</h4>
 			</div>
-		</aui:form>
+			<div class="panel-body">
+				<aui:form name="myForm" action="<%=savenationality.toString()%>" >
+					<aui:input name="nationalityId" type="hidden" id="nationalityId" />
+					<div class="form-inline">
+						<label>Nationality: </label>
+						<input name="<portlet:namespace/>nationalityName" type="text">
+						<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
+						<button  type="reset" id ="nationalitycancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
+					</div>
+				</aui:form>
+			</div>
 		</div>
-	</div>
 	
 </body>
 

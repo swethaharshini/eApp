@@ -28,32 +28,37 @@ AUI().ready('event', 'node','transition',function(A){
 <p id="addsalarycomponentMessage"><liferay-ui:message key="SalarycomponentName already Exits"/></p>
 <%} 
 %>
-<aui:form  action="<%=savesalarycomponent.toString()%>">
-<div class="form-horizontal clearfix">
-	<input name="<portlet:namespace/>salarycomponentId" type="hidden" id="salarycomponentId">
-	<aui:input name="componentName" showRequiredLabel="false" id="componentname" label="Component Name" inlineLabel="left"><aui:validator name="required"></aui:validator> </aui:input>
-	<div class="control-group">
-		<label class="control-label">Type</label>
-		<aui:input name="type" type="radio" value="Earning" checked="true" label="Earning" inlineField="true"></aui:input>
-		<aui:input name="type" type="radio" value="Deduction" label="Deduction" inlineField="true"></aui:input>
+<div class="panel">
+	<div class="panel-heading">
+		<h4>Add</h4>
 	</div>
-	<div class="control-group">
-		<label class="control-label">Add to</label>
-		<aui:input name="totalPayable" type="checkbox"   label="Total Payable" inlineField="true"></aui:input>
-		<aui:input name="costToCompany" type="checkbox"  label="Cost to Company" inlineField="true"></aui:input>
-	</div>
-	<div class="control-group">
-		<label class="control-label">valueType</label>
-		<aui:input type="checkbox" name="valueType" inlineField="true" label="Amount"></aui:input>
-		<aui:input type="checkbox" name="valueType" inlineField="true" label="Percentage"></aui:input>
-	</div>
-	<div class="control-group">
-		<div class="controls">
-			<aui:button type="submit" value="Submit"/> 
-			<aui:button type="reset" href="<%=listview%>" value="Cancel"/>
+	<div class="panel-body">
+		<aui:form  action="<%=savesalarycomponent.toString()%>">
+		<div class="form-horizontal clearfix">
+			<input name="<portlet:namespace/>salarycomponentId" type="hidden" id="salarycomponentId">
+			<aui:input name="componentName" showRequiredLabel="false" id="componentname" label="Component Name" inlineLabel="left"><aui:validator name="required"></aui:validator> </aui:input>
+			<div class="control-group">
+				<label class="control-label">Type</label>
+				<aui:input name="type" type="radio" value="Earning" checked="true" label="Earning" inlineField="true"></aui:input>
+				<aui:input name="type" type="radio" value="Deduction" label="Deduction" inlineField="true"></aui:input>
+			</div>
+			<div class="control-group">
+				<label class="control-label">Add to</label>
+				<aui:input name="totalPayable" type="checkbox"   label="Total Payable" inlineField="true"></aui:input>
+				<aui:input name="costToCompany" type="checkbox"  label="Cost to Company" inlineField="true"></aui:input>
+			</div>
+			<div class="control-group">
+				<label class="control-label">valueType</label>
+				<aui:input type="checkbox" name="valueType" inlineField="true" label="Amount"></aui:input>
+				<aui:input type="checkbox" name="valueType" inlineField="true" label="Percentage"></aui:input>
+			</div>
+			<div class="controls">
+				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
+				<a class="btn btn-danger" href="<%=listview%>" id ="Cancel"><i class="icon-remove"></i> Cancel</a>
+			</div>
 		</div>
-	</div>										
+		</aui:form>
+	</div>
 </div>
-</aui:form>
 </body>
 </html>

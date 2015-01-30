@@ -1,11 +1,3 @@
-<%@page import="com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil"%>
-<%@page import="com.liferay.portal.kernel.portlet.PortletClassLoaderUtil"%>
-<%@page import="com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil"%>
-<%@page import="com.liferay.portal.kernel.dao.orm.DynamicQuery"%>
-<%@page import="com.rknowsys.eapp.hrm.model.PayGrade"%>
-<%@page import="com.rknowsys.eapp.hrm.CustomComparatorUtil"%>
-<%@page import="com.rknowsys.eapp.hrm.service.PayGradeCurrencyLocalServiceUtil"%>
-<%@page import="com.rknowsys.eapp.hrm.model.PayGradeCurrency"%>
 <%@ include file="/html/paygrade/init.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -98,36 +90,38 @@ Long paygradeid = paygrade3.getPayGradeId();
 System.out.println("id ======= " +paygradeid);
 PayGradeCurrency editpaygradecurrency = (PayGradeCurrency)portletSession.getAttribute("editpaygradecurrency");
 %>
-<div class="panel panel-default">
-<div class="panel-heading">
-	<font  class="panel-title"><b>PayGrade</b></font>
- </div>
-<aui:form name="paygradeForm">
-	<div class="form-horizontal">
-		<aui:input name="paygradeId" type="hidden" id="paygradeId"  value="<%=paygrade3.getPayGradeId()%>"/>
-		<div class="control-group">
-			<label class="control-label">Name<em>*</em> </label>
-			<div class="controls">
-			<input name="<portlet:namespace/>paygradeName" id="paygrade" type="text" required = "required" readonly="readonly" value="<%=paygrade3.getPayGradeName()%>">
-			</div>
-		</div>
+<div class="panel">
+	<div class="panel-heading">
+		<h4>PayGrade</h4>
 	</div>
-</aui:form>
+	<div class="panel-body">
+		<aui:form name="paygradeForm">
+			<div class="form-horizontal">
+				<aui:input name="paygradeId" type="hidden" id="paygradeId"  value="<%=paygrade3.getPayGradeId()%>"/>
+				<div class="control-group">
+					<label class="control-label">Name<em>*</em> </label>
+					<div class="controls">
+					<input name="<portlet:namespace/>paygradeName" id="paygrade" type="text" required = "required" readonly="readonly" value="<%=paygrade3.getPayGradeName()%>">
+					</div>
+				</div>
+			</div>
+		</aui:form>
+	</div>
 </div>
-<div class="panel panel-default">
+<div class="panel">
 <div class="panel-heading">
-   <font class="panel-title"><b>Edit Currency</b></font>
+   <h4>Edit Currency</h4>
  </div>
  <div class="panel-body">
    <div id="currencyform">
-  <aui:form name="myForm" action="<%=savepaygradecurrency.toString()%>">
-  	<div class="form-horizontal">
+		<aui:form name="myForm" action="<%=savepaygradecurrency.toString()%>">
+			<div class="form-horizontal">
 		<aui:input name="paygradeId" type="hidden" id="paygradeId"  value="<%=paygrade3.getPayGradeId()%>"/>
 		<aui:input name="paygradecurrencyId" type="hidden" id="paygradecurrencyId"  value="<%=editpaygradecurrency.getPayGradeCurrencyId()%>"/>
-        <div class="control-group">
-        <label class="control-label">Currency:<em>*</em> </label>
-        <div class="controls">
-        <input name="<portlet:namespace/>currency" id="myAutoComplete" required="required" type="text" value="<%=editpaygradecurrency.getCurrency()%>">
+		      <div class="control-group">
+		      <label class="control-label">Currency:<em>*</em> </label>
+		      <div class="controls">
+		      <input name="<portlet:namespace/>currency" id="myAutoComplete" required="required" type="text" value="<%=editpaygradecurrency.getCurrency()%>">
 		</div>
 		</div>
 		<div class="control-group">
@@ -144,15 +138,16 @@ PayGradeCurrency editpaygradecurrency = (PayGradeCurrency)portletSession.getAttr
 		</div>
 		<div class="control-group">
 			<div class="controls">
-				<aui:button type="Submit" value="Submit" />
-				<aui:button  type="reset" href="<%=paygrade.toString()%>" value="Cancel" id ="currencycancel"/>
-				<button id="currencydelete" class="btn btn-danger" type="button"><i class="icon-trash"></i> Delete </button>
+				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
+				<a class="btn btn-danger" href="<%=paygrade.toString()%>" id ="currencycancel"><i class="icon-remove"></i> Cancel</a>
 			</div>
 		</div>
+		</div>
+		</aui:form>
 	</div>
-</aui:form>
+	<div class="control-group text-right">
+		<button id="currencydelete" class="btn btn-danger" type="button"><i class="icon-trash"></i> Delete </button>
 	</div>
-
 	<%
 
 PortletURL iteratorURL = renderResponse.createRenderURL();
@@ -168,11 +163,11 @@ iteratorURL.setParameter("mvcPath", "/html/paygrade/editpaygrade.jsp");
 		
 		DynamicQuery paygradecurrencyquery = DynamicQueryFactoryUtil.forClass(PayGradeCurrency.class, PortletClassLoaderUtil.getClassLoader());
 		paygradecurrencyquery.add(PropertyFactoryUtil.forName("payGradeId").eq(paygradeid));
-		 
-		 results =  PayGradeCurrencyLocalServiceUtil.dynamicQuery(paygradecurrencyquery);
-		
+		paygradecurrencyquery.add(PropertyFactoryUtil.forName("groupId").eq(themeDisplay.getLayout().getGroup().getGroupId()));
+		List<PayGradeCurrency> currencyList= PayGradeCurrencyLocalServiceUtil.dynamicQuery(paygradecurrencyquery);
+		results = ListUtil.subList(currencyList, searchContainer.getStart(), searchContainer.getEnd());
 		System.out.println("results == " +results.size());
-		total = results.size();
+		total = currencyList!=null && currencyList.size()!=0?currencyList.size():0;
 		pageContext.setAttribute("results", results);
 		pageContext.setAttribute("total", total);
 				

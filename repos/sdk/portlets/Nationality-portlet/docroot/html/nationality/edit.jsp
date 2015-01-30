@@ -30,9 +30,7 @@ String prk=String.valueOf(i.getPrimaryKey());
 </portlet:actionURL>
 
 
-<a href="#" onclick="window.location='<%=editnationality.toString()%>'"><img
-					width="18px" height="18px" alt="loading..." 
-					src="<%=request.getContextPath() %>/images/pencil.jpg"></a> 
+<a href="#" onclick="window.location='<%=editnationality.toString()%>'"><i class="icon-edit"></i></a> 
 </liferay-ui:icon-menu>
 
 
