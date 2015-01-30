@@ -9,17 +9,6 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/Interview/add.jsp" />
 </portlet:renderURL>
-<style type="text/css">
-.table-first-header {
-	width: 10%;
-}
-.table-last-header {
-	width: 15%;
-}
- #addInterviewMessage{
- color: red;
-}
-</style>
 <aui:script>
 AUI().use(
   'aui-node',
@@ -114,31 +103,34 @@ AUI().use(
 
 <body>
 <% if(SessionMessages.contains(renderRequest.getPortletSession(),"interviewName-empty-error")){%>
-<p id="addInterviewMessage"><liferay-ui:message key="Please Enter InterviewName"/></p>
+<p id="addInterviewMessage" class="alert alert-error"><liferay-ui:message key="Please Enter InterviewName"/></p>
 <%} 
  if(SessionMessages.contains(renderRequest.getPortletSession(),"interviewName-duplicate-error")){
 %>
-<p id="addInterviewMessage"><liferay-ui:message key="InterviewName already Exits"/></p>
+<p id="addInterviewMessage" class="alert alert-error"><liferay-ui:message key="InterviewName already Exits"/></p>
 <%} 
 %>
 
- <div class="row-fluid">
-		<div id="interviewadddelete" class="span12 text-right">
-			<a href="#" class="btn btn-primary" id="interviewadd"><i class="icon-plus"></i>Add</a>
-			<a href="#" class="btn btn-danger" id="interviewdelete"><i class="icon-trash"></i>Delete</a>
+		<div id="interviewadddelete" class="control-group text-right">
+			<a href="#" class="btn btn-primary" id="interviewadd"><i class="icon-plus"></i> Add</a>
+			<a href="#" class="btn btn-danger" id="interviewdelete"><i class="icon-trash"></i> Delete</a>
 		</div>
-		<div  id="addInterviewForm">
-		<aui:form name="myForm" action="<%=saveinterview.toString()%>" >
-			<aui:input name="interviewId" type="hidden" id="interviewId" />
-			<div class="form-inline">
-				<label>Interview Name: </label>
-				<input name="<portlet:namespace/>name" type="text">
-				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i>Submit</button>
-				<button  type="reset" id ="interviewcancel" class="btn btn-danger"><i class="icon-remove"></i>Cancel</button>
+		<div id="addInterviewForm" class="panel">
+			<div class="panel-heading">
+				<h4>Add</h4>
 			</div>
-		</aui:form>
+			<div class="panel-body">
+				<aui:form name="myForm" action="<%=saveinterview.toString()%>" >
+					<aui:input name="interviewId" type="hidden" id="interviewId" />
+					<div class="form-inline">
+						<label>Interview Name: </label>
+						<input name="<portlet:namespace/>name" type="text">
+						<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
+						<button  type="reset" id ="interviewcancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
+					</div>
+				</aui:form>
+			</div>
 		</div>
-	</div>
  	
 </body>
 

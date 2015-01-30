@@ -11,17 +11,6 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/Interview/add.jsp" />
 </portlet:renderURL>
-<style type="text/css">	
-.table-first-header{
-width: 10%;
-}
-.table-last-header{
-width: 15%;
-}
- #editInterviewMessage{
- color: red;
-}
-</style>
 <aui:script>
 AUI().use(
   'aui-node',
@@ -39,9 +28,6 @@ AUI().use(
 );
 
 </aui:script>
-
-
-
 </head>
 <body>
 <%
@@ -49,23 +35,25 @@ Interview editinterview = (Interview) portletSession.getAttribute("editinterview
 
 %>
 <% if(SessionMessages.contains(renderRequest.getPortletSession(),"interviewName-empty-error")){%>
-<p id="editInterviewMessage"><liferay-ui:message key="Please Enter InterviewName"/></p>
+<p id="editInterviewMessage" class="alert alert-error"><liferay-ui:message key="Please Enter InterviewName"/></p>
 <%}
 %>
-
- <div class="row-fluid">
-		<div  id="editInterviewForm">
+<div  id="editInterviewForm" class="panel">
+	<div class="panel-heading">
+		<h4>Edit</h4>
+	</div>
+	<div class="panel-body">
 		<aui:form name="myForm" action="<%=saveinterview.toString()%>" >
 			<aui:input name="interviewId" type="hidden" id="interviewId" value="<%=editinterview.getInterviewId()%>"/>
 			<div class="form-inline">
 				<label>Interview Name: </label>
 				<input name="<portlet:namespace/>name" id="editinterview" type="text" value="<%=editinterview.getName()%>">
-				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i>Submit</button>
-				<button  type="reset" id ="editinterviewcancel" class="btn btn-danger"><i class="icon-remove"></i>Cancel</button>
+				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
+				<button type="reset" id ="editinterviewcancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
 			</div>
 		</aui:form>
-		</div>
 	</div>
+</div>
 </body>
 <%
 PortletURL iteratorURL = renderResponse.createRenderURL();
