@@ -138,6 +138,46 @@
         </finder>
 
     </entity>
+    <entity name="LeaveTypeEmployeeGroups" table="leave_type_employee_groups" data-source="hrmDataSource"
+        local-service="true" remote-service="false" session-factory="hrmSessionFactory"
+        tx-manager="hrmTransactionManager">
+
+        <!-- PK fields -->
+        <column name="leaveTypeEmployeeGroupId" type="long" primary="true" />
+
+        <!-- Audit fields -->
+        <column name="companyId" type="long" />
+        <column name="groupId" type="long" />
+        <column name="createDate" type="Date" />
+        <column name="modifiedDate" type="Date" />
+        <column name="userId" type="long" />
+
+        <!-- Other fields -->
+        <column name="leaveTypeId" type="long"/>
+        <column name="groupName" type="String"/>
+        <column name="forJobTitles" type="boolean"/>
+        <column name="forJobCategories" type="boolean"/>
+        <column name="forEmploymentStatus" type="boolean"/>
+        <column name="forGender" type="boolean"/>
+         <column name="forFemale" type="boolean"/>
+        <column name="forMale" type="boolean"/>
+		 <column name="forYearsOfService" type="boolean"/>
+        <column name="fromYears" type="String"/>
+        <column name="toYears" type="String"/>
+        <!-- Order -->
+        <!-- Relationship fields -->
+        <!-- Finder methods -->
+        <finder name="GroupId" return-type="Collection">
+            <finder-column name="groupId" />
+        </finder>
+        <finder name="LeaveTypeId" return-type="Collection">
+            <finder-column name="leaveTypeId" />
+        </finder>
+
+    </entity>
+    
+    
+    
     <entity name="LeaveAccrual" table="leave_accrual" data-source="hrmDataSource"
         local-service="true" remote-service="false" session-factory="hrmSessionFactory"
         tx-manager="hrmTransactionManager">
