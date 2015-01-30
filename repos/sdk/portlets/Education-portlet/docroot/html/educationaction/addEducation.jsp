@@ -75,8 +75,9 @@ AUI().use(
 A.one('#addEducationForm').hide();
 setTimeout(function(){
 A.one('#addEducationMessage').transition('fadeOut');
-},1000)
 A.one('#addEducationMessage').hide();
+},2000)
+
 });
 
 

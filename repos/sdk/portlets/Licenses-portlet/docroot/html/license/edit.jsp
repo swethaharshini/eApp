@@ -7,72 +7,12 @@
 	<portlet:param name="mvcPath" value="/html/license/add.jsp" />
 </portlet:renderURL>
 <aui:script>
-AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#licensedelete');
-    node.on(
-      'click',
-      function() {
-     var idArray = [];
-   A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
-      idArray.push(object.get("value"));
-    
-        });
-       if(idArray==""){
-			  alert("Please select records!");
-		  }else{
-			  var d = confirm("Are you sure you want to delete the selected license?");
-		  if(d){
-		   var url = '<%=deleteLicenses%>';
-          A.io.request(url,
-         {
-          data: {  
-                <portlet:namespace />licenseIds: idArray,  
-                 },
-          on: {
-               success: function() { 
-                   alert('deleted successfully');
-                   window.location='<%=listview%>';
-              },
-               failure: function() {
-                  
-                 }
-                }
-                 }
-                );
-		  																		
-		  console.log(idArray);
-	  
-      return true;
-  }
-  else
-    return false;
-}             
-      }
-    );
-  }
-);
-</aui:script><aui:script>
-AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#licenseadd');
-    node.on(
-      'click',
-      function() {
-         A.one('#editLicenseAddDelete').hide();
-         A.one('#editLicenseForm').show();
-                     
-      }
-    );
-  }
-);
 
+</aui:script><aui:script>
 AUI().ready('event', 'node','transition',function(A){
   setTimeout(function(){
     A.one('#editLicenseMessage').transition('fadeOut');
-},1000)
+},2000)
  });
 
 AUI().use(
@@ -116,7 +56,7 @@ if(SessionMessages.contains(renderRequest.getPortletSession(),"licenseName-empty
 							<label>License Name: </label>
 							<input name="<portlet:namespace/>license_name" type="text" value="<%=editLicense.getLicenseName() %>" >
 							<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
-							<button  type="reset" id ="licensecancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
+							<button  type="reset" id ="editlicensecancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
 						</div>
 					</aui:form>
 				</div>

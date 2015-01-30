@@ -74,7 +74,8 @@ AUI().use(
   A.one('#addLanguageForm').hide();
   setTimeout(function(){
     A.one('#addLanguageMessage').transition('fadeOut');
-},1000)
+     A.one('#addLanguageMessage').hide();
+},2000)
  });
 
 
@@ -162,8 +163,7 @@ DynamicQuery languageDynamicQuery = DynamicQueryFactoryUtil
 		PortletClassLoaderUtil.getClassLoader());
 languageDynamicQuery.add(PropertyFactoryUtil.forName("groupId")
 .eq(groupId));
-List<Language> languageDetails = LanguageLocalServiceUtil
-.dynamicQuery(languageDynamicQuery);
+List<Language> languageDetails = LanguageLocalServiceUtil.dynamicQuery(languageDynamicQuery);
 %>
 <%!
   com.liferay.portal.kernel.dao.search.SearchContainer<Language> searchContainer;
