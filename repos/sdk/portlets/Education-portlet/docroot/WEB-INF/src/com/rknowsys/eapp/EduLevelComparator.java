@@ -1,9 +1,12 @@
 package com.rknowsys.eapp;
 
+import org.apache.log4j.Logger;
+
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.rknowsys.eapp.hrm.model.Education;
 
 public class EduLevelComparator extends OrderByComparator{
+	private static Logger log = Logger.getLogger(EduLevelComparator.class);
 
 	private static final long serialVersionUID = 1L;
 
@@ -14,10 +17,12 @@ public class EduLevelComparator extends OrderByComparator{
 	 
 	  public EduLevelComparator() 
 	  {
-	   this(false);
+		  this(false);
+		  log.info("inside Constructor EduLevelComparator");
 	  }
 	 
 	  public EduLevelComparator(boolean asc) {
+		  log.info("EduLevelComparator ");
 	   _asc = asc;
 	  }
 	 
