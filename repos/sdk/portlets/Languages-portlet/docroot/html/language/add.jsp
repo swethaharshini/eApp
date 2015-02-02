@@ -64,6 +64,7 @@ AUI().use(
       function() {
          A.one('#languageAddDelete').hide();
          A.one('#addLanguageForm').show();
+         A.one('#languageName').focus();
                      
       }
     );
@@ -124,7 +125,7 @@ AUI().use(
 						<aui:input name="languageId" type="hidden" id="languageId" />
 						<div class="form-inline">
 							<label>Language Name: </label>
-							<input name="<portlet:namespace/>language_name" type="text">
+							<input name="<portlet:namespace/>language_name" id="languageName" type="text">
 							<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
 							<button  type="reset" id ="languagecancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
 						</div>
