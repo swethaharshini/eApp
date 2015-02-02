@@ -45,6 +45,7 @@ import com.rknowsys.eapp.hrm.model.LeaveGeneral;
 import com.rknowsys.eapp.hrm.model.LeavePeriod;
 import com.rknowsys.eapp.hrm.model.LeaveRuleApplicable;
 import com.rknowsys.eapp.hrm.model.LeaveType;
+import com.rknowsys.eapp.hrm.model.LeaveTypeEmployeeGroups;
 import com.rknowsys.eapp.hrm.service.EmploymentStatusLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.JobCategoryLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.JobTitleLocalServiceUtil;
@@ -53,6 +54,7 @@ import com.rknowsys.eapp.hrm.service.LeaveGeneralLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.LeavePeriodLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.LeaveRestrictionLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.LeaveRuleApplicableLocalServiceUtil;
+import com.rknowsys.eapp.hrm.service.LeaveTypeEmployeeGroupsLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.LeaveTypeLocalServiceUtil;
 import com.rknowsys.eapp.hrm.model.LeaveRestriction;
 
@@ -1026,21 +1028,95 @@ public class LeaveTypeAction extends MVCPortlet{
 	public void saveEmployeeGroup(ActionRequest actionRequest, ActionResponse actionResponse) throws SystemException{
 		
 		log.info("inside saveEmployeeGroup...");
+		Date date = new Date();
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		Long leaveTypeId=ParamUtil.getLong(actionRequest, "leaveTypeId");
-		log.info("leaveTypeId == " +leaveTypeId);
+		// getting default group intput fields
+		String leaveApplicabilityId = ParamUtil.getString(actionRequest, "leaveApplicabilityId");
+		String defaultGroupName = ParamUtil.getString(actionRequest, "groupName");
+		boolean defaultJobtitleCheckbox = ParamUtil.getBoolean(actionRequest, "grouprestrictToJobTitles");
+		boolean defaultJobcategoryCheckbox = ParamUtil.getBoolean(actionRequest, "grouprestrictToJobCategories");
+		boolean defaultEmploymentStatusCheckbox = ParamUtil.getBoolean(actionRequest, "grouprestrictToEmploymentStatus");
+		boolean defaultGenderCheckbox = ParamUtil.getBoolean(actionRequest, "grouprestrictToGender");
+		boolean defaultFemaleCheckbox = ParamUtil.getBoolean(actionRequest, "applyToFemale");
+		boolean defaultMaleCheckbox = ParamUtil.getBoolean(actionRequest, "applyToMale");
+		boolean defaultYearsofServiceCheckbox = ParamUtil.getBoolean(actionRequest, "grouprestrictToYearsOfService");
+		String defaultFromYears = ParamUtil.getString(actionRequest, "applyToFromYears");
+		String defaultToYears = ParamUtil.getString(actionRequest, "applyToYears");
+		log.info(leaveApplicabilityId);log.info(defaultGroupName);log.info(defaultJobtitleCheckbox);log.info(defaultJobcategoryCheckbox);
+		log.info(defaultEmploymentStatusCheckbox);log.info(defaultGenderCheckbox);log.info(defaultYearsofServiceCheckbox);
+		log.info(defaultFemaleCheckbox);log.info(defaultMaleCheckbox);log.info(defaultFromYears);log.info(defaultToYears);
 		
-		String groupName = ParamUtil.getString(actionRequest, "groupName");
-		String customgroupname = ParamUtil.getString(actionRequest, "customGroupName");
+		LeaveTypeEmployeeGroups leaveTypeEmployeeGroups = LeaveTypeEmployeeGroupsLocalServiceUtil.createLeaveTypeEmployeeGroups(CounterLocalServiceUtil.increment());
+		leaveTypeEmployeeGroups.setLeaveTypeId(leaveTypeId);
+		leaveTypeEmployeeGroups.setGroupName(defaultGroupName);
+		leaveTypeEmployeeGroups.setForJobTitles(defaultJobtitleCheckbox);
+		leaveTypeEmployeeGroups.setForJobCategories(defaultJobcategoryCheckbox);
+		leaveTypeEmployeeGroups.setForEmploymentStatus(defaultEmploymentStatusCheckbox);
+		leaveTypeEmployeeGroups.setForGender(defaultGenderCheckbox);
+		leaveTypeEmployeeGroups.setForFemale(defaultFemaleCheckbox);
+		leaveTypeEmployeeGroups.setForMale(defaultMaleCheckbox);
+		leaveTypeEmployeeGroups.setForYearsOfService(defaultYearsofServiceCheckbox);
+		leaveTypeEmployeeGroups.setFromYears(defaultFromYears);
+		leaveTypeEmployeeGroups.setToYears(defaultToYears);
 		
-		log.info("groupName == " +groupName);
-		log.info("customGroupName == "+customgroupname);
-		log.info("end of the method...");
+		leaveTypeEmployeeGroups.setCompanyId(themeDisplay.getCompanyId());
+		leaveTypeEmployeeGroups.setGroupId(themeDisplay.getCompanyGroupId());
+		leaveTypeEmployeeGroups.setUserId(themeDisplay.getUserId());
+		
+		leaveTypeEmployeeGroups.setCreateDate(date);
+		leaveTypeEmployeeGroups.setModifiedDate(date);
+		
+		leaveTypeEmployeeGroups = LeaveTypeEmployeeGroupsLocalServiceUtil.addLeaveTypeEmployeeGroups(leaveTypeEmployeeGroups);
+		String groupCount = ParamUtil.getString(actionRequest, "groupCount");
+		if(groupCount!=null && groupCount!=""){
+		long l = Long.parseLong(groupCount);
+		log.info("groupCount == " +l);
+		for(int i =2;i<l;i++){
+			log.info("i ==================" +i);
+			String groupName = ParamUtil.getString(actionRequest, "group"+i+"GroupName");
+			boolean jobtitleCheckbox = ParamUtil.getBoolean(actionRequest, "group"+i+"jobtitleCheckbox");
+			boolean jobcategoryCheckbox = ParamUtil.getBoolean(actionRequest, "group"+i+"JobCategoriesCheckbox");
+			boolean employmentStatusCheckbox = ParamUtil.getBoolean(actionRequest, "group"+i+"EmploymentStatusCheckbox");
+			boolean genderCheckbox = ParamUtil.getBoolean(actionRequest, "group"+i+"GenderCheckbox");
+			boolean female = ParamUtil.getBoolean(actionRequest, "group"+i+"Female");
+			boolean male = ParamUtil.getBoolean(actionRequest, "group"+i+"Male");
+			boolean yearsofServiceCheckbox = ParamUtil.getBoolean(actionRequest, "group"+i+"YearsOfServiceCheckbox");
+			String fromYears = ParamUtil.getString(actionRequest, "group"+i+"FromYears");
+			String toYears = ParamUtil.getString(actionRequest, "group"+i+"ToYears");
+			log.info(jobtitleCheckbox);log.info(jobcategoryCheckbox);log.info(employmentStatusCheckbox);log.info(genderCheckbox);log.info(yearsofServiceCheckbox);
+			log.info(groupName);log.info(female);log.info(male);log.info(fromYears);log.info(toYears);
+			LeaveTypeEmployeeGroups employeeGroups = LeaveTypeEmployeeGroupsLocalServiceUtil.createLeaveTypeEmployeeGroups(CounterLocalServiceUtil.increment());
+			employeeGroups.setLeaveTypeId(leaveTypeId);
+			employeeGroups.setGroupName(groupName);
+			employeeGroups.setForJobTitles(jobtitleCheckbox);
+			employeeGroups.setForJobCategories(jobcategoryCheckbox);
+			employeeGroups.setForEmploymentStatus(employmentStatusCheckbox);
+			employeeGroups.setForGender(genderCheckbox);
+			employeeGroups.setForFemale(female);
+			employeeGroups.setForMale(male);
+			employeeGroups.setForYearsOfService(yearsofServiceCheckbox);
+			employeeGroups.setFromYears(fromYears);
+			employeeGroups.setToYears(toYears);
+			
+			employeeGroups.setCompanyId(themeDisplay.getCompanyId());
+			employeeGroups.setGroupId(themeDisplay.getCompanyGroupId());
+			employeeGroups.setUserId(themeDisplay.getUserId());
+			
+			employeeGroups.setCreateDate(date);
+			employeeGroups.setModifiedDate(date);
+			employeeGroups = LeaveTypeEmployeeGroupsLocalServiceUtil.addLeaveTypeEmployeeGroups(employeeGroups);
+			
+		}}
 		Map leaveInfo=setSessionForLeaveInfo(leaveTypeId);
         leaveInfo.put("jsp", "restrictgroupsJsp");
 		actionRequest.getPortletSession(true).setAttribute("leaveInfo", 
 				leaveInfo,PortletSession.APPLICATION_SCOPE);
 		
 		actionResponse.setRenderParameter("mvcPath", "/html/leavetype/update_leaveGeneral.jsp");
+		
+		
+		
 	}
 	
 }

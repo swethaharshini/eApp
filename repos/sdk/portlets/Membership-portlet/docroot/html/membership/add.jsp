@@ -7,14 +7,6 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/membership/add.jsp" />
 </portlet:renderURL>
-<style type="text/css">
-.aui input[type="text"]{
-height: initial;
-}
- #addMembershipMessage{
- color: red;
-}
-</style>
 <aui:script>
 
 AUI().use(
@@ -110,30 +102,33 @@ AUI().use(
 
 <body>
 <% if(SessionMessages.contains(renderRequest.getPortletSession(),"membershipName-empty-error")){%>
-<p id="addMembershipMessage"><liferay-ui:message key="Please Enter MembershipName"/></p>
+<p id="addMembershipMessage" class="alert error-alert"><liferay-ui:message key="Please Enter MembershipName"/></p>
 <%} 
  if(SessionMessages.contains(renderRequest.getPortletSession(),"membershipName-duplicate-error")){
 %>
-<p id="addMembershipMessage"><liferay-ui:message key="MembershipName already Exits"/></p>
+<p id="addMembershipMessage"  class="alert error-alert"><liferay-ui:message key="MembershipName already Exits"/></p>
 <%} 
 %>
- 		<div class="row-fluid">
-		<div id="membershipAddDelete" class="span12 text-right">
-			<a href="#" class="btn btn-primary" id="membershipadd"><i class="icon-plus"></i></a>
-			<a href="#" class="btn btn-danger" id="membershipdelete"><i class="icon-trash"></i></a>
+		<div id="membershipAddDelete" class="control-group text-right">
+			<a href="#" class="btn btn-primary" id="membershipadd"><i class="icon-plus"></i> Add</a>
+			<a href="#" class="btn btn-danger" id="membershipdelete"><i class="icon-trash"></i> Delete</a>
 		</div>
-		<div  id="addMembershipForm">
-		<aui:form name="myForm" action="<%=saveMemberships.toString()%>" >
-			<aui:input name="membershipId" type="hidden" id="membershipId" />
-			<div class="form-inline">
-				<label>Membership Name: </label>
-				<input name="<portlet:namespace/>membership_name" type="text">
-				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
-				<button  type="reset" id ="membershipcancel" class="btn btn-danger"><i class="icon-remove"></i></button>
+		<div  id="addMembershipForm" class="panel">
+			<div class="panel-heading">
+				<h4>Add</h4>
 			</div>
-		</aui:form>
+			<div class="panel-body">
+				<aui:form name="myForm" action="<%=saveMemberships.toString()%>" >
+					<aui:input name="membershipId" type="hidden" id="membershipId" />
+					<div class="form-inline">
+						<label>Membership Name: </label>
+						<input name="<portlet:namespace/>membership_name" type="text">
+						<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
+						<button  type="reset" id ="membershipcancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
+					</div>
+				</aui:form>
+			</div>
 		</div>
-	</div>
  		
  
 	

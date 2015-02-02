@@ -252,6 +252,11 @@ html, body {
     .aui .portlet .portlet-content {
       background: #fff;
       padding: 20px 20px 0 20px; }
+      .aui .portlet .portlet-content .portlet-body:before, .aui .portlet .portlet-content .portlet-body:after {
+        content: "";
+        display: table; }
+      .aui .portlet .portlet-content .portlet-body:after {
+        clear: both; }
   .aui .lfr-search-container {
     margin: 0 !important; }
   .aui .panel {

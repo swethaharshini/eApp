@@ -236,6 +236,9 @@
 		.portlet-content {
 			background: #fff;
 			padding:20px 20px 0 20px;
+			.portlet-body {
+				@include clearfix();
+			}
 		}
 	}
 	.lfr-search-container {

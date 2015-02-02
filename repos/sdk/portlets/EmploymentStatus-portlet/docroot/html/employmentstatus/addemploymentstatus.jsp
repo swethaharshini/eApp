@@ -9,11 +9,6 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/employmentstatus/addemploymentstatus.jsp" />
 </portlet:renderURL>
-<style type="text/css">
-#addEmploymentStatusMessage{
- color: red;
-}
-</style>
 <aui:script>
 AUI().use(
   'aui-node',
@@ -105,32 +100,34 @@ AUI().use(
 
 <body>
 <% if(SessionMessages.contains(renderRequest.getPortletSession(),"employmentStatus-empty-error")){%>
-<p id="addEmploymentStatusMessage"><liferay-ui:message key="Please Enter EmploymentStatus"/></p>
+<p id="addEmploymentStatusMessage" class="alert alert-error"><liferay-ui:message key="Please Enter EmploymentStatus"/></p>
 <%} 
  if(SessionMessages.contains(renderRequest.getPortletSession(),"employmentStatus-duplicate-error")){
 %>
-<p id="addEmploymentStatusMessage"><liferay-ui:message key="EmploymentStatus already Exits"/></p>
+<p id="addEmploymentStatusMessage" class="alert alert-error"><liferay-ui:message key="EmploymentStatus already Exits"/></p>
 <%} 
 %>
- <br/><br/>
-	
-	<div class="row-fluid">
-		<div id="employmentstatusadddelete" class="span12 text-right">
-			<a href="#" class="btn btn-primary" id="addemploymentstatus"><i class="icon-plus">Add</i></a>
-			<a href="#" class="btn btn-danger" id="deleteemploymentstatus"><i class="icon-trash"></i>Delete</a>
+
+		<div id="employmentstatusadddelete" class="control-group text-right">
+			<a href="#" class="btn btn-primary" id="addemploymentstatus"><i class="icon-plus"></i> Add</a>
+			<a href="#" class="btn btn-danger" id="deleteemploymentstatus"><i class="icon-trash"></i> Delete</a>
 		</div>
-		<div  id="addEmploymentstatusForm">
-		<aui:form name="myemploymentstatusForm" action="<%=saveemploymentstatus.toString()%>" >
-			<aui:input name="employmentstatusId" type="hidden" id="employmentstatusId" />
-			<div class="form-inline">
-				<label>Employment Status: </label>
-				<input name="<portlet:namespace/>employmentstatus" type="text">
-				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i>Submit</button>
-				<button  type="reset" id ="cancelemploymentstatus" class="btn btn-danger"><i class="icon-remove"></i>Cancel</button>
+		<div  id="addEmploymentstatusForm" class="panel">
+			<div class="panel-heading">
+				<h4>Add</h4>
 			</div>
-		</aui:form>
+			<div class="panel-body">
+				<aui:form name="myemploymentstatusForm" action="<%=saveemploymentstatus.toString()%>" >
+					<aui:input name="employmentstatusId" type="hidden" id="employmentstatusId" />
+					<div class="form-inline">
+						<label>Employment Status: </label>
+						<input name="<portlet:namespace/>employmentstatus" type="text">
+						<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
+						<button  type="reset" id ="cancelemploymentstatus" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
+					</div>
+				</aui:form>
+			</div>
 		</div>
-	</div>
 
 </body>
 

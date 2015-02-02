@@ -105,27 +105,28 @@ if(SessionMessages.contains(renderRequest.getPortletSession(),"skillName-empty-e
 <%} 
 %>
 <body>
-	<div class="row-fluid">
-		<div id="skillAddDelete" class="span12 text-right">
-			<a href="#" class="btn btn-primary" id="add"><i class="icon-plus"></i>Add</a>
-			<a href="#" class="btn btn-danger" id="delete"><i class="icon-trash"></i>Delete</a>
+		<div id="skillAddDelete" class="control-group text-right">
+			<a href="#" class="btn btn-primary" id="add"><i class="icon-plus"></i> Add</a>
+			<a href="#" class="btn btn-danger" id="delete"><i class="icon-trash"></i> Delete</a>
 		</div>
-		<div  id="addSkillForm">
-			<aui:form name="myForm" action="<%=saveSkills.toString()%>" >
-				<div class="form-horizontal">
-				<aui:input name="skillId" type="hidden" id="skillId" />
-				<aui:input name="skill_name" type="text" label="Name" required = "required" />	
-				 <aui:input type="textarea" label="Description" name="<portlet:namespace/>skill_description" rows="5" cols="5"></aui:input>
-				<div class="control-group">	
+		<div  id="addSkillForm" class="panel">
+			<div class="panel-heading">
+				<h4>Add</h4>
+			</div>
+			<div class="panel-body">
+				<aui:form name="myForm" action="<%=saveSkills.toString()%>" >
+					<div class="form-horizontal">
+					<aui:input name="skillId" type="hidden" id="skillId" />
+					<aui:input name="skill_name" type="text" label="Name" required = "required" />	
+					 <aui:input type="textarea" label="Description" name="<portlet:namespace/>skill_description" rows="5" cols="5"></aui:input>
 					<div class="controls">	
-					<button type="submit" class="btn btn-primary"><i class="icon-ok"></i>Submit</button>
-					<button  type="reset" id ="cancel" class="btn btn-danger"><i class="icon-remove"></i>Cancel</button>
+					<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
+					<button  type="reset" id ="cancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
 					</div>
-				</div>
-				</div>
-			</aui:form>
+					</div>
+				</aui:form>
+			</div>
 		</div>
-	</div>
 </body>
 
 <%

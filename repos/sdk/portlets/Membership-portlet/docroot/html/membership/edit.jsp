@@ -6,14 +6,7 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/membership/add.jsp" />
 </portlet:renderURL>
-<style>
-.aui input[type="text"]{
-height: initial;
-}
- #editMembershipMessage{
- color: red;
-}
-</style>
+
 <aui:script>
 AUI().use(
   'aui-node',
@@ -104,31 +97,29 @@ AUI().use(
 </head>
 <body>
 <% if(SessionMessages.contains(renderRequest.getPortletSession(),"membershipName-empty-error")){%>
-<p id="editMembershipMessage"><liferay-ui:message key="Please Enter MembershipName"/></p>
+<p id="editMembershipMessage" class="alert error-alert"><liferay-ui:message key="Please Enter MembershipName"/></p>
 <%}
 %>
 <%
 Membership editMembership =(Membership) portletSession.getAttribute("editMembership");
 
 %> 
-
-<div class="row-fluid">
-		<div id="editMembershipAddDelete" class="span12 text-right">
-			<a href="#" class="btn btn-primary" id="membershipadd"><i class="icon-plus"></i></a>
-			<a href="#" class="btn btn-danger" id="membershipdelete"><i class="icon-trash"></i></a>
-		</div>
-		<div  id="editMembershipForm">
-		<aui:form name="myForm" action="<%=updateMemberships.toString()%>" >
-			<aui:input name="membershipId" type="hidden" id="membershipId" value="<%=editMembership.getMembershipId() %>"/>
-			<div class="form-inline">
-				<label>Membership Name: </label>
-				<input name="<portlet:namespace/>membership_name" type="text" value="<%=editMembership.getMembershipName() %>">
-				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
-				<button  type="reset" id ="membershipcancel" class="btn btn-danger"><i class="icon-remove"></i></button>
+		<div  id="editMembershipForm" class="panel">
+			<div class="panel-heading">
+				<h4>Edit</h4>
 			</div>
-		</aui:form>
+			<div class="panel-body">
+				<aui:form name="myForm" action="<%=updateMemberships.toString()%>" >
+					<aui:input name="membershipId" type="hidden" id="membershipId" value="<%=editMembership.getMembershipId() %>"/>
+					<div class="form-inline">
+						<label>Membership Name: </label>
+						<input name="<portlet:namespace/>membership_name" type="text" value="<%=editMembership.getMembershipName() %>">
+						<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
+						<button  type="reset" id ="membershipcancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
+					</div>
+				</aui:form>
+			</div>
 		</div>
-	</div>
 </body>
 <%
 PortletURL iteratorURL = renderResponse.createRenderURL();

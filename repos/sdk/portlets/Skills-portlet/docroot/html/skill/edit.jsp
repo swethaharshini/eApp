@@ -5,14 +5,6 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/skill/add.jsp" />
 </portlet:renderURL>
-<style type="text/css">	
-.table-first-header{
-width: 10%;
-}
-.table-last-header{
-width: 15%;
-}
-</style>
 <aui:script>
 AUI().use(
   'aui-node',
@@ -43,20 +35,23 @@ if(SessionMessages.contains(renderRequest.getPortletSession(),"skillName-empty-e
 <%} 
  
 %>
-<div id="editSkillForm">
+<div id="editSkillForm" class="panel">
+  <div class="panel-heading">
+  	<h4>Edit</h4>
+  </div>
+  <div class="panel-body">
   <aui:form name="myForm" action="<%=updateSkills.toString()%>">
   	<div class="form-horizontal">
 		<aui:input name="skillId" type="hidden" id="skillId"  value="<%=editSkill.getSkillId()%>"/>
 		<aui:input label="name" name="skill_name" type="text" required ="true" value="<%=editSkill.getSkillName() %>" showRequiredLabel="false"></aui:input>
 		<aui:input type="textarea" label="Description" name="skill_description" rows="5" cols="5" ></aui:input>	 
-		<div class="control-group">	
-			<div class="controls">
-			<button type="submit" class="btn btn-primary"><i class="icon-ok"></i>Submit</button>
-			<button  type="reset" id ="cancel" class="btn btn-danger"><i class="icon-remove"></i>Cancel</button>
-			</div>
+		<div class="controls">
+			<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
+			<button  type="reset" id ="cancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
 		</div>
 	</div>
 	</aui:form>
+	</div>
 </div>
 </body>
 <%
