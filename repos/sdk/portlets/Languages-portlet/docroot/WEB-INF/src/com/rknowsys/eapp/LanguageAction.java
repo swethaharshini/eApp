@@ -11,6 +11,8 @@ import javax.portlet.PortletSession;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
+import org.apache.log4j.Logger;
+
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.kernel.dao.orm.Criterion;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
@@ -21,7 +23,6 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.portlet.PortletClassLoaderUtil;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.util.bridges.mvc.MVCPortlet;
@@ -32,18 +33,22 @@ import com.rknowsys.eapp.hrm.service.LanguageLocalServiceUtil;
  * Portlet implementation class LanguageAction
  */
 public class LanguageAction extends MVCPortlet {
+	private static Logger log = Logger.getLogger(LanguageAction.class);
 	Date date = new Date();
 
 	public void saveLanguage(ActionRequest actionRequest,
 			ActionResponse actionResponse) throws IOException,
 			PortletException, SystemException {
+		log.info("Entered into saveLanguage method in LanguageAction");
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest
 				.getAttribute(WebKeys.THEME_DISPLAY);
 		try {
 			String id = ParamUtil.getString(actionRequest, "LanguageId");
 			String name = ParamUtil.getString(actionRequest, "language_name");
+			log.info(id);log.info(name);
 			String languageName = name.trim();
 			if (languageName.equals("") || languageName == null) {
+				log.info("Empty value in LanguageName ");
 
 				SessionMessages.add(actionRequest.getPortletSession(),
 						"languageName-empty-error");
@@ -62,7 +67,7 @@ public class LanguageAction extends MVCPortlet {
 							.eq("groupId", themeDisplay.getLayout().getGroup().getGroupId()));
 				} catch (PortalException e1) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					log.error("PortalException " +e1);
 				}
 				dynamicQuery.add(criterion);
 				@SuppressWarnings("unchecked")
@@ -73,6 +78,7 @@ public class LanguageAction extends MVCPortlet {
 					Language language = languages.get(0);
 					if (language.getLanguageName().equalsIgnoreCase(
 							languageName)) {
+						log.info("DuplicateName in LanguageName LanguageAction");
 
 						SessionMessages.add(actionRequest.getPortletSession(),
 								"languageName-duplicate-error");
@@ -82,11 +88,12 @@ public class LanguageAction extends MVCPortlet {
 					}
 
 				} else {
+					log.info("Creating Language record");
 
 					Language language = LanguageLocalServiceUtil
 							.createLanguage(CounterLocalServiceUtil.increment());
 
-					System.out.println("id == " + id);
+					log.info("id = "+id);
 					if (id == "" || id == null) {
 						language.setLanguageName(ParamUtil.getString(
 								actionRequest, "name"));
@@ -102,6 +109,7 @@ public class LanguageAction extends MVCPortlet {
 						language.setLanguageName(name);
 						language = LanguageLocalServiceUtil
 								.addLanguage(language);
+						log.info("LanguageName added");
 					}
 
 				}
@@ -110,7 +118,7 @@ public class LanguageAction extends MVCPortlet {
 
 		} catch (SystemException e) {
 
-			e.printStackTrace();
+			log.error("SystemException " +e);
 		}
 
 	}
@@ -118,17 +126,21 @@ public class LanguageAction extends MVCPortlet {
 	public void updateLanguage(ActionRequest actionRequest,
 			ActionResponse actionResponse) throws IOException,
 			PortletException, SystemException {
+		log.info("updateLanguage method in LanguageAction");
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest
 				.getAttribute(WebKeys.THEME_DISPLAY);
 
 		String id = ParamUtil.getString(actionRequest, "LanguageId");
 		String name = ParamUtil.getString(actionRequest, "language_name");
+		log.info(id);log.info(name);
 		String languageName = name.trim();
 
-		System.out.println("id == " + id);
+		log.info("id == "+id);
 		Language languages;
 		try {
 			if (languageName.equals("") || languageName == null) {
+				
+				log.info("Empty value entered in LanguageName in edit page");
 
 				SessionMessages.add(actionRequest.getPortletSession(),
 						"languageName-empty-error");
@@ -157,10 +169,10 @@ public class LanguageAction extends MVCPortlet {
 			}
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("NumberFormatException " +e);
 		} catch (PortalException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("PortalException "+e);
 		}
 	}
 
@@ -181,30 +193,32 @@ public class LanguageAction extends MVCPortlet {
 	public void serveResource(ResourceRequest resourceRequest,
 			ResourceResponse resourceResponse) throws IOException {
 		if (resourceRequest.getResourceID().equals("deleteLanguage")) {
-			System.out.println("deleting these languages");
+			log.info("serverResource method in LanguageAction for deleting records");
 
 			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,
 					"languageIds");
-			System.out.println(idsArray.length);
+			log.info("selected records to be deleted " +idsArray.length);
 
 			for (int i = 0; i <= idsArray.length - 1; i++) {
 				try {
 
 					LanguageLocalServiceUtil.deleteLanguage(Long
 							.parseLong(idsArray[i]));
-					System.out.println("language deleted...." + idsArray[i]);
+					log.info("language deleted...." + idsArray[i]);
 
 				} catch (SystemException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					log.error("SystemException "+e);
 				}
 
 				catch (NumberFormatException e) {
+					log.error("NumberFormatException"+e);
 				} catch (PortalException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					log.error("PortalException "+e);
 				}
 			}
+			log.info("selected records deleted");
 
 		}
 
@@ -214,6 +228,7 @@ public class LanguageAction extends MVCPortlet {
 			ActionResponse actionResponse) throws IOException,
 			PortletException, NumberFormatException, PortalException,
 			SystemException {
+		log.info("editLanguage method in LanguageAction");
 		Long languageId = ParamUtil.getLong(actionRequest, "languageId");
 		Language languages = LanguageLocalServiceUtil.getLanguage(languageId);
 
