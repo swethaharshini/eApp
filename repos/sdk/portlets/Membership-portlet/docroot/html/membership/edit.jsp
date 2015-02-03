@@ -6,74 +6,12 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/membership/add.jsp" />
 </portlet:renderURL>
-
 <aui:script>
-AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#membershipdelete');
-    node.on(
-      'click',
-      function() {
-     var idArray = [];
-     A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
-      idArray.push(object.get("value"));
-    
-        });
-       if(idArray==""){
-			  alert("Please select records!");
-		  }else{
-			  var d = confirm("Are you sure you want to delete the selected membership?");
-		  if(d){
-		   var url = '<%=deleteMemberships%>';
-          A.io.request(url,
-         {
-          data: {  
-                <portlet:namespace />membershipIds: idArray,  
-                 },
-          on: {
-               success: function() { 
-                   alert('deleted successfully');
-                   window.location='<%=listview%>';
-              },
-               failure: function() {
-                  
-                 }
-                }
-                 }
-                );
-		  																		
-		  console.log(idArray);
-	  
-      return true;
-  }
-  else
-    return false;
-}             
-      }
-    );
-  }
-);
-</aui:script><aui:script>
-AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#membershipadd');
-    node.on(
-      'click',
-      function() {
-         A.one('#editMembershipAddDelete').hide();
-         A.one('#editMembershipForm').show();
-                     
-      }
-    );
-  }
-);
 
 AUI().ready('event', 'node','transition',function(A){
   setTimeout(function(){
     A.one('#editMembershipMessage').transition('fadeOut');
-},1000)
+},2000)
  });
 
 AUI().use(
@@ -115,7 +53,7 @@ Membership editMembership =(Membership) portletSession.getAttribute("editMembers
 						<label>Membership Name: </label>
 						<input name="<portlet:namespace/>membership_name" type="text" value="<%=editMembership.getMembershipName() %>">
 						<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
-						<button  type="reset" id ="membershipcancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
+						<button  type="reset" id ="editmembershipcancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
 					</div>
 				</aui:form>
 			</div>

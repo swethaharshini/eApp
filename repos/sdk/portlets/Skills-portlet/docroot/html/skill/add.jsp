@@ -74,8 +74,9 @@ AUI().use(
   A.one('#addSkillForm').hide();
   setTimeout(function(){
   A.one('#addSkillErrorMessage').transition('fadeOut');
-  },1000)
-  A.one('#addSkillErrorMessage').hide();
+   A.one('#addSkillErrorMessage').hide();
+  },2000)
+ 
  });
 
 AUI().use(

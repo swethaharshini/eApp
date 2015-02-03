@@ -6,72 +6,11 @@
 	<portlet:param name="mvcPath" value="/html/language/add.jsp" />
 </portlet:renderURL>
 <aui:script>
-AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#languagedelete');
-    node.on(
-      'click',
-      function() {
-     var idArray = [];
-      A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
-      idArray.push(object.get("value"));
-    
-        });
-       if(idArray==""){
-			  alert("Please select records!");
-		  }else{
-			  var d = confirm("Are you sure you want to delete the selected languages ?");
-		  if(d){
-		   var url = '<%=deleteLanguages%>';
-          A.io.request(url,
-         {
-          data: {  
-                <portlet:namespace />languageIds: idArray,  
-                 },
-          on: {
-               success: function() { 
-                   alert('deleted successfully');
-                   window.location='<%=listview%>';
-              },
-               failure: function() {
-                  
-                 }
-                }
-                 }
-                );
-		  																		
-		  console.log(idArray);
-	  
-      return true;
-  }
-  else
-    return false;
-}             
-      }
-    );
-  }
-);
-</aui:script><aui:script>
-AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#languageadd');
-    node.on(
-      'click',
-      function() {
-         A.one('#editLanguageAddDelete').hide();
-         A.one('#editLanguageForm').show();
-                     
-      }
-    );
-  }
-);
 
  AUI().ready('event', 'node','transition',function(A){
   setTimeout(function(){
     A.one('#editLanguageMessage').transition('fadeOut');
-},1000)
+},2000)
  });
 
 AUI().use(

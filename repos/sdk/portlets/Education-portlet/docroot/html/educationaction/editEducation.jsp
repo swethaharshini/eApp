@@ -7,72 +7,10 @@
 	<portlet:param name="mvcPath" value="/html/educationaction/addEducation.jsp" />
 </portlet:renderURL>
 <aui:script>
-AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#deleteeducation');
-    node.on(
-      'click',
-      function() {
-     var idArray = [];
-      A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
-      idArray.push(object.get("value"));
-    
-        });
-       if(idArray==""){
-			  alert("Please select records!");
-		  }else{
-			  var d = confirm("Are you sure you want to delete the selected education?");
-		  if(d){
-		   var url = '<%=deleteEducations%>';
-          A.io.request(url,
-         {
-          data: {  
-                <portlet:namespace />educationIds: idArray,  
-                 },
-          on: {
-               success: function() { 
-                   alert('deleted successfully');
-                   window.location='<%=listview%>';
-              },
-               failure: function() {
-                  
-                 }
-                }
-                 }
-                );
-		  																		
-		  console.log(idArray);
-	  
-      return true;
-  }
-  else
-    return false;
-}             
-      }
-    );
-  }
-);
-</aui:script><aui:script>
-AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#addeducation');
-    node.on(
-      'click',
-      function() {
-         A.one('#editEducationAddDelete').hide();
-         A.one('#editEducationForm').show();
-                     
-      }
-    );
-  }
-);
-
  AUI().ready('event', 'node','transition',function(A){
   setTimeout(function(){
     A.one('#editEducationMessage').transition('fadeOut');
-},1000)
+},2000)
  });
 
 AUI().use(
