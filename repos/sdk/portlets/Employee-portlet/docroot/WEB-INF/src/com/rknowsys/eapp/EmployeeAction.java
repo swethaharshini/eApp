@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -964,6 +965,7 @@ public class EmployeeAction extends MVCPortlet {
 		empJob.setLocationId(location);
 		empJob.setProbationEndDate(probationDte);
 		empJob.setComments(comments);
+		empJob.setIsCurrentJob(true);
 		empJob.setShiftId(workshift);
 		empJob.setCreateDate(date);
 		empJob.setModifiedDate(date);
@@ -973,9 +975,36 @@ public class EmployeeAction extends MVCPortlet {
 		try {
 			EmpJobLocalServiceUtil.addEmpJob(empJob);
 		} catch (SystemException e) {
-			// TODO Auto-generated catch block
 			System.out.println("cannot add job");
 			e.printStackTrace();
+		}
+		/*
+		 * 
+		 * 
+		 */
+		DynamicQuery dynamicQuery=DynamicQueryFactoryUtil.
+				forClass(EmpJob.class,PortletClassLoaderUtil.getClassLoader());
+		dynamicQuery.add(RestrictionsFactoryUtil.ne("empJobId", empJob.getEmpJobId()));
+		dynamicQuery.add(RestrictionsFactoryUtil.eq("employeeId", empId));
+		List<EmpJob> empList=null;
+		try {
+			empList=EmpJobLocalServiceUtil.dynamicQuery(dynamicQuery);
+		} catch (SystemException e1) {
+			e1.printStackTrace();
+		}
+		if(empList!=null && empList.size()!=0)
+		{
+			Iterator<EmpJob> empJobs=empList.iterator();
+			while(empJobs.hasNext())
+			{
+				EmpJob empJobHistory=empJobs.next();
+				empJobHistory.setIsCurrentJob(false);
+				try {
+					EmpJobLocalServiceUtil.updateEmpJob(empJobHistory);
+				} catch (SystemException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		/*
 		 * To update the location column in employee when updated in emp_job table
@@ -996,7 +1025,7 @@ public class EmployeeAction extends MVCPortlet {
 			} catch (SystemException e) {
 				e.printStackTrace();
 			}
-		}
+		} 
 		Map map = new HashMap();
 		map.put("empId", empId);
 		map.put("jsp", "jsp9");
@@ -1295,8 +1324,11 @@ public class EmployeeAction extends MVCPortlet {
 		} catch (PortalException e2) {
 			e2.printStackTrace();
 		}
+		empJob.setEmployeeId(employee.getEmployeeId());
+		empJob.setLocationId(employee.getLocationId());
 		empJob.setUserId(themeDisplay.getUserId());
 		empJob.setCompanyId(themeDisplay.getCompanyGroupId());
+		empJob.setIsCurrentJob(true);
 		EmpJobLocalServiceUtil.addEmpJob(empJob);
 		ServiceContext serviceContext = null;
 		FileEntry fileEntry = null;

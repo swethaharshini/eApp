@@ -195,9 +195,9 @@ A.ready(function()
 					property="docNumber" />
 				<liferay-ui:search-container-column-text name="01_issued-by" value="<%= getIssuedCountry(id.getIssuedBy()) %>" />
 				<liferay-ui:search-container-column-text name="01_issued-date"
-				value='<%=sdf.format(id.getIssuedDate()) %>'/>
+				value='<%=id.getIssuedDate()!=null? sdf.format(id.getIssuedDate()):"" %>'/>
 				<liferay-ui:search-container-column-text name="01_expiry-date"
-					value='<%=sdf.format(id.getExpiryDate()) %>' />
+					value='<%=id.getExpiryDate()!=null?sdf.format(id.getExpiryDate()):"" %>' />
 			</liferay-ui:search-container-row>
 			<liferay-ui:search-iterator />
 		</liferay-ui:search-container>
