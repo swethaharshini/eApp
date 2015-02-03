@@ -80,7 +80,8 @@ AUI().ready('event', 'node','transition',function(A){
   A.one('#addNationalityForm').hide();
   setTimeout(function(){
     A.one('#addNationalityMessage').transition('fadeOut');
-},1000)
+    A.one('#addNationalityMessage').hide();
+},2000)
  });
 
 AUI().use(

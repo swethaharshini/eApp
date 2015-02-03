@@ -11,6 +11,8 @@ import javax.portlet.PortletSession;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
+import org.apache.log4j.Logger;
+
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.kernel.dao.orm.Criterion;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
@@ -32,18 +34,25 @@ import com.rknowsys.eapp.hrm.service.EducationLocalServiceUtil;
  */
 public class EducationAction extends MVCPortlet {
 
+	private static Logger log = Logger.getLogger(EducationAction.class);
+
 	Date date = new Date();
 
 	public void saveEducation(ActionRequest actionRequest,
 			ActionResponse actionResponse) throws IOException,
 			PortletException, SystemException {
+		log.info("Entered into saveEducation() method in EducationAction");
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest
 				.getAttribute(WebKeys.THEME_DISPLAY);
 		String id = ParamUtil.getString(actionRequest, "educationId");
 		String eduLevel = ParamUtil.getString(actionRequest, "education_level");
+		log.info(id);
+		log.info(eduLevel);
 		String educationName = eduLevel.trim();
 		try {
 			if (educationName == null || educationName.equals("")) {
+
+				log.info("Empty value in educationName in EducationAction");
 
 				SessionMessages.add(actionRequest.getPortletSession(),
 						"educationName-empty-error");
@@ -51,18 +60,19 @@ public class EducationAction extends MVCPortlet {
 						"/html/educationaction/addEducation.jsp");
 
 			} else {
-				Criterion criterion=null;
+				Criterion criterion = null;
 				DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
 						Education.class,
 						PortletClassLoaderUtil.getClassLoader());
-				criterion=RestrictionsFactoryUtil
-						.eq("eduLevel", eduLevel);
+				criterion = RestrictionsFactoryUtil.eq("eduLevel", eduLevel);
 				try {
-					criterion=RestrictionsFactoryUtil.and(criterion,RestrictionsFactoryUtil
-							.eq("groupId", themeDisplay.getLayout().getGroup().getGroupId()));
+					criterion = RestrictionsFactoryUtil.and(
+							criterion,
+							RestrictionsFactoryUtil.eq("groupId", themeDisplay
+									.getLayout().getGroup().getGroupId()));
 				} catch (PortalException e1) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					log.error("PortalException " + e1);
 				}
 				dynamicQuery.add(criterion);
 				@SuppressWarnings("unchecked")
@@ -72,6 +82,7 @@ public class EducationAction extends MVCPortlet {
 
 					Education education = list.get(0);
 					if (education.getEduLevel().equalsIgnoreCase(eduLevel)) {
+						log.info("Duplicate value in educationName in EducationAction");
 						SessionMessages.add(actionRequest.getPortletSession(),
 								"educationName-duplicate-error");
 						actionResponse.setRenderParameter("mvcPath",
@@ -79,31 +90,33 @@ public class EducationAction extends MVCPortlet {
 					}
 
 				} else {
-
+					log.info("Adding New EducationName  EducationAction");
 					Education educations = EducationLocalServiceUtil
 							.createEducation(CounterLocalServiceUtil
 									.increment());
+					log.info("id= " + id);
 
-					System.out.println("id == " + id);
 					if (id == "" || id == null) {
 						educations.setCreateDate(date);
 						educations.setModifiedDate(date);
 						educations.setCompanyId(themeDisplay.getCompanyId());
 						try {
-							educations.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
+							educations.setGroupId(themeDisplay.getLayout()
+									.getGroup().getGroupId());
 						} catch (PortalException e) {
-							e.printStackTrace();
+							log.error("PortalException " + e);
 						}
 						educations.setUserId(themeDisplay.getUserId());
 						educations.setEduLevel(eduLevel);
 						educations = EducationLocalServiceUtil
 								.addEducation(educations);
+						log.info("New EducationName Added");
 					}
 				}
 			}
 		} catch (SystemException e) {
 
-			e.printStackTrace();
+			log.error("SystemException " + e);
 		}
 
 	}
@@ -111,17 +124,21 @@ public class EducationAction extends MVCPortlet {
 	public void updateEducation(ActionRequest actionRequest,
 			ActionResponse actionResponse) throws IOException,
 			PortletException, SystemException {
+		log.info("Entered into updateEducation() method in EducationAction");
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest
 				.getAttribute(WebKeys.THEME_DISPLAY);
 
 		String id = ParamUtil.getString(actionRequest, "educationId");
 		String eduLevel = ParamUtil.getString(actionRequest, "education_level");
+		log.info(id);
+		log.info(eduLevel);
 		String educationName = eduLevel.trim();
-		System.out.println("id == " + id);
+		log.info("id = " + id);
 		Education educations;
 		try {
 
 			if (educationName == null || educationName.equals("")) {
+				log.info("Empty value in updateEducation() method in EducationAction");
 
 				Education education = EducationLocalServiceUtil
 						.getEducation(Long.parseLong(id));
@@ -135,6 +152,7 @@ public class EducationAction extends MVCPortlet {
 						"/html/educationaction/editEducation.jsp");
 
 			} else {
+				log.info("Entered into else block to update Education updateEducation() EducationAction");
 
 				educations = EducationLocalServiceUtil.getEducation(Long
 						.parseLong(id));
@@ -142,7 +160,8 @@ public class EducationAction extends MVCPortlet {
 				educations.setModifiedDate(date);
 				educations.setCompanyId(themeDisplay.getCompanyId());
 				try {
-					educations.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
+					educations.setGroupId(themeDisplay.getLayout().getGroup()
+							.getGroupId());
 				} catch (PortalException e) {
 					e.printStackTrace();
 				}
@@ -150,14 +169,15 @@ public class EducationAction extends MVCPortlet {
 				educations.setEduLevel(eduLevel);
 				educations = EducationLocalServiceUtil
 						.updateEducation(educations);
+				log.info("EducationName updated updateEducation() method in EducationAction...");
 			}
 
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("NumberFormatException " + e);
 		} catch (PortalException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("PortalException " + e);
 		}
 	}
 
@@ -178,29 +198,36 @@ public class EducationAction extends MVCPortlet {
 	public void serveResource(ResourceRequest resourceRequest,
 			ResourceResponse resourceResponse) throws IOException {
 		if (resourceRequest.getResourceID().equals("deleteEducation")) {
-			System.out.println("deleting thes educations");
+
+			log.info("Entered into serveResource method for deleting education Record in EducationAction");
 
 			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,
 					"educationIds");
-			System.out.println(idsArray.length);
+
+			log.info("selected records idArray length = " + idsArray.length);
 
 			for (int i = 0; i <= idsArray.length - 1; i++) {
 
 				try {
 					try {
+						log.info(idsArray[i]);
 						EducationLocalServiceUtil.deleteEducation(Long
 								.parseLong(idsArray[i]));
 					} catch (PortalException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						log.error("PortalException serveResource deleting record in EducationAction"
+								+ e);
 					} catch (SystemException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						log.error("SystemException serveResource deleting record in EducationAction"
+								+ e);
 					}
 				} catch (NumberFormatException e) {
+					log.error("NumberFormatException serveResource deleting record in EducationAction"
+							+ e);
 				}
 			}
-
+			log.info("End of Deleting Education records EducationAction");
 		}
 
 	}
@@ -209,6 +236,7 @@ public class EducationAction extends MVCPortlet {
 			ActionResponse actionResponse) throws IOException,
 			PortletException, NumberFormatException, PortalException,
 			SystemException {
+		log.info("Entered into the editEducation method in EducationAction..");
 		String educationId = ParamUtil.getString(actionRequest, "educationId");
 		Education educations = EducationLocalServiceUtil.getEducation(Long
 				.parseLong(educationId));

@@ -14,75 +14,10 @@
 	<portlet:param name="mvcPath" value="/html/nationality/addnationality.jsp" />
 </portlet:renderURL>
 <aui:script>
-AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#nationalitydelete');
-    node.on(
-      'click',
-      function() {
-     var idArray = [];
-     A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
-      idArray.push(object.get("value"));
-    
-        });
-       if(idArray==""){
-			  alert("Please select records!");
-		  }else{
-			  var d = confirm("Are you sure you want to delete the selected records ?");
-		  if(d){
-		   var url = '<%=deletenationality%>';
-          A.io.request(url,
-         {
-          data: {  
-                <portlet:namespace />nationalityIds: idArray,  
-                 },
-          on: {
-               success: function() { 
-                   alert('deleted successfully');
-                   window.location='<%=listview%>';
-              },
-               failure: function() {
-                  
-                 }
-                }
-                 }
-                );
-		  																		
-		  console.log(idArray);
-	  
-      return true;
-  }
-  else
-    return false;
-}             
-      }
-    );
-  }
-);
-</aui:script><aui:script>
-AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#nationalityadd');
-    node.on(
-      'click',
-      function() {
-         A.one('#editnationalityadddelete').hide();
-         A.one('#editNationalityForm').show();
-         A.one("#nationalityId").set("value","");
-         A.one("#editnationality").set("value","");
-         
-                     
-      }
-    );
-  }
-);
-
 AUI().ready('event', 'node','transition',function(A){
   setTimeout(function(){
     A.one('#editNationalityMessage').transition('fadeOut');
-},1000)
+},2000)
  });
 
 AUI().use(

@@ -65,6 +65,7 @@ AUI().use(
       function() {
          A.one('#educationAddDelete').hide();
          A.one('#addEducationForm').show();
+         A.one('#educationName').focus();
                      
       }
     );
@@ -75,8 +76,9 @@ AUI().use(
 A.one('#addEducationForm').hide();
 setTimeout(function(){
 A.one('#addEducationMessage').transition('fadeOut');
-},1000)
 A.one('#addEducationMessage').hide();
+},2000)
+
 });
 
 
@@ -125,7 +127,7 @@ if(SessionMessages.contains(renderRequest.getPortletSession(),"educationName-emp
 						<aui:input name="educationId" type="hidden" id="educationId" />
 						<div class="form-inline">
 							<label>Level: </label>
-							<input name="<portlet:namespace/>education_level" type="text">
+							<input name="<portlet:namespace/>education_level" id="educationName" type="text">
 							<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
 							<button  type="reset" id ="canceleducation" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
 						</div>

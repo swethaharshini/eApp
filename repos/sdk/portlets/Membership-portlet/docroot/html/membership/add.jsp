@@ -59,7 +59,8 @@ AUI().ready('event', 'node','transition',function(A){
   A.one('#addMembershipForm').hide();
   setTimeout(function(){
     A.one('#addMembershipMessage').transition('fadeOut');
-},1000)
+    A.one('#addMembershipMessage').hide();
+},2000)
  });
 
 
