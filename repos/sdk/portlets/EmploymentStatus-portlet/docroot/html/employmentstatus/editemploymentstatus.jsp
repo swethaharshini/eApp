@@ -1,9 +1,9 @@
+<%@page import="org.apache.log4j.Logger"%>
 <%@ include file="/html/employmentstatus/init.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>editEmploymentstatus</title>
+
 <portlet:actionURL var="saveemploymentstatus" name="saveEmploymentStatus">
 </portlet:actionURL>
 <portlet:resourceURL var="deleteemploymentstatus" id="deleteEmploymentstatus"/>
@@ -14,7 +14,8 @@
  AUI().ready('event', 'node','transition',function(A){
   setTimeout(function(){
     A.one('#editEmploymentStatusMessage').transition('fadeOut');
-},1000)
+    A.one('#editEmploymentStatusMessage').hide();
+},2000)
  });
 
 AUI().use(
@@ -31,8 +32,7 @@ AUI().use(
 );
 
 </aui:script>
-</head>
-<body>
+<% Logger log=Logger.getLogger(this.getClass().getName());%>
 <% 
  EmploymentStatus editemploymentstatus = (EmploymentStatus)portletSession.getAttribute("editemploymentstatus");
 if(SessionMessages.contains(renderRequest.getPortletSession(),"employmentStatus-empty-error")){%>
@@ -56,7 +56,7 @@ if(SessionMessages.contains(renderRequest.getPortletSession(),"employmentStatus-
 		</aui:form>
 	</div>
 </div>
-</body>
+
 <%
 PortletURL iteratorURL = renderResponse.createRenderURL();
 iteratorURL.setParameter("mvcPath", "/html/employmentstatus/editemploymentstatus.jsp");
@@ -65,19 +65,19 @@ RowChecker rowChecker = new RowChecker(renderResponse);
 PortalPreferences portalPrefs = PortletPreferencesFactoryUtil.getPortalPreferences(request); 
 String sortByCol = ParamUtil.getString(request, "orderByCol"); 
 String sortByType = ParamUtil.getString(request, "orderByType"); 
-System.out.println("sortByCol == " +sortByCol);
-System.out.println("sortByType == " +sortByType);
+log.info("sortByCol == " +sortByCol);
+log.info("sortByType == " +sortByType);
 if (Validator.isNotNull(sortByCol ) && Validator.isNotNull(sortByType )) { 
-	System.out.println("if block...");
+	log.info("if block...");
 portalPrefs.setValue("NAME_SPACE", "sort-by-col", sortByCol); 
 portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol); 
  
 } else { 
 	sortByType = portalPrefs.getValue("NAME_SPACE", "sort-by-type ", "asc");   
 }
-System.out.println("after....");
-System.out.println("sortByCol == " +sortByCol);
-System.out.println("sortByType == " +sortByType);
+log.info("after....");
+log.info("sortByCol == " +sortByCol);
+log.info("sortByType == " +sortByType);
 long groupId=themeDisplay.getLayout().getGroup().getGroupId();
 DynamicQuery empStatusDynamicQuery = DynamicQueryFactoryUtil
 .forClass(EmploymentStatus.class,
@@ -94,7 +94,7 @@ List<EmploymentStatus> empDetails = EmploymentStatusLocalServiceUtil
 		<liferay-ui:search-container-results>
 				
 		<%
-		 System.out.println("addemployee jsp =========");
+		log.info("addemployee jsp =========");
         List<EmploymentStatus> employmentstatusList =empDetails;
         OrderByComparator orderByComparator = CustomComparatorUtil.getEmploymentStatusrOrderByComparator(sortByCol, sortByType);         
 
@@ -102,11 +102,11 @@ List<EmploymentStatus> empDetails = EmploymentStatusLocalServiceUtil
 
       results = ListUtil.subList(employmentstatusList, searchContainer.getStart(), searchContainer.getEnd());
       
-        System.out.println("results == " +results);
+      log.info("results == " +results);
        
  
            total = employmentstatusList!=null && employmentstatusList.size()!=0?employmentstatusList.size():0;
-               System.out.println("total == " +total);
+           log.info("total == " +total);
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);
  %>
@@ -119,4 +119,3 @@ List<EmploymentStatus> empDetails = EmploymentStatusLocalServiceUtil
 	<liferay-ui:search-iterator/>
 	
 </liferay-ui:search-container>
-</html>
