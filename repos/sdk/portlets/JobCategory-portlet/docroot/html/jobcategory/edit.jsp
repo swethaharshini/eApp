@@ -1,7 +1,6 @@
 <%@ include file="/html/jobcategory/init.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>jobcategory</title>
 <portlet:actionURL var="savejobcategory" name="saveJobcategory">
@@ -12,9 +11,11 @@
 </portlet:renderURL>
 <aui:script>
 AUI().ready('event', 'node','transition',function(A){
+ A.one('#jobcategoryName').focus();
   setTimeout(function(){
     A.one('#editJobcategoryMessage').transition('fadeOut');
-},1000)
+    A.one('#editJobcategoryMessage').hide();
+},2000)
  });
 
 
@@ -37,8 +38,6 @@ AUI().use(
 
 
 
-</head>
-<body>
 <%
  JobCategory editjobcategory = (JobCategory)portletSession.getAttribute("editjobcategory");
 %>
@@ -55,7 +54,7 @@ AUI().use(
 					<aui:input name="jobcategoryId" type="hidden" id="jobcategoryId" value="<%=editjobcategory.getJobCategoryId()%>" />
 					<div class="form-inline">
 						<label>Job Category: </label>
-						<input name="<portlet:namespace/>jobcategory" type="text" value="<%=editjobcategory.getJobcategory()%>">
+						<input name="<portlet:namespace/>jobcategory" id="jobcategoryName" type="text" value="<%=editjobcategory.getJobcategory()%>">
 						<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
 						<button  type="reset" id ="editjobcategorycancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
 					</div>
@@ -64,7 +63,7 @@ AUI().use(
 		</div>
 	</div>
 </div>
-</body>
+
 <%
 PortletURL iteratorURL = renderResponse.createRenderURL();
 iteratorURL.setParameter("mvcPath", "/html/jobcategory/edit.jsp");
@@ -118,4 +117,3 @@ List<JobCategory> jobCategoryList=JobCategoryLocalServiceUtil.dynamicQuery(dynam
 	<liferay-ui:search-iterator/>
 	
 </liferay-ui:search-container>
-</html>
