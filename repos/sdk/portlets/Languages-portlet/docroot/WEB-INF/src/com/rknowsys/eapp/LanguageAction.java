@@ -130,7 +130,7 @@ public class LanguageAction extends MVCPortlet {
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest
 				.getAttribute(WebKeys.THEME_DISPLAY);
 
-		String id = ParamUtil.getString(actionRequest, "LanguageId");
+		String id = ParamUtil.getString(actionRequest, "languageId");
 		String name = ParamUtil.getString(actionRequest, "language_name");
 		log.info(id);log.info(name);
 		String languageName = name.trim();
