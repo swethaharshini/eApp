@@ -1,12 +1,12 @@
 package com.rknowsys.eapp;
 
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
+import org.apache.log4j.Logger;
+
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.rknowsys.eapp.hrm.model.Interview;
 
 public class InterviewComparator extends OrderByComparator {
-	
+	private static Logger log = Logger.getLogger(InterviewComparator.class);
 	
 	private static final long serialVersionUID = 1L;
 
@@ -14,8 +14,7 @@ public class InterviewComparator extends OrderByComparator {
 	 
 	 public static String ORDER_BY_DESC = "status DESC";
 	 
-	 private static Log log = LogFactoryUtil.getLog(InterviewComparator.class);
-	 
+		 
 	 
 	  public InterviewComparator() 
 	  {
@@ -23,6 +22,7 @@ public class InterviewComparator extends OrderByComparator {
 	  }
 	 
 	  public InterviewComparator(boolean asc) {
+		  log.info("InterviewComparator");
 	   _asc = asc;
 	  }
 	 
@@ -33,10 +33,7 @@ public class InterviewComparator extends OrderByComparator {
 	   Interview instance1 = (Interview) obj1;
 	   Interview instance2 = (Interview) obj2;
 	   
-	   log.info("=====");
-	   log.info("instance1 === " +instance1.getName().toLowerCase());
-	   log.info("instance2 == " +instance2.getName().toLowerCase());
-	   
+	  	   
 	   int value = instance1.getName().toLowerCase().compareTo(instance2.getName().toLowerCase());
 	 
 	   if(_asc) 

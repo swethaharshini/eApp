@@ -1,11 +1,13 @@
 package com.rknowsys.eapp;
 
+import org.apache.log4j.Logger;
+
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.rknowsys.eapp.hrm.model.JobTitle;
 
 public class JobdescriptionComparator extends OrderByComparator {
 	
-	
+	private static Logger log = Logger.getLogger(JobdescriptionComparator.class);
 	private static final long serialVersionUID = 1L;
 
 	public static String ORDER_BY_ASC = "status ASC";
@@ -19,6 +21,7 @@ public class JobdescriptionComparator extends OrderByComparator {
 	  }
 	 
 	  public JobdescriptionComparator(boolean asc) {
+		  log.info("JobdescriptionComparator");
 	   _asc = asc;
 	  }
 	 
@@ -29,9 +32,6 @@ public class JobdescriptionComparator extends OrderByComparator {
 	   JobTitle instance1 = (JobTitle) obj1;
 	   JobTitle instance2 = (JobTitle) obj2;
 	   
-	   System.out.println("============");
-	   System.out.println("instance1 === " +instance1 .getDescription().toLowerCase());
-	   System.out.println("instance2 == " +instance2.getDescription().toLowerCase());
 	   
 	   int value = instance1.getDescription().toLowerCase().compareTo(instance2.getDescription().toLowerCase());
 	 

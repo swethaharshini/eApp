@@ -1,3 +1,4 @@
+<%@page import="org.apache.log4j.Logger"%>
 <%@page import="com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil"%>
 <%@page import="com.liferay.portal.kernel.portlet.PortletClassLoaderUtil"%>
 <%@page import="com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil"%>
@@ -9,9 +10,6 @@
 	<portlet:param name="mvcPath" value="/html/jobtitle/add.jsp" />
 </portlet:renderURL>
 <portlet:resourceURL var="deletejobtitle" id="deleteJobtitle"></portlet:resourceURL>
-<html>
-<head>
-<title>Add Jobtitle</title>
  <aui:script>
  AUI().use(
   'aui-node',
@@ -72,6 +70,7 @@ AUI().use(
       function() {
          A.one('#jobAddDelete').hide();
          A.one('#addJobForm').show();
+         A.one('#<portlet:namespace/>jobtitlename').focus();
                      
       }
     );
@@ -99,12 +98,12 @@ AUI().ready('event', 'node','transition',function(A){
 A.one('#addJobForm').hide();
 setTimeout(function(){
 A.one('#addJobMessage').transition('fadeOut');
+A.one('#addJobMessage').hide();
 },2000)
 });
 
 </aui:script>
-</head>
-<body>
+<% Logger log=Logger.getLogger(this.getClass().getName());%>
 <% if(SessionMessages.contains(renderRequest.getPortletSession(),"jobtitleName-empty-error")){%>
 <p id="addJobMessage" class="alert alert-error"><liferay-ui:message key="Please Enter JobtitleName"/></p>
 <%} 
@@ -146,7 +145,7 @@ A.one('#addJobMessage').transition('fadeOut');
 		</div>
 	</div>
 </div>
-</body>
+
  <%
 
 PortletURL iteratorURL = renderResponse.createRenderURL();
@@ -156,10 +155,10 @@ RowChecker rowChecker = new RowChecker(renderResponse);
 PortalPreferences portalPrefs = PortletPreferencesFactoryUtil.getPortalPreferences(request); 
 String sortByCol = ParamUtil.getString(request, "orderByCol"); 
 String sortByType = ParamUtil.getString(request, "orderByType"); 
-System.out.println("sortByCol == " +sortByCol);
-System.out.println("sortByType == " +sortByType);
+log.info("sortByCol == " +sortByCol);
+log.info("sortByType == " +sortByType);
 if (Validator.isNotNull(sortByCol ) && Validator.isNotNull(sortByType )) { 
-	System.out.println("if block...");
+	log.info("if block...in add.jsp");
  
 portalPrefs.setValue("NAME_SPACE", "sort-by-col", sortByCol); 
 portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol); 
@@ -170,9 +169,9 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 	sortByType = portalPrefs.getValue("NAME_SPACE", "sort-by-type ", "asc");   
 }
 
-System.out.println("after....");
-System.out.println("sortByCol == " +sortByCol);
-System.out.println("sortByType == " +sortByType);
+log.info("after....");
+log.info("sortByCol == " +sortByCol);
+log.info("sortByType == " +sortByType);
 long groupId=themeDisplay.getLayout().getGroup().getGroupId();
 DynamicQuery jobTitleDynamicQuery = DynamicQueryFactoryUtil
 .forClass(JobTitle.class,
@@ -198,11 +197,11 @@ List<JobTitle> jobTitleDetails = JobTitleLocalServiceUtil
   
           results = ListUtil.subList(jobtitleList, searchContainer.getStart(), searchContainer.getEnd());
           
-            System.out.println("results == " +results);
+            log.info("results == " +results);
            
      
                total = jobtitleList!=null && jobtitleList.size()!=0?jobtitleList.size():0;
-               System.out.println("total == " +total);
+               log.info("total == " +total);
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);
  %>
@@ -220,4 +219,3 @@ List<JobTitle> jobTitleDetails = JobTitleLocalServiceUtil
 	<liferay-ui:search-iterator/>
 	
 </liferay-ui:search-container> 
-</html>

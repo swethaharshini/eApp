@@ -1,3 +1,4 @@
+<%@page import="org.apache.log4j.Logger"%>
 <%@ include file="/html/terminationreasons/init.jsp"%>
 
 <portlet:actionURL var="saveterminationreasons" name="saveTerminationReasons">
@@ -77,6 +78,7 @@ AUI().use(
       function() {
          A.one('#terminationreasonsAddDelete').hide();
          A.one('#addterminationreasonsForm').show();
+         A.one('#terminationreasonsName').focus();
                      
       }
     );
@@ -87,7 +89,8 @@ AUI().ready('event', 'node','transition',function(A){
   A.one('#addterminationreasonsForm').hide();
   setTimeout(function(){
     A.one('#addTerminationReasonMessage').transition('fadeOut');
-},1000)
+    A.one('#addTerminationReasonMessage').hide();
+},2000)
  });
 
 AUI().use(
@@ -106,41 +109,49 @@ AUI().use(
 );
 
 </aui:script>
-</head>
-
-<body>
-
+<% Logger log=Logger.getLogger(this.getClass().getName());%>
  <% if(SessionMessages.contains(renderRequest.getPortletSession(),"termination-form-error")){%>
-<p id="addTerminationReasonMessage"><liferay-ui:message key="Please Enter TerminationReason"/></p>
+<p id="addTerminationReasonMessage" class="alert alert-error"><liferay-ui:message key="Please Enter TerminationReason"/></p>
 <%} 
  if(SessionMessages.contains(renderRequest.getPortletSession(),"termination-form-duplicate-error")){
 %>
-<p id="addTerminationReasonMessage"><liferay-ui:message key="TerminationName already Exits"/></p>
+<p id="addTerminationReasonMessage" class="alert alert-error"><liferay-ui:message key="TerminationName already Exits"/></p>
 <%} 
 %>
-		<div class="row-fluid">
+		
+	<div class="row-fluid">
 		<div id="terminationreasonsAddDelete" class="span12 text-right">
-			<a href="#" class="btn btn-primary" id="terminationreasonadd"><i class="icon-plus"></i>Add</a>
-			<a href="#" class="btn btn-danger" id="terminationreasondelete"><i class="icon-trash"></i>Delete</a>
+			<div class="control-group">
+				<a href="#" class="btn btn-primary" id="terminationreasonadd"><i class="icon-plus"></i> Add</a>
+				<a href="#" class="btn btn-danger" id="terminationreasondelete"><i class="icon-trash"></i> Delete</a>
+			</div>
 		</div>
 		<div  id="addterminationreasonsForm">
-		<aui:form name="myForm" action="<%=saveterminationreasons.toString()%>" >
-			<aui:input name="terminationreasonsId" type="hidden" id="terminationreasonsId" />
-			<div class="form-inline">
-				<label>TerminationReason Name: </label>
-				<input name="<portlet:namespace/>terminationreasonsName" type="text">
-				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i>Submit</button>
-				<button  type="reset" id ="terminationreasoncancel" class="btn btn-danger"><i class="icon-remove"></i>Cancel</button>
+			<div class="panel">
+				<div class="panel-heading">
+					<h4>Add</h4>
+				</div>
+				<div class="panel-body">
+					<aui:form name="myForm" action="<%=saveterminationreasons.toString()%>" >
+						<aui:input name="terminationreasonsId" type="hidden" id="terminationreasonsId" />
+						<div class="form-inline">
+							<label>TerminationReason Name: </label>
+							<input name="<portlet:namespace/>terminationreasonsName" id="terminationreasonsName" type="text">
+							<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
+							<button  type="reset" id ="terminationreasoncancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
+						</div>
+					</aui:form>
+				</div>
 			</div>
-		</aui:form>
 		</div>
 	</div>
+	
+	
 		
-		
-</body>
+
 
  <%
-
+log.info("add.jsp in terminationreasons-portlet");
 PortletURL iteratorURL = renderResponse.createRenderURL();
 iteratorURL.setParameter("mvcPath", "/html/terminationreasons/add.jsp");
 RowChecker rowChecker = new RowChecker(renderResponse);
