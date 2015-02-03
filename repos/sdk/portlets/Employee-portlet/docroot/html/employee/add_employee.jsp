@@ -1,36 +1,42 @@
 <%@ include file="/html/employee/init.jsp"%>
 <portlet:actionURL name="saveEmpDetails" var="saveEmpDetails"></portlet:actionURL>
+<portlet:renderURL var="backUrl">
+<portlet:param name="mvcPath" value="/html/employee/employeelist.jsp"/>
+</portlet:renderURL>
 <aui:script use="aui-base,aui-nodeuse,aui-form-validator, aui-overlay-context-panel">
 var A=new AUI();
-A.ready(function()
-{
- A.one("#createLoginDetailsDiv").hide();
-});
+	 A.ready(function()
+	 {
+	   A.one("#createLoginDetailsDiv").hide();
+	 });
 	  var checkbox_obj= A.one('input[name=<portlet:namespace/>createLoginDetailsCheckbox]')
 	  checkbox_obj.on('click',function()
-	  {
-	  
-	   if(A.one('input[name=<portlet:namespace/>createLoginDetailsCheckbox]:checked'))
 	   {
-	  A.one("#createLoginDetailsDiv").show();
-	  }
-	  else
-	  {
-	   A.one("#createLoginDetailsDiv").hide();
-	  }
+	    if(A.one('input[name=<portlet:namespace/>createLoginDetailsCheckbox]:checked'))
+	    {
+	      A.one("#createLoginDetailsDiv").show();
+	    }
+	   else
+	    {
+	      A.one("#createLoginDetailsDiv").hide();
+	    }
 	  });
-		var validator1 = new A.FormValidator({
-		boundingBox: document.<portlet:namespace />addEmployeeForm,
-		rules: {
-		<portlet:namespace />location: {
-		required: true
-		}},
-		fieldStrings: {
-		<portlet:namespace />location: {
-		required: 'Please select employee location'
-		}
-		}
-		});
+	 var validator1 = new A.FormValidator({
+	 boundingBox: document.<portlet:namespace />addEmployeeForm,
+	   rules: {
+	         <portlet:namespace />location: {
+	          required: true
+	          }},
+	   fieldStrings: {
+	         <portlet:namespace />location: {
+	         required: 'Please select employee location'
+	          }}
+	 });
+	 var addCancel=A.one("#<portlet:namespace/>cancelAdd");
+	 addCancel.on('click',function()
+	 { 
+	   window.location="<%= backUrl%>";
+	 });
 </aui:script>
 <div id="search_form" class="panel">
 	<div class="panel-heading">
@@ -79,7 +85,7 @@ A.ready(function()
 					<div class="controls">
 						<aui:button type="submit" value="Submit"
 							cssClass="button btn-primary" id="submitEmployee" />
-						<aui:button type="reset" value="Cancel" id="cancel"
+						<aui:button type="reset" value="Cancel" id="cancelAdd" name="cancelAdd"
 							cssClass="button btn-danger" />
 					</div>
 				</div>
