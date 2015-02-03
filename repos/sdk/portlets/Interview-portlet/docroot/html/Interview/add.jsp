@@ -1,6 +1,5 @@
+<%@page import="org.apache.log4j.Logger"%>
 <%@ include file="/html/Interview/init.jsp"%>
-<html>
-<head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Interview</title>
 <portlet:actionURL var="saveinterview" name="saveInterview">
@@ -70,6 +69,7 @@ AUI().use(
       function() {
          A.one('#interviewadddelete').hide();
          A.one('#addInterviewForm').show();
+         A.one('#interviewName').focus();
                      
       }
     );
@@ -80,7 +80,8 @@ AUI().ready('event', 'node','transition',function(A){
   A.one('#addInterviewForm').hide();
   setTimeout(function(){
     A.one('#addInterviewMessage').transition('fadeOut');
-},1000)
+    A.one('#addInterviewMessage').hide();
+},2000)
  });
 
 AUI().use(
@@ -99,9 +100,8 @@ AUI().use(
 );
 
 </aui:script>
-</head>
+<% Logger log=Logger.getLogger(this.getClass().getName());%>
 
-<body>
 <% if(SessionMessages.contains(renderRequest.getPortletSession(),"interviewName-empty-error")){%>
 <p id="addInterviewMessage" class="alert alert-error"><liferay-ui:message key="Please Enter InterviewName"/></p>
 <%} 
@@ -124,15 +124,14 @@ AUI().use(
 					<aui:input name="interviewId" type="hidden" id="interviewId" />
 					<div class="form-inline">
 						<label>Interview Name: </label>
-						<input name="<portlet:namespace/>name" type="text">
+						<input name="<portlet:namespace/>name" type="text" id="interviewName">
 						<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
 						<button  type="reset" id ="interviewcancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
 					</div>
 				</aui:form>
 			</div>
 		</div>
- 	
-</body>
+
 
 <%
 
@@ -143,10 +142,10 @@ RowChecker rowChecker = new RowChecker(renderResponse);
 PortalPreferences portalPrefs = PortletPreferencesFactoryUtil.getPortalPreferences(request); 
 String sortByCol = ParamUtil.getString(request, "orderByCol"); 
 String sortByType = ParamUtil.getString(request, "orderByType"); 
-System.out.println("sortByCol == " +sortByCol);
-System.out.println("sortByType == " +sortByType);
+log.info("sortByCol == " +sortByCol);
+log.info("sortByType == " +sortByType);
 if (Validator.isNotNull(sortByCol ) && Validator.isNotNull(sortByType )) { 
-	System.out.println("if block...");
+	log.info("if block...add.jsp");
  
 portalPrefs.setValue("NAME_SPACE", "sort-by-col", sortByCol); 
 portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol); 
@@ -157,9 +156,9 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 	sortByType = portalPrefs.getValue("NAME_SPACE", "sort-by-type ", "asc");   
 }
 
-System.out.println("after....");
-System.out.println("sortByCol == " +sortByCol);
-System.out.println("sortByType == " +sortByType);
+log.info("after....");
+log.info("sortByCol == " +sortByCol);
+log.info("sortByType == " +sortByType);
 long groupId=themeDisplay.getLayout().getGroup().getGroupId();
 DynamicQuery interviewDynamicQuery = DynamicQueryFactoryUtil
 .forClass(Interview.class,
@@ -211,5 +210,3 @@ List<Interview> interviewDetails = InterviewLocalServiceUtil
 
 </liferay-ui:search-container>
 </div>
-
-</html>
