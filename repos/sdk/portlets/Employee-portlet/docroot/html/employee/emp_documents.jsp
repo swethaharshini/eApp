@@ -3,60 +3,54 @@
 <%@page import="com.liferay.portal.kernel.repository.model.FileEntry"%>
 <%@ include file="/html/employee/init.jsp"%>
 <portlet:actionURL var="updateEmpDocuments" name="updateEmpDocuments"></portlet:actionURL>
+<portlet:resourceURL var="downloadFileUrl" id="dowloadFileUrl"></portlet:resourceURL>
 <%
 	Map empId = (Map) request.getSession(false).getAttribute("empId");
 	long employeeId = (Long) empId.get("empId");
 	String jsp = (String) empId.get("jsp");
 	long fileEntryId = (Long) empId.get("fileId");
 %>
-<aui:script>
+<aui:script use="aui-form-validator, aui-overlay-context-panel,aui-base,aui-node,aui-io-request-deprecated">
 var A=new AUI();
 A.ready(function(){
 window.selectCategory= function(nodeValue)
-         {
+     {
 		var selectedCategoryValue=nodeValue;
-		if(selectedCategoryValue=="-1")
+		 if(selectedCategoryValue=="-1")
 		 {
 		 alert("Please select a category");
 		 }
-           };  
-     });        
-</aui:script>
-<aui:script use="aui-form-validator, aui-overlay-context-panel">
+      };  
+   });        
 var validator1 = new A.FormValidator({
-boundingBox: document.<portlet:namespace />add_documents,
-rules: {
-<portlet:namespace />doc_related_to: {
-required: true
-}},
-fieldStrings: {
-<portlet:namespace />doc_related_to: {
-required: '<liferay-ui:message key="01_select-doc-category"></liferay-ui:message>'
-}
-}
+     boundingBox: document.<portlet:namespace />add_documents,
+     rules: {
+            <portlet:namespace />doc_related_to: {
+            required: true
+            }},
+     fieldStrings: {
+            <portlet:namespace />doc_related_to: {
+            required: '<liferay-ui:message key="01_select-doc-category"></liferay-ui:message>'
+              }
+             }
 });
-</aui:script>
-<aui:script use="aui-base,aui-node,aui-io-request-deprecated">
 var A=new AUI();
 A.ready(function()
   {
-  A.one('#addingDocuments').hide();
-  var addButton=A.one('#<portlet:namespace />addNewDocument');
-   addButton.on('click',
-   function()
-   {
-   A.one('#<portlet:namespace />addNewDocument').hide();
-   A.one('#<portlet:namespace />deleteDocument').hide();
-   A.one('#addingDocuments').show();
-   
-   A.all('input[type=text]').set('disabled',false);
-   A.all('select').set('disabled',false);
-   A.all('input[type=radio]').set('disabled',false);
+   A.one('#addingDocuments').hide();
+   var addButton=A.one('#<portlet:namespace />addNewDocument');
+   addButton.on('click',function()
+     {
+	   A.one('#<portlet:namespace />addNewDocument').hide();
+	   A.one('#<portlet:namespace />deleteDocument').hide();
+	   A.one('#addingDocuments').show();
+	   A.all('input[type=text]').set('disabled',false);
+	   A.all('select').set('disabled',false);
+	   A.all('input[type=radio]').set('disabled',false);
    });
    var cancelButton=A.one('#<portlet:namespace />cancelDocumentAdd');
    cancelButton.on('click',function()
    {
-   alert("hrllo");
 	   A.one('#addingDocuments').hide();
 	   A.one('#<portlet:namespace />addNewDocument').show();
        A.one('#<portlet:namespace />deleteDocument').show();
@@ -155,16 +149,9 @@ A.ready(function()
 										+ files.isEmpty());
 							} catch (Exception e) {
 								System.out.println("exception occured is" + e.getMessage());
-								////user with this primary key was not found in DB .....           
-							}//
+							}
 						}
 						List<DLFileEntry> fileEntries=new ArrayList<DLFileEntry>(files);
-						/* DynamicQuery query = 
-						query.add(PropertyFactoryUtil.forName("employeeI­d").in(expandoValueUserIds));
-						try {
-						foundUsers.addAll(UserLocalServiceUtil.dynamicQuery(query));
-						} catch (SystemException e) {
-						}  */
 						results = ListUtil.subList(fileEntries, searchContainer.getStart(), searchContainer.getEnd());
 						total = fileEntries.size();
 						pageContext.setAttribute("results", results);
@@ -174,7 +161,7 @@ A.ready(function()
 		<liferay-ui:search-container-row  className="com.liferay.portlet.documentlibrary.model.DLFileEntry" modelVar="fileEntry"  rowVar="curRow" 
 	escapedModel="<%=true %>">
 			<liferay-ui:search-container-column-text orderable="true" name="Name"
-				property="name" />
+				property="name" href="<%=downloadFileUrl.toString() %>" />
 			<liferay-ui:search-container-column-text orderable="true"
 				name="Extension" property="extension" />
 			<liferay-ui:search-container-column-text orderable="true"
