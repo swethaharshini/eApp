@@ -1,5 +1,6 @@
 <%@ include file="/html/employee/init.jsp"%>
 <%
+
 Map empId = (Map) request.getSession(false).getAttribute(
 		"empId");
 long employeeId = (Long)empId.get("empId");
@@ -114,11 +115,11 @@ AUI().use(
 				<h3><%=empPersonalDetails.getFirstName()%></h3>
 			</div>
 			<div class="panel-body">
-			 <img alt="upload an Image" src="<%=displayImage%>" >
-			 <a href="#" onclick="updateImage()">Change Photo</a>
+				<img alt="upload an Image" src="<%=displayImage%>"> <a
+					href="#" onclick="updateImage()">Change Photo</a>
 			</div>
 		</div>
-	<c:choose>
+		<c:choose>
 		<c:when test='<%= jsp.equals("jsp0") || jsp.equals("jsp1") %>'>
 		<li class="active" ><a href="#tab-1" ><i class="icon-user"></i><liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
 		<li><a href="#tab-2" ><i class="icon-envelope"></i><liferay-ui:message key="01_emp-contact-details"></liferay-ui:message></a></li>
