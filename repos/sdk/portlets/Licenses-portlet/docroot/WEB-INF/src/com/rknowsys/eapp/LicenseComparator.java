@@ -1,9 +1,12 @@
 package com.rknowsys.eapp;
 
+import org.apache.log4j.Logger;
+
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.rknowsys.eapp.hrm.model.License;
 
 public class LicenseComparator extends OrderByComparator{
+	private static Logger log = Logger.getLogger(LicenseComparator.class);
 	private static final long serialVersionUID = 1L;
 
 	public static String ORDER_BY_ASC = "status ASC";
@@ -17,6 +20,7 @@ public class LicenseComparator extends OrderByComparator{
 	  }
 	 
 	  public LicenseComparator(boolean asc) {
+		  log.info("LicenseComparator");
 	   _asc = asc;
 	  }
 	 

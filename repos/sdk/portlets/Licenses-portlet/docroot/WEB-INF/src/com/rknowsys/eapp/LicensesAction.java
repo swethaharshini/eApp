@@ -11,6 +11,8 @@ import javax.portlet.PortletSession;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
+import org.apache.log4j.Logger;
+
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.kernel.dao.orm.Criterion;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
@@ -31,18 +33,23 @@ import com.rknowsys.eapp.hrm.service.LicenseLocalServiceUtil;
  * Portlet implementation class LicensesAction
  */
 public class LicensesAction extends MVCPortlet {
+	private static Logger log = Logger.getLogger(LicensesAction.class);
 	Date date = new Date();
 
 	public void saveLicense(ActionRequest actionRequest,
 			ActionResponse actionResponse) throws IOException,
 			PortletException, SystemException {
+		log.info("saveLicense method");
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest
 				.getAttribute(WebKeys.THEME_DISPLAY);
 		String id = ParamUtil.getString(actionRequest, "LicenseId");
 		String name = ParamUtil.getString(actionRequest, "license_name");
+		log.info(id);
+		log.info(name);
 		String licenseName = name.trim();
 		try {
 			if (licenseName == null || licenseName.equals("")) {
+				log.info("Empty value in licenseName");
 
 				SessionMessages.add(actionRequest.getPortletSession(),
 						"licenseName-empty-error");
@@ -50,13 +57,14 @@ public class LicensesAction extends MVCPortlet {
 						"/html/license/add.jsp");
 
 			} else {
-				Criterion criterion=null;
+				Criterion criterion = null;
 				DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
 						License.class, PortletClassLoaderUtil.getClassLoader());
-				criterion=RestrictionsFactoryUtil
-						.eq("licenseName", name);
-				criterion=RestrictionsFactoryUtil.and(criterion,RestrictionsFactoryUtil
-						.eq("groupId", themeDisplay.getLayout().getGroup().getGroupId()));
+				criterion = RestrictionsFactoryUtil.eq("licenseName", name);
+				criterion = RestrictionsFactoryUtil.and(
+						criterion,
+						RestrictionsFactoryUtil.eq("groupId", themeDisplay
+								.getLayout().getGroup().getGroupId()));
 				dynamicQuery.add(criterion);
 				@SuppressWarnings("unchecked")
 				List<License> licensesList = LicenseLocalServiceUtil
@@ -64,6 +72,7 @@ public class LicensesAction extends MVCPortlet {
 				if (licensesList.size() > 0) {
 					License license = licensesList.get(0);
 					if (license.getLicenseName().equalsIgnoreCase(name)) {
+						log.info("DuplicateName in licenseName");
 						SessionMessages.add(actionRequest.getPortletSession(),
 								"licenseName-duplicate-error");
 						actionResponse.setRenderParameter("mvcPath",
@@ -83,13 +92,15 @@ public class LicensesAction extends MVCPortlet {
 						licenses.setModifiedDate(date);
 						licenses.setCompanyId(themeDisplay.getCompanyId());
 						try {
-							licenses.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
+							licenses.setGroupId(themeDisplay.getLayout()
+									.getGroup().getGroupId());
 						} catch (PortalException e) {
 							e.printStackTrace();
 						}
 						licenses.setUserId(themeDisplay.getUserId());
 						licenses.setLicenseName(name);
 						licenses = LicenseLocalServiceUtil.addLicense(licenses);
+						log.info("New licenseName added");
 					}
 				}
 			}
@@ -103,16 +114,20 @@ public class LicensesAction extends MVCPortlet {
 	public void updateLicense(ActionRequest actionRequest,
 			ActionResponse actionResponse) throws IOException,
 			PortletException, SystemException {
+		log.info("updateLicense method");
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest
 				.getAttribute(WebKeys.THEME_DISPLAY);
 
 		String id = ParamUtil.getString(actionRequest, "licenseId");
 		String name = ParamUtil.getString(actionRequest, "license_name");
+		log.info(id);
+		log.info(name);
 		String licenseName = name.trim();
 		System.out.println("id == " + id);
 		License licenses;
 		try {
 			if (licenseName == null || licenseName.equals("")) {
+				log.info("empty value in licenseName edit.jsp");
 
 				License license = LicenseLocalServiceUtil.getLicense(Long
 						.parseLong(id));
@@ -125,27 +140,30 @@ public class LicensesAction extends MVCPortlet {
 				actionResponse.setRenderParameter("mvcPath",
 						"/html/license/edit.jsp");
 
-			}
+			} else {
+				licenses = LicenseLocalServiceUtil.getLicense(Long
+						.parseLong(id));
+				licenses.setCreateDate(date);
+				licenses.setModifiedDate(date);
+				licenses.setCompanyId(themeDisplay.getCompanyId());
+				try {
+					licenses.setGroupId(themeDisplay.getLayout().getGroup()
+							.getGroupId());
+				} catch (PortalException e) {
+					e.printStackTrace();
+				}
+				licenses.setUserId(themeDisplay.getUserId());
+				licenses.setLicenseName(name);
+				licenses = LicenseLocalServiceUtil.updateLicense(licenses);
+				log.info("licenseName updated");
 
-			licenses = LicenseLocalServiceUtil.getLicense(Long.parseLong(id));
-			licenses.setCreateDate(date);
-			licenses.setModifiedDate(date);
-			licenses.setCompanyId(themeDisplay.getCompanyId());
-			try {
-				licenses.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
-			} catch (PortalException e) {
-				e.printStackTrace();
 			}
-			licenses.setUserId(themeDisplay.getUserId());
-			licenses.setLicenseName(name);
-			licenses = LicenseLocalServiceUtil.updateLicense(licenses);
-
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error(e);
 		} catch (PortalException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error(e);
 		}
 	}
 
@@ -166,11 +184,11 @@ public class LicensesAction extends MVCPortlet {
 	public void serveResource(ResourceRequest resourceRequest,
 			ResourceResponse resourceResponse) throws IOException {
 		if (resourceRequest.getResourceID().equals("deleteLicense")) {
-			System.out.println("deleting thes licenses");
+			log.info("deleting thes licenses");
 
 			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,
 					"licenseIds");
-			System.out.println(idsArray.length);
+			log.info(idsArray.length);
 
 			for (int i = 0; i <= idsArray.length - 1; i++) {
 
@@ -180,12 +198,13 @@ public class LicensesAction extends MVCPortlet {
 								.parseLong(idsArray[i]));
 					} catch (PortalException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						log.error(e);
 					} catch (SystemException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						log.error(e);
 					}
 				} catch (NumberFormatException e) {
+					log.error(e);
 				}
 			}
 
@@ -197,6 +216,7 @@ public class LicensesAction extends MVCPortlet {
 			ActionResponse actionResponse) throws IOException,
 			PortletException, NumberFormatException, PortalException,
 			SystemException {
+		log.info("editLicense method");
 		Long licenseId = ParamUtil.getLong(actionRequest, "licenseId");
 		License licenses = LicenseLocalServiceUtil.getLicense(licenseId);
 		PortletSession portletSession = actionRequest.getPortletSession();

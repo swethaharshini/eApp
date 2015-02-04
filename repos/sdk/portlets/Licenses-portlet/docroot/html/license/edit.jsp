@@ -10,8 +10,10 @@
 
 </aui:script><aui:script>
 AUI().ready('event', 'node','transition',function(A){
+  A.one('#licenseName').focus();
   setTimeout(function(){
     A.one('#editLicenseMessage').transition('fadeOut');
+    A.one('#editLicenseMessage').hide();
 },2000)
  });
 
@@ -31,11 +33,6 @@ AUI().use(
 );
 
 </aui:script>
-
-
-
-</head>
-<body>
 <% 
  License editLicense = (License)portletSession.getAttribute("editLicense");
 if(SessionMessages.contains(renderRequest.getPortletSession(),"licenseName-empty-error")){%>
@@ -54,7 +51,7 @@ if(SessionMessages.contains(renderRequest.getPortletSession(),"licenseName-empty
 						<aui:input name="licenseId" type="hidden" id="licenseId"  value="<%=editLicense.getLicenseId()%>" />
 						<div class="form-inline">
 							<label>License Name: </label>
-							<input name="<portlet:namespace/>license_name" type="text" value="<%=editLicense.getLicenseName() %>" >
+							<input name="<portlet:namespace/>license_name" id="licenseName" type="text" value="<%=editLicense.getLicenseName() %>" >
 							<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
 							<button  type="reset" id ="editlicensecancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
 						</div>
@@ -63,8 +60,7 @@ if(SessionMessages.contains(renderRequest.getPortletSession(),"licenseName-empty
 			</div>
 		</div>
 	</div>
-  
-</body>
+
 <%
 PortletURL iteratorURL = renderResponse.createRenderURL();
 iteratorURL.setParameter("mvcPath", "/html/license/edit.jsp");
@@ -116,7 +112,7 @@ List<License> licenseDetails = LicenseLocalServiceUtil
 	<liferay-ui:search-iterator/>
 	
 </liferay-ui:search-container>
-</html>
+
 
 
 
