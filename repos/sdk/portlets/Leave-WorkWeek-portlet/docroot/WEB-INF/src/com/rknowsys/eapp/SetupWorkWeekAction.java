@@ -50,16 +50,17 @@ public class SetupWorkWeekAction extends MVCPortlet {
 	 * @throws IOException
 	 * @throws PortletException
 	 * @throws SystemException
+	 * @throws PortalException 
 	 */
 	public void saveWorkWeek(ActionRequest actionRequest,
 			ActionResponse actionResponse) throws IOException,
-			PortletException, SystemException {
+			PortletException, SystemException, PortalException {
 		log.info("inside saveWorkWeek...");
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest
 				.getAttribute(WebKeys.THEME_DISPLAY);
 		log.info("company Id == " + themeDisplay.getCompanyId());
 		log.info("userId = " + themeDisplay.getUserId());
-		log.info("groupId = " + themeDisplay.getCompanyGroupId());
+		log.info("groupId = " + themeDisplay.getLayout().getGroup().getGroupId());
 
 		com.rknowsys.eapp.ui.WorkWeek workWeekUI = new com.rknowsys.eapp.ui.WorkWeek();
 
@@ -99,7 +100,7 @@ public class SetupWorkWeekAction extends MVCPortlet {
 					"/html/workweek/edit_work_week.jsp");
 		} catch (SystemException e) {
 
-			e.printStackTrace();
+		   log.error(e);
 			log.info("system exception");
 		}
 		log.info("end of the saveWorkWeek method");
@@ -156,9 +157,9 @@ public class SetupWorkWeekAction extends MVCPortlet {
 				NATIONALITY_ID));
 	}
 
-	private void setAuditFields(ThemeDisplay themeDisplay, WorkWeek workWeek) {
+	private void setAuditFields(ThemeDisplay themeDisplay, WorkWeek workWeek) throws PortalException, SystemException {
 		workWeek.setCompanyId(themeDisplay.getCompanyId());
-		workWeek.setGroupId(themeDisplay.getCompanyGroupId());
+		workWeek.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
 		workWeek.setUserId(themeDisplay.getUserId());
 		workWeek.setModifiedDate(new Date());
 	}
@@ -201,7 +202,7 @@ public class SetupWorkWeekAction extends MVCPortlet {
 				ww = workweeks.get(0);
 			}
 		} catch (SystemException e) {
-			e.printStackTrace();
+			log.error(e);
 		}
 
 		resourceResponse.setContentType("text/html");
@@ -258,7 +259,7 @@ public class SetupWorkWeekAction extends MVCPortlet {
 			}
 
 		} catch (SystemException e) {
-			e.printStackTrace();
+			log.error(e);
 		}
 		super.doView(renderRequest, renderResponse);
 	}

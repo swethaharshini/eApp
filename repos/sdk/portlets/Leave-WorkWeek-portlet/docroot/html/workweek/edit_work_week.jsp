@@ -2,10 +2,8 @@
 <%@page import="com.liferay.portal.kernel.util.WebKeys"%>
 <%@ include file="/html/workweek/init.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Work Week</title>
+
 <portlet:actionURL var="saveWorkWeek" name="saveWorkWeek">
 </portlet:actionURL>
 
@@ -60,9 +58,6 @@ AUI().ready('event', 'node', function(A){
     }
 
 </aui:script>
-</head>
-
-<body>
  
  <div id="editWorkWeekReadOnly" class="form-horizontal">
 		<aui:input name="workWeekId" type="hidden" value="<%=editWorkWeek.getWorkWeekId() %>"/>
@@ -313,5 +308,3 @@ AUI().ready('event', 'node', function(A){
 
 	</aui:form>
 </div>
-</body>
-</html>
