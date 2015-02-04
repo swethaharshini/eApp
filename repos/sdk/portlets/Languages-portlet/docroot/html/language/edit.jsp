@@ -8,6 +8,7 @@
 <aui:script>
 
  AUI().ready('event', 'node','transition',function(A){
+  A.one('#languageName').focus();
   setTimeout(function(){
     A.one('#editLanguageMessage').transition('fadeOut');
 },2000)
@@ -52,7 +53,7 @@ AUI().use(
 						<aui:input name="languageId" type="hidden" id="languageId" value="<%=editLanguage.getLanguageId()%>"/>
 						<div class="form-inline">
 							<label>Language Name: </label>
-							<input name="<portlet:namespace/>language_name" type="text" value="<%=editLanguage.getLanguageName()%>">
+							<input name="<portlet:namespace/>language_name" id="languageName" type="text" value="<%=editLanguage.getLanguageName()%>">
 							<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
 							<button  type="reset" id ="languagecancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
 						</div>

@@ -96,9 +96,6 @@ AUI().use(
 );
 
 </aui:script>
-</head>
-
-<body>
 <% if(SessionMessages.contains(renderRequest.getPortletSession(),"languageName-empty-error")){%>
 <p id="addLanguageMessage" class="alert alert-error"><liferay-ui:message key="Please Enter LanguageName"/></p>
 <%} 
@@ -134,8 +131,7 @@ AUI().use(
 			</div>
 		</div>
 	</div>
-	
-</body>
+
 
 <%
 
