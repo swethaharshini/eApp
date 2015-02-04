@@ -47,16 +47,17 @@ public class NationalityAction extends MVCPortlet {
 	 * @throws IOException
 	 * @throws PortletException
 	 * @throws SystemException
+	 * @throws PortalException 
 	 */
 	public void saveNationality(ActionRequest actionRequest,
 			ActionResponse actionResponse) throws IOException,
-			PortletException, SystemException {
+			PortletException, SystemException, PortalException {
 		log.info("inside saveNationality...");
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest
 				.getAttribute(WebKeys.THEME_DISPLAY);
 		log.info("company Id == " + themeDisplay.getCompanyId());
 		log.info("userId = " + themeDisplay.getUserId());
-		log.info("groupId = " + themeDisplay.getCompanyGroupId());
+		log.info("groupId = " + themeDisplay.getLayout().getGroup().getGroupId());
 		String id = ParamUtil.getString(actionRequest, "nationalityId");
 		String name = ParamUtil.getString(actionRequest, "nationalityName");
 		String nationalityName = name.trim();
@@ -67,6 +68,7 @@ public class NationalityAction extends MVCPortlet {
 				log.info("inside if loop...");
 				
 				if(nationalityName == null || nationalityName.equals("")){
+					log.info("empty value in nationalityName");
 					
 					SessionMessages.add(actionRequest.getPortletSession(),
 							"nationalityName-empty-error");
@@ -77,12 +79,14 @@ public class NationalityAction extends MVCPortlet {
 				else{
 				DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(Nationality.class,PortletClassLoaderUtil.getClassLoader());
 				dynamicQuery.add(RestrictionsFactoryUtil.eq("name", name));
+				dynamicQuery.add(RestrictionsFactoryUtil.eq("groupId", themeDisplay.getLayout().getGroup().getGroupId()));
 				@SuppressWarnings("unchecked")
 				List<Nationality> list = NationalityLocalServiceUtil.dynamicQuery(dynamicQuery);
 				if(list.size()>0){
 					
 					Nationality nationality = list.get(0);
 					if(nationality.getName().equalsIgnoreCase(name)){
+						log.info("Duplicate value value in nationalityName");
 						
 						SessionMessages.add(actionRequest.getPortletSession(),
 								"nationalityName-duplicate-error");
@@ -101,7 +105,7 @@ public class NationalityAction extends MVCPortlet {
 				nationality.setCreateDate(date);
 				nationality.setModifiedDate(date);
 				nationality.setCompanyId(themeDisplay.getCompanyId());
-				nationality.setGroupId(themeDisplay.getCompanyGroupId());
+				nationality.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
 				nationality.setUserId(themeDisplay.getUserId());
 				
 				nationality = NationalityLocalServiceUtil.addNationality(nationality);
@@ -133,7 +137,7 @@ public class NationalityAction extends MVCPortlet {
 						"nationalityName"));
 				nationality2.setModifiedDate(date);
 				nationality2.setCompanyId(themeDisplay.getCompanyId());
-				nationality2.setGroupId(themeDisplay.getCompanyGroupId());
+				nationality2.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
 				nationality2.setUserId(themeDisplay.getUserId());
 
 							
@@ -143,15 +147,13 @@ public class NationalityAction extends MVCPortlet {
 			}}
 		} catch (SystemException e) {
 			
-			e.printStackTrace();
-		    log.info("system exception");
+			log.error(e);
 		} catch (PortalException e) {
 
-			e.printStackTrace();
-			log.info("portalexception");
+			log.error(e);
 		}
-		System.out.println("end of the saveNationality method");
-		log.info("end of the  method");
+		
+		log.info("end of the saveNationality  method");
 
 	}
 
@@ -178,9 +180,10 @@ public class NationalityAction extends MVCPortlet {
 			Nationality nationality;
 			try {
 				nationality = NationalityLocalServiceUtil.createNationality(CounterLocalServiceUtil.increment());
+			 log.info(nationality);
 			} catch (SystemException e1) {
 
-				e1.printStackTrace();
+				log.error(e1);
 			}
 			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,
 					"nationalityIds");
@@ -202,12 +205,10 @@ public class NationalityAction extends MVCPortlet {
 						log.info("end of try block in delete...");
 					} catch (PortalException e) {
 
-						e.printStackTrace();
-						log.info("portal exception...");
+						log.error(e);
 					} catch (SystemException e) {
 
-						e.printStackTrace();
-						log.info("system exception...");
+						log.error(e);
 						
 					}
 				}

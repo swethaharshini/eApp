@@ -24,4 +24,6 @@
 <%@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util"%>
 <%@page import="com.liferay.portal.kernel.dao.search.SearchContainer"%>
 <%@ page import="javax.portlet.PortletPreferences" %>
+<%@ taglib uri="http://liferay.com/tld/theme" prefix="theme" %>
+<theme:defineObjects/>
 <portlet:defineObjects />
