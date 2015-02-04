@@ -1,5 +1,7 @@
 package com.rknowsys.eapp;
 
+import org.apache.log4j.Logger;
+
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.rknowsys.eapp.hrm.model.TerminationReasons;
 
@@ -9,6 +11,9 @@ import com.rknowsys.eapp.hrm.model.TerminationReasons;
  * 
  */
 public class TerminationReasonNameComparator extends OrderByComparator {
+	private static Logger log = Logger
+.getLogger(TerminationReasonNameComparator.class);
+	
 	private static final long serialVersionUID = 1L;
 
 	public static String ORDER_BY_ASC = "status ASC";
@@ -20,6 +25,7 @@ public class TerminationReasonNameComparator extends OrderByComparator {
 	}
 
 	public TerminationReasonNameComparator(boolean asc) {
+		log.info("TerminationReasonNameComparator");
 		_asc = asc;
 	}
 

@@ -1,3 +1,4 @@
+<%@page import="org.apache.log4j.Logger"%>
 <%@ include file="/html/jobtitle/init.jsp"%>
 <portlet:actionURL var="savejobtitle" name="saveJobtitle">
 </portlet:actionURL>
@@ -5,78 +6,12 @@
 	<portlet:param name="mvcPath" value="/html/jobtitle/add.jsp" />
 </portlet:renderURL>
 <portlet:resourceURL var="deletejobtitle" id="deleteJobtitle"></portlet:resourceURL>
-<html>
-<head>
-<title>Edit Jobtitle</title>
+
 <aui:script>
- AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#jobtitledelete');
-    node.on(
-      'click',
-      function() {
-     var idArray = [];
-      A.all('input[type=checkbox]:checked').each(function(object) {
-      idArray.push(object.get("value"));
-    
-        });
-       if(idArray==""){
-			  alert("Please select records!");
-		  }else{
-			  var d = confirm("Are you sure you want to delete the selected jobtitle ?");
-		  if(d){
-		   var url = '<%=deletejobtitle%>';
-          A.io.request(url,
-         {
-          data: {  
-                <portlet:namespace />jobtitleIds: idArray,  
-                 },
-          on: {
-               success: function() { 
-                   alert('Deleted Successfully');
-                   window.location='<%=listview%>';
-              },
-               failure: function() {
-                  
-                 }
-                }
-                 }
-                );
-		  																		
-		  console.log(idArray);
-	  
-      return true;
-  }
-  else
-    return false;
-}             
-      }
-    );
-  }
-);
- 
- 
- </aui:script>
-  <aui:script>
-AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#jobtitleadd');
-    node.on(
-      'click',
-      function() {
-         A.one('#editJobAddDelete').hide();
-         A.one('#editJobForm').show();
-                     
-      }
-    );
-  }
-);
 
 AUI().ready('event', 'node', function(A){
 
-  A.one('#editJobAddDelete').hide();
+  A.one('#<portlet:namespace/>jobtitlename').focus();
  
  });
 
@@ -97,29 +32,21 @@ AUI().use(
 );
 
 </aui:script>
-</head>
-
 
 <%
- 
+Logger log=Logger.getLogger(this.getClass().getName());
 JobTitle jobtitle = (JobTitle) portletSession.getAttribute("editjobtitle");
 
 
 %> 
 
- 
 
-<body>
-  
   <% if(SessionMessages.contains(renderRequest.getPortletSession(),"jobtitleName-empty-error")){%>
 <p id="addJobMessage" class="alert alert-error"><liferay-ui:message key="Please Enter JobtitleName"/></p>
 <%}
 %>
 <div class="row-fluid">
-	<div id="editJobAddDelete" class="span12 text-right">
-		<a href="#" class="btn btn-primary" id="jobtitleadd"><i class="icon-plus"></i></a>
-		<a href="#" class="btn btn-danger" id="jobtitledelete"><i class="icon-trash"></i></a>
-	</div>
+	
 	<div  id="editJobForm">
 		<div class="panel">
 			<div class="panel-heading">
@@ -131,8 +58,8 @@ JobTitle jobtitle = (JobTitle) portletSession.getAttribute("editjobtitle");
 						<input class="jobtitleId" type="hidden" id="jobtitleId"	name='<portlet:namespace/>jobtitleId' value="<%=jobtitle.getJobTitleId() %>">
 						<label class="control-label">Job Title<em>*</em></label>
 						<aui:input type="text" label="" name="title" maxlength="100" id="jobtitlename" value="<%=jobtitle.getTitle()%>"/>
-						<aui:input type="textarea" label="Job Description" rows="4" cols="30" name="<portlet:namespace/>description" maxlength="400" id="description"><%=jobtitle.getDescription()%></aui:input>
-						<aui:input type="textarea" label="Note" rows="4" cols="30" name="<portlet:namespace/>notes" id="notes"><%=jobtitle.getNotes()%></aui:input>
+						<aui:input type="textarea" label="Job Description" rows="4" cols="30" name="description" maxlength="400" id="description" value="<%=jobtitle.getDescription()%>"></aui:input>
+						<aui:input type="textarea" label="Note" rows="4" cols="30" name="notes" id="notes" value="<%=jobtitle.getNotes()%>"></aui:input>
 						<div class="control-group">
 							<div class="controls">
 								<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
@@ -146,7 +73,6 @@ JobTitle jobtitle = (JobTitle) portletSession.getAttribute("editjobtitle");
 		</div>
 	</div>
 </div>	
-</body>
 <%
 
 PortletURL iteratorURL = renderResponse.createRenderURL();
@@ -156,10 +82,10 @@ RowChecker rowChecker = new RowChecker(renderResponse);
 PortalPreferences portalPrefs = PortletPreferencesFactoryUtil.getPortalPreferences(request); 
 String sortByCol = ParamUtil.getString(request, "orderByCol"); 
 String sortByType = ParamUtil.getString(request, "orderByType"); 
-System.out.println("sortByCol == " +sortByCol);
-System.out.println("sortByType == " +sortByType);
+log.info("sortByCol == " +sortByCol);
+log.info("sortByType == " +sortByType);
 if (Validator.isNotNull(sortByCol ) && Validator.isNotNull(sortByType )) { 
-	System.out.println("if block...");
+	log.info("if block...edit.jsp");
  
 portalPrefs.setValue("NAME_SPACE", "sort-by-col", sortByCol); 
 portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol); 
@@ -177,9 +103,9 @@ jobTitleDynamicQuery.add(PropertyFactoryUtil.forName("groupId")
 .eq(groupId));
 List<JobTitle> jobTitleDetails = JobTitleLocalServiceUtil
 .dynamicQuery(jobTitleDynamicQuery);
-System.out.println("after....");
-System.out.println("sortByCol == " +sortByCol);
-System.out.println("sortByType == " +sortByType);
+log.info("after....");
+log.info("sortByCol == " +sortByCol);
+log.info("sortByType == " +sortByType);
 
 %>
 <%!
@@ -197,11 +123,11 @@ System.out.println("sortByType == " +sortByType);
 
        results = ListUtil.subList(jobtitleList, searchContainer.getStart(), searchContainer.getEnd());
        
-         System.out.println("results == " +results);
+       log.info("results == " +results);
         
   
             total = jobtitleList!=null && jobtitleList.size()!=0?jobtitleList.size():0;
-               System.out.println("total == " +total);
+            log.info("total == " +total);
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);
  %>
@@ -219,4 +145,3 @@ System.out.println("sortByType == " +sortByType);
 	<liferay-ui:search-iterator/>
 	
 </liferay-ui:search-container> 
-</html>

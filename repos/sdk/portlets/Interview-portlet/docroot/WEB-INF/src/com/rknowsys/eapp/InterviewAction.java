@@ -11,6 +11,8 @@ import javax.portlet.PortletSession;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
+import org.apache.log4j.Logger;
+
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.kernel.dao.orm.Criterion;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
@@ -18,8 +20,6 @@ import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortletClassLoaderUtil;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -32,7 +32,7 @@ import com.rknowsys.eapp.hrm.service.InterviewLocalServiceUtil;
 public class InterviewAction extends MVCPortlet {
 
 	Date date = new Date();
-	private static Log log = LogFactoryUtil.getLog(InterviewAction.class);
+	private static Logger log = Logger.getLogger(InterviewAction.class);
 
 	/**
 	 * <p>
@@ -55,10 +55,11 @@ public class InterviewAction extends MVCPortlet {
 		log.info("company Id == " + themeDisplay.getCompanyId());
 		log.info("userId = " + themeDisplay.getUserId());
 		try {
-			log.info("groupId = " + themeDisplay.getLayout().getGroup().getGroupId());
+			log.info("groupId = "
+					+ themeDisplay.getLayout().getGroup().getGroupId());
 		} catch (PortalException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			log.error("PortalException " + e1);
 		}
 		try {
 			String id = ParamUtil.getString(actionRequest, "interviewId");
@@ -69,7 +70,7 @@ public class InterviewAction extends MVCPortlet {
 
 			log.info("id == " + id);
 			if (id == "" || id == null) {
-				log.info("inside if loop...");
+				log.info("inside if loop...empty value in interviewName");
 
 				if (interviewName == null || interviewName.equals("")) {
 
@@ -80,15 +81,17 @@ public class InterviewAction extends MVCPortlet {
 
 				} else {
 
-					Criterion criterion=null;
-					DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
-							Interview.class,
-							PortletClassLoaderUtil.getClassLoader());
-					criterion=RestrictionsFactoryUtil
-							.eq("name",interviewName );
+					Criterion criterion = null;
+					DynamicQuery dynamicQuery = DynamicQueryFactoryUtil
+							.forClass(Interview.class,
+									PortletClassLoaderUtil.getClassLoader());
+					criterion = RestrictionsFactoryUtil.eq("name",
+							interviewName);
 					try {
-						criterion=RestrictionsFactoryUtil.and(criterion,RestrictionsFactoryUtil
-								.eq("groupId", themeDisplay.getLayout().getGroup().getGroupId()));
+						criterion = RestrictionsFactoryUtil.and(criterion,
+								RestrictionsFactoryUtil.eq("groupId",
+										themeDisplay.getLayout().getGroup()
+												.getGroupId()));
 						dynamicQuery.add(criterion);
 					} catch (PortalException e1) {
 						e1.printStackTrace();
@@ -100,6 +103,8 @@ public class InterviewAction extends MVCPortlet {
 
 						Interview interview = interviews.get(0);
 						if (interview.getName().equalsIgnoreCase(inputName)) {
+
+							log.info("DuplicateName in interviewName");
 
 							SessionMessages.add(
 									actionRequest.getPortletSession(),
@@ -119,7 +124,8 @@ public class InterviewAction extends MVCPortlet {
 						interview.setCreateDate(date);
 						interview.setModifiedDate(date);
 						interview.setCompanyId(themeDisplay.getCompanyId());
-						interview.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
+						interview.setGroupId(themeDisplay.getLayout()
+								.getGroup().getGroupId());
 						interview.setUserId(themeDisplay.getUserId());
 						log.info("before...");
 						interview = InterviewLocalServiceUtil
@@ -131,6 +137,8 @@ public class InterviewAction extends MVCPortlet {
 
 				log.info("else block to update....");
 				if (interviewName == null || interviewName.equals("")) {
+
+					log.info("empty value in interviewName edit.jsp");
 
 					Interview interview = InterviewLocalServiceUtil
 							.getInterview(Long.parseLong(id));
@@ -158,7 +166,8 @@ public class InterviewAction extends MVCPortlet {
 							"name"));
 					interview1.setModifiedDate(date);
 					interview1.setCompanyId(themeDisplay.getCompanyId());
-					interview1.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
+					interview1.setGroupId(themeDisplay.getLayout().getGroup()
+							.getGroupId());
 					interview1.setUserId(themeDisplay.getUserId());
 
 					interview1 = InterviewLocalServiceUtil
@@ -168,14 +177,13 @@ public class InterviewAction extends MVCPortlet {
 			}
 		} catch (SystemException e) {
 
-			e.printStackTrace();
-			log.info("system exception");
+			log.error(e);
 		} catch (PortalException e) {
 
-			e.printStackTrace();
-			log.info("portalexception");
+			log.error(e);
+
 		}
-		System.out.println("end of the saveInterview method");
+		log.info("end of the saveInterview method");
 		log.info("end of the saveInterview method");
 
 	}
@@ -204,9 +212,10 @@ public class InterviewAction extends MVCPortlet {
 			try {
 				interview = InterviewLocalServiceUtil
 						.createInterview(CounterLocalServiceUtil.increment());
+				log.info(interview);
 			} catch (SystemException e1) {
 
-				e1.printStackTrace();
+				log.error(e1);
 			}
 			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,
 					"interviewIds");
@@ -228,12 +237,10 @@ public class InterviewAction extends MVCPortlet {
 						log.info("end of try block in delete...");
 					} catch (PortalException e) {
 
-						e.printStackTrace();
-						log.info("portal exception...");
+						log.error(e);
 					} catch (SystemException e) {
 
-						e.printStackTrace();
-						log.info("system exception...");
+						log.error(e);
 
 					}
 				}
