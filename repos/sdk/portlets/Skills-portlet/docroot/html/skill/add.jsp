@@ -15,7 +15,7 @@ AUI().use(
       'click',
       function() {
      var idArray = [];
-      A.all('input[type=checkbox]:checked').each(function(object) {
+      A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
       idArray.push(object.get("value"));
         });
        if(idArray==""){
