@@ -1,5 +1,7 @@
 package com.rknowsys.eapp.hrm;
 
+import org.apache.log4j.Logger;
+
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -13,7 +15,7 @@ public class CurrencyComparator extends OrderByComparator {
 	 
 	 public static String ORDER_BY_DESC = "status DESC";
 	 
-	 private static Log log = LogFactoryUtil.getLog(CurrencyComparator.class);
+	 private static Logger log = Logger.getLogger(CurrencyComparator.class);
 	 
 	 
 	  public CurrencyComparator() 
@@ -22,6 +24,7 @@ public class CurrencyComparator extends OrderByComparator {
 	  }
 	 
 	  public CurrencyComparator(boolean asc) {
+		  log.info("CurrencyComparator");
 	   _asc = asc;
 	  }
 	 
