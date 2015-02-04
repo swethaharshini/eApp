@@ -6,6 +6,9 @@
 	<portlet:param name="mvcPath" value="/html/skill/add.jsp" />
 </portlet:renderURL>
 <aui:script>
+AUI().ready('event', 'node', function(A){
+A.one('#<portlet:namespace/>skillName').focus();
+});
 AUI().use(
   'aui-node',
   function(A) {
@@ -24,10 +27,6 @@ AUI().use(
 
 </aui:script>
 
-
-
-</head>
-<body>
 <% 
   Skill editSkill = (Skill) portletSession.getAttribute("editSkill");
 if(SessionMessages.contains(renderRequest.getPortletSession(),"skillName-empty-error")){%>
@@ -43,7 +42,7 @@ if(SessionMessages.contains(renderRequest.getPortletSession(),"skillName-empty-e
   <aui:form name="myForm" action="<%=updateSkills.toString()%>">
   	<div class="form-horizontal">
 		<aui:input name="skillId" type="hidden" id="skillId"  value="<%=editSkill.getSkillId()%>"/>
-		<aui:input label="name" name="skill_name" type="text" required ="true" value="<%=editSkill.getSkillName() %>" showRequiredLabel="false"></aui:input>
+		<aui:input label="name" name="skill_name" type="text" id="skillName" value="<%=editSkill.getSkillName() %>" showRequiredLabel="false"></aui:input>
 		<aui:input type="textarea" label="Description" name="skill_description" rows="5" cols="5" ></aui:input>	 
 		<div class="controls">
 			<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
@@ -53,7 +52,6 @@ if(SessionMessages.contains(renderRequest.getPortletSession(),"skillName-empty-e
 	</aui:form>
 	</div>
 </div>
-</body>
 <%
 PortletURL iteratorURL = renderResponse.createRenderURL();
 iteratorURL.setParameter("mvcPath", "/html/skill/edit.jsp");
@@ -106,7 +104,7 @@ List<Skill> skillDetails = SkillLocalServiceUtil
 	<liferay-ui:search-iterator/>
 	
 </liferay-ui:search-container>
-</html>
+
 
 
 
