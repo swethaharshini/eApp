@@ -98,9 +98,7 @@ AUI().use(
 );
 
 </aui:script>
-</head>
 
-<body>
 <% 
 if(SessionMessages.contains(renderRequest.getPortletSession(),"educationName-empty-error")){%>
 <p id="addEducationMessage" class="alert alert-error"><liferay-ui:message key="Please Enter Education Name"/></p>
@@ -136,8 +134,7 @@ if(SessionMessages.contains(renderRequest.getPortletSession(),"educationName-emp
 			</div>
 		</div>
 	</div>
-	
-</body>
+
 
 <%
 

@@ -95,7 +95,7 @@ public class WorkshiftAction extends MVCPortlet {
 							empJob2.setShiftId(workshift.getShiftId());
 							empJob2 = EmpJobLocalServiceUtil.updateEmpJob(empJob2);
 							
-							System.out.println("====END IF LOOP=====");
+							log.info("====END IF LOOP=====");
 						}
 					}
 				}
@@ -144,11 +144,11 @@ public class WorkshiftAction extends MVCPortlet {
 
 		} catch (SystemException e) {
 
-			e.printStackTrace();
+			log.error(e);
 			log.info("system exception");
 		} catch (PortalException e) {
 
-			e.printStackTrace();
+			log.error(e);
 			log.info("portalexception");
 		}
 
@@ -158,7 +158,7 @@ public class WorkshiftAction extends MVCPortlet {
 
 	private void setWorkShift(ActionRequest actionRequest,
 			ThemeDisplay themeDisplay, SimpleDateFormat formater,
-			Workshift workshift, Date date) {
+			Workshift workshift, Date date) throws PortalException, SystemException {
 		workshift.setWorkshiftName(ParamUtil.getString(actionRequest,
 				CustomComparatorUtil.WORKSHIFT_COL_NAME));
 
@@ -177,7 +177,7 @@ public class WorkshiftAction extends MVCPortlet {
 		workshift.setCreateDate(date);
 		workshift.setModifiedDate(date);
 		workshift.setCompanyId(themeDisplay.getCompanyId());
-		workshift.setGroupId(themeDisplay.getCompanyGroupId());
+		workshift.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
 		workshift.setUserId(themeDisplay.getUserId());
 	}
 
@@ -222,33 +222,33 @@ public class WorkshiftAction extends MVCPortlet {
 					long id =Long.parseLong(selectedIds[i]);
 					List<EmpJob> empJoblist;
 					EmpJob empJob;
-					System.out.println("before getting list...");
+					log.info("before getting list...");
 					empJoblist = EmpJobLocalServiceUtil.findEmpJobListByShiftId(id);
-					System.out.println("list size===" +empJoblist.size());
+					log.info("list size===" +empJoblist.size());
 					for(int j =0;j<empJoblist.size();j++){
-						System.out.println("for loop started..");
+						log.info("for loop started..");
 						empJob = empJoblist.get(j);
-						System.out.println("empJob ==" +empJob);
+						log.info("empJob ==" +empJob);
 						empJob.setShiftId(Long.parseLong("0"));
 						try {
 							empJob = EmpJobLocalServiceUtil.updateEmpJob(empJob);
 						} catch (SystemException e) {
 							// TODO Auto-generated catch block
-							e.printStackTrace();
+							log.error(e);
 						}
 					}
 					try {
-						System.out.println("try block....");
-						System.out.println("shiftId in try block...."+id);
+						log.info("try block....");
+						log.info("shiftId in try block...."+id);
 						
 						workshift = WorkshiftLocalServiceUtil.deleteWorkshift(id);
 					} catch (PortalException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						log.error(e);
 					}
 					catch (SystemException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						log.error(e);
 					}
 					
 					

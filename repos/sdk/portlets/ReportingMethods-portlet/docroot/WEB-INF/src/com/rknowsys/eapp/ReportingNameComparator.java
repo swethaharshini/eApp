@@ -1,5 +1,7 @@
 package com.rknowsys.eapp;
 
+import org.apache.log4j.Logger;
+
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.rknowsys.eapp.hrm.model.ReportingMethods;
 
@@ -9,6 +11,7 @@ import com.rknowsys.eapp.hrm.model.ReportingMethods;
  * 
  */
 public class ReportingNameComparator extends OrderByComparator {
+	private static Logger log = Logger.getLogger(ReportingNameComparator.class);
 	private static final long serialVersionUID = 1L;
 
 	public static String ORDER_BY_ASC = "status ASC";
@@ -20,6 +23,7 @@ public class ReportingNameComparator extends OrderByComparator {
 	}
 
 	public ReportingNameComparator(boolean asc) {
+		log.info("ReportingNameComparator");
 		_asc = asc;
 	}
 

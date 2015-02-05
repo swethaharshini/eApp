@@ -1,3 +1,9 @@
+<%@page import="org.apache.log4j.Logger"%>
+<%@page import="com.liferay.portal.kernel.util.ListUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.portlet.PortletClassLoaderUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.DynamicQuery"%>
 <%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@ include file="/html/membership/init.jsp"%>
 
@@ -75,6 +81,7 @@ AUI().use(
       function() {
          A.one('#membershipAddDelete').hide();
          A.one('#addMembershipForm').show();
+         A.one('#membershipName').focus();
                      
       }
     );
@@ -99,15 +106,13 @@ AUI().use(
 );
 
 </aui:script>
-</head>
-
-<body>
+<% Logger log=Logger.getLogger(this.getClass().getName());%>
 <% if(SessionMessages.contains(renderRequest.getPortletSession(),"membershipName-empty-error")){%>
-<p id="addMembershipMessage" class="alert error-alert"><liferay-ui:message key="Please Enter MembershipName"/></p>
+<p id="addMembershipMessage" class="alert alert-error"><liferay-ui:message key="Please Enter MembershipName"/></p>
 <%} 
  if(SessionMessages.contains(renderRequest.getPortletSession(),"membershipName-duplicate-error")){
 %>
-<p id="addMembershipMessage"  class="alert error-alert"><liferay-ui:message key="MembershipName already Exits"/></p>
+<p id="addMembershipMessage"  class="alert alert-error"><liferay-ui:message key="MembershipName already Exits"/></p>
 <%} 
 %>
 		<div id="membershipAddDelete" class="control-group text-right">
@@ -123,17 +128,13 @@ AUI().use(
 					<aui:input name="membershipId" type="hidden" id="membershipId" />
 					<div class="form-inline">
 						<label>Membership Name: </label>
-						<input name="<portlet:namespace/>membership_name" type="text">
+						<input name="<portlet:namespace/>membership_name" id="membershipName" type="text">
 						<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
 						<button  type="reset" id ="membershipcancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
 					</div>
 				</aui:form>
 			</div>
 		</div>
- 		
- 
-	
-</body>
 
 <%
 
@@ -170,13 +171,26 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 	<liferay-ui:search-container-results>
 
 		<%
-            List<Membership> membershipList = MembershipLocalServiceUtil.getMemberships(searchContainer.getStart(), searchContainer.getEnd());
+		long groupId= themeDisplay.getLayout().getGroup().getGroupId();
+		log.info("groupId = " +groupId);
+		DynamicQuery membershipQuery = DynamicQueryFactoryUtil.forClass(Membership.class,PortletClassLoaderUtil.getClassLoader());
+
+		membershipQuery.add(PropertyFactoryUtil.forName("groupId").eq(groupId));
+            List<Membership> membershipList = MembershipLocalServiceUtil.dynamicQuery(membershipQuery);
 		OrderByComparator orderByComparator =  CustomComparatorUtil.getMembershipOrderByComparator(sortByCol, sortByType);
    
                Collections.sort(membershipList,orderByComparator);
-  
-               results = membershipList;
-               total = MembershipLocalServiceUtil.getMembershipsCount();
+               
+               if(membershipList.size()>5){
+            	   
+            	   results = ListUtil.subList(membershipList, searchContainer.getStart(), searchContainer.getEnd());
+            	   
+               }
+               else{
+            	   results = membershipList;
+               }
+               
+               total = membershipList.size();
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);
 

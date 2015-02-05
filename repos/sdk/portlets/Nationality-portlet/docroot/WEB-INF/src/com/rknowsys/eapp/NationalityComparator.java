@@ -1,7 +1,7 @@
 package com.rknowsys.eapp;
 
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
+import org.apache.log4j.Logger;
+
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.rknowsys.eapp.hrm.model.Nationality;
 
@@ -14,7 +14,7 @@ public class NationalityComparator extends OrderByComparator {
 	 
 	 public static String ORDER_BY_DESC = "status DESC";
 	 
-	 private static Log log = LogFactoryUtil.getLog(NationalityComparator.class);
+	 private static Logger log = Logger.getLogger(NationalityComparator.class);
 	 
 	 
 	  public NationalityComparator() 
@@ -23,6 +23,7 @@ public class NationalityComparator extends OrderByComparator {
 	  }
 	 
 	  public NationalityComparator(boolean asc) {
+		  log.info("NationalityComparator");
 	   _asc = asc;
 	  }
 	 
@@ -33,10 +34,7 @@ public class NationalityComparator extends OrderByComparator {
 	   Nationality instance1 = (Nationality) obj1;
 	   Nationality instance2 = (Nationality) obj2;
 	   
-	   log.info("=====");
-	   log.info("instance1 === " +instance1.getName().toLowerCase());
-	   log.info("instance2 == " +instance2.getName().toLowerCase());
-	   
+	      
 	   int value = instance1.getName().toLowerCase().compareTo(instance2.getName().toLowerCase());
 	 
 	   if(_asc) 

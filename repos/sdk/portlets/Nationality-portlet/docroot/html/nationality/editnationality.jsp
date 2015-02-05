@@ -1,12 +1,15 @@
+<%@page import="com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.portlet.PortletClassLoaderUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.DynamicQuery"%>
 <%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@page import="com.rknowsys.eapp.hrm.service.NationalityLocalServiceUtil"%>
 <%@page import="com.rknowsys.eapp.hrm.model.Nationality"%>
 <%@ include file="/html/nationality/init.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>interview</title>
+
 <portlet:actionURL var="savenationality" name="saveNationality">
 </portlet:actionURL>
 <portlet:resourceURL var="deletenationality" id="deleteNationality"/>
@@ -15,6 +18,7 @@
 </portlet:renderURL>
 <aui:script>
 AUI().ready('event', 'node','transition',function(A){
+A.one('#nationalityName').focus();
   setTimeout(function(){
     A.one('#editNationalityMessage').transition('fadeOut');
 },2000)
@@ -38,10 +42,6 @@ AUI().use(
 </aui:script>
 
 
-
-</head>
-<body>
-
 <% 
  Nationality editnationality = (Nationality)portletSession.getAttribute("editnationality"); 
 
@@ -59,7 +59,7 @@ if(SessionMessages.contains(renderRequest.getPortletSession(),"nationalityName-e
 					<aui:input name="nationalityId" type="hidden" id="nationalityId" value="<%=editnationality.getNationalityId()%>"/>
 					<div class="form-inline">
 						<label>Nationality: </label>
-						<input name="<portlet:namespace/>nationalityName" type="text" value="<%=editnationality.getName()%>">
+						<input name="<portlet:namespace/>nationalityName" id="nationalityName" type="text" value="<%=editnationality.getName()%>">
 						<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
 						<button  type="reset" id ="editnationalitycancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
 					</div>
@@ -67,7 +67,7 @@ if(SessionMessages.contains(renderRequest.getPortletSession(),"nationalityName-e
 			</div>
 		</div>
 
-</body>
+
 <%
 PortletURL iteratorURL = renderResponse.createRenderURL();
 iteratorURL.setParameter("mvcPath", "/html/nationality/editnationality.jsp");
@@ -97,21 +97,31 @@ System.out.println("sortByType == " +sortByType);
 		<liferay-ui:search-container-results>
 				
 		<%
-            List<Nationality> nationalityList = NationalityLocalServiceUtil.getNationalities(searchContainer.getStart(), searchContainer.getEnd());
-            System.out.println("list size == " +nationalityList.size());
-            OrderByComparator orderByComparator = CustomComparatorUtil.getNationalityOrderByComparator(sortByCol, sortByType);         
-  
-           Collections.sort(nationalityList,orderByComparator);
-  
-          results = nationalityList;
+		long groupId = themeDisplay.getLayout().getGroup().getGroupId();
+		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(Nationality.class,PortletClassLoaderUtil.getClassLoader());
+
+		dynamicQuery.add(PropertyFactoryUtil.forName("groupId").eq(groupId));
+
+		List<Nationality> nationalityList =  NationalityLocalServiceUtil.dynamicQuery(dynamicQuery);
+		
+        
+        OrderByComparator orderByComparator = CustomComparatorUtil.getNationalityOrderByComparator(sortByCol, sortByType);         
+
+       Collections.sort(nationalityList,orderByComparator);
+			if(nationalityList.size()>5)
+			{
+				results = ListUtil.subList(nationalityList, searchContainer.getStart(), searchContainer.getEnd());
+			}
+			else{
+				
+				 results = nationalityList;
+				
+			}
           
-            System.out.println("results == " +results);
+           total = nationalityList.size();
            
-     
-               total = NationalityLocalServiceUtil.getNationalitiesCount();
-               System.out.println("total == " +total);
-               pageContext.setAttribute("results", results);
-               pageContext.setAttribute("total", total);
+           pageContext.setAttribute("results", results);
+           pageContext.setAttribute("total", total);
  %>
 	</liferay-ui:search-container-results>
 	<liferay-ui:search-container-row className="Nationality" keyProperty="nationalityId" modelVar="Nationality"  rowVar="curRow" escapedModel="<%= true %>">
@@ -122,4 +132,3 @@ System.out.println("sortByType == " +sortByType);
 	<liferay-ui:search-iterator/>
 	
 </liferay-ui:search-container>
-</html>

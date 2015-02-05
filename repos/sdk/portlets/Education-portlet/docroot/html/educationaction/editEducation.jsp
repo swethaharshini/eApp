@@ -8,6 +8,7 @@
 </portlet:renderURL>
 <aui:script>
  AUI().ready('event', 'node','transition',function(A){
+ A.one('#educationName').focus();
   setTimeout(function(){
     A.one('#editEducationMessage').transition('fadeOut');
 },2000)
@@ -55,7 +56,7 @@ if(SessionMessages.contains(renderRequest.getPortletSession(),"educationName-emp
 					<aui:input name="educationId" type="hidden" id="educationId"  value="<%=editEducation.getEducationId()%>"/>
 					<div class="form-inline">
 							<label>Level: </label>
-					 		<input name="<portlet:namespace/>education_level" type="text" required = "required" value="<%=editEducation.getEduLevel() %>" >
+					 		<input name="<portlet:namespace/>education_level" type="text" id="educationName" value="<%=editEducation.getEduLevel() %>" >
 							<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
 							<button  type="reset" id ="editcanceleducation" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
 					</div>

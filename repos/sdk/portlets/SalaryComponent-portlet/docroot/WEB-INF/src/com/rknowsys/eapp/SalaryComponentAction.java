@@ -11,6 +11,8 @@ import javax.portlet.PortletSession;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
+import org.apache.log4j.Logger;
+
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
@@ -28,13 +30,14 @@ import com.rknowsys.eapp.hrm.service.SalaryComponentLocalServiceUtil;
 
 
 public class SalaryComponentAction extends MVCPortlet {
+	private static Logger log = Logger.getLogger(SalaryComponentAction.class);
 	
 	Date date = new Date();
 	
 	public void saveSalaryComponent(ActionRequest actionRequest,
 			ActionResponse actionResponse) throws IOException,
 			PortletException, SystemException, PortalException {
-		System.out.println("inside method....");
+		log.info("inside method....");
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest
 				.getAttribute(WebKeys.THEME_DISPLAY);
 		boolean totalPayable = ParamUtil.getBoolean(actionRequest, "totalPayable");// getString(actionRequest, "totalPayable");
@@ -44,13 +47,13 @@ public class SalaryComponentAction extends MVCPortlet {
 		boolean costToCompany = ParamUtil.getBoolean(actionRequest, "costToCompany");
 		String[] valuetype = ParamUtil.getParameterValues(actionRequest, "valueType");
 		
-		System.out.println("===");
-		System.out.println(componentname);
-		System.out.println(type);
-		System.out.println("tp:" +totalPayable);
-		System.out.println("cc" +costToCompany);
-		System.out.println(valuetype[0]);
-		System.out.println(valuetype[1]);
+		log.info("===");
+		log.info(componentname);
+		log.info(type);
+		log.info("tp:" +totalPayable);
+		log.info("cc" +costToCompany);
+		log.info(valuetype[0]);
+		log.info(valuetype[1]);
 		
 		String id = ParamUtil.getString(actionRequest, "salarycomponentId");
 		
@@ -89,7 +92,7 @@ public class SalaryComponentAction extends MVCPortlet {
 		SalaryComponent salarycomponent = SalaryComponentLocalServiceUtil.createSalaryComponent(CounterLocalServiceUtil.increment());
 		
 		salarycomponent.setCompanyId(themeDisplay.getCompanyId());
-		salarycomponent.setGroupId(themeDisplay.getCompanyGroupId());
+		salarycomponent.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
 		salarycomponent.setUserId(themeDisplay.getUserId());
 		salarycomponent.setCreateDate(date);
 		salarycomponent.setModifiedDate(date);
@@ -97,20 +100,20 @@ public class SalaryComponentAction extends MVCPortlet {
 		salarycomponent.setComponentName(componentname);
 		
 		if(totalPayable==true){
-			System.out.println("true inside if tp");
+			log.info("true inside if tp");
 			salarycomponent.setTotalPayable("Yes");
 		}
 		else{
-			System.out.println("false inside else tp");
+			log.info("false inside else tp");
 			salarycomponent.setTotalPayable("No");
 		}
 		if(costToCompany==true){
 			
-			System.out.println("true inside if cc");
+			log.info("true inside if cc");
 			salarycomponent.setCostToCompany("Yes");
 		}
 		else{
-			System.out.println("false inside else cc");
+			log.info("false inside else cc");
 			salarycomponent.setCostToCompany("No");
 		}
 		
@@ -133,10 +136,10 @@ public class SalaryComponentAction extends MVCPortlet {
 		}
 		
 		salarycomponent = SalaryComponentLocalServiceUtil.addSalaryComponent(salarycomponent);
-		System.out.println("end of method...");
+		log.info("end of method...");
 	}}}
 		else{
-			System.out.println("else block to update...");
+			log.info("else block to update...");
 			if(salarycomponentName==null || salarycomponentName.equals("")){
 				
 				SalaryComponent salarycomponent = SalaryComponentLocalServiceUtil.getSalaryComponent(Long.parseLong(id));
@@ -159,7 +162,7 @@ public class SalaryComponentAction extends MVCPortlet {
 			salaryComponent1.setSalaryComponentId(salarycomponentid);
 			
 			salaryComponent1.setCompanyId(themeDisplay.getCompanyId());
-			salaryComponent1.setGroupId(themeDisplay.getCompanyGroupId());
+			salaryComponent1.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
 			salaryComponent1.setUserId(themeDisplay.getUserId());
 			salaryComponent1.setCreateDate(date);
 			salaryComponent1.setModifiedDate(date);
@@ -167,20 +170,20 @@ public class SalaryComponentAction extends MVCPortlet {
 			salaryComponent1.setComponentName(componentname);
 			
 			if(totalPayable==true){
-				System.out.println("true inside if tp");
+				log.info("true inside if tp");
 				salaryComponent1.setTotalPayable("Yes");
 			}
 			else{
-				System.out.println("false inside else tp");
+				log.info("false inside else tp");
 				salaryComponent1.setTotalPayable("No");
 			}
 			if(costToCompany==true){
 				
-				System.out.println("true inside if cc");
+				log.info("true inside if cc");
 				salaryComponent1.setCostToCompany("Yes");
 			}
 			else{
-				System.out.println("false inside else cc");
+				log.info("false inside else cc");
 				salaryComponent1.setCostToCompany("No");
 			}
 			
@@ -202,7 +205,7 @@ public class SalaryComponentAction extends MVCPortlet {
 				salaryComponent1.setValueType("");
 			}
 			salaryComponent1 = SalaryComponentLocalServiceUtil.updateSalaryComponent(salaryComponent1);
-			System.out.println("end of else block...");
+			log.info("end of else block...");
 			
 		}}
 	}
@@ -210,16 +213,16 @@ public class SalaryComponentAction extends MVCPortlet {
 			ActionResponse actionResponse) throws IOException,
 			PortletException, NumberFormatException, PortalException,
 			SystemException {
-		System.out.println("inside edit...");
+		log.info("inside edit...");
 		String s = ParamUtil.getString(actionRequest, "id");
-		System.out.println("id == " +s);
+		log.info("id == " +s);
 		SalaryComponent salarycomponent = SalaryComponentLocalServiceUtil.getSalaryComponent(Long.parseLong(s));
 		
-		System.out.println("##########");
-		System.out.println(salarycomponent.getValueType());
-		System.out.println(salarycomponent.getType());
-		//System.out.println(salarycomponent.getOnlyCTC());
-		System.out.println("&&&&&&&&&&&");
+		log.info("##########");
+		log.info(salarycomponent.getValueType());
+		log.info(salarycomponent.getType());
+		//log.info(salarycomponent.getOnlyCTC());
+		log.info("&&&&&&&&&&&");
 		PortletSession portletSession = actionRequest.getPortletSession();
 		portletSession.setAttribute("editsalarycomponent", salarycomponent);
 	
@@ -233,47 +236,47 @@ public class SalaryComponentAction extends MVCPortlet {
 		if (resourceRequest.getResourceID().equals("deleteSalaryComponent")) {
 
 		
-			System.out.println("inside deleteSalaryComponent... serveResource");
+			log.info("inside deleteSalaryComponent... serveResource");
 			SalaryComponent salarycomponent;
 			
 			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,
 					"salarycomponentIds");
 		
 			
-			System.out.println("idsArray== " + idsArray.length);
+			log.info("idsArray== " + idsArray.length);
 			for (int i = 0; i <= idsArray.length - 1; i++) {
 				
 				
-				System.out.println("ids == " +idsArray[i]);
+				log.info("ids == " +idsArray[i]);
 
 			}
 			for (int i = 0; i <= idsArray.length - 1; i++) {
 				
-				System.out.println("id == " +idsArray[i]);
+				log.info("id == " +idsArray[i]);
 				if (idsArray[i].equals("on")) {
-					System.out.println("All records selected...");
+					log.info("All records selected...");
 				} else {
 					try {
 						salarycomponent = SalaryComponentLocalServiceUtil.deleteSalaryComponent(Long.parseLong(idsArray[i]));
-						System.out.println("end of try block in delete...");
+						log.info("end of try block in delete..." +salarycomponent);
 						
 					} catch (PortalException e) {
 
-						e.printStackTrace();
-						System.out.println("portal exception");
+						log.error(e);
+						log.info("portal exception");
 					} catch (SystemException e) {
 
-						e.printStackTrace();
-						System.out.println("System exception");
+						log.error(e);
+						log.info("System exception");
 						
 					}
 				}
 				
 			}
-			System.out.println("end of for loop...");
+			log.info("end of for loop...");
 			
 		}
-		System.out.println("end of deleteJobcategory method...");
+		log.info("end of deleteJobcategory method...");
 		
 
 	}

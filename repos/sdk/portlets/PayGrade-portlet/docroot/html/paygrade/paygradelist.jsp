@@ -2,10 +2,8 @@
 <%@page import="com.rknowsys.eapp.hrm.service.PayGradeLocalServiceUtil"%>
 <%@page import="com.rknowsys.eapp.hrm.model.PayGrade"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>paygradelist</title>
+
 <portlet:resourceURL var="deletepaygrade" id="deletePayGrade"/>
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/paygrade/paygradelist.jsp" />
@@ -68,9 +66,6 @@ function addPayGrade(){
 
 </aui:script>
 
-
-</head>
-<body>
 	<div id="interviewadddelete" class="control-group text-right">
 		<a onclick="addPayGrade()" class="btn btn-success"><i class="icon-plus"></i> Add</a>
 		<a id="delete" class="btn btn-danger"><i class="icon-trash"></i> Delete</a> 
@@ -115,5 +110,3 @@ List<PayGrade> paygrades = PayGradeLocalServiceUtil
 	<liferay-ui:search-iterator/>
 	
 </liferay-ui:search-container>
-</body>
-</html>

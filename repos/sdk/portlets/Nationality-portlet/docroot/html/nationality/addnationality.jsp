@@ -1,11 +1,14 @@
+<%@page import="com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.portlet.PortletClassLoaderUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.DynamicQuery"%>
 <%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@page import="com.rknowsys.eapp.hrm.service.NationalityLocalServiceUtil"%>
 <%@page import="com.rknowsys.eapp.hrm.model.Nationality"%>
 <%@ include file="/html/nationality/init.jsp"%>
-<html>
-<head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Interview</title>
+
 <portlet:actionURL var="savenationality" name="saveNationality">
 </portlet:actionURL>
 <portlet:resourceURL var="deletenationality" id="deleteNationality"/>
@@ -70,6 +73,7 @@ AUI().use(
       function() {
          A.one('#nationalityadddelete').hide();
          A.one('#addNationalityForm').show();
+         A.one('#nationalityName').focus();
                      
       }
     );
@@ -100,9 +104,7 @@ AUI().use(
 );
 
 </aui:script>
-</head>
 
-<body>
 <% if(SessionMessages.contains(renderRequest.getPortletSession(),"nationalityName-empty-error")){%>
 <p id="addNationalityMessage" class="alert alert-error"><liferay-ui:message key="Please Enter Nationality Name"/></p>
 <%} 
@@ -125,7 +127,7 @@ AUI().use(
 					<aui:input name="nationalityId" type="hidden" id="nationalityId" />
 					<div class="form-inline">
 						<label>Nationality: </label>
-						<input name="<portlet:namespace/>nationalityName" type="text">
+						<input name="<portlet:namespace/>nationalityName" id="nationalityName" type="text">
 						<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
 						<button  type="reset" id ="nationalitycancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
 					</div>
@@ -133,7 +135,7 @@ AUI().use(
 			</div>
 		</div>
 	
-</body>
+
 
 <%
 
@@ -174,19 +176,29 @@ System.out.println("sortByType == " +sortByType);
 	deltaConfigurable="true" iteratorURL="<%=iteratorURL%>">
 	<liferay-ui:search-container-results>
 	<%
-			List<Nationality> nationalityList =  NationalityLocalServiceUtil.getNationalities(searchContainer.getStart(), searchContainer.getEnd());
-            System.out.println("list size == " +nationalityList.size());
+	       long groupId = themeDisplay.getLayout().getGroup().getGroupId();
+			DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(Nationality.class,PortletClassLoaderUtil.getClassLoader());
+
+			dynamicQuery.add(PropertyFactoryUtil.forName("groupId").eq(groupId));
+  
+			List<Nationality> nationalityList =  NationalityLocalServiceUtil.dynamicQuery(dynamicQuery);
+			
+            
             OrderByComparator orderByComparator = CustomComparatorUtil.getNationalityOrderByComparator(sortByCol, sortByType);         
   
            Collections.sort(nationalityList,orderByComparator);
-  
-          results = nationalityList;
-          
-            System.out.println("results == " +results);
-           
-     
-               total = NationalityLocalServiceUtil.getNationalitiesCount();
-               System.out.println("total == " +total);
+  			if(nationalityList.size()>5)
+  			{
+  				results = ListUtil.subList(nationalityList, searchContainer.getStart(), searchContainer.getEnd());
+  			}
+  			else{
+  				
+  				 results = nationalityList;
+  				
+  			}
+              
+               total = nationalityList.size();
+               
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);
  %>
@@ -206,5 +218,3 @@ System.out.println("sortByType == " +sortByType);
 
 </liferay-ui:search-container>
 </div>
-
-</html>

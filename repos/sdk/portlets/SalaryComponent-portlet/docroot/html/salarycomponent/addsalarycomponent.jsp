@@ -1,8 +1,6 @@
 																																																																										<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@ include file="/html/salarycomponent/init.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Salary Component</title>
 <portlet:actionURL var="savesalarycomponent" name="saveSalaryComponent">
@@ -12,20 +10,21 @@
 </portlet:renderURL>
 <aui:script>
 AUI().ready('event', 'node','transition',function(A){
+A.one('#<portlet:namespace/>componentname').focus();
   setTimeout(function(){
     A.one('#addsalarycomponentMessage').transition('fadeOut');
-},1000)
+    A.one('#addsalarycomponentMessage').hide();
+},2000)
  });
 
 </aui:script>
-</head>
-<body>
+
 <% if(SessionMessages.contains(renderRequest.getPortletSession(),"salarycomponentName-empty-error")){%>
-<p id="addsalarycomponentMessage"><liferay-ui:message key="Please Enter SalarycomponentName"/></p>
+<p id="addsalarycomponentMessage" class="alert alert-error"><liferay-ui:message key="Please Enter SalarycomponentName"/></p>
 <%} 
  if(SessionMessages.contains(renderRequest.getPortletSession(),"salarycomponentName-duplicate-error")){
 %>
-<p id="addsalarycomponentMessage"><liferay-ui:message key="SalarycomponentName already Exits"/></p>
+<p id="addsalarycomponentMessage" class="alert alert-error"><liferay-ui:message key="SalarycomponentName already Exits"/></p>
 <%} 
 %>
 <div class="panel">
@@ -60,5 +59,3 @@ AUI().ready('event', 'node','transition',function(A){
 		</aui:form>
 	</div>
 </div>
-</body>
-</html>

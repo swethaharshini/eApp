@@ -64,6 +64,7 @@ AUI().use(
       function() {
          A.one('#licenseAddDelete').hide();
          A.one('#addLicenseForm').show();
+         A.one('#licenseName').focus();
                      
       }
     );
@@ -74,7 +75,8 @@ AUI().ready('event', 'node','transition',function(A){
   A.one('#addLicenseForm').hide();
   setTimeout(function(){
     A.one('#addLicenseMessage').transition('fadeOut');
-},1000)
+    A.one('#addLicenseMessage').hide();
+},2000)
  });
  
  
@@ -94,9 +96,7 @@ AUI().use(
 );
 
 </aui:script>
-</head>
 
-<body>
 <% 
 
 if(SessionMessages.contains(renderRequest.getPortletSession(),"licenseName-empty-error")){%>
@@ -125,7 +125,7 @@ if(SessionMessages.contains(renderRequest.getPortletSession(),"licenseName-empty
 						<aui:input name="licenseId" type="hidden" id="licenseId" />
 						<div class="form-inline">
 							<label>License Name: </label>
-							<input name="<portlet:namespace/>license_name" type="text">
+							<input name="<portlet:namespace/>license_name" id="licenseName" type="text">
 							<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
 							<button  type="reset" id ="licensecancel" class="btn btn-danger"><i class="icon-remove"> Cancel</i></button>
 						</div>
@@ -135,7 +135,7 @@ if(SessionMessages.contains(renderRequest.getPortletSession(),"licenseName-empty
 		</div>
 	</div>
     
-</body>
+
 
 <%
 

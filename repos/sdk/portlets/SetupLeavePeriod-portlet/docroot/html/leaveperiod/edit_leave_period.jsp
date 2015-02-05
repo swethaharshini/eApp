@@ -7,19 +7,14 @@
 <%@page import="com.rknowsys.eapp.hrm.util.IdNamePair"%>
 <%@ include file="/html/leaveperiod/init.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Leave Period</title>
 <portlet:actionURL var="saveLeavePeriod" name="saveLeavePeriod">
 </portlet:actionURL>
 
-<%-- 
-<portlet:resourceURL var="deleteemergencycontact" id="deleteEmergencyContact"/>
- --%>
  
 <portlet:renderURL var="initialView">
-	<%-- 	<portlet:param name="mvcPath" value="/html/contactdetails/edit_contact_details.jsp" /> --%>
+	
  </portlet:renderURL>
 
 <aui:script>
@@ -45,11 +40,12 @@ AUI().ready('event', 'node', function(A){
  });
 
 </aui:script>
-</head>
 
-<body>
+<% 
+  LeavePeriod editLeavePeriod = (LeavePeriod)portletSession.getAttribute("editLeavePeriod");
 
- <jsp:useBean id="editLeavePeriod" type="com.rknowsys.eapp.ui.LeavePeriod" scope="request" />
+%>
+
  
  <div id="editLeavePeriodReadOnly" class="form-horizontal clearfix">
 		<aui:input name="leavePeriodId" type="hidden" value="<%=editLeavePeriod.getLeavePeriodId() %>"/>
@@ -65,7 +61,7 @@ AUI().ready('event', 'node', function(A){
 		</aui:option>
 		<% } %>
 		</aui:select>
-		<%--  <aui:input name="startMonth" type="text" label="" disabled="true" value="<%=editLeavePeriod.getStartMonth() %>"/> --%>
+		
 		<aui:input name="startDate" type="text" label="Start Date" disabled="true" value="<%=editLeavePeriod.getStartDate() %>"/>
 		<aui:input name="endDate" type="text" label="End Date" disabled="true" value="<%=editLeavePeriod.getEndDate() %>"/>
 		<aui:input name="currentLeavePeriod" type="text" label="Current Leave Period" disabled="true" value="<%=editLeavePeriod.getCurrentLeavePeriod()%>"/>
@@ -102,10 +98,6 @@ AUI().ready('event', 'node', function(A){
 		<aui:button type="submit" id="save" value="Submit" />
 		</div>
 	</div>
-	<%-- <aui:button  type="reset" value="Cancel" id ="cancel"/> --%>
+	
 	</aui:form>
 </div>
-
-</body>
-
-</html>

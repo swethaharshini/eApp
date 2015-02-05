@@ -34,4 +34,6 @@
 <%@ page import="java.text.DateFormat" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.text.FieldPosition" %>
+<%@ taglib uri="http://liferay.com/tld/theme" prefix="theme" %>
+<theme:defineObjects/>
 <portlet:defineObjects />

@@ -2,8 +2,6 @@
 <%@page import="com.rknowsys.eapp.hrm.model.SalaryComponent"%>
 <%@ include file="/html/salarycomponent/init.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Edit Salary Component</title>
 <portlet:actionURL var="savesalarycomponent" name="saveSalaryComponent">
@@ -13,16 +11,16 @@
 </portlet:renderURL>
 <aui:script>
 AUI().ready('event', 'node','transition',function(A){
+A.one('#<portlet:namespace/>componentname').focus();
   setTimeout(function(){
     A.one('#editsalarycomponentMessage').transition('fadeOut');
-},1000)
+    A.one('#editsalarycomponentMessage').hide();
+},2000)
  });
 
 </aui:script>
-</head>
-<body>
 <% if(SessionMessages.contains(renderRequest.getPortletSession(),"salarycomponentName-empty-error")){%>
-<p id="editsalarycomponentMessage"><liferay-ui:message key="Please Enter SalarycomponentName"/></p>
+<p id="editsalarycomponentMessage" class="alert alert-error"><liferay-ui:message key="Please Enter SalarycomponentName"/></p>
 <%} 
  %>
 <%
@@ -119,6 +117,3 @@ SalaryComponent salaryComponent = (SalaryComponent) portletSession.getAttribute(
 		</div>
 	</div>
 </div>
-
-</body>
-</html>
