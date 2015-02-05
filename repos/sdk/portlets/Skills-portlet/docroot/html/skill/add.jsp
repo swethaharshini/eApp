@@ -120,7 +120,7 @@ if(SessionMessages.contains(renderRequest.getPortletSession(),"skillName-empty-e
 					<div class="form-horizontal">
 					<aui:input name="skillId" type="hidden" id="skillId" />
 					<aui:input name="skill_name" type="text" label="Name" id="skillName" />	
-					 <aui:input type="textarea" label="Description" name="<portlet:namespace/>skill_description" rows="5" cols="5"></aui:input>
+					 <aui:input type="textarea" label="Description" name="skill_description" rows="5" cols="5"></aui:input>
 					<div class="controls">	
 					<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
 					<button  type="reset" id ="cancel" class="btn btn-danger"><i class="icon-remove"></i> Cancel</button>
