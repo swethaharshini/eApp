@@ -130,8 +130,8 @@ A.one('#addJobMessage').hide();
 						<input type="hidden" id="jobtitleId" name='<portlet:namespace/>jobtitleId'>
 						<label class="control-label">Job Title<em>*</em> </label>
 						<aui:input type="text" label=""  name="title" maxlength="100"  id="jobtitlename"></aui:input>
-						<aui:input type="textarea" label="Description" rows="4" cols="30" name="<portlet:namespace/>description" maxlength="400" id="description"></aui:input>
-						<aui:input type="textarea" label="Note" rows="4" cols="30" name="<portlet:namespace/>notes" id="notes"></aui:input>
+						<aui:input type="textarea" label="Description" rows="4" cols="30" name="description" maxlength="400" id="description"></aui:input>
+						<aui:input type="textarea" label="Note" rows="4" cols="30" name="notes" id="notes"></aui:input>
 						<div class="control-group">	
 							<div class="controls">	
 								<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
