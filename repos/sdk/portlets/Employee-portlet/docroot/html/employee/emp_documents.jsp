@@ -3,13 +3,22 @@
 <%@page import="com.liferay.portal.kernel.repository.model.FileEntry"%>
 <%@ include file="/html/employee/init.jsp"%>
 <portlet:actionURL var="updateEmpDocuments" name="updateEmpDocuments"></portlet:actionURL>
-<portlet:resourceURL var="downloadFileUrl" id="dowloadFileUrl"></portlet:resourceURL>
 <%
 	Map empId = (Map) request.getSession(false).getAttribute("empId");
 	long employeeId = (Long) empId.get("empId");
 	String jsp = (String) empId.get("jsp");
 	long fileEntryId = (Long) empId.get("fileId");
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
 %>
+<%!public String humanReadableByteCount(double bytes, boolean si) {
+		int unit = si ? 1000 : 1024;
+		if (bytes < unit)
+			return bytes + " B";
+		int exp = (int) (Math.log(bytes) / Math.log(unit));
+		String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp - 1)
+				+ (si ? "" : "i");
+		return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
+	}%>
 <aui:script use="aui-form-validator, aui-overlay-context-panel,aui-base,aui-node,aui-io-request-deprecated">
 var A=new AUI();
 A.ready(function(){
@@ -21,7 +30,7 @@ window.selectCategory= function(nodeValue)
 		 alert("Please select a category");
 		 }
       };  
-   });        
+   });
 var validator1 = new A.FormValidator({
      boundingBox: document.<portlet:namespace />add_documents,
      rules: {
@@ -96,7 +105,7 @@ A.ready(function()
 			</aui:input>
 			<aui:input name="doc_comments" label="Comments"></aui:input>
 			<aui:button type="submit" value="Save" cssClass="button btn-primary"></aui:button>
-			<aui:button type="reset" value="Cancel" id="cancelDocumentAdd"
+			<aui:button type="reset" value="Cancel" id="cancelDocumentAdd" name="cancelDocumentAdd"
 				cssClass="button btn-danger"></aui:button>
 		</aui:form>
 	</div>
@@ -161,13 +170,17 @@ A.ready(function()
 		<liferay-ui:search-container-row  className="com.liferay.portlet.documentlibrary.model.DLFileEntry" modelVar="fileEntry"  rowVar="curRow" 
 	escapedModel="<%=true %>">
 			<liferay-ui:search-container-column-text orderable="true" name="Name"
-				property="name" href="<%=downloadFileUrl.toString() %>" />
+				property="title" href='<%=themeDisplay.getPortalURL()+"/c/document_library/get_file?uuid="+fileEntry.getUuid()+"&groupId="+themeDisplay.getScopeGroupId() %>' />
 			<liferay-ui:search-container-column-text orderable="true"
-				name="Extension" property="extension" />
+				name="Description" property="description" />
 			<liferay-ui:search-container-column-text orderable="true"
-				name="Mime Type" property="mimeType" />
+				name="Size" value='<%=humanReadableByteCount(fileEntry.getSize(), true) %>' />
 			<liferay-ui:search-container-column-text orderable="true"
-				name="Title" property="title" />
+				name="Type" property="mimeType" />
+			<liferay-ui:search-container-column-text orderable="true"
+				name="Date Added"  value='<%=sdf.format(fileEntry.getCreateDate()) %>'/>
+			<liferay-ui:search-container-column-text orderable="true"
+				name="Added by" property="userName" />
 			<%-- <liferay-ui:search-container-column-jsp name="edit"
 		path="/html/employee/editClick.jsp" /> --%>
 		</liferay-ui:search-container-row>
