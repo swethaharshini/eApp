@@ -1,3 +1,4 @@
+<%@page import="org.apache.log4j.Logger"%>
 <%@page import="com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil"%>
 <%@page import="com.liferay.portal.kernel.util.PortalClassLoaderUtil"%>
 <%@page import="com.rknowsys.eapp.hrm.service.EmpJobLocalServiceUtil"%>
@@ -8,10 +9,8 @@
 <%@page import="com.rknowsys.eapp.hrm.service.EmpPersonalDetailsLocalServiceUtil"%>
 <%@page import="com.rknowsys.eapp.hrm.model.EmpPersonalDetails"%>
 <%@ include file="/html/workshift/init.jsp"%>
-<html>
-<head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Work Shifts</title>
 
 <portlet:actionURL var="saveworkshift" name="saveWorkshift"/>
 <portlet:resourceURL var="deleteworkshift" id="deleteWorkshift" />
@@ -48,7 +47,7 @@ AUI().use(
       function() {
      
      var idArray = [];
-      A.all('input[type=checkbox]:checked').each(function(object) {
+      A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
       idArray.push(object.get("value"));
     
         });
@@ -168,10 +167,7 @@ YUI().use(
 );
 
 </aui:script>
-</head>
-
-<body>
-	 
+<% Logger log=Logger.getLogger(this.getClass().getName());%>	 
 <div id="addworkshiftForm" >
 	<aui:form 	 name = "workshiftForm" action="<%=saveworkshift %>">
 	
@@ -205,7 +201,7 @@ YUI().use(
  <%
  
  		List<EmpPersonalDetails> emplist = EmpPersonalDetailsLocalServiceUtil.getEmployeeDetailsByShiftId(Long.parseLong("0"));
- 		System.out.println("List == "+emplist.size());
+ 		log.info("List == "+emplist.size());
  %> <select name="<portlet:namespace />selectfrom" id="select-from" multiple="multiple">
 								<%
 									for (int i = 0; i < emplist.size(); i++) {
@@ -243,7 +239,7 @@ YUI().use(
 	</div>
 	
 	
-</body>
+
 
 <%
 	PortletURL iteratorURL = renderResponse.createRenderURL();
@@ -255,11 +251,11 @@ YUI().use(
 			.getPortalPreferences(request);
 	String sortByCol = ParamUtil.getString(request, "orderByCol");
 	String sortByType = ParamUtil.getString(request, "orderByType");
-	System.out.println("sortByCol == " + sortByCol);
-	System.out.println("sortByType == " + sortByType);
+	log.info("sortByCol == " + sortByCol);
+	log.info("sortByType == " + sortByType);
 	if (Validator.isNotNull(sortByCol)
 			&& Validator.isNotNull(sortByType)) {
-		System.out.println("if block...");
+		log.info("if block...");
 
 		portalPrefs.setValue("NAME_SPACE", "sort-by-col", sortByCol);
 		portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
@@ -270,9 +266,9 @@ YUI().use(
 				"sort-by-type ", "asc");
 	}
 
-	System.out.println("after....");
-	System.out.println("sortByCol == " + sortByCol);
-	System.out.println("sortByType == " + sortByType);
+	log.info("after....");
+	log.info("sortByCol == " + sortByCol);
+	log.info("sortByType == " + sortByType);
 %>
 <%!com.liferay.portal.kernel.dao.search.SearchContainer<Workshift> searchContainer;%>
 <div>
@@ -284,28 +280,34 @@ YUI().use(
 		<liferay-ui:search-container-results>
 
 			<%
-				List<Workshift> workshiftList = WorkshiftLocalServiceUtil
-								.getWorkshifts(searchContainer.getStart(),
-										searchContainer.getEnd());
-						System.out.println("list size == "
+			   
+			long groupId =  themeDisplay.getLayout().getGroup().getGroupId();
+			DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(Workshift.class,PortletClassLoaderUtil.getClassLoader());
+
+			dynamicQuery.add(PropertyFactoryUtil.forName("groupId").eq(groupId));
+			  
+				List<Workshift> workshiftList = WorkshiftLocalServiceUtil.dynamicQuery(dynamicQuery);
+						log.info("list size == "
 								+ workshiftList.size());
 						OrderByComparator orderByComparator = CustomComparatorUtil
 								.getWorkshiftOrderByComparator(sortByCol,
 										sortByType);
 
 						Collections.sort(workshiftList, orderByComparator);
-
+						if(workshiftList.size()>5){
+							results = ListUtil.subList(workshiftList, searchContainer.getStart(),searchContainer.getEnd());
+						}else{
 						results = workshiftList;
-
-						System.out.println("results == " + results);
+						}
+						log.info("results == " + results);
 
 						total = WorkshiftLocalServiceUtil
 								.getWorkshiftsCount();
-						System.out.println("total == " + total);
+						log.info("total == " + total);
 						pageContext.setAttribute("results", results);
 						pageContext.setAttribute("total", total);
-				System.out.println("searchContainer.getStart() =" + searchContainer.getStart());
-					System.out.println(	"searchContainer.getEnd() = " + searchContainer.getEnd());
+				log.info("searchContainer.getStart() =" + searchContainer.getStart());
+					log.info(	"searchContainer.getEnd() = " + searchContainer.getEnd());
 			%>
 
 		</liferay-ui:search-container-results>
@@ -330,5 +332,3 @@ YUI().use(
 
 	</liferay-ui:search-container>
 </div>
-
-</html>

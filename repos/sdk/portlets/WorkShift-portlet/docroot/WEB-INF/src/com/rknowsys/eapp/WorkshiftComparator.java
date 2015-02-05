@@ -1,5 +1,7 @@
 package com.rknowsys.eapp;
 
+import org.apache.log4j.Logger;
+
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.rknowsys.eapp.hrm.model.Workshift;
 
@@ -13,7 +15,7 @@ public class WorkshiftComparator extends OrderByComparator {
 	public static String ORDER_BY_ASC = "workshiftName ASC";
 	 
 	 public static String ORDER_BY_DESC = "workshiftName DESC";
-	 
+	 private static Logger log = Logger.getLogger(WorkshiftComparator.class);
 	 
 	  public WorkshiftComparator() 
 	  {
@@ -21,6 +23,7 @@ public class WorkshiftComparator extends OrderByComparator {
 	  }
 	 
 	  public WorkshiftComparator(boolean asc) {
+		  log.info("WorkshiftComparator");
 	   _asc = asc;
 	  }
 	 
@@ -30,10 +33,7 @@ public class WorkshiftComparator extends OrderByComparator {
 	   
 	   Workshift instance1 = (Workshift) obj1;
 	   Workshift instance2 = (Workshift) obj2;
-	   
-	   System.out.println("============");
-	   System.out.println("instance1 === " +instance1.getWorkshiftName().toLowerCase());
-	   System.out.println("instance2 == " +instance2.getWorkshiftName().toLowerCase());
+	  
 	   
 	   int value = instance1.getWorkshiftName().toLowerCase().compareTo(instance2.getWorkshiftName().toLowerCase());
 	 
