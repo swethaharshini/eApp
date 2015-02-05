@@ -1,3 +1,8 @@
+<%@page import="com.liferay.portal.kernel.util.ListUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.portlet.PortletClassLoaderUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.DynamicQuery"%>
 <%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@page import="com.rknowsys.eapp.hrm.service.ReportingMethodsLocalServiceUtil"%>
 <%@page import="com.rknowsys.eapp.hrm.model.ReportingMethods"%>
@@ -80,6 +85,7 @@ AUI().use(
       function() {
          A.one('#reportingmethodAddDelete').hide();
          A.one('#addReportingMethodForm').show();
+         A.one('#reportingmethodName').focus();
                      
       }
     );
@@ -90,7 +96,8 @@ AUI().ready('event', 'node','transition',function(A){
   A.one('#addReportingMethodForm').hide();
   setTimeout(function(){
     A.one('#addReportingMethodMessage').transition('fadeOut');
-},1000)
+    A.one('#addReportingMethodMessage').hide();
+},2000)
  });
 
 AUI().use(
@@ -109,36 +116,45 @@ AUI().use(
 );
 
 </aui:script>
-</head>
 
-<body>
  <% if(SessionMessages.contains(renderRequest.getPortletSession(),"reportingmethodName-empty-error")){%>
-<p id="addReportingMethodMessage"><liferay-ui:message key="Please Enter ReportingmethodName"/></p>
+<p id="addReportingMethodMessage" class="alert alert-error"><liferay-ui:message key="Please Enter ReportingmethodName"/></p>
 <%} 
  if(SessionMessages.contains(renderRequest.getPortletSession(),"reportingmethodName-duplicate-error")){
 %>
-<p id="addReportingMethodMessage"><liferay-ui:message key="ReportingmethodName already Exits"/></p>
+<p id="addReportingMethodMessage" class="alert alert-error"><liferay-ui:message key="ReportingmethodName already Exits"/></p>
 <%} 
 %>
-    <div class="row-fluid">
+   
+	
+	
+	<div class="row-fluid">
 		<div id="reportingmethodAddDelete" class="span12 text-right">
-			<a href="#" class="btn btn-primary" id="reportingmethodadd"><i class="icon-plus"></i></a>
-			<a href="#" class="btn btn-danger" id="reportingmethoddelete"><i class="icon-trash"></i></a>
+			<div class="control-group">
+				<a href="#" class="btn btn-primary" id="reportingmethodadd"><i class="icon-plus"></i> Add</a>
+				<a href="#" class="btn btn-danger" id="reportingmethoddelete"><i class="icon-trash"></i> Delete</a>
+			</div>
 		</div>
 		<div  id="addReportingMethodForm">
-		<aui:form name="myForm" action="<%=savereportingmethod.toString()%>" >
-			<aui:input name="reportingmethodId" type="hidden" id="reportingmethodId" />
-			<div class="form-inline">
-				<label>ReportingMethod Name: </label>
-				<input name="<portlet:namespace/>reportingmethodName" type="text">
-				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
-				<button  type="reset" id ="reportingmethodcancel" class="btn btn-danger"><i class="icon-remove"></i></button>
+			<div class="panel">
+				<div class="panel-heading">
+					<h4>Add</h4>
+				</div>
+				<div class="panel-body">
+					<aui:form name="myForm" action="<%=savereportingmethod.toString()%>" >
+						<aui:input name="reportingmethodId" type="hidden" id="reportingmethodId" />
+						<div class="form-inline">
+							<label>ReportingMethod Name: </label>
+							<input name="<portlet:namespace/>reportingmethodName" id="reportingmethodName" type="text">
+							<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
+							<button  type="reset" id ="reportingmethodcancel" class="btn btn-danger"><i class="icon-remove"> Cancel</i></button>
+						</div>
+					</aui:form>
+				</div>
 			</div>
-		</aui:form>
 		</div>
 	</div>
-	
-</body>
+
 
 <%
 
@@ -175,13 +191,23 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 	<liferay-ui:search-container-results>
 
 		<%
-            List<ReportingMethods> reportingMethodsList = ReportingMethodsLocalServiceUtil.getReportingMethodses(searchContainer.getStart(), searchContainer.getEnd());
+		  
+		long groupId = themeDisplay.getLayout().getGroup().getGroupId();
+		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(ReportingMethods.class,PortletClassLoaderUtil.getClassLoader());
+
+		dynamicQuery.add(PropertyFactoryUtil.forName("groupId").eq(groupId));  
+		
+            List<ReportingMethods> reportingMethodsList = ReportingMethodsLocalServiceUtil.dynamicQuery(dynamicQuery);
 		OrderByComparator orderByComparator =  CustomComparatorUtil.getReportingMethodsOrderByComparator(sortByCol, sortByType);
    
                Collections.sort(reportingMethodsList,orderByComparator);
-  
+  				if(reportingMethodsList.size()>5){
+  					results = ListUtil.subList(reportingMethodsList,searchContainer.getStart(), searchContainer.getEnd());
+  				}
+  				else{
                results = reportingMethodsList;
-               total = ReportingMethodsLocalServiceUtil.getReportingMethodsesCount();
+  				}
+               total = reportingMethodsList.size();
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);
 

@@ -1,3 +1,8 @@
+<%@page import="com.liferay.portal.kernel.util.ListUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.portlet.PortletClassLoaderUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.DynamicQuery"%>
 <%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@page import="com.rknowsys.eapp.hrm.service.ReportingMethodsLocalServiceUtil"%>
 <%@page import="com.rknowsys.eapp.hrm.model.ReportingMethods"%>
@@ -23,72 +28,13 @@ border-radius: 4px;
 }
 </style>
 <aui:script>
-AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#reportingmethoddelete');
-    node.on(
-      'click',
-      function() {
-     var idArray = [];
-   A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
-      idArray.push(object.get("value"));
-    
-        });
-       if(idArray==""){
-			  alert("Please select records!");
-		  }else{
-			  var d = confirm("Are you sure you want to delete the selected reportingmethods?");
-		  if(d){
-		   var url = '<%=deletereportingmethod%>';
-          A.io.request(url,
-         {
-          data: {  
-                <portlet:namespace />languageIds: idArray,  
-                 },
-          on: {
-               success: function() { 
-                   alert('deleted successfully');
-                   window.location='<%=listview%>';
-              },
-               failure: function() {
-                  
-                 }
-                }
-                 }
-                );
-		  																		
-		  console.log(idArray);
-	  
-      return true;
-  }
-  else
-    return false;
-}             
-      }
-    );
-  }
-);
-</aui:script><aui:script>
-AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#reportingmethodadd');
-    node.on(
-      'click',
-      function() {
-         A.one('#editReportingMethodAddDelete').hide();
-         A.one('#editReportingMethodForm').show();
-                     
-      }
-    );
-  }
-);
 
 AUI().ready('event', 'node','transition',function(A){
+ A.one('#reportingmethodName').focus();
   setTimeout(function(){
     A.one('#editReportingMethodMessage').transition('fadeOut');
-},1000)
+    A.one('#editReportingMethodMessage').hide();
+},2000)
  });
 AUI().use(
   'aui-node',
@@ -106,35 +52,33 @@ AUI().use(
 
 </aui:script>
 
-
-
-</head>
-<body>
 <% 
  ReportingMethods editReportingMethod =(ReportingMethods) portletSession.getAttribute("editReportingMethod");
 if(SessionMessages.contains(renderRequest.getPortletSession(),"reportingmethodName-empty-error")){%>
-<p id="editReportingMethodMessage"><liferay-ui:message key="Please Enter ReportingmethodName"/></p>
+<p id="editReportingMethodMessage" class="alert alert-error"><liferay-ui:message key="Please Enter ReportingmethodName"/></p>
 <%} 
 %>
-      <div class="row-fluid">
-		<div id="editReportingMethodAddDelete" class="span12 text-right">
-			<a href="#" class="btn btn-primary" id="reportingmethodadd"><i class="icon-plus"></i></a>
-			<a href="#" class="btn btn-danger" id="reportingmethoddelete"><i class="icon-trash"></i></a>
-		</div>
+	<div class="row-fluid">
 		<div  id="editReportingMethodForm">
-		<aui:form name="myForm" action="<%=updatereportingmethod.toString()%>" >
-			<aui:input name="reportingmethodId" type="hidden" id="reportingmethodId" value="<%=editReportingMethod.getReportingmethodId()%>" />
-			<div class="form-inline">
-				<label>ReportingMethod Name: </label>
-				<input name="<portlet:namespace/>reportingmethodName" type="text" value="<%=editReportingMethod.getReportingmethodName() %>">
-				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i></button>
-				<button  type="reset" id ="reportingmethodcancel" class="btn btn-danger"><i class="icon-remove"></i></button>
+			<div class="panel">
+				<div class="panel-heading">
+					<h4>Edit</h4>
+				</div>
+				<div class="panel-body">
+					<aui:form name="myForm" action="<%=updatereportingmethod.toString()%>" >
+						<aui:input name="reportingmethodId" type="hidden" id="reportingmethodId" value="<%=editReportingMethod.getReportingmethodId()%>"/>
+						<div class="form-inline">
+							<label>ReportingMethod Name: </label>
+							<input name="<portlet:namespace/>reportingmethodName" id="reportingmethodName" type="text" value="<%=editReportingMethod.getReportingmethodName() %>">
+							<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>
+							<button  type="reset" id ="editreportingmethodcancel" class="btn btn-danger"><i class="icon-remove"> Cancel</i></button>
+						</div>
+					</aui:form>
+				</div>
 			</div>
-		</aui:form>
 		</div>
 	</div>
-     
-</body>
+
 <%
 PortletURL iteratorURL = renderResponse.createRenderURL();
 iteratorURL.setParameter("mvcPath", "/html/reportingmethods/edit.jsp");
@@ -158,16 +102,22 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 		<liferay-ui:search-container-results>
 				
 		<%
-            List<ReportingMethods> listOfReportingMethods = ReportingMethodsLocalServiceUtil.getReportingMethodses(searchContainer.getStart(), searchContainer.getEnd());
-            OrderByComparator orderByComparator = CustomComparatorUtil.getReportingMethodsOrderByComparator(sortByCol, sortByType);         
-  
-           Collections.sort(listOfReportingMethods,orderByComparator);
-  
-          results = listOfReportingMethods;
-          
-           
-     
-               total = ReportingMethodsLocalServiceUtil.getReportingMethodsesCount();
+		long groupId = themeDisplay.getLayout().getGroup().getGroupId();
+		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(ReportingMethods.class,PortletClassLoaderUtil.getClassLoader());
+
+		dynamicQuery.add(PropertyFactoryUtil.forName("groupId").eq(groupId));  
+		
+            List<ReportingMethods> reportingMethodsList = ReportingMethodsLocalServiceUtil.dynamicQuery(dynamicQuery);
+		OrderByComparator orderByComparator =  CustomComparatorUtil.getReportingMethodsOrderByComparator(sortByCol, sortByType);
+   
+               Collections.sort(reportingMethodsList,orderByComparator);
+  				if(reportingMethodsList.size()>5){
+  					results = ListUtil.subList(reportingMethodsList,searchContainer.getStart(), searchContainer.getEnd());
+  				}
+  				else{
+               results = reportingMethodsList;
+  				}
+               total = reportingMethodsList.size();
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);
  %>
@@ -181,7 +131,7 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 	<liferay-ui:search-iterator/>
 	
 </liferay-ui:search-container>
-</html>
+
 
 
 

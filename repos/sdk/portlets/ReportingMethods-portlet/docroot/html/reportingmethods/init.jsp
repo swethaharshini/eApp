@@ -17,4 +17,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.rknowsys.eapp.hrm.model.Language" %>
 <%@ page import="com.rknowsys.eapp.hrm.service.LanguageLocalServiceUtil" %>
+<%@ taglib uri="http://liferay.com/tld/theme" prefix="theme" %>
+<theme:defineObjects/>
 <portlet:defineObjects />

@@ -22,6 +22,7 @@ public class ComponentComparator extends OrderByComparator {
 	  }
 	 
 	  public ComponentComparator(boolean asc) {
+		  log.info("ComponentComparator");
 	   _asc = asc;
 	  }
 	 
@@ -32,9 +33,7 @@ public class ComponentComparator extends OrderByComparator {
 	   SalaryComponent instance1 = (SalaryComponent) obj1;
 	   SalaryComponent instance2 = (SalaryComponent) obj2;
 	   
-	   log.info("=====");
-	   log.info("instance1 === " +instance1.getComponentName().toLowerCase());
-	   log.info("instance2 == " +instance2.getComponentName().toLowerCase());
+	   
 	   
 	   int value = instance1.getComponentName().toLowerCase().compareTo(instance2.getComponentName().toLowerCase());
 	 

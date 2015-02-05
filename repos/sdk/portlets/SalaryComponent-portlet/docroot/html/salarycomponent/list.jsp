@@ -1,3 +1,8 @@
+<%@page import="org.apache.log4j.Logger"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.portlet.PortletClassLoaderUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.DynamicQuery"%>
 <%@page import="com.rknowsys.eapp.hrm.service.SalaryComponentLocalServiceUtil"%>
 <%@page import="com.rknowsys.eapp.hrm.model.SalaryComponent"%>
 <%@page import="com.rknowsys.eapp.CustomComparatorUtil"%>
@@ -66,9 +71,8 @@ AUI().use(
 );
 
 </aui:script>
+<% Logger log=Logger.getLogger(this.getClass().getName());%>
 
-</head>
-<body>
 
 <div class="control-group text-right">
 	<a href="<%=addcomponent%>" class="btn btn-primary"><i class="icon-plus"></i> Add</a>
@@ -83,10 +87,10 @@ RowChecker rowChecker = new RowChecker(renderResponse);
 PortalPreferences portalPrefs = PortletPreferencesFactoryUtil.getPortalPreferences(request); 
 String sortByCol = ParamUtil.getString(request, "orderByCol"); 
 String sortByType = ParamUtil.getString(request, "orderByType"); 
-System.out.println("sortByCol == " +sortByCol);
-System.out.println("sortByType == " +sortByType);
+log.info("sortByCol == " +sortByCol);
+log.info("sortByType == " +sortByType);
 if (Validator.isNotNull(sortByCol ) && Validator.isNotNull(sortByType )) { 
-	System.out.println("if block...");
+	log.info("if block...");
  
 portalPrefs.setValue("NAME_SPACE", "sort-by-col", sortByCol); 
 portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol); 
@@ -97,9 +101,9 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 	sortByType = portalPrefs.getValue("NAME_SPACE", "sort-by-type ", "asc");   
 }
 
-System.out.println("after....");
-System.out.println("sortByCol == " +sortByCol);
-System.out.println("sortByType == " +sortByType);
+log.info("after....");
+log.info("sortByCol == " +sortByCol);
+log.info("sortByType == " +sortByType);
 
 %>
 <%!
@@ -113,19 +117,28 @@ System.out.println("sortByType == " +sortByType);
 	deltaConfigurable="true" iteratorURL="<%=iteratorURL%>">
 	<liferay-ui:search-container-results>
 	<%
-			List<SalaryComponent> salarycomponentlist = SalaryComponentLocalServiceUtil.getSalaryComponents(searchContainer.getStart(), searchContainer.getEnd());
-            System.out.println("list size == " +salarycomponentlist.size());
+	long groupId =  themeDisplay.getLayout().getGroup().getGroupId();
+	DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(SalaryComponent.class,PortletClassLoaderUtil.getClassLoader());
+
+	dynamicQuery.add(PropertyFactoryUtil.forName("groupId").eq(groupId));
+
+	List<SalaryComponent> salarycomponentlist = SalaryComponentLocalServiceUtil.getSalaryComponents(searchContainer.getStart(), searchContainer.getEnd());
+            log.info("list size == " +salarycomponentlist.size());
             OrderByComparator orderByComparator = CustomComparatorUtil.getSalaryComponentOrderByComparator(sortByCol, sortByType);         
   
            Collections.sort(salarycomponentlist,orderByComparator);
-  
+  		if(salarycomponentlist.size()>5){
+  			
+  			results =ListUtil.subList(salarycomponentlist,searchContainer.getStart(),searchContainer.getEnd());
+  		}
+  		else{
           results = salarycomponentlist;
-          
-            System.out.println("results == " +results);
+  		}
+            log.info("results == " +results);
            
      
                total = SalaryComponentLocalServiceUtil.getSalaryComponentsCount();
-               System.out.println("total == " +total);
+               log.info("total == " +total);
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);
  %>
@@ -147,7 +160,3 @@ System.out.println("sortByType == " +sortByType);
 	<liferay-ui:search-iterator />
 
 </liferay-ui:search-container>
-
-
-</body>
-</html>
