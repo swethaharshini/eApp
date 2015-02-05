@@ -144,11 +144,11 @@ public class WorkshiftAction extends MVCPortlet {
 
 		} catch (SystemException e) {
 
-			e.printStackTrace();
+			log.error(e);
 			log.info("system exception");
 		} catch (PortalException e) {
 
-			e.printStackTrace();
+			log.error(e);
 			log.info("portalexception");
 		}
 
@@ -234,7 +234,7 @@ public class WorkshiftAction extends MVCPortlet {
 							empJob = EmpJobLocalServiceUtil.updateEmpJob(empJob);
 						} catch (SystemException e) {
 							// TODO Auto-generated catch block
-							e.printStackTrace();
+							log.error(e);
 						}
 					}
 					try {
@@ -244,11 +244,11 @@ public class WorkshiftAction extends MVCPortlet {
 						workshift = WorkshiftLocalServiceUtil.deleteWorkshift(id);
 					} catch (PortalException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						log.error(e);
 					}
 					catch (SystemException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						log.error(e);
 					}
 					
 					

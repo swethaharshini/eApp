@@ -299,8 +299,7 @@ log.info("sortByType == " +sortByType);
 					}
 					log.info("results == " + results);
 
-					total = WorkshiftLocalServiceUtil
-							.getWorkshiftsCount();
+					total = workshiftList.size();
 					log.info("total == " + total);
 					pageContext.setAttribute("results", results);
 					pageContext.setAttribute("total", total);

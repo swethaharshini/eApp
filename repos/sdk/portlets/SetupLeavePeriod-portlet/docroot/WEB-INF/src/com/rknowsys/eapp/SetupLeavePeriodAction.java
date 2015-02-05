@@ -119,11 +119,11 @@ public class SetupLeavePeriodAction extends MVCPortlet {
 			}
 		} catch (SystemException e) {
 
-			e.printStackTrace();
+			log.error(e);
 			log.info("system exception");
 		} catch (PortalException e) {
 
-			e.printStackTrace();
+			log.error(e);
 			log.info("portalexception");
 		}
 		log.info("end of the saveContactDetails method");
@@ -271,7 +271,7 @@ public class SetupLeavePeriodAction extends MVCPortlet {
 			PortletSession portletSession = renderRequest.getPortletSession();
 			portletSession.setAttribute("editLeavePeriod", leavePeriodUI);
 		} catch (SystemException e) {
-			e.printStackTrace();
+			log.error(e);
 		}
 		super.doView(renderRequest, renderResponse);
 	}
