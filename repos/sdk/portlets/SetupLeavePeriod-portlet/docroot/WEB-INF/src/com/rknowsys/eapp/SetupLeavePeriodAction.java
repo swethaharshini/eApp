@@ -9,6 +9,7 @@ import java.util.List;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
+import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
@@ -84,7 +85,9 @@ public class SetupLeavePeriodAction extends MVCPortlet {
 
 				log.info("b4 fwding LeavePeriodId == " + id);
 
-				actionRequest.setAttribute("editLeavePeriod", leavePeriodUI);
+				
+				PortletSession portletSession = actionRequest.getPortletSession();
+				portletSession.setAttribute("editLeavePeriod", leavePeriodUI);
 				actionResponse.setRenderParameter("jspPage",
 						"/html/leaveperiod/edit_leave_period.jsp");
 
@@ -106,7 +109,8 @@ public class SetupLeavePeriodAction extends MVCPortlet {
 				setLeavePeriodUI(leavePeriodUI, leavePeriod);
 
 				log.info(leavePeriodUI.getLeavePeriodId());
-				actionRequest.setAttribute("editLeavePeriod", leavePeriodUI);
+				PortletSession portletSession = actionRequest.getPortletSession();
+				portletSession.setAttribute("editLeavePeriod", leavePeriodUI);
 				actionResponse.setRenderParameter("jspPage",
 						"/html/leaveperiod/edit_leave_period.jsp");
 
@@ -204,9 +208,9 @@ public class SetupLeavePeriodAction extends MVCPortlet {
 	}
 
 	private void setThemeParams(ThemeDisplay themeDisplay,
-			LeavePeriod leavePeriod) {
+			LeavePeriod leavePeriod) throws PortalException, SystemException {
 		leavePeriod.setCompanyId(themeDisplay.getCompanyId());
-		leavePeriod.setGroupId(themeDisplay.getCompanyGroupId());
+		leavePeriod.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
 		leavePeriod.setUserId(themeDisplay.getUserId());
 	}
 
@@ -264,7 +268,8 @@ public class SetupLeavePeriodAction extends MVCPortlet {
 				log.info("leavePeriod from service= " + leavePeriodUI);
 			}
 
-			renderRequest.setAttribute("editLeavePeriod", leavePeriodUI);
+			PortletSession portletSession = renderRequest.getPortletSession();
+			portletSession.setAttribute("editLeavePeriod", leavePeriodUI);
 		} catch (SystemException e) {
 			e.printStackTrace();
 		}
@@ -311,16 +316,6 @@ public class SetupLeavePeriodAction extends MVCPortlet {
 			PortletException, NumberFormatException, PortalException,
 			SystemException {
 
-		// log.info("inside editContactDetails...");
-		// String s = ParamUtil.getString(actionRequest,
-		// CONTACT_DETAILS_COL_NAME);
-		// log.info("contactDetailsId == " + s);
-		// ContactDetails ec = ContactDetailsLocalServiceUtil
-		// .getContactDetails(Long.parseLong(s));
-		//
-		// log.info(ec.getContactDetailsId());
-		// actionRequest.setAttribute("editContactDetails", ec);
-		// actionResponse.setRenderParameter("jspPage",
-		// "/html/contactdetails/edit_contact_details.jsp");
+		
 	}
 }
