@@ -110,4 +110,7 @@
 <%@page
 	import="com.liferay.portlet.documentlibrary.service.DLAppService"%>
 	<%@ taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet" %>
+	<%@ taglib uri="http://liferay.com/tld/theme" prefix="theme" %>
 <portlet:defineObjects />
+<theme:defineObjects/>
+

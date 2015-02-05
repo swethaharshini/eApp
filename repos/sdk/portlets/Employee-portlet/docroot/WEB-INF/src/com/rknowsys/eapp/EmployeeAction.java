@@ -990,59 +990,6 @@ public class EmployeeAction extends MVCPortlet {
 		ThemeDisplay themeDisplay = (ThemeDisplay) resourceRequest
 				.getAttribute(WebKeys.THEME_DISPLAY);
 		Date date = new Date();
-/*		if(resourceRequest.getResourceID().equals("dowloadFileUrl"))
-			{
-			log.info("downloading the file from DLFileEntry");
-			Long fileId=ParamUtil.getLong(resourceRequest,"fileId");
-			String changeLog = ParamUtil
-					.getString(resourceRequest, "changeLog");
-			ServiceContext serviceContext = null;
-			try {
-				try {
-					serviceContext = ServiceContextFactory.getInstance(
-							DLFileEntry.class.getName(), resourceRequest);
-					} catch (SystemException e) {
-						e.printStackTrace();
-					}
-				} catch (PortalException e1) {
-			System.out.println(e1.getMessage());
-					}
-			DLFileEntry updateImage = null;
-			try {
-					updateImage = DLFileEntryLocalServiceUtil
-							.getDLFileEntry(fileId);
-				} catch (PortalException e) {
-					e.printStackTrace();
-				} catch (SystemException e) {
-					e.printStackTrace();
-				}
-			OutputStream outStream = resourceResponse.getPortletOutputStream();
-			FileInputStream inStream=null;
-			try {
-				inStream = (FileInputStream) updateImage.getContentStream();
-				} catch (PortalException e) {
-					log.error
-				} catch (SystemException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			resourceResponse.setProperty("Content-disposition",
-					"attachment; filename=\"."
-							+  "\"");
-			byte[] buffer = new byte[1024];
-			while (true) {
-				int bytes = inStream.read(buffer);
-				if (bytes <= 0) {
-					break;
-				}
-				outStream.write(buffer, 0, bytes);
-			}
-			outStream.flush();
-			outStream.close();
-			PrintWriter out = resourceResponse.getWriter();
-			out.println("Image updated successfully");
-				}*/
-	
 		if (resourceRequest.getResourceID().equals("deleteEmergencyContact")) {
 			log.info("Deleting Emergency contact records");
 			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,"emgContactIds");
@@ -1111,6 +1058,7 @@ public class EmployeeAction extends MVCPortlet {
 			UploadPortletRequest uploadRequest = PortalUtil
 					.getUploadPortletRequest(resourceRequest);
 			File newImage = uploadRequest.getFile("newImage");
+			String fileName=uploadRequest.getFileName("newImage");
 			long fileEntryId2 = ParamUtil.getLong(uploadRequest,"imageIdtoUpdate");
 			String changeLog = ParamUtil.getString(resourceRequest, "changeLog");
 			ServiceContext serviceContext = null;
@@ -1137,7 +1085,7 @@ public class EmployeeAction extends MVCPortlet {
 				try {
 					DLAppLocalServiceUtil.updateFileEntry(
 							themeDisplay.getUserId(), fileEntryId2,
-							newImage.getName(), "image/jpeg", "", "",
+							fileName, "image/jpeg", fileName, "",
 							changeLog, true, newImage, serviceContext);
 				} catch (PortalException e) {
 					log.error("Error in updating employee image",e);
@@ -1257,6 +1205,7 @@ public class EmployeeAction extends MVCPortlet {
 		String username = ParamUtil.getString(uploadRequest, "user_name");
 		String password = ParamUtil.getString(uploadRequest, "password");
 		File uploadPhoto = uploadRequest.getFile("emp_photograph");
+		String fileName=uploadRequest.getFileName("emp_photograph");
 		String contentType = MimeTypesUtil.getContentType(uploadPhoto);
 		System.out.println("content type is" + contentType);
 		String changeLog = ParamUtil.getString(actionRequest, "changeLog");
@@ -1314,8 +1263,8 @@ public class EmployeeAction extends MVCPortlet {
 			try {
 				fileEntry = DLAppLocalServiceUtil.addFileEntry(
 						themeDisplay.getUserId(), themeDisplay.getScopeGroupId(),
-						0, "img" + empPersonalDetails.getEmployeeId(), contentType,
-						"img" + empPersonalDetails.getEmployeeId(), contentType,
+						0, fileName, contentType,
+						fileName, contentType,
 						" ", uploadPhoto, serviceContext);
 			} catch (PortalException e1) {
 				log.error("Error in adding image of the employee",e1);
@@ -1334,8 +1283,8 @@ public class EmployeeAction extends MVCPortlet {
 		fileEntry.getExpandoBridge().setAttribute("employeeId",String.valueOf(employee.getEmployeeId()));
 		try {
 			DLAppLocalServiceUtil.updateFileEntry(themeDisplay.getUserId(),
-					fileEntry.getFileEntryId(), uploadPhoto.getName(),
-					contentType, uploadPhoto.getName(), uploadPhoto.getName(),
+					fileEntry.getFileEntryId(), fileName,
+					contentType, fileName,"",
 					changeLog, false, uploadPhoto, serviceContext);
 		} catch (PortalException e) {
 			log.error("Error in adding image of the employee",e);
@@ -1404,7 +1353,10 @@ public class EmployeeAction extends MVCPortlet {
 		UploadPortletRequest uploadRequest = PortalUtil.getUploadPortletRequest(actionRequest);
 		long employeeId = ParamUtil.getLong(uploadRequest, "docEmployeeId");
 		String docCategory = ParamUtil.getString(uploadRequest,	"doc_related_to");
+		String description=ParamUtil.getString(uploadRequest, "doc_comments");
+		String fileName=uploadRequest.getFileName("emp_files");
 		File document = uploadRequest.getFile("emp_files");
+		log.info("document name is "+fileName);
 		long fileEntryId = ParamUtil.getLong(uploadRequest, "QualFileId");
 		ServiceContext serviceContext = null;
 		String changeLog = ParamUtil.getString(uploadRequest, "changeLog");
@@ -1419,7 +1371,7 @@ public class EmployeeAction extends MVCPortlet {
 			try {
 				fileEntry = DLAppLocalServiceUtil.addFileEntry(
 						themeDisplay.getUserId(), themeDisplay.getScopeGroupId(),
-						0, document.getName(), contentType, docCategory, "", " ",
+						0, fileName, contentType, fileName, description, " ",
 						document, serviceContext);
 			} catch (PortalException e1) {
 				log.error("Error in saving employee documents", e1);
@@ -1439,8 +1391,8 @@ public class EmployeeAction extends MVCPortlet {
 
 			try {
 				DLAppLocalServiceUtil.updateFileEntry(themeDisplay.getUserId(),
-						fileEntry.getFileEntryId(), document.getName(),
-						contentType, document.getName(), document.getName(),
+						fileEntry.getFileEntryId(), fileName,
+						contentType, fileName, description,
 						changeLog, false, document, serviceContext);
 			} catch (PortalException e) {
 				log.error("Error while updating employee documents", e);
@@ -1459,19 +1411,9 @@ public class EmployeeAction extends MVCPortlet {
 		long fileEntryId = ParamUtil.getLong(renderRequest, "fileId");
 		Long empId = ParamUtil.getLong(renderRequest, "empId");
 		String employeeJsp="/html/employee/edit_employee.jsp";
-		if(jsp==null)
+		if(jsp!=null)
 		{
-			try {
-				this.include(viewTemplate, renderRequest, renderResponse);
-			} catch (IOException e) {
-				log.error("Error in getting requested jsp", e);
-			} catch (PortletException e) {
-				log.error("Error in getting requested jsp", e);
-			}
-		}
-		else 
-		{
-			Map<String, Comparable> map = setSessionAttributes(empId, fileEntryId, employeeJsp);
+			Map<String, Comparable> map = setSessionAttributes(empId, fileEntryId, jsp);
 			renderRequest.getPortletSession(true).setAttribute("empId", map,
 					PortletSession.APPLICATION_SCOPE);
 			try {
@@ -1480,6 +1422,16 @@ public class EmployeeAction extends MVCPortlet {
 					log.error("Error in getting requested jsp", e);
 				} catch (PortletException e) {
 					log.error("Error in getting requested jsp", e);
+			}
+		}
+		else 
+		{
+			try {
+				this.include(viewTemplate, renderRequest, renderResponse);
+			} catch (IOException e) {
+				log.error("Error in getting requested jsp", e);
+			} catch (PortletException e) {
+				log.error("Error in getting requested jsp", e);
 			}
 		}
 	}
