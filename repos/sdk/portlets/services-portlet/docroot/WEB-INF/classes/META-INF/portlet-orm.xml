@@ -135,6 +135,7 @@
 			<basic name="employeeNo" />
 			<basic name="companyId" />
 			<basic name="userId" />
+			<basic name="groupId" />
 			<basic name="createDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
@@ -296,6 +297,7 @@
 			</basic>
 			<basic name="shiftId" />
 			<basic name="comments" />
+			<basic name="isCurrentJob" />
 			<basic name="employmentContractStartDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
@@ -753,8 +755,10 @@
 			<basic name="leaveTypeId" />
 			<basic name="expiryDuration" />
 			<basic name="expiryDurationUOM" />
-			<basic name="isMaxCarryForwardLimitApplicable" />
 			<basic name="maxCarryForwardLimit" />
+			<basic name="isMaxCarryForwardLimitApplicable" />
+			<basic name="isNegetiveValueCarryForwardble" />
+			<basic name="specifiedAmountToCarryForward" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
@@ -888,6 +892,35 @@
 			<basic name="nationalityId" />
 			<basic name="leaveTypeName" />
 			<basic name="isSituational" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.rknowsys.eapp.hrm.model.impl.LeaveTypeEmployeeGroupsModelImpl">
+		<attributes>
+			<id name="leaveTypeEmployeeGroupId" />
+			<basic name="companyId" />
+			<basic name="groupId" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="userId" />
+			<basic name="leaveTypeId" />
+			<basic name="groupName" />
+			<basic name="forJobTitles" />
+			<basic name="forJobCategories" />
+			<basic name="forEmploymentStatus" />
+			<basic name="forGender" />
+			<basic name="forFemale" />
+			<basic name="forMale" />
+			<basic name="forYearsOfService" />
+			<basic name="fromYears" />
+			<basic name="toYears" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
@@ -1375,6 +1408,10 @@
 	</entity>
 	<entity class="com.rknowsys.eapp.hrm.model.impl.LeaveTypeImpl" name="LeaveType">
 		<table name="leave_type" />
+		<attributes />
+	</entity>
+	<entity class="com.rknowsys.eapp.hrm.model.impl.LeaveTypeEmployeeGroupsImpl" name="LeaveTypeEmployeeGroups">
+		<table name="leave_type_employee_groups" />
 		<attributes />
 	</entity>
 	<entity class="com.rknowsys.eapp.hrm.model.impl.LicenseImpl" name="License">

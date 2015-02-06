@@ -37,6 +37,7 @@
 	<import class="com.rknowsys.eapp.hrm.model.LeaveRestriction" />
 	<import class="com.rknowsys.eapp.hrm.model.LeaveRuleApplicable" />
 	<import class="com.rknowsys.eapp.hrm.model.LeaveType" />
+	<import class="com.rknowsys.eapp.hrm.model.LeaveTypeEmployeeGroups" />
 	<import class="com.rknowsys.eapp.hrm.model.License" />
 	<import class="com.rknowsys.eapp.hrm.model.Location" />
 	<import class="com.rknowsys.eapp.hrm.model.Membership" />
@@ -149,6 +150,7 @@
 		<property name="employeeNo" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="firstName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
@@ -253,6 +255,7 @@
 		<property name="effectiveDate" type="org.hibernate.type.TimestampType" />
 		<property name="shiftId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="comments" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="isCurrentJob" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 		<property name="employmentContractStartDate" type="org.hibernate.type.TimestampType" />
 		<property name="employmentContractEndDate" type="org.hibernate.type.TimestampType" />
 		<one-to-one name="contractDetailsBlobModel" access="com.liferay.portal.dao.orm.hibernate.PrivatePropertyAccessor" class="com.rknowsys.eapp.hrm.model.EmpJobContractDetailsBlobModel" cascade="save-update" outer-join="false" constrained="true" />
@@ -554,8 +557,10 @@
 		<property name="leaveTypeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="expiryDuration" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="expiryDurationUOM" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="isMaxCarryForwardLimitApplicable" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 		<property name="maxCarryForwardLimit" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="isMaxCarryForwardLimitApplicable" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="isNegetiveValueCarryForwardble" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="specifiedAmountToCarryForward" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 	</class>
 	<class name="com.rknowsys.eapp.hrm.model.impl.LeaveGeneralImpl" table="leave_general">
 		<cache usage="read-write" />
@@ -654,6 +659,28 @@
 		<property name="nationalityId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="leaveTypeName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="isSituational" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.LeaveTypeEmployeeGroupsImpl" table="leave_type_employee_groups">
+		<cache usage="read-write" />
+		<id name="leaveTypeEmployeeGroupId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="leaveTypeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="forJobTitles" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="forJobCategories" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="forEmploymentStatus" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="forGender" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="forFemale" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="forMale" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="forYearsOfService" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="fromYears" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="toYears" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.rknowsys.eapp.hrm.model.impl.LicenseImpl" table="license">
 		<cache usage="read-write" />

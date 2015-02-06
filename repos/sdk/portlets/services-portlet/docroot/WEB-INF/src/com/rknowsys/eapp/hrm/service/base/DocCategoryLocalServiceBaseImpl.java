@@ -71,6 +71,7 @@ import com.rknowsys.eapp.hrm.service.persistence.LeaveGeneralPersistence;
 import com.rknowsys.eapp.hrm.service.persistence.LeavePeriodPersistence;
 import com.rknowsys.eapp.hrm.service.persistence.LeaveRestrictionPersistence;
 import com.rknowsys.eapp.hrm.service.persistence.LeaveRuleApplicablePersistence;
+import com.rknowsys.eapp.hrm.service.persistence.LeaveTypeEmployeeGroupsPersistence;
 import com.rknowsys.eapp.hrm.service.persistence.LeaveTypePersistence;
 import com.rknowsys.eapp.hrm.service.persistence.LicensePersistence;
 import com.rknowsys.eapp.hrm.service.persistence.LocationPersistence;
@@ -1731,6 +1732,44 @@ public abstract class DocCategoryLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the leave type employee groups local service.
+	 *
+	 * @return the leave type employee groups local service
+	 */
+	public com.rknowsys.eapp.hrm.service.LeaveTypeEmployeeGroupsLocalService getLeaveTypeEmployeeGroupsLocalService() {
+		return leaveTypeEmployeeGroupsLocalService;
+	}
+
+	/**
+	 * Sets the leave type employee groups local service.
+	 *
+	 * @param leaveTypeEmployeeGroupsLocalService the leave type employee groups local service
+	 */
+	public void setLeaveTypeEmployeeGroupsLocalService(
+		com.rknowsys.eapp.hrm.service.LeaveTypeEmployeeGroupsLocalService leaveTypeEmployeeGroupsLocalService) {
+		this.leaveTypeEmployeeGroupsLocalService = leaveTypeEmployeeGroupsLocalService;
+	}
+
+	/**
+	 * Returns the leave type employee groups persistence.
+	 *
+	 * @return the leave type employee groups persistence
+	 */
+	public LeaveTypeEmployeeGroupsPersistence getLeaveTypeEmployeeGroupsPersistence() {
+		return leaveTypeEmployeeGroupsPersistence;
+	}
+
+	/**
+	 * Sets the leave type employee groups persistence.
+	 *
+	 * @param leaveTypeEmployeeGroupsPersistence the leave type employee groups persistence
+	 */
+	public void setLeaveTypeEmployeeGroupsPersistence(
+		LeaveTypeEmployeeGroupsPersistence leaveTypeEmployeeGroupsPersistence) {
+		this.leaveTypeEmployeeGroupsPersistence = leaveTypeEmployeeGroupsPersistence;
+	}
+
+	/**
 	 * Returns the license local service.
 	 *
 	 * @return the license local service
@@ -2617,6 +2656,10 @@ public abstract class DocCategoryLocalServiceBaseImpl
 	protected com.rknowsys.eapp.hrm.service.LeaveTypeLocalService leaveTypeLocalService;
 	@BeanReference(type = LeaveTypePersistence.class)
 	protected LeaveTypePersistence leaveTypePersistence;
+	@BeanReference(type = com.rknowsys.eapp.hrm.service.LeaveTypeEmployeeGroupsLocalService.class)
+	protected com.rknowsys.eapp.hrm.service.LeaveTypeEmployeeGroupsLocalService leaveTypeEmployeeGroupsLocalService;
+	@BeanReference(type = LeaveTypeEmployeeGroupsPersistence.class)
+	protected LeaveTypeEmployeeGroupsPersistence leaveTypeEmployeeGroupsPersistence;
 	@BeanReference(type = com.rknowsys.eapp.hrm.service.LicenseLocalService.class)
 	protected com.rknowsys.eapp.hrm.service.LicenseLocalService licenseLocalService;
 	@BeanReference(type = LicensePersistence.class)

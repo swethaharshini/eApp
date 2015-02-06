@@ -1376,8 +1376,10 @@ public class LeaveCarryForwardPolicyPersistenceImpl extends BasePersistenceImpl<
 		leaveCarryForwardPolicyImpl.setLeaveTypeId(leaveCarryForwardPolicy.getLeaveTypeId());
 		leaveCarryForwardPolicyImpl.setExpiryDuration(leaveCarryForwardPolicy.getExpiryDuration());
 		leaveCarryForwardPolicyImpl.setExpiryDurationUOM(leaveCarryForwardPolicy.getExpiryDurationUOM());
-		leaveCarryForwardPolicyImpl.setIsMaxCarryForwardLimitApplicable(leaveCarryForwardPolicy.isIsMaxCarryForwardLimitApplicable());
 		leaveCarryForwardPolicyImpl.setMaxCarryForwardLimit(leaveCarryForwardPolicy.getMaxCarryForwardLimit());
+		leaveCarryForwardPolicyImpl.setIsMaxCarryForwardLimitApplicable(leaveCarryForwardPolicy.isIsMaxCarryForwardLimitApplicable());
+		leaveCarryForwardPolicyImpl.setIsNegetiveValueCarryForwardble(leaveCarryForwardPolicy.isIsNegetiveValueCarryForwardble());
+		leaveCarryForwardPolicyImpl.setSpecifiedAmountToCarryForward(leaveCarryForwardPolicy.getSpecifiedAmountToCarryForward());
 
 		return leaveCarryForwardPolicyImpl;
 	}

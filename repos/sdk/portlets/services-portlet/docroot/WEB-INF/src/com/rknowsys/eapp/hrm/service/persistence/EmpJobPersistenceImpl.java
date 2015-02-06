@@ -1356,6 +1356,7 @@ public class EmpJobPersistenceImpl extends BasePersistenceImpl<EmpJob>
 		empJobImpl.setEffectiveDate(empJob.getEffectiveDate());
 		empJobImpl.setShiftId(empJob.getShiftId());
 		empJobImpl.setComments(empJob.getComments());
+		empJobImpl.setIsCurrentJob(empJob.isIsCurrentJob());
 		empJobImpl.setEmploymentContractStartDate(empJob.getEmploymentContractStartDate());
 		empJobImpl.setEmploymentContractEndDate(empJob.getEmploymentContractEndDate());
 		empJobImpl.setContractDetails(empJob.getContractDetails());

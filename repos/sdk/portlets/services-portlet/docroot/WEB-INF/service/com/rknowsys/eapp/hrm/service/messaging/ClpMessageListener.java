@@ -52,6 +52,7 @@ import com.rknowsys.eapp.hrm.service.LeaveGeneralLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.LeavePeriodLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.LeaveRestrictionLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.LeaveRuleApplicableLocalServiceUtil;
+import com.rknowsys.eapp.hrm.service.LeaveTypeEmployeeGroupsLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.LeaveTypeLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.LicenseLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.LocationLocalServiceUtil;
@@ -153,6 +154,8 @@ public class ClpMessageListener extends BaseMessageListener {
 			LeaveRuleApplicableLocalServiceUtil.clearService();
 
 			LeaveTypeLocalServiceUtil.clearService();
+
+			LeaveTypeEmployeeGroupsLocalServiceUtil.clearService();
 
 			LicenseLocalServiceUtil.clearService();
 

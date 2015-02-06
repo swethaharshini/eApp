@@ -61,9 +61,13 @@ public class LeaveCarryForwardPolicyWrapper implements LeaveCarryForwardPolicy,
 		attributes.put("leaveTypeId", getLeaveTypeId());
 		attributes.put("expiryDuration", getExpiryDuration());
 		attributes.put("expiryDurationUOM", getExpiryDurationUOM());
+		attributes.put("maxCarryForwardLimit", getMaxCarryForwardLimit());
 		attributes.put("isMaxCarryForwardLimitApplicable",
 			getIsMaxCarryForwardLimitApplicable());
-		attributes.put("maxCarryForwardLimit", getMaxCarryForwardLimit());
+		attributes.put("isNegetiveValueCarryForwardble",
+			getIsNegetiveValueCarryForwardble());
+		attributes.put("specifiedAmountToCarryForward",
+			getSpecifiedAmountToCarryForward());
 
 		return attributes;
 	}
@@ -125,6 +129,13 @@ public class LeaveCarryForwardPolicyWrapper implements LeaveCarryForwardPolicy,
 			setExpiryDurationUOM(expiryDurationUOM);
 		}
 
+		String maxCarryForwardLimit = (String)attributes.get(
+				"maxCarryForwardLimit");
+
+		if (maxCarryForwardLimit != null) {
+			setMaxCarryForwardLimit(maxCarryForwardLimit);
+		}
+
 		Boolean isMaxCarryForwardLimitApplicable = (Boolean)attributes.get(
 				"isMaxCarryForwardLimitApplicable");
 
@@ -132,11 +143,18 @@ public class LeaveCarryForwardPolicyWrapper implements LeaveCarryForwardPolicy,
 			setIsMaxCarryForwardLimitApplicable(isMaxCarryForwardLimitApplicable);
 		}
 
-		String maxCarryForwardLimit = (String)attributes.get(
-				"maxCarryForwardLimit");
+		Boolean isNegetiveValueCarryForwardble = (Boolean)attributes.get(
+				"isNegetiveValueCarryForwardble");
 
-		if (maxCarryForwardLimit != null) {
-			setMaxCarryForwardLimit(maxCarryForwardLimit);
+		if (isNegetiveValueCarryForwardble != null) {
+			setIsNegetiveValueCarryForwardble(isNegetiveValueCarryForwardble);
+		}
+
+		Integer specifiedAmountToCarryForward = (Integer)attributes.get(
+				"specifiedAmountToCarryForward");
+
+		if (specifiedAmountToCarryForward != null) {
+			setSpecifiedAmountToCarryForward(specifiedAmountToCarryForward);
 		}
 	}
 
@@ -363,6 +381,26 @@ public class LeaveCarryForwardPolicyWrapper implements LeaveCarryForwardPolicy,
 	}
 
 	/**
+	* Returns the max carry forward limit of this leave carry forward policy.
+	*
+	* @return the max carry forward limit of this leave carry forward policy
+	*/
+	@Override
+	public java.lang.String getMaxCarryForwardLimit() {
+		return _leaveCarryForwardPolicy.getMaxCarryForwardLimit();
+	}
+
+	/**
+	* Sets the max carry forward limit of this leave carry forward policy.
+	*
+	* @param maxCarryForwardLimit the max carry forward limit of this leave carry forward policy
+	*/
+	@Override
+	public void setMaxCarryForwardLimit(java.lang.String maxCarryForwardLimit) {
+		_leaveCarryForwardPolicy.setMaxCarryForwardLimit(maxCarryForwardLimit);
+	}
+
+	/**
 	* Returns the is max carry forward limit applicable of this leave carry forward policy.
 	*
 	* @return the is max carry forward limit applicable of this leave carry forward policy
@@ -394,23 +432,55 @@ public class LeaveCarryForwardPolicyWrapper implements LeaveCarryForwardPolicy,
 	}
 
 	/**
-	* Returns the max carry forward limit of this leave carry forward policy.
+	* Returns the is negetive value carry forwardble of this leave carry forward policy.
 	*
-	* @return the max carry forward limit of this leave carry forward policy
+	* @return the is negetive value carry forwardble of this leave carry forward policy
 	*/
 	@Override
-	public java.lang.String getMaxCarryForwardLimit() {
-		return _leaveCarryForwardPolicy.getMaxCarryForwardLimit();
+	public boolean getIsNegetiveValueCarryForwardble() {
+		return _leaveCarryForwardPolicy.getIsNegetiveValueCarryForwardble();
 	}
 
 	/**
-	* Sets the max carry forward limit of this leave carry forward policy.
+	* Returns <code>true</code> if this leave carry forward policy is is negetive value carry forwardble.
 	*
-	* @param maxCarryForwardLimit the max carry forward limit of this leave carry forward policy
+	* @return <code>true</code> if this leave carry forward policy is is negetive value carry forwardble; <code>false</code> otherwise
 	*/
 	@Override
-	public void setMaxCarryForwardLimit(java.lang.String maxCarryForwardLimit) {
-		_leaveCarryForwardPolicy.setMaxCarryForwardLimit(maxCarryForwardLimit);
+	public boolean isIsNegetiveValueCarryForwardble() {
+		return _leaveCarryForwardPolicy.isIsNegetiveValueCarryForwardble();
+	}
+
+	/**
+	* Sets whether this leave carry forward policy is is negetive value carry forwardble.
+	*
+	* @param isNegetiveValueCarryForwardble the is negetive value carry forwardble of this leave carry forward policy
+	*/
+	@Override
+	public void setIsNegetiveValueCarryForwardble(
+		boolean isNegetiveValueCarryForwardble) {
+		_leaveCarryForwardPolicy.setIsNegetiveValueCarryForwardble(isNegetiveValueCarryForwardble);
+	}
+
+	/**
+	* Returns the specified amount to carry forward of this leave carry forward policy.
+	*
+	* @return the specified amount to carry forward of this leave carry forward policy
+	*/
+	@Override
+	public int getSpecifiedAmountToCarryForward() {
+		return _leaveCarryForwardPolicy.getSpecifiedAmountToCarryForward();
+	}
+
+	/**
+	* Sets the specified amount to carry forward of this leave carry forward policy.
+	*
+	* @param specifiedAmountToCarryForward the specified amount to carry forward of this leave carry forward policy
+	*/
+	@Override
+	public void setSpecifiedAmountToCarryForward(
+		int specifiedAmountToCarryForward) {
+		_leaveCarryForwardPolicy.setSpecifiedAmountToCarryForward(specifiedAmountToCarryForward);
 	}
 
 	@Override

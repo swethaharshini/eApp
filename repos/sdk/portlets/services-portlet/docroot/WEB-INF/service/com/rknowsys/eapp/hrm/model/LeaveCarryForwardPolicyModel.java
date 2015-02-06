@@ -203,6 +203,21 @@ public interface LeaveCarryForwardPolicyModel extends BaseModel<LeaveCarryForwar
 	public void setExpiryDurationUOM(String expiryDurationUOM);
 
 	/**
+	 * Returns the max carry forward limit of this leave carry forward policy.
+	 *
+	 * @return the max carry forward limit of this leave carry forward policy
+	 */
+	@AutoEscape
+	public String getMaxCarryForwardLimit();
+
+	/**
+	 * Sets the max carry forward limit of this leave carry forward policy.
+	 *
+	 * @param maxCarryForwardLimit the max carry forward limit of this leave carry forward policy
+	 */
+	public void setMaxCarryForwardLimit(String maxCarryForwardLimit);
+
+	/**
 	 * Returns the is max carry forward limit applicable of this leave carry forward policy.
 	 *
 	 * @return the is max carry forward limit applicable of this leave carry forward policy
@@ -225,19 +240,41 @@ public interface LeaveCarryForwardPolicyModel extends BaseModel<LeaveCarryForwar
 		boolean isMaxCarryForwardLimitApplicable);
 
 	/**
-	 * Returns the max carry forward limit of this leave carry forward policy.
+	 * Returns the is negetive value carry forwardble of this leave carry forward policy.
 	 *
-	 * @return the max carry forward limit of this leave carry forward policy
+	 * @return the is negetive value carry forwardble of this leave carry forward policy
 	 */
-	@AutoEscape
-	public String getMaxCarryForwardLimit();
+	public boolean getIsNegetiveValueCarryForwardble();
 
 	/**
-	 * Sets the max carry forward limit of this leave carry forward policy.
+	 * Returns <code>true</code> if this leave carry forward policy is is negetive value carry forwardble.
 	 *
-	 * @param maxCarryForwardLimit the max carry forward limit of this leave carry forward policy
+	 * @return <code>true</code> if this leave carry forward policy is is negetive value carry forwardble; <code>false</code> otherwise
 	 */
-	public void setMaxCarryForwardLimit(String maxCarryForwardLimit);
+	public boolean isIsNegetiveValueCarryForwardble();
+
+	/**
+	 * Sets whether this leave carry forward policy is is negetive value carry forwardble.
+	 *
+	 * @param isNegetiveValueCarryForwardble the is negetive value carry forwardble of this leave carry forward policy
+	 */
+	public void setIsNegetiveValueCarryForwardble(
+		boolean isNegetiveValueCarryForwardble);
+
+	/**
+	 * Returns the specified amount to carry forward of this leave carry forward policy.
+	 *
+	 * @return the specified amount to carry forward of this leave carry forward policy
+	 */
+	public int getSpecifiedAmountToCarryForward();
+
+	/**
+	 * Sets the specified amount to carry forward of this leave carry forward policy.
+	 *
+	 * @param specifiedAmountToCarryForward the specified amount to carry forward of this leave carry forward policy
+	 */
+	public void setSpecifiedAmountToCarryForward(
+		int specifiedAmountToCarryForward);
 
 	@Override
 	public boolean isNew();

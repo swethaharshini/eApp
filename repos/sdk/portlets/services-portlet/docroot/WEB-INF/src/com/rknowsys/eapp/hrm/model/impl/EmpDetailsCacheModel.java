@@ -38,7 +38,7 @@ public class EmpDetailsCacheModel implements CacheModel<EmpDetails>,
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(25);
+		StringBundler sb = new StringBundler(27);
 
 		sb.append("{empdetailsId=");
 		sb.append(empdetailsId);
@@ -48,6 +48,8 @@ public class EmpDetailsCacheModel implements CacheModel<EmpDetails>,
 		sb.append(companyId);
 		sb.append(", userId=");
 		sb.append(userId);
+		sb.append(", groupId=");
+		sb.append(groupId);
 		sb.append(", createDate=");
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
@@ -84,6 +86,7 @@ public class EmpDetailsCacheModel implements CacheModel<EmpDetails>,
 
 		empDetailsImpl.setCompanyId(companyId);
 		empDetailsImpl.setUserId(userId);
+		empDetailsImpl.setGroupId(groupId);
 
 		if (createDate == Long.MIN_VALUE) {
 			empDetailsImpl.setCreateDate(null);
@@ -147,6 +150,7 @@ public class EmpDetailsCacheModel implements CacheModel<EmpDetails>,
 		employeeNo = objectInput.readUTF();
 		companyId = objectInput.readLong();
 		userId = objectInput.readLong();
+		groupId = objectInput.readLong();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		firstName = objectInput.readUTF();
@@ -171,6 +175,7 @@ public class EmpDetailsCacheModel implements CacheModel<EmpDetails>,
 
 		objectOutput.writeLong(companyId);
 		objectOutput.writeLong(userId);
+		objectOutput.writeLong(groupId);
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 
@@ -216,6 +221,7 @@ public class EmpDetailsCacheModel implements CacheModel<EmpDetails>,
 	public String employeeNo;
 	public long companyId;
 	public long userId;
+	public long groupId;
 	public long createDate;
 	public long modifiedDate;
 	public String firstName;

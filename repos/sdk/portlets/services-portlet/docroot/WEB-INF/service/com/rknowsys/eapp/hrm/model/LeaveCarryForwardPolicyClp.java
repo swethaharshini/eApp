@@ -85,9 +85,13 @@ public class LeaveCarryForwardPolicyClp extends BaseModelImpl<LeaveCarryForwardP
 		attributes.put("leaveTypeId", getLeaveTypeId());
 		attributes.put("expiryDuration", getExpiryDuration());
 		attributes.put("expiryDurationUOM", getExpiryDurationUOM());
+		attributes.put("maxCarryForwardLimit", getMaxCarryForwardLimit());
 		attributes.put("isMaxCarryForwardLimitApplicable",
 			getIsMaxCarryForwardLimitApplicable());
-		attributes.put("maxCarryForwardLimit", getMaxCarryForwardLimit());
+		attributes.put("isNegetiveValueCarryForwardble",
+			getIsNegetiveValueCarryForwardble());
+		attributes.put("specifiedAmountToCarryForward",
+			getSpecifiedAmountToCarryForward());
 
 		return attributes;
 	}
@@ -149,6 +153,13 @@ public class LeaveCarryForwardPolicyClp extends BaseModelImpl<LeaveCarryForwardP
 			setExpiryDurationUOM(expiryDurationUOM);
 		}
 
+		String maxCarryForwardLimit = (String)attributes.get(
+				"maxCarryForwardLimit");
+
+		if (maxCarryForwardLimit != null) {
+			setMaxCarryForwardLimit(maxCarryForwardLimit);
+		}
+
 		Boolean isMaxCarryForwardLimitApplicable = (Boolean)attributes.get(
 				"isMaxCarryForwardLimitApplicable");
 
@@ -156,11 +167,18 @@ public class LeaveCarryForwardPolicyClp extends BaseModelImpl<LeaveCarryForwardP
 			setIsMaxCarryForwardLimitApplicable(isMaxCarryForwardLimitApplicable);
 		}
 
-		String maxCarryForwardLimit = (String)attributes.get(
-				"maxCarryForwardLimit");
+		Boolean isNegetiveValueCarryForwardble = (Boolean)attributes.get(
+				"isNegetiveValueCarryForwardble");
 
-		if (maxCarryForwardLimit != null) {
-			setMaxCarryForwardLimit(maxCarryForwardLimit);
+		if (isNegetiveValueCarryForwardble != null) {
+			setIsNegetiveValueCarryForwardble(isNegetiveValueCarryForwardble);
+		}
+
+		Integer specifiedAmountToCarryForward = (Integer)attributes.get(
+				"specifiedAmountToCarryForward");
+
+		if (specifiedAmountToCarryForward != null) {
+			setSpecifiedAmountToCarryForward(specifiedAmountToCarryForward);
 		}
 	}
 
@@ -387,6 +405,31 @@ public class LeaveCarryForwardPolicyClp extends BaseModelImpl<LeaveCarryForwardP
 	}
 
 	@Override
+	public String getMaxCarryForwardLimit() {
+		return _maxCarryForwardLimit;
+	}
+
+	@Override
+	public void setMaxCarryForwardLimit(String maxCarryForwardLimit) {
+		_maxCarryForwardLimit = maxCarryForwardLimit;
+
+		if (_leaveCarryForwardPolicyRemoteModel != null) {
+			try {
+				Class<?> clazz = _leaveCarryForwardPolicyRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setMaxCarryForwardLimit",
+						String.class);
+
+				method.invoke(_leaveCarryForwardPolicyRemoteModel,
+					maxCarryForwardLimit);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
 	public boolean getIsMaxCarryForwardLimitApplicable() {
 		return _isMaxCarryForwardLimitApplicable;
 	}
@@ -418,23 +461,55 @@ public class LeaveCarryForwardPolicyClp extends BaseModelImpl<LeaveCarryForwardP
 	}
 
 	@Override
-	public String getMaxCarryForwardLimit() {
-		return _maxCarryForwardLimit;
+	public boolean getIsNegetiveValueCarryForwardble() {
+		return _isNegetiveValueCarryForwardble;
 	}
 
 	@Override
-	public void setMaxCarryForwardLimit(String maxCarryForwardLimit) {
-		_maxCarryForwardLimit = maxCarryForwardLimit;
+	public boolean isIsNegetiveValueCarryForwardble() {
+		return _isNegetiveValueCarryForwardble;
+	}
+
+	@Override
+	public void setIsNegetiveValueCarryForwardble(
+		boolean isNegetiveValueCarryForwardble) {
+		_isNegetiveValueCarryForwardble = isNegetiveValueCarryForwardble;
 
 		if (_leaveCarryForwardPolicyRemoteModel != null) {
 			try {
 				Class<?> clazz = _leaveCarryForwardPolicyRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setMaxCarryForwardLimit",
-						String.class);
+				Method method = clazz.getMethod("setIsNegetiveValueCarryForwardble",
+						boolean.class);
 
 				method.invoke(_leaveCarryForwardPolicyRemoteModel,
-					maxCarryForwardLimit);
+					isNegetiveValueCarryForwardble);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public int getSpecifiedAmountToCarryForward() {
+		return _specifiedAmountToCarryForward;
+	}
+
+	@Override
+	public void setSpecifiedAmountToCarryForward(
+		int specifiedAmountToCarryForward) {
+		_specifiedAmountToCarryForward = specifiedAmountToCarryForward;
+
+		if (_leaveCarryForwardPolicyRemoteModel != null) {
+			try {
+				Class<?> clazz = _leaveCarryForwardPolicyRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setSpecifiedAmountToCarryForward",
+						int.class);
+
+				method.invoke(_leaveCarryForwardPolicyRemoteModel,
+					specifiedAmountToCarryForward);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -522,8 +597,10 @@ public class LeaveCarryForwardPolicyClp extends BaseModelImpl<LeaveCarryForwardP
 		clone.setLeaveTypeId(getLeaveTypeId());
 		clone.setExpiryDuration(getExpiryDuration());
 		clone.setExpiryDurationUOM(getExpiryDurationUOM());
-		clone.setIsMaxCarryForwardLimitApplicable(getIsMaxCarryForwardLimitApplicable());
 		clone.setMaxCarryForwardLimit(getMaxCarryForwardLimit());
+		clone.setIsMaxCarryForwardLimitApplicable(getIsMaxCarryForwardLimitApplicable());
+		clone.setIsNegetiveValueCarryForwardble(getIsNegetiveValueCarryForwardble());
+		clone.setSpecifiedAmountToCarryForward(getSpecifiedAmountToCarryForward());
 
 		return clone;
 	}
@@ -572,7 +649,7 @@ public class LeaveCarryForwardPolicyClp extends BaseModelImpl<LeaveCarryForwardP
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(23);
+		StringBundler sb = new StringBundler(27);
 
 		sb.append("{leaveCarryForwardPolicyId=");
 		sb.append(getLeaveCarryForwardPolicyId());
@@ -592,10 +669,14 @@ public class LeaveCarryForwardPolicyClp extends BaseModelImpl<LeaveCarryForwardP
 		sb.append(getExpiryDuration());
 		sb.append(", expiryDurationUOM=");
 		sb.append(getExpiryDurationUOM());
-		sb.append(", isMaxCarryForwardLimitApplicable=");
-		sb.append(getIsMaxCarryForwardLimitApplicable());
 		sb.append(", maxCarryForwardLimit=");
 		sb.append(getMaxCarryForwardLimit());
+		sb.append(", isMaxCarryForwardLimitApplicable=");
+		sb.append(getIsMaxCarryForwardLimitApplicable());
+		sb.append(", isNegetiveValueCarryForwardble=");
+		sb.append(getIsNegetiveValueCarryForwardble());
+		sb.append(", specifiedAmountToCarryForward=");
+		sb.append(getSpecifiedAmountToCarryForward());
 		sb.append("}");
 
 		return sb.toString();
@@ -603,7 +684,7 @@ public class LeaveCarryForwardPolicyClp extends BaseModelImpl<LeaveCarryForwardP
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(37);
+		StringBundler sb = new StringBundler(43);
 
 		sb.append("<model><model-name>");
 		sb.append("com.rknowsys.eapp.hrm.model.LeaveCarryForwardPolicy");
@@ -646,12 +727,20 @@ public class LeaveCarryForwardPolicyClp extends BaseModelImpl<LeaveCarryForwardP
 		sb.append(getExpiryDurationUOM());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>maxCarryForwardLimit</column-name><column-value><![CDATA[");
+		sb.append(getMaxCarryForwardLimit());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>isMaxCarryForwardLimitApplicable</column-name><column-value><![CDATA[");
 		sb.append(getIsMaxCarryForwardLimitApplicable());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>maxCarryForwardLimit</column-name><column-value><![CDATA[");
-		sb.append(getMaxCarryForwardLimit());
+			"<column><column-name>isNegetiveValueCarryForwardble</column-name><column-value><![CDATA[");
+		sb.append(getIsNegetiveValueCarryForwardble());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>specifiedAmountToCarryForward</column-name><column-value><![CDATA[");
+		sb.append(getSpecifiedAmountToCarryForward());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -669,7 +758,9 @@ public class LeaveCarryForwardPolicyClp extends BaseModelImpl<LeaveCarryForwardP
 	private long _leaveTypeId;
 	private int _expiryDuration;
 	private String _expiryDurationUOM;
-	private boolean _isMaxCarryForwardLimitApplicable;
 	private String _maxCarryForwardLimit;
+	private boolean _isMaxCarryForwardLimitApplicable;
+	private boolean _isNegetiveValueCarryForwardble;
+	private int _specifiedAmountToCarryForward;
 	private BaseModel<?> _leaveCarryForwardPolicyRemoteModel;
 }

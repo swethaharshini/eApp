@@ -192,6 +192,11 @@
 		<property name="dataSource" ref="hrmDataSource" />
 		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.LeaveTypeEmployeeGroupsLocalService" class="com.rknowsys.eapp.hrm.service.impl.LeaveTypeEmployeeGroupsLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.LeaveTypeEmployeeGroupsPersistence" class="com.rknowsys.eapp.hrm.service.persistence.LeaveTypeEmployeeGroupsPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
 	<bean id="com.rknowsys.eapp.hrm.service.LicenseLocalService" class="com.rknowsys.eapp.hrm.service.impl.LicenseLocalServiceImpl" />
 	<bean id="com.rknowsys.eapp.hrm.service.persistence.LicensePersistence" class="com.rknowsys.eapp.hrm.service.persistence.LicensePersistenceImpl" parent="basePersistence">
 		<property name="dataSource" ref="hrmDataSource" />
