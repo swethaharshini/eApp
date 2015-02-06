@@ -37,7 +37,7 @@ import java.util.Date;
 public class EmpJobCacheModel implements CacheModel<EmpJob>, Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(41);
+		StringBundler sb = new StringBundler(43);
 
 		sb.append("{empJobId=");
 		sb.append(empJobId);
@@ -75,6 +75,8 @@ public class EmpJobCacheModel implements CacheModel<EmpJob>, Externalizable {
 		sb.append(shiftId);
 		sb.append(", comments=");
 		sb.append(comments);
+		sb.append(", isCurrentJob=");
+		sb.append(isCurrentJob);
 		sb.append(", employmentContractStartDate=");
 		sb.append(employmentContractStartDate);
 		sb.append(", employmentContractEndDate=");
@@ -151,6 +153,8 @@ public class EmpJobCacheModel implements CacheModel<EmpJob>, Externalizable {
 			empJobImpl.setComments(comments);
 		}
 
+		empJobImpl.setIsCurrentJob(isCurrentJob);
+
 		if (employmentContractStartDate == Long.MIN_VALUE) {
 			empJobImpl.setEmploymentContractStartDate(null);
 		}
@@ -192,6 +196,7 @@ public class EmpJobCacheModel implements CacheModel<EmpJob>, Externalizable {
 		effectiveDate = objectInput.readLong();
 		shiftId = objectInput.readLong();
 		comments = objectInput.readUTF();
+		isCurrentJob = objectInput.readBoolean();
 		employmentContractStartDate = objectInput.readLong();
 		employmentContractEndDate = objectInput.readLong();
 	}
@@ -224,6 +229,7 @@ public class EmpJobCacheModel implements CacheModel<EmpJob>, Externalizable {
 			objectOutput.writeUTF(comments);
 		}
 
+		objectOutput.writeBoolean(isCurrentJob);
 		objectOutput.writeLong(employmentContractStartDate);
 		objectOutput.writeLong(employmentContractEndDate);
 	}
@@ -246,6 +252,7 @@ public class EmpJobCacheModel implements CacheModel<EmpJob>, Externalizable {
 	public long effectiveDate;
 	public long shiftId;
 	public String comments;
+	public boolean isCurrentJob;
 	public long employmentContractStartDate;
 	public long employmentContractEndDate;
 }

@@ -79,6 +79,7 @@ public class EmpDetailsClp extends BaseModelImpl<EmpDetails>
 		attributes.put("employeeNo", getEmployeeNo());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
+		attributes.put("groupId", getGroupId());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("firstName", getFirstName());
@@ -115,6 +116,12 @@ public class EmpDetailsClp extends BaseModelImpl<EmpDetails>
 
 		if (userId != null) {
 			setUserId(userId);
+		}
+
+		Long groupId = (Long)attributes.get("groupId");
+
+		if (groupId != null) {
+			setGroupId(groupId);
 		}
 
 		Date createDate = (Date)attributes.get("createDate");
@@ -266,6 +273,29 @@ public class EmpDetailsClp extends BaseModelImpl<EmpDetails>
 	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
+	}
+
+	@Override
+	public long getGroupId() {
+		return _groupId;
+	}
+
+	@Override
+	public void setGroupId(long groupId) {
+		_groupId = groupId;
+
+		if (_empDetailsRemoteModel != null) {
+			try {
+				Class<?> clazz = _empDetailsRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setGroupId", long.class);
+
+				method.invoke(_empDetailsRemoteModel, groupId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	@Override
@@ -526,6 +556,7 @@ public class EmpDetailsClp extends BaseModelImpl<EmpDetails>
 		clone.setEmployeeNo(getEmployeeNo());
 		clone.setCompanyId(getCompanyId());
 		clone.setUserId(getUserId());
+		clone.setGroupId(getGroupId());
 		clone.setCreateDate(getCreateDate());
 		clone.setModifiedDate(getModifiedDate());
 		clone.setFirstName(getFirstName());
@@ -582,7 +613,7 @@ public class EmpDetailsClp extends BaseModelImpl<EmpDetails>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(25);
+		StringBundler sb = new StringBundler(27);
 
 		sb.append("{empdetailsId=");
 		sb.append(getEmpdetailsId());
@@ -592,6 +623,8 @@ public class EmpDetailsClp extends BaseModelImpl<EmpDetails>
 		sb.append(getCompanyId());
 		sb.append(", userId=");
 		sb.append(getUserId());
+		sb.append(", groupId=");
+		sb.append(getGroupId());
 		sb.append(", createDate=");
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
@@ -615,7 +648,7 @@ public class EmpDetailsClp extends BaseModelImpl<EmpDetails>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(40);
+		StringBundler sb = new StringBundler(43);
 
 		sb.append("<model><model-name>");
 		sb.append("com.rknowsys.eapp.hrm.model.EmpDetails");
@@ -636,6 +669,10 @@ public class EmpDetailsClp extends BaseModelImpl<EmpDetails>
 		sb.append(
 			"<column><column-name>userId</column-name><column-value><![CDATA[");
 		sb.append(getUserId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>groupId</column-name><column-value><![CDATA[");
+		sb.append(getGroupId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>createDate</column-name><column-value><![CDATA[");
@@ -680,6 +717,7 @@ public class EmpDetailsClp extends BaseModelImpl<EmpDetails>
 	private long _companyId;
 	private long _userId;
 	private String _userUuid;
+	private long _groupId;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private String _firstName;

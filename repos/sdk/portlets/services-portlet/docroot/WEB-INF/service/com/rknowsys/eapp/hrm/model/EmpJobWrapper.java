@@ -69,6 +69,7 @@ public class EmpJobWrapper implements EmpJob, ModelWrapper<EmpJob> {
 		attributes.put("effectiveDate", getEffectiveDate());
 		attributes.put("shiftId", getShiftId());
 		attributes.put("comments", getComments());
+		attributes.put("isCurrentJob", getIsCurrentJob());
 		attributes.put("employmentContractStartDate",
 			getEmploymentContractStartDate());
 		attributes.put("employmentContractEndDate",
@@ -186,6 +187,12 @@ public class EmpJobWrapper implements EmpJob, ModelWrapper<EmpJob> {
 
 		if (comments != null) {
 			setComments(comments);
+		}
+
+		Boolean isCurrentJob = (Boolean)attributes.get("isCurrentJob");
+
+		if (isCurrentJob != null) {
+			setIsCurrentJob(isCurrentJob);
 		}
 
 		Date employmentContractStartDate = (Date)attributes.get(
@@ -609,6 +616,36 @@ public class EmpJobWrapper implements EmpJob, ModelWrapper<EmpJob> {
 	@Override
 	public void setComments(java.lang.String comments) {
 		_empJob.setComments(comments);
+	}
+
+	/**
+	* Returns the is current job of this emp job.
+	*
+	* @return the is current job of this emp job
+	*/
+	@Override
+	public boolean getIsCurrentJob() {
+		return _empJob.getIsCurrentJob();
+	}
+
+	/**
+	* Returns <code>true</code> if this emp job is is current job.
+	*
+	* @return <code>true</code> if this emp job is is current job; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isIsCurrentJob() {
+		return _empJob.isIsCurrentJob();
+	}
+
+	/**
+	* Sets whether this emp job is is current job.
+	*
+	* @param isCurrentJob the is current job of this emp job
+	*/
+	@Override
+	public void setIsCurrentJob(boolean isCurrentJob) {
+		_empJob.setIsCurrentJob(isCurrentJob);
 	}
 
 	/**

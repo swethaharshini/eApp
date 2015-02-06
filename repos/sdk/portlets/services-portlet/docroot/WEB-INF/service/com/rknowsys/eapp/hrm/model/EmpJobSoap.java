@@ -50,6 +50,7 @@ public class EmpJobSoap implements Serializable {
 		soapModel.setEffectiveDate(model.getEffectiveDate());
 		soapModel.setShiftId(model.getShiftId());
 		soapModel.setComments(model.getComments());
+		soapModel.setIsCurrentJob(model.getIsCurrentJob());
 		soapModel.setEmploymentContractStartDate(model.getEmploymentContractStartDate());
 		soapModel.setEmploymentContractEndDate(model.getEmploymentContractEndDate());
 		soapModel.setContractDetails(model.getContractDetails());
@@ -249,6 +250,18 @@ public class EmpJobSoap implements Serializable {
 		_comments = comments;
 	}
 
+	public boolean getIsCurrentJob() {
+		return _isCurrentJob;
+	}
+
+	public boolean isIsCurrentJob() {
+		return _isCurrentJob;
+	}
+
+	public void setIsCurrentJob(boolean isCurrentJob) {
+		_isCurrentJob = isCurrentJob;
+	}
+
 	public Date getEmploymentContractStartDate() {
 		return _employmentContractStartDate;
 	}
@@ -291,6 +304,7 @@ public class EmpJobSoap implements Serializable {
 	private Date _effectiveDate;
 	private long _shiftId;
 	private String _comments;
+	private boolean _isCurrentJob;
 	private Date _employmentContractStartDate;
 	private Date _employmentContractEndDate;
 	private Blob _contractDetails;

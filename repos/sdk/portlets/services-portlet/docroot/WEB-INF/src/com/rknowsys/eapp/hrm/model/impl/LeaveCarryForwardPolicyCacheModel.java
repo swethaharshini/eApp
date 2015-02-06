@@ -38,7 +38,7 @@ public class LeaveCarryForwardPolicyCacheModel implements CacheModel<LeaveCarryF
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(23);
+		StringBundler sb = new StringBundler(27);
 
 		sb.append("{leaveCarryForwardPolicyId=");
 		sb.append(leaveCarryForwardPolicyId);
@@ -58,10 +58,14 @@ public class LeaveCarryForwardPolicyCacheModel implements CacheModel<LeaveCarryF
 		sb.append(expiryDuration);
 		sb.append(", expiryDurationUOM=");
 		sb.append(expiryDurationUOM);
-		sb.append(", isMaxCarryForwardLimitApplicable=");
-		sb.append(isMaxCarryForwardLimitApplicable);
 		sb.append(", maxCarryForwardLimit=");
 		sb.append(maxCarryForwardLimit);
+		sb.append(", isMaxCarryForwardLimitApplicable=");
+		sb.append(isMaxCarryForwardLimitApplicable);
+		sb.append(", isNegetiveValueCarryForwardble=");
+		sb.append(isNegetiveValueCarryForwardble);
+		sb.append(", specifiedAmountToCarryForward=");
+		sb.append(specifiedAmountToCarryForward);
 		sb.append("}");
 
 		return sb.toString();
@@ -100,14 +104,16 @@ public class LeaveCarryForwardPolicyCacheModel implements CacheModel<LeaveCarryF
 			leaveCarryForwardPolicyImpl.setExpiryDurationUOM(expiryDurationUOM);
 		}
 
-		leaveCarryForwardPolicyImpl.setIsMaxCarryForwardLimitApplicable(isMaxCarryForwardLimitApplicable);
-
 		if (maxCarryForwardLimit == null) {
 			leaveCarryForwardPolicyImpl.setMaxCarryForwardLimit(StringPool.BLANK);
 		}
 		else {
 			leaveCarryForwardPolicyImpl.setMaxCarryForwardLimit(maxCarryForwardLimit);
 		}
+
+		leaveCarryForwardPolicyImpl.setIsMaxCarryForwardLimitApplicable(isMaxCarryForwardLimitApplicable);
+		leaveCarryForwardPolicyImpl.setIsNegetiveValueCarryForwardble(isNegetiveValueCarryForwardble);
+		leaveCarryForwardPolicyImpl.setSpecifiedAmountToCarryForward(specifiedAmountToCarryForward);
 
 		leaveCarryForwardPolicyImpl.resetOriginalValues();
 
@@ -125,8 +131,10 @@ public class LeaveCarryForwardPolicyCacheModel implements CacheModel<LeaveCarryF
 		leaveTypeId = objectInput.readLong();
 		expiryDuration = objectInput.readInt();
 		expiryDurationUOM = objectInput.readUTF();
-		isMaxCarryForwardLimitApplicable = objectInput.readBoolean();
 		maxCarryForwardLimit = objectInput.readUTF();
+		isMaxCarryForwardLimitApplicable = objectInput.readBoolean();
+		isNegetiveValueCarryForwardble = objectInput.readBoolean();
+		specifiedAmountToCarryForward = objectInput.readInt();
 	}
 
 	@Override
@@ -148,14 +156,16 @@ public class LeaveCarryForwardPolicyCacheModel implements CacheModel<LeaveCarryF
 			objectOutput.writeUTF(expiryDurationUOM);
 		}
 
-		objectOutput.writeBoolean(isMaxCarryForwardLimitApplicable);
-
 		if (maxCarryForwardLimit == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
 		}
 		else {
 			objectOutput.writeUTF(maxCarryForwardLimit);
 		}
+
+		objectOutput.writeBoolean(isMaxCarryForwardLimitApplicable);
+		objectOutput.writeBoolean(isNegetiveValueCarryForwardble);
+		objectOutput.writeInt(specifiedAmountToCarryForward);
 	}
 
 	public long leaveCarryForwardPolicyId;
@@ -167,6 +177,8 @@ public class LeaveCarryForwardPolicyCacheModel implements CacheModel<LeaveCarryF
 	public long leaveTypeId;
 	public int expiryDuration;
 	public String expiryDurationUOM;
-	public boolean isMaxCarryForwardLimitApplicable;
 	public String maxCarryForwardLimit;
+	public boolean isMaxCarryForwardLimitApplicable;
+	public boolean isNegetiveValueCarryForwardble;
+	public int specifiedAmountToCarryForward;
 }

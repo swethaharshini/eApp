@@ -34,6 +34,7 @@ public class EmpDetailsSoap implements Serializable {
 		soapModel.setEmployeeNo(model.getEmployeeNo());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setUserId(model.getUserId());
+		soapModel.setGroupId(model.getGroupId());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setFirstName(model.getFirstName());
@@ -126,6 +127,14 @@ public class EmpDetailsSoap implements Serializable {
 		_userId = userId;
 	}
 
+	public long getGroupId() {
+		return _groupId;
+	}
+
+	public void setGroupId(long groupId) {
+		_groupId = groupId;
+	}
+
 	public Date getCreateDate() {
 		return _createDate;
 	}
@@ -194,6 +203,7 @@ public class EmpDetailsSoap implements Serializable {
 	private String _employeeNo;
 	private long _companyId;
 	private long _userId;
+	private long _groupId;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private String _firstName;

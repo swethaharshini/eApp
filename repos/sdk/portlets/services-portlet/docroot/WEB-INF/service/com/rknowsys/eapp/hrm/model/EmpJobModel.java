@@ -331,6 +331,27 @@ public interface EmpJobModel extends BaseModel<EmpJob> {
 	public void setComments(String comments);
 
 	/**
+	 * Returns the is current job of this emp job.
+	 *
+	 * @return the is current job of this emp job
+	 */
+	public boolean getIsCurrentJob();
+
+	/**
+	 * Returns <code>true</code> if this emp job is is current job.
+	 *
+	 * @return <code>true</code> if this emp job is is current job; <code>false</code> otherwise
+	 */
+	public boolean isIsCurrentJob();
+
+	/**
+	 * Sets whether this emp job is is current job.
+	 *
+	 * @param isCurrentJob the is current job of this emp job
+	 */
+	public void setIsCurrentJob(boolean isCurrentJob);
+
+	/**
 	 * Returns the employment contract start date of this emp job.
 	 *
 	 * @return the employment contract start date of this emp job

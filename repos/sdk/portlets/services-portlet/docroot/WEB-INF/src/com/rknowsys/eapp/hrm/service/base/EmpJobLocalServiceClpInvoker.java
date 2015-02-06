@@ -110,21 +110,21 @@ public class EmpJobLocalServiceClpInvoker {
 
 		_methodParameterTypes16 = new String[] { "java.io.Serializable" };
 
-		_methodName237 = "getBeanIdentifier";
+		_methodName241 = "getBeanIdentifier";
 
-		_methodParameterTypes237 = new String[] {  };
+		_methodParameterTypes241 = new String[] {  };
 
-		_methodName238 = "setBeanIdentifier";
+		_methodName242 = "setBeanIdentifier";
 
-		_methodParameterTypes238 = new String[] { "java.lang.String" };
+		_methodParameterTypes242 = new String[] { "java.lang.String" };
 
-		_methodName243 = "getEmpJobByEmpId";
+		_methodName247 = "getEmpJobByEmpId";
 
-		_methodParameterTypes243 = new String[] { "long" };
+		_methodParameterTypes247 = new String[] { "long" };
 
-		_methodName244 = "findEmpJobListByShiftId";
+		_methodName248 = "findEmpJobListByShiftId";
 
-		_methodParameterTypes244 = new String[] { "long" };
+		_methodParameterTypes248 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -221,25 +221,25 @@ public class EmpJobLocalServiceClpInvoker {
 			return EmpJobLocalServiceUtil.getContractDetailsBlobModel((java.io.Serializable)arguments[0]);
 		}
 
-		if (_methodName237.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes237, parameterTypes)) {
+		if (_methodName241.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes241, parameterTypes)) {
 			return EmpJobLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName238.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes238, parameterTypes)) {
+		if (_methodName242.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes242, parameterTypes)) {
 			EmpJobLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName243.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes243, parameterTypes)) {
+		if (_methodName247.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes247, parameterTypes)) {
 			return EmpJobLocalServiceUtil.getEmpJobByEmpId(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName244.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes244, parameterTypes)) {
+		if (_methodName248.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes248, parameterTypes)) {
 			return EmpJobLocalServiceUtil.findEmpJobListByShiftId(((Long)arguments[0]).longValue());
 		}
 
@@ -280,12 +280,12 @@ public class EmpJobLocalServiceClpInvoker {
 	private String[] _methodParameterTypes15;
 	private String _methodName16;
 	private String[] _methodParameterTypes16;
-	private String _methodName237;
-	private String[] _methodParameterTypes237;
-	private String _methodName238;
-	private String[] _methodParameterTypes238;
-	private String _methodName243;
-	private String[] _methodParameterTypes243;
-	private String _methodName244;
-	private String[] _methodParameterTypes244;
+	private String _methodName241;
+	private String[] _methodParameterTypes241;
+	private String _methodName242;
+	private String[] _methodParameterTypes242;
+	private String _methodName247;
+	private String[] _methodParameterTypes247;
+	private String _methodName248;
+	private String[] _methodParameterTypes248;
 }

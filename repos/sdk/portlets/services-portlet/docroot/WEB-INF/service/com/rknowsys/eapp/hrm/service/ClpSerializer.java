@@ -60,6 +60,7 @@ import com.rknowsys.eapp.hrm.model.LeavePeriodClp;
 import com.rknowsys.eapp.hrm.model.LeaveRestrictionClp;
 import com.rknowsys.eapp.hrm.model.LeaveRuleApplicableClp;
 import com.rknowsys.eapp.hrm.model.LeaveTypeClp;
+import com.rknowsys.eapp.hrm.model.LeaveTypeEmployeeGroupsClp;
 import com.rknowsys.eapp.hrm.model.LicenseClp;
 import com.rknowsys.eapp.hrm.model.LocationClp;
 import com.rknowsys.eapp.hrm.model.MembershipClp;
@@ -289,6 +290,10 @@ public class ClpSerializer {
 
 		if (oldModelClassName.equals(LeaveTypeClp.class.getName())) {
 			return translateInputLeaveType(oldModel);
+		}
+
+		if (oldModelClassName.equals(LeaveTypeEmployeeGroupsClp.class.getName())) {
+			return translateInputLeaveTypeEmployeeGroups(oldModel);
 		}
 
 		if (oldModelClassName.equals(LicenseClp.class.getName())) {
@@ -720,6 +725,17 @@ public class ClpSerializer {
 		return newModel;
 	}
 
+	public static Object translateInputLeaveTypeEmployeeGroups(
+		BaseModel<?> oldModel) {
+		LeaveTypeEmployeeGroupsClp oldClpModel = (LeaveTypeEmployeeGroupsClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getLeaveTypeEmployeeGroupsRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
 	public static Object translateInputLicense(BaseModel<?> oldModel) {
 		LicenseClp oldClpModel = (LicenseClp)oldModel;
 
@@ -1063,6 +1079,11 @@ public class ClpSerializer {
 		}
 
 		if (oldModelClassName.equals(
+					"com.rknowsys.eapp.hrm.model.impl.LeaveTypeEmployeeGroupsImpl")) {
+			return translateOutputLeaveTypeEmployeeGroups(oldModel);
+		}
+
+		if (oldModelClassName.equals(
 					"com.rknowsys.eapp.hrm.model.impl.LicenseImpl")) {
 			return translateOutputLicense(oldModel);
 		}
@@ -1373,6 +1394,11 @@ public class ClpSerializer {
 
 		if (className.equals("com.rknowsys.eapp.hrm.NoSuchLeaveTypeException")) {
 			return new com.rknowsys.eapp.hrm.NoSuchLeaveTypeException();
+		}
+
+		if (className.equals(
+					"com.rknowsys.eapp.hrm.NoSuchLeaveTypeEmployeeGroupsException")) {
+			return new com.rknowsys.eapp.hrm.NoSuchLeaveTypeEmployeeGroupsException();
 		}
 
 		if (className.equals("com.rknowsys.eapp.hrm.NoSuchLicenseException")) {
@@ -1795,6 +1821,17 @@ public class ClpSerializer {
 		newModel.setModelAttributes(oldModel.getModelAttributes());
 
 		newModel.setLeaveTypeRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputLeaveTypeEmployeeGroups(
+		BaseModel<?> oldModel) {
+		LeaveTypeEmployeeGroupsClp newModel = new LeaveTypeEmployeeGroupsClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setLeaveTypeEmployeeGroupsRemoteModel(oldModel);
 
 		return newModel;
 	}

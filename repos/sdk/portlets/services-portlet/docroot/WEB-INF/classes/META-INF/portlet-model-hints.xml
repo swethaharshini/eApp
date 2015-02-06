@@ -72,6 +72,7 @@
 		<field name="employeeNo" type="String" />
 		<field name="companyId" type="long" />
 		<field name="userId" type="long" />
+		<field name="groupId" type="long" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="firstName" type="String" />
@@ -161,6 +162,7 @@
 		<field name="effectiveDate" type="Date" />
 		<field name="shiftId" type="long" />
 		<field name="comments" type="String" />
+		<field name="isCurrentJob" type="boolean" />
 		<field name="employmentContractStartDate" type="Date" />
 		<field name="employmentContractEndDate" type="Date" />
 		<field name="contractDetails" type="Blob" />
@@ -397,8 +399,10 @@
 		<field name="leaveTypeId" type="long" />
 		<field name="expiryDuration" type="int" />
 		<field name="expiryDurationUOM" type="String" />
-		<field name="isMaxCarryForwardLimitApplicable" type="boolean" />
 		<field name="maxCarryForwardLimit" type="String" />
+		<field name="isMaxCarryForwardLimitApplicable" type="boolean" />
+		<field name="isNegetiveValueCarryForwardble" type="boolean" />
+		<field name="specifiedAmountToCarryForward" type="int" />
 	</model>
 	<model name="com.rknowsys.eapp.hrm.model.LeaveGeneral">
 		<field name="leaveGeneralId" type="long" />
@@ -482,6 +486,25 @@
 		<field name="nationalityId" type="long" />
 		<field name="leaveTypeName" type="String" />
 		<field name="isSituational" type="boolean" />
+	</model>
+	<model name="com.rknowsys.eapp.hrm.model.LeaveTypeEmployeeGroups">
+		<field name="leaveTypeEmployeeGroupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="userId" type="long" />
+		<field name="leaveTypeId" type="long" />
+		<field name="groupName" type="String" />
+		<field name="forJobTitles" type="boolean" />
+		<field name="forJobCategories" type="boolean" />
+		<field name="forEmploymentStatus" type="boolean" />
+		<field name="forGender" type="boolean" />
+		<field name="forFemale" type="boolean" />
+		<field name="forMale" type="boolean" />
+		<field name="forYearsOfService" type="boolean" />
+		<field name="fromYears" type="String" />
+		<field name="toYears" type="String" />
 	</model>
 	<model name="com.rknowsys.eapp.hrm.model.License">
 		<field name="licenseId" type="long" />

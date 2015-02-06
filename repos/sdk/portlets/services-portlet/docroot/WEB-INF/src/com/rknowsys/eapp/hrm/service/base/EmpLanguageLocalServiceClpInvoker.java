@@ -106,13 +106,13 @@ public class EmpLanguageLocalServiceClpInvoker {
 				"com.rknowsys.eapp.hrm.model.EmpLanguage"
 			};
 
-		_methodName236 = "getBeanIdentifier";
+		_methodName240 = "getBeanIdentifier";
 
-		_methodParameterTypes236 = new String[] {  };
+		_methodParameterTypes240 = new String[] {  };
 
-		_methodName237 = "setBeanIdentifier";
+		_methodName241 = "setBeanIdentifier";
 
-		_methodParameterTypes237 = new String[] { "java.lang.String" };
+		_methodParameterTypes241 = new String[] { "java.lang.String" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -204,13 +204,13 @@ public class EmpLanguageLocalServiceClpInvoker {
 			return EmpLanguageLocalServiceUtil.updateEmpLanguage((com.rknowsys.eapp.hrm.model.EmpLanguage)arguments[0]);
 		}
 
-		if (_methodName236.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes236, parameterTypes)) {
+		if (_methodName240.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes240, parameterTypes)) {
 			return EmpLanguageLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName237.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes237, parameterTypes)) {
+		if (_methodName241.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes241, parameterTypes)) {
 			EmpLanguageLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
@@ -251,8 +251,8 @@ public class EmpLanguageLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName236;
-	private String[] _methodParameterTypes236;
-	private String _methodName237;
-	private String[] _methodParameterTypes237;
+	private String _methodName240;
+	private String[] _methodParameterTypes240;
+	private String _methodName241;
+	private String[] _methodParameterTypes241;
 }

@@ -40,8 +40,10 @@ public class LeaveCarryForwardPolicySoap implements Serializable {
 		soapModel.setLeaveTypeId(model.getLeaveTypeId());
 		soapModel.setExpiryDuration(model.getExpiryDuration());
 		soapModel.setExpiryDurationUOM(model.getExpiryDurationUOM());
-		soapModel.setIsMaxCarryForwardLimitApplicable(model.getIsMaxCarryForwardLimitApplicable());
 		soapModel.setMaxCarryForwardLimit(model.getMaxCarryForwardLimit());
+		soapModel.setIsMaxCarryForwardLimitApplicable(model.getIsMaxCarryForwardLimitApplicable());
+		soapModel.setIsNegetiveValueCarryForwardble(model.getIsNegetiveValueCarryForwardble());
+		soapModel.setSpecifiedAmountToCarryForward(model.getSpecifiedAmountToCarryForward());
 
 		return soapModel;
 	}
@@ -169,6 +171,14 @@ public class LeaveCarryForwardPolicySoap implements Serializable {
 		_expiryDurationUOM = expiryDurationUOM;
 	}
 
+	public String getMaxCarryForwardLimit() {
+		return _maxCarryForwardLimit;
+	}
+
+	public void setMaxCarryForwardLimit(String maxCarryForwardLimit) {
+		_maxCarryForwardLimit = maxCarryForwardLimit;
+	}
+
 	public boolean getIsMaxCarryForwardLimitApplicable() {
 		return _isMaxCarryForwardLimitApplicable;
 	}
@@ -182,12 +192,26 @@ public class LeaveCarryForwardPolicySoap implements Serializable {
 		_isMaxCarryForwardLimitApplicable = isMaxCarryForwardLimitApplicable;
 	}
 
-	public String getMaxCarryForwardLimit() {
-		return _maxCarryForwardLimit;
+	public boolean getIsNegetiveValueCarryForwardble() {
+		return _isNegetiveValueCarryForwardble;
 	}
 
-	public void setMaxCarryForwardLimit(String maxCarryForwardLimit) {
-		_maxCarryForwardLimit = maxCarryForwardLimit;
+	public boolean isIsNegetiveValueCarryForwardble() {
+		return _isNegetiveValueCarryForwardble;
+	}
+
+	public void setIsNegetiveValueCarryForwardble(
+		boolean isNegetiveValueCarryForwardble) {
+		_isNegetiveValueCarryForwardble = isNegetiveValueCarryForwardble;
+	}
+
+	public int getSpecifiedAmountToCarryForward() {
+		return _specifiedAmountToCarryForward;
+	}
+
+	public void setSpecifiedAmountToCarryForward(
+		int specifiedAmountToCarryForward) {
+		_specifiedAmountToCarryForward = specifiedAmountToCarryForward;
 	}
 
 	private long _leaveCarryForwardPolicyId;
@@ -199,6 +223,8 @@ public class LeaveCarryForwardPolicySoap implements Serializable {
 	private long _leaveTypeId;
 	private int _expiryDuration;
 	private String _expiryDurationUOM;
-	private boolean _isMaxCarryForwardLimitApplicable;
 	private String _maxCarryForwardLimit;
+	private boolean _isMaxCarryForwardLimitApplicable;
+	private boolean _isNegetiveValueCarryForwardble;
+	private int _specifiedAmountToCarryForward;
 }

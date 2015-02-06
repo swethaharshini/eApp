@@ -94,6 +94,7 @@ public class EmpJobClp extends BaseModelImpl<EmpJob> implements EmpJob {
 		attributes.put("effectiveDate", getEffectiveDate());
 		attributes.put("shiftId", getShiftId());
 		attributes.put("comments", getComments());
+		attributes.put("isCurrentJob", getIsCurrentJob());
 		attributes.put("employmentContractStartDate",
 			getEmploymentContractStartDate());
 		attributes.put("employmentContractEndDate",
@@ -211,6 +212,12 @@ public class EmpJobClp extends BaseModelImpl<EmpJob> implements EmpJob {
 
 		if (comments != null) {
 			setComments(comments);
+		}
+
+		Boolean isCurrentJob = (Boolean)attributes.get("isCurrentJob");
+
+		if (isCurrentJob != null) {
+			setIsCurrentJob(isCurrentJob);
 		}
 
 		Date employmentContractStartDate = (Date)attributes.get(
@@ -661,6 +668,34 @@ public class EmpJobClp extends BaseModelImpl<EmpJob> implements EmpJob {
 	}
 
 	@Override
+	public boolean getIsCurrentJob() {
+		return _isCurrentJob;
+	}
+
+	@Override
+	public boolean isIsCurrentJob() {
+		return _isCurrentJob;
+	}
+
+	@Override
+	public void setIsCurrentJob(boolean isCurrentJob) {
+		_isCurrentJob = isCurrentJob;
+
+		if (_empJobRemoteModel != null) {
+			try {
+				Class<?> clazz = _empJobRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setIsCurrentJob", boolean.class);
+
+				method.invoke(_empJobRemoteModel, isCurrentJob);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
 	public Date getEmploymentContractStartDate() {
 		return _employmentContractStartDate;
 	}
@@ -818,6 +853,7 @@ public class EmpJobClp extends BaseModelImpl<EmpJob> implements EmpJob {
 		clone.setEffectiveDate(getEffectiveDate());
 		clone.setShiftId(getShiftId());
 		clone.setComments(getComments());
+		clone.setIsCurrentJob(getIsCurrentJob());
 		clone.setEmploymentContractStartDate(getEmploymentContractStartDate());
 		clone.setEmploymentContractEndDate(getEmploymentContractEndDate());
 		clone.setContractDetails(getContractDetails());
@@ -869,7 +905,7 @@ public class EmpJobClp extends BaseModelImpl<EmpJob> implements EmpJob {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(43);
+		StringBundler sb = new StringBundler(45);
 
 		sb.append("{empJobId=");
 		sb.append(getEmpJobId());
@@ -907,6 +943,8 @@ public class EmpJobClp extends BaseModelImpl<EmpJob> implements EmpJob {
 		sb.append(getShiftId());
 		sb.append(", comments=");
 		sb.append(getComments());
+		sb.append(", isCurrentJob=");
+		sb.append(getIsCurrentJob());
 		sb.append(", employmentContractStartDate=");
 		sb.append(getEmploymentContractStartDate());
 		sb.append(", employmentContractEndDate=");
@@ -920,7 +958,7 @@ public class EmpJobClp extends BaseModelImpl<EmpJob> implements EmpJob {
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(67);
+		StringBundler sb = new StringBundler(70);
 
 		sb.append("<model><model-name>");
 		sb.append("com.rknowsys.eapp.hrm.model.EmpJob");
@@ -999,6 +1037,10 @@ public class EmpJobClp extends BaseModelImpl<EmpJob> implements EmpJob {
 		sb.append(getComments());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>isCurrentJob</column-name><column-value><![CDATA[");
+		sb.append(getIsCurrentJob());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>employmentContractStartDate</column-name><column-value><![CDATA[");
 		sb.append(getEmploymentContractStartDate());
 		sb.append("]]></column-value></column>");
@@ -1035,6 +1077,7 @@ public class EmpJobClp extends BaseModelImpl<EmpJob> implements EmpJob {
 	private Date _effectiveDate;
 	private long _shiftId;
 	private String _comments;
+	private boolean _isCurrentJob;
 	private Date _employmentContractStartDate;
 	private Date _employmentContractEndDate;
 	private Blob _contractDetails;

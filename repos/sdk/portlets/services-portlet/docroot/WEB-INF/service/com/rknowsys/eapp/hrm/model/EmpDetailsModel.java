@@ -133,6 +133,20 @@ public interface EmpDetailsModel extends BaseModel<EmpDetails> {
 	public void setUserUuid(String userUuid);
 
 	/**
+	 * Returns the group ID of this emp details.
+	 *
+	 * @return the group ID of this emp details
+	 */
+	public long getGroupId();
+
+	/**
+	 * Sets the group ID of this emp details.
+	 *
+	 * @param groupId the group ID of this emp details
+	 */
+	public void setGroupId(long groupId);
+
+	/**
 	 * Returns the create date of this emp details.
 	 *
 	 * @return the create date of this emp details
