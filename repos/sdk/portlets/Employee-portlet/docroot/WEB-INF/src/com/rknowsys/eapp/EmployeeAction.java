@@ -45,7 +45,9 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.model.Permission;
 import com.liferay.portal.model.User;
+import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.service.UserLocalServiceUtil;
@@ -1088,7 +1090,7 @@ public class EmployeeAction extends MVCPortlet {
 				try {
 					DLAppLocalServiceUtil.updateFileEntry(
 							themeDisplay.getUserId(), fileEntryId2,
-							fileName, "image/jpeg", fileName, "",
+							fileName+date.getTime(), "image/jpeg", fileName+date.getTime(), "",
 							changeLog, true, newImage, serviceContext);
 				} catch (PortalException e) {
 					log.error("Error in updating employee image",e);
@@ -1266,8 +1268,8 @@ public class EmployeeAction extends MVCPortlet {
 			try {
 				fileEntry = DLAppLocalServiceUtil.addFileEntry(
 						themeDisplay.getUserId(), themeDisplay.getScopeGroupId(),
-						0, fileName, contentType,
-						fileName, contentType,
+						0, fileName+date.getTime(), contentType,
+						fileName+date.getTime(), contentType,
 						" ", uploadPhoto, serviceContext);
 			} catch (PortalException e1) {
 				log.error("Error in adding image of the employee",e1);
