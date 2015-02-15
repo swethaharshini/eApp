@@ -43,8 +43,11 @@ import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.MimeTypesUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.model.Permission;
 import com.liferay.portal.model.User;
+import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.service.UserLocalServiceUtil;
@@ -54,6 +57,7 @@ import com.liferay.portlet.documentlibrary.model.DLFileEntry;
 import com.liferay.portlet.documentlibrary.service.DLAppLocalServiceUtil;
 import com.liferay.portlet.documentlibrary.service.DLFileEntryLocalServiceUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
+import com.rknowsys.eapp.hrm.model.EmpAttachment;
 import com.rknowsys.eapp.hrm.model.EmpContactDetails;
 import com.rknowsys.eapp.hrm.model.EmpDependent;
 import com.rknowsys.eapp.hrm.model.EmpDirectDeposit;
@@ -70,6 +74,7 @@ import com.rknowsys.eapp.hrm.model.EmpSupervisor;
 import com.rknowsys.eapp.hrm.model.EmpWorkExp;
 import com.rknowsys.eapp.hrm.model.Employee;
 import com.rknowsys.eapp.hrm.model.PayGradeCurrency;
+import com.rknowsys.eapp.hrm.service.EmpAttachmentLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.EmpContactDetailsLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.EmpDependentLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.EmpDirectDepositLocalServiceUtil;
@@ -1085,7 +1090,7 @@ public class EmployeeAction extends MVCPortlet {
 				try {
 					DLAppLocalServiceUtil.updateFileEntry(
 							themeDisplay.getUserId(), fileEntryId2,
-							fileName, "image/jpeg", fileName, "",
+							fileName+date.getTime(), "image/jpeg", fileName+date.getTime(), "",
 							changeLog, true, newImage, serviceContext);
 				} catch (PortalException e) {
 					log.error("Error in updating employee image",e);
@@ -1263,13 +1268,13 @@ public class EmployeeAction extends MVCPortlet {
 			try {
 				fileEntry = DLAppLocalServiceUtil.addFileEntry(
 						themeDisplay.getUserId(), themeDisplay.getScopeGroupId(),
-						0, fileName, contentType,
-						fileName, contentType,
+						0, fileName+date.getTime(), contentType,
+						fileName+date.getTime(), contentType,
 						" ", uploadPhoto, serviceContext);
 			} catch (PortalException e1) {
 				log.error("Error in adding image of the employee",e1);
 			}
-		if (fileEntry.getExpandoBridge().hasAttribute("employeeId")) {
+		/*if (fileEntry.getExpandoBridge().hasAttribute("employeeId")) {
 			fileEntry.getExpandoBridge().setAttribute("employeeId",
 					String.valueOf(employee.getEmployeeId()));
 		   }  else {
@@ -1288,19 +1293,20 @@ public class EmployeeAction extends MVCPortlet {
 					changeLog, false, uploadPhoto, serviceContext);
 		} catch (PortalException e) {
 			log.error("Error in adding image of the employee",e);
-		}
+		}*/
 		if (username != null || password != null) {
 			User user = null;
 			try {
 				user = UserLocalServiceUtil.addUser(themeDisplay.getUserId(),
 						themeDisplay.getCompanyId(), false, password, password,
-						true, username + "screenName", username
+						true, "", username
 								+ "@liferay.com", 0L, "",
-						themeDisplay.getLocale(), username + firstName,
-						middleName, username + lastName, 0, 0, false, 0, 1,
-						1970, "Job Title", null, null, null, null, false,
+						themeDisplay.getLocale(), firstName,
+						middleName,  lastName, 0, 0, false, 0, 1,
+						1970, "", null, null, null, null, false,
 						new ServiceContext());
-				if (user.getExpandoBridge().hasAttribute("employeeId")) {
+			}
+				/*if (user.getExpandoBridge().hasAttribute("employeeId")) {
 					user.getExpandoBridge().setAttribute("employeeId",
 							String.valueOf(employee.getEmployeeId()));
 					UserLocalServiceUtil.updateUser(user);
@@ -1311,9 +1317,10 @@ public class EmployeeAction extends MVCPortlet {
 							String.valueOf(employee.getEmployeeId()));
 					UserLocalServiceUtil.updateUser(user);
 				}
-			} catch (PortalException e) {
-				log.error("Error while adding expando attribute to User table");
-			}
+				*/
+				catch (PortalException e) {
+				log.error("Error in updating employee with user details",e);
+				}
 			if (user != null) {
 				Employee employee2 = null;
 				try {
@@ -1361,7 +1368,7 @@ public class EmployeeAction extends MVCPortlet {
 		ServiceContext serviceContext = null;
 		String changeLog = ParamUtil.getString(uploadRequest, "changeLog");
 		String contentType = MimeTypesUtil.getContentType(document);
-		FileEntry fileEntry = null;
+		FileEntry fileEntry = null;EmpAttachment empAttachment=null;
 			try {
 				serviceContext = ServiceContextFactory.getInstance(
 						DLFileEntry.class.getName(), actionRequest);
@@ -1371,12 +1378,30 @@ public class EmployeeAction extends MVCPortlet {
 			try {
 				fileEntry = DLAppLocalServiceUtil.addFileEntry(
 						themeDisplay.getUserId(), themeDisplay.getScopeGroupId(),
-						0, fileName, contentType, fileName, description, " ",
+						0, fileName+date.getTime(), contentType, fileName+date.getTime(), description, " ",
 						document, serviceContext);
+				
 			} catch (PortalException e1) {
 				log.error("Error in saving employee documents", e1);
 			}
-		if (fileEntry != null) {
+			if(fileEntry!=null)
+			{
+				empAttachment=EmpAttachmentLocalServiceUtil.createEmpAttachment(CounterLocalServiceUtil.increment());
+				empAttachment.setAttachmentTypeId(fileEntry.getFileEntryId());
+				empAttachment.setUuid(fileEntry.getUuid());
+				empAttachment.setCreateDate(fileEntry.getCreateDate());
+				empAttachment.setModifiedDate(fileEntry.getModifiedDate());
+				empAttachment.setEmployeeId(employeeId);
+				empAttachment.setRelatedTo(docCategory);
+				empAttachment.setFileName(fileName);
+				empAttachment.setFileSize(fileEntry.getSize());
+				empAttachment.setFileType(fileEntry.getExtension());
+				empAttachment.setUserName(fileEntry.getUserName());
+				empAttachment.setComment(description);
+				EmpAttachmentLocalServiceUtil.addEmpAttachment(empAttachment);
+				
+			}
+		/*if (fileEntry != null) {
 			if (fileEntry.getExpandoBridge().hasAttribute("employeeId")) {
 				fileEntry.getExpandoBridge().setAttribute("employeeId",String.valueOf(employeeId));
 			}
@@ -1396,14 +1421,14 @@ public class EmployeeAction extends MVCPortlet {
 						changeLog, false, document, serviceContext);
 			} catch (PortalException e) {
 				log.error("Error while updating employee documents", e);
-			}
+			}*/
 			Map<String, Comparable> map =setSessionAttributes(employeeId, fileEntryId, "jsp12");
 			actionRequest.getPortletSession(true).setAttribute("empId", map,PortletSession.APPLICATION_SCOPE);
 			actionResponse.setRenderParameter("jspPage","/html/employee/edit_employee.jsp");
-		} else {
+			/*} else {
 			log.error("Error occured while adding documents of employee");
 		}
-
+*/
 	}
 	public void doView(RenderRequest renderRequest,RenderResponse renderResponse)
 	{
