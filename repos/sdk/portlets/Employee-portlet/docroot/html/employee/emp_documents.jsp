@@ -1,3 +1,6 @@
+<%@page import="com.rknowsys.eapp.hrm.service.EmpAttachmentLocalServiceUtil"%>
+<%@page import="com.liferay.portal.kernel.util.PortalClassLoaderUtil"%>
+<%@page import="com.rknowsys.eapp.hrm.model.EmpAttachment"%>
 <%@page import="java.util.HashSet"%>
 <%@page import="java.util.Set"%>
 <%@page import="com.liferay.portal.kernel.repository.model.FileEntry"%>
@@ -9,6 +12,9 @@
 	String jsp = (String) empId.get("jsp");
 	long fileEntryId = (Long) empId.get("fileId");
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
+	DynamicQuery attachmentDynamicQuery=DynamicQueryFactoryUtil.forClass(EmpAttachment.class, PortalClassLoaderUtil.getClassLoader());
+	attachmentDynamicQuery.add(PropertyFactoryUtil.forName("employeeId").eq(employeeId));
+	List<EmpAttachment> documentList=EmpAttachmentLocalServiceUtil.dynamicQuery(attachmentDynamicQuery);
 %>
 <%!public String humanReadableByteCount(double bytes, boolean si) {
 		int unit = si ? 1000 : 1024;
@@ -128,7 +134,7 @@ A.ready(function()
 		deltaConfigurable="true" iteratorURL="<%=documentsURL %>">
 		<liferay-ui:search-container-results>
 			<%
-				long classNameId = ClassNameLocalServiceUtil
+			/* 	long classNameId = ClassNameLocalServiceUtil
 								.getClassNameId(DLFileEntry.class);
 						long companyId = PortalUtil.getDefaultCompanyId();
 						List<ExpandoValue> values = ExpandoValueLocalServiceUtil
@@ -164,21 +170,28 @@ A.ready(function()
 						results = ListUtil.subList(fileEntries, searchContainer.getStart(), searchContainer.getEnd());
 						total = fileEntries.size();
 						pageContext.setAttribute("results", results);
-						pageContext.setAttribute("total", total);
+						pageContext.setAttribute("total", total); */
+						List<EmpAttachment> documents=documentList;
+						results = ListUtil.subList(documents, searchContainer.getStart(), searchContainer.getEnd());
+						total = documents.size();
+						pageContext.setAttribute("results", results);
+						pageContext.setAttribute("total", total); 
 			%>
 		</liferay-ui:search-container-results>
-		<liferay-ui:search-container-row  className="com.liferay.portlet.documentlibrary.model.DLFileEntry" modelVar="fileEntry"  rowVar="curRow" 
+		<liferay-ui:search-container-row  className="EmpAttachment" modelVar="empDocument"  rowVar="curRow" 
 	escapedModel="<%=true %>">
 			<liferay-ui:search-container-column-text orderable="true" name="Name"
-				property="title" href='<%=themeDisplay.getPortalURL()+"/c/document_library/get_file?uuid="+fileEntry.getUuid()+"&groupId="+themeDisplay.getScopeGroupId() %>' />
+				property="fileName" href='<%=themeDisplay.getPortalURL()+"/c/document_library/get_file?uuid="+empDocument.getUuid()+"&groupId="+themeDisplay.getScopeGroupId() %>' />
 			<liferay-ui:search-container-column-text orderable="true"
-				name="Description" property="description" />
+				name="Related To" property="relatedTo" />
+				<liferay-ui:search-container-column-text orderable="true"
+				name="Description" property="comment" />
 			<liferay-ui:search-container-column-text orderable="true"
-				name="Size" value='<%=humanReadableByteCount(fileEntry.getSize(), true) %>' />
+				name="Size" value='<%=humanReadableByteCount(empDocument.getFileSize(), true) %>' />
 			<liferay-ui:search-container-column-text orderable="true"
-				name="Type" property="mimeType" />
+				name="Type" property="fileType" />
 			<liferay-ui:search-container-column-text orderable="true"
-				name="Date Added"  value='<%=sdf.format(fileEntry.getCreateDate()) %>'/>
+				name="Date Added"  value='<%=sdf.format(empDocument.getCreateDate()) %>'/>
 			<liferay-ui:search-container-column-text orderable="true"
 				name="Added by" property="userName" />
 			<%-- <liferay-ui:search-container-column-jsp name="edit"
