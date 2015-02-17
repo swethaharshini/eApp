@@ -61,6 +61,7 @@ public class MembershipAction extends MVCPortlet {
 				DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
 						Membership.class,
 						PortalClassLoaderUtil.getClassLoader());
+				dynamicQuery.add(RestrictionsFactoryUtil.eq("groupId", themeDisplay.getLayout().getGroup().getGroupId()));
 				dynamicQuery.add(RestrictionsFactoryUtil.eq("membershipName",
 						name));
 				@SuppressWarnings("unchecked")
