@@ -1,3 +1,4 @@
+<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
 <%@page import="org.apache.log4j.Logger"%>
 <%@ include file="/html/jobcategory/init.jsp"%>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -7,6 +8,15 @@
 <portlet:renderURL var="listview">
 	<portlet:param name="mvcPath" value="/html/jobcategory/add.jsp" />
 </portlet:renderURL>
+<aui:script>
+AUI().ready('event', 'node','transition',function(A){
+  A.one('#addJobcategoryForm').hide();
+  setTimeout(function(){
+    A.one('#addJobcategoryMessage').transition('fadeOut');
+    A.one('#addJobcategoryMessage').hide();
+},2000)
+ });
+ </aui:script>
 <aui:script>
 AUI().use(
   'aui-node',
@@ -70,15 +80,6 @@ AUI().use(
     );
   }
 );
-
-AUI().ready('event', 'node','transition',function(A){
-  A.one('#addJobcategoryForm').hide();
-  setTimeout(function(){
-    A.one('#addJobcategoryMessage').transition('fadeOut');
-    A.one('#addJobcategoryMessage').hide();
-},2000)
- });
-
 
 AUI().use(
   'aui-node',
@@ -180,16 +181,27 @@ List<JobCategory> jobCategoryList=JobCategoryLocalServiceUtil.dynamicQuery(dynam
 	deltaConfigurable="true" iteratorURL="<%=iteratorURL%>">
 	<liferay-ui:search-container-results>
 
-		<%
+		<%  
 		
-            OrderByComparator orderByComparator = CustomComparatorUtil.getJobcategoryrOrderByComparator(sortByCol, sortByType);         
-  
-           Collections.sort(jobCategoryList,orderByComparator);
-  
-          results = ListUtil.subList(jobCategoryList, searchContainer.getStart(), searchContainer.getEnd());
-               total = jobCategoryList!=null && jobCategoryList.size()!=0?jobCategoryList.size():0;
-               pageContext.setAttribute("results", results);
-               pageContext.setAttribute("total", total);
+		List<JobCategory> pageList = ListUtil.subList(jobCategoryList, searchContainer.getStart(), searchContainer.getEnd());
+        OrderByComparator orderByComparator = CustomComparatorUtil.getJobcategoryrOrderByComparator(sortByCol, sortByType);         
+
+       Collections.sort(pageList,orderByComparator);
+			if(jobCategoryList.size()>5){
+      results = ListUtil.subList(jobCategoryList, searchContainer.getStart(), searchContainer.getEnd());
+			}
+			else{
+				results = jobCategoryList;
+			}
+        log.info("results == " +results);
+       
+ 
+           total = jobCategoryList.size();
+           log.info("total == " +total);
+           pageContext.setAttribute("results", results);
+           pageContext.setAttribute("total", total);
+		
+          
  %>
 
 	</liferay-ui:search-container-results>

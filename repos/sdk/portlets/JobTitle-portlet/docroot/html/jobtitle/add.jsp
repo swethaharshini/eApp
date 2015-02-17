@@ -190,17 +190,20 @@ List<JobTitle> jobTitleDetails = JobTitleLocalServiceUtil
 		<liferay-ui:search-container-results>
 				
 		<%
-            List<JobTitle> jobtitleList = jobTitleDetails;
+            List<JobTitle> jobtitleList = ListUtil.subList(jobTitleDetails, searchContainer.getStart(), searchContainer.getEnd());
             OrderByComparator orderByComparator = CustomComparatorUtil.getJobtitleOrderByComparator(sortByCol, sortByType);         
   
            Collections.sort(jobtitleList,orderByComparator);
-  
-          results = ListUtil.subList(jobtitleList, searchContainer.getStart(), searchContainer.getEnd());
-          
+  			if(jobTitleDetails.size()>5){
+          results = ListUtil.subList(jobTitleDetails, searchContainer.getStart(), searchContainer.getEnd());
+  			}
+  			else{
+  				results = jobTitleDetails;
+  			}
             log.info("results == " +results);
            
      
-               total = jobtitleList!=null && jobtitleList.size()!=0?jobtitleList.size():0;
+               total = jobTitleDetails.size();
                log.info("total == " +total);
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);

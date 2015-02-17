@@ -123,12 +123,13 @@ public class JobCategoryAction extends MVCPortlet {
 					}
 				}
 			} else {
+				JobCategory job = JobCategoryLocalServiceUtil
+						.getJobCategory(Long.parseLong(id));
 				log.info("else block to update the jobCategoryName");
 				if (jobcategoryName == null || jobcategoryName.equals("")) {
 					log.info("empty value in jobcategory name in edit.jsp");
 
-					JobCategory job = JobCategoryLocalServiceUtil
-							.getJobCategory(Long.parseLong(id));
+					
 
 					PortletSession portletSession = actionRequest
 							.getPortletSession();
@@ -138,6 +139,36 @@ public class JobCategoryAction extends MVCPortlet {
 					actionResponse.setRenderParameter("mvcPath",
 							"/html/jobcategory/edit.jsp");
 				} else {
+					
+					DynamicQuery dynamicQuery = DynamicQueryFactoryUtil
+							.forClass(JobCategory.class,
+									PortalClassLoaderUtil.getClassLoader());
+					dynamicQuery.add(RestrictionsFactoryUtil.eq("jobcategory",
+							inputName));
+					dynamicQuery.add(RestrictionsFactoryUtil.eq("groupId",
+							themeDisplay.getLayout().getGroup().getGroupId()));
+					@SuppressWarnings("unchecked")
+					List<JobCategory> jobCategories = JobCategoryLocalServiceUtil
+							.dynamicQuery(dynamicQuery);
+					log.info("list size ====== " +jobCategories.size());
+					if (jobCategories.size() > 0) {
+						log.info("if loop ...greater than one");
+
+						JobCategory category = jobCategories.get(0);
+						if (category.getJobcategory().equalsIgnoreCase(
+								inputName) && !job.getJobcategory().equalsIgnoreCase(inputName)) {
+							log.info("DuplicateName in JobCategoryName");
+
+							SessionMessages.add(
+									actionRequest.getPortletSession(),
+									"jobCategoryName-duplicate-error");
+							actionResponse.setRenderParameter("mvcPath",
+									"/html/jobcategory/add.jsp");
+
+						}
+
+					}
+					else{
 
 					long jobcategoryid = Long.parseLong(id);
 
@@ -159,7 +190,7 @@ public class JobCategoryAction extends MVCPortlet {
 							.updateJobCategory(jobcategory1);
 					log.info("jobcategoryName updated..");
 
-				}
+				}}
 			}
 
 		} catch (SystemException e) {
