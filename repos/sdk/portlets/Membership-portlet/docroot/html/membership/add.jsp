@@ -177,9 +177,10 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 
 		membershipQuery.add(PropertyFactoryUtil.forName("groupId").eq(groupId));
             List<Membership> membershipList = MembershipLocalServiceUtil.dynamicQuery(membershipQuery);
+            List<Membership> pageList = ListUtil.subList(membershipList, searchContainer.getStart(), searchContainer.getEnd());
 		OrderByComparator orderByComparator =  CustomComparatorUtil.getMembershipOrderByComparator(sortByCol, sortByType);
    
-               Collections.sort(membershipList,orderByComparator);
+               Collections.sort(pageList,orderByComparator);
                
                if(membershipList.size()>5){
             	   

@@ -10,13 +10,13 @@
 <%@page import="com.liferay.portal.kernel.util.ParamUtil"%>
 <%@page import="com.liferay.portal.kernel.dao.search.ResultRow"%>
 <%@page import="java.util.ArrayList"%>
+<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
 <%@page import="com.rknowsys.eapp.hrm.service.JobCategoryLocalServiceUtil"%>
 <%@page import="com.rknowsys.eapp.hrm.model.JobCategory"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.List"%>
 <%@page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
-<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet"%>
 <%@page import="javax.portlet.PortletURL"%>
 <%@page import="java.util.HashMap"%>

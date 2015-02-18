@@ -183,10 +183,10 @@ System.out.println("sortByType == " +sortByType);
   
 			List<Nationality> nationalityList =  NationalityLocalServiceUtil.dynamicQuery(dynamicQuery);
 			
-            
+			List<Nationality> pageList = ListUtil.subList(nationalityList, searchContainer.getStart(), searchContainer.getEnd());
             OrderByComparator orderByComparator = CustomComparatorUtil.getNationalityOrderByComparator(sortByCol, sortByType);         
   
-           Collections.sort(nationalityList,orderByComparator);
+           Collections.sort(pageList,orderByComparator);
   			if(nationalityList.size()>5)
   			{
   				results = ListUtil.subList(nationalityList, searchContainer.getStart(), searchContainer.getEnd());

@@ -1,6 +1,6 @@
+<%@page import="org.apache.log4j.Logger"%>
 <%@ include file="/html/jobcategory/init.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>jobcategory</title>
 <portlet:actionURL var="savejobcategory" name="saveJobcategory">
@@ -37,7 +37,7 @@ AUI().use(
 </aui:script>
 
 
-
+<% Logger log=Logger.getLogger(this.getClass().getName());%>
 <%
  JobCategory editjobcategory = (JobCategory)portletSession.getAttribute("editjobcategory");
 %>
@@ -98,15 +98,24 @@ List<JobCategory> jobCategoryList=JobCategoryLocalServiceUtil.dynamicQuery(dynam
 		<liferay-ui:search-container-results>
 				
 		<%
-		OrderByComparator orderByComparator = CustomComparatorUtil.getJobcategoryrOrderByComparator(sortByCol, sortByType);         
 		  
-        Collections.sort(jobCategoryList,orderByComparator);
+		List<JobCategory> pageList = ListUtil.subList(jobCategoryList, searchContainer.getStart(), searchContainer.getEnd());
+        OrderByComparator orderByComparator = CustomComparatorUtil.getJobcategoryrOrderByComparator(sortByCol, sortByType);         
 
-       results = ListUtil.subList(jobCategoryList, searchContainer.getStart(), searchContainer.getEnd());
-            total = jobCategoryList!=null && jobCategoryList.size()!=0?jobCategoryList.size():0;
-               System.out.println("total == " +total);
-               pageContext.setAttribute("results", results);
-               pageContext.setAttribute("total", total);
+       Collections.sort(pageList,orderByComparator);
+			if(jobCategoryList.size()>5){
+      results = ListUtil.subList(jobCategoryList, searchContainer.getStart(), searchContainer.getEnd());
+			}
+			else{
+				results = jobCategoryList;
+			}
+        log.info("results == " +results);
+       
+ 
+           total = jobCategoryList.size();
+           log.info("total == " +total);
+           pageContext.setAttribute("results", results);
+           pageContext.setAttribute("total", total);
  %>
 	</liferay-ui:search-container-results>
 	<liferay-ui:search-container-row className="JobCategory" keyProperty="jobCategoryId" modelVar="JobCategory"  rowVar="curRow" escapedModel="<%= true %>">

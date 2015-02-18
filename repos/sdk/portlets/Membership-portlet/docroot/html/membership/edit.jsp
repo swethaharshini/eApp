@@ -95,21 +95,19 @@ membershipQuery.add(PropertyFactoryUtil.forName("groupId").eq(groupId));
 		<liferay-ui:search-container-results>
 				
 		<%
-		
             List<Membership> membershipList = MembershipLocalServiceUtil.dynamicQuery(membershipQuery);
+            List<Membership> pageList = ListUtil.subList(membershipList, searchContainer.getStart(), searchContainer.getEnd());
 		OrderByComparator orderByComparator =  CustomComparatorUtil.getMembershipOrderByComparator(sortByCol, sortByType);
    
-               Collections.sort(membershipList,orderByComparator);
+               Collections.sort(pageList,orderByComparator);
                
                if(membershipList.size()>5){
             	   
             	   results = ListUtil.subList(membershipList, searchContainer.getStart(), searchContainer.getEnd());
-            	   log.info("results size if block= " +results.size());
             	   
                }
                else{
             	   results = membershipList;
-            	   log.info("results size else block = " +results.size());
                }
                
                total = membershipList.size();
