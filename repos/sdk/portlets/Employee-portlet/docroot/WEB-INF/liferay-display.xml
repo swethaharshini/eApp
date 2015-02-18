@@ -4,5 +4,6 @@
 <display>
 	<category name="HRM">
 		<portlet id="Employee" />
+		<portlet id="add-employee"></portlet>
 	</category>
 </display>

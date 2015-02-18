@@ -1,3 +1,8 @@
+<%@page import="com.liferay.portal.util.PortalUtil"%>
+<%@page import="com.liferay.portal.service.persistence.PortletUtil"%>
+<%@page import="javax.portlet.WindowState"%>
+<%@page import="javax.portlet.PortletRequest"%>
+<%@page import="com.liferay.portlet.PortletURLFactoryUtil"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil"%>
 <%@page import="com.liferay.portal.kernel.util.ListUtil"%>
@@ -45,11 +50,13 @@
 <portlet:renderURL var="addNewEmployee">
 	<portlet:param name="mvcPath" value="/html/employee/add_employee.jsp" />
 </portlet:renderURL>
-<html>
-<head>
-<title>employeelist</title>
-</head>
-<body>
+<%	
+long pageid=0;
+pageid=PortalUtil.getPlidFromPortletId(themeDisplay.getLayout().getGroup().getGroupId(), "addemployee_WAR_Employeeportlet");
+PortletURL myaccountURL = PortletURLFactoryUtil.create(renderRequest, 
+		"addemployee_WAR_Employeeportlet",pageid, PortletRequest.RENDER_PHASE);
+     myaccountURL.setWindowState(WindowState.MAXIMIZED);
+%>
 	<%!public String getSupervisorName(long id) {
 		String supervisorName = "";
 		if (id >= 0) {
@@ -156,14 +163,16 @@
 
 		<div class="row-fluid">
 			<div class="span12">
-			<aui:button-row>
-				<aui:button type="submit" id="toggleColor" value="search"
-				cssClass="btn btn-success" />
-			<aui:button type="reset" id="" value="reset"
-				cssClass="btn btn-danger" />
-				<aui:button cssClass="button btn-success" name="addNewEmp"
-					id="addNewEmp" value="add" onClick="<%=addNewEmployee %>"></aui:button>
-			</aui:button-row>
+				<div class="control-group">
+					<div class="controls">
+						<aui:button type="submit" id="toggleColor" value="search"
+							cssClass="btn btn-success" />
+						<aui:button type="reset" id="" value="reset"
+							cssClass="btn btn-danger" />
+						<aui:a href="<%=myaccountURL.toString()%>"
+							cssClass="btn button btn-success">Add</aui:a>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -176,7 +185,7 @@
 %>
 
 		<liferay-ui:search-container delta="5"
-			displayTerms="<%= new DisplayTerms(renderRequest) %>"
+			displayTerms='<%= new DisplayTerms(renderRequest) %>'
 			emptyResultsMessage="no-records-available-for-employee"
 			deltaConfigurable="true" iteratorURL="<%=iteratorURL%>">
 			<liferay-ui:search-container-results>
@@ -232,5 +241,3 @@
 
 		</liferay-ui:search-container>
 	</aui:form>
-</body>
-</html>

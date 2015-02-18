@@ -120,7 +120,7 @@ AUI().use(
 			</div>
 		</div>
 		<c:choose>
-			<c:when test='<%=jsp.equals("jsp0") || jsp.equals("jsp1")%>'>
+			<c:when test='<%=jsp.equals("jsp0") || jsp.equals("jsp1") || jsp.equals("empEditJsp")%>'>
 				<li class="active"><a href="#tab-1"><i class="icon-user"></i>
 						<liferay-ui:message key="01_emp-personal-details"></liferay-ui:message></a></li>
 			</c:when>

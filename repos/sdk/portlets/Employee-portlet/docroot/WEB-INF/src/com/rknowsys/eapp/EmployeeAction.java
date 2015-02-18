@@ -109,7 +109,7 @@ public class EmployeeAction extends MVCPortlet {
 	public static final String EMPLOYEE_LICENSE_EXP_DATE_COL_NAME = "licenseExpiryDate";
 	public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
 	private static Logger log = Logger.getLogger(EmployeeAction.class);
-
+	public int checkRedirect=0;
 	/**
 	 * <p>
 	 * This method inserts new Employee record and EmpPersonalDetails in
@@ -142,14 +142,14 @@ public class EmployeeAction extends MVCPortlet {
 		actionResponse.setRenderParameter("jspPage","/html/employee/edit_employee.jsp");
 	    }
 
-	public void saveEmpDetails(ActionRequest actionRequest,ActionResponse actionResponse) 
+	/*public void saveEmpDetails(ActionRequest actionRequest,ActionResponse actionResponse) 
 			throws IOException,PortletException, SystemException 
 		{
 		log.info("saveEmployeeDetails method");
 		addEmployee(actionRequest, actionResponse);
 		actionResponse.setRenderParameter("jspPage","/html/employee/edit_employee.jsp");
 		log.info("End of saveEmpDetails method");
-	    }
+	    }*/
 	public Map<String, Comparable> setSessionAttributes(long empId,long imageId,String jsp) 
 	   {
 		Map<String, Comparable> sessionAttributes=new HashMap<String, Comparable>();
@@ -1194,7 +1194,7 @@ public class EmployeeAction extends MVCPortlet {
 		}
 	}
 
-	public void addEmployee(ActionRequest actionRequest,ActionResponse actionResponse)
+/*	public void addEmployee(ActionRequest actionRequest,ActionResponse actionResponse)
 			throws IOException,PortletException, SystemException {
 		log.info("In addEmployee method");
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest
@@ -1274,7 +1274,7 @@ public class EmployeeAction extends MVCPortlet {
 			} catch (PortalException e1) {
 				log.error("Error in adding image of the employee",e1);
 			}
-		/*if (fileEntry.getExpandoBridge().hasAttribute("employeeId")) {
+		if (fileEntry.getExpandoBridge().hasAttribute("employeeId")) {
 			fileEntry.getExpandoBridge().setAttribute("employeeId",
 					String.valueOf(employee.getEmployeeId()));
 		   }  else {
@@ -1293,7 +1293,7 @@ public class EmployeeAction extends MVCPortlet {
 					changeLog, false, uploadPhoto, serviceContext);
 		} catch (PortalException e) {
 			log.error("Error in adding image of the employee",e);
-		}*/
+		}
 		if (username != null || password != null) {
 			User user = null;
 			try {
@@ -1306,7 +1306,7 @@ public class EmployeeAction extends MVCPortlet {
 						1970, "", null, null, null, null, false,
 						new ServiceContext());
 			}
-				/*if (user.getExpandoBridge().hasAttribute("employeeId")) {
+				if (user.getExpandoBridge().hasAttribute("employeeId")) {
 					user.getExpandoBridge().setAttribute("employeeId",
 							String.valueOf(employee.getEmployeeId()));
 					UserLocalServiceUtil.updateUser(user);
@@ -1317,7 +1317,7 @@ public class EmployeeAction extends MVCPortlet {
 							String.valueOf(employee.getEmployeeId()));
 					UserLocalServiceUtil.updateUser(user);
 				}
-				*/
+				
 				catch (PortalException e) {
 				log.error("Error in updating employee with user details",e);
 				}
@@ -1349,7 +1349,7 @@ public class EmployeeAction extends MVCPortlet {
 				fileEntry.getFileEntryId(), "jsp0");
 		actionRequest.getPortletSession(true).setAttribute("empId", map,PortletSession.APPLICATION_SCOPE);
 
-	}
+	}*/
 	public void updateEmpDocuments(ActionRequest actionRequest,
 			ActionResponse actionResponse) throws PortletException,
 			SystemException {
@@ -1431,13 +1431,16 @@ public class EmployeeAction extends MVCPortlet {
 */
 	}
 	public void doView(RenderRequest renderRequest,RenderResponse renderResponse)
-	{
+	{ 
 		String jsp=renderRequest.getParameter("jsp");
 		long fileEntryId = ParamUtil.getLong(renderRequest, "fileId");
 		Long empId = ParamUtil.getLong(renderRequest, "empId");
+		PortletSession addEmpSession=renderRequest.getPortletSession();
 		String employeeJsp="/html/employee/edit_employee.jsp";
+		String empListJsp="/html/employee/employeelist.jsp";
+		Map employeeMap=(Map)renderRequest.getPortletSession(false).getAttribute("empId",addEmpSession.APPLICATION_SCOPE);
 		if(jsp!=null)
-		{
+		{ 
 			Map<String, Comparable> map = setSessionAttributes(empId, fileEntryId, jsp);
 			renderRequest.getPortletSession(true).setAttribute("empId", map,
 					PortletSession.APPLICATION_SCOPE);
@@ -1449,16 +1452,34 @@ public class EmployeeAction extends MVCPortlet {
 					log.error("Error in getting requested jsp", e);
 			}
 		}
+		else if(employeeMap!=null && employeeMap.get("jsp")=="empEditJsp" && (Long)employeeMap.get("empId")!=0 && AddEmployee.checkPageRedirect>checkRedirect)
+		{
+			
+			Map<String, Comparable> map = setSessionAttributes((Long)employeeMap.get("empId"), 
+					(Long)employeeMap.get("fileId"),(String) employeeMap.get("jsp"));
+			renderRequest.getPortletSession(true).setAttribute("empId", map,
+					PortletSession.APPLICATION_SCOPE);
+			try {
+				this.include(employeeJsp, renderRequest, renderResponse);
+			} catch (IOException e) {
+				log.error("Error in getting requested jsp", e);
+			} catch (PortletException e) {
+				log.error("Error in getting requested jsp", e);
+			}
+				checkRedirect++;
+		}
 		else 
 		{
+			log.info("In else block of doView");
 			try {
-				this.include(viewTemplate, renderRequest, renderResponse);
+				this.include(empListJsp, renderRequest, renderResponse);
 			} catch (IOException e) {
 				log.error("Error in getting requested jsp", e);
 			} catch (PortletException e) {
 				log.error("Error in getting requested jsp", e);
 			}
 		}
+		
 	}
 	
 }
