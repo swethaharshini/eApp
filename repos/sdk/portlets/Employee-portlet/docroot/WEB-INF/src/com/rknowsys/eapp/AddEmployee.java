@@ -169,7 +169,7 @@ throws IOException,PortletException,SystemException
 		try {
 			user = UserLocalServiceUtil.addUser(themeDisplay.getUserId(),
 					themeDisplay.getCompanyId(), false, password, password,
-					false, firstName+" "+lastName, username+"@liferay.com", 0L, "",
+					true, "", username+"@liferay.com", 0L, "",
 					themeDisplay.getLocale(), firstName,
 					middleName,  lastName, 0, 0, false, 0, 1,
 					1970, "", null, null, null, null, false,
