@@ -26,7 +26,9 @@ import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.MimeTypesUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.model.Role;
 import com.liferay.portal.model.User;
+import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.service.UserLocalServiceUtil;
@@ -166,6 +168,12 @@ throws IOException,PortletException,SystemException
 	}*/
 	if (username != null || password != null) {
 		User user = null;
+		Role role=null;
+		try {
+			role=RoleLocalServiceUtil.getRole(themeDisplay.getCompanyId(), "Hrm user");
+		} catch (PortalException e1) {
+			log.info("Error in obtaining role object" ,e1);
+		}
 		try {
 			user = UserLocalServiceUtil.addUser(themeDisplay.getUserId(),
 					themeDisplay.getCompanyId(), false, password, password,
@@ -174,7 +182,23 @@ throws IOException,PortletException,SystemException
 					middleName,  lastName, 0, 0, false, 0, 1,
 					1970, "", null, null, null, null, false,
 					new ServiceContext());
+			if(role!=null)
+			{
+				UserLocalServiceUtil.addRoleUser(role.getRoleId(), user);
+			}
+			else
+			{
+				RoleLocalServiceUtil.addRole(themeDisplay.getUserId(), null, 0, "Hrm user",
+						null, null, 0, "", new ServiceContext());
+				try {
+					role=RoleLocalServiceUtil.getRole(themeDisplay.getCompanyId(), "Hrm user");
+				} catch (PortalException e1) {
+					log.info("Error in obtaining role object" ,e1);
+				}
+				UserLocalServiceUtil.addRoleUser(role.getRoleId(), user);
+			}
 		}
+		
 			/*if (user.getExpandoBridge().hasAttribute("employeeId")) {
 				user.getExpandoBridge().setAttribute("employeeId",
 						String.valueOf(employee.getEmployeeId()));
@@ -222,7 +246,7 @@ throws IOException,PortletException,SystemException
 	try {
 		plid=PortalUtil.getPlidFromPortletId(themeDisplay.getLayout().getGroupId(),"Employee_WAR_Employeeportlet");
 	 } catch (PortalException e) {
-		e.printStackTrace();
+		 log.info("Error in obtaining plid",e);
 	 }
 	PortletURL myaccountURL = PortletURLFactoryUtil.create(uploadRequest, "Employee_WAR_Employeeportlet",plid, PortletRequest.RENDER_PHASE);
 		

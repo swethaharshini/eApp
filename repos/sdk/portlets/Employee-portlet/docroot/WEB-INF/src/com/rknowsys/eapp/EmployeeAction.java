@@ -45,12 +45,17 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.Permission;
+import com.liferay.portal.model.Role;
 import com.liferay.portal.model.User;
 import com.liferay.portal.security.permission.PermissionChecker;
+import com.liferay.portal.service.LayoutLocalServiceUtil;
+import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portal.service.persistence.LayoutUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portlet.documentlibrary.model.DLFileEntry;
@@ -883,7 +888,35 @@ public class EmployeeAction extends MVCPortlet {
 		actionResponse.setRenderParameter("jspPage","/html/employee/edit_employee.jsp");
 		log.info("End of updateMembership method");
 	 }
-
+	public void deleteEmployee(ActionRequest actionRequest,ActionResponse actionResponse)
+	{
+		long[] idsArray = ParamUtil.getLongValues(actionRequest,"empIds");
+		log.info("length of array"+idsArray.length);
+		for (int i = 0; i <= idsArray.length - 1; i++) {
+			try {
+				try {
+					log.info(idsArray[i]);
+				Employee employee=EmployeeLocalServiceUtil.getEmployee(idsArray[1]);
+				log.info("employe object is "+employee);
+				EmployeeLocalServiceUtil.deleteEmployee(employee);
+					log.info("Employee deleted successfully");
+				  } catch (PortalException e) {
+					log.error("Error in deleting emergency contact details",e);
+				  } catch (SystemException e) {
+					log.error("Error in deleting emergency contact details",e);
+				}
+			} catch (NumberFormatException e) {
+				log.info("Selected all records to delete",e);
+			}
+		}
+		try {
+			actionResponse.sendRedirect("jspPage","/html/employee/employeelist.jsp");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	public void updateEmpJobHistory(ActionRequest actionRequest,
 			ActionResponse actionResponse) {
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest
@@ -1438,6 +1471,78 @@ public class EmployeeAction extends MVCPortlet {
 		PortletSession addEmpSession=renderRequest.getPortletSession();
 		String employeeJsp="/html/employee/edit_employee.jsp";
 		String empListJsp="/html/employee/employeelist.jsp";
+		
+		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		long companyId=themeDisplay.getCompanyId();
+		long userId=themeDisplay.getUserId();
+		long groupId=0;
+		try {
+			groupId=themeDisplay.getLayout().getGroup().getGroupId();
+		} catch (PortalException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		} catch (SystemException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		}
+		long layoutId=themeDisplay.getLayout().getLayoutId();
+		Role role=null;
+		Employee employee=null;
+		Layout layout=null;
+		try  {
+			layout=LayoutLocalServiceUtil.getLayout( groupId,false,layoutId);
+			log.info("layout object is "+layout);
+		      } catch (PortalException e2) {
+			log.info("Error in getting the layout with primary key"+layoutId,e2);
+		      } catch (SystemException e2) {
+			log.info("Error in getting the layout with primary key"+layoutId,e2);
+		  }
+		
+	
+		DynamicQuery dynamicQuery=DynamicQueryFactoryUtil.forClass(Employee.class,PortletClassLoaderUtil.getClassLoader());
+		dynamicQuery.add(PropertyFactoryUtil.forName("assignedUserId").eq(userId));
+		try {
+			role=RoleLocalServiceUtil.getRole(companyId,"Hrm user");
+			log.info("role object is "+role);
+			List<Employee> empList=EmployeeLocalServiceUtil.dynamicQuery(dynamicQuery);
+			if(empList!=null && empList.size()!=0)
+			    {
+				employee=empList.get(0);
+		    	}
+      		} catch (PortalException e1) {
+		        log.info("Role is "+role,e1);
+	        } catch (SystemException e1) {
+		        log.info("Role is "+role,e1);
+      		}
+		if(role!=null && employee!=null) 
+		{
+			if(role.getName().equalsIgnoreCase("Hrm User") && userId==employee.getAssignedUserId())
+			{
+				if(layout!=null)
+				{
+					layout.setName("My Info");
+					try {
+						LayoutLocalServiceUtil.updateLayout(layout);
+						log.info("layout name is "+layout.getTitle());
+					} catch (SystemException e) {
+						log.info("Cannot change layout title in at user role hrm",e);
+					}
+				}
+			}
+			else
+			{
+				if(layout!=null)
+				{
+					layout.setName("Employee List");
+					try {
+						LayoutLocalServiceUtil.updateLayout(layout);
+						log.info("layout name is "+layout.getTitle());
+					} catch (SystemException e) {
+						log.info("Cannot change layout title in at user role hrm",e);
+					}
+				}
+			}
+		}
 		Map employeeMap=(Map)renderRequest.getPortletSession(false).getAttribute("empId",addEmpSession.APPLICATION_SCOPE);
 		if(jsp!=null)
 		{ 
@@ -1467,6 +1572,22 @@ public class EmployeeAction extends MVCPortlet {
 				log.error("Error in getting requested jsp", e);
 			}
 				checkRedirect++;
+		}
+		else if(role!=null && employee!=null) 
+		{
+			if(role.getName().equalsIgnoreCase("Hrm User") && userId==employee.getAssignedUserId())
+			{
+			Map<String, Comparable> map = setSessionAttributes(employee.getEmployeeId(), employee.getImageId(), "jsp0");
+			renderRequest.getPortletSession(true).setAttribute("empId", map,
+					PortletSession.APPLICATION_SCOPE);
+			try {
+					this.include(employeeJsp, renderRequest, renderResponse);
+				} catch (IOException e) {
+					log.error("Error in getting requested jsp", e);
+				} catch (PortletException e) {
+					log.error("Error in getting requested jsp", e);
+			 }
+			}
 		}
 		else 
 		{
