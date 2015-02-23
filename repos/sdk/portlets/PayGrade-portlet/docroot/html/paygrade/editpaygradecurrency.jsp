@@ -61,23 +61,6 @@ AUI().use(
   }
 );
 
-
-
-
-AUI().use(
-  'aui-autocomplete',
-  function (A) {
-    var continents = ['Doller', 'Euro', 'Dinar', 'Africa', 'Rupie', 'Indian Rupee'];
-
-    new A.AutoComplete(
-      {
-        contentBox: '#myAutoComplete',
-        dataSource: continents
-      }
-    ).render();
-  }
-);
-
 </aui:script>
 
 <% Logger log=Logger.getLogger(this.getClass().getName());%>
@@ -116,24 +99,39 @@ PayGradeCurrency editpaygradecurrency = (PayGradeCurrency)portletSession.getAttr
 			<div class="form-horizontal">
 		<aui:input name="paygradeId" type="hidden" id="paygradeId"  value="<%=paygrade3.getPayGradeId()%>"/>
 		<aui:input name="paygradecurrencyId" type="hidden" id="paygradecurrencyId"  value="<%=editpaygradecurrency.getPayGradeCurrencyId()%>"/>
-		      <div class="control-group">
+		    
 		      <label class="control-label">Currency:<em>*</em> </label>
-		      <div class="controls">
-		      <input name="<portlet:namespace/>currency" id="myAutoComplete"  type="text" value="<%=editpaygradecurrency.getCurrency()%>">
-		</div>
-		</div>
-		<div class="control-group">
-		<label class="control-label">Minimum Salary</label>
-		<div class="controls">
-		 <input name="<portlet:namespace/>minSalary" id="paygrade" type="text" value="<%=editpaygradecurrency.getMinSalary()%>">
-		</div>
-		</div>
-		<div class="control-group">
-		<label class="control-label">Maximum Salary</label>	
-		 <div class="controls">
-		 <input name="<portlet:namespace/>maxSalary" id="paygrade" type="text" value="<%=editpaygradecurrency.getMaxSalary()%>">
-		</div>
-		</div>
+		     
+		      <aui:input name="currency" label="" id="myAutoComplete"  type="text" value="<%=editpaygradecurrency.getCurrency()%>"/>
+		
+		
+		 <aui:input name="minSalary" label="Minimum Salary" id="minSalary" type="text" value="<%=editpaygradecurrency.getMinSalary()%>">
+		 <aui:validator name="digits"></aui:validator>
+		 </aui:input>
+
+	
+		 <aui:input name="maxSalary" label="Maximum Salary" id="maxSalary" type="text" value="<%=editpaygradecurrency.getMaxSalary()%>">
+		   <aui:validator name="digits"></aui:validator>
+				 	   <aui:validator name="custom" errorMessage="Maximum salary should be greater than minimum salary">
+				 	     function(val,fieldNode,ruleValue){
+				 	      
+				 	       var result=false;
+				 	       var min= A.one("#<portlet:namespace/>minSalary").get('value');
+				 	       var max=val;
+				 	       if(Number(max) <= Number(min)){
+				 	         
+				 	         result=false;
+				 	       }else{
+				 	         result=true;
+				 	    
+				 	       }
+				 	       return result;
+				 	     }
+				 	   </aui:validator>
+		 
+		 
+		 </aui:input>
+		
 		<div class="control-group">
 			<div class="controls">
 				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Submit</button>

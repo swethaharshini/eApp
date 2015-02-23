@@ -108,9 +108,11 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
 		dynamicQuery.add(PropertyFactoryUtil.forName("groupId").eq(groupId));  
 		
             List<ReportingMethods> reportingMethodsList = ReportingMethodsLocalServiceUtil.dynamicQuery(dynamicQuery);
+            
+            List<ReportingMethods> pageList = ListUtil.subList(reportingMethodsList, searchContainer.getStart(), searchContainer.getEnd());
 		OrderByComparator orderByComparator =  CustomComparatorUtil.getReportingMethodsOrderByComparator(sortByCol, sortByType);
    
-               Collections.sort(reportingMethodsList,orderByComparator);
+               Collections.sort(pageList,orderByComparator);
   				if(reportingMethodsList.size()>5){
   					results = ListUtil.subList(reportingMethodsList,searchContainer.getStart(), searchContainer.getEnd());
   				}
@@ -119,7 +121,9 @@ portalPrefs.setValue("NAME_SPACE", "sort-by-type", sortByCol);
   				}
                total = reportingMethodsList.size();
                pageContext.setAttribute("results", results);
-               pageContext.setAttribute("total", total);
+               pageContext.setAttribute("total", total);  
+		
+		
  %>
 	</liferay-ui:search-container-results>
 	<liferay-ui:search-container-row className="ReportingMethods" keyProperty="reportingmethodId" modelVar="reportingmethodId"  rowVar="curRow" escapedModel="<%= true %>">

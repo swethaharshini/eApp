@@ -75,6 +75,8 @@ public class SkillsAction extends MVCPortlet {
 				List<Skill> list = SkillLocalServiceUtil
 						.dynamicQuery(dynamicQuery);
 				if (list.size() > 0) {
+					
+					log.info("list size greater than zero...");
 
 					Skill skill = list.get(0);
 					if (skill.getSkillName().equalsIgnoreCase(name)) {
@@ -143,18 +145,53 @@ public class SkillsAction extends MVCPortlet {
 			actionResponse.setRenderParameter("mvcPath", "/html/skill/add.jsp");
 		} else {
 			Skill skills;
+			Skill skillObj;
+			
+			
 			try {
 				skills = SkillLocalServiceUtil.getSkill(Long.parseLong(id));
+				
+				Criterion criterion = null;
+				DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
+						Skill.class, PortletClassLoaderUtil.getClassLoader());
+				criterion = RestrictionsFactoryUtil.eq("skillName", name);
+				try {
+					criterion = RestrictionsFactoryUtil.and(
+							criterion,
+							RestrictionsFactoryUtil.eq("groupId", themeDisplay
+									.getLayout().getGroup().getGroupId()));
+				} catch (PortalException e1) {
+					// TODO Auto-generated catch block
+					log.error(e1);
+				}
+				dynamicQuery.add(criterion);
+				@SuppressWarnings("unchecked")
+				List<Skill> list = SkillLocalServiceUtil
+						.dynamicQuery(dynamicQuery);
+				log.info("list size === "+list.size());
+			    if(list.size()>0){
+				skillObj = list.get(0);
+					if (skillObj.getSkillName().equalsIgnoreCase(name) && !skills.getSkillName().equalsIgnoreCase(name)) {
+						log.info("Duplicate value in skillName");
+						SessionMessages.add(actionRequest.getPortletSession(),
+								"skillName-duplicate-error");
+						actionResponse.setRenderParameter("mvcPath",
+								"/html/skill/add.jsp");
+					}
+			    }
+				else{	
+				log.info("else block before updating....");
+			
 				skills.setCreateDate(date);
 				skills.setModifiedDate(date);
 				skills.setCompanyId(themeDisplay.getCompanyId());
-				skills.setGroupId(themeDisplay.getLayout().getGroup()
-						.getGroupId());
+				skills.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
 				skills.setUserId(themeDisplay.getUserId());
 				skills.setSkillName(name);
 				skills.setDescription(description);
 				skills = SkillLocalServiceUtil.updateSkill(skills);
 				log.info("skillName updated successfully");
+				}
 
 			} catch (NumberFormatException e) {
 				// TODO Auto-generated catch block
@@ -183,7 +220,7 @@ public class SkillsAction extends MVCPortlet {
 	public void serveResource(ResourceRequest resourceRequest,
 			ResourceResponse resourceResponse) throws IOException {
 		if (resourceRequest.getResourceID().equals("deleteSkill")) {
-			log.info("deleting thes skills");
+			log.info("deleting these skills");
 
 			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,
 					"skillIds");

@@ -173,13 +173,18 @@ List<Skill> skillDetails = SkillLocalServiceUtil
 	<liferay-ui:search-container-results>
 
 		<%
-            List<Skill> skillList = skillDetails;
+            List<Skill> skillList = ListUtil.subList(skillDetails, searchContainer.getStart(), searchContainer.getEnd());
 		OrderByComparator orderByComparator =  CustomComparatorUtil.getSkillsrOrderByComparator(sortByCol, sortByType);
    
                Collections.sort(skillList,orderByComparator);
-  
-               results = ListUtil.subList(skillList, searchContainer.getStart(), searchContainer.getEnd());
-               total = skillList!=null && skillList.size()!=0  ?skillList.size():0;
+               
+               if(skillDetails.size()>5){
+            	   results = ListUtil.subList(skillDetails, searchContainer.getStart(), searchContainer.getEnd());
+               }
+               else{
+            	   results= skillDetails;
+               }
+               total = skillDetails.size();
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);
 

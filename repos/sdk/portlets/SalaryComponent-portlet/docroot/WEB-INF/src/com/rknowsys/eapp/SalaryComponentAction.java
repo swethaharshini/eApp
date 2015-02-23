@@ -71,6 +71,7 @@ public class SalaryComponentAction extends MVCPortlet {
 				
 				DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(SalaryComponent.class, PortletClassLoaderUtil.getClassLoader());
 				dynamicQuery.add(RestrictionsFactoryUtil.eq("componentName", componentname));
+				dynamicQuery.add(RestrictionsFactoryUtil.eq("groupId", themeDisplay.getLayout().getGroup().getGroupId()));
 				@SuppressWarnings("unchecked")
 				List<SalaryComponent> list = SalaryComponentLocalServiceUtil.dynamicQuery(dynamicQuery);
 				if(list.size()>0){
@@ -159,6 +160,28 @@ public class SalaryComponentAction extends MVCPortlet {
 
 			SalaryComponent salaryComponent1 = SalaryComponentLocalServiceUtil.getSalaryComponent(salarycomponentid);
 			
+			DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(SalaryComponent.class, PortletClassLoaderUtil.getClassLoader());
+			dynamicQuery.add(RestrictionsFactoryUtil.eq("componentName", componentname));
+			dynamicQuery.add(RestrictionsFactoryUtil.eq("groupId", themeDisplay.getLayout().getGroup().getGroupId()));
+			@SuppressWarnings("unchecked")
+			List<SalaryComponent> list = SalaryComponentLocalServiceUtil.dynamicQuery(dynamicQuery);
+			if(list.size()>0){
+				
+				SalaryComponent salaryComponent = list.get(0);
+				if(salaryComponent.getComponentName().equalsIgnoreCase(componentname) && !salaryComponent1.getComponentName().equalsIgnoreCase(componentname)){
+					
+					SessionMessages.add(actionRequest.getPortletSession(),
+							"salarycomponentName-duplicate-error");
+					actionResponse.setRenderParameter("mvcPath",
+							"/html/salarycomponent/list.jsp");
+					
+				}
+				
+				
+			}
+			else{
+			
+			
 			salaryComponent1.setSalaryComponentId(salarycomponentid);
 			
 			salaryComponent1.setCompanyId(themeDisplay.getCompanyId());
@@ -206,6 +229,7 @@ public class SalaryComponentAction extends MVCPortlet {
 			}
 			salaryComponent1 = SalaryComponentLocalServiceUtil.updateSalaryComponent(salaryComponent1);
 			log.info("end of else block...");
+			}
 			
 		}}
 	}
