@@ -156,6 +156,24 @@ public class EducationAction extends MVCPortlet {
 
 				educations = EducationLocalServiceUtil.getEducation(Long
 						.parseLong(id));
+				DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(Education.class,PortletClassLoaderUtil.getClassLoader());
+				dynamicQuery.add(RestrictionsFactoryUtil.eq("eduLevel", eduLevel));
+				dynamicQuery.add(RestrictionsFactoryUtil.eq("groupId", themeDisplay.getLayout().getGroup().getGroupId()));
+				
+				List<Education> list = EducationLocalServiceUtil.dynamicQuery(dynamicQuery);
+				if(list.size()>0)
+				{
+					Education education = list.get(0);
+					if(education.getEduLevel().equalsIgnoreCase(eduLevel) && ! educations.getEduLevel().equalsIgnoreCase(eduLevel))
+					{
+						SessionMessages.add(actionRequest.getPortletSession(),
+								"educationName-duplicate-error");
+						actionResponse.setRenderParameter("mvcPath",
+								"/html/educationaction/addEducation.jsp");
+						
+					}
+				}
+				else{
 				educations.setCreateDate(date);
 				educations.setModifiedDate(date);
 				educations.setCompanyId(themeDisplay.getCompanyId());
@@ -170,6 +188,7 @@ public class EducationAction extends MVCPortlet {
 				educations = EducationLocalServiceUtil
 						.updateEducation(educations);
 				log.info("EducationName updated updateEducation() method in EducationAction...");
+				}
 			}
 
 		} catch (NumberFormatException e) {
