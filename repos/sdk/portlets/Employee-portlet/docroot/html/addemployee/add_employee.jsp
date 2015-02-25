@@ -1,5 +1,5 @@
-<%-- <%@ include file="/html/employee/init.jsp"%>
-<portlet:actionURL name="saveEmpDetails" var="saveEmpDetails"></portlet:actionURL>
+<%@ include file="/html/employee/init.jsp"%>
+<portlet:actionURL name="addEmployee" var="saveEmpDetails"></portlet:actionURL>
 <portlet:renderURL var="backUrl">
 <portlet:param name="mvcPath" value="/html/employee/employeelist.jsp"/>
 </portlet:renderURL>
@@ -32,11 +32,11 @@ var A=new AUI();
 	         required: 'Please select employee location'
 	          }}
 	 });
-	 var addCancel=A.one("#<portlet:namespace/>cancelAdd");
+	<%--  var addCancel=A.one("#<portlet:namespace/>cancelAdd");
 	 addCancel.on('click',function()
 	 { 
 	   window.location="<%= backUrl%>";
-	 });
+	 }); --%>
 </aui:script>
 <div id="search_form" class="panel">
 	<div class="panel-heading">
@@ -85,8 +85,7 @@ var A=new AUI();
 					<div class="controls">
 						<aui:button type="submit" value="Submit"
 							cssClass="button btn-primary" id="submitEmployee" />
-						<aui:button type="reset" value="Cancel" id="cancelAdd" name="cancelAdd"
-							cssClass="button btn-danger" />
+						<aui:button type="reset" value="Reset" 	cssClass="button btn-danger" />
 					</div>
 				</div>
 			</div>
@@ -94,4 +93,3 @@ var A=new AUI();
 	</div>
 </div>
 
- --%>
