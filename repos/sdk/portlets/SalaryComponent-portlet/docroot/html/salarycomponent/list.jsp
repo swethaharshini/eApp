@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@page import="org.apache.log4j.Logger"%>
 <%@page import="com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil"%>
 <%@page import="com.liferay.portal.kernel.portlet.PortletClassLoaderUtil"%>
@@ -69,10 +70,22 @@ AUI().use(
     );
   }
 );
-
+AUI().ready('event', 'node','transition',function(A){
+  setTimeout(function(){
+    A.one('#addsalarycomponentMessage').transition('fadeOut');
+    A.one('#addsalarycomponentMessage').hide();
+},2000)
+ });
 </aui:script>
 <% Logger log=Logger.getLogger(this.getClass().getName());%>
-
+<% if(SessionMessages.contains(renderRequest.getPortletSession(),"salarycomponentName-empty-error")){%>
+<p id="addsalarycomponentMessage" class="alert alert-error"><liferay-ui:message key="Please Enter SalarycomponentName"/></p>
+<%} 
+ if(SessionMessages.contains(renderRequest.getPortletSession(),"salarycomponentName-duplicate-error")){
+%>
+<p id="addsalarycomponentMessage" class="alert alert-error"><liferay-ui:message key="SalarycomponentName already Exits"/></p>
+<%} 
+%>
 
 <div class="control-group text-right">
 	<a href="<%=addcomponent%>" class="btn btn-primary"><i class="icon-plus"></i> Add</a>
@@ -122,11 +135,12 @@ log.info("sortByType == " +sortByType);
 
 	dynamicQuery.add(PropertyFactoryUtil.forName("groupId").eq(groupId));
 
-	List<SalaryComponent> salarycomponentlist = SalaryComponentLocalServiceUtil.getSalaryComponents(searchContainer.getStart(), searchContainer.getEnd());
+	List<SalaryComponent> salarycomponentlist = SalaryComponentLocalServiceUtil.dynamicQuery(dynamicQuery);
             log.info("list size == " +salarycomponentlist.size());
+            List<SalaryComponent> pageList = ListUtil.subList(salarycomponentlist, searchContainer.getStart(), searchContainer.getEnd());
             OrderByComparator orderByComparator = CustomComparatorUtil.getSalaryComponentOrderByComparator(sortByCol, sortByType);         
   
-           Collections.sort(salarycomponentlist,orderByComparator);
+           Collections.sort(pageList,orderByComparator);
   		if(salarycomponentlist.size()>5){
   			
   			results =ListUtil.subList(salarycomponentlist,searchContainer.getStart(),searchContainer.getEnd());
@@ -137,7 +151,7 @@ log.info("sortByType == " +sortByType);
             log.info("results == " +results);
            
      
-               total = SalaryComponentLocalServiceUtil.getSalaryComponentsCount();
+               total = salarycomponentlist.size();
                log.info("total == " +total);
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);

@@ -97,15 +97,23 @@ List<Education> educationDetails = EducationLocalServiceUtil
 		<liferay-ui:search-container-results>
 				
 		<%
-		  List<Education> educationList = educationDetails;
-				OrderByComparator orderByComparator =  CustomComparatorUtil.getEducationOrderByComparator(sortByCol, sortByType);
-		   
-		               Collections.sort(educationList,orderByComparator);
 		  
-		               results = ListUtil.subList(educationList, searchContainer.getStart(), searchContainer.getEnd());
-		               total = educationList!=null && educationList.size()!=0  ?educationList.size():0;
-               pageContext.setAttribute("results", results);
-               pageContext.setAttribute("total", total);
+		List<Education> educationList = ListUtil.subList(educationDetails, searchContainer.getStart(), searchContainer.getEnd());
+		
+		OrderByComparator orderByComparator =  CustomComparatorUtil.getEducationOrderByComparator(sortByCol, sortByType);
+   
+               Collections.sort(educationList,orderByComparator);
+     if(educationDetails.size()>5){
+    	 results = educationList;
+     }
+     else{
+           results = educationDetails;
+     }
+       total = educationDetails.size();
+       pageContext.setAttribute("results", results);
+       pageContext.setAttribute("total", total);
+		
+		
  %>
 	</liferay-ui:search-container-results>
 	<liferay-ui:search-container-row className="Education" keyProperty="educationId" modelVar="educationId"  rowVar="curRow" escapedModel="<%= true %>">

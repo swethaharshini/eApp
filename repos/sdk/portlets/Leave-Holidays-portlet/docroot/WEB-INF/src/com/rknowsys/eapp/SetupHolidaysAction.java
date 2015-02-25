@@ -27,7 +27,6 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portal.util.PortalUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 import com.rknowsys.eapp.hrm.model.Holiday;
 import com.rknowsys.eapp.hrm.model.Location;
@@ -450,21 +449,7 @@ public class SetupHolidaysAction extends MVCPortlet {
 				LocationLocalServiceUtil.findByNationality(holiday.getNationalityId());
 		log.info("orgLocations = " + orgLocations);
 
-//		List<Location> orgLocations = LocationLocalServiceUtil.getLocations(0,
-//				LocationLocalServiceUtil.getLocationsCount());
-//		List<IdNamePair> orgLocationsList = new ArrayList<IdNamePair>();
-//		if (orgLocations != null && orgLocations.size() > 0) {
-//			for (Location orgLocation : orgLocations) {
-//				if (orgLocation.getCountry().equalsIgnoreCase(
-//						NationalityLocalServiceUtil
-//								.getNationalities(0, NationalityLocalServiceUtil.getNationalitiesCount()).get(0)
-//								.getName())) {
-//					orgLocationsList.add(new IdNamePair(String.valueOf(orgLocation.getLocationId()), orgLocation
-//							.getName()));
-//				}
-//			}
-//		}
-		//holidayUI.setOrgLocations(orgLocationsList);
+
 		List<IdNamePair> orgLocationsList = new ArrayList<IdNamePair>();
 		if (orgLocations != null && orgLocations.size() > 0) {
 			for (Location orgLocation : orgLocations) {				

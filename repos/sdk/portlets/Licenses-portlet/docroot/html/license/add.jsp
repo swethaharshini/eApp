@@ -179,13 +179,17 @@ List<License> licenseDetails = LicenseLocalServiceUtil
 	<liferay-ui:search-container-results>
 
 		<%
-            List<License> licenseList = licenseDetails;
+            List<License> licenseList = ListUtil.subList(licenseDetails, searchContainer.getStart(),searchContainer.getEnd());
 		OrderByComparator orderByComparator =  CustomComparatorUtil.getLicensesOrderByComparator(sortByCol, sortByType);
    
                Collections.sort(licenseList,orderByComparator);
-  
-               results =ListUtil.subList(licenseList,searchContainer.getStart(),searchContainer.getEnd());
-               total =licenseList!=null && licenseList.size()!=0  ?licenseList.size():0;
+  				if(licenseDetails.size()>5){
+  					results = licenseList;
+  				}
+  				else{
+               results =licenseDetails;
+  				}
+               total =licenseDetails.size();
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);
 

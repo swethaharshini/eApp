@@ -129,6 +129,23 @@ public class NationalityAction extends MVCPortlet {
 
 				long nationalityid = Long.parseLong(id);
 				Nationality nationality2 = NationalityLocalServiceUtil.getNationality(nationalityid);
+				
+				DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(Nationality.class,PortletClassLoaderUtil.getClassLoader());
+				dynamicQuery.add(RestrictionsFactoryUtil.eq("name", name));
+				dynamicQuery.add(RestrictionsFactoryUtil.eq("groupId", themeDisplay.getLayout().getGroup().getGroupId()));
+				@SuppressWarnings("unchecked")
+				List<Nationality> list = NationalityLocalServiceUtil.dynamicQuery(dynamicQuery);
+				if(list.size()>0){
+					Nationality nationality = list.get(0);
+					if(nationality.getName().equalsIgnoreCase(name) && !nationality2.getName().equalsIgnoreCase(name))
+					{
+						SessionMessages.add(actionRequest.getPortletSession(),
+								"nationalityName-duplicate-error");
+						actionResponse.setRenderParameter("mvcPath",
+								"/html/nationality/addnationality.jsp");
+					}
+				}
+				else{
 
 				nationality2.setNationalityId(ParamUtil.getLong(actionRequest,
 						"nationalityId"));
@@ -143,6 +160,7 @@ public class NationalityAction extends MVCPortlet {
 							
 				nationality2 = NationalityLocalServiceUtil.updateNationality(nationality2);
 				log.info("end of else block");
+				}
 
 			}}
 		} catch (SystemException e) {

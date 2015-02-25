@@ -143,6 +143,23 @@ public class LicensesAction extends MVCPortlet {
 			} else {
 				licenses = LicenseLocalServiceUtil.getLicense(Long
 						.parseLong(id));
+				DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(License.class,PortletClassLoaderUtil.getClassLoader());
+				dynamicQuery.add(RestrictionsFactoryUtil.eq("licenseName", name));
+				dynamicQuery.add(RestrictionsFactoryUtil.eq("groupId", themeDisplay.getLayout().getGroup().getGroupId()));
+				@SuppressWarnings("unchecked")
+				List<License> list = LicenseLocalServiceUtil.dynamicQuery(dynamicQuery);
+				if(list.size()>0){
+					log.info("list size greater than zero...");
+					License licenses2 = list.get(0);
+					if(licenses2.getLicenseName().equalsIgnoreCase(name) && !(licenses.getLicenseName().equalsIgnoreCase(name))){
+					SessionMessages.add(actionRequest.getPortletSession(),
+							"licenseName-duplicate-error");
+					actionResponse.setRenderParameter("mvcPath",
+							"/html/license/add.jsp");
+					}
+				}
+				else{
+					log.info("else block to update...");
 				licenses.setCreateDate(date);
 				licenses.setModifiedDate(date);
 				licenses.setCompanyId(themeDisplay.getCompanyId());
@@ -156,6 +173,7 @@ public class LicensesAction extends MVCPortlet {
 				licenses.setLicenseName(name);
 				licenses = LicenseLocalServiceUtil.updateLicense(licenses);
 				log.info("licenseName updated");
+				}
 
 			}
 		} catch (NumberFormatException e) {

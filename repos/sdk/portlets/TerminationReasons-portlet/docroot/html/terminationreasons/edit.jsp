@@ -108,16 +108,24 @@ List<TerminationReasons> terminationReasonsList=TerminationReasonsLocalServiceUt
 		<liferay-ui:search-container-results>
 				
 		<%
+		
+		 List<TerminationReasons> pageList = ListUtil.subList(terminationReasonsList, searchContainer.getStart(), searchContainer.getEnd());
 		OrderByComparator orderByComparator =  CustomComparatorUtil.getterminationreasonsOrderByComparator(sortByCol, sortByType);
-		   
-        Collections.sort(terminationReasonsList,orderByComparator);
-
-        results = ListUtil.subList(terminationReasonsList, searchContainer.getStart(), 
-     		   searchContainer.getEnd());
-        total = terminationReasonsList!=null && terminationReasonsList.size()!=0?
-     		   terminationReasonsList.size():0;
+   
+               Collections.sort(pageList,orderByComparator);
+               
+               if(terminationReasonsList.size()>5){
+  
+               results = ListUtil.subList(terminationReasonsList, searchContainer.getStart(), 
+            		   searchContainer.getEnd());
+               }
+               else{
+            	   results = terminationReasonsList;
+               }
+               total = terminationReasonsList.size();
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);
+		
  %>
 	</liferay-ui:search-container-results>
 	<liferay-ui:search-container-row className="TerminationReasons" keyProperty="terminationreasonsId" modelVar="terminationreasonsId"  rowVar="curRow" escapedModel="<%= true %>">

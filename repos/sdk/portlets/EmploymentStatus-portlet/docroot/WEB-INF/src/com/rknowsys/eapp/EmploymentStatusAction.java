@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.util.bridges.mvc.MVCPortlet;
+import com.liferay.util.servlet.filters.DynamicFilterConfig;
 import com.rknowsys.eapp.hrm.model.EmploymentStatus;
 import com.rknowsys.eapp.hrm.service.EmploymentStatusLocalServiceUtil;
 
@@ -167,6 +168,26 @@ public class EmploymentStatusAction extends MVCPortlet {
 
 					EmploymentStatus employmentStatus1 = EmploymentStatusLocalServiceUtil
 							.getEmploymentStatus(EmploymentStatusid);
+					DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(EmploymentStatus.class,PortletClassLoaderUtil.getClassLoader());
+					dynamicQuery.add(RestrictionsFactoryUtil.eq("employmentstatus", inputName));
+					dynamicQuery.add(RestrictionsFactoryUtil.eq("groupId", themeDisplay.getLayout().getGroup().getGroupId()));
+					List<EmploymentStatus> eList = EmploymentStatusLocalServiceUtil.dynamicQuery(dynamicQuery);
+					if(eList.size()>0)
+					{
+						EmploymentStatus employmentStatus2 = eList.get(0);
+						if(employmentStatus2.getEmploymentstatus().equalsIgnoreCase(inputName) && !employmentStatus1.getEmploymentstatus().equalsIgnoreCase(inputName))
+						{
+							
+							SessionMessages.add(
+									actionRequest.getPortletSession(),
+									"employmentStatus-duplicate-error");
+							actionResponse
+									.setRenderParameter("mvcPath",
+											"/html/employmentstatus/addemploymentstatus.jsp");
+							
+						}
+					}
+					else{
 
 					employmentStatus1.setEmploymentStatusId(EmploymentStatusid);
 
@@ -182,6 +203,7 @@ public class EmploymentStatusAction extends MVCPortlet {
 					employmentStatus1 = EmploymentStatusLocalServiceUtil
 							.updateEmploymentStatus(employmentStatus1);
 					log.info("end of else block");
+					}
 				}
 
 			}

@@ -165,11 +165,12 @@ public class TerminationReasonsAction extends MVCPortlet {
 
 		try {
 			String terminationReason = name.trim();
+			TerminationReasons terminationReasons2 = TerminationReasonsLocalServiceUtil
+					.getTerminationReasons(Long.parseLong(id));
 			if (terminationReason.equals("") || terminationReason == null) {
 
 				log.info("Empty value in TerminationReason...");
-				TerminationReasons terminationReasons2 = TerminationReasonsLocalServiceUtil
-						.getTerminationReasons(Long.parseLong(id));
+				
 
 				PortletSession portletSession = actionRequest
 						.getPortletSession();
@@ -183,6 +184,41 @@ public class TerminationReasonsAction extends MVCPortlet {
 			}
 
 			else {
+				
+				DynamicQuery dynamicQuery = DynamicQueryFactoryUtil
+						.forClass(TerminationReasons.class,
+								PortalClassLoaderUtil.getClassLoader());
+
+				dynamicQuery.add(RestrictionsFactoryUtil.eq(
+						"terminationreasonsName", name));
+				try {
+					dynamicQuery.add(RestrictionsFactoryUtil.eq("groupId",
+							themeDisplay.getLayout().getGroup()
+									.getGroupId()));
+				} catch (PortalException e1) {
+					log.error("PortalException " + e1);
+				}
+				@SuppressWarnings("unchecked")
+				List<TerminationReasons> list = TerminationReasonsLocalServiceUtil
+						.dynamicQuery(dynamicQuery);
+
+				if (list.size() > 0) {
+					TerminationReasons terminationReasons3 = list.get(0);
+
+					if (terminationReasons3.getTerminationreasonsName()
+							.equalsIgnoreCase(name) && !terminationReasons2.getTerminationreasonsName().equalsIgnoreCase(name)) {
+						log.info("DuplicateName in TerminationReason");
+
+						SessionMessages.add(
+								actionRequest.getPortletSession(),
+								"termination-form-duplicate-error");
+						actionResponse.setRenderParameter("mvcPath",
+								"/html/terminationreasons/add.jsp");
+
+					}
+				}
+				
+				else{
 
 				terminationReasons = TerminationReasonsLocalServiceUtil
 						.getTerminationReasons(Long.parseLong(id));
@@ -195,6 +231,7 @@ public class TerminationReasonsAction extends MVCPortlet {
 				terminationReasons.setTerminationreasonsName(name);
 				terminationReasons = TerminationReasonsLocalServiceUtil
 						.updateTerminationReasons(terminationReasons);
+				}
 
 			}
 		} catch (NumberFormatException e) {

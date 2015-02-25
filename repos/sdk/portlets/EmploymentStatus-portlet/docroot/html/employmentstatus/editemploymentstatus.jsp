@@ -94,22 +94,24 @@ List<EmploymentStatus> empDetails = EmploymentStatusLocalServiceUtil
 		<liferay-ui:search-container-results>
 				
 		<%
-		log.info("addemployee jsp =========");
-        List<EmploymentStatus> employmentstatusList =empDetails;
+		System.out.println("addemployee jsp =========");
+        List<EmploymentStatus> employmentstatusList =ListUtil.subList(empDetails, searchContainer.getStart(), searchContainer.getEnd());
         OrderByComparator orderByComparator = CustomComparatorUtil.getEmploymentStatusrOrderByComparator(sortByCol, sortByType);         
 
        Collections.sort(employmentstatusList,orderByComparator);
-
-      results = ListUtil.subList(employmentstatusList, searchContainer.getStart(), searchContainer.getEnd());
-      
+			if(empDetails.size()>5)
+			{
+      results = employmentstatusList;
+			}
+			else{
+				results = empDetails;
+			}
       log.info("results == " +results);
-       
- 
-           total = employmentstatusList!=null && employmentstatusList.size()!=0?employmentstatusList.size():0;
-           log.info("total == " +total);
-               pageContext.setAttribute("results", results);
-               pageContext.setAttribute("total", total);
- %>
+           total = empDetails.size();
+           System.out.println("total == " +total);
+           pageContext.setAttribute("results", results);
+           pageContext.setAttribute("total", total);
+           %>
 	</liferay-ui:search-container-results>
 	<liferay-ui:search-container-row className="EmploymentStatus" keyProperty="employmentStatusId" modelVar="EmploymentStatus"  rowVar="curRow" escapedModel="<%= true %>">
 	     <liferay-ui:search-container-column-text orderable="<%=true %>" name="Employment Status" property="employmentstatus" orderableProperty="employmentstatus"/>
