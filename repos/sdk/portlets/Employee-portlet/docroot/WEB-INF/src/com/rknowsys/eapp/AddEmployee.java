@@ -26,8 +26,10 @@ import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.MimeTypesUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.model.Organization;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.User;
+import com.liferay.portal.service.OrganizationLocalServiceUtil;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
@@ -182,6 +184,20 @@ throws IOException,PortletException,SystemException
 					middleName,  lastName, 0, 0, false, 0, 1,
 					1970, "", null, null, null, null, false,
 					new ServiceContext());
+			  long[] userIds = new long[] {user.getUserId()};
+			  Organization organization=null;
+		        try {
+		        	organization = OrganizationLocalServiceUtil.getOrganization(themeDisplay.getCompanyId(), "R-Knowsys Technologies");
+		        	if(organization!=null)
+		        	{
+					UserLocalServiceUtil.addOrganizationUsers(organization.getOrganizationId(), userIds);
+					UserLocalServiceUtil.updateOrganizations(user.getUserId(), new long[]{organization.getOrganizationId()}, serviceContext);
+		        	}
+					} catch (PortalException e) {
+						log.info("Error adding user to the organization",e);
+					} catch (SystemException e) {
+						log.info("Error adding user to the organization",e);
+					}
 			if(role!=null)
 			{
 				UserLocalServiceUtil.addRoleUser(role.getRoleId(), user);
