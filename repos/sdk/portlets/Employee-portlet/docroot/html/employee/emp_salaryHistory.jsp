@@ -222,7 +222,7 @@ var basicPay=A.one("#<portlet:namespace />annual_basic_pay");
 						<div class="controls">
 							<aui:input name="annual_basic_pay" label="01_annual-basic-payment"></aui:input>
 							<aui:input name="basic_pay_date" label="01_effective-date"
-								cssClass="dateEmployee" placeholder="DD/MM/YYYY"></aui:input>
+								cssClass="dateEmployee" placeholder="MM/DD/YYYY"></aui:input>
 						</div>
 					</div>
 					<div class="control-group">
@@ -232,7 +232,7 @@ var basicPay=A.one("#<portlet:namespace />annual_basic_pay");
 						<div class="controls">
 						<aui:input name="car_allowance" label="01_car-allowance"></aui:input>
 						<aui:input name="car_pay_date" label="01_effective-date"
-							cssClass="dateEmployee" placeholder="DD/MM/YYYY"></aui:input>
+							cssClass="dateEmployee" placeholder="MM/DD/YYYY"></aui:input>
 						</div>
 					</div>
 					<div class="control-group">
@@ -242,7 +242,7 @@ var basicPay=A.one("#<portlet:namespace />annual_basic_pay");
 						<div class="controls">
 						<aui:input name="living_allowance" label="01_cost-of-living-allowance"></aui:input>
 						<aui:input name="cost_living_date" label="01_effective-date"
-						cssClass="dateEmployee" placeholder="DD/MM/YYYY"></aui:input>
+						cssClass="dateEmployee" placeholder="MM/DD/YYYY"></aui:input>
 						</div>
 					</div>
 				</div>
@@ -261,7 +261,7 @@ var basicPay=A.one("#<portlet:namespace />annual_basic_pay");
 						<div class="controls">
 						<aui:input name="pension_fund" label="01_pension-fund"></aui:input>
 						<aui:input name="pension_date" label="01_effective-date"
-							cssClass="dateEmployee" placeholder="DD/MM/YYYY"></aui:input>
+							cssClass="dateEmployee" placeholder="MM/DD/YYYY"></aui:input>
 						</div>
 				</div>
 				<div class="control-group">
@@ -271,7 +271,7 @@ var basicPay=A.one("#<portlet:namespace />annual_basic_pay");
 						<div class="controls">
 						<aui:input name="epf_percentage" label="01_epf"></aui:input>
 						<aui:input name="epf_date" label="01_effective-date"
-							cssClass="dateEmployee" placeholder="DD/MM/YYYY"></aui:input>
+							cssClass="dateEmployee" placeholder="MM/DD/YYYY"></aui:input>
 						</div>
 				</div>
 			</div>
