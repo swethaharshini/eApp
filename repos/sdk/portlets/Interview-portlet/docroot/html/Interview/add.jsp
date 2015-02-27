@@ -179,17 +179,21 @@ List<Interview> interviewDetails = InterviewLocalServiceUtil
 	deltaConfigurable="true" iteratorURL="<%=iteratorURL%>">
 	<liferay-ui:search-container-results>
 	<%
-			List<Interview> interviewList =  interviewDetails;
+			List<Interview> interviewList = ListUtil.subList(interviewDetails, searchContainer.getStart(), searchContainer.getEnd())  ;
             OrderByComparator orderByComparator = CustomComparatorUtil.getInterviewrOrderByComparator(sortByCol, sortByType);         
   
            Collections.sort(interviewList,orderByComparator);
-  
-           results = ListUtil.subList(interviewList, searchContainer.getStart(), searchContainer.getEnd());
-          
+  				
+           if(interviewDetails.size()>5){
+           results = ListUtil.subList(interviewDetails, searchContainer.getStart(), searchContainer.getEnd());
+           }
+           else{
+        	   results = interviewDetails;
+           }
             System.out.println("results == " +results);
            
      
-               total = interviewList!=null && interviewDetails.size()!=0?interviewDetails.size():0;
+               total = interviewDetails.size();
                System.out.println("total == " +total);
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);

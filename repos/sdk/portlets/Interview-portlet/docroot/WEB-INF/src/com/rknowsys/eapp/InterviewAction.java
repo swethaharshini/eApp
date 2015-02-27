@@ -153,11 +153,50 @@ public class InterviewAction extends MVCPortlet {
 							"/html/Interview/add.jsp");
 
 				} else {
-
 					long interviewid = Long.parseLong(id);
 
 					Interview interview1 = InterviewLocalServiceUtil
 							.getInterview(interviewid);
+					
+					Criterion criterion = null;
+					DynamicQuery dynamicQuery = DynamicQueryFactoryUtil
+							.forClass(Interview.class,
+									PortletClassLoaderUtil.getClassLoader());
+					criterion = RestrictionsFactoryUtil.eq("name",
+							interviewName);
+					try {
+						criterion = RestrictionsFactoryUtil.and(criterion,
+								RestrictionsFactoryUtil.eq("groupId",
+										themeDisplay.getLayout().getGroup()
+												.getGroupId()));
+						dynamicQuery.add(criterion);
+					} catch (PortalException e1) {
+						e1.printStackTrace();
+					}
+					@SuppressWarnings("unchecked")
+					List<Interview> interviews = InterviewLocalServiceUtil
+							.dynamicQuery(dynamicQuery);
+					if (interviews.size() > 0) {
+
+						Interview interview = interviews.get(0);
+						if (interview.getName().equalsIgnoreCase(inputName) && !interview1.getName().equalsIgnoreCase(inputName)) {
+
+							log.info("DuplicateName in interviewName");
+
+							SessionMessages.add(
+									actionRequest.getPortletSession(),
+									"interviewName-duplicate-error");
+							actionResponse.setRenderParameter("mvcPath",
+									"/html/Interview/add.jsp");
+
+						}
+
+					}
+					
+					else{
+					
+
+					
 
 					interview1.setInterviewId(ParamUtil.getLong(actionRequest,
 							"interviewId"));
@@ -173,6 +212,7 @@ public class InterviewAction extends MVCPortlet {
 					interview1 = InterviewLocalServiceUtil
 							.updateInterview(interview1);
 					log.info("end of else block");
+					}
 				}
 			}
 		} catch (SystemException e) {

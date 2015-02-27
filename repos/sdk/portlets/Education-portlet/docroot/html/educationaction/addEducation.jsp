@@ -9,6 +9,7 @@
 </portlet:renderURL>
 
 <aui:script>
+
 AUI().use(
   'aui-node',
   function(A) {
@@ -73,7 +74,7 @@ AUI().use(
 );
 
  AUI().ready('event', 'node','transition',function(A){
-A.one('#addEducationForm').hide();
+ A.one('#addEducationForm').hide();
 setTimeout(function(){
 A.one('#addEducationMessage').transition('fadeOut');
 A.one('#addEducationMessage').hide();
@@ -179,13 +180,18 @@ List<Education> educationDetails = EducationLocalServiceUtil
 	<liferay-ui:search-container-results>
 
 		<%
-		  List<Education> educationList = educationDetails;
+		  List<Education> educationList = ListUtil.subList(educationDetails, searchContainer.getStart(), searchContainer.getEnd());
+		
 				OrderByComparator orderByComparator =  CustomComparatorUtil.getEducationOrderByComparator(sortByCol, sortByType);
 		   
 		               Collections.sort(educationList,orderByComparator);
-		  
-		               results = ListUtil.subList(educationList, searchContainer.getStart(), searchContainer.getEnd());
-		               total = educationList!=null && educationList.size()!=0  ?educationList.size():0;
+		     if(educationDetails.size()>5){
+		    	 results = educationList;
+		     }
+		     else{
+		           results = educationDetails;
+		     }
+		       total = educationDetails.size();
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);
 

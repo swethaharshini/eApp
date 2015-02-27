@@ -158,6 +158,24 @@ public class LanguageAction extends MVCPortlet {
 
 				languages = LanguageLocalServiceUtil.getLanguage(Long
 						.parseLong(id));
+				DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(Language.class,PortletClassLoaderUtil.getClassLoader());
+				dynamicQuery.add(RestrictionsFactoryUtil.eq("languageName", name));
+				dynamicQuery.add(RestrictionsFactoryUtil.eq("groupId", themeDisplay.getLayout().getGroup().getGroupId()));
+				@SuppressWarnings("unchecked")
+				List<Language> list = LanguageLocalServiceUtil.dynamicQuery(dynamicQuery);
+				if(list.size()>0){
+					Language language = list.get(0);
+					if(language.getLanguageName().equalsIgnoreCase(name) && !languages.getLanguageName().equalsIgnoreCase(name))
+					{
+						SessionMessages.add(actionRequest.getPortletSession(),
+								"languageName-duplicate-error");
+						actionResponse.setRenderParameter("mvcPath",
+								"/html/language/add.jsp");
+						
+					}
+				}
+				else{
+				
 				languages.setCreateDate(date);
 				languages.setModifiedDate(date);
 				languages.setCompanyId(themeDisplay.getCompanyId());
@@ -165,6 +183,7 @@ public class LanguageAction extends MVCPortlet {
 				languages.setUserId(themeDisplay.getUserId());
 				languages.setLanguageName(name);
 				languages = LanguageLocalServiceUtil.updateLanguage(languages);
+				}
 
 			}
 		} catch (NumberFormatException e) {

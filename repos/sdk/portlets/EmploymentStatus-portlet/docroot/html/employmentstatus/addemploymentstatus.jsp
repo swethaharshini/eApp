@@ -178,17 +178,19 @@ List<EmploymentStatus> empDetails = EmploymentStatusLocalServiceUtil
 
 		<% 
 		 System.out.println("addemployee jsp =========");
-            List<EmploymentStatus> employmentstatusList =empDetails;
+            List<EmploymentStatus> employmentstatusList =ListUtil.subList(empDetails, searchContainer.getStart(), searchContainer.getEnd());
             OrderByComparator orderByComparator = CustomComparatorUtil.getEmploymentStatusrOrderByComparator(sortByCol, sortByType);         
   
            Collections.sort(employmentstatusList,orderByComparator);
-  
-          results = ListUtil.subList(employmentstatusList, searchContainer.getStart(), searchContainer.getEnd());
-          
+  			if(empDetails.size()>5)
+  			{
+          results = employmentstatusList;
+  			}
+  			else{
+  				results = empDetails;
+  			}
           log.info("results == " +results);
-           
-     
-               total = employmentstatusList!=null && employmentstatusList.size()!=0?employmentstatusList.size():0;
+               total = empDetails.size();
                System.out.println("total == " +total);
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);
