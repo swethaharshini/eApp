@@ -24,7 +24,7 @@ var A=new AUI();
 	String dateOfB, licenseExpDate;
 	nationality = "";
 	long nationalityId = 0;
-	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
+	SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/YYYY");
 	//Date k = new Date();
 	//long employeeId = Long.parseLong(empId);
 	DynamicQuery personalDetailsDynamicQuery = DynamicQueryFactoryUtil
@@ -161,7 +161,7 @@ if(maritalStatus=="single")
 						inlineLabel="left" disabled="true" value="<%=licenseNumber%>"></aui:input>
 					<aui:input name="expiry_date" label="01_expiry-date"
 						inlineLabel="left" disabled="true" value='<%=licenseExpDate%>'
-						cssClass="dateEmployee" placeholder="DD/MM/YYYY"></aui:input>
+						cssClass="dateEmployee" placeholder="MM/DD/YYYY"></aui:input>
 						 <div class="control-group form-inline">
 							<label class="control-label"><liferay-ui:message key="01_gender" /></label>
 							<aui:input inlineLabel="right" name="gender" type="radio"
@@ -207,7 +207,7 @@ if(maritalStatus=="single")
 					</aui:select>
 
 					<aui:input name="date_of_birth" label="01_date-of-birth"
-						inlineLabel="left" cssClass="dateEmployee" value='<%=dateOfB%>' >
+						inlineLabel="left" cssClass="dateEmployee" value='<%=dateOfB%>' placeholder="MM/DD/YYYY" >
 					</aui:input>
 					<div class="control-group">
 						<div class="controls">

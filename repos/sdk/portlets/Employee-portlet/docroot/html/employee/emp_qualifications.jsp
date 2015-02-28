@@ -110,7 +110,7 @@
 			.eq(employeeId));
 	List<EmpLicense> empLicenseDetails = EmpLicenseLocalServiceUtil
 			.dynamicQuery(empLicenseDynamicQuery);
-	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
+	SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/YYYY");
 %>
 <aui:script use="aui-base,aui-node,aui-io-request-deprecated">
 var A=new AUI();
@@ -302,6 +302,7 @@ A.ready(function()
 	   A.one('#<portlet:namespace />empWorkExpDelete').show();
 	   A.one('#<portlet:namespace />empEducationDelete').show();
 	   });
+   
 </aui:script>
 <div id="addEmpWorkExp" class="panel">
 	<div class="panel-heading">
@@ -321,10 +322,52 @@ A.ready(function()
 					showRequiredLabel="false">
 				<aui:validator name="required"></aui:validator>
 				</aui:input>
-				<aui:input name="exp_from_date" label="01_from" inlineLabel="left"
-					cssClass="dateEmployee" placeholder="DD/MM/YYYY"></aui:input>
-				<aui:input name="exp_to_date" label="01_to" inlineLabel="left"
-					cssClass="dateEmployee" placeholder="DD/MM/YYYY">
+				<aui:input name="exp_from_date" id="exp_from_date" label="01_from" inlineLabel="left"
+					cssClass="dateEmployee" placeholder="MM/DD/YYYY"></aui:input>
+				<aui:input name="exp_to_date" id="exp_to_date" label="01_to" inlineLabel="left"
+					cssClass="dateEmployee" placeholder="MM/DD/YYYY">
+				<aui:validator name="custom" errorMessage="To date should be greater than from date">
+				 function(val,fieldNode,ruleValue){
+				      var result=false;	
+				      var toDate =val;
+				      var toDateSplit = toDate.split("/");
+   					  var toDateVal=expiryDateSplit[1];
+					  var toMonth=expiryDateSplit[0];
+					  var toYear=expiryDateSplit[2];
+					  var fromDate= A.one("#<portlet:namespace/>exp_from_date").get('value');
+					  var fromDateSplit=fromDate.split("/");
+					  var from1Date=fromDateSplit[1];
+					  var fromMonth=fromDateSplit[0];
+					  var fromYear=fromDateSplit[2];
+					  if(toYear>fromYear){
+					        result=true;
+					        return result;
+					        }
+					       else if(toYear==fromYear){
+					    		if(toMonth>fromMonth){
+					    		   result=true;
+					    		   return result;
+					    		   }
+					    		   else	if(toMonth==fromMonth){
+					    				if(toDateVal>=from1Date){
+					    					   result=true;
+					    					   return result;
+					    				   }else{
+					    				      result=false;
+					    				      return result;
+					    				   }
+					    			}
+					    			else{
+					    			  result=false;
+					    			  return result;
+					    			 }
+					    	}
+					        else{
+					    	  resule=false;
+					    	  return result;
+					    }	  															   
+				   }
+				</aui:validator>
 				</aui:input>
 				<aui:input name="exp_comments" type="textarea" label="01_comments"
 					inlineLabel="left"></aui:input>
@@ -371,10 +414,10 @@ A.ready(function()
 			</liferay-ui:search-container-results>
 			<liferay-ui:search-container-row className="EmpWorkExp"
 				modelVar="id">
-				<liferay-ui:search-container-column-text name="01_company" property="company"/>
+				<liferay-ui:search-container-column-text name="01_company" property="company" />
 				<liferay-ui:search-container-column-text name="01_jobtitle" property="jobTitle" />
-				<liferay-ui:search-container-column-text name="01_from" value="<%=sdf.format(id.getFromDate()) %>"/>
-				<liferay-ui:search-container-column-text name="01_to" value="<%=sdf.format(id.getToDate()) %>"/>
+				<liferay-ui:search-container-column-text name="01_from" value='<%=id.getFromDate()!=null?sdf.format(id.getFromDate()):"" %>'/>
+				<liferay-ui:search-container-column-text name="01_to" value='<%=id.getToDate()!=null?sdf.format(id.getToDate()):"" %>'/>
 				<liferay-ui:search-container-column-text name="01_comment" property="comment"/>
 			</liferay-ui:search-container-row>
 			<liferay-ui:search-iterator />
@@ -414,9 +457,52 @@ A.ready(function()
 				</aui:input>
 				<aui:input name="edu_score" label="01_score" inlineLabel="left"></aui:input>
 				<aui:input name="edu_from_date" label="01_from" inlineLabel="left"
-					cssClass="dateEmployee" placeholder="DD/MM/YYYY"></aui:input>
+					cssClass="dateEmployee" placeholder="MM/DD/YYYY"></aui:input>
 				<aui:input name="edu_to_date" label="01_to" inlineLabel="left"
-					cssClass="dateEmployee" placeholder="DD/MM/YYYY"></aui:input>
+					cssClass="dateEmployee" placeholder="MM/DD/YYYY">
+				<aui:validator name="custom" errorMessage="To date should be greater than from date">
+				 function(val,fieldNode,ruleValue){
+				      var result=false;	
+				      var toDate =val;
+				      var toDateSplit = toDate.split("/");
+   					  var toDateVal=expiryDateSplit[1];
+					  var toMonth=expiryDateSplit[0];
+					  var toYear=expiryDateSplit[2];
+					  var fromDate= A.one("#<portlet:namespace/>edu_from_date").get('value');
+					  var fromDateSplit=fromDate.split("/");
+					  var from1Date=fromDateSplit[1];
+					  var fromMonth=fromDateSplit[0];
+					  var fromYear=fromDateSplit[2];
+					  if(toYear>fromYear){
+					        result=true;
+					        return result;
+					        }
+					       else if(toYear==fromYear){
+					    		if(toMonth>fromMonth){
+					    		   result=true;
+					    		   return result;
+					    		   }
+					    		   else	if(toMonth==fromMonth){
+					    				if(toDateVal>=from1Date){
+					    					   result=true;
+					    					   return result;
+					    				   }else{
+					    				      result=false;
+					    				      return result;
+					    				   }
+					    			}
+					    			else{
+					    			  result=false;
+					    			  return result;
+					    			 }
+					    	}
+					        else{
+					    	  resule=false;
+					    	  return result;
+					    }	  															   
+				   }
+				</aui:validator>
+					</aui:input>
 				<div class="control-group">
 					<div class="controls">
 						<aui:button type="submit" cssClass="button btn-primary" value="save"
@@ -633,7 +719,7 @@ A.ready(function()
 				modelVar="id">
 				<%lanValue=getLnguage(id.getLanguageId())!=null?getLnguage(id.getLanguageId()):"" ; %>
 				<liferay-ui:search-container-column-text name="01_language" 
-				value='<%=lanValue %>'/>
+				value='<%=lanValue %>' />
 				<liferay-ui:search-container-column-text name="01_skill" property="languageSkill" />
 				<liferay-ui:search-container-column-text name="01_fluency-level" property="languageFluency"/>
 				<liferay-ui:search-container-column-text name="01_comments" property="comments" />
@@ -671,9 +757,51 @@ A.ready(function()
 					inlineLabel="left">
 				</aui:input>
 				<aui:input name="license_issue_date" label="01_license-issue-date"
-					inlineLabel="left" cssClass="dateEmployee" placeholder="DD/MM/YYYY"></aui:input>
+					inlineLabel="left" cssClass="dateEmployee" placeholder="MM/DD/YYYY"></aui:input>
 				<aui:input name="license_exp_date" label="01_license-expiry-date"
-					inlineLabel="left" cssClass="dateEmployee" placeholder="DD/MM/YYYY">
+					inlineLabel="left" cssClass="dateEmployee" placeholder="MM/DD/YYYY">
+				<aui:validator name="custom" errorMessage="Expiry date should be greater than Issued date">
+				     function(val,fieldNode,ruleValue){
+				      var result=false;	
+				      var expiryDate =val;
+				      var expiryDateSplit = expiryDate.split("/");
+					  var expiryDateVal=expiryDateSplit[1];
+					  var expiryMonth=expiryDateSplit[0];
+					  var expiryYear=expiryDateSplit[2];
+					  var issuedDate= A.one("#<portlet:namespace/>license_issue_date").get('value');
+					  var issuedDateSplit=issuedDate.split("/");
+					  var issueDate=issuedDateSplit[1];
+					  var issueMonth=issuedDateSplit[0];
+					  var issueYear=issuedDateSplit[2];
+					  if(expiryYear>issueYear){
+					        result=true;
+					        return result;
+					        }
+					       else if(expiryYear==issueYear){
+					    		if(expiryMonth>issueMonth){
+					    		   result=true;
+					    		   return result;
+					    		   }
+					    		   else	if(expiryMonth==issueMonth){
+					    				if(expiryDateVal>=issueDate){
+					    					   result=true;
+					    					   return result;
+					    				   }else{
+					    				      result=false;
+					    				      return result;
+					    				   }
+					    			}
+					    			else{
+					    			  result=false;
+					    			  return result;
+					    			 }
+					    	}
+					        else{
+					    	  resule=false;
+					    	  return result;
+					    }	  															   
+				   }
+				   </aui:validator>
 				</aui:input>
 				<div class="control-group">
 					<div class="controls">
