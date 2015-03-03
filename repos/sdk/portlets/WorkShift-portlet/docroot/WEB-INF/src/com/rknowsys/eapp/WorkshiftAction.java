@@ -173,6 +173,36 @@ public class WorkshiftAction extends MVCPortlet {
 									"/html/workshift/addworkshift.jsp");
 							
 						}
+						else{
+							setWorkShift(actionRequest, themeDisplay, formater, workshift,
+									date);
+							
+							workshift = WorkshiftLocalServiceUtil
+									.updateWorkshift(workshift);
+							
+							if (assignedEmpsIds != null && assignedEmpsIds.length>0){
+								log.info("assignedEmpsIds.length == " + assignedEmpsIds.length);
+								for (String empId: assignedEmpsIds) {
+									log.info(empId);
+									if (empId != null && !empId.isEmpty()) {
+										long eid = Long.parseLong(empId);
+										EmpJob empJob = EmpJobLocalServiceUtil.getEmpJobByEmpId(eid);
+										EmpJob empJob2 = EmpJobLocalServiceUtil.getEmpJob(empJob.getEmpJobId());
+										empJob2.setShiftId(workshift.getShiftId());
+										empJob2 = EmpJobLocalServiceUtil.updateEmpJob(empJob2);
+									}
+								}
+							}
+							if (availableEmpsIds != null && availableEmpsIds.length>0){
+								for (String empId: availableEmpsIds) {
+									EmpJob empJob = EmpJobLocalServiceUtil.getEmpJobByEmpId(Long.parseLong(empId));
+									empJob.setShiftId(0);
+									empJob = EmpJobLocalServiceUtil.updateEmpJob(empJob);
+								}
+								
+							}
+							
+						}
 					}						
 					else{
 
@@ -228,18 +258,18 @@ public class WorkshiftAction extends MVCPortlet {
 			Workshift workshift, Date date) throws PortalException, SystemException {
 		workshift.setWorkshiftName(ParamUtil.getString(actionRequest,
 				CustomComparatorUtil.WORKSHIFT_COL_NAME));
+		
+		log.info("From work hrs === " +ParamUtil.getDate(actionRequest,"fromWorkHours", formater));
+		log.info("From work hrs string === " +ParamUtil.getString(actionRequest,"fromWorkHours"));
+		log.info("From work hrs === " +ParamUtil.getDate(actionRequest,"toWorkHours", formater));
+		log.info("From work hrs string === " +ParamUtil.getString(actionRequest,"fromWorkHours"));
 
 		workshift.setFromWorkHours(ParamUtil.getDate(actionRequest,
 				"fromWorkHours", formater));
-		log.info("fromWorkHours  as str = "
-				+ ParamUtil.getString(actionRequest, "fromWorkHours"));
-		log.info("toWorkHours as str = "
-				+ ParamUtil.getString(actionRequest, "toWorkHours"));
+		
 		workshift.setToWorkHours(ParamUtil.getDate(actionRequest,
 				"toWorkHours", formater));
-		log.info("toWorkHours = "
-				+ ParamUtil.getDate(actionRequest, "toWorkHours",
-						formater));
+		
 
 		workshift.setCreateDate(date);
 		workshift.setModifiedDate(date);

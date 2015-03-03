@@ -195,8 +195,8 @@ Workshift editworkshift = (Workshift) portletSession.getAttribute("editworkshift
 			<aui:input name="shiftId" type="hidden" id="shiftId"
 				value="<%=editworkshift.getShiftId()%>" />
 					<% WorkshiftBean workshiftExt = new WorkshiftBean(editworkshift); %>
-					<input name="<portlet:namespace/>workshiftName" id="workshiftName"
-					    type="text" value="<%=editworkshift.getWorkshiftName() %>">
+					<aui:input name="workshiftName" id="workshiftName" label="Shift Name"
+					    type="text" value="<%=editworkshift.getWorkshiftName() %>"/>
 		</div>
 			<div class="row-fluid">
 				<div class="span4">
