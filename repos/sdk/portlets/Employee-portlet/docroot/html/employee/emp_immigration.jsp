@@ -173,7 +173,7 @@ A.ready(function()
 					    			 }
 					    	}
 					        else{
-					    	  resule=false;
+					    	  result=false;
 					    	  return result;
 					    }	  															   
 				   }
