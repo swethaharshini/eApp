@@ -176,6 +176,56 @@ public class SalaryComponentAction extends MVCPortlet {
 							"/html/salarycomponent/list.jsp");
 					
 				}
+				else{
+					salaryComponent1.setSalaryComponentId(salarycomponentid);
+					
+					salaryComponent1.setCompanyId(themeDisplay.getCompanyId());
+					salaryComponent1.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
+					salaryComponent1.setUserId(themeDisplay.getUserId());
+					salaryComponent1.setCreateDate(date);
+					salaryComponent1.setModifiedDate(date);
+					salaryComponent1.setType(type);
+					salaryComponent1.setComponentName(componentname);
+					
+					if(totalPayable==true){
+						log.info("true inside if tp");
+						salaryComponent1.setTotalPayable("Yes");
+					}
+					else{
+						log.info("false inside else tp");
+						salaryComponent1.setTotalPayable("No");
+					}
+					if(costToCompany==true){
+						
+						log.info("true inside if cc");
+						salaryComponent1.setCostToCompany("Yes");
+					}
+					else{
+						log.info("false inside else cc");
+						salaryComponent1.setCostToCompany("No");
+					}
+					
+					if(valuetype[0].equals("true") && valuetype[1].equals("true"))
+					{
+						salaryComponent1.setValueType("Amount,Percentage");
+					}
+					if(valuetype[0].equals("false") || valuetype[1].equals("false"))
+					{
+					if(valuetype[0].equals("true")){
+						salaryComponent1.setValueType("Amount");
+					}
+					if(valuetype[1].equals("true")){
+						salaryComponent1.setValueType("Percentage");
+					}
+					}
+					if(valuetype[0].equals("false") && valuetype[1].equals("false"))
+					{
+						salaryComponent1.setValueType("");
+					}
+					salaryComponent1 = SalaryComponentLocalServiceUtil.updateSalaryComponent(salaryComponent1);
+					log.info("end of else block...");
+					
+				}
 				
 				
 			}

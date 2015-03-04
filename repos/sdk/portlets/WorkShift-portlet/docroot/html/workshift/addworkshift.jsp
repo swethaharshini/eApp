@@ -208,7 +208,7 @@ A.one('#addworkshiftMessage').hide();
 			<div class="span4">
 				<label>To</label>
 			<aui:input name="toWorkHours" id="toWorkHours" label=""
-				type="text" required="required" placeholder="hh:mm" value="00:00" >
+				type="text" placeholder="hh:mm" value="00:00" >
 				
 				<aui:validator name="custom" errorMessage="To time should be greater than from From time">
 						function(val,fieldNode,ruleValue)
