@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@page import="com.rknowsys.eapp.hrm.service.HolidayLocalServiceUtil"%>
 <%@page import="com.rknowsys.eapp.ui.Holiday"%>
 <%@page import="com.rknowsys.eapp.hrm.util.DateUtils"%>
@@ -56,7 +57,13 @@ AUI().ready('event', 'node', function(A){
   
   //A.one('#<portlet:namespace />location').checked = true;
  });
+AUI().ready('event', 'node','transition',function(A){
 
+  setTimeout(function(){
+    A.one('#addHolidayMessage').transition('fadeOut');
+    A.one('#addHolidayMessage').hide();
+},2000)
+ });
 
 AUI().use(
   'aui-datepicker',
@@ -141,7 +148,14 @@ AUI().use(
 });
 </aui:script>
 </head>
-
+<% if(SessionMessages.contains(renderRequest.getPortletSession(),"holidayName-empty-error")){%>
+<p id="addHolidayMessage" class="alert alert-error"><liferay-ui:message key="Please Enter HolidayName"/></p>
+<%} 
+ if(SessionMessages.contains(renderRequest.getPortletSession(),"holidayName-duplicate-error")){
+%>
+<p id="addHolidayMessage" class="alert alert-error"><liferay-ui:message key="HolidayName already Exits"/></p>
+<%} 
+%>
 <body>
  <div id="editHolidayForm" class="clearfix">
 	 <div class="panel">
@@ -152,10 +166,10 @@ AUI().use(
 	 		<div class="form-horizontal">
 				 <aui:form name="myForm" action="<%=saveHoliday.toString()%>">
 						<aui:input name="holidayId" type="hidden" value="<%=editHoliday.getHolidayId() %>"/>
-						<aui:input name="holidayName" type="text" label="Name" value="<%=editHoliday.getHolidayName() %>">
+						<aui:input name="holidayName" type="text" showRequiredLabel="false" label="Name" value="<%=editHoliday.getHolidayName() %>">
 						<aui:validator name="required"></aui:validator>
 						</aui:input>
-						<aui:input name="holidayDate" type="text" label="Date" value="<%=editHoliday.getHolidayDate() %>">
+						<aui:input name="holidayDate" showRequiredLabel="false" type="text" label="Date" value="<%=editHoliday.getHolidayDate() %>">
 						<aui:validator name="required"></aui:validator>
 						</aui:input>
 						<div class="control-group">

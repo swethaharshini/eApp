@@ -290,8 +290,8 @@ public class JobTitleAction extends MVCPortlet {
 				} else {
 
 					try {
-						JobTitleLocalServiceUtil.deleteJobTitle(Long
-								.parseLong(idsArray[i]));
+					
+						 JobTitleLocalServiceUtil.deleteJobTitle(Long.parseLong(idsArray[i]));
 					} catch (NumberFormatException e) {
 
 						log.error("NumberFormatException " + e);

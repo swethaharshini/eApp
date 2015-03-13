@@ -48,11 +48,15 @@ public class WorkshiftBean{
 	}
 	
 	public Date getDuration(){
+		 
 		return new Date(workshift.getToWorkHours().getTime() - workshift.getFromWorkHours().getTime());
 	}
 	
 	public String getFormattedDurationStr(){
-		return new DecimalFormat("#0.00").format(new Double(getDuration().getTime()) / (60 * 60 * 1000));
+		
+		 
+		 return formatDate(getDuration(),"H:mm");
+		
 	}
 	
 	public String getFormattedFromWorkHoursStr(){
