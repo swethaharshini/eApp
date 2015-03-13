@@ -109,7 +109,7 @@ long fileEntryId=(Long)empId.get("fileId");
 						inlineLabel="left" showRequiredLabel="false">
 						<aui:validator name="required"></aui:validator>
 						</aui:input>
-					<aui:input name="emg_hm_telephone" label="01_home-tele"
+					<aui:input name="emg_hm_telephone" id="emg_hm_telephone" label="01_home-tele"
 						inlineLabel="left">
 							<aui:validator name="custom" errorMessage="Please enter a valid telephone number">
 						function(val,fieldNode,ruleValue)
@@ -127,7 +127,7 @@ long fileEntryId=(Long)empId.get("fileId");
 						}
 						</aui:validator>
 					</aui:input>
-					<aui:input name="emg_mobile" label="01_mobile" inlineLabel="left">
+					<aui:input name="emg_mobile" id="emg_mobile" label="01_mobile" inlineLabel="left">
 						<aui:validator name="custom" errorMessage="Please enter a valid mobile number">
 						function(val,fieldNode,ruleValue)
 						{
@@ -146,7 +146,8 @@ long fileEntryId=(Long)empId.get("fileId");
 					</aui:input>
 					<aui:input name="emg_work_telephone" label="01_work-tele"
 						inlineLabel="left" >
-							<aui:validator name="custom" errorMessage="Please enter a valid telephone number">
+						<!-- validation code @sreedhar -->
+						<aui:validator name="custom" errorMessage="Please enter a valid telephone number">
 						function(val,fieldNode,ruleValue)
 						{
 						var result=false;
@@ -155,12 +156,25 @@ long fileEntryId=(Long)empId.get("fileId");
                         {  
                          return true;  
                         }  
-                       else  
-                       {  
+                        else  
+                        {  
                          return false;  
-  					   }  
+  					    }  
 						}
 						</aui:validator>
+						 <aui:validator name="custom" errorMessage="please enter atleast one number">
+							function(val,fieldNode,ruleValue)
+							{
+								var result=true;
+								var num1=A.one('#<portlet:namespace/>emg_hm_telephone').get('value');
+								var num2=A.one('#<portlet:namespace/>emg_mobile').get('value');
+									if(Number(val) == 0 && Number(num2) == 0 && Number(num1) == 0){
+										result = false;
+									}
+								return result;
+							  }
+						
+						</aui:validator> 
 						</aui:input>
 						<div class="control-group">
 							<div class="controls">

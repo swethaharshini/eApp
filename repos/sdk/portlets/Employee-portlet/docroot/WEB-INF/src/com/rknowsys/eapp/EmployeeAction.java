@@ -1089,6 +1089,7 @@ public class EmployeeAction extends MVCPortlet {
 		ThemeDisplay themeDisplay = (ThemeDisplay) resourceRequest
 				.getAttribute(WebKeys.THEME_DISPLAY);
 		Date date = new Date();
+		log.info("in serve resource mehtod");
 		if (resourceRequest.getResourceID().equals("deleteEmergencyContact")) {
 			log.info("Deleting Emergency contact records");
 			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,"emgContactIds");
@@ -1124,6 +1125,106 @@ public class EmployeeAction extends MVCPortlet {
 						log.error("Error in deleting dependent details of employee",e);
 					  } catch (SystemException e) {
 						  log.error("Error in deleting dependent details of employee",e);
+					}
+				} catch (NumberFormatException e) {
+					log.info("Selected all records to delete");
+				}
+			}
+
+		}
+		else if (resourceRequest.getResourceID().equals("deleteLanguage")) {
+			log.info("Deleting Dependent records");
+			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,"deleteIds");
+			for (int i = 0; i <= idsArray.length - 1; i++) {
+				try {
+					try {
+						EmpLanguageLocalServiceUtil
+								.deleteEmpLanguage((Long.parseLong(idsArray[i])));
+						log.info("deleted");
+					  } catch (PortalException e) {
+						log.error("Error in deleting language details of employee",e);
+					  } catch (SystemException e) {
+						  log.error("Error in deleting language details of employee",e);
+					}
+				} catch (NumberFormatException e) {
+					log.info("Selected all records to delete");
+				}
+			}
+
+		}
+		else if (resourceRequest.getResourceID().equals("deleteEmpWorkExp")) {
+			log.info("Deleting Dependent records");
+			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,"deleteIds");
+			for (int i = 0; i <= idsArray.length - 1; i++) {
+				try {
+					try {
+						EmpWorkExpLocalServiceUtil
+								.deleteEmpWorkExp((Long.parseLong(idsArray[i])));
+						log.info("deleted");
+					  } catch (PortalException e) {
+						log.error("Error in deleting work experience details of employee",e);
+					  } catch (SystemException e) {
+						log.error("Error in deleting work experience details of employee",e);
+					}
+				} catch (NumberFormatException e) {
+					log.info("Selected all records to delete");
+				}
+			}
+
+		}
+		else if (resourceRequest.getResourceID().equals("deleteLicense")) {
+			log.info("Deleting Dependent records");
+			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,"deleteIds");
+			for (int i = 0; i <= idsArray.length - 1; i++) {
+				try {
+					try {
+						EmpLicenseLocalServiceUtil
+								.deleteEmpLicense((Long.parseLong(idsArray[i])));
+						log.info("deleted");
+					  } catch (PortalException e) {
+						log.error("Error in deleting license details of employee",e);
+					  } catch (SystemException e) {
+						  log.error("Error in deleting license details of employee",e);
+					}
+				} catch (NumberFormatException e) {
+					log.info("Selected all records to delete");
+				}
+			}
+
+		}
+		else if (resourceRequest.getResourceID().equals("deleteSkill")) {
+			log.info("Deleting Dependent records");
+			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,"deleteIds");
+			for (int i = 0; i <= idsArray.length - 1; i++) {
+				try {
+					try {
+						EmpSkillLocalServiceUtil
+								.deleteEmpSkill((Long.parseLong(idsArray[i])));
+						log.info("deleted");
+					  } catch (PortalException e) {
+						log.error("Error in deleting employee skills",e);
+					  } catch (SystemException e) {
+						log.error("Error in deleting employee skills",e);
+					}
+				} catch (NumberFormatException e) {
+					log.info("Selected all records to delete");
+				}
+			}
+
+		}
+		else if (resourceRequest.getResourceID().equals("deleteEducation")) {
+			log.info("Deleting Dependent records");
+			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,"deleteIds");
+			for (int i = 0; i <= idsArray.length - 1; i++) {
+				try {
+					try {
+						EmpEducationLocalServiceUtil
+								.deleteEmpEducation((Long.parseLong(idsArray[i])));
+						log.info("deleted");
+					  } catch (PortalException e) {
+						log.error("Error in deleting education details of employee",e);
+					  } catch (SystemException e) {
+						  log.error("Error in deleting education details of employee",e);
 					}
 				} catch (NumberFormatException e) {
 					log.info("Selected all records to delete");
