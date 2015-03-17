@@ -188,6 +188,32 @@ public class JobTitleAction extends MVCPortlet {
 									"/html/jobtitle/add.jsp");
 
 						}
+						else{
+							long jobtitleid = Long.parseLong(id);
+							JobTitle jobtitles1 = JobTitleLocalServiceUtil
+									.getJobTitle(jobtitleid);
+
+							jobtitles1.setJobTitleId(ParamUtil.getLong(actionRequest,
+									"jobtitleId"));
+							jobtitles1.setTitle(ParamUtil.getString(actionRequest,
+									"title"));
+							jobtitles1.setDescription(ParamUtil.getString(
+									actionRequest, "description"));
+							jobtitles1.setNotes(ParamUtil.getString(actionRequest,
+									"notes"));
+							jobtitles1.setModifiedDate(date);
+
+							jobtitles1.setCompanyId(themeDisplay.getCompanyId());
+							jobtitles1.setGroupId(themeDisplay.getLayout().getGroup()
+									.getGroupId());
+							jobtitles1.setUserId(themeDisplay.getUserId());
+
+							jobtitles1 = JobTitleLocalServiceUtil
+									.updateJobTitle(jobtitles1);
+							log.info("jobtitleName updated");
+							
+							
+						}
 
 					}
 					else{
@@ -264,8 +290,8 @@ public class JobTitleAction extends MVCPortlet {
 				} else {
 
 					try {
-						JobTitleLocalServiceUtil.deleteJobTitle(Long
-								.parseLong(idsArray[i]));
+					
+						 JobTitleLocalServiceUtil.deleteJobTitle(Long.parseLong(idsArray[i]));
 					} catch (NumberFormatException e) {
 
 						log.error("NumberFormatException " + e);
