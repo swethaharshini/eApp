@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@page import="org.apache.log4j.Logger"%>
 <%@page import="com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil"%>
 <%@page import="com.liferay.portal.kernel.portlet.PortletClassLoaderUtil"%>
@@ -23,7 +24,9 @@
 .table-first-header {
 	width: 10%;
 }
-
+#<portlet:namespace/>fromWorkHours,#<portlet:namespace/>toWorkHours{
+  width: 59px;
+}
 .table-last-header {
 	width: 15%;
 }
@@ -138,64 +141,107 @@ YUI().use(
   function(Y) {
     new Y.TimePicker(
       {
-        trigger: '#fromWorkHours',
+        trigger: '#<portlet:namespace/>fromWorkHours',
         popover: {
           zIndex: 1
         },
         mask:'%H:%M',
         on: {
           selectionChange: function(event) {
-            document.<portlet:namespace />addworkshiftForm_1.<portlet:namespace />duration.value = event.newSelection;
+           // document.<portlet:namespace />addworkshiftForm_1.<portlet:namespace />duration.value = event.newSelection;
           }
         }
       }
     );
     new Y.TimePicker(
       {
-        trigger: '#toWorkHours',
+        trigger: '#<portlet:namespace/>toWorkHours',
         mask:'%H:%M',
         popover: {
           zIndex: 1
         },
         on: {
           selectionChange: function(event) {
-            document.<portlet:namespace />addworkshiftForm_1.<portlet:namespace />duration.value = event.newSelection;
+           // document.<portlet:namespace />addworkshiftForm_1.<portlet:namespace />duration.value = event.newSelection;
           }
         }
       }
     );
   }
 );
+AUI().ready('event', 'node','transition',function(A){
+setTimeout(function(){
+A.one('#addworkshiftMessage').transition('fadeOut');
+A.one('#addworkshiftMessage').hide();
+},2000)
+});
 </aui:script>
 <% Logger log=Logger.getLogger(this.getClass().getName());%>
 <%
 Workshift editworkshift = (Workshift) portletSession.getAttribute("editworkshift");
 
 %>
-
+<% if(SessionMessages.contains(renderRequest.getPortletSession(),"workshiftName-empty-error")){%>
+<p id="addworkshiftMessage" class="alert alert-error"><liferay-ui:message key="Please Enter WorkshiftName"/></p>
+<%} 
+ if(SessionMessages.contains(renderRequest.getPortletSession(),"workshiftName-duplicate-error")){
+%>
+<p id="addworkshiftMessage" class="alert alert-error"><liferay-ui:message key="WorkshiftName already Exits"/></p>
+<%} 
+%>
 	<div id="editWorkshiftForm">
 		<aui:form name="workshiftForm" action="<%=saveworkshift.toString()%>">
 		<div class="row-fluid">
 			<aui:input name="shiftId" type="hidden" id="shiftId"
 				value="<%=editworkshift.getShiftId()%>" />
 					<% WorkshiftBean workshiftExt = new WorkshiftBean(editworkshift); %>
-					<input name="<portlet:namespace/>workshiftName" id="workshiftName"
-					    type="text" value="<%=editworkshift.getWorkshiftName() %>">
-			</div>
+					<aui:input name="workshiftName" id="workshiftName" label="Shift Name"
+					    type="text" value="<%=editworkshift.getWorkshiftName() %>"/>
+		</div>
 			<div class="row-fluid">
-			<div class="span4">
-					<label>From</label>
-					<input name="<portlet:namespace/>fromWorkHours" id="fromWorkHours"
-						type="text" value="<%=workshiftExt.getFormattedFromWorkHoursStr() %>"></div>
 				<div class="span4">
-                    <label>To</label>
-					<input name="<portlet:namespace/>toWorkHours" id="toWorkHours"
-						type="text" value="<%=workshiftExt.getFormattedToWorkHoursStr() %>"></div>
+						<label>From</label>
+						<aui:input name="fromWorkHours" id="fromWorkHours" label=""
+							type="text" value="<%=workshiftExt.getFormattedFromWorkHoursStr() %>">
+						</aui:input>
+				</div>
+					<div class="span4">
+	                    <label>To</label>
+						<aui:input name="toWorkHours" id="toWorkHours" label=""
+							type="text" value="<%=workshiftExt.getFormattedToWorkHoursStr() %>">
+							
+							<aui:validator name="custom" errorMessage="To time should be greater than from From time">
+							function(val,fieldNode,ruleValue)
+							{
+								var result=false;
+								var from=A.one("#<portlet:namespace/>fromWorkHours").get('value'); 
+		                        var d=new Date();
+		                        var str=from;
+		                        var res=str.split(":");
+		                        var value1=res[0];
+		                        var value2=res[1];
+		                        var str2=val;
+		                        var res1=str2.split(":");
+		                        var value3=res1[0];
+		                        var value4=res1[1];
+		                        var result1=res[0]+res[1];
+		                        var result2=res1[0]+res1[1];
+		                        
+		                        if(result1 < result2 ){
+		                        	result=true;
+		                        }else{
+		                        	result= false;
+								}
+							return result;
+							}
+							</aui:validator>
+						</aui:input>			
+					</div>
 				<div class="span4"></div>
-			</div>
-			
+		</div>	
+		
 	<div class="row-fluid">
-  
+ 
   <table><tr><td><b>
 
 Available Employees<br/></b>

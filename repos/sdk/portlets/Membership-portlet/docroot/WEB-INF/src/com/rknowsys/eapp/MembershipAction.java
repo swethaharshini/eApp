@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.portlet.PortletClassLoaderUtil;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
@@ -61,6 +62,7 @@ public class MembershipAction extends MVCPortlet {
 				DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
 						Membership.class,
 						PortalClassLoaderUtil.getClassLoader());
+				dynamicQuery.add(RestrictionsFactoryUtil.eq("groupId", themeDisplay.getLayout().getGroup().getGroupId()));
 				dynamicQuery.add(RestrictionsFactoryUtil.eq("membershipName",
 						name));
 				@SuppressWarnings("unchecked")
@@ -141,6 +143,24 @@ public class MembershipAction extends MVCPortlet {
 
 				membership = MembershipLocalServiceUtil.getMembership(Long
 						.parseLong(id));
+				DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(Membership.class,PortletClassLoaderUtil.getClassLoader());
+				dynamicQuery.add(RestrictionsFactoryUtil.eq("membershipName", name));
+				dynamicQuery.add(RestrictionsFactoryUtil.eq("groupId", themeDisplay.getLayout().getGroup().getGroupId()));
+				@SuppressWarnings("unchecked")
+				List<Membership> list = MembershipLocalServiceUtil.dynamicQuery(dynamicQuery);
+				if(list.size()>0){
+					Membership membership2 = list.get(0);
+					if(membership2.getMembershipName().equalsIgnoreCase(name) && ! membership.getMembershipName().equalsIgnoreCase(name)){
+						
+						SessionMessages.add(actionRequest.getPortletSession(),
+								"membershipName-duplicate-error");
+						actionResponse.setRenderParameter("mvcPath",
+								"/html/membership/add.jsp");
+						
+					}
+				}
+				else{
+				
 				membership.setCreateDate(date);
 				membership.setModifiedDate(date);
 				membership.setCompanyId(themeDisplay.getCompanyId());
@@ -151,6 +171,7 @@ public class MembershipAction extends MVCPortlet {
 				membership = MembershipLocalServiceUtil
 						.updateMembership(membership);
 				log.info("membershipName updated successfully");
+				}
 			}
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block

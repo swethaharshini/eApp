@@ -1,4 +1,4 @@
-<%@ include file="/html/employee/init.jsp"%>
+<%-- <%@ include file="/html/employee/init.jsp"%>
 <portlet:actionURL name="saveEmpDetails" var="saveEmpDetails"></portlet:actionURL>
 <portlet:renderURL var="backUrl">
 <portlet:param name="mvcPath" value="/html/employee/employeelist.jsp"/>
@@ -94,3 +94,4 @@ var A=new AUI();
 	</div>
 </div>
 
+ --%>

@@ -93,20 +93,25 @@ List<Interview> interviewDetails = InterviewLocalServiceUtil
 		<liferay-ui:search-container-results>
 				
 		<%
-		List<Interview> interviewList =  interviewDetails;
+
+		List<Interview> interviewList = ListUtil.subList(interviewDetails, searchContainer.getStart(), searchContainer.getEnd())  ;
         OrderByComparator orderByComparator = CustomComparatorUtil.getInterviewrOrderByComparator(sortByCol, sortByType);         
 
        Collections.sort(interviewList,orderByComparator);
-
-       results = ListUtil.subList(interviewList, searchContainer.getStart(), searchContainer.getEnd());
-      
-       log.info("results == " +results);
+				
+       if(interviewDetails.size()>5){
+       results = ListUtil.subList(interviewDetails, searchContainer.getStart(), searchContainer.getEnd());
+       }
+       else{
+    	   results = interviewDetails;
+       }
+        System.out.println("results == " +results);
        
  
-           total = interviewList!=null && interviewDetails.size()!=0?interviewDetails.size():0;
-               System.out.println("total == " +total);
-               pageContext.setAttribute("results", results);
-               pageContext.setAttribute("total", total);
+           total = interviewDetails.size();
+           System.out.println("total == " +total);
+           pageContext.setAttribute("results", results);
+           pageContext.setAttribute("total", total);
  %>
 	</liferay-ui:search-container-results>
 	<liferay-ui:search-container-row className="Interview" keyProperty="interviewId" modelVar="Interview"  rowVar="curRow" escapedModel="<%= true %>">

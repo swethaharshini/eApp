@@ -71,6 +71,7 @@ public class SalaryComponentAction extends MVCPortlet {
 				
 				DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(SalaryComponent.class, PortletClassLoaderUtil.getClassLoader());
 				dynamicQuery.add(RestrictionsFactoryUtil.eq("componentName", componentname));
+				dynamicQuery.add(RestrictionsFactoryUtil.eq("groupId", themeDisplay.getLayout().getGroup().getGroupId()));
 				@SuppressWarnings("unchecked")
 				List<SalaryComponent> list = SalaryComponentLocalServiceUtil.dynamicQuery(dynamicQuery);
 				if(list.size()>0){
@@ -159,6 +160,78 @@ public class SalaryComponentAction extends MVCPortlet {
 
 			SalaryComponent salaryComponent1 = SalaryComponentLocalServiceUtil.getSalaryComponent(salarycomponentid);
 			
+			DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(SalaryComponent.class, PortletClassLoaderUtil.getClassLoader());
+			dynamicQuery.add(RestrictionsFactoryUtil.eq("componentName", componentname));
+			dynamicQuery.add(RestrictionsFactoryUtil.eq("groupId", themeDisplay.getLayout().getGroup().getGroupId()));
+			@SuppressWarnings("unchecked")
+			List<SalaryComponent> list = SalaryComponentLocalServiceUtil.dynamicQuery(dynamicQuery);
+			if(list.size()>0){
+				
+				SalaryComponent salaryComponent = list.get(0);
+				if(salaryComponent.getComponentName().equalsIgnoreCase(componentname) && !salaryComponent1.getComponentName().equalsIgnoreCase(componentname)){
+					
+					SessionMessages.add(actionRequest.getPortletSession(),
+							"salarycomponentName-duplicate-error");
+					actionResponse.setRenderParameter("mvcPath",
+							"/html/salarycomponent/list.jsp");
+					
+				}
+				else{
+					salaryComponent1.setSalaryComponentId(salarycomponentid);
+					
+					salaryComponent1.setCompanyId(themeDisplay.getCompanyId());
+					salaryComponent1.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
+					salaryComponent1.setUserId(themeDisplay.getUserId());
+					salaryComponent1.setCreateDate(date);
+					salaryComponent1.setModifiedDate(date);
+					salaryComponent1.setType(type);
+					salaryComponent1.setComponentName(componentname);
+					
+					if(totalPayable==true){
+						log.info("true inside if tp");
+						salaryComponent1.setTotalPayable("Yes");
+					}
+					else{
+						log.info("false inside else tp");
+						salaryComponent1.setTotalPayable("No");
+					}
+					if(costToCompany==true){
+						
+						log.info("true inside if cc");
+						salaryComponent1.setCostToCompany("Yes");
+					}
+					else{
+						log.info("false inside else cc");
+						salaryComponent1.setCostToCompany("No");
+					}
+					
+					if(valuetype[0].equals("true") && valuetype[1].equals("true"))
+					{
+						salaryComponent1.setValueType("Amount,Percentage");
+					}
+					if(valuetype[0].equals("false") || valuetype[1].equals("false"))
+					{
+					if(valuetype[0].equals("true")){
+						salaryComponent1.setValueType("Amount");
+					}
+					if(valuetype[1].equals("true")){
+						salaryComponent1.setValueType("Percentage");
+					}
+					}
+					if(valuetype[0].equals("false") && valuetype[1].equals("false"))
+					{
+						salaryComponent1.setValueType("");
+					}
+					salaryComponent1 = SalaryComponentLocalServiceUtil.updateSalaryComponent(salaryComponent1);
+					log.info("end of else block...");
+					
+				}
+				
+				
+			}
+			else{
+			
+			
 			salaryComponent1.setSalaryComponentId(salarycomponentid);
 			
 			salaryComponent1.setCompanyId(themeDisplay.getCompanyId());
@@ -206,6 +279,7 @@ public class SalaryComponentAction extends MVCPortlet {
 			}
 			salaryComponent1 = SalaryComponentLocalServiceUtil.updateSalaryComponent(salaryComponent1);
 			log.info("end of else block...");
+			}
 			
 		}}
 	}

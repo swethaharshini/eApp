@@ -73,6 +73,7 @@ public class ReportingMethodAction extends MVCPortlet {
 						PortletClassLoaderUtil.getClassLoader());
 				dynamicQuery.add(RestrictionsFactoryUtil.eq(
 						"reportingmethodName", name));
+				dynamicQuery.add(RestrictionsFactoryUtil.eq("groupId", themeDisplay.getLayout().getGroup().getGroupId()));
 				@SuppressWarnings("unchecked")
 				List<ReportingMethods> list = ReportingMethodsLocalServiceUtil
 						.dynamicQuery(dynamicQuery);
@@ -161,9 +162,34 @@ public class ReportingMethodAction extends MVCPortlet {
 						"/html/reportingmethods/edit.jsp");
 
 			} else {
-
 				reportingMethods = ReportingMethodsLocalServiceUtil
 						.getReportingMethods(Long.parseLong(id));
+				DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
+						ReportingMethods.class,
+						PortletClassLoaderUtil.getClassLoader());
+				dynamicQuery.add(RestrictionsFactoryUtil.eq(
+						"reportingmethodName", name));
+				dynamicQuery.add(RestrictionsFactoryUtil.eq("groupId", themeDisplay.getLayout().getGroup().getGroupId()));
+				@SuppressWarnings("unchecked")
+				List<ReportingMethods> list = ReportingMethodsLocalServiceUtil
+						.dynamicQuery(dynamicQuery);
+				if (list.size() > 0) {
+
+					ReportingMethods reportingMethods1 = list.get(0);
+					if (reportingMethods1.getReportingmethodName()
+							.equalsIgnoreCase(name) && !reportingMethods.getReportingmethodName().equalsIgnoreCase(name)) {
+						log.info("duplicate value in reportingmethod name");
+
+						SessionMessages.add(actionRequest.getPortletSession(),
+								"reportingmethodName-duplicate-error");
+						actionResponse.setRenderParameter("mvcPath",
+								"/html/reportingmethods/add.jsp");
+					}
+
+				}
+				else{
+				
+				
 				reportingMethods.setCreateDate(date);
 				reportingMethods.setModifiedDate(date);
 				reportingMethods.setCompanyId(themeDisplay.getCompanyId());
@@ -174,6 +200,7 @@ public class ReportingMethodAction extends MVCPortlet {
 				reportingMethods = ReportingMethodsLocalServiceUtil
 						.updateReportingMethods(reportingMethods);
 				log.info("reportingmethodName updated");
+				}
 			}
 
 		} catch (NumberFormatException e) {

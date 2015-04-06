@@ -94,13 +94,17 @@ List<Language> languageDetails = LanguageLocalServiceUtil
 		<liferay-ui:search-container-results>
 				
 		<%
-		   List<Language> languageList = languageDetails;
-			OrderByComparator orderByComparator =  CustomComparatorUtil.getLanguagesOrderByComparator(sortByCol, sortByType);
-	   
-	               Collections.sort(languageList,orderByComparator);
-	  
-	               results = ListUtil.subList(languageList, searchContainer.getStart(), searchContainer.getEnd());
-	               total = languageList!=null && languageList.size()!=0?languageList.size():0;
+		List<Language> languageList = ListUtil.subList(languageDetails, searchContainer.getStart(), searchContainer.getEnd());
+		OrderByComparator orderByComparator =  CustomComparatorUtil.getLanguagesOrderByComparator(sortByCol, sortByType);
+   
+               Collections.sort(languageList,orderByComparator);
+  				if(languageDetails.size()>5){
+  					results = languageList;
+  				}
+  				else{
+               results = languageDetails;
+  				}
+               total = languageDetails.size();
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);
  %>

@@ -5,7 +5,7 @@
 <portlet:actionURL name="updateEmpJobHistory" var="updateEmpJobHistory">
 </portlet:actionURL>
 
-<%
+<% SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/YYYY");
 	Map empId = (Map) request.getSession(false).getAttribute("empId");
 	long employeeId = (Long) empId.get("empId");
 	long empLocationId=EmployeeLocalServiceUtil.getEmployee(employeeId).getLocationId();
@@ -115,11 +115,11 @@ public String getCategoryValue(long jcId)
 				<aui:input name="empJId" value="<%=employeeId %>" type="hidden"></aui:input>
 				<aui:input name="jobFileId" value="<%=fileEntryId%>" type="hidden"></aui:input>
 				<aui:input name="joined_date" id="joined_date" label="01_joined-date"
-					cssClass="dateEmployee" inlineLabel="left" type="date" placeholder="DD/MM/YYYY"></aui:input>
+					cssClass="dateEmployee" inlineLabel="left" type="date" placeholder="MM/DD/YYYY"></aui:input>
 				<aui:input name="probation_date" label="01_probation-date"
-					cssClass="dateEmployee" inlineLabel="left" placeholder="DD/MM/YYYY"></aui:input>
+					cssClass="dateEmployee" inlineLabel="left" placeholder="MM/DD/YYYY"></aui:input>
 				<aui:input name="date_permanency" label="01_date-of-permanency"
-					cssClass="dateEmployee" inlineLabel="left" placeholder="DD/MM/YYYY" ></aui:input>
+					cssClass="dateEmployee" inlineLabel="left" placeholder="MM/DD/YYYY" ></aui:input>
 				<aui:select name="emp_job_title" label="01_jobtitle">
 				<aui:option selected='<%=currentJob!=null?currentJob.getJobTitleId()!=0?false:false:true %>'>--Select--</aui:option>
 				<%
@@ -213,7 +213,7 @@ public String getCategoryValue(long jcId)
 				%>
 				</aui:select>
 				<aui:input name="effective_date" label="01_effective-date"
-					cssClass="dateEmployee" placeholder="DD/MM/YYYY"></aui:input>
+					cssClass="dateEmployee" placeholder="MM/DD/YYYY"></aui:input>
 				<aui:select name="emp_workshift" label="01_work-shift">
 				<aui:option selected="<%=currentJob!=null?currentJob.getShiftId()!=0?false:false:true %>"></aui:option>
 				<%
@@ -274,8 +274,8 @@ public String getCategoryValue(long jcId)
 							%>
 			</liferay-ui:search-container-results>
 			<liferay-ui:search-container-row className="EmpJob" modelVar="id">
-				<liferay-ui:search-container-column-text name="01_effective-date" property="effectiveDate"/>
-				<liferay-ui:search-container-column-text name="01_end-date" property="probationEndDate" />
+				<liferay-ui:search-container-column-text name="01_effective-date" value='<%=id.getEffectiveDate()!=null?sdf.format(id.getEffectiveDate()):"" %>'/>
+				<liferay-ui:search-container-column-text name="01_end-date" value='<%=id.getProbationEndDate() !=null?sdf.format(id.getProbationEndDate()):"" %>' />
 				<liferay-ui:search-container-column-text name="01_jobtitle" value='<%= 
 				getJobTitleValue(id.getJobTitleId())!=null?getJobTitleValue(id.getJobTitleId()):"" %>'/>
 				<liferay-ui:search-container-column-text name="01_emp-status"

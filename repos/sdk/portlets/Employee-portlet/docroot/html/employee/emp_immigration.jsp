@@ -89,7 +89,7 @@ A.ready(function()
 			.eq(employeeId));
 	List<EmpImmigrationDocument> empImmigrationDocument =EmpImmigrationDocumentLocalServiceUtil
 			.dynamicQuery(dependentDynamicQuery);
-	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
+	SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/YYYY");
 %>
 <%! public String getIssuedCountry(long id)
 {
@@ -128,10 +128,57 @@ A.ready(function()
 					showRequiredLabel="false" inlineLabel="left">
 				<aui:validator name="required"></aui:validator>
 				</aui:input>
-				<aui:input name="img_issued_date" id="imgIssueDate"
-					label="01_issued-date" cssClass="dateEmployee" inlineLabel="left"  placeholder="DD/MM/YYYY"></aui:input>
+				<aui:input name="img_issued_date" id="img_issued_date"
+					label="01_issued-date" cssClass="dateEmployee" inlineLabel="left"  placeholder="MM/DD/YYYY"></aui:input>
 				<aui:input name="img_exp_date" id="imgExpDate" label="01_expiry-date"
-					inlineLabel="left" cssClass="dateEmployee" placeholder="DD/MM/YYYY"></aui:input>
+					inlineLabel="left" cssClass="dateEmployee" placeholder="MM/DD/YYYY">
+					<!--validation code @vinay  -->
+					<aui:validator name="custom" errorMessage="Expiry date should be greater than Issued date">
+				     function(val,fieldNode,ruleValue){
+				      var result=false;	
+				      var expiryDate =val;
+				      var expiryDateSplit = expiryDate.split("/");
+    				  var expiryDateVal=expiryDateSplit[1];
+					  var expiryMonth=expiryDateSplit[0];
+					  var expiryYear=expiryDateSplit[2];
+					  var issuedDate= A.one("#<portlet:namespace/>img_issued_date").get('value');
+					  var issuedDateSplit=issuedDate.split("/");
+					  var issueDate=issuedDateSplit[1];
+					  var issueMonth=issuedDateSplit[0];
+					  var issueYear=issuedDateSplit[2];
+					    if(expiryYear>issueYear){
+					        result=true;
+					        return result;
+					        }
+					       else if(expiryYear==issueYear){
+					    	
+					    		if(expiryMonth>issueMonth){
+					    		   result=true;
+					    		   return result;
+					    		   }
+					    		   else	if(expiryMonth==issueMonth){
+					    			
+					    				if(expiryDateVal>=issueDate){
+					    				
+					    					   result=true;
+					    					   return result;
+					    				   }else{
+					    				      result=false;
+					    				      return result;
+					    				   }
+					    			}
+					    			else{
+					    			  result=false;
+					    			  return result;
+					    			 }
+					    	}
+					        else{
+					    	  result=false;
+					    	  return result;
+					    }	  															   
+				   }
+				</aui:validator>
+				</aui:input>
 				<aui:input name="eligible_status" label="01_eligible-status"
 					inlineLabel="left"></aui:input>
 				<aui:select name="issued_by" label="01_issued-by">
@@ -148,7 +195,7 @@ A.ready(function()
 					%>
 				</aui:select>
 				<aui:input name="review_date" id="reviewDate" label="01_review-date"
-				cssClass="dateEmployee"  placeholder="DD/MM/YYYY"></aui:input>
+				cssClass="dateEmployee"  placeholder="MM/DD/YYYY"></aui:input>
 				<aui:input name="img_comments" type="textarea" label="01_comments"></aui:input>
 				<div class="control-group">
 				<div class="controls">

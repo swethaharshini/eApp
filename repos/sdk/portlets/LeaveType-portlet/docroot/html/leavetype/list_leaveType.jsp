@@ -1,3 +1,11 @@
+<%@page import="java.util.Collections"%>
+<%@page import="com.liferay.portal.kernel.util.OrderByComparator"%>
+<%@page import="com.liferay.portal.kernel.util.ListUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.portlet.PortletClassLoaderUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.DynamicQuery"%>
+<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@ include file="/html/leavetype/init.jsp" %>
 <portlet:resourceURL var="deleteLeaveType" id="deleteLeaveType"/>
 <portlet:renderURL var="listview">
@@ -9,7 +17,7 @@
 
 <aui:script>
 AUI().use('aui-node',function(A) {
-    var node = A.one('#<portlet:namespace/>deleteLeaveType');
+    var node = A.one('#deleteLeaveType');
 node.on('click',function() {
       var idArray = [];
 	      A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
@@ -44,6 +52,13 @@ node.on('click',function() {
       }
       });
   });
+  AUI().ready('event', 'node','transition',function(A){
+setTimeout(function(){
+A.one('#addLeaveTypeMessage').transition('fadeOut');
+A.one('#addLeaveTypeMessage').hide();
+},2000)
+});
+  
 </aui:script>
 <%!
 public String getNationalityValue(long nationId) {
@@ -60,17 +75,27 @@ public String getNationalityValue(long nationId) {
 }
 %>
 <body>
+
+<% if(SessionMessages.contains(renderRequest.getPortletSession(),"leaveTypeName-empty-error")){%>
+<p id="addLeaveTypeMessage" class="alert alert-error"><liferay-ui:message key="Please Enter LeaveTypeName"/></p>
+<%} 
+ if(SessionMessages.contains(renderRequest.getPortletSession(),"leaveTypeName-duplicate-error")){
+%>
+<p id="addLeaveTypeMessage" class="alert alert-error"><liferay-ui:message key="LeaveTypeName already Exits"/></p>
+<%} 
+%>
 <div class="row-fluid">
-	<div class="span12 text-right">
-		<a id="addLeaveType" class="btn btn-primary" href="<%=addLeaveType.toString()%>"><i class="icon-plus"></i></a>
-		<a id="deleteLeaveType" class="btn btn-danger"><i class="icon-trash"></i></a>
-	</div>
+   
+		<div class="span12 text-right">
+			<a href="<%=addLeaveType.toString()%>" class="btn btn-primary" id="addLeaveType"><i class="icon-plus"></i> Add</a>
+			<a href="#" class="btn btn-danger" id="deleteLeaveType"><i class="icon-trash"></i> Delete</a>
+		</div>
 </div>
 </body>
 <%
 
 	PortletURL iteratorURL = renderResponse.createRenderURL();
-	iteratorURL.setParameter("mvcPath", "/html/leavetype/list_leaveType.jsp.jsp");
+	iteratorURL.setParameter("mvcPath", "/html/leavetype/list_leaveType.jsp");
 	RowChecker rowChecker = new RowChecker(renderResponse);
 	
 	PortalPreferences portalPrefs = PortletPreferencesFactoryUtil.getPortalPreferences(request); 
@@ -94,8 +119,15 @@ public String getNationalityValue(long nationId) {
 	System.out.println("sortByType == " +sortByType);
 
 %>
-<%
-java.util.List<LeaveType> leaveTypeList=LeaveTypeLocalServiceUtil.getLeaveTypes(-1, -1);
+<% 
+long groupId = themeDisplay.getLayout().getGroup().getGroupId();
+DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(LeaveType.class,PortletClassLoaderUtil.getClassLoader());
+
+dynamicQuery.add(PropertyFactoryUtil.forName("groupId").eq(groupId));
+
+List<LeaveType> leaveTypeList =  LeaveTypeLocalServiceUtil.dynamicQuery(dynamicQuery);
+
+
 		System.out.println("leave type list is"+leaveTypeList);
 		%>
 		
@@ -113,11 +145,19 @@ java.util.List<LeaveType> leaveTypeList=LeaveTypeLocalServiceUtil.getLeaveTypes(
 	<liferay-ui:search-container-results>
 
 		<%
-		  results = leaveTypeList;
+		  List<LeaveType> pageList = ListUtil.subList(leaveTypeList, searchContainer.getStart(), searchContainer.getEnd());
+	
 		
+		  if(leaveTypeList.size()>5){
+			  
+			  results = ListUtil.subList(leaveTypeList, searchContainer.getStart(), searchContainer.getEnd());
+		  }
+		  else{
+		  results = leaveTypeList;
+		  }
 		  System.out.println("results == " +results);
 		
-		  total = leaveTypeList!=null?leaveTypeList.size():0;
+		  total = leaveTypeList.size();
 		  System.out.println("total == " +total);
 		  pageContext.setAttribute("results", results);
 		  pageContext.setAttribute("total", total);
@@ -145,7 +185,7 @@ java.util.List<LeaveType> leaveTypeList=LeaveTypeLocalServiceUtil.getLeaveTypes(
 
 	</liferay-ui:search-container-row>
 
-	<liferay-ui:search-iterator />
+	<liferay-ui:search-iterator paginate="<%=true%>" />
 
 </liferay-ui:search-container>
 </div>

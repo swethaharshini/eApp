@@ -88,7 +88,7 @@ A.ready(function()
 			.eq(employeeId));
 	List<EmpDependent> empDependentDetails = EmpDependentLocalServiceUtil
 			.dynamicQuery(dependentDynamicQuery);
-	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
+	SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/YYYY");
 %>
 <div id="assignedDependentAdd" class="panel">
 	<div class="panel-heading">
@@ -109,7 +109,52 @@ A.ready(function()
 				 <aui:validator name="required"></aui:validator>
 				</aui:input>
 				<aui:input name="dateOfBirth" label="Date of Birth" inlineLabel="left" 
-				cssClass="dateEmployee" placeholder="DD/MM/YYYY"></aui:input>
+				cssClass="dateEmployee" placeholder="MM/DD/YYYY">
+				<!--validation code @vinay -->
+					<aui:validator name="custom"
+						errorMessage="Date of birth should not be a future date">
+				   function(val,fieldNode,ruleValue){
+				      var result=false;
+				      var dateOfBirth = val;
+				      var dateOfBirthSplit=dateOfBirth.split("/");
+			          var birthMonth=dateOfBirthSplit[0];
+				      var birthDate=dateOfBirthSplit[1];
+	                  var birthYear=dateOfBirthSplit[2];
+				      var  currentDate= new Date();
+				      var currentDateValue=currentDate.getDate();
+					  var currentMonth=currentDate.getMonth()+1;
+					  var currentYear=currentDate.getFullYear();
+					  if(currentYear>birthYear){
+					       result=true;
+					       return result;
+					       }
+					       else if(currentYear==birthYear){
+					    		if(currentMonth>birthMonth){
+					    		   result=true;
+					    		   return result;
+					    		   }
+					    		   else	if(currentMonth==birthMonth){
+					    				if(currentDateValue>=birthDate){
+					    				       result=true;
+					    					   return result;
+					    				   }
+					    				   else{
+					    				      result=false;
+					    				      return result;
+					    				}
+					    		}
+					    		else{
+					    		  result = false;
+					    		  return result;
+					    		}
+					    	}
+					  	    else{
+					    	    result= false;
+					    	  return result;
+					   	}											   
+				   }
+				 </aui:validator>
+				</aui:input>
 				<div class="control-group">
 					<div class="controls">
 						<aui:button type="submit" cssClass="button btn-primary" value="save"

@@ -22,7 +22,19 @@ public class CustomComparatorUtil {
 			   if (orderByCol.equalsIgnoreCase("componentName")) {
 			    
 			    orderByComparator = new ComponentComparator(orderByAsc);
-			   } 
+			   }
+			   if (orderByCol.equalsIgnoreCase("type")) {
+				    
+				    orderByComparator = new ComponentComparator(orderByAsc);
+				   } 
+			   if (orderByCol.equalsIgnoreCase("totalPayable")) {
+				    
+				    orderByComparator = new ComponentComparator(orderByAsc);
+				   } 
+			   if (orderByCol.equalsIgnoreCase("costToCompany")) {
+				    
+				    orderByComparator = new ComponentComparator(orderByAsc);
+				   } 
 			  		   
 			   return orderByComparator;
 			   }

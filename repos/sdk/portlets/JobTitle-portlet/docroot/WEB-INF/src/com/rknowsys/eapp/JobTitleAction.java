@@ -26,10 +26,12 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortletClassLoaderUtil;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 import com.rknowsys.eapp.hrm.model.JobTitle;
+import com.rknowsys.eapp.hrm.service.JobCategoryLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.JobTitleLocalServiceUtil;
 
 /**
@@ -159,6 +161,62 @@ public class JobTitleAction extends MVCPortlet {
 							"/html/jobtitle/add.jsp");
 
 				} else {
+					JobTitle jobTitle2 = JobTitleLocalServiceUtil.getJobTitle(Long.parseLong(id));
+					DynamicQuery dynamicQuery = DynamicQueryFactoryUtil
+							.forClass(JobTitle.class,
+									PortalClassLoaderUtil.getClassLoader());
+					dynamicQuery.add(RestrictionsFactoryUtil.eq("title",
+							title));
+					dynamicQuery.add(RestrictionsFactoryUtil.eq("groupId",
+							themeDisplay.getLayout().getGroup().getGroupId()));
+					@SuppressWarnings("unchecked")
+					List<JobTitle> JobTitles = JobCategoryLocalServiceUtil
+							.dynamicQuery(dynamicQuery);
+					
+					if (JobTitles.size() > 0) {
+						log.info("if loop ...greater than one");
+
+						JobTitle category = JobTitles.get(0);
+						if (category.getTitle().equalsIgnoreCase(
+								title) && !jobTitle2.getTitle().equalsIgnoreCase(title)) {
+							log.info("DuplicateName in JobTitleName");
+
+							SessionMessages.add(
+									actionRequest.getPortletSession(),
+									"jobtitleName-duplicate-error");
+							actionResponse.setRenderParameter("mvcPath",
+									"/html/jobtitle/add.jsp");
+
+						}
+						else{
+							long jobtitleid = Long.parseLong(id);
+							JobTitle jobtitles1 = JobTitleLocalServiceUtil
+									.getJobTitle(jobtitleid);
+
+							jobtitles1.setJobTitleId(ParamUtil.getLong(actionRequest,
+									"jobtitleId"));
+							jobtitles1.setTitle(ParamUtil.getString(actionRequest,
+									"title"));
+							jobtitles1.setDescription(ParamUtil.getString(
+									actionRequest, "description"));
+							jobtitles1.setNotes(ParamUtil.getString(actionRequest,
+									"notes"));
+							jobtitles1.setModifiedDate(date);
+
+							jobtitles1.setCompanyId(themeDisplay.getCompanyId());
+							jobtitles1.setGroupId(themeDisplay.getLayout().getGroup()
+									.getGroupId());
+							jobtitles1.setUserId(themeDisplay.getUserId());
+
+							jobtitles1 = JobTitleLocalServiceUtil
+									.updateJobTitle(jobtitles1);
+							log.info("jobtitleName updated");
+							
+							
+						}
+
+					}
+					else{
 
 					long jobtitleid = Long.parseLong(id);
 					JobTitle jobtitles1 = JobTitleLocalServiceUtil
@@ -182,7 +240,7 @@ public class JobTitleAction extends MVCPortlet {
 					jobtitles1 = JobTitleLocalServiceUtil
 							.updateJobTitle(jobtitles1);
 					log.info("jobtitleName updated");
-				}
+					}}
 
 			}
 		} catch (SystemException e) {
@@ -232,8 +290,8 @@ public class JobTitleAction extends MVCPortlet {
 				} else {
 
 					try {
-						JobTitleLocalServiceUtil.deleteJobTitle(Long
-								.parseLong(idsArray[i]));
+					
+						 JobTitleLocalServiceUtil.deleteJobTitle(Long.parseLong(idsArray[i]));
 					} catch (NumberFormatException e) {
 
 						log.error("NumberFormatException " + e);

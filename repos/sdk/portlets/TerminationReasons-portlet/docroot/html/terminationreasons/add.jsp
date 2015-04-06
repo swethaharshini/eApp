@@ -190,14 +190,20 @@ List<TerminationReasons> terminationReasonsList=TerminationReasonsLocalServiceUt
 	<liferay-ui:search-container-results>
 
 		<%
+		  List<TerminationReasons> pageList = ListUtil.subList(terminationReasonsList, searchContainer.getStart(), searchContainer.getEnd());
 		OrderByComparator orderByComparator =  CustomComparatorUtil.getterminationreasonsOrderByComparator(sortByCol, sortByType);
    
-               Collections.sort(terminationReasonsList,orderByComparator);
+               Collections.sort(pageList,orderByComparator);
+               
+               if(terminationReasonsList.size()>5){
   
                results = ListUtil.subList(terminationReasonsList, searchContainer.getStart(), 
             		   searchContainer.getEnd());
-               total = terminationReasonsList!=null && terminationReasonsList.size()!=0?
-            		   terminationReasonsList.size():0;
+               }
+               else{
+            	   results = terminationReasonsList;
+               }
+               total = terminationReasonsList.size();
                pageContext.setAttribute("results", results);
                pageContext.setAttribute("total", total);
 

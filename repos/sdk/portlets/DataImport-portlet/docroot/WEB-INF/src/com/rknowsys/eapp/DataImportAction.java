@@ -20,6 +20,7 @@ import javax.portlet.PortletException;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -48,6 +49,7 @@ import com.rknowsys.eapp.hrm.service.JobTitleLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.SubUnitLocalServiceUtil;
 
 public class DataImportAction extends MVCPortlet {
+	private static Logger log = Logger.getLogger(DataImportAction.class);
 
 	/**
 	 * This method saves uploaded file into the server folder.And stores the
@@ -59,7 +61,7 @@ public class DataImportAction extends MVCPortlet {
 	 */
 	public void saveDataImport(ActionRequest actionRequest,
 			ActionResponse actionResponse) throws IOException {
-		System.out.println("saveDataImport method()..!!!!!!!!!!");
+		log.info("saveDataImport method()..!!!!!!!!!!");
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest
 				.getAttribute(WebKeys.THEME_DISPLAY);
 		Properties properties = PortalUtil.getPortalProperties();
@@ -76,7 +78,7 @@ public class DataImportAction extends MVCPortlet {
 			Date date = new Date();
 			SimpleDateFormat sd = new SimpleDateFormat("mm-dd-yyyy");
 			String d = sd.format(date);
-			System.out.println("uploaded date = " + d);
+			log.info("uploaded date = " + d);
 			File uploadedFile = uploadRequest.getFile("fileName");
 
 			bytes = FileUtil.getBytes(uploadedFile);
@@ -85,9 +87,9 @@ public class DataImportAction extends MVCPortlet {
 			File newFile = null;
 			File newDirectory = new File(uploadDirectory);
 			if (!newDirectory.exists()) {
-				System.out.println("directory does not exist");
+				log.info("directory does not exist");
 				Path directoryPath = Paths.get(uploadDirectory);
-				Files.createDirectory(directoryPath);
+				Files.createDirectory(directoryPath.getParent());
 			}
 			newFile = new File(uploadDirectory + "/" + d
 					+ Calendar.getInstance().getTimeInMillis() + fileName);
@@ -95,7 +97,7 @@ public class DataImportAction extends MVCPortlet {
 			// ============Creating the New file in server folder===========
 
 			if (!newFile.exists()) {
-				System.out.println("file does not exist");
+				log.info("file does not exist");
 				Path pathToFile = Paths.get(uploadDirectory + "/" + d
 						+ Calendar.getInstance().getTimeInMillis() + fileName);
 				Files.createFile(pathToFile);
@@ -112,7 +114,7 @@ public class DataImportAction extends MVCPortlet {
 			fileInputStream.close();
 
 			String filePath = newFile.getAbsolutePath();
-			System.out.println("filePath = " + filePath);
+			log.info("filePath = " + filePath);
 
 			FileInputStream file1 = new FileInputStream(new File(filePath));
 
@@ -179,14 +181,14 @@ public class DataImportAction extends MVCPortlet {
 
 					}
 					employee.setUserId(themeDisplay.getUserId());
-					employee.setGroupId(themeDisplay.getCompanyGroupId());
+					employee.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
 					employee.setCompanyId(themeDisplay.getCompanyId());
 					employee.setCreateDate(date);
 					employee.setModifiedDate(date);
 					employee = EmployeeLocalServiceUtil.addEmployee(employee);
 					
 					empPersonalDetails.setUserId(themeDisplay.getUserId());
-					empPersonalDetails.setGroupId(themeDisplay.getCompanyGroupId());
+					empPersonalDetails.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
 					empPersonalDetails.setCompanyId(themeDisplay.getCompanyId());
 					empPersonalDetails.setCreateDate(date);
 					empPersonalDetails.setModifiedDate(date);
@@ -195,21 +197,21 @@ public class DataImportAction extends MVCPortlet {
 							.addEmpPersonalDetails(empPersonalDetails);
 					
 					jobTitle.setUserId(themeDisplay.getUserId());
-					jobTitle.setGroupId(themeDisplay.getCompanyGroupId());
+					jobTitle.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
 					jobTitle.setCompanyId(themeDisplay.getCompanyId());
 					jobTitle.setCreateDate(date);
 					jobTitle.setModifiedDate(date);
 					jobTitle = JobTitleLocalServiceUtil.addJobTitle(jobTitle);
 					
 					subUnit.setUserId(themeDisplay.getUserId());
-					subUnit.setGroupId(themeDisplay.getCompanyGroupId());
+					subUnit.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
 					subUnit.setCompanyId(themeDisplay.getCompanyId());
 					subUnit.setCreateDate(date);
 					subUnit.setModifiedDate(date);
 					subUnit = SubUnitLocalServiceUtil.addSubUnit(subUnit);
 					
 					employmentStatus.setUserId(themeDisplay.getUserId());
-					employmentStatus.setGroupId(themeDisplay.getCompanyGroupId());
+					employmentStatus.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
 					employmentStatus.setCompanyId(themeDisplay.getCompanyId());
 					employmentStatus.setCreateDate(date);
 					employmentStatus.setModifiedDate(date);
@@ -220,17 +222,18 @@ public class DataImportAction extends MVCPortlet {
 					empJob.setEmploymentStatusId(employmentStatus.getEmploymentStatusId());
 					empJob.setSubUnitId(subUnit.getSubUnitId());
 					empJob.setUserId(themeDisplay.getUserId());
-					empJob.setGroupId(themeDisplay.getCompanyGroupId());
+					empJob.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
 					empJob.setCompanyId(themeDisplay.getCompanyId());
 					empJob.setCreateDate(date);
 					empJob.setModifiedDate(date);
 					empJob.setEmployeeId(employee.getEmployeeId());
+					empJob.setIsCurrentJob(true);
 					empJob = EmpJobLocalServiceUtil.addEmpJob(empJob);
 					
 					
 					
 					empSupervisor.setUserId(themeDisplay.getUserId());
-					empSupervisor.setGroupId(themeDisplay.getCompanyGroupId());
+					empSupervisor.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
 					empSupervisor.setCompanyId(themeDisplay.getCompanyId());
 					empSupervisor.setCreateDate(date);
 					empSupervisor.setModifiedDate(date);
@@ -242,7 +245,7 @@ public class DataImportAction extends MVCPortlet {
 			}
 			file1.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e);
 		}
 
 	}
@@ -259,7 +262,7 @@ public class DataImportAction extends MVCPortlet {
 			String uploadDirectory = properties.getProperty("liferay.home")
 					+ "/samplefiles/";
 
-			System.out.println("File downloading Started...");
+			log.info("File downloading Started...");
 			resourceResponse.setContentType("text/html");
 			PrintWriter out = resourceResponse.getWriter();
 			String filename = "importData.csv";
@@ -278,7 +281,7 @@ public class DataImportAction extends MVCPortlet {
 			}
 			fileInputStream.close();
 			out.close();
-			System.out.println("End of file Download");
+			log.info("End of file Download");
 		}
 
 	}

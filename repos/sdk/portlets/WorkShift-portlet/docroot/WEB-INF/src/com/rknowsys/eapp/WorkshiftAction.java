@@ -15,8 +15,13 @@ import javax.portlet.ResourceResponse;
 import org.apache.log4j.Logger;
 
 import com.liferay.counter.service.CounterLocalServiceUtil;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.portlet.PortletClassLoaderUtil;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.theme.ThemeDisplay;
@@ -58,6 +63,8 @@ public class WorkshiftAction extends MVCPortlet {
 		log.info("userId = " + themeDisplay.getUserId());
 		log.info("groupId = " + themeDisplay.getCompanyGroupId());
 		SimpleDateFormat formater = new SimpleDateFormat("HH:mm");
+		String workshiftName = ParamUtil.getString(actionRequest, "workshiftName");
+		String shiftName = workshiftName.trim();
 		
 		try {
 			
@@ -71,10 +78,39 @@ public class WorkshiftAction extends MVCPortlet {
             log.info("availableEmpsIds ====" +availableEmpsIds.length);
             log.info("assignedEmpsIds ====" +assignedEmpsIds.length);
             
-            			
+            
 			Date date = new Date();
 			if (id == null|| id.isEmpty() ) {
+											
 				log.info("inside if loop...");
+				
+				if(shiftName == null || shiftName.equals("")){
+	            	log.info("empty value in workshiftName ");
+
+					SessionMessages.add(actionRequest.getPortletSession(),
+							"workshiftName-empty-error");
+					actionResponse.setRenderParameter("mvcPath",
+							"/html/workshift/addworkshift.jsp");
+	            }
+				else{
+					
+					DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(Workshift.class,PortletClassLoaderUtil.getClassLoader());
+					dynamicQuery.add(RestrictionsFactoryUtil.eq("workshiftName", workshiftName));
+					dynamicQuery.add(RestrictionsFactoryUtil.eq("groupId", themeDisplay.getLayout().getGroup().getGroupId()));
+					List<Workshift> workshifts = WorkshiftLocalServiceUtil.dynamicQuery(dynamicQuery);
+					if(workshifts.size()>0){
+						Workshift workshift = workshifts.get(0);
+						if(workshift.getWorkshiftName().equalsIgnoreCase(workshiftName)){
+							
+							SessionMessages.add(actionRequest.getPortletSession(),
+									"workshiftName-duplicate-error");
+							actionResponse.setRenderParameter("mvcPath",
+									"/html/workshift/addworkshift.jsp");
+							
+						}
+					}
+					else
+					{
 
 				Workshift workshift = WorkshiftLocalServiceUtil
 						.createWorkshift(CounterLocalServiceUtil.increment());
@@ -97,17 +133,78 @@ public class WorkshiftAction extends MVCPortlet {
 							
 							log.info("====END IF LOOP=====");
 						}
+						}
 					}
 				}
 
 				log.info("end of if block");
-			} else {
+				}} else {
 				log.info("else block to update...");
 
 				long shiftid = Long.parseLong(id);
 
 				Workshift workshift = WorkshiftLocalServiceUtil
 						.getWorkshift(shiftid);
+				if(shiftName == null || shiftName.equals("")){
+					
+					PortletSession portletSession = actionRequest
+							.getPortletSession();
+					portletSession.setAttribute("editworkshift", workshift);
+
+					SessionMessages.add(actionRequest.getPortletSession(),
+							"workshiftName-empty-error");
+					actionResponse.setRenderParameter("mvcPath",
+							"/html/workshift/editworkshift.jsp");
+				}
+				else{
+					
+					
+					DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(Workshift.class,PortletClassLoaderUtil.getClassLoader());
+					dynamicQuery.add(RestrictionsFactoryUtil.eq("workshiftName", workshiftName));
+					dynamicQuery.add(RestrictionsFactoryUtil.eq("groupId", themeDisplay.getLayout().getGroup().getGroupId()));
+					List<Workshift> workshifts = WorkshiftLocalServiceUtil.dynamicQuery(dynamicQuery);
+					if(workshifts.size()>0){
+						Workshift workshift1 = workshifts.get(0);
+						if(workshift1.getWorkshiftName().equalsIgnoreCase(workshiftName) && !workshift.getWorkshiftName().equalsIgnoreCase(workshiftName)){
+							
+							SessionMessages.add(actionRequest.getPortletSession(),
+									"workshiftName-duplicate-error");
+							actionResponse.setRenderParameter("mvcPath",
+									"/html/workshift/addworkshift.jsp");
+							
+						}
+						else{
+							setWorkShift(actionRequest, themeDisplay, formater, workshift,
+									date);
+							
+							workshift = WorkshiftLocalServiceUtil
+									.updateWorkshift(workshift);
+							
+							if (assignedEmpsIds != null && assignedEmpsIds.length>0){
+								log.info("assignedEmpsIds.length == " + assignedEmpsIds.length);
+								for (String empId: assignedEmpsIds) {
+									log.info(empId);
+									if (empId != null && !empId.isEmpty()) {
+										long eid = Long.parseLong(empId);
+										EmpJob empJob = EmpJobLocalServiceUtil.getEmpJobByEmpId(eid);
+										EmpJob empJob2 = EmpJobLocalServiceUtil.getEmpJob(empJob.getEmpJobId());
+										empJob2.setShiftId(workshift.getShiftId());
+										empJob2 = EmpJobLocalServiceUtil.updateEmpJob(empJob2);
+									}
+								}
+							}
+							if (availableEmpsIds != null && availableEmpsIds.length>0){
+								for (String empId: availableEmpsIds) {
+									EmpJob empJob = EmpJobLocalServiceUtil.getEmpJobByEmpId(Long.parseLong(empId));
+									empJob.setShiftId(0);
+									empJob = EmpJobLocalServiceUtil.updateEmpJob(empJob);
+								}
+								
+							}
+							
+						}
+					}						
+					else{
 
 				setWorkShift(actionRequest, themeDisplay, formater, workshift,
 						date);
@@ -136,7 +233,7 @@ public class WorkshiftAction extends MVCPortlet {
 					}
 					
 				}
-				
+				}}
 				log.info("end of else block");
 
 			}
@@ -161,18 +258,18 @@ public class WorkshiftAction extends MVCPortlet {
 			Workshift workshift, Date date) throws PortalException, SystemException {
 		workshift.setWorkshiftName(ParamUtil.getString(actionRequest,
 				CustomComparatorUtil.WORKSHIFT_COL_NAME));
+		
+		log.info("From work hrs === " +ParamUtil.getDate(actionRequest,"fromWorkHours", formater));
+		log.info("From work hrs string === " +ParamUtil.getString(actionRequest,"fromWorkHours"));
+		log.info("From work hrs === " +ParamUtil.getDate(actionRequest,"toWorkHours", formater));
+		log.info("From work hrs string === " +ParamUtil.getString(actionRequest,"fromWorkHours"));
 
 		workshift.setFromWorkHours(ParamUtil.getDate(actionRequest,
 				"fromWorkHours", formater));
-		log.info("fromWorkHours  as str = "
-				+ ParamUtil.getString(actionRequest, "fromWorkHours"));
-		log.info("toWorkHours as str = "
-				+ ParamUtil.getString(actionRequest, "toWorkHours"));
+		
 		workshift.setToWorkHours(ParamUtil.getDate(actionRequest,
 				"toWorkHours", formater));
-		log.info("toWorkHours = "
-				+ ParamUtil.getDate(actionRequest, "toWorkHours",
-						formater));
+		
 
 		workshift.setCreateDate(date);
 		workshift.setModifiedDate(date);

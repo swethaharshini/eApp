@@ -1,3 +1,9 @@
+<%@page import="com.liferay.portal.kernel.dao.search.RowChecker"%>
+<%@page import="com.liferay.portal.util.PortalUtil"%>
+<%@page import="com.liferay.portal.service.persistence.PortletUtil"%>
+<%@page import="javax.portlet.WindowState"%>
+<%@page import="javax.portlet.PortletRequest"%>
+<%@page import="com.liferay.portlet.PortletURLFactoryUtil"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil"%>
 <%@page import="com.liferay.portal.kernel.util.ListUtil"%>
@@ -45,11 +51,63 @@
 <portlet:renderURL var="addNewEmployee">
 	<portlet:param name="mvcPath" value="/html/employee/add_employee.jsp" />
 </portlet:renderURL>
-<html>
-<head>
-<title>employeelist</title>
-</head>
-<body>
+<portlet:actionURL var="deleteEmployee" name="deleteEmployee"></portlet:actionURL>
+<%-- <aui:script>
+AUI().use(
+		  'aui-node',
+		  function(A) {
+		    var node = A.one('#<portlet:namespace/>deleteEmpFromList');
+		    node.on(
+		      'click',
+		      function() {
+		     var idArray = [];
+		      A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
+		      idArray.push(object.get("value"));
+		    
+		        });
+		       if(idArray==""){
+					  alert("Please select records!");
+				  }else{
+					  var d = confirm("All related records will be lost and irrecoverable. It is safer to terminate the employment instead. Do you still want to delete?");
+				  if(d){
+				   var url = '<%=deleteDependent%>';
+		          A.io.request(url,
+		         {
+		          data: {  
+		                <portlet:namespace />dependentIds: idArray,  
+		                 },
+		          on: {
+		               success: function() { 
+		                   alert('deleted successfully');
+		                   window.location='<%=listview%>';
+		              },
+		               failure: function() {
+		                  
+		                 }
+		                }
+		                 }
+		                );
+				  																		
+				  console.log(idArray);
+			  
+		      return true;
+		  }
+		  else
+		    return false;
+		}             
+		      }
+		    );
+		  }
+		);
+</aui:script> --%>
+
+<%	
+long pageid=0;
+pageid=PortalUtil.getPlidFromPortletId(themeDisplay.getLayout().getGroup().getGroupId(), "addemployee_WAR_Employeeportlet");
+PortletURL myaccountURL = PortletURLFactoryUtil.create(renderRequest, 
+		"addemployee_WAR_Employeeportlet",pageid, PortletRequest.RENDER_PHASE);
+     myaccountURL.setWindowState(WindowState.MAXIMIZED);
+%>
 	<%!public String getSupervisorName(long id) {
 		String supervisorName = "";
 		if (id >= 0) {
@@ -156,14 +214,18 @@
 
 		<div class="row-fluid">
 			<div class="span12">
-			<aui:button-row>
-				<aui:button type="submit" id="toggleColor" value="search"
-				cssClass="btn btn-success" />
-			<aui:button type="reset" id="" value="reset"
-				cssClass="btn btn-danger" />
-				<aui:button cssClass="button btn-success" name="addNewEmp"
-					id="addNewEmp" value="add" onClick="<%=addNewEmployee %>"></aui:button>
-			</aui:button-row>
+				<div class="control-group">
+					<div class="controls">
+						<aui:button type="submit" id="toggleColor" value="search"
+							cssClass="btn btn-success" />
+						<aui:button type="reset" id="" value="reset"
+							cssClass="btn btn-danger" />
+						<aui:a href="<%=myaccountURL.toString()%>"
+							cssClass="btn button btn-success">Add</aui:a>
+						<aui:button id="deleteEmpFromList" name="deleteEmpFromList"
+							cssClass="btn btn-danger" value="Delete"></aui:button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -176,9 +238,9 @@
 %>
 
 		<liferay-ui:search-container delta="5"
-			displayTerms="<%= new DisplayTerms(renderRequest) %>"
+			displayTerms='<%= new DisplayTerms(renderRequest) %>'
 			emptyResultsMessage="no-records-available-for-employee"
-			deltaConfigurable="true" iteratorURL="<%=iteratorURL%>">
+			deltaConfigurable="true" iteratorURL="<%=iteratorURL%>" rowChecker="<%= new RowChecker(renderResponse) %>">
 			<liferay-ui:search-container-results>
 				<%
 		long layoutGroupId=themeDisplay.getLayout().getGroup().getGroupId();
@@ -232,5 +294,3 @@
 
 		</liferay-ui:search-container>
 	</aui:form>
-</body>
-</html>

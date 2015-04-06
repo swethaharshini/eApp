@@ -20,6 +20,7 @@ import org.apache.log4j.Logger;
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.theme.ThemeDisplay;
@@ -53,6 +54,7 @@ public class SetupLeavePeriodAction extends MVCPortlet {
 			ActionResponse actionResponse) throws IOException,
 			PortletException, SystemException {
 		log.info("inside saveLeavePeriod...");
+		Date date = new Date();
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest
 				.getAttribute(WebKeys.THEME_DISPLAY);
 		log.info("company Id == " + themeDisplay.getCompanyId());
@@ -74,7 +76,8 @@ public class SetupLeavePeriodAction extends MVCPortlet {
 
 				leavePeriod = LeavePeriodLocalServiceUtil
 						.createLeavePeriod(CounterLocalServiceUtil.increment());
-				leavePeriod.setCreateDate(new Date());
+				leavePeriod.setCreateDate(date);
+				leavePeriod.setModifiedDate(date);
 				setThemeParams(themeDisplay, leavePeriod);
 				setLeavePeriod(actionRequest, leavePeriod);
 
@@ -90,6 +93,8 @@ public class SetupLeavePeriodAction extends MVCPortlet {
 				portletSession.setAttribute("editLeavePeriod", leavePeriodUI);
 				actionResponse.setRenderParameter("jspPage",
 						"/html/leaveperiod/edit_leave_period.jsp");
+				
+				SessionMessages.add(actionRequest, "saved");
 
 				log.info("end of if block");
 			} else {
@@ -100,6 +105,7 @@ public class SetupLeavePeriodAction extends MVCPortlet {
 
 				leavePeriod = LeavePeriodLocalServiceUtil
 						.getLeavePeriod(leavePeriodId);
+				leavePeriod.setModifiedDate(date);
 				setThemeParams(themeDisplay, leavePeriod);
 				setLeavePeriod(actionRequest, leavePeriod);
 				leavePeriod = LeavePeriodLocalServiceUtil
@@ -113,6 +119,8 @@ public class SetupLeavePeriodAction extends MVCPortlet {
 				portletSession.setAttribute("editLeavePeriod", leavePeriodUI);
 				actionResponse.setRenderParameter("jspPage",
 						"/html/leaveperiod/edit_leave_period.jsp");
+				
+				SessionMessages.add(actionRequest, "updated");
 
 				log.info("end of else block");
 

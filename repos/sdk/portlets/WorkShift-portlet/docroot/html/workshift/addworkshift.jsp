@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@page import="org.apache.log4j.Logger"%>
 <%@page import="com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil"%>
 <%@page import="com.liferay.portal.kernel.util.PortalClassLoaderUtil"%>
@@ -27,6 +28,9 @@
 }
 .aui input[type="text"],.aui select{
 border-radius: 4px;
+}
+#<portlet:namespace/>fromWorkHours,#<portlet:namespace/>toWorkHours{
+  width: 59px;
 }
 .aui label {
 color: #555;
@@ -137,37 +141,52 @@ YUI().use(
   function(Y) {
     new Y.TimePicker(
       {
-        trigger: '#fromWorkHours',
+        trigger: '#<portlet:namespace/>fromWorkHours',
         popover: {
           zIndex: 2
         },
         mask:'%H:%M',
         on: {
           selectionChange: function(event) {
-            document.<portlet:namespace />workshiftForm.<portlet:namespace />duration.value = event.newSelection;
+            //document.<portlet:namespace />workshiftForm.<portlet:namespace />duration.value = event.newSelection;
           }
         }
       }
     );
     new Y.TimePicker(
       {
-        trigger: '#toWorkHours',
+        trigger: '#<portlet:namespace/>toWorkHours',
         mask:'%H:%M',
         popover: {
           zIndex: 1
         },
         on: {
           selectionChange: function(event) {
-            document.<portlet:namespace />workshiftForm.<portlet:namespace />duration.value = event.newSelection;
+            //document.<portlet:namespace />workshiftForm.<portlet:namespace />duration.value = event.newSelection;
           }
         }
       }
     );
-  }
+    }
 );
-
+AUI().ready('event', 'node','transition',function(A){
+setTimeout(function(){
+A.one('#addworkshiftMessage').transition('fadeOut');
+A.one('#addworkshiftMessage').hide();
+},2000)
+});
 </aui:script>
-<% Logger log=Logger.getLogger(this.getClass().getName());%>	 
+
+<% Logger log=Logger.getLogger(this.getClass().getName());%>
+<% if(SessionMessages.contains(renderRequest.getPortletSession(),"workshiftName-empty-error")){%>
+<p id="addworkshiftMessage" class="alert alert-error"><liferay-ui:message key="Please Enter WorkshiftName"/></p>
+<%} 
+ if(SessionMessages.contains(renderRequest.getPortletSession(),"workshiftName-duplicate-error")){
+%>
+<p id="addworkshiftMessage" class="alert alert-error"><liferay-ui:message key="WorkshiftName already Exits"/></p>
+<%} 
+%>
+	 
 <div id="addworkshiftForm" >
 	<aui:form 	 name = "workshiftForm" action="<%=saveworkshift %>">
 	
@@ -177,22 +196,51 @@ YUI().use(
 				type="text" label="Shift Name">
 				<aui:validator name="required" />
 			</aui:input>
-	</div>
+	</div> 
 	<div class="row-fluid">
 	 <div class="span4">
 			<label>From</label>
-			<input name="<portlet:namespace />fromWorkHours"
-				id="fromWorkHours" type="text" required="required"
-				placeholder="hh:mm" value="00:00"  />
+			<aui:input name="fromWorkHours"
+				id="fromWorkHours" type="text" label=""
+				placeholder="hh:mm" value="00:00">
+				</aui:input>
 			</div>
 			<div class="span4">
 				<label>To</label>
-			<input name="<portlet:namespace />toWorkHours" id="toWorkHours"
-				type="text" required="required" placeholder="hh:mm" value="00:00"
-				/>
+			<aui:input name="toWorkHours" id="toWorkHours" label=""
+				type="text" placeholder="hh:mm" value="00:00" >
+				
+				<aui:validator name="custom" errorMessage="To time should be greater than from From time">
+						function(val,fieldNode,ruleValue)
+						{
+							var result=false;
+							var from=A.one("#<portlet:namespace/>fromWorkHours").get('value'); 
+	                        <!-- alert(from); -->
+	                        var d=new Date();
+	                        var str=from;
+	                        var res=str.split(":");
+	                        var value1=res[0];
+	                        var value2=res[1];
+	                        var str2=val;
+	                        var res1=str2.split(":");
+	                        var value3=res1[0];
+	                        var value4=res1[1];
+	                        var result1=res[0]+res[1];
+	                        var result2=res1[0]+res1[1];
+	                        
+	                        if(result1 < result2 ){
+	                        	result=true;
+	                        }else{
+	                        	result= false;
+							}
+						return result;
+						}
+				</aui:validator>
+			</aui:input>
 		</div><div class="span4"></div>
 		
 </div>
+
   <div class="row-fluid">
 
 				<table>
@@ -313,6 +361,9 @@ YUI().use(
 		<liferay-ui:search-container-row className="Workshift"
 			keyProperty="shiftId" modelVar="workshift" rowVar="curRow"
 			escapedModel="<%=true%>">
+			
+			
+			
 			<% WorkshiftBean workshiftExt = new WorkshiftBean(workshift); %>
 			<liferay-ui:search-container-column-text orderable="<%=true%>"
 				name="Shift Name" property="workshiftName"

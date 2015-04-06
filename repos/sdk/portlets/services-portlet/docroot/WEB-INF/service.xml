@@ -1325,8 +1325,6 @@
 		<column name="isCurrentJob" type="boolean"></column>
 		<column name="employmentContractStartDate" type="Date"></column>
 		<column name="employmentContractEndDate" type="Date"></column>
-		<column name="contractDetails" type="Blob"></column>
-		
 		<!-- Order -->
 		<!-- Finder methods -->
 		<finder name="GroupId" return-type="Collection">
@@ -1461,10 +1459,12 @@
 		<!-- Audit fields -->
 		<!-- Other fields -->
 		<column name="attachmentTypeId" type="long"></column><!-- Entity Id -->
+		<column name="uuid" type="String"></column>
+		<column name="relatedTo" type="String"></column>
+		<column name="userName" type="String"></column>
 		<column name="fileName" type="String"></column>
 		<column name="fileSize" type="long"></column>
 		<column name="fileType" type="String"></column>
-		<column name="file" type="Blob"></column>
 		<column name="comment" type="String"></column>
 		
 		<finder name="empAttachmentId" return-type="Collection">

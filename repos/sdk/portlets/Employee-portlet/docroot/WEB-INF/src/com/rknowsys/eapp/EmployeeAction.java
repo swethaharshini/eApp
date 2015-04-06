@@ -5,16 +5,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletConfig;
 import javax.portlet.PortletException;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
@@ -44,16 +47,19 @@ import com.liferay.portal.kernel.util.MimeTypesUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.model.User;
+import com.liferay.portal.model.Layout;
+import com.liferay.portal.model.Role;
+import com.liferay.portal.service.LayoutLocalServiceUtil;
+import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
-import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portlet.documentlibrary.model.DLFileEntry;
 import com.liferay.portlet.documentlibrary.service.DLAppLocalServiceUtil;
 import com.liferay.portlet.documentlibrary.service.DLFileEntryLocalServiceUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
+import com.rknowsys.eapp.hrm.model.EmpAttachment;
 import com.rknowsys.eapp.hrm.model.EmpContactDetails;
 import com.rknowsys.eapp.hrm.model.EmpDependent;
 import com.rknowsys.eapp.hrm.model.EmpDirectDeposit;
@@ -70,6 +76,7 @@ import com.rknowsys.eapp.hrm.model.EmpSupervisor;
 import com.rknowsys.eapp.hrm.model.EmpWorkExp;
 import com.rknowsys.eapp.hrm.model.Employee;
 import com.rknowsys.eapp.hrm.model.PayGradeCurrency;
+import com.rknowsys.eapp.hrm.service.EmpAttachmentLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.EmpContactDetailsLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.EmpDependentLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.EmpDirectDepositLocalServiceUtil;
@@ -104,7 +111,7 @@ public class EmployeeAction extends MVCPortlet {
 	public static final String EMPLOYEE_LICENSE_EXP_DATE_COL_NAME = "licenseExpiryDate";
 	public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
 	private static Logger log = Logger.getLogger(EmployeeAction.class);
-
+	public int checkRedirect=0;
 	/**
 	 * <p>
 	 * This method inserts new Employee record and EmpPersonalDetails in
@@ -137,14 +144,14 @@ public class EmployeeAction extends MVCPortlet {
 		actionResponse.setRenderParameter("jspPage","/html/employee/edit_employee.jsp");
 	    }
 
-	public void saveEmpDetails(ActionRequest actionRequest,ActionResponse actionResponse) 
+	/*public void saveEmpDetails(ActionRequest actionRequest,ActionResponse actionResponse) 
 			throws IOException,PortletException, SystemException 
 		{
 		log.info("saveEmployeeDetails method");
 		addEmployee(actionRequest, actionResponse);
 		actionResponse.setRenderParameter("jspPage","/html/employee/edit_employee.jsp");
 		log.info("End of saveEmpDetails method");
-	    }
+	    }*/
 	public Map<String, Comparable> setSessionAttributes(long empId,long imageId,String jsp) 
 	   {
 		Map<String, Comparable> sessionAttributes=new HashMap<String, Comparable>();
@@ -153,7 +160,16 @@ public class EmployeeAction extends MVCPortlet {
 		sessionAttributes.put("jsp", jsp);
 		return sessionAttributes;
 	   }
-
+	public Date formatDate(String date)
+	{
+		String[] dateArray=date.split("/");
+		int month=Integer.parseInt(dateArray[0]);
+		int day=Integer.parseInt(dateArray[1]);
+		int year=Integer.parseInt(dateArray[2]);
+		Calendar cal=Calendar.getInstance();
+		cal.set(year, month-1, day);
+		return cal.getTime();
+	}
 	/** This method updates EmpPersonalDetails record in Database */
 	
 	public void updateEmpPersonalDetails(ActionRequest actionRequest,
@@ -171,6 +187,11 @@ public class EmployeeAction extends MVCPortlet {
 		String driverLicenseNo = ParamUtil.getString(actionRequest,"driver_license_no");
 		String expiryDate = ParamUtil.getString(actionRequest, "expiry_date");
 		log.info("Expiry date is "+expiryDate);
+		Date expDate=null;
+		if(expiryDate!=null && expiryDate.trim()!="")
+		{
+			expDate=formatDate(expiryDate);
+		}
 		String gender = ParamUtil.getString(actionRequest, "gender");
 		String maritalStatus = ParamUtil.getString(actionRequest,"marital_status");
 		long nationality = ParamUtil.getLong(actionRequest, "emp_nationality");
@@ -189,19 +210,15 @@ public class EmployeeAction extends MVCPortlet {
 				empPersonalDetails.setFirstName(firstName);
 				empPersonalDetails.setMiddleName(middleName);
 				empPersonalDetails.setLastName(lastName);
-					try {
-						empPersonalDetails.setDateOfBirth(dateFormat.parse(dateOfB));
-						} catch (ParseException e) {
-							log.error("Error in saving Employee details",e);
-					}
+				Date dteOfB=null;
+				if(dateOfB!=null && dateOfB.trim()!="")
+				{
+					dteOfB=formatDate(dateOfB);
+				}
+				empPersonalDetails.setDateOfBirth(dteOfB);
 				empPersonalDetails.setEmployeeId(empId);
 				empPersonalDetails.setEmployeeNo(empNo);
-					try {
-						empPersonalDetails.setLicenseExpDate(dateFormat
-								.parse(expiryDate));
-						} catch (ParseException e) {
-							log.error("Error in saving Employee details",e);
-					}
+			    empPersonalDetails.setLicenseExpDate(expDate);
 				empPersonalDetails.setLicenseNo(driverLicenseNo);
 				empPersonalDetails.setOtherId(otherId);
 				empPersonalDetails.setCompanyId(themeDisplay.getCompanyId());
@@ -414,6 +431,11 @@ public class EmployeeAction extends MVCPortlet {
 		String relation = ParamUtil.getString(actionRequest,"dependent_relationship");
 		Long empId = ParamUtil.getLong(actionRequest, "empDependentId");
 		String dateOfBirth=ParamUtil.getString(actionRequest, "dateOfBirth");
+		Date dateOfB=null;
+		if(dateOfBirth!=null && dateOfBirth.trim()!="")
+		{
+		dateOfB=formatDate(dateOfBirth);
+		}
 		EmpDependent empDependent = null;
 			try {
 				empDependent = EmpDependentLocalServiceUtil
@@ -433,11 +455,7 @@ public class EmployeeAction extends MVCPortlet {
 		empDependent.setUserId(themeDisplay.getUserId());
 		empDependent.setCreateDate(date);
 		empDependent.setModifiedDate(date);
-			try {
-				empDependent.setDateOfBirth(dateFormat.parse(dateOfBirth));
-			} catch (ParseException e1) {
-				log.error("Error in saving dependent details of employee",e1);
-			}
+		empDependent.setDateOfBirth(dateOfB);
 		empDependent.setName(name);
 		empDependent.setRelationship(relation);
 			try {
@@ -556,8 +574,8 @@ public class EmployeeAction extends MVCPortlet {
 			empId = ParamUtil.getLong(actionRequest, "empWrkExpId");
 			String expCompany = ParamUtil.getString(actionRequest,"exp_company");
 			String jobTitle = ParamUtil.getString(actionRequest, "exp_jobtitle");
-			Date fromDate = ParamUtil.getDate(actionRequest, "exp_from_date",dateFormat);
-			Date toDate = ParamUtil.getDate(actionRequest, "exp_to_date",dateFormat);
+			String fromDate = ParamUtil.getString(actionRequest, "exp_from_date");
+			String toDate = ParamUtil.getString(actionRequest, "exp_to_date");
 			String comments = ParamUtil.getString(actionRequest, "exp_comments");
 			EmpWorkExp empWorkExp = null;
 				try {
@@ -566,11 +584,20 @@ public class EmployeeAction extends MVCPortlet {
 				} catch (SystemException e) {
 					log.info("Error in adding work experience details of employee..."+e);
 				}
+			Date frmDate=null,expToDate=null;
+			if(fromDate!=null && fromDate.trim()!="")
+				{
+					frmDate=formatDate(fromDate);
+				}
+			if(toDate!=null && toDate.trim()!="")
+				{
+					expToDate=formatDate(toDate);
+				}
 			empWorkExp.setEmployeeId(empId);
 			empWorkExp.setComment(comments);
 			empWorkExp.setCompany(expCompany);
-			empWorkExp.setFromDate(fromDate);
-			empWorkExp.setToDate(toDate);
+			empWorkExp.setFromDate(frmDate);
+			empWorkExp.setToDate(expToDate);
 			empWorkExp.setJobTitle(jobTitle);
 			empWorkExp.setCreateDate(date);
 			empWorkExp.setModifiedDate(date);
@@ -597,8 +624,8 @@ public class EmployeeAction extends MVCPortlet {
 			String splization = ParamUtil.getString(actionRequest, "edu_major");
 			String year = ParamUtil.getString(actionRequest, "edu_year");
 			String score = ParamUtil.getString(actionRequest, "edu_score");
-			Date from = ParamUtil.getDate(actionRequest, "edu_from_date",dateFormat);
-			Date to = ParamUtil.getDate(actionRequest, "edu_to_date",dateFormat);
+			String from = ParamUtil.getString(actionRequest, "edu_from_date");
+			String to = ParamUtil.getString(actionRequest, "edu_to_date");
 			EmpEducation education = null;
 				try {
 					education = EmpEducationLocalServiceUtil
@@ -606,12 +633,21 @@ public class EmployeeAction extends MVCPortlet {
 				    } catch (SystemException e) {
 					log.error("Error in adding eduaction details of employee", e);
 				}
+				Date startDate=null,endDate=null;
+			if(from!=null && from.trim()!="")
+				{
+					startDate=formatDate(from);
+				}
+			if(to!=null && to.trim()!="")
+				{
+					endDate=formatDate(to);
+				}
 			education.setEmployeeId(empId);
 			education.setInstitute(institute);
 			education.setMajor(splization);
 			education.setYear(year);
-			education.setStartDate(from);
-			education.setEndDate(to);
+			education.setStartDate(startDate);
+			education.setEndDate(endDate);
 			education.setEducationId(level);
 			education.setCreateDate(date);
 			education.setModifiedDate(date);
@@ -697,8 +733,8 @@ public class EmployeeAction extends MVCPortlet {
 			empId = ParamUtil.getLong(actionRequest, "empLicId");
 			long licenseId = ParamUtil.getLong(actionRequest,"emp_license_type");
 			String licenseNo = ParamUtil.getString(actionRequest,"emp_license_no");
-			Date issueDate = ParamUtil.getDate(actionRequest,"license_issue_date", dateFormat);
-			Date expiryDate = ParamUtil.getDate(actionRequest,"license_exp_date", dateFormat);
+			String issueDate = ParamUtil.getString(actionRequest,"license_issue_date");
+			String expiryDate = ParamUtil.getString(actionRequest,"license_exp_date");
 			EmpLicense empLicense = null;
 				try {
 					empLicense = EmpLicenseLocalServiceUtil
@@ -706,9 +742,18 @@ public class EmployeeAction extends MVCPortlet {
 				} catch (SystemException e) {
 					log.error("Error in adding license information of the employee", e);
 				}
+			Date issuedDate=null,expDate=null;
+			if(issueDate!=null && issueDate.trim()!="")
+					{
+					issuedDate=formatDate(issueDate);
+					}
+			if(expiryDate!=null && expiryDate.trim()!="")
+					{
+					expDate=formatDate(expiryDate);
+					}
 			empLicense.setEmployeeId(empId);
-			empLicense.setExpiryDate(expiryDate);
-			empLicense.setIssuedDate(issueDate);
+			empLicense.setExpiryDate(expDate);
+			empLicense.setIssuedDate(issuedDate);
 			empLicense.setLicenseNumber(licenseNo);
 			empLicense.setLicenseId(licenseId);
 			empLicense.setCreateDate(date);
@@ -812,7 +857,7 @@ public class EmployeeAction extends MVCPortlet {
 		long empId = ParamUtil.getLong(actionRequest, "empImgId");
 		String docType = ParamUtil.getString(actionRequest, "document_type");
 		String number = ParamUtil.getString(actionRequest, "img_number");
-		Date issuedDate = ParamUtil.getDate(actionRequest, "img_issued_date",dateFormat);
+		String issuedDate = ParamUtil.getString(actionRequest, "img_issued_date");
 		String issuedBy = ParamUtil.getString(actionRequest, "issued_by");
 		String eligibleStatus = ParamUtil.getString(actionRequest,"eligible_status");
 		String reviewDate = ParamUtil.getString(actionRequest, "review_date");
@@ -830,13 +875,22 @@ public class EmployeeAction extends MVCPortlet {
 		empImmigrationDocument.setEmployeeId(empId);
 		empImmigrationDocument.setDocNumber(number);
 		empImmigrationDocument.setIssuedBy(Long.parseLong(issuedBy));
-		empImmigrationDocument.setIssuedDate(issuedDate);
-			try {
-				empImmigrationDocument.setExpiryDate(dateFormat.parse(expiryDate));
-				empImmigrationDocument.setEligibleReviewDate(dateFormat.parse(reviewDate));
-			} catch (ParseException e1) {
-				log.error("Error in saving immigration details of the employee", e1);
-		   }
+		Date issueDate=null,expDate=null,rewDate=null;
+		if(issuedDate!=null && issuedDate.trim()!="")
+			{
+				issueDate=formatDate(issuedDate);
+			}
+		if(expiryDate!=null && expiryDate.trim()!="")
+			{
+				expDate=formatDate(expiryDate);
+			}
+		if(reviewDate!=null && reviewDate.trim()!="")
+			{
+				rewDate=formatDate(reviewDate);
+			}
+		empImmigrationDocument.setIssuedDate(issueDate);
+		empImmigrationDocument.setExpiryDate(expDate);
+		empImmigrationDocument.setEligibleReviewDate(rewDate);
 		empImmigrationDocument.setEligibleStatus(eligibleStatus);
 		empImmigrationDocument.setComments(comments);
 		empImmigrationDocument.setDocType(docType);
@@ -878,7 +932,35 @@ public class EmployeeAction extends MVCPortlet {
 		actionResponse.setRenderParameter("jspPage","/html/employee/edit_employee.jsp");
 		log.info("End of updateMembership method");
 	 }
-
+	public void deleteEmployee(ActionRequest actionRequest,ActionResponse actionResponse)
+	{
+		long[] idsArray = ParamUtil.getLongValues(actionRequest,"empIds");
+		log.info("length of array"+idsArray.length);
+		for (int i = 0; i <= idsArray.length - 1; i++) {
+			try {
+				try {
+					log.info(idsArray[i]);
+				Employee employee=EmployeeLocalServiceUtil.getEmployee(idsArray[1]);
+				log.info("employe object is "+employee);
+				EmployeeLocalServiceUtil.deleteEmployee(employee);
+					log.info("Employee deleted successfully");
+				  } catch (PortalException e) {
+					log.error("Error in deleting emergency contact details",e);
+				  } catch (SystemException e) {
+					log.error("Error in deleting emergency contact details",e);
+				}
+			} catch (NumberFormatException e) {
+				log.info("Selected all records to delete",e);
+			}
+		}
+		try {
+			actionResponse.sendRedirect("jspPage","/html/employee/employeelist.jsp");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	public void updateEmpJobHistory(ActionRequest actionRequest,
 			ActionResponse actionResponse) {
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest
@@ -886,19 +968,36 @@ public class EmployeeAction extends MVCPortlet {
 		Date date = new Date();
 		log.info("In updateEmpJobHistory method");
 		long empId = ParamUtil.getLong(actionRequest, "empJId");
-		Date joinedDate = ParamUtil.getDate(actionRequest, "joined_date",dateFormat);
-		Date probationDte = ParamUtil.getDate(actionRequest, "probation_date",dateFormat);
-		Date dateOfPermanency = ParamUtil.getDate(actionRequest,"date_permanency", dateFormat);
+		String joinedDate = ParamUtil.getString(actionRequest, "joined_date");
+		String probationDte = ParamUtil.getString(actionRequest, "probation_date");
+		String dateOfPermanency = ParamUtil.getString(actionRequest,"date_permanency");
 		long jobTitle = ParamUtil.getLong(actionRequest, "emp_job_title");
 		long employmentStatus = ParamUtil.getLong(actionRequest, "emp_status");
 		long jobCategory = ParamUtil.getLong(actionRequest, "emp_job_category");
 		long subUnit = ParamUtil.getLong(actionRequest, "emp_sub_unit");
 		long location = ParamUtil.getLong(actionRequest, "emp_location");
-		Date effectiveDate = ParamUtil.getDate(actionRequest, "effective_date",dateFormat);
+		String effectiveDate = ParamUtil.getString(actionRequest, "effective_date");
 		long workshift = ParamUtil.getLong(actionRequest, "emp_workshift");
 		String comments = ParamUtil.getString(actionRequest, "job_comments");
 		long fileEntryId = ParamUtil.getLong(actionRequest, "jobFileId");
-		EmpJob empJob = null;
+		Date joinDate=null,prbationDate=null,dateOfPrmanancy=null,effectDate=null;
+		if(joinedDate!=null && joinedDate.trim()!="")
+			{
+				joinDate=formatDate(joinedDate);
+			}
+		if(probationDte!=null && probationDte.trim()!="")
+			{
+				prbationDate=formatDate(probationDte);
+			}
+		if(dateOfPermanency!=null && dateOfPermanency.trim()!="")
+			{
+				dateOfPrmanancy=formatDate(dateOfPermanency);
+			}
+		if(effectiveDate!=null && effectiveDate.trim()!="")
+			{
+				effectDate=formatDate(effectiveDate);
+			}
+	EmpJob empJob = null;
 			try {
 				empJob = EmpJobLocalServiceUtil
 						.createEmpJob(CounterLocalServiceUtil.increment());
@@ -906,15 +1005,15 @@ public class EmployeeAction extends MVCPortlet {
 				log.error("Error in adding employee job details",e);
 		  }
 		empJob.setEmployeeId(empId);
-		empJob.setJoinedDate(joinedDate);
-		empJob.setEffectiveDate(effectiveDate);
-		empJob.setPermanentDate(dateOfPermanency);
+		empJob.setJoinedDate(joinDate);
+		empJob.setEffectiveDate(effectDate);
+		empJob.setPermanentDate(dateOfPrmanancy);
 		empJob.setEmploymentStatusId(employmentStatus);
 		empJob.setJobCategoryId(jobCategory);
 		empJob.setJobTitleId(jobTitle);
 		empJob.setSubUnitId(subUnit);
 		empJob.setLocationId(location);
-		empJob.setProbationEndDate(probationDte);
+		empJob.setProbationEndDate(prbationDate);
 		empJob.setComments(comments);
 		empJob.setIsCurrentJob(true);
 		empJob.setShiftId(workshift);
@@ -990,6 +1089,7 @@ public class EmployeeAction extends MVCPortlet {
 		ThemeDisplay themeDisplay = (ThemeDisplay) resourceRequest
 				.getAttribute(WebKeys.THEME_DISPLAY);
 		Date date = new Date();
+		log.info("in serve resource mehtod");
 		if (resourceRequest.getResourceID().equals("deleteEmergencyContact")) {
 			log.info("Deleting Emergency contact records");
 			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,"emgContactIds");
@@ -1025,6 +1125,106 @@ public class EmployeeAction extends MVCPortlet {
 						log.error("Error in deleting dependent details of employee",e);
 					  } catch (SystemException e) {
 						  log.error("Error in deleting dependent details of employee",e);
+					}
+				} catch (NumberFormatException e) {
+					log.info("Selected all records to delete");
+				}
+			}
+
+		}
+		else if (resourceRequest.getResourceID().equals("deleteLanguage")) {
+			log.info("Deleting Dependent records");
+			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,"deleteIds");
+			for (int i = 0; i <= idsArray.length - 1; i++) {
+				try {
+					try {
+						EmpLanguageLocalServiceUtil
+								.deleteEmpLanguage((Long.parseLong(idsArray[i])));
+						log.info("deleted");
+					  } catch (PortalException e) {
+						log.error("Error in deleting language details of employee",e);
+					  } catch (SystemException e) {
+						  log.error("Error in deleting language details of employee",e);
+					}
+				} catch (NumberFormatException e) {
+					log.info("Selected all records to delete");
+				}
+			}
+
+		}
+		else if (resourceRequest.getResourceID().equals("deleteEmpWorkExp")) {
+			log.info("Deleting Dependent records");
+			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,"deleteIds");
+			for (int i = 0; i <= idsArray.length - 1; i++) {
+				try {
+					try {
+						EmpWorkExpLocalServiceUtil
+								.deleteEmpWorkExp((Long.parseLong(idsArray[i])));
+						log.info("deleted");
+					  } catch (PortalException e) {
+						log.error("Error in deleting work experience details of employee",e);
+					  } catch (SystemException e) {
+						log.error("Error in deleting work experience details of employee",e);
+					}
+				} catch (NumberFormatException e) {
+					log.info("Selected all records to delete");
+				}
+			}
+
+		}
+		else if (resourceRequest.getResourceID().equals("deleteLicense")) {
+			log.info("Deleting Dependent records");
+			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,"deleteIds");
+			for (int i = 0; i <= idsArray.length - 1; i++) {
+				try {
+					try {
+						EmpLicenseLocalServiceUtil
+								.deleteEmpLicense((Long.parseLong(idsArray[i])));
+						log.info("deleted");
+					  } catch (PortalException e) {
+						log.error("Error in deleting license details of employee",e);
+					  } catch (SystemException e) {
+						  log.error("Error in deleting license details of employee",e);
+					}
+				} catch (NumberFormatException e) {
+					log.info("Selected all records to delete");
+				}
+			}
+
+		}
+		else if (resourceRequest.getResourceID().equals("deleteSkill")) {
+			log.info("Deleting Dependent records");
+			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,"deleteIds");
+			for (int i = 0; i <= idsArray.length - 1; i++) {
+				try {
+					try {
+						EmpSkillLocalServiceUtil
+								.deleteEmpSkill((Long.parseLong(idsArray[i])));
+						log.info("deleted");
+					  } catch (PortalException e) {
+						log.error("Error in deleting employee skills",e);
+					  } catch (SystemException e) {
+						log.error("Error in deleting employee skills",e);
+					}
+				} catch (NumberFormatException e) {
+					log.info("Selected all records to delete");
+				}
+			}
+
+		}
+		else if (resourceRequest.getResourceID().equals("deleteEducation")) {
+			log.info("Deleting Dependent records");
+			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,"deleteIds");
+			for (int i = 0; i <= idsArray.length - 1; i++) {
+				try {
+					try {
+						EmpEducationLocalServiceUtil
+								.deleteEmpEducation((Long.parseLong(idsArray[i])));
+						log.info("deleted");
+					  } catch (PortalException e) {
+						log.error("Error in deleting education details of employee",e);
+					  } catch (SystemException e) {
+						  log.error("Error in deleting education details of employee",e);
 					}
 				} catch (NumberFormatException e) {
 					log.info("Selected all records to delete");
@@ -1085,7 +1285,7 @@ public class EmployeeAction extends MVCPortlet {
 				try {
 					DLAppLocalServiceUtil.updateFileEntry(
 							themeDisplay.getUserId(), fileEntryId2,
-							fileName, "image/jpeg", fileName, "",
+							fileName+date.getTime(), "image/jpeg", fileName+date.getTime(), "",
 							changeLog, true, newImage, serviceContext);
 				} catch (PortalException e) {
 					log.error("Error in updating employee image",e);
@@ -1189,7 +1389,7 @@ public class EmployeeAction extends MVCPortlet {
 		}
 	}
 
-	public void addEmployee(ActionRequest actionRequest,ActionResponse actionResponse)
+/*	public void addEmployee(ActionRequest actionRequest,ActionResponse actionResponse)
 			throws IOException,PortletException, SystemException {
 		log.info("In addEmployee method");
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest
@@ -1263,8 +1463,8 @@ public class EmployeeAction extends MVCPortlet {
 			try {
 				fileEntry = DLAppLocalServiceUtil.addFileEntry(
 						themeDisplay.getUserId(), themeDisplay.getScopeGroupId(),
-						0, fileName, contentType,
-						fileName, contentType,
+						0, fileName+date.getTime(), contentType,
+						fileName+date.getTime(), contentType,
 						" ", uploadPhoto, serviceContext);
 			} catch (PortalException e1) {
 				log.error("Error in adding image of the employee",e1);
@@ -1294,12 +1494,13 @@ public class EmployeeAction extends MVCPortlet {
 			try {
 				user = UserLocalServiceUtil.addUser(themeDisplay.getUserId(),
 						themeDisplay.getCompanyId(), false, password, password,
-						true, username + "screenName", username
+						true, "", username
 								+ "@liferay.com", 0L, "",
-						themeDisplay.getLocale(), username + firstName,
-						middleName, username + lastName, 0, 0, false, 0, 1,
-						1970, "Job Title", null, null, null, null, false,
+						themeDisplay.getLocale(), firstName,
+						middleName,  lastName, 0, 0, false, 0, 1,
+						1970, "", null, null, null, null, false,
 						new ServiceContext());
+			}
 				if (user.getExpandoBridge().hasAttribute("employeeId")) {
 					user.getExpandoBridge().setAttribute("employeeId",
 							String.valueOf(employee.getEmployeeId()));
@@ -1311,9 +1512,10 @@ public class EmployeeAction extends MVCPortlet {
 							String.valueOf(employee.getEmployeeId()));
 					UserLocalServiceUtil.updateUser(user);
 				}
-			} catch (PortalException e) {
-				log.error("Error while adding expando attribute to User table");
-			}
+				
+				catch (PortalException e) {
+				log.error("Error in updating employee with user details",e);
+				}
 			if (user != null) {
 				Employee employee2 = null;
 				try {
@@ -1342,7 +1544,7 @@ public class EmployeeAction extends MVCPortlet {
 				fileEntry.getFileEntryId(), "jsp0");
 		actionRequest.getPortletSession(true).setAttribute("empId", map,PortletSession.APPLICATION_SCOPE);
 
-	}
+	}*/
 	public void updateEmpDocuments(ActionRequest actionRequest,
 			ActionResponse actionResponse) throws PortletException,
 			SystemException {
@@ -1361,7 +1563,7 @@ public class EmployeeAction extends MVCPortlet {
 		ServiceContext serviceContext = null;
 		String changeLog = ParamUtil.getString(uploadRequest, "changeLog");
 		String contentType = MimeTypesUtil.getContentType(document);
-		FileEntry fileEntry = null;
+		FileEntry fileEntry = null;EmpAttachment empAttachment=null;
 			try {
 				serviceContext = ServiceContextFactory.getInstance(
 						DLFileEntry.class.getName(), actionRequest);
@@ -1371,12 +1573,37 @@ public class EmployeeAction extends MVCPortlet {
 			try {
 				fileEntry = DLAppLocalServiceUtil.addFileEntry(
 						themeDisplay.getUserId(), themeDisplay.getScopeGroupId(),
-						0, fileName, contentType, fileName, description, " ",
+						0, fileName+date.getTime(), contentType, fileName+date.getTime(), description, " ",
 						document, serviceContext);
 			} catch (PortalException e1) {
 				log.error("Error in saving employee documents", e1);
 			}
-		if (fileEntry != null) {
+			if(fileEntry!=null)
+			{
+				String fileExt=fileEntry.getExtension();
+				String regex="[0-9]";
+				Pattern pattern=Pattern.compile(regex);
+				Matcher matcher=pattern.matcher(fileExt);
+				if(matcher.find())
+				{
+					fileExt=fileExt.substring(0	, matcher.start());
+				}
+				empAttachment=EmpAttachmentLocalServiceUtil.createEmpAttachment(CounterLocalServiceUtil.increment());
+				empAttachment.setAttachmentTypeId(fileEntry.getFileEntryId());
+				empAttachment.setUuid(fileEntry.getUuid());
+				empAttachment.setCreateDate(fileEntry.getCreateDate());
+				empAttachment.setModifiedDate(fileEntry.getModifiedDate());
+				empAttachment.setEmployeeId(employeeId);
+				empAttachment.setRelatedTo(docCategory);
+				empAttachment.setFileName(fileName);
+				empAttachment.setFileSize(fileEntry.getSize());
+				empAttachment.setFileType(fileExt);
+				empAttachment.setUserName(fileEntry.getUserName());
+				empAttachment.setComment(description);
+				EmpAttachmentLocalServiceUtil.addEmpAttachment(empAttachment);
+				
+			}
+		/*if (fileEntry != null) {
 			if (fileEntry.getExpandoBridge().hasAttribute("employeeId")) {
 				fileEntry.getExpandoBridge().setAttribute("employeeId",String.valueOf(employeeId));
 			}
@@ -1396,23 +1623,98 @@ public class EmployeeAction extends MVCPortlet {
 						changeLog, false, document, serviceContext);
 			} catch (PortalException e) {
 				log.error("Error while updating employee documents", e);
-			}
+			}*/
 			Map<String, Comparable> map =setSessionAttributes(employeeId, fileEntryId, "jsp12");
 			actionRequest.getPortletSession(true).setAttribute("empId", map,PortletSession.APPLICATION_SCOPE);
 			actionResponse.setRenderParameter("jspPage","/html/employee/edit_employee.jsp");
-		} else {
+			/*} else {
 			log.error("Error occured while adding documents of employee");
 		}
-
+*/
 	}
 	public void doView(RenderRequest renderRequest,RenderResponse renderResponse)
-	{
+	{ 
 		String jsp=renderRequest.getParameter("jsp");
 		long fileEntryId = ParamUtil.getLong(renderRequest, "fileId");
 		Long empId = ParamUtil.getLong(renderRequest, "empId");
+		PortletSession addEmpSession=renderRequest.getPortletSession();
 		String employeeJsp="/html/employee/edit_employee.jsp";
-		if(jsp!=null)
+		String empListJsp="/html/employee/employeelist.jsp";
+		
+		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		long companyId=themeDisplay.getCompanyId();
+		long userId=themeDisplay.getUserId();
+		long groupId=0;
+		try {
+			groupId=themeDisplay.getLayout().getGroup().getGroupId();
+		} catch (PortalException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		} catch (SystemException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		}
+		long layoutId=themeDisplay.getLayout().getLayoutId();
+		Role role=null;
+		Employee employee=null;
+		Layout layout=null;
+		try  {
+			layout=LayoutLocalServiceUtil.getLayout( groupId,false,layoutId);
+			log.info("layout object is "+layout);
+		      } catch (PortalException e2) {
+			log.info("Error in getting the layout with primary key"+layoutId,e2);
+		      } catch (SystemException e2) {
+			log.info("Error in getting the layout with primary key"+layoutId,e2);
+		  }
+		
+	
+		DynamicQuery dynamicQuery=DynamicQueryFactoryUtil.forClass(Employee.class,PortletClassLoaderUtil.getClassLoader());
+		dynamicQuery.add(PropertyFactoryUtil.forName("assignedUserId").eq(userId));
+		try {
+			role=RoleLocalServiceUtil.getRole(companyId,"Hrm user");
+			log.info("role object is "+role);
+			List<Employee> empList=EmployeeLocalServiceUtil.dynamicQuery(dynamicQuery);
+			if(empList!=null && empList.size()!=0)
+			    {
+				employee=empList.get(0);
+		    	}
+      		} catch (PortalException e1) {
+		        log.info("Role is "+role,e1);
+	        } catch (SystemException e1) {
+		        log.info("Role is "+role,e1);
+      		}
+		if(role!=null && employee!=null) 
 		{
+			if(role.getName().equalsIgnoreCase("Hrm User") && userId==employee.getAssignedUserId())
+			{
+				if(layout!=null)
+				{
+					layout.setName("My Info");
+					try {
+						LayoutLocalServiceUtil.updateLayout(layout);
+						log.info("layout name is "+layout.getTitle());
+					} catch (SystemException e) {
+						log.info("Cannot change layout title in at user role hrm",e);
+					}
+				}
+			}
+			else
+			{
+				if(layout!=null)
+				{
+					layout.setName("Employee List");
+					try {
+						LayoutLocalServiceUtil.updateLayout(layout);
+						log.info("layout name is "+layout.getTitle());
+					} catch (SystemException e) {
+						log.info("Cannot change layout title in at user role hrm",e);
+					}
+				}
+			}
+		}
+		Map employeeMap=(Map)renderRequest.getPortletSession(false).getAttribute("empId",addEmpSession.APPLICATION_SCOPE);
+		if(jsp!=null)
+		{ 
 			Map<String, Comparable> map = setSessionAttributes(empId, fileEntryId, jsp);
 			renderRequest.getPortletSession(true).setAttribute("empId", map,
 					PortletSession.APPLICATION_SCOPE);
@@ -1424,16 +1726,50 @@ public class EmployeeAction extends MVCPortlet {
 					log.error("Error in getting requested jsp", e);
 			}
 		}
+		else if(employeeMap!=null && employeeMap.get("jsp")=="empEditJsp" && (Long)employeeMap.get("empId")!=0 && AddEmployee.checkPageRedirect>checkRedirect)
+		{
+			
+			Map<String, Comparable> map = setSessionAttributes((Long)employeeMap.get("empId"), 
+					(Long)employeeMap.get("fileId"),(String) employeeMap.get("jsp"));
+			renderRequest.getPortletSession(true).setAttribute("empId", map,
+					PortletSession.APPLICATION_SCOPE);
+			try {
+				this.include(employeeJsp, renderRequest, renderResponse);
+			} catch (IOException e) {
+				log.error("Error in getting requested jsp", e);
+			} catch (PortletException e) {
+				log.error("Error in getting requested jsp", e);
+			}
+				checkRedirect++;
+		}
+		else if(role!=null && employee!=null) 
+		{
+			if(role.getName().equalsIgnoreCase("Hrm User") && userId==employee.getAssignedUserId())
+			{
+			Map<String, Comparable> map = setSessionAttributes(employee.getEmployeeId(), employee.getImageId(), "jsp0");
+			renderRequest.getPortletSession(true).setAttribute("empId", map,
+					PortletSession.APPLICATION_SCOPE);
+			try {
+					this.include(employeeJsp, renderRequest, renderResponse);
+				} catch (IOException e) {
+					log.error("Error in getting requested jsp", e);
+				} catch (PortletException e) {
+					log.error("Error in getting requested jsp", e);
+			 }
+			}
+		}
 		else 
 		{
+			log.info("In else block of doView");
 			try {
-				this.include(viewTemplate, renderRequest, renderResponse);
+				this.include(empListJsp, renderRequest, renderResponse);
 			} catch (IOException e) {
 				log.error("Error in getting requested jsp", e);
 			} catch (PortletException e) {
 				log.error("Error in getting requested jsp", e);
 			}
 		}
+		
 	}
 	
 }
