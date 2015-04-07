@@ -244,4 +244,9 @@ public interface NewsLocalService extends BaseLocalService, InvokableLocalServic
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
+
+	public java.util.List<com.rknowsys.eapp.hrm.model.News> findNewsDetails(
+		java.lang.String topic, java.lang.String status, long groupId,
+		int begin, int end)
+		throws com.liferay.portal.kernel.exception.SystemException;
 }

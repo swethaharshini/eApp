@@ -15,6 +15,8 @@
 package com.rknowsys.eapp.hrm.service.impl;
 
 import com.rknowsys.eapp.hrm.service.base.LeaveTypeEmployeeGroupsLocalServiceBaseImpl;
+import com.rknowsys.eapp.hrm.service.persistence.LeaveGeneralUtil;
+import com.rknowsys.eapp.hrm.service.persistence.LeaveTypeEmployeeGroupsUtil;
 
 /**
  * The implementation of the leave type employee groups local service.
@@ -37,4 +39,13 @@ public class LeaveTypeEmployeeGroupsLocalServiceImpl
 	 *
 	 * Never reference this interface directly. Always use {@link com.rknowsys.eapp.hrm.service.LeaveTypeEmployeeGroupsLocalServiceUtil} to access the leave type employee groups local service.
 	 */
+	 public  java.util.List<com.rknowsys.eapp.hrm.model.LeaveTypeEmployeeGroups>
+	 findByLeaveTypeId(
+				long leaveTypeId)
+
+	throws com.liferay.portal.kernel.exception.SystemException {
+
+	return LeaveTypeEmployeeGroupsUtil.findByLeaveTypeId(leaveTypeId);
+
+	}
 }

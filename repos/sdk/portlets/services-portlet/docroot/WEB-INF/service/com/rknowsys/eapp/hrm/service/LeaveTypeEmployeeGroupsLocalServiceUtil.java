@@ -280,6 +280,12 @@ public class LeaveTypeEmployeeGroupsLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static java.util.List<com.rknowsys.eapp.hrm.model.LeaveTypeEmployeeGroups> findByLeaveTypeId(
+		long leaveTypeId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().findByLeaveTypeId(leaveTypeId);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

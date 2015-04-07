@@ -37,7 +37,7 @@ import java.util.Date;
 public class NewsCacheModel implements CacheModel<News>, Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(29);
 
 		sb.append("{newsId=");
 		sb.append(newsId);
@@ -55,10 +55,18 @@ public class NewsCacheModel implements CacheModel<News>, Externalizable {
 		sb.append(topic);
 		sb.append(", description=");
 		sb.append(description);
-		sb.append(", publishTo=");
-		sb.append(publishTo);
 		sb.append(", publishDate=");
 		sb.append(publishDate);
+		sb.append(", status=");
+		sb.append(status);
+		sb.append(", admin=");
+		sb.append(admin);
+		sb.append(", supervisor=");
+		sb.append(supervisor);
+		sb.append(", allEmployees=");
+		sb.append(allEmployees);
+		sb.append(", publishedTo=");
+		sb.append(publishedTo);
 		sb.append("}");
 
 		return sb.toString();
@@ -102,18 +110,23 @@ public class NewsCacheModel implements CacheModel<News>, Externalizable {
 			newsImpl.setDescription(description);
 		}
 
-		if (publishTo == null) {
-			newsImpl.setPublishTo(StringPool.BLANK);
-		}
-		else {
-			newsImpl.setPublishTo(publishTo);
-		}
-
 		if (publishDate == Long.MIN_VALUE) {
 			newsImpl.setPublishDate(null);
 		}
 		else {
 			newsImpl.setPublishDate(new Date(publishDate));
+		}
+
+		newsImpl.setStatus(status);
+		newsImpl.setAdmin(admin);
+		newsImpl.setSupervisor(supervisor);
+		newsImpl.setAllEmployees(allEmployees);
+
+		if (publishedTo == null) {
+			newsImpl.setPublishedTo(StringPool.BLANK);
+		}
+		else {
+			newsImpl.setPublishedTo(publishedTo);
 		}
 
 		newsImpl.resetOriginalValues();
@@ -131,8 +144,12 @@ public class NewsCacheModel implements CacheModel<News>, Externalizable {
 		userId = objectInput.readLong();
 		topic = objectInput.readUTF();
 		description = objectInput.readUTF();
-		publishTo = objectInput.readUTF();
 		publishDate = objectInput.readLong();
+		status = objectInput.readBoolean();
+		admin = objectInput.readBoolean();
+		supervisor = objectInput.readBoolean();
+		allEmployees = objectInput.readBoolean();
+		publishedTo = objectInput.readUTF();
 	}
 
 	@Override
@@ -159,14 +176,18 @@ public class NewsCacheModel implements CacheModel<News>, Externalizable {
 			objectOutput.writeUTF(description);
 		}
 
-		if (publishTo == null) {
+		objectOutput.writeLong(publishDate);
+		objectOutput.writeBoolean(status);
+		objectOutput.writeBoolean(admin);
+		objectOutput.writeBoolean(supervisor);
+		objectOutput.writeBoolean(allEmployees);
+
+		if (publishedTo == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
 		}
 		else {
-			objectOutput.writeUTF(publishTo);
+			objectOutput.writeUTF(publishedTo);
 		}
-
-		objectOutput.writeLong(publishDate);
 	}
 
 	public long newsId;
@@ -177,6 +198,10 @@ public class NewsCacheModel implements CacheModel<News>, Externalizable {
 	public long userId;
 	public String topic;
 	public String description;
-	public String publishTo;
 	public long publishDate;
+	public boolean status;
+	public boolean admin;
+	public boolean supervisor;
+	public boolean allEmployees;
+	public String publishedTo;
 }

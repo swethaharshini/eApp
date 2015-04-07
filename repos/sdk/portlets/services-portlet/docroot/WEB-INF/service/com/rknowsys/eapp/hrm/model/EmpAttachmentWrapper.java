@@ -17,8 +17,6 @@ package com.rknowsys.eapp.hrm.model;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
-import java.sql.Blob;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,10 +58,12 @@ public class EmpAttachmentWrapper implements EmpAttachment,
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("attachmentTypeId", getAttachmentTypeId());
+		attributes.put("uuid", getUuid());
+		attributes.put("relatedTo", getRelatedTo());
+		attributes.put("userName", getUserName());
 		attributes.put("fileName", getFileName());
 		attributes.put("fileSize", getFileSize());
 		attributes.put("fileType", getFileType());
-		attributes.put("file", getFile());
 		attributes.put("comment", getComment());
 
 		return attributes;
@@ -119,6 +119,24 @@ public class EmpAttachmentWrapper implements EmpAttachment,
 			setAttachmentTypeId(attachmentTypeId);
 		}
 
+		String uuid = (String)attributes.get("uuid");
+
+		if (uuid != null) {
+			setUuid(uuid);
+		}
+
+		String relatedTo = (String)attributes.get("relatedTo");
+
+		if (relatedTo != null) {
+			setRelatedTo(relatedTo);
+		}
+
+		String userName = (String)attributes.get("userName");
+
+		if (userName != null) {
+			setUserName(userName);
+		}
+
 		String fileName = (String)attributes.get("fileName");
 
 		if (fileName != null) {
@@ -135,12 +153,6 @@ public class EmpAttachmentWrapper implements EmpAttachment,
 
 		if (fileType != null) {
 			setFileType(fileType);
-		}
-
-		Blob file = (Blob)attributes.get("file");
-
-		if (file != null) {
-			setFile(file);
 		}
 
 		String comment = (String)attributes.get("comment");
@@ -353,6 +365,66 @@ public class EmpAttachmentWrapper implements EmpAttachment,
 	}
 
 	/**
+	* Returns the uuid of this EmpAttachment.
+	*
+	* @return the uuid of this EmpAttachment
+	*/
+	@Override
+	public java.lang.String getUuid() {
+		return _empAttachment.getUuid();
+	}
+
+	/**
+	* Sets the uuid of this EmpAttachment.
+	*
+	* @param uuid the uuid of this EmpAttachment
+	*/
+	@Override
+	public void setUuid(java.lang.String uuid) {
+		_empAttachment.setUuid(uuid);
+	}
+
+	/**
+	* Returns the related to of this EmpAttachment.
+	*
+	* @return the related to of this EmpAttachment
+	*/
+	@Override
+	public java.lang.String getRelatedTo() {
+		return _empAttachment.getRelatedTo();
+	}
+
+	/**
+	* Sets the related to of this EmpAttachment.
+	*
+	* @param relatedTo the related to of this EmpAttachment
+	*/
+	@Override
+	public void setRelatedTo(java.lang.String relatedTo) {
+		_empAttachment.setRelatedTo(relatedTo);
+	}
+
+	/**
+	* Returns the user name of this EmpAttachment.
+	*
+	* @return the user name of this EmpAttachment
+	*/
+	@Override
+	public java.lang.String getUserName() {
+		return _empAttachment.getUserName();
+	}
+
+	/**
+	* Sets the user name of this EmpAttachment.
+	*
+	* @param userName the user name of this EmpAttachment
+	*/
+	@Override
+	public void setUserName(java.lang.String userName) {
+		_empAttachment.setUserName(userName);
+	}
+
+	/**
 	* Returns the file name of this EmpAttachment.
 	*
 	* @return the file name of this EmpAttachment
@@ -410,26 +482,6 @@ public class EmpAttachmentWrapper implements EmpAttachment,
 	@Override
 	public void setFileType(java.lang.String fileType) {
 		_empAttachment.setFileType(fileType);
-	}
-
-	/**
-	* Returns the file of this EmpAttachment.
-	*
-	* @return the file of this EmpAttachment
-	*/
-	@Override
-	public java.sql.Blob getFile() {
-		return _empAttachment.getFile();
-	}
-
-	/**
-	* Sets the file of this EmpAttachment.
-	*
-	* @param file the file of this EmpAttachment
-	*/
-	@Override
-	public void setFile(java.sql.Blob file) {
-		_empAttachment.setFile(file);
 	}
 
 	/**

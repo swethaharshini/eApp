@@ -82,8 +82,12 @@ public class NewsClp extends BaseModelImpl<News> implements News {
 		attributes.put("userId", getUserId());
 		attributes.put("topic", getTopic());
 		attributes.put("description", getDescription());
-		attributes.put("publishTo", getPublishTo());
 		attributes.put("publishDate", getPublishDate());
+		attributes.put("status", getStatus());
+		attributes.put("admin", getAdmin());
+		attributes.put("supervisor", getSupervisor());
+		attributes.put("allEmployees", getAllEmployees());
+		attributes.put("publishedTo", getPublishedTo());
 
 		return attributes;
 	}
@@ -138,16 +142,40 @@ public class NewsClp extends BaseModelImpl<News> implements News {
 			setDescription(description);
 		}
 
-		String publishTo = (String)attributes.get("publishTo");
-
-		if (publishTo != null) {
-			setPublishTo(publishTo);
-		}
-
 		Date publishDate = (Date)attributes.get("publishDate");
 
 		if (publishDate != null) {
 			setPublishDate(publishDate);
+		}
+
+		Boolean status = (Boolean)attributes.get("status");
+
+		if (status != null) {
+			setStatus(status);
+		}
+
+		Boolean admin = (Boolean)attributes.get("admin");
+
+		if (admin != null) {
+			setAdmin(admin);
+		}
+
+		Boolean supervisor = (Boolean)attributes.get("supervisor");
+
+		if (supervisor != null) {
+			setSupervisor(supervisor);
+		}
+
+		Boolean allEmployees = (Boolean)attributes.get("allEmployees");
+
+		if (allEmployees != null) {
+			setAllEmployees(allEmployees);
+		}
+
+		String publishedTo = (String)attributes.get("publishedTo");
+
+		if (publishedTo != null) {
+			setPublishedTo(publishedTo);
 		}
 	}
 
@@ -346,29 +374,6 @@ public class NewsClp extends BaseModelImpl<News> implements News {
 	}
 
 	@Override
-	public String getPublishTo() {
-		return _publishTo;
-	}
-
-	@Override
-	public void setPublishTo(String publishTo) {
-		_publishTo = publishTo;
-
-		if (_newsRemoteModel != null) {
-			try {
-				Class<?> clazz = _newsRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setPublishTo", String.class);
-
-				method.invoke(_newsRemoteModel, publishTo);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
 	public Date getPublishDate() {
 		return _publishDate;
 	}
@@ -384,6 +389,141 @@ public class NewsClp extends BaseModelImpl<News> implements News {
 				Method method = clazz.getMethod("setPublishDate", Date.class);
 
 				method.invoke(_newsRemoteModel, publishDate);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public boolean getStatus() {
+		return _status;
+	}
+
+	@Override
+	public boolean isStatus() {
+		return _status;
+	}
+
+	@Override
+	public void setStatus(boolean status) {
+		_status = status;
+
+		if (_newsRemoteModel != null) {
+			try {
+				Class<?> clazz = _newsRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setStatus", boolean.class);
+
+				method.invoke(_newsRemoteModel, status);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public boolean getAdmin() {
+		return _admin;
+	}
+
+	@Override
+	public boolean isAdmin() {
+		return _admin;
+	}
+
+	@Override
+	public void setAdmin(boolean admin) {
+		_admin = admin;
+
+		if (_newsRemoteModel != null) {
+			try {
+				Class<?> clazz = _newsRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setAdmin", boolean.class);
+
+				method.invoke(_newsRemoteModel, admin);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public boolean getSupervisor() {
+		return _supervisor;
+	}
+
+	@Override
+	public boolean isSupervisor() {
+		return _supervisor;
+	}
+
+	@Override
+	public void setSupervisor(boolean supervisor) {
+		_supervisor = supervisor;
+
+		if (_newsRemoteModel != null) {
+			try {
+				Class<?> clazz = _newsRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setSupervisor", boolean.class);
+
+				method.invoke(_newsRemoteModel, supervisor);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public boolean getAllEmployees() {
+		return _allEmployees;
+	}
+
+	@Override
+	public boolean isAllEmployees() {
+		return _allEmployees;
+	}
+
+	@Override
+	public void setAllEmployees(boolean allEmployees) {
+		_allEmployees = allEmployees;
+
+		if (_newsRemoteModel != null) {
+			try {
+				Class<?> clazz = _newsRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setAllEmployees", boolean.class);
+
+				method.invoke(_newsRemoteModel, allEmployees);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getPublishedTo() {
+		return _publishedTo;
+	}
+
+	@Override
+	public void setPublishedTo(String publishedTo) {
+		_publishedTo = publishedTo;
+
+		if (_newsRemoteModel != null) {
+			try {
+				Class<?> clazz = _newsRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setPublishedTo", String.class);
+
+				method.invoke(_newsRemoteModel, publishedTo);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -468,8 +608,12 @@ public class NewsClp extends BaseModelImpl<News> implements News {
 		clone.setUserId(getUserId());
 		clone.setTopic(getTopic());
 		clone.setDescription(getDescription());
-		clone.setPublishTo(getPublishTo());
 		clone.setPublishDate(getPublishDate());
+		clone.setStatus(getStatus());
+		clone.setAdmin(getAdmin());
+		clone.setSupervisor(getSupervisor());
+		clone.setAllEmployees(getAllEmployees());
+		clone.setPublishedTo(getPublishedTo());
 
 		return clone;
 	}
@@ -518,7 +662,7 @@ public class NewsClp extends BaseModelImpl<News> implements News {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(29);
 
 		sb.append("{newsId=");
 		sb.append(getNewsId());
@@ -536,10 +680,18 @@ public class NewsClp extends BaseModelImpl<News> implements News {
 		sb.append(getTopic());
 		sb.append(", description=");
 		sb.append(getDescription());
-		sb.append(", publishTo=");
-		sb.append(getPublishTo());
 		sb.append(", publishDate=");
 		sb.append(getPublishDate());
+		sb.append(", status=");
+		sb.append(getStatus());
+		sb.append(", admin=");
+		sb.append(getAdmin());
+		sb.append(", supervisor=");
+		sb.append(getSupervisor());
+		sb.append(", allEmployees=");
+		sb.append(getAllEmployees());
+		sb.append(", publishedTo=");
+		sb.append(getPublishedTo());
 		sb.append("}");
 
 		return sb.toString();
@@ -547,7 +699,7 @@ public class NewsClp extends BaseModelImpl<News> implements News {
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(34);
+		StringBundler sb = new StringBundler(46);
 
 		sb.append("<model><model-name>");
 		sb.append("com.rknowsys.eapp.hrm.model.News");
@@ -586,12 +738,28 @@ public class NewsClp extends BaseModelImpl<News> implements News {
 		sb.append(getDescription());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>publishTo</column-name><column-value><![CDATA[");
-		sb.append(getPublishTo());
-		sb.append("]]></column-value></column>");
-		sb.append(
 			"<column><column-name>publishDate</column-name><column-value><![CDATA[");
 		sb.append(getPublishDate());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>status</column-name><column-value><![CDATA[");
+		sb.append(getStatus());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>admin</column-name><column-value><![CDATA[");
+		sb.append(getAdmin());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>supervisor</column-name><column-value><![CDATA[");
+		sb.append(getSupervisor());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>allEmployees</column-name><column-value><![CDATA[");
+		sb.append(getAllEmployees());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>publishedTo</column-name><column-value><![CDATA[");
+		sb.append(getPublishedTo());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -608,7 +776,11 @@ public class NewsClp extends BaseModelImpl<News> implements News {
 	private String _userUuid;
 	private String _topic;
 	private String _description;
-	private String _publishTo;
 	private Date _publishDate;
+	private boolean _status;
+	private boolean _admin;
+	private boolean _supervisor;
+	private boolean _allEmployees;
+	private String _publishedTo;
 	private BaseModel<?> _newsRemoteModel;
 }

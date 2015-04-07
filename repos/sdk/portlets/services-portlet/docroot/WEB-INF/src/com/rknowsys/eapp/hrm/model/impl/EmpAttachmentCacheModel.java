@@ -38,7 +38,7 @@ public class EmpAttachmentCacheModel implements CacheModel<EmpAttachment>,
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(25);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("{empAttachmentId=");
 		sb.append(empAttachmentId);
@@ -56,6 +56,12 @@ public class EmpAttachmentCacheModel implements CacheModel<EmpAttachment>,
 		sb.append(modifiedDate);
 		sb.append(", attachmentTypeId=");
 		sb.append(attachmentTypeId);
+		sb.append(", uuid=");
+		sb.append(uuid);
+		sb.append(", relatedTo=");
+		sb.append(relatedTo);
+		sb.append(", userName=");
+		sb.append(userName);
 		sb.append(", fileName=");
 		sb.append(fileName);
 		sb.append(", fileSize=");
@@ -95,6 +101,27 @@ public class EmpAttachmentCacheModel implements CacheModel<EmpAttachment>,
 
 		empAttachmentImpl.setAttachmentTypeId(attachmentTypeId);
 
+		if (uuid == null) {
+			empAttachmentImpl.setUuid(StringPool.BLANK);
+		}
+		else {
+			empAttachmentImpl.setUuid(uuid);
+		}
+
+		if (relatedTo == null) {
+			empAttachmentImpl.setRelatedTo(StringPool.BLANK);
+		}
+		else {
+			empAttachmentImpl.setRelatedTo(relatedTo);
+		}
+
+		if (userName == null) {
+			empAttachmentImpl.setUserName(StringPool.BLANK);
+		}
+		else {
+			empAttachmentImpl.setUserName(userName);
+		}
+
 		if (fileName == null) {
 			empAttachmentImpl.setFileName(StringPool.BLANK);
 		}
@@ -133,6 +160,9 @@ public class EmpAttachmentCacheModel implements CacheModel<EmpAttachment>,
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		attachmentTypeId = objectInput.readLong();
+		uuid = objectInput.readUTF();
+		relatedTo = objectInput.readUTF();
+		userName = objectInput.readUTF();
 		fileName = objectInput.readUTF();
 		fileSize = objectInput.readLong();
 		fileType = objectInput.readUTF();
@@ -150,6 +180,27 @@ public class EmpAttachmentCacheModel implements CacheModel<EmpAttachment>,
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 		objectOutput.writeLong(attachmentTypeId);
+
+		if (uuid == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(uuid);
+		}
+
+		if (relatedTo == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(relatedTo);
+		}
+
+		if (userName == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(userName);
+		}
 
 		if (fileName == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
@@ -183,6 +234,9 @@ public class EmpAttachmentCacheModel implements CacheModel<EmpAttachment>,
 	public long createDate;
 	public long modifiedDate;
 	public long attachmentTypeId;
+	public String uuid;
+	public String relatedTo;
+	public String userName;
 	public String fileName;
 	public long fileSize;
 	public String fileType;

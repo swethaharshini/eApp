@@ -38,8 +38,12 @@ public class NewsSoap implements Serializable {
 		soapModel.setUserId(model.getUserId());
 		soapModel.setTopic(model.getTopic());
 		soapModel.setDescription(model.getDescription());
-		soapModel.setPublishTo(model.getPublishTo());
 		soapModel.setPublishDate(model.getPublishDate());
+		soapModel.setStatus(model.getStatus());
+		soapModel.setAdmin(model.getAdmin());
+		soapModel.setSupervisor(model.getSupervisor());
+		soapModel.setAllEmployees(model.getAllEmployees());
+		soapModel.setPublishedTo(model.getPublishedTo());
 
 		return soapModel;
 	}
@@ -156,20 +160,68 @@ public class NewsSoap implements Serializable {
 		_description = description;
 	}
 
-	public String getPublishTo() {
-		return _publishTo;
-	}
-
-	public void setPublishTo(String publishTo) {
-		_publishTo = publishTo;
-	}
-
 	public Date getPublishDate() {
 		return _publishDate;
 	}
 
 	public void setPublishDate(Date publishDate) {
 		_publishDate = publishDate;
+	}
+
+	public boolean getStatus() {
+		return _status;
+	}
+
+	public boolean isStatus() {
+		return _status;
+	}
+
+	public void setStatus(boolean status) {
+		_status = status;
+	}
+
+	public boolean getAdmin() {
+		return _admin;
+	}
+
+	public boolean isAdmin() {
+		return _admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		_admin = admin;
+	}
+
+	public boolean getSupervisor() {
+		return _supervisor;
+	}
+
+	public boolean isSupervisor() {
+		return _supervisor;
+	}
+
+	public void setSupervisor(boolean supervisor) {
+		_supervisor = supervisor;
+	}
+
+	public boolean getAllEmployees() {
+		return _allEmployees;
+	}
+
+	public boolean isAllEmployees() {
+		return _allEmployees;
+	}
+
+	public void setAllEmployees(boolean allEmployees) {
+		_allEmployees = allEmployees;
+	}
+
+	public String getPublishedTo() {
+		return _publishedTo;
+	}
+
+	public void setPublishedTo(String publishedTo) {
+		_publishedTo = publishedTo;
 	}
 
 	private long _newsId;
@@ -180,6 +232,10 @@ public class NewsSoap implements Serializable {
 	private long _userId;
 	private String _topic;
 	private String _description;
-	private String _publishTo;
 	private Date _publishDate;
+	private boolean _status;
+	private boolean _admin;
+	private boolean _supervisor;
+	private boolean _allEmployees;
+	private String _publishedTo;
 }

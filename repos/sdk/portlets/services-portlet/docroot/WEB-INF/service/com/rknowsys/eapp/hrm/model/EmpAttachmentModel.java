@@ -18,13 +18,12 @@ import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.CacheModel;
+import com.liferay.portal.model.GroupedModel;
 import com.liferay.portal.service.ServiceContext;
 
 import com.liferay.portlet.expando.model.ExpandoBridge;
 
 import java.io.Serializable;
-
-import java.sql.Blob;
 
 import java.util.Date;
 
@@ -41,7 +40,8 @@ import java.util.Date;
  * @see com.rknowsys.eapp.hrm.model.impl.EmpAttachmentModelImpl
  * @generated
  */
-public interface EmpAttachmentModel extends BaseModel<EmpAttachment> {
+public interface EmpAttachmentModel extends BaseModel<EmpAttachment>,
+	GroupedModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -95,6 +95,7 @@ public interface EmpAttachmentModel extends BaseModel<EmpAttachment> {
 	 *
 	 * @return the group ID of this EmpAttachment
 	 */
+	@Override
 	public long getGroupId();
 
 	/**
@@ -102,6 +103,7 @@ public interface EmpAttachmentModel extends BaseModel<EmpAttachment> {
 	 *
 	 * @param groupId the group ID of this EmpAttachment
 	 */
+	@Override
 	public void setGroupId(long groupId);
 
 	/**
@@ -109,6 +111,7 @@ public interface EmpAttachmentModel extends BaseModel<EmpAttachment> {
 	 *
 	 * @return the company ID of this EmpAttachment
 	 */
+	@Override
 	public long getCompanyId();
 
 	/**
@@ -116,6 +119,7 @@ public interface EmpAttachmentModel extends BaseModel<EmpAttachment> {
 	 *
 	 * @param companyId the company ID of this EmpAttachment
 	 */
+	@Override
 	public void setCompanyId(long companyId);
 
 	/**
@@ -123,6 +127,7 @@ public interface EmpAttachmentModel extends BaseModel<EmpAttachment> {
 	 *
 	 * @return the user ID of this EmpAttachment
 	 */
+	@Override
 	public long getUserId();
 
 	/**
@@ -130,6 +135,7 @@ public interface EmpAttachmentModel extends BaseModel<EmpAttachment> {
 	 *
 	 * @param userId the user ID of this EmpAttachment
 	 */
+	@Override
 	public void setUserId(long userId);
 
 	/**
@@ -138,6 +144,7 @@ public interface EmpAttachmentModel extends BaseModel<EmpAttachment> {
 	 * @return the user uuid of this EmpAttachment
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public String getUserUuid() throws SystemException;
 
 	/**
@@ -145,6 +152,7 @@ public interface EmpAttachmentModel extends BaseModel<EmpAttachment> {
 	 *
 	 * @param userUuid the user uuid of this EmpAttachment
 	 */
+	@Override
 	public void setUserUuid(String userUuid);
 
 	/**
@@ -152,6 +160,7 @@ public interface EmpAttachmentModel extends BaseModel<EmpAttachment> {
 	 *
 	 * @return the create date of this EmpAttachment
 	 */
+	@Override
 	public Date getCreateDate();
 
 	/**
@@ -159,6 +168,7 @@ public interface EmpAttachmentModel extends BaseModel<EmpAttachment> {
 	 *
 	 * @param createDate the create date of this EmpAttachment
 	 */
+	@Override
 	public void setCreateDate(Date createDate);
 
 	/**
@@ -166,6 +176,7 @@ public interface EmpAttachmentModel extends BaseModel<EmpAttachment> {
 	 *
 	 * @return the modified date of this EmpAttachment
 	 */
+	@Override
 	public Date getModifiedDate();
 
 	/**
@@ -173,6 +184,7 @@ public interface EmpAttachmentModel extends BaseModel<EmpAttachment> {
 	 *
 	 * @param modifiedDate the modified date of this EmpAttachment
 	 */
+	@Override
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
@@ -188,6 +200,53 @@ public interface EmpAttachmentModel extends BaseModel<EmpAttachment> {
 	 * @param attachmentTypeId the attachment type ID of this EmpAttachment
 	 */
 	public void setAttachmentTypeId(long attachmentTypeId);
+
+	/**
+	 * Returns the uuid of this EmpAttachment.
+	 *
+	 * @return the uuid of this EmpAttachment
+	 */
+	@AutoEscape
+	public String getUuid();
+
+	/**
+	 * Sets the uuid of this EmpAttachment.
+	 *
+	 * @param uuid the uuid of this EmpAttachment
+	 */
+	public void setUuid(String uuid);
+
+	/**
+	 * Returns the related to of this EmpAttachment.
+	 *
+	 * @return the related to of this EmpAttachment
+	 */
+	@AutoEscape
+	public String getRelatedTo();
+
+	/**
+	 * Sets the related to of this EmpAttachment.
+	 *
+	 * @param relatedTo the related to of this EmpAttachment
+	 */
+	public void setRelatedTo(String relatedTo);
+
+	/**
+	 * Returns the user name of this EmpAttachment.
+	 *
+	 * @return the user name of this EmpAttachment
+	 */
+	@AutoEscape
+	@Override
+	public String getUserName();
+
+	/**
+	 * Sets the user name of this EmpAttachment.
+	 *
+	 * @param userName the user name of this EmpAttachment
+	 */
+	@Override
+	public void setUserName(String userName);
 
 	/**
 	 * Returns the file name of this EmpAttachment.
@@ -232,20 +291,6 @@ public interface EmpAttachmentModel extends BaseModel<EmpAttachment> {
 	 * @param fileType the file type of this EmpAttachment
 	 */
 	public void setFileType(String fileType);
-
-	/**
-	 * Returns the file of this EmpAttachment.
-	 *
-	 * @return the file of this EmpAttachment
-	 */
-	public Blob getFile();
-
-	/**
-	 * Sets the file of this EmpAttachment.
-	 *
-	 * @param file the file of this EmpAttachment
-	 */
-	public void setFile(Blob file);
 
 	/**
 	 * Returns the comment of this EmpAttachment.
