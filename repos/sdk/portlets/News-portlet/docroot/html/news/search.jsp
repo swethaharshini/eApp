@@ -133,7 +133,7 @@ RowChecker rowChecker = new RowChecker(renderResponse);
 	    System.out.println("status == " +status);
 	    List<News> newslist = new ArrayList<News>();
 	    try{
-		newslist = NewsLocalServiceUtil.getNewses(-1, -1);
+		newslist = NewsLocalServiceUtil.findNewsDetails(topicname, status, groupId, -1, -1);
 	    
 	    }
 	    catch(Exception e){
