@@ -290,6 +290,13 @@ public class LeaveTypeEmployeeGroupsLocalServiceWrapper
 			parameterTypes, arguments);
 	}
 
+	@Override
+	public java.util.List<com.rknowsys.eapp.hrm.model.LeaveTypeEmployeeGroups> findByLeaveTypeId(
+		long leaveTypeId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _leaveTypeEmployeeGroupsLocalService.findByLeaveTypeId(leaveTypeId);
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */

@@ -10,6 +10,47 @@
 		<field name="userId" type="long" />
 		<field name="docName" type="String" />
 	</model>
+	<model name="com.rknowsys.eapp.hrm.model.DocumentCategories">
+		<field name="documentcategoryId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="documentCategory" type="String" />
+	</model>
+	<model name="com.rknowsys.eapp.hrm.model.Documents">
+		<field name="documentId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="userId" type="long" />
+		<field name="topic" type="String" />
+		<field name="category" type="String" />
+		<field name="description" type="String" />
+		<field name="publishDate" type="Date" />
+		<field name="status" type="boolean" />
+		<field name="admin" type="boolean" />
+		<field name="supervisor" type="boolean" />
+		<field name="allEmployees" type="boolean" />
+		<field name="publishedTo" type="String" />
+	</model>
+	<model name="com.rknowsys.eapp.hrm.model.DocumentsAttachments">
+		<field name="documentAttachmentId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="userId" type="long" />
+		<field name="attachmentTypeId" type="long" />
+		<field name="documentId" type="long" />
+		<field name="description" type="String" />
+		<field name="uuid" type="String" />
+		<field name="fileName" type="String" />
+		<field name="fileSize" type="long" />
+		<field name="fileType" type="String" />
+	</model>
 	<model name="com.rknowsys.eapp.hrm.model.Education">
 		<field name="educationId" type="long" />
 		<field name="companyId" type="long" />
@@ -28,10 +69,12 @@
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="attachmentTypeId" type="long" />
+		<field name="uuid" type="String" />
+		<field name="relatedTo" type="String" />
+		<field name="userName" type="String" />
 		<field name="fileName" type="String" />
 		<field name="fileSize" type="long" />
 		<field name="fileType" type="String" />
-		<field name="file" type="Blob" />
 		<field name="comment" type="String" />
 	</model>
 	<model name="com.rknowsys.eapp.hrm.model.EmpContactDetails">
@@ -165,7 +208,6 @@
 		<field name="isCurrentJob" type="boolean" />
 		<field name="employmentContractStartDate" type="Date" />
 		<field name="employmentContractEndDate" type="Date" />
-		<field name="contractDetails" type="Blob" />
 	</model>
 	<model name="com.rknowsys.eapp.hrm.model.EmpLanguage">
 		<field name="empLanguageId" type="long" />
@@ -559,9 +601,30 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="userId" type="long" />
 		<field name="topic" type="String" />
-		<field name="description" type="String" />
-		<field name="publishTo" type="String" />
+		<field name="description" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
 		<field name="publishDate" type="Date" />
+		<field name="status" type="boolean" />
+		<field name="admin" type="boolean" />
+		<field name="supervisor" type="boolean" />
+		<field name="allEmployees" type="boolean" />
+		<field name="publishedTo" type="String" />
+	</model>
+	<model name="com.rknowsys.eapp.hrm.model.NewsAttachments">
+		<field name="newsAttachmentId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="userId" type="long" />
+		<field name="attachmentTypeId" type="long" />
+		<field name="newsId" type="long" />
+		<field name="description" type="String" />
+		<field name="uuid" type="String" />
+		<field name="fileName" type="String" />
+		<field name="fileSize" type="long" />
+		<field name="fileType" type="String" />
 	</model>
 	<model name="com.rknowsys.eapp.hrm.model.Organization">
 		<field name="organizationId" type="long" />

@@ -251,12 +251,6 @@ public class EmpAttachmentLocalServiceUtil {
 		return getService().updateEmpAttachment(empAttachment);
 	}
 
-	public static com.rknowsys.eapp.hrm.model.EmpAttachmentFileBlobModel getFileBlobModel(
-		java.io.Serializable primaryKey)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().getFileBlobModel(primaryKey);
-	}
-
 	/**
 	* Returns the Spring bean ID for this bean.
 	*

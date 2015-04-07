@@ -271,6 +271,13 @@ public class NewsLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static java.util.List<com.rknowsys.eapp.hrm.model.News> findNewsDetails(
+		java.lang.String topic, java.lang.String status, long groupId,
+		int begin, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().findNewsDetails(topic, status, groupId, begin, end);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

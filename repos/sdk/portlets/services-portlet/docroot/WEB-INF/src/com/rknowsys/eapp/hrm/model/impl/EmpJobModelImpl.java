@@ -29,13 +29,10 @@ import com.liferay.portlet.expando.model.ExpandoBridge;
 import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
 
 import com.rknowsys.eapp.hrm.model.EmpJob;
-import com.rknowsys.eapp.hrm.model.EmpJobContractDetailsBlobModel;
 import com.rknowsys.eapp.hrm.model.EmpJobModel;
-import com.rknowsys.eapp.hrm.service.EmpJobLocalServiceUtil;
 
 import java.io.Serializable;
 
-import java.sql.Blob;
 import java.sql.Types;
 
 import java.util.Date;
@@ -84,10 +81,9 @@ public class EmpJobModelImpl extends BaseModelImpl<EmpJob>
 			{ "comments", Types.VARCHAR },
 			{ "isCurrentJob", Types.BOOLEAN },
 			{ "employmentContractStartDate", Types.TIMESTAMP },
-			{ "employmentContractEndDate", Types.TIMESTAMP },
-			{ "contractDetails", Types.BLOB }
+			{ "employmentContractEndDate", Types.TIMESTAMP }
 		};
-	public static final String TABLE_SQL_CREATE = "create table emp_job (empJobId LONG not null primary key,employeeId LONG,groupId LONG,companyId LONG,createDate DATE null,modifiedDate DATE null,userId LONG,joinedDate DATE null,probationEndDate DATE null,permanentDate DATE null,jobTitleId LONG,employmentStatusId LONG,jobCategoryId LONG,subUnitId LONG,locationId LONG,effectiveDate DATE null,shiftId LONG,comments VARCHAR(75) null,isCurrentJob BOOLEAN,employmentContractStartDate DATE null,employmentContractEndDate DATE null,contractDetails BLOB)";
+	public static final String TABLE_SQL_CREATE = "create table emp_job (empJobId LONG not null primary key,employeeId LONG,groupId LONG,companyId LONG,createDate DATE null,modifiedDate DATE null,userId LONG,joinedDate DATE null,probationEndDate DATE null,permanentDate DATE null,jobTitleId LONG,employmentStatusId LONG,jobCategoryId LONG,subUnitId LONG,locationId LONG,effectiveDate DATE null,shiftId LONG,comments VARCHAR(75) null,isCurrentJob BOOLEAN,employmentContractStartDate DATE null,employmentContractEndDate DATE null)";
 	public static final String TABLE_SQL_DROP = "drop table emp_job";
 	public static final String ORDER_BY_JPQL = " ORDER BY empJob.empJobId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY emp_job.empJobId ASC";
@@ -169,7 +165,6 @@ public class EmpJobModelImpl extends BaseModelImpl<EmpJob>
 			getEmploymentContractStartDate());
 		attributes.put("employmentContractEndDate",
 			getEmploymentContractEndDate());
-		attributes.put("contractDetails", getContractDetails());
 
 		return attributes;
 	}
@@ -302,12 +297,6 @@ public class EmpJobModelImpl extends BaseModelImpl<EmpJob>
 
 		if (employmentContractEndDate != null) {
 			setEmploymentContractEndDate(employmentContractEndDate);
-		}
-
-		Blob contractDetails = (Blob)attributes.get("contractDetails");
-
-		if (contractDetails != null) {
-			setContractDetails(contractDetails);
 		}
 	}
 
@@ -565,36 +554,6 @@ public class EmpJobModelImpl extends BaseModelImpl<EmpJob>
 		_employmentContractEndDate = employmentContractEndDate;
 	}
 
-	@Override
-	public Blob getContractDetails() {
-		if (_contractDetailsBlobModel == null) {
-			try {
-				_contractDetailsBlobModel = EmpJobLocalServiceUtil.getContractDetailsBlobModel(getPrimaryKey());
-			}
-			catch (Exception e) {
-			}
-		}
-
-		Blob blob = null;
-
-		if (_contractDetailsBlobModel != null) {
-			blob = _contractDetailsBlobModel.getContractDetailsBlob();
-		}
-
-		return blob;
-	}
-
-	@Override
-	public void setContractDetails(Blob contractDetails) {
-		if (_contractDetailsBlobModel == null) {
-			_contractDetailsBlobModel = new EmpJobContractDetailsBlobModel(getPrimaryKey(),
-					contractDetails);
-		}
-		else {
-			_contractDetailsBlobModel.setContractDetailsBlob(contractDetails);
-		}
-	}
-
 	public long getColumnBitmask() {
 		return _columnBitmask;
 	}
@@ -706,8 +665,6 @@ public class EmpJobModelImpl extends BaseModelImpl<EmpJob>
 		empJobModelImpl._originalGroupId = empJobModelImpl._groupId;
 
 		empJobModelImpl._setOriginalGroupId = false;
-
-		empJobModelImpl._contractDetailsBlobModel = null;
 
 		empJobModelImpl._columnBitmask = 0;
 	}
@@ -825,7 +782,7 @@ public class EmpJobModelImpl extends BaseModelImpl<EmpJob>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(45);
+		StringBundler sb = new StringBundler(43);
 
 		sb.append("{empJobId=");
 		sb.append(getEmpJobId());
@@ -869,13 +826,14 @@ public class EmpJobModelImpl extends BaseModelImpl<EmpJob>
 		sb.append(getEmploymentContractStartDate());
 		sb.append(", employmentContractEndDate=");
 		sb.append(getEmploymentContractEndDate());
+		sb.append("}");
 
 		return sb.toString();
 	}
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(70);
+		StringBundler sb = new StringBundler(67);
 
 		sb.append("<model><model-name>");
 		sb.append("com.rknowsys.eapp.hrm.model.EmpJob");
@@ -999,7 +957,6 @@ public class EmpJobModelImpl extends BaseModelImpl<EmpJob>
 	private boolean _isCurrentJob;
 	private Date _employmentContractStartDate;
 	private Date _employmentContractEndDate;
-	private EmpJobContractDetailsBlobModel _contractDetailsBlobModel;
 	private long _columnBitmask;
 	private EmpJob _escapedModel;
 }

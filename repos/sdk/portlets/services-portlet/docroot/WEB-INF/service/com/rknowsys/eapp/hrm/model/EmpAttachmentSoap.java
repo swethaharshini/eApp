@@ -16,8 +16,6 @@ package com.rknowsys.eapp.hrm.model;
 
 import java.io.Serializable;
 
-import java.sql.Blob;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,10 +38,12 @@ public class EmpAttachmentSoap implements Serializable {
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setAttachmentTypeId(model.getAttachmentTypeId());
+		soapModel.setUuid(model.getUuid());
+		soapModel.setRelatedTo(model.getRelatedTo());
+		soapModel.setUserName(model.getUserName());
 		soapModel.setFileName(model.getFileName());
 		soapModel.setFileSize(model.getFileSize());
 		soapModel.setFileType(model.getFileType());
-		soapModel.setFile(model.getFile());
 		soapModel.setComment(model.getComment());
 
 		return soapModel;
@@ -161,6 +161,30 @@ public class EmpAttachmentSoap implements Serializable {
 		_attachmentTypeId = attachmentTypeId;
 	}
 
+	public String getUuid() {
+		return _uuid;
+	}
+
+	public void setUuid(String uuid) {
+		_uuid = uuid;
+	}
+
+	public String getRelatedTo() {
+		return _relatedTo;
+	}
+
+	public void setRelatedTo(String relatedTo) {
+		_relatedTo = relatedTo;
+	}
+
+	public String getUserName() {
+		return _userName;
+	}
+
+	public void setUserName(String userName) {
+		_userName = userName;
+	}
+
 	public String getFileName() {
 		return _fileName;
 	}
@@ -185,14 +209,6 @@ public class EmpAttachmentSoap implements Serializable {
 		_fileType = fileType;
 	}
 
-	public Blob getFile() {
-		return _file;
-	}
-
-	public void setFile(Blob file) {
-		_file = file;
-	}
-
 	public String getComment() {
 		return _comment;
 	}
@@ -209,9 +225,11 @@ public class EmpAttachmentSoap implements Serializable {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _attachmentTypeId;
+	private String _uuid;
+	private String _relatedTo;
+	private String _userName;
 	private String _fileName;
 	private long _fileSize;
 	private String _fileType;
-	private Blob _file;
 	private String _comment;
 }

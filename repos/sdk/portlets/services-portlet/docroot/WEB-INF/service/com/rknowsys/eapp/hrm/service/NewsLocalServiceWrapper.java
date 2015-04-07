@@ -280,6 +280,15 @@ public class NewsLocalServiceWrapper implements NewsLocalService,
 		return _newsLocalService.invokeMethod(name, parameterTypes, arguments);
 	}
 
+	@Override
+	public java.util.List<com.rknowsys.eapp.hrm.model.News> findNewsDetails(
+		java.lang.String topic, java.lang.String status, long groupId,
+		int begin, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _newsLocalService.findNewsDetails(topic, status, groupId, begin,
+			end);
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */

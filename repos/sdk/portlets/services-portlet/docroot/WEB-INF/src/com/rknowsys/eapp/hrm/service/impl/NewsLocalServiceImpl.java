@@ -14,7 +14,12 @@
 
 package com.rknowsys.eapp.hrm.service.impl;
 
+import java.util.List;
+
+import com.liferay.portal.kernel.exception.SystemException;
+import com.rknowsys.eapp.hrm.model.News;
 import com.rknowsys.eapp.hrm.service.base.NewsLocalServiceBaseImpl;
+import com.rknowsys.eapp.hrm.service.persistence.NewsFinderUtil;
 
 /**
  * The implementation of the news local service.
@@ -36,4 +41,9 @@ public class NewsLocalServiceImpl extends NewsLocalServiceBaseImpl {
 	 *
 	 * Never reference this interface directly. Always use {@link com.rknowsys.eapp.hrm.service.NewsLocalServiceUtil} to access the news local service.
 	 */
+	 public List<News> findNewsDetails(String topic,String status,long groupId,int begin, int end)
+	            throws SystemException {
+	            
+	                return NewsFinderUtil.findNewsDetails(topic, status, groupId, begin, end);
+	        }
 }

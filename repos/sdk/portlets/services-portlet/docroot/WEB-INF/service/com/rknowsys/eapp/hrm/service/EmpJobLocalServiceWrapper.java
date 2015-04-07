@@ -253,13 +253,6 @@ public class EmpJobLocalServiceWrapper implements EmpJobLocalService,
 		return _empJobLocalService.updateEmpJob(empJob);
 	}
 
-	@Override
-	public com.rknowsys.eapp.hrm.model.EmpJobContractDetailsBlobModel getContractDetailsBlobModel(
-		java.io.Serializable primaryKey)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _empJobLocalService.getContractDetailsBlobModel(primaryKey);
-	}
-
 	/**
 	* Returns the Spring bean ID for this bean.
 	*
