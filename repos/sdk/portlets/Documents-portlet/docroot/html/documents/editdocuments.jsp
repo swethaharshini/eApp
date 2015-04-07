@@ -152,6 +152,7 @@ Documents editDocument = (Documents)portletSession.getAttribute("editDocument");
 DocumentsAttachments attachments = (DocumentsAttachments)portletSession.getAttribute("editAttachment");
 String attachmentFormType = (String)portletSession.getAttribute("editattachmentform");
 String formtype = "editattachmentform";
+System.out.println("attachmentFormType === "+attachmentFormType);
  SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd"); 
  
 %>
@@ -213,7 +214,7 @@ String formtype = "editattachmentform";
 <div class="span2"><label>Description:</label> </div>
 <div class ="span8">
 <aui:field-wrapper label="">
-    <liferay-ui:input-editor name="descriptionEditor"  toolbarSet="liferay-article" initMethod="initEditor" width="200">
+    <liferay-ui:input-editor name="descriptionEditor"  toolbarSet="liferay" initMethod="initEditor" width="200">
     </liferay-ui:input-editor>
 <script type="text/javascript">
         function <portlet:namespace />initEditor() { return "<%= UnicodeFormatter.toString(editDocument.getDescription()) %>"; }
@@ -277,6 +278,7 @@ String formtype = "editattachmentform";
 		        	
     %> 		
           <div class="row-fluid">
+         
            <aui:input name="documentId" type="hidden"  value='<%=editDocument.getDocumentId() %>'></aui:input>
 				<aui:input name="documentAttachmentId" type="hidden" value="<%=attachments.getDocumentAttachmentId()%>"></aui:input>
 				<label>Replace the file <b><%=attachments.getFileName()%></b> with New file.</label>
@@ -285,8 +287,7 @@ String formtype = "editattachmentform";
 				<aui:validator name="required"></aui:validator>
 				</aui:input>
 				<aui:input name="description" type="textarea" label="Description" value="<%=attachments.getDescription()%>" inlineLabel="left"></aui:input>
-
-				<aui:button type="submit" value="Upload" cssClass="button btn-primary"></aui:button>
+            <aui:button type="submit" value="Upload" cssClass="button btn-primary"></aui:button>
 			<aui:button type="reset" value="Cancel" id="cancelattachment" name="cancelattachment" onClick="<%=redirectToAdd%>" cssClass="button btn-danger"></aui:button>
 	      </div>
 			 <%

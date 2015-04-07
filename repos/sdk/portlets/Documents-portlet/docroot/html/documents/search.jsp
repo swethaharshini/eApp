@@ -155,8 +155,7 @@ RowChecker rowChecker = new RowChecker(renderResponse);
 		{
 		
 			Documents document=i.next();
-		
-				documentsList.add(document);
+			documentsList.add(document);
 		}
 	    results=ListUtil.subList(documentsList, searchContainer.getStart(), searchContainer.getEnd());
 		total = documentsList.size(); 
