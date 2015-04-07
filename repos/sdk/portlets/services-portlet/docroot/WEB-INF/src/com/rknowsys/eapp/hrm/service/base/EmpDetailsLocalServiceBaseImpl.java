@@ -34,6 +34,10 @@ import com.liferay.portal.service.persistence.UserPersistence;
 import com.rknowsys.eapp.hrm.model.EmpDetails;
 import com.rknowsys.eapp.hrm.service.EmpDetailsLocalService;
 import com.rknowsys.eapp.hrm.service.persistence.DocCategoryPersistence;
+import com.rknowsys.eapp.hrm.service.persistence.DocumentCategoriesPersistence;
+import com.rknowsys.eapp.hrm.service.persistence.DocumentsAttachmentsPersistence;
+import com.rknowsys.eapp.hrm.service.persistence.DocumentsFinder;
+import com.rknowsys.eapp.hrm.service.persistence.DocumentsPersistence;
 import com.rknowsys.eapp.hrm.service.persistence.EducationPersistence;
 import com.rknowsys.eapp.hrm.service.persistence.EmpAttachmentPersistence;
 import com.rknowsys.eapp.hrm.service.persistence.EmpContactDetailsPersistence;
@@ -77,6 +81,8 @@ import com.rknowsys.eapp.hrm.service.persistence.LicensePersistence;
 import com.rknowsys.eapp.hrm.service.persistence.LocationPersistence;
 import com.rknowsys.eapp.hrm.service.persistence.MembershipPersistence;
 import com.rknowsys.eapp.hrm.service.persistence.NationalityPersistence;
+import com.rknowsys.eapp.hrm.service.persistence.NewsAttachmentsPersistence;
+import com.rknowsys.eapp.hrm.service.persistence.NewsFinder;
 import com.rknowsys.eapp.hrm.service.persistence.NewsPersistence;
 import com.rknowsys.eapp.hrm.service.persistence.OrganizationPersistence;
 import com.rknowsys.eapp.hrm.service.persistence.PayGradeCurrencyPersistence;
@@ -370,6 +376,138 @@ public abstract class EmpDetailsLocalServiceBaseImpl
 	public void setDocCategoryPersistence(
 		DocCategoryPersistence docCategoryPersistence) {
 		this.docCategoryPersistence = docCategoryPersistence;
+	}
+
+	/**
+	 * Returns the document categories local service.
+	 *
+	 * @return the document categories local service
+	 */
+	public com.rknowsys.eapp.hrm.service.DocumentCategoriesLocalService getDocumentCategoriesLocalService() {
+		return documentCategoriesLocalService;
+	}
+
+	/**
+	 * Sets the document categories local service.
+	 *
+	 * @param documentCategoriesLocalService the document categories local service
+	 */
+	public void setDocumentCategoriesLocalService(
+		com.rknowsys.eapp.hrm.service.DocumentCategoriesLocalService documentCategoriesLocalService) {
+		this.documentCategoriesLocalService = documentCategoriesLocalService;
+	}
+
+	/**
+	 * Returns the document categories persistence.
+	 *
+	 * @return the document categories persistence
+	 */
+	public DocumentCategoriesPersistence getDocumentCategoriesPersistence() {
+		return documentCategoriesPersistence;
+	}
+
+	/**
+	 * Sets the document categories persistence.
+	 *
+	 * @param documentCategoriesPersistence the document categories persistence
+	 */
+	public void setDocumentCategoriesPersistence(
+		DocumentCategoriesPersistence documentCategoriesPersistence) {
+		this.documentCategoriesPersistence = documentCategoriesPersistence;
+	}
+
+	/**
+	 * Returns the documents local service.
+	 *
+	 * @return the documents local service
+	 */
+	public com.rknowsys.eapp.hrm.service.DocumentsLocalService getDocumentsLocalService() {
+		return documentsLocalService;
+	}
+
+	/**
+	 * Sets the documents local service.
+	 *
+	 * @param documentsLocalService the documents local service
+	 */
+	public void setDocumentsLocalService(
+		com.rknowsys.eapp.hrm.service.DocumentsLocalService documentsLocalService) {
+		this.documentsLocalService = documentsLocalService;
+	}
+
+	/**
+	 * Returns the documents persistence.
+	 *
+	 * @return the documents persistence
+	 */
+	public DocumentsPersistence getDocumentsPersistence() {
+		return documentsPersistence;
+	}
+
+	/**
+	 * Sets the documents persistence.
+	 *
+	 * @param documentsPersistence the documents persistence
+	 */
+	public void setDocumentsPersistence(
+		DocumentsPersistence documentsPersistence) {
+		this.documentsPersistence = documentsPersistence;
+	}
+
+	/**
+	 * Returns the documents finder.
+	 *
+	 * @return the documents finder
+	 */
+	public DocumentsFinder getDocumentsFinder() {
+		return documentsFinder;
+	}
+
+	/**
+	 * Sets the documents finder.
+	 *
+	 * @param documentsFinder the documents finder
+	 */
+	public void setDocumentsFinder(DocumentsFinder documentsFinder) {
+		this.documentsFinder = documentsFinder;
+	}
+
+	/**
+	 * Returns the documents attachments local service.
+	 *
+	 * @return the documents attachments local service
+	 */
+	public com.rknowsys.eapp.hrm.service.DocumentsAttachmentsLocalService getDocumentsAttachmentsLocalService() {
+		return documentsAttachmentsLocalService;
+	}
+
+	/**
+	 * Sets the documents attachments local service.
+	 *
+	 * @param documentsAttachmentsLocalService the documents attachments local service
+	 */
+	public void setDocumentsAttachmentsLocalService(
+		com.rknowsys.eapp.hrm.service.DocumentsAttachmentsLocalService documentsAttachmentsLocalService) {
+		this.documentsAttachmentsLocalService = documentsAttachmentsLocalService;
+	}
+
+	/**
+	 * Returns the documents attachments persistence.
+	 *
+	 * @return the documents attachments persistence
+	 */
+	public DocumentsAttachmentsPersistence getDocumentsAttachmentsPersistence() {
+		return documentsAttachmentsPersistence;
+	}
+
+	/**
+	 * Sets the documents attachments persistence.
+	 *
+	 * @param documentsAttachmentsPersistence the documents attachments persistence
+	 */
+	public void setDocumentsAttachmentsPersistence(
+		DocumentsAttachmentsPersistence documentsAttachmentsPersistence) {
+		this.documentsAttachmentsPersistence = documentsAttachmentsPersistence;
 	}
 
 	/**
@@ -1957,6 +2095,62 @@ public abstract class EmpDetailsLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the news finder.
+	 *
+	 * @return the news finder
+	 */
+	public NewsFinder getNewsFinder() {
+		return newsFinder;
+	}
+
+	/**
+	 * Sets the news finder.
+	 *
+	 * @param newsFinder the news finder
+	 */
+	public void setNewsFinder(NewsFinder newsFinder) {
+		this.newsFinder = newsFinder;
+	}
+
+	/**
+	 * Returns the news attachments local service.
+	 *
+	 * @return the news attachments local service
+	 */
+	public com.rknowsys.eapp.hrm.service.NewsAttachmentsLocalService getNewsAttachmentsLocalService() {
+		return newsAttachmentsLocalService;
+	}
+
+	/**
+	 * Sets the news attachments local service.
+	 *
+	 * @param newsAttachmentsLocalService the news attachments local service
+	 */
+	public void setNewsAttachmentsLocalService(
+		com.rknowsys.eapp.hrm.service.NewsAttachmentsLocalService newsAttachmentsLocalService) {
+		this.newsAttachmentsLocalService = newsAttachmentsLocalService;
+	}
+
+	/**
+	 * Returns the news attachments persistence.
+	 *
+	 * @return the news attachments persistence
+	 */
+	public NewsAttachmentsPersistence getNewsAttachmentsPersistence() {
+		return newsAttachmentsPersistence;
+	}
+
+	/**
+	 * Sets the news attachments persistence.
+	 *
+	 * @param newsAttachmentsPersistence the news attachments persistence
+	 */
+	public void setNewsAttachmentsPersistence(
+		NewsAttachmentsPersistence newsAttachmentsPersistence) {
+		this.newsAttachmentsPersistence = newsAttachmentsPersistence;
+	}
+
+	/**
 	 * Returns the organization local service.
 	 *
 	 * @return the organization local service
@@ -2512,6 +2706,20 @@ public abstract class EmpDetailsLocalServiceBaseImpl
 	protected com.rknowsys.eapp.hrm.service.DocCategoryLocalService docCategoryLocalService;
 	@BeanReference(type = DocCategoryPersistence.class)
 	protected DocCategoryPersistence docCategoryPersistence;
+	@BeanReference(type = com.rknowsys.eapp.hrm.service.DocumentCategoriesLocalService.class)
+	protected com.rknowsys.eapp.hrm.service.DocumentCategoriesLocalService documentCategoriesLocalService;
+	@BeanReference(type = DocumentCategoriesPersistence.class)
+	protected DocumentCategoriesPersistence documentCategoriesPersistence;
+	@BeanReference(type = com.rknowsys.eapp.hrm.service.DocumentsLocalService.class)
+	protected com.rknowsys.eapp.hrm.service.DocumentsLocalService documentsLocalService;
+	@BeanReference(type = DocumentsPersistence.class)
+	protected DocumentsPersistence documentsPersistence;
+	@BeanReference(type = DocumentsFinder.class)
+	protected DocumentsFinder documentsFinder;
+	@BeanReference(type = com.rknowsys.eapp.hrm.service.DocumentsAttachmentsLocalService.class)
+	protected com.rknowsys.eapp.hrm.service.DocumentsAttachmentsLocalService documentsAttachmentsLocalService;
+	@BeanReference(type = DocumentsAttachmentsPersistence.class)
+	protected DocumentsAttachmentsPersistence documentsAttachmentsPersistence;
 	@BeanReference(type = com.rknowsys.eapp.hrm.service.EducationLocalService.class)
 	protected com.rknowsys.eapp.hrm.service.EducationLocalService educationLocalService;
 	@BeanReference(type = EducationPersistence.class)
@@ -2680,6 +2888,12 @@ public abstract class EmpDetailsLocalServiceBaseImpl
 	protected com.rknowsys.eapp.hrm.service.NewsLocalService newsLocalService;
 	@BeanReference(type = NewsPersistence.class)
 	protected NewsPersistence newsPersistence;
+	@BeanReference(type = NewsFinder.class)
+	protected NewsFinder newsFinder;
+	@BeanReference(type = com.rknowsys.eapp.hrm.service.NewsAttachmentsLocalService.class)
+	protected com.rknowsys.eapp.hrm.service.NewsAttachmentsLocalService newsAttachmentsLocalService;
+	@BeanReference(type = NewsAttachmentsPersistence.class)
+	protected NewsAttachmentsPersistence newsAttachmentsPersistence;
 	@BeanReference(type = com.rknowsys.eapp.hrm.service.OrganizationLocalService.class)
 	protected com.rknowsys.eapp.hrm.service.OrganizationLocalService organizationLocalService;
 	@BeanReference(type = OrganizationPersistence.class)

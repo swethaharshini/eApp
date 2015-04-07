@@ -106,13 +106,17 @@ public class LeaveTypeEmployeeGroupsLocalServiceClpInvoker {
 				"com.rknowsys.eapp.hrm.model.LeaveTypeEmployeeGroups"
 			};
 
-		_methodName240 = "getBeanIdentifier";
+		_methodName260 = "getBeanIdentifier";
 
-		_methodParameterTypes240 = new String[] {  };
+		_methodParameterTypes260 = new String[] {  };
 
-		_methodName241 = "setBeanIdentifier";
+		_methodName261 = "setBeanIdentifier";
 
-		_methodParameterTypes241 = new String[] { "java.lang.String" };
+		_methodParameterTypes261 = new String[] { "java.lang.String" };
+
+		_methodName266 = "findByLeaveTypeId";
+
+		_methodParameterTypes266 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -204,16 +208,21 @@ public class LeaveTypeEmployeeGroupsLocalServiceClpInvoker {
 			return LeaveTypeEmployeeGroupsLocalServiceUtil.updateLeaveTypeEmployeeGroups((com.rknowsys.eapp.hrm.model.LeaveTypeEmployeeGroups)arguments[0]);
 		}
 
-		if (_methodName240.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes240, parameterTypes)) {
+		if (_methodName260.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes260, parameterTypes)) {
 			return LeaveTypeEmployeeGroupsLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName241.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes241, parameterTypes)) {
+		if (_methodName261.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes261, parameterTypes)) {
 			LeaveTypeEmployeeGroupsLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
+		}
+
+		if (_methodName266.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes266, parameterTypes)) {
+			return LeaveTypeEmployeeGroupsLocalServiceUtil.findByLeaveTypeId(((Long)arguments[0]).longValue());
 		}
 
 		throw new UnsupportedOperationException();
@@ -251,8 +260,10 @@ public class LeaveTypeEmployeeGroupsLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName240;
-	private String[] _methodParameterTypes240;
-	private String _methodName241;
-	private String[] _methodParameterTypes241;
+	private String _methodName260;
+	private String[] _methodParameterTypes260;
+	private String _methodName261;
+	private String[] _methodParameterTypes261;
+	private String _methodName266;
+	private String[] _methodParameterTypes266;
 }

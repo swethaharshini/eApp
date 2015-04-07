@@ -177,17 +177,17 @@ public class LocationLocalServiceClpInvoker {
 
 		_methodParameterTypes31 = new String[] { "long", "long[][]" };
 
-		_methodName256 = "getBeanIdentifier";
+		_methodName276 = "getBeanIdentifier";
 
-		_methodParameterTypes256 = new String[] {  };
+		_methodParameterTypes276 = new String[] {  };
 
-		_methodName257 = "setBeanIdentifier";
+		_methodName277 = "setBeanIdentifier";
 
-		_methodParameterTypes257 = new String[] { "java.lang.String" };
+		_methodParameterTypes277 = new String[] { "java.lang.String" };
 
-		_methodName262 = "findByNationality";
+		_methodName282 = "findByNationality";
 
-		_methodParameterTypes262 = new String[] { "long" };
+		_methodParameterTypes282 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -394,20 +394,20 @@ public class LocationLocalServiceClpInvoker {
 			return null;
 		}
 
-		if (_methodName256.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes256, parameterTypes)) {
+		if (_methodName276.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes276, parameterTypes)) {
 			return LocationLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName257.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes257, parameterTypes)) {
+		if (_methodName277.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes277, parameterTypes)) {
 			LocationLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName262.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes262, parameterTypes)) {
+		if (_methodName282.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes282, parameterTypes)) {
 			return LocationLocalServiceUtil.findByNationality(((Long)arguments[0]).longValue());
 		}
 
@@ -478,10 +478,10 @@ public class LocationLocalServiceClpInvoker {
 	private String[] _methodParameterTypes30;
 	private String _methodName31;
 	private String[] _methodParameterTypes31;
-	private String _methodName256;
-	private String[] _methodParameterTypes256;
-	private String _methodName257;
-	private String[] _methodParameterTypes257;
-	private String _methodName262;
-	private String[] _methodParameterTypes262;
+	private String _methodName276;
+	private String[] _methodParameterTypes276;
+	private String _methodName277;
+	private String[] _methodParameterTypes277;
+	private String _methodName282;
+	private String[] _methodParameterTypes282;
 }

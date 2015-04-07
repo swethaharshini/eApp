@@ -57,8 +57,12 @@ public class NewsWrapper implements News, ModelWrapper<News> {
 		attributes.put("userId", getUserId());
 		attributes.put("topic", getTopic());
 		attributes.put("description", getDescription());
-		attributes.put("publishTo", getPublishTo());
 		attributes.put("publishDate", getPublishDate());
+		attributes.put("status", getStatus());
+		attributes.put("admin", getAdmin());
+		attributes.put("supervisor", getSupervisor());
+		attributes.put("allEmployees", getAllEmployees());
+		attributes.put("publishedTo", getPublishedTo());
 
 		return attributes;
 	}
@@ -113,16 +117,40 @@ public class NewsWrapper implements News, ModelWrapper<News> {
 			setDescription(description);
 		}
 
-		String publishTo = (String)attributes.get("publishTo");
-
-		if (publishTo != null) {
-			setPublishTo(publishTo);
-		}
-
 		Date publishDate = (Date)attributes.get("publishDate");
 
 		if (publishDate != null) {
 			setPublishDate(publishDate);
+		}
+
+		Boolean status = (Boolean)attributes.get("status");
+
+		if (status != null) {
+			setStatus(status);
+		}
+
+		Boolean admin = (Boolean)attributes.get("admin");
+
+		if (admin != null) {
+			setAdmin(admin);
+		}
+
+		Boolean supervisor = (Boolean)attributes.get("supervisor");
+
+		if (supervisor != null) {
+			setSupervisor(supervisor);
+		}
+
+		Boolean allEmployees = (Boolean)attributes.get("allEmployees");
+
+		if (allEmployees != null) {
+			setAllEmployees(allEmployees);
+		}
+
+		String publishedTo = (String)attributes.get("publishedTo");
+
+		if (publishedTo != null) {
+			setPublishedTo(publishedTo);
 		}
 	}
 
@@ -329,26 +357,6 @@ public class NewsWrapper implements News, ModelWrapper<News> {
 	}
 
 	/**
-	* Returns the publish to of this news.
-	*
-	* @return the publish to of this news
-	*/
-	@Override
-	public java.lang.String getPublishTo() {
-		return _news.getPublishTo();
-	}
-
-	/**
-	* Sets the publish to of this news.
-	*
-	* @param publishTo the publish to of this news
-	*/
-	@Override
-	public void setPublishTo(java.lang.String publishTo) {
-		_news.setPublishTo(publishTo);
-	}
-
-	/**
 	* Returns the publish date of this news.
 	*
 	* @return the publish date of this news
@@ -366,6 +374,146 @@ public class NewsWrapper implements News, ModelWrapper<News> {
 	@Override
 	public void setPublishDate(java.util.Date publishDate) {
 		_news.setPublishDate(publishDate);
+	}
+
+	/**
+	* Returns the status of this news.
+	*
+	* @return the status of this news
+	*/
+	@Override
+	public boolean getStatus() {
+		return _news.getStatus();
+	}
+
+	/**
+	* Returns <code>true</code> if this news is status.
+	*
+	* @return <code>true</code> if this news is status; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isStatus() {
+		return _news.isStatus();
+	}
+
+	/**
+	* Sets whether this news is status.
+	*
+	* @param status the status of this news
+	*/
+	@Override
+	public void setStatus(boolean status) {
+		_news.setStatus(status);
+	}
+
+	/**
+	* Returns the admin of this news.
+	*
+	* @return the admin of this news
+	*/
+	@Override
+	public boolean getAdmin() {
+		return _news.getAdmin();
+	}
+
+	/**
+	* Returns <code>true</code> if this news is admin.
+	*
+	* @return <code>true</code> if this news is admin; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isAdmin() {
+		return _news.isAdmin();
+	}
+
+	/**
+	* Sets whether this news is admin.
+	*
+	* @param admin the admin of this news
+	*/
+	@Override
+	public void setAdmin(boolean admin) {
+		_news.setAdmin(admin);
+	}
+
+	/**
+	* Returns the supervisor of this news.
+	*
+	* @return the supervisor of this news
+	*/
+	@Override
+	public boolean getSupervisor() {
+		return _news.getSupervisor();
+	}
+
+	/**
+	* Returns <code>true</code> if this news is supervisor.
+	*
+	* @return <code>true</code> if this news is supervisor; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isSupervisor() {
+		return _news.isSupervisor();
+	}
+
+	/**
+	* Sets whether this news is supervisor.
+	*
+	* @param supervisor the supervisor of this news
+	*/
+	@Override
+	public void setSupervisor(boolean supervisor) {
+		_news.setSupervisor(supervisor);
+	}
+
+	/**
+	* Returns the all employees of this news.
+	*
+	* @return the all employees of this news
+	*/
+	@Override
+	public boolean getAllEmployees() {
+		return _news.getAllEmployees();
+	}
+
+	/**
+	* Returns <code>true</code> if this news is all employees.
+	*
+	* @return <code>true</code> if this news is all employees; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isAllEmployees() {
+		return _news.isAllEmployees();
+	}
+
+	/**
+	* Sets whether this news is all employees.
+	*
+	* @param allEmployees the all employees of this news
+	*/
+	@Override
+	public void setAllEmployees(boolean allEmployees) {
+		_news.setAllEmployees(allEmployees);
+	}
+
+	/**
+	* Returns the published to of this news.
+	*
+	* @return the published to of this news
+	*/
+	@Override
+	public java.lang.String getPublishedTo() {
+		return _news.getPublishedTo();
+	}
+
+	/**
+	* Sets the published to of this news.
+	*
+	* @param publishedTo the published to of this news
+	*/
+	@Override
+	public void setPublishedTo(java.lang.String publishedTo) {
+		_news.setPublishedTo(publishedTo);
 	}
 
 	@Override

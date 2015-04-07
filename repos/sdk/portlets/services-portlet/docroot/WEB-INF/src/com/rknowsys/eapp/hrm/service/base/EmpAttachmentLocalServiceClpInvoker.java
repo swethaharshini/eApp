@@ -106,17 +106,13 @@ public class EmpAttachmentLocalServiceClpInvoker {
 				"com.rknowsys.eapp.hrm.model.EmpAttachment"
 			};
 
-		_methodName16 = "getFileBlobModel";
+		_methodName260 = "getBeanIdentifier";
 
-		_methodParameterTypes16 = new String[] { "java.io.Serializable" };
+		_methodParameterTypes260 = new String[] {  };
 
-		_methodName241 = "getBeanIdentifier";
+		_methodName261 = "setBeanIdentifier";
 
-		_methodParameterTypes241 = new String[] {  };
-
-		_methodName242 = "setBeanIdentifier";
-
-		_methodParameterTypes242 = new String[] { "java.lang.String" };
+		_methodParameterTypes261 = new String[] { "java.lang.String" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -208,18 +204,13 @@ public class EmpAttachmentLocalServiceClpInvoker {
 			return EmpAttachmentLocalServiceUtil.updateEmpAttachment((com.rknowsys.eapp.hrm.model.EmpAttachment)arguments[0]);
 		}
 
-		if (_methodName16.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes16, parameterTypes)) {
-			return EmpAttachmentLocalServiceUtil.getFileBlobModel((java.io.Serializable)arguments[0]);
-		}
-
-		if (_methodName241.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes241, parameterTypes)) {
+		if (_methodName260.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes260, parameterTypes)) {
 			return EmpAttachmentLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName242.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes242, parameterTypes)) {
+		if (_methodName261.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes261, parameterTypes)) {
 			EmpAttachmentLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
@@ -260,10 +251,8 @@ public class EmpAttachmentLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName16;
-	private String[] _methodParameterTypes16;
-	private String _methodName241;
-	private String[] _methodParameterTypes241;
-	private String _methodName242;
-	private String[] _methodParameterTypes242;
+	private String _methodName260;
+	private String[] _methodParameterTypes260;
+	private String _methodName261;
+	private String[] _methodParameterTypes261;
 }

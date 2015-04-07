@@ -19,6 +19,9 @@ import com.liferay.portal.kernel.messaging.Message;
 
 import com.rknowsys.eapp.hrm.service.ClpSerializer;
 import com.rknowsys.eapp.hrm.service.DocCategoryLocalServiceUtil;
+import com.rknowsys.eapp.hrm.service.DocumentCategoriesLocalServiceUtil;
+import com.rknowsys.eapp.hrm.service.DocumentsAttachmentsLocalServiceUtil;
+import com.rknowsys.eapp.hrm.service.DocumentsLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.EducationLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.EmpAttachmentLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.EmpContactDetailsLocalServiceUtil;
@@ -58,6 +61,7 @@ import com.rknowsys.eapp.hrm.service.LicenseLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.LocationLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.MembershipLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.NationalityLocalServiceUtil;
+import com.rknowsys.eapp.hrm.service.NewsAttachmentsLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.NewsLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.OrganizationLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.PayGradeCurrencyLocalServiceUtil;
@@ -86,6 +90,12 @@ public class ClpMessageListener extends BaseMessageListener {
 		if (command.equals("undeploy") &&
 				servletContextName.equals(getServletContextName())) {
 			DocCategoryLocalServiceUtil.clearService();
+
+			DocumentCategoriesLocalServiceUtil.clearService();
+
+			DocumentsLocalServiceUtil.clearService();
+
+			DocumentsAttachmentsLocalServiceUtil.clearService();
 
 			EducationLocalServiceUtil.clearService();
 
@@ -166,6 +176,8 @@ public class ClpMessageListener extends BaseMessageListener {
 			NationalityLocalServiceUtil.clearService();
 
 			NewsLocalServiceUtil.clearService();
+
+			NewsAttachmentsLocalServiceUtil.clearService();
 
 			OrganizationLocalServiceUtil.clearService();
 

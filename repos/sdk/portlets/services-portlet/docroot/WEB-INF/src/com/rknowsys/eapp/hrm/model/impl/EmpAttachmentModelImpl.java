@@ -29,13 +29,10 @@ import com.liferay.portlet.expando.model.ExpandoBridge;
 import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
 
 import com.rknowsys.eapp.hrm.model.EmpAttachment;
-import com.rknowsys.eapp.hrm.model.EmpAttachmentFileBlobModel;
 import com.rknowsys.eapp.hrm.model.EmpAttachmentModel;
-import com.rknowsys.eapp.hrm.service.EmpAttachmentLocalServiceUtil;
 
 import java.io.Serializable;
 
-import java.sql.Blob;
 import java.sql.Types;
 
 import java.util.Date;
@@ -72,13 +69,15 @@ public class EmpAttachmentModelImpl extends BaseModelImpl<EmpAttachment>
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "attachmentTypeId", Types.BIGINT },
+			{ "uuid_", Types.VARCHAR },
+			{ "relatedTo", Types.VARCHAR },
+			{ "userName", Types.VARCHAR },
 			{ "fileName", Types.VARCHAR },
 			{ "fileSize", Types.BIGINT },
 			{ "fileType", Types.VARCHAR },
-			{ "file", Types.BLOB },
 			{ "comment_", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table emp_attachment (empAttachmentId LONG not null primary key,employeeId LONG,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,attachmentTypeId LONG,fileName VARCHAR(75) null,fileSize LONG,fileType VARCHAR(75) null,file BLOB,comment_ VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table emp_attachment (empAttachmentId LONG not null primary key,employeeId LONG,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,attachmentTypeId LONG,uuid_ VARCHAR(75) null,relatedTo VARCHAR(75) null,userName VARCHAR(75) null,fileName VARCHAR(75) null,fileSize LONG,fileType VARCHAR(75) null,comment_ VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table emp_attachment";
 	public static final String ORDER_BY_JPQL = " ORDER BY empAttachment.empAttachmentId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY emp_attachment.empAttachmentId ASC";
@@ -144,10 +143,12 @@ public class EmpAttachmentModelImpl extends BaseModelImpl<EmpAttachment>
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("attachmentTypeId", getAttachmentTypeId());
+		attributes.put("uuid", getUuid());
+		attributes.put("relatedTo", getRelatedTo());
+		attributes.put("userName", getUserName());
 		attributes.put("fileName", getFileName());
 		attributes.put("fileSize", getFileSize());
 		attributes.put("fileType", getFileType());
-		attributes.put("file", getFile());
 		attributes.put("comment", getComment());
 
 		return attributes;
@@ -203,6 +204,24 @@ public class EmpAttachmentModelImpl extends BaseModelImpl<EmpAttachment>
 			setAttachmentTypeId(attachmentTypeId);
 		}
 
+		String uuid = (String)attributes.get("uuid");
+
+		if (uuid != null) {
+			setUuid(uuid);
+		}
+
+		String relatedTo = (String)attributes.get("relatedTo");
+
+		if (relatedTo != null) {
+			setRelatedTo(relatedTo);
+		}
+
+		String userName = (String)attributes.get("userName");
+
+		if (userName != null) {
+			setUserName(userName);
+		}
+
 		String fileName = (String)attributes.get("fileName");
 
 		if (fileName != null) {
@@ -219,12 +238,6 @@ public class EmpAttachmentModelImpl extends BaseModelImpl<EmpAttachment>
 
 		if (fileType != null) {
 			setFileType(fileType);
-		}
-
-		Blob file = (Blob)attributes.get("file");
-
-		if (file != null) {
-			setFile(file);
 		}
 
 		String comment = (String)attributes.get("comment");
@@ -349,6 +362,51 @@ public class EmpAttachmentModelImpl extends BaseModelImpl<EmpAttachment>
 	}
 
 	@Override
+	public String getUuid() {
+		if (_uuid == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _uuid;
+		}
+	}
+
+	@Override
+	public void setUuid(String uuid) {
+		_uuid = uuid;
+	}
+
+	@Override
+	public String getRelatedTo() {
+		if (_relatedTo == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _relatedTo;
+		}
+	}
+
+	@Override
+	public void setRelatedTo(String relatedTo) {
+		_relatedTo = relatedTo;
+	}
+
+	@Override
+	public String getUserName() {
+		if (_userName == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _userName;
+		}
+	}
+
+	@Override
+	public void setUserName(String userName) {
+		_userName = userName;
+	}
+
+	@Override
 	public String getFileName() {
 		if (_fileName == null) {
 			return StringPool.BLANK;
@@ -386,36 +444,6 @@ public class EmpAttachmentModelImpl extends BaseModelImpl<EmpAttachment>
 	@Override
 	public void setFileType(String fileType) {
 		_fileType = fileType;
-	}
-
-	@Override
-	public Blob getFile() {
-		if (_fileBlobModel == null) {
-			try {
-				_fileBlobModel = EmpAttachmentLocalServiceUtil.getFileBlobModel(getPrimaryKey());
-			}
-			catch (Exception e) {
-			}
-		}
-
-		Blob blob = null;
-
-		if (_fileBlobModel != null) {
-			blob = _fileBlobModel.getFileBlob();
-		}
-
-		return blob;
-	}
-
-	@Override
-	public void setFile(Blob file) {
-		if (_fileBlobModel == null) {
-			_fileBlobModel = new EmpAttachmentFileBlobModel(getPrimaryKey(),
-					file);
-		}
-		else {
-			_fileBlobModel.setFileBlob(file);
-		}
 	}
 
 	@Override
@@ -472,6 +500,9 @@ public class EmpAttachmentModelImpl extends BaseModelImpl<EmpAttachment>
 		empAttachmentImpl.setCreateDate(getCreateDate());
 		empAttachmentImpl.setModifiedDate(getModifiedDate());
 		empAttachmentImpl.setAttachmentTypeId(getAttachmentTypeId());
+		empAttachmentImpl.setUuid(getUuid());
+		empAttachmentImpl.setRelatedTo(getRelatedTo());
+		empAttachmentImpl.setUserName(getUserName());
 		empAttachmentImpl.setFileName(getFileName());
 		empAttachmentImpl.setFileSize(getFileSize());
 		empAttachmentImpl.setFileType(getFileType());
@@ -536,8 +567,6 @@ public class EmpAttachmentModelImpl extends BaseModelImpl<EmpAttachment>
 
 		empAttachmentModelImpl._setOriginalEmployeeId = false;
 
-		empAttachmentModelImpl._fileBlobModel = null;
-
 		empAttachmentModelImpl._columnBitmask = 0;
 	}
 
@@ -575,6 +604,30 @@ public class EmpAttachmentModelImpl extends BaseModelImpl<EmpAttachment>
 
 		empAttachmentCacheModel.attachmentTypeId = getAttachmentTypeId();
 
+		empAttachmentCacheModel.uuid = getUuid();
+
+		String uuid = empAttachmentCacheModel.uuid;
+
+		if ((uuid != null) && (uuid.length() == 0)) {
+			empAttachmentCacheModel.uuid = null;
+		}
+
+		empAttachmentCacheModel.relatedTo = getRelatedTo();
+
+		String relatedTo = empAttachmentCacheModel.relatedTo;
+
+		if ((relatedTo != null) && (relatedTo.length() == 0)) {
+			empAttachmentCacheModel.relatedTo = null;
+		}
+
+		empAttachmentCacheModel.userName = getUserName();
+
+		String userName = empAttachmentCacheModel.userName;
+
+		if ((userName != null) && (userName.length() == 0)) {
+			empAttachmentCacheModel.userName = null;
+		}
+
 		empAttachmentCacheModel.fileName = getFileName();
 
 		String fileName = empAttachmentCacheModel.fileName;
@@ -606,7 +659,7 @@ public class EmpAttachmentModelImpl extends BaseModelImpl<EmpAttachment>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(27);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("{empAttachmentId=");
 		sb.append(getEmpAttachmentId());
@@ -624,6 +677,12 @@ public class EmpAttachmentModelImpl extends BaseModelImpl<EmpAttachment>
 		sb.append(getModifiedDate());
 		sb.append(", attachmentTypeId=");
 		sb.append(getAttachmentTypeId());
+		sb.append(", uuid=");
+		sb.append(getUuid());
+		sb.append(", relatedTo=");
+		sb.append(getRelatedTo());
+		sb.append(", userName=");
+		sb.append(getUserName());
 		sb.append(", fileName=");
 		sb.append(getFileName());
 		sb.append(", fileSize=");
@@ -639,7 +698,7 @@ public class EmpAttachmentModelImpl extends BaseModelImpl<EmpAttachment>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(43);
+		StringBundler sb = new StringBundler(49);
 
 		sb.append("<model><model-name>");
 		sb.append("com.rknowsys.eapp.hrm.model.EmpAttachment");
@@ -676,6 +735,18 @@ public class EmpAttachmentModelImpl extends BaseModelImpl<EmpAttachment>
 		sb.append(
 			"<column><column-name>attachmentTypeId</column-name><column-value><![CDATA[");
 		sb.append(getAttachmentTypeId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>uuid</column-name><column-value><![CDATA[");
+		sb.append(getUuid());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>relatedTo</column-name><column-value><![CDATA[");
+		sb.append(getRelatedTo());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>userName</column-name><column-value><![CDATA[");
+		sb.append(getUserName());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>fileName</column-name><column-value><![CDATA[");
@@ -716,10 +787,12 @@ public class EmpAttachmentModelImpl extends BaseModelImpl<EmpAttachment>
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _attachmentTypeId;
+	private String _uuid;
+	private String _relatedTo;
+	private String _userName;
 	private String _fileName;
 	private long _fileSize;
 	private String _fileType;
-	private EmpAttachmentFileBlobModel _fileBlobModel;
 	private String _comment;
 	private long _columnBitmask;
 	private EmpAttachment _escapedModel;

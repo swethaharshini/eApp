@@ -230,11 +230,6 @@ public interface EmpAttachmentLocalService extends BaseLocalService,
 		com.rknowsys.eapp.hrm.model.EmpAttachment empAttachment)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.rknowsys.eapp.hrm.model.EmpAttachmentFileBlobModel getFileBlobModel(
-		java.io.Serializable primaryKey)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
 	/**
 	* Returns the Spring bean ID for this bean.
 	*

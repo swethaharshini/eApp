@@ -378,37 +378,6 @@
 		</finder>
 	</entity>
 
-	<entity name="News" table="news" data-source="hrmDataSource"
-		local-service="true" remote-service="false" session-factory="hrmSessionFactory"
-		tx-manager="hrmTransactionManager">
-
-		<!-- PK fields -->
-
-		<column name="newsId" type="long" primary="true" />
-
-		<!-- Audit fields -->
-
-		<column name="companyId" type="long" />
-		<column name="groupId" type="long" />
-		<column name="createDate" type="Date" />
-		<column name="modifiedDate" type="Date" />
-		<column name="userId" type="long" />
-		<!-- Other fields -->
-
-		<column name="topic" type="String" />
-		<column name="description" type="String" />
-		<column name="publishTo" type="String" />
-		<column name="publishDate" type="Date" />
-
-		<!-- Order -->
-
-		<!-- Finder methods -->
-
-		<finder name="GroupId" return-type="Collection">
-			<finder-column name="groupId" />
-		</finder>
-	</entity>
-
 	<entity name="Membership" table="membership" data-source="hrmDataSource"
 		local-service="true" remote-service="false" session-factory="hrmSessionFactory"
 		tx-manager="hrmTransactionManager">
@@ -1599,4 +1568,130 @@
 
 
 		</entity>
+	
+	 <entity name="DocumentCategories" table="document_categories" data-source="hrmDataSource"
+        local-service="true" remote-service="false" session-factory="hrmSessionFactory"
+        tx-manager="hrmTransactionManager">
+        <!-- PK fields -->
+        <column  name="documentcategoryId" type="long" primary="true"/>
+        <!-- Audit fields -->
+        <column name="companyId" type="long" />
+        <column name="groupId" type="long" />
+        <column name="userId" type="long" />
+        <column name="createDate" type="Date" />
+        <column name="modifiedDate" type="Date" />
+        <!-- Other fields -->
+        <column name="documentCategory" type="String" />
+        <!-- Order -->
+        <!-- Finder methods -->
+        <finder name="GroupId" return-type="Collection">
+            <finder-column name="groupId" />
+        </finder>
+    </entity>
+    
+    <entity name="Documents" table="documents" data-source="hrmDataSource"
+		local-service="true" remote-service="false" session-factory="hrmSessionFactory"
+		tx-manager="hrmTransactionManager">
+		<!-- PK fields -->
+		<column name="documentId" type="long" primary="true" />
+		<!-- Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="groupId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		<column name="userId" type="long" />
+		<!-- Other fields -->
+		<column name="topic" type="String" />
+		<column name="category" type="String" />
+		<column name="description" type="String"/>
+		<column name="publishDate" type="Date" />
+		<column name="status" type="boolean" />
+		<column name="admin" type="boolean" />
+		<column name="supervisor" type="boolean" />
+		<column name="allEmployees" type="boolean" />
+		<column name="publishedTo" type="String" />
+		<!-- Order -->
+		
+		
+	</entity>
+	
+	<entity name="DocumentsAttachments" table="documents_attachments" data-source="hrmDataSource"
+		local-service="true" remote-service="false" session-factory="hrmSessionFactory"
+		tx-manager="hrmTransactionManager">
+		<!-- PK fields -->
+		<column name="documentAttachmentId" type="long" primary="true" />
+		<!-- Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="groupId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		<column name="userId" type="long" />
+		<!-- Other fields -->
+		
+		<column name="attachmentTypeId" type="long"></column>
+		<column name="documentId" type="long"></column>
+		<column name="description" type="String"/>
+		<column name="uuid" type="String"></column>
+		
+		<column name="fileName" type="String"></column>
+		<column name="fileSize" type="long"></column>
+		<column name="fileType" type="String"></column>
+		<!-- Order -->
+		
+		
+	</entity>
+	
+	
+	 <entity name="News" table="news" data-source="hrmDataSource"
+		local-service="true" remote-service="false" session-factory="hrmSessionFactory"
+		tx-manager="hrmTransactionManager">
+		<!-- PK fields -->
+		<column name="newsId" type="long" primary="true" />
+		<!-- Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="groupId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		<column name="userId" type="long" />
+		<!-- Other fields -->
+		<column name="topic" type="String" />
+		<column name="description" type="String"/>
+		<column name="publishDate" type="Date" />
+		<column name="status" type="boolean" />
+		<column name="admin" type="boolean" />
+		<column name="supervisor" type="boolean" />
+		<column name="allEmployees" type="boolean" />
+		<column name="publishedTo" type="String" />
+		<!-- Order -->
+		
+		
+	</entity>
+	
+	<entity name="NewsAttachments" table="news_attachments" data-source="hrmDataSource"
+		local-service="true" remote-service="false" session-factory="hrmSessionFactory"
+		tx-manager="hrmTransactionManager">
+		<!-- PK fields -->
+		<column name="newsAttachmentId" type="long" primary="true" />
+		<!-- Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="groupId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		<column name="userId" type="long" />
+		<!-- Other fields -->
+		
+		<column name="attachmentTypeId" type="long"></column>
+		<column name="newsId" type="long"></column>
+		<column name="description" type="String"/>
+		<column name="uuid" type="String"></column>
+		
+		<column name="fileName" type="String"></column>
+		<column name="fileSize" type="long"></column>
+		<column name="fileType" type="String"></column>
+		<!-- Order -->
+		
+		
+	</entity>
+		
+		
 </service-builder>

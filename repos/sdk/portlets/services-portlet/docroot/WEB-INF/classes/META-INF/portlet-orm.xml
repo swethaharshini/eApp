@@ -26,6 +26,81 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
+	<mapped-superclass class="com.rknowsys.eapp.hrm.model.impl.DocumentCategoriesModelImpl">
+		<attributes>
+			<id name="documentcategoryId" />
+			<basic name="companyId" />
+			<basic name="groupId" />
+			<basic name="userId" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="documentCategory" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.rknowsys.eapp.hrm.model.impl.DocumentsModelImpl">
+		<attributes>
+			<id name="documentId" />
+			<basic name="companyId" />
+			<basic name="groupId" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="userId" />
+			<basic name="topic" />
+			<basic name="category" />
+			<basic name="description" />
+			<basic name="publishDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="status" />
+			<basic name="admin" />
+			<basic name="supervisor" />
+			<basic name="allEmployees" />
+			<basic name="publishedTo" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.rknowsys.eapp.hrm.model.impl.DocumentsAttachmentsModelImpl">
+		<attributes>
+			<id name="documentAttachmentId" />
+			<basic name="companyId" />
+			<basic name="groupId" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="userId" />
+			<basic name="attachmentTypeId" />
+			<basic name="documentId" />
+			<basic name="description" />
+			<basic name="uuid">
+				<column name="UUID_" />
+			</basic>
+			<basic name="fileName" />
+			<basic name="fileSize" />
+			<basic name="fileType" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
 	<mapped-superclass class="com.rknowsys.eapp.hrm.model.impl.EducationModelImpl">
 		<attributes>
 			<id name="educationId" />
@@ -59,10 +134,14 @@
 				<temporal>TIMESTAMP</temporal>
 			</basic>
 			<basic name="attachmentTypeId" />
+			<basic name="uuid">
+				<column name="UUID_" />
+			</basic>
+			<basic name="relatedTo" />
+			<basic name="userName" />
 			<basic name="fileName" />
 			<basic name="fileSize" />
 			<basic name="fileType" />
-			<basic name="file" />
 			<basic name="comment">
 				<column name="COMMENT_" />
 			</basic>
@@ -304,7 +383,6 @@
 			<basic name="employmentContractEndDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
-			<basic name="contractDetails" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
@@ -1028,10 +1106,41 @@
 			<basic name="userId" />
 			<basic name="topic" />
 			<basic name="description" />
-			<basic name="publishTo" />
 			<basic name="publishDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
+			<basic name="status" />
+			<basic name="admin" />
+			<basic name="supervisor" />
+			<basic name="allEmployees" />
+			<basic name="publishedTo" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.rknowsys.eapp.hrm.model.impl.NewsAttachmentsModelImpl">
+		<attributes>
+			<id name="newsAttachmentId" />
+			<basic name="companyId" />
+			<basic name="groupId" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="userId" />
+			<basic name="attachmentTypeId" />
+			<basic name="newsId" />
+			<basic name="description" />
+			<basic name="uuid">
+				<column name="UUID_" />
+			</basic>
+			<basic name="fileName" />
+			<basic name="fileSize" />
+			<basic name="fileType" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
@@ -1274,6 +1383,18 @@
 		<table name="doc_category" />
 		<attributes />
 	</entity>
+	<entity class="com.rknowsys.eapp.hrm.model.impl.DocumentCategoriesImpl" name="DocumentCategories">
+		<table name="document_categories" />
+		<attributes />
+	</entity>
+	<entity class="com.rknowsys.eapp.hrm.model.impl.DocumentsImpl" name="Documents">
+		<table name="documents" />
+		<attributes />
+	</entity>
+	<entity class="com.rknowsys.eapp.hrm.model.impl.DocumentsAttachmentsImpl" name="DocumentsAttachments">
+		<table name="documents_attachments" />
+		<attributes />
+	</entity>
 	<entity class="com.rknowsys.eapp.hrm.model.impl.EducationImpl" name="Education">
 		<table name="education" />
 		<attributes />
@@ -1432,6 +1553,10 @@
 	</entity>
 	<entity class="com.rknowsys.eapp.hrm.model.impl.NewsImpl" name="News">
 		<table name="news" />
+		<attributes />
+	</entity>
+	<entity class="com.rknowsys.eapp.hrm.model.impl.NewsAttachmentsImpl" name="NewsAttachments">
+		<table name="news_attachments" />
 		<attributes />
 	</entity>
 	<entity class="com.rknowsys.eapp.hrm.model.impl.OrganizationImpl" name="Organization">

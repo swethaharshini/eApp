@@ -247,12 +247,6 @@ public class EmpJobLocalServiceUtil {
 		return getService().updateEmpJob(empJob);
 	}
 
-	public static com.rknowsys.eapp.hrm.model.EmpJobContractDetailsBlobModel getContractDetailsBlobModel(
-		java.io.Serializable primaryKey)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().getContractDetailsBlobModel(primaryKey);
-	}
-
 	/**
 	* Returns the Spring bean ID for this bean.
 	*

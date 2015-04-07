@@ -1262,12 +1262,8 @@ public class EmpJobPersistenceImpl extends BasePersistenceImpl<EmpJob>
 				empJob.setNew(false);
 			}
 			else {
-				session.evict(empJob);
-				session.saveOrUpdate(empJob);
+				session.merge(empJob);
 			}
-
-			session.flush();
-			session.clear();
 		}
 		catch (Exception e) {
 			throw processException(e);
@@ -1323,8 +1319,6 @@ public class EmpJobPersistenceImpl extends BasePersistenceImpl<EmpJob>
 		EntityCacheUtil.putResult(EmpJobModelImpl.ENTITY_CACHE_ENABLED,
 			EmpJobImpl.class, empJob.getPrimaryKey(), empJob);
 
-		empJob.resetOriginalValues();
-
 		return empJob;
 	}
 
@@ -1359,7 +1353,6 @@ public class EmpJobPersistenceImpl extends BasePersistenceImpl<EmpJob>
 		empJobImpl.setIsCurrentJob(empJob.isIsCurrentJob());
 		empJobImpl.setEmploymentContractStartDate(empJob.getEmploymentContractStartDate());
 		empJobImpl.setEmploymentContractEndDate(empJob.getEmploymentContractEndDate());
-		empJobImpl.setContractDetails(empJob.getContractDetails());
 
 		return empJobImpl;
 	}

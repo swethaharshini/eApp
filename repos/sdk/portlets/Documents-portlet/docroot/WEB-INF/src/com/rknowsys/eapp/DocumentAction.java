@@ -380,7 +380,7 @@ public class DocumentAction extends MVCPortlet {
 		 
 		 PortletSession portletSession = actionRequest.getPortletSession();
 	   		portletSession.setAttribute("editDocument", documentObject);
-	        portletSession.setAttribute("editattachmentform", "redirectedToAdd");
+	        portletSession.setAttribute("editattachmentform", "redirectToAdd");
 		    
 		    actionResponse.setRenderParameter("mvcPath","/html/documents/editdocuments.jsp");
 		 
