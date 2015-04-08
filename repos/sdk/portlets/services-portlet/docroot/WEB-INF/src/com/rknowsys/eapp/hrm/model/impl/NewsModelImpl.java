@@ -68,10 +68,14 @@ public class NewsModelImpl extends BaseModelImpl<News> implements NewsModel {
 			{ "userId", Types.BIGINT },
 			{ "topic", Types.VARCHAR },
 			{ "description", Types.VARCHAR },
-			{ "publishTo", Types.VARCHAR },
-			{ "publishDate", Types.TIMESTAMP }
+			{ "publishDate", Types.TIMESTAMP },
+			{ "status", Types.BOOLEAN },
+			{ "admin", Types.BOOLEAN },
+			{ "supervisor", Types.BOOLEAN },
+			{ "allEmployees", Types.BOOLEAN },
+			{ "publishedTo", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table news (newsId LONG not null primary key,companyId LONG,groupId LONG,createDate DATE null,modifiedDate DATE null,userId LONG,topic VARCHAR(75) null,description VARCHAR(75) null,publishTo VARCHAR(75) null,publishDate DATE null)";
+	public static final String TABLE_SQL_CREATE = "create table news (newsId LONG not null primary key,companyId LONG,groupId LONG,createDate DATE null,modifiedDate DATE null,userId LONG,topic VARCHAR(75) null,description STRING null,publishDate DATE null,status BOOLEAN,admin BOOLEAN,supervisor BOOLEAN,allEmployees BOOLEAN,publishedTo VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table news";
 	public static final String ORDER_BY_JPQL = " ORDER BY news.newsId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY news.newsId ASC";
@@ -84,11 +88,7 @@ public class NewsModelImpl extends BaseModelImpl<News> implements NewsModel {
 	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.finder.cache.enabled.com.rknowsys.eapp.hrm.model.News"),
 			true);
-	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
-				"value.object.column.bitmask.enabled.com.rknowsys.eapp.hrm.model.News"),
-			true);
-	public static long GROUPID_COLUMN_BITMASK = 1L;
-	public static long NEWSID_COLUMN_BITMASK = 2L;
+	public static final boolean COLUMN_BITMASK_ENABLED = false;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.rknowsys.eapp.hrm.model.News"));
 
@@ -137,8 +137,12 @@ public class NewsModelImpl extends BaseModelImpl<News> implements NewsModel {
 		attributes.put("userId", getUserId());
 		attributes.put("topic", getTopic());
 		attributes.put("description", getDescription());
-		attributes.put("publishTo", getPublishTo());
 		attributes.put("publishDate", getPublishDate());
+		attributes.put("status", getStatus());
+		attributes.put("admin", getAdmin());
+		attributes.put("supervisor", getSupervisor());
+		attributes.put("allEmployees", getAllEmployees());
+		attributes.put("publishedTo", getPublishedTo());
 
 		return attributes;
 	}
@@ -193,16 +197,40 @@ public class NewsModelImpl extends BaseModelImpl<News> implements NewsModel {
 			setDescription(description);
 		}
 
-		String publishTo = (String)attributes.get("publishTo");
-
-		if (publishTo != null) {
-			setPublishTo(publishTo);
-		}
-
 		Date publishDate = (Date)attributes.get("publishDate");
 
 		if (publishDate != null) {
 			setPublishDate(publishDate);
+		}
+
+		Boolean status = (Boolean)attributes.get("status");
+
+		if (status != null) {
+			setStatus(status);
+		}
+
+		Boolean admin = (Boolean)attributes.get("admin");
+
+		if (admin != null) {
+			setAdmin(admin);
+		}
+
+		Boolean supervisor = (Boolean)attributes.get("supervisor");
+
+		if (supervisor != null) {
+			setSupervisor(supervisor);
+		}
+
+		Boolean allEmployees = (Boolean)attributes.get("allEmployees");
+
+		if (allEmployees != null) {
+			setAllEmployees(allEmployees);
+		}
+
+		String publishedTo = (String)attributes.get("publishedTo");
+
+		if (publishedTo != null) {
+			setPublishedTo(publishedTo);
 		}
 	}
 
@@ -233,19 +261,7 @@ public class NewsModelImpl extends BaseModelImpl<News> implements NewsModel {
 
 	@Override
 	public void setGroupId(long groupId) {
-		_columnBitmask |= GROUPID_COLUMN_BITMASK;
-
-		if (!_setOriginalGroupId) {
-			_setOriginalGroupId = true;
-
-			_originalGroupId = _groupId;
-		}
-
 		_groupId = groupId;
-	}
-
-	public long getOriginalGroupId() {
-		return _originalGroupId;
 	}
 
 	@Override
@@ -319,21 +335,6 @@ public class NewsModelImpl extends BaseModelImpl<News> implements NewsModel {
 	}
 
 	@Override
-	public String getPublishTo() {
-		if (_publishTo == null) {
-			return StringPool.BLANK;
-		}
-		else {
-			return _publishTo;
-		}
-	}
-
-	@Override
-	public void setPublishTo(String publishTo) {
-		_publishTo = publishTo;
-	}
-
-	@Override
 	public Date getPublishDate() {
 		return _publishDate;
 	}
@@ -343,8 +344,79 @@ public class NewsModelImpl extends BaseModelImpl<News> implements NewsModel {
 		_publishDate = publishDate;
 	}
 
-	public long getColumnBitmask() {
-		return _columnBitmask;
+	@Override
+	public boolean getStatus() {
+		return _status;
+	}
+
+	@Override
+	public boolean isStatus() {
+		return _status;
+	}
+
+	@Override
+	public void setStatus(boolean status) {
+		_status = status;
+	}
+
+	@Override
+	public boolean getAdmin() {
+		return _admin;
+	}
+
+	@Override
+	public boolean isAdmin() {
+		return _admin;
+	}
+
+	@Override
+	public void setAdmin(boolean admin) {
+		_admin = admin;
+	}
+
+	@Override
+	public boolean getSupervisor() {
+		return _supervisor;
+	}
+
+	@Override
+	public boolean isSupervisor() {
+		return _supervisor;
+	}
+
+	@Override
+	public void setSupervisor(boolean supervisor) {
+		_supervisor = supervisor;
+	}
+
+	@Override
+	public boolean getAllEmployees() {
+		return _allEmployees;
+	}
+
+	@Override
+	public boolean isAllEmployees() {
+		return _allEmployees;
+	}
+
+	@Override
+	public void setAllEmployees(boolean allEmployees) {
+		_allEmployees = allEmployees;
+	}
+
+	@Override
+	public String getPublishedTo() {
+		if (_publishedTo == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _publishedTo;
+		}
+	}
+
+	@Override
+	public void setPublishedTo(String publishedTo) {
+		_publishedTo = publishedTo;
 	}
 
 	@Override
@@ -382,8 +454,12 @@ public class NewsModelImpl extends BaseModelImpl<News> implements NewsModel {
 		newsImpl.setUserId(getUserId());
 		newsImpl.setTopic(getTopic());
 		newsImpl.setDescription(getDescription());
-		newsImpl.setPublishTo(getPublishTo());
 		newsImpl.setPublishDate(getPublishDate());
+		newsImpl.setStatus(getStatus());
+		newsImpl.setAdmin(getAdmin());
+		newsImpl.setSupervisor(getSupervisor());
+		newsImpl.setAllEmployees(getAllEmployees());
+		newsImpl.setPublishedTo(getPublishedTo());
 
 		newsImpl.resetOriginalValues();
 
@@ -434,13 +510,6 @@ public class NewsModelImpl extends BaseModelImpl<News> implements NewsModel {
 
 	@Override
 	public void resetOriginalValues() {
-		NewsModelImpl newsModelImpl = this;
-
-		newsModelImpl._originalGroupId = newsModelImpl._groupId;
-
-		newsModelImpl._setOriginalGroupId = false;
-
-		newsModelImpl._columnBitmask = 0;
 	}
 
 	@Override
@@ -489,14 +558,6 @@ public class NewsModelImpl extends BaseModelImpl<News> implements NewsModel {
 			newsCacheModel.description = null;
 		}
 
-		newsCacheModel.publishTo = getPublishTo();
-
-		String publishTo = newsCacheModel.publishTo;
-
-		if ((publishTo != null) && (publishTo.length() == 0)) {
-			newsCacheModel.publishTo = null;
-		}
-
 		Date publishDate = getPublishDate();
 
 		if (publishDate != null) {
@@ -506,12 +567,28 @@ public class NewsModelImpl extends BaseModelImpl<News> implements NewsModel {
 			newsCacheModel.publishDate = Long.MIN_VALUE;
 		}
 
+		newsCacheModel.status = getStatus();
+
+		newsCacheModel.admin = getAdmin();
+
+		newsCacheModel.supervisor = getSupervisor();
+
+		newsCacheModel.allEmployees = getAllEmployees();
+
+		newsCacheModel.publishedTo = getPublishedTo();
+
+		String publishedTo = newsCacheModel.publishedTo;
+
+		if ((publishedTo != null) && (publishedTo.length() == 0)) {
+			newsCacheModel.publishedTo = null;
+		}
+
 		return newsCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(29);
 
 		sb.append("{newsId=");
 		sb.append(getNewsId());
@@ -529,10 +606,18 @@ public class NewsModelImpl extends BaseModelImpl<News> implements NewsModel {
 		sb.append(getTopic());
 		sb.append(", description=");
 		sb.append(getDescription());
-		sb.append(", publishTo=");
-		sb.append(getPublishTo());
 		sb.append(", publishDate=");
 		sb.append(getPublishDate());
+		sb.append(", status=");
+		sb.append(getStatus());
+		sb.append(", admin=");
+		sb.append(getAdmin());
+		sb.append(", supervisor=");
+		sb.append(getSupervisor());
+		sb.append(", allEmployees=");
+		sb.append(getAllEmployees());
+		sb.append(", publishedTo=");
+		sb.append(getPublishedTo());
 		sb.append("}");
 
 		return sb.toString();
@@ -540,7 +625,7 @@ public class NewsModelImpl extends BaseModelImpl<News> implements NewsModel {
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(34);
+		StringBundler sb = new StringBundler(46);
 
 		sb.append("<model><model-name>");
 		sb.append("com.rknowsys.eapp.hrm.model.News");
@@ -579,12 +664,28 @@ public class NewsModelImpl extends BaseModelImpl<News> implements NewsModel {
 		sb.append(getDescription());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>publishTo</column-name><column-value><![CDATA[");
-		sb.append(getPublishTo());
-		sb.append("]]></column-value></column>");
-		sb.append(
 			"<column><column-name>publishDate</column-name><column-value><![CDATA[");
 		sb.append(getPublishDate());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>status</column-name><column-value><![CDATA[");
+		sb.append(getStatus());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>admin</column-name><column-value><![CDATA[");
+		sb.append(getAdmin());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>supervisor</column-name><column-value><![CDATA[");
+		sb.append(getSupervisor());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>allEmployees</column-name><column-value><![CDATA[");
+		sb.append(getAllEmployees());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>publishedTo</column-name><column-value><![CDATA[");
+		sb.append(getPublishedTo());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -597,16 +698,17 @@ public class NewsModelImpl extends BaseModelImpl<News> implements NewsModel {
 	private long _newsId;
 	private long _companyId;
 	private long _groupId;
-	private long _originalGroupId;
-	private boolean _setOriginalGroupId;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _userId;
 	private String _userUuid;
 	private String _topic;
 	private String _description;
-	private String _publishTo;
 	private Date _publishDate;
-	private long _columnBitmask;
+	private boolean _status;
+	private boolean _admin;
+	private boolean _supervisor;
+	private boolean _allEmployees;
+	private String _publishedTo;
 	private News _escapedModel;
 }

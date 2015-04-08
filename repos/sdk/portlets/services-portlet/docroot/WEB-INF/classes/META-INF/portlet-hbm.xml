@@ -3,6 +3,9 @@
 
 <hibernate-mapping default-lazy="false" auto-import="false">
 	<import class="com.rknowsys.eapp.hrm.model.DocCategory" />
+	<import class="com.rknowsys.eapp.hrm.model.DocumentCategories" />
+	<import class="com.rknowsys.eapp.hrm.model.Documents" />
+	<import class="com.rknowsys.eapp.hrm.model.DocumentsAttachments" />
 	<import class="com.rknowsys.eapp.hrm.model.Education" />
 	<import class="com.rknowsys.eapp.hrm.model.EmpAttachment" />
 	<import class="com.rknowsys.eapp.hrm.model.EmpContactDetails" />
@@ -43,6 +46,7 @@
 	<import class="com.rknowsys.eapp.hrm.model.Membership" />
 	<import class="com.rknowsys.eapp.hrm.model.Nationality" />
 	<import class="com.rknowsys.eapp.hrm.model.News" />
+	<import class="com.rknowsys.eapp.hrm.model.NewsAttachments" />
 	<import class="com.rknowsys.eapp.hrm.model.Organization" />
 	<import class="com.rknowsys.eapp.hrm.model.PayGrade" />
 	<import class="com.rknowsys.eapp.hrm.model.PayGradeCurrency" />
@@ -64,6 +68,56 @@
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="docName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.DocumentCategoriesImpl" table="document_categories">
+		<cache usage="read-write" />
+		<id name="documentcategoryId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="documentCategory" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.DocumentsImpl" table="documents">
+		<cache usage="read-write" />
+		<id name="documentId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="topic" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="category" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="publishDate" type="org.hibernate.type.TimestampType" />
+		<property name="status" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="admin" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="supervisor" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="allEmployees" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="publishedTo" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.DocumentsAttachmentsImpl" table="documents_attachments">
+		<cache usage="read-write" />
+		<id name="documentAttachmentId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="attachmentTypeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="documentId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="uuid" type="com.liferay.portal.dao.orm.hibernate.StringType" column="uuid_" />
+		<property name="fileName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="fileSize" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="fileType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.rknowsys.eapp.hrm.model.impl.EducationImpl" table="education">
 		<cache usage="read-write" />
@@ -89,19 +143,13 @@
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="attachmentTypeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="uuid" type="com.liferay.portal.dao.orm.hibernate.StringType" column="uuid_" />
+		<property name="relatedTo" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="fileName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="fileSize" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="fileType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<one-to-one name="fileBlobModel" access="com.liferay.portal.dao.orm.hibernate.PrivatePropertyAccessor" class="com.rknowsys.eapp.hrm.model.EmpAttachmentFileBlobModel" cascade="save-update" outer-join="false" constrained="true" />
 		<property name="comment" type="com.liferay.portal.dao.orm.hibernate.StringType" column="comment_" />
-	</class>
-	<class name="com.rknowsys.eapp.hrm.model.EmpAttachmentFileBlobModel" table="emp_attachment" lazy="false">
-		<id name="empAttachmentId" column="empAttachmentId">
-			<generator class="foreign">
-				<param name="property">com.rknowsys.eapp.hrm.model.impl.EmpAttachmentImpl</param>
-			</generator>
-		</id>
-		<property column="file" name="fileBlob" type="blob" />
 	</class>
 	<class name="com.rknowsys.eapp.hrm.model.impl.EmpContactDetailsImpl" table="emp_contact_details">
 		<cache usage="read-write" />
@@ -258,15 +306,6 @@
 		<property name="isCurrentJob" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 		<property name="employmentContractStartDate" type="org.hibernate.type.TimestampType" />
 		<property name="employmentContractEndDate" type="org.hibernate.type.TimestampType" />
-		<one-to-one name="contractDetailsBlobModel" access="com.liferay.portal.dao.orm.hibernate.PrivatePropertyAccessor" class="com.rknowsys.eapp.hrm.model.EmpJobContractDetailsBlobModel" cascade="save-update" outer-join="false" constrained="true" />
-	</class>
-	<class name="com.rknowsys.eapp.hrm.model.EmpJobContractDetailsBlobModel" table="emp_job" lazy="false">
-		<id name="empJobId" column="empJobId">
-			<generator class="foreign">
-				<param name="property">com.rknowsys.eapp.hrm.model.impl.EmpJobImpl</param>
-			</generator>
-		</id>
-		<property column="contractDetails" name="contractDetailsBlob" type="blob" />
 	</class>
 	<class name="com.rknowsys.eapp.hrm.model.impl.EmpLanguageImpl" table="emp_language">
 		<cache usage="read-write" />
@@ -751,8 +790,30 @@
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="topic" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="publishTo" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="publishDate" type="org.hibernate.type.TimestampType" />
+		<property name="status" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="admin" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="supervisor" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="allEmployees" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="publishedTo" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.rknowsys.eapp.hrm.model.impl.NewsAttachmentsImpl" table="news_attachments">
+		<cache usage="read-write" />
+		<id name="newsAttachmentId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="attachmentTypeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="newsId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="uuid" type="com.liferay.portal.dao.orm.hibernate.StringType" column="uuid_" />
+		<property name="fileName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="fileSize" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="fileType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.rknowsys.eapp.hrm.model.impl.OrganizationImpl" table="hrm_Organization">
 		<cache usage="read-write" />

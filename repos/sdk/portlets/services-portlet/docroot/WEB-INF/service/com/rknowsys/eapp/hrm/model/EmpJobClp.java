@@ -29,8 +29,6 @@ import java.io.Serializable;
 
 import java.lang.reflect.Method;
 
-import java.sql.Blob;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -99,7 +97,6 @@ public class EmpJobClp extends BaseModelImpl<EmpJob> implements EmpJob {
 			getEmploymentContractStartDate());
 		attributes.put("employmentContractEndDate",
 			getEmploymentContractEndDate());
-		attributes.put("contractDetails", getContractDetails());
 
 		return attributes;
 	}
@@ -232,12 +229,6 @@ public class EmpJobClp extends BaseModelImpl<EmpJob> implements EmpJob {
 
 		if (employmentContractEndDate != null) {
 			setEmploymentContractEndDate(employmentContractEndDate);
-		}
-
-		Blob contractDetails = (Blob)attributes.get("contractDetails");
-
-		if (contractDetails != null) {
-			setContractDetails(contractDetails);
 		}
 	}
 
@@ -743,29 +734,6 @@ public class EmpJobClp extends BaseModelImpl<EmpJob> implements EmpJob {
 		}
 	}
 
-	@Override
-	public Blob getContractDetails() {
-		return _contractDetails;
-	}
-
-	@Override
-	public void setContractDetails(Blob contractDetails) {
-		_contractDetails = contractDetails;
-
-		if (_empJobRemoteModel != null) {
-			try {
-				Class<?> clazz = _empJobRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setContractDetails", Blob.class);
-
-				method.invoke(_empJobRemoteModel, contractDetails);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
 	public BaseModel<?> getEmpJobRemoteModel() {
 		return _empJobRemoteModel;
 	}
@@ -856,7 +824,6 @@ public class EmpJobClp extends BaseModelImpl<EmpJob> implements EmpJob {
 		clone.setIsCurrentJob(getIsCurrentJob());
 		clone.setEmploymentContractStartDate(getEmploymentContractStartDate());
 		clone.setEmploymentContractEndDate(getEmploymentContractEndDate());
-		clone.setContractDetails(getContractDetails());
 
 		return clone;
 	}
@@ -905,7 +872,7 @@ public class EmpJobClp extends BaseModelImpl<EmpJob> implements EmpJob {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(45);
+		StringBundler sb = new StringBundler(43);
 
 		sb.append("{empJobId=");
 		sb.append(getEmpJobId());
@@ -949,8 +916,6 @@ public class EmpJobClp extends BaseModelImpl<EmpJob> implements EmpJob {
 		sb.append(getEmploymentContractStartDate());
 		sb.append(", employmentContractEndDate=");
 		sb.append(getEmploymentContractEndDate());
-		sb.append(", contractDetails=");
-		sb.append(getContractDetails());
 		sb.append("}");
 
 		return sb.toString();
@@ -958,7 +923,7 @@ public class EmpJobClp extends BaseModelImpl<EmpJob> implements EmpJob {
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(70);
+		StringBundler sb = new StringBundler(67);
 
 		sb.append("<model><model-name>");
 		sb.append("com.rknowsys.eapp.hrm.model.EmpJob");
@@ -1048,10 +1013,6 @@ public class EmpJobClp extends BaseModelImpl<EmpJob> implements EmpJob {
 			"<column><column-name>employmentContractEndDate</column-name><column-value><![CDATA[");
 		sb.append(getEmploymentContractEndDate());
 		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>contractDetails</column-name><column-value><![CDATA[");
-		sb.append(getContractDetails());
-		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -1080,6 +1041,5 @@ public class EmpJobClp extends BaseModelImpl<EmpJob> implements EmpJob {
 	private boolean _isCurrentJob;
 	private Date _employmentContractStartDate;
 	private Date _employmentContractEndDate;
-	private Blob _contractDetails;
 	private BaseModel<?> _empJobRemoteModel;
 }

@@ -6,6 +6,25 @@
 		<property name="dataSource" ref="hrmDataSource" />
 		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.DocumentCategoriesLocalService" class="com.rknowsys.eapp.hrm.service.impl.DocumentCategoriesLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.DocumentCategoriesPersistence" class="com.rknowsys.eapp.hrm.service.persistence.DocumentCategoriesPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.DocumentsLocalService" class="com.rknowsys.eapp.hrm.service.impl.DocumentsLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.DocumentsPersistence" class="com.rknowsys.eapp.hrm.service.persistence.DocumentsPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.DocumentsFinder" class="com.rknowsys.eapp.hrm.service.persistence.DocumentsFinderImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.DocumentsAttachmentsLocalService" class="com.rknowsys.eapp.hrm.service.impl.DocumentsAttachmentsLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.DocumentsAttachmentsPersistence" class="com.rknowsys.eapp.hrm.service.persistence.DocumentsAttachmentsPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
 	<bean id="com.rknowsys.eapp.hrm.service.EducationLocalService" class="com.rknowsys.eapp.hrm.service.impl.EducationLocalServiceImpl" />
 	<bean id="com.rknowsys.eapp.hrm.service.persistence.EducationPersistence" class="com.rknowsys.eapp.hrm.service.persistence.EducationPersistenceImpl" parent="basePersistence">
 		<property name="dataSource" ref="hrmDataSource" />
@@ -219,6 +238,15 @@
 	</bean>
 	<bean id="com.rknowsys.eapp.hrm.service.NewsLocalService" class="com.rknowsys.eapp.hrm.service.impl.NewsLocalServiceImpl" />
 	<bean id="com.rknowsys.eapp.hrm.service.persistence.NewsPersistence" class="com.rknowsys.eapp.hrm.service.persistence.NewsPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.NewsFinder" class="com.rknowsys.eapp.hrm.service.persistence.NewsFinderImpl" parent="basePersistence">
+		<property name="dataSource" ref="hrmDataSource" />
+		<property name="sessionFactory" ref="hrmSessionFactory" />
+	</bean>
+	<bean id="com.rknowsys.eapp.hrm.service.NewsAttachmentsLocalService" class="com.rknowsys.eapp.hrm.service.impl.NewsAttachmentsLocalServiceImpl" />
+	<bean id="com.rknowsys.eapp.hrm.service.persistence.NewsAttachmentsPersistence" class="com.rknowsys.eapp.hrm.service.persistence.NewsAttachmentsPersistenceImpl" parent="basePersistence">
 		<property name="dataSource" ref="hrmDataSource" />
 		<property name="sessionFactory" ref="hrmSessionFactory" />
 	</bean>

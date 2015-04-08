@@ -1144,12 +1144,8 @@ public class EmpAttachmentPersistenceImpl extends BasePersistenceImpl<EmpAttachm
 				empAttachment.setNew(false);
 			}
 			else {
-				session.evict(empAttachment);
-				session.saveOrUpdate(empAttachment);
+				session.merge(empAttachment);
 			}
-
-			session.flush();
-			session.clear();
 		}
 		catch (Exception e) {
 			throw processException(e);
@@ -1208,8 +1204,6 @@ public class EmpAttachmentPersistenceImpl extends BasePersistenceImpl<EmpAttachm
 			EmpAttachmentImpl.class, empAttachment.getPrimaryKey(),
 			empAttachment);
 
-		empAttachment.resetOriginalValues();
-
 		return empAttachment;
 	}
 
@@ -1231,10 +1225,12 @@ public class EmpAttachmentPersistenceImpl extends BasePersistenceImpl<EmpAttachm
 		empAttachmentImpl.setCreateDate(empAttachment.getCreateDate());
 		empAttachmentImpl.setModifiedDate(empAttachment.getModifiedDate());
 		empAttachmentImpl.setAttachmentTypeId(empAttachment.getAttachmentTypeId());
+		empAttachmentImpl.setUuid(empAttachment.getUuid());
+		empAttachmentImpl.setRelatedTo(empAttachment.getRelatedTo());
+		empAttachmentImpl.setUserName(empAttachment.getUserName());
 		empAttachmentImpl.setFileName(empAttachment.getFileName());
 		empAttachmentImpl.setFileSize(empAttachment.getFileSize());
 		empAttachmentImpl.setFileType(empAttachment.getFileType());
-		empAttachmentImpl.setFile(empAttachment.getFile());
 		empAttachmentImpl.setComment(empAttachment.getComment());
 
 		return empAttachmentImpl;
@@ -1561,7 +1557,7 @@ public class EmpAttachmentPersistenceImpl extends BasePersistenceImpl<EmpAttachm
 				PropsKeys.HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE));
 	private static Log _log = LogFactoryUtil.getLog(EmpAttachmentPersistenceImpl.class);
 	private static Set<String> _badColumnNames = SetUtil.fromArray(new String[] {
-				"comment"
+				"uuid", "comment"
 			});
 	private static EmpAttachment _nullEmpAttachment = new EmpAttachmentImpl() {
 			@Override

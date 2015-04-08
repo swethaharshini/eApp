@@ -81,6 +81,7 @@ public class EmpJobCacheModel implements CacheModel<EmpJob>, Externalizable {
 		sb.append(employmentContractStartDate);
 		sb.append(", employmentContractEndDate=");
 		sb.append(employmentContractEndDate);
+		sb.append("}");
 
 		return sb.toString();
 	}

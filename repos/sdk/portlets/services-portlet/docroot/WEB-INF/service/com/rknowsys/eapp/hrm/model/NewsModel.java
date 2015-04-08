@@ -190,21 +190,6 @@ public interface NewsModel extends BaseModel<News> {
 	public void setDescription(String description);
 
 	/**
-	 * Returns the publish to of this news.
-	 *
-	 * @return the publish to of this news
-	 */
-	@AutoEscape
-	public String getPublishTo();
-
-	/**
-	 * Sets the publish to of this news.
-	 *
-	 * @param publishTo the publish to of this news
-	 */
-	public void setPublishTo(String publishTo);
-
-	/**
 	 * Returns the publish date of this news.
 	 *
 	 * @return the publish date of this news
@@ -217,6 +202,105 @@ public interface NewsModel extends BaseModel<News> {
 	 * @param publishDate the publish date of this news
 	 */
 	public void setPublishDate(Date publishDate);
+
+	/**
+	 * Returns the status of this news.
+	 *
+	 * @return the status of this news
+	 */
+	public boolean getStatus();
+
+	/**
+	 * Returns <code>true</code> if this news is status.
+	 *
+	 * @return <code>true</code> if this news is status; <code>false</code> otherwise
+	 */
+	public boolean isStatus();
+
+	/**
+	 * Sets whether this news is status.
+	 *
+	 * @param status the status of this news
+	 */
+	public void setStatus(boolean status);
+
+	/**
+	 * Returns the admin of this news.
+	 *
+	 * @return the admin of this news
+	 */
+	public boolean getAdmin();
+
+	/**
+	 * Returns <code>true</code> if this news is admin.
+	 *
+	 * @return <code>true</code> if this news is admin; <code>false</code> otherwise
+	 */
+	public boolean isAdmin();
+
+	/**
+	 * Sets whether this news is admin.
+	 *
+	 * @param admin the admin of this news
+	 */
+	public void setAdmin(boolean admin);
+
+	/**
+	 * Returns the supervisor of this news.
+	 *
+	 * @return the supervisor of this news
+	 */
+	public boolean getSupervisor();
+
+	/**
+	 * Returns <code>true</code> if this news is supervisor.
+	 *
+	 * @return <code>true</code> if this news is supervisor; <code>false</code> otherwise
+	 */
+	public boolean isSupervisor();
+
+	/**
+	 * Sets whether this news is supervisor.
+	 *
+	 * @param supervisor the supervisor of this news
+	 */
+	public void setSupervisor(boolean supervisor);
+
+	/**
+	 * Returns the all employees of this news.
+	 *
+	 * @return the all employees of this news
+	 */
+	public boolean getAllEmployees();
+
+	/**
+	 * Returns <code>true</code> if this news is all employees.
+	 *
+	 * @return <code>true</code> if this news is all employees; <code>false</code> otherwise
+	 */
+	public boolean isAllEmployees();
+
+	/**
+	 * Sets whether this news is all employees.
+	 *
+	 * @param allEmployees the all employees of this news
+	 */
+	public void setAllEmployees(boolean allEmployees);
+
+	/**
+	 * Returns the published to of this news.
+	 *
+	 * @return the published to of this news
+	 */
+	@AutoEscape
+	public String getPublishedTo();
+
+	/**
+	 * Sets the published to of this news.
+	 *
+	 * @param publishedTo the published to of this news
+	 */
+	public void setPublishedTo(String publishedTo);
 
 	@Override
 	public boolean isNew();
