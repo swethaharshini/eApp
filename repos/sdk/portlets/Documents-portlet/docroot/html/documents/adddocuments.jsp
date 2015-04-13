@@ -3,14 +3,21 @@
 <%@ include file="/html/documents/init.jsp" %>
 
 <%@page import="com.liferay.portal.kernel.util.UnicodeFormatter" %>
-<portlet:actionURL name="toEditDocuments" var="editsaveDocumentsURL">
+<portlet:actionURL name="saveDocuments" var="editsaveDocumentsURL">
   <portlet:param name="saveid" value="save"></portlet:param>
 </portlet:actionURL>
-<portlet:actionURL name="toEditDocuments" var="editpublishDocumentsURL">
+<portlet:actionURL name="saveDocuments" var="editpublishDocumentsURL">
   <portlet:param name="saveid" value="publish"></portlet:param>
 </portlet:actionURL>
-
 <aui:script>
+
+ function publishForm(){
+  
+	 document.getElementById('<portlet:namespace/>myForm').action='<%=editpublishDocumentsURL.toString()%>';
+	 
+ }
+
+
  AUI().use('aui-datepicker',function(A){
 	new A.DatePicker(
 			{
@@ -35,11 +42,11 @@
 	 
  }
  
- function publishForm(){
-	 document.getElementById('<portlet:namespace/>myForm').action='<%=editpublishDocumentsURL.toString()%>';
-	 
- }
+
 </aui:script>
+<%	
+String namespace = renderResponse.getNamespace();
+%>
  
 <div class="panel">
 				<div class="panel-heading">
@@ -101,7 +108,9 @@
  <div class="row-fluid">
 <div class="span2"><label>Published To:</label> </div>
 <div class ="span3">
-<aui:input type="checkbox" name="admin" label="Admin"/>
+<aui:input  type="checkbox" name="admin" label="Admin">
+
+</aui:input>
 </div>
 <div class="span3">
 <aui:input type="checkbox" name="supervisor" label="Supervisor"/>
@@ -110,7 +119,14 @@
 <aui:input type="checkbox" name="allemps" label="All Employees"/>
 </div>
 </div>
- 
+ <div class="row-fluid">
+ <div class="span2"></div>
+ <div class="span3">
+<aui:input  type="checkbox" name="one" label="" hidden="true"/>
+ </div>
+ <div class="span3"></div>
+ <div class="span4"></div>
+ </div>
  <br/>
   <aui:button id="saveid"  type="submit" value="save" onClick="saveForm()"/>
   <aui:button id="publishid" type="submit" value="publish" onClick="publishForm()"/>

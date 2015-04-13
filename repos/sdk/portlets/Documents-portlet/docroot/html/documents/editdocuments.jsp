@@ -152,7 +152,6 @@ Documents editDocument = (Documents)portletSession.getAttribute("editDocument");
 DocumentsAttachments attachments = (DocumentsAttachments)portletSession.getAttribute("editAttachment");
 String attachmentFormType = (String)portletSession.getAttribute("editattachmentform");
 String formtype = "editattachmentform";
-System.out.println("attachmentFormType === "+attachmentFormType);
  SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd"); 
  
 %>
@@ -185,11 +184,11 @@ System.out.println("attachmentFormType === "+attachmentFormType);
 						<%
 							if (editDocument.getCategory().equals("")) {
 						%>
-						<aui:option selected="true" value="0">--Select--</aui:option>
+						<aui:option selected="true" value="">--Select--</aui:option>
 						<%
 							} else {
 						%>
-						<aui:option value="0">--Select--</aui:option>
+						<aui:option value="">--Select--</aui:option>
 						<aui:option selected="true" value="<%=editDocument.getCategory()%>"><%=editDocument.getCategory()%></aui:option>
 						<%
 							}
