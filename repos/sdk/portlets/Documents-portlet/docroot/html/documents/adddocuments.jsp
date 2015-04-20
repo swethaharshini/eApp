@@ -41,13 +41,19 @@
 	 document.getElementById('<portlet:namespace/>myForm').action='<%= editsaveDocumentsURL.toString()%>';
 	 
  }
- 
+  AUI().ready('event', 'node','transition',function(A){
+setTimeout(function(){
+A.one('#publishdocumentMessage').transition('fadeOut');
+A.one('#publishdocumentMessage').hide();
+},2000)
+
+});
 
 </aui:script>
-<%	
-String namespace = renderResponse.getNamespace();
-%>
- 
+ <% 
+if(SessionMessages.contains(renderRequest.getPortletSession(),"documents-publish-error")){%>
+<p id="publishdocumentMessage" class="alert alert-error"><liferay-ui:message key="Please Select atleast one checkbox to Publish"/></p>
+<%}%>
 <div class="panel">
 				<div class="panel-heading">
 					<h4>Add Documents</h4>

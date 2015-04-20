@@ -22,6 +22,7 @@ import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.repository.model.FileEntry;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.MimeTypesUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -52,8 +53,6 @@ public class DocumentAction extends MVCPortlet {
 		String saveid = actionRequest.getParameter("saveid");
 		log.info(saveid);
 
-		long documentId = CounterLocalServiceUtil.increment();
-
 		UploadPortletRequest uploadRequest = PortalUtil
 				.getUploadPortletRequest(actionRequest);
 		String topicname = ParamUtil.getString(uploadRequest, "topic_name");
@@ -67,13 +66,56 @@ public class DocumentAction extends MVCPortlet {
 		boolean admin = ParamUtil.getBoolean(uploadRequest, "admin");
 		boolean supervisor = ParamUtil.getBoolean(uploadRequest, "supervisor");
 		boolean allemps = ParamUtil.getBoolean(uploadRequest, "allemps");
+		Documents document = DocumentsLocalServiceUtil
+				.createDocuments(CounterLocalServiceUtil.increment());
+		PortletSession portletSession = actionRequest.getPortletSession();
+		if(saveid.equalsIgnoreCase("publish")){
+			
+			if(admin ==true || supervisor == true || allemps == true){
+			@SuppressWarnings("deprecation")
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+			Date publishDate = sdf.parse(publisheddate);
+
+			
+			document.setTopic(topicname);
+			document.setCategory(categoryname);
+			document.setPublishDate(publishDate);
+			document.setDescription(description);
+
+			document.setCreateDate(date1);
+			document.setModifiedDate(date1);
+			document.setCompanyId(themeDisplay.getCompanyId());
+			document.setUserId(themeDisplay.getUserId());
+			document.setStatus(true);
+			document.setAdmin(admin);
+			document.setSupervisor(supervisor);
+			document.setAllEmployees(allemps);
+
+			document.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
+			document = DocumentsLocalServiceUtil.addDocuments(document);
+			log.info("saved successfully");
+			portletSession.setAttribute("editDocument", document);
+
+			actionResponse.setRenderParameter("mvcPath",
+					"/html/documents/editdocuments.jsp");
+			}
+			else{
+				
+				SessionMessages.add(actionRequest.getPortletSession(),
+						"documents-publish-error");
+				actionResponse.setRenderParameter("mvcPath",
+						"/html/documents/adddocuments.jsp");
+				
+			}
+			
+		}
+		else if(saveid.equalsIgnoreCase("save")){
 
 		@SuppressWarnings("deprecation")
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		Date publishDate = sdf.parse(publisheddate);
 
-		Documents document = DocumentsLocalServiceUtil
-				.createDocuments(documentId);
+		
 		document.setTopic(topicname);
 		document.setCategory(categoryname);
 		document.setPublishDate(publishDate);
@@ -83,14 +125,7 @@ public class DocumentAction extends MVCPortlet {
 		document.setModifiedDate(date1);
 		document.setCompanyId(themeDisplay.getCompanyId());
 		document.setUserId(themeDisplay.getUserId());
-		if (saveid.equals("save")) {
-
-			document.setStatus(false);
-		} else if (saveid.equals("publish")) {
-			document.setStatus(true);
-		} else {
-
-		}
+		document.setStatus(false);
 		document.setAdmin(admin);
 		document.setSupervisor(supervisor);
 		document.setAllEmployees(allemps);
@@ -98,12 +133,15 @@ public class DocumentAction extends MVCPortlet {
 		document.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
 		document = DocumentsLocalServiceUtil.addDocuments(document);
 		log.info("saved successfully");
-
-		PortletSession portletSession = actionRequest.getPortletSession();
 		portletSession.setAttribute("editDocument", document);
 
 		actionResponse.setRenderParameter("mvcPath",
 				"/html/documents/editdocuments.jsp");
+		}
+		else{
+			log.info("else block");
+		}
+		
 
 	}
 
@@ -131,34 +169,76 @@ public class DocumentAction extends MVCPortlet {
 		boolean admin = ParamUtil.getBoolean(actionRequest, "admin");
 		boolean supervisor = ParamUtil.getBoolean(actionRequest, "supervisor");
 		boolean allemps = ParamUtil.getBoolean(actionRequest, "allemps");
+		
+		if(saveid.equalsIgnoreCase("publish")){
+			if(admin ==true || supervisor == true || allemps == true){
+				
+				Documents document = DocumentsLocalServiceUtil.getDocuments(documentId);
+				document.setTopic(topicname);
+				document.setCategory(categoryname);
+				document.setPublishDate(publishDate);
+				document.setDescription(description);
 
-		Documents document = DocumentsLocalServiceUtil.getDocuments(documentId);
-		document.setTopic(topicname);
-		document.setCategory(categoryname);
-		document.setPublishDate(publishDate);
-		document.setDescription(description);
+				document.setAdmin(admin);
+				document.setSupervisor(supervisor);
+				document.setAllEmployees(allemps);
+				document.setCreateDate(date);
+				document.setModifiedDate(date);
+				document.setCompanyId(themeDisplay.getCompanyId());
+				document.setUserId(themeDisplay.getUserId());
+				document.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
+				document.setStatus(true);
+				document = DocumentsLocalServiceUtil.updateDocuments(document);
 
-		document.setAdmin(admin);
-		document.setSupervisor(supervisor);
-		document.setAllEmployees(allemps);
-		document.setCreateDate(date);
-		document.setModifiedDate(date);
-		document.setCompanyId(themeDisplay.getCompanyId());
-		document.setUserId(themeDisplay.getUserId());
-		document.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
-		if (saveid.equals("save")) {
-
-			document.setStatus(false);
-		} else if (saveid.equals("publish")) {
-			document.setStatus(true);
-		} else {
-
+				actionResponse.setRenderParameter("mvcPath",
+						"/html/documents/search.jsp");
+				log.info("updated successfully");
+				
+			}
+			else{
+				Documents documents = DocumentsLocalServiceUtil
+						.getDocuments(documentId);
+				PortletSession portletSession = actionRequest.getPortletSession();
+				portletSession.setAttribute("editDocument", documents);
+				actionResponse.setRenderParameter("mvcPath",
+						"/html/documents/editdocuments.jsp");
+				SessionMessages.add(actionRequest.getPortletSession(),
+						"documents-publish-error");
+				actionResponse.setRenderParameter("mvcPath",
+						"/html/documents/editdocuments.jsp");
+				
+			}
 		}
-		document = DocumentsLocalServiceUtil.updateDocuments(document);
+		else if(saveid.equalsIgnoreCase("save"))
+		{
+			Documents document = DocumentsLocalServiceUtil.getDocuments(documentId);
+			document.setTopic(topicname);
+			document.setCategory(categoryname);
+			document.setPublishDate(publishDate);
+			document.setDescription(description);
 
-		actionResponse.setRenderParameter("mvcPath",
-				"/html/documents/search.jsp");
-		log.info("updated successfully");
+			document.setAdmin(admin);
+			document.setSupervisor(supervisor);
+			document.setAllEmployees(allemps);
+			document.setCreateDate(date);
+			document.setModifiedDate(date);
+			document.setCompanyId(themeDisplay.getCompanyId());
+			document.setUserId(themeDisplay.getUserId());
+			document.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
+			document.setStatus(false);
+			
+			document = DocumentsLocalServiceUtil.updateDocuments(document);
+
+			actionResponse.setRenderParameter("mvcPath",
+					"/html/documents/search.jsp");
+			log.info("updated successfully");
+			
+		}
+		else{
+			
+		}
+
+		
 	}
 
 	public void serveResource(ResourceRequest resourceRequest,
@@ -228,15 +308,11 @@ public class DocumentAction extends MVCPortlet {
 			ActionResponse actionResponse) throws IOException,
 			PortletException, NumberFormatException, PortalException,
 			SystemException {
-		log.info("inside editDocument() method......");
 		Long documentId = ParamUtil.getLong(actionRequest, "documentId");
 		Documents documents = DocumentsLocalServiceUtil
 				.getDocuments(documentId);
-		log.info("11..");
 		PortletSession portletSession = actionRequest.getPortletSession();
 		portletSession.setAttribute("editDocument", documents);
-		log.info("222...");
-
 		actionResponse.setRenderParameter("mvcPath",
 				"/html/documents/editdocuments.jsp");
 
@@ -255,10 +331,9 @@ public class DocumentAction extends MVCPortlet {
 
 		PortletSession portletSession = actionRequest.getPortletSession();
 		portletSession.setAttribute("editAttachment", attachment);
-		portletSession.setAttribute("editattachmentform", "editattachmentform");
 
 		actionResponse.setRenderParameter("mvcPath",
-				"/html/documents/editdocuments.jsp");
+				"/html/documents/editAttachments.jsp");
 
 	}
 
@@ -398,8 +473,6 @@ public class DocumentAction extends MVCPortlet {
 
 		PortletSession portletSession = actionRequest.getPortletSession();
 		portletSession.setAttribute("editDocument", documentObject);
-		portletSession.setAttribute("editattachmentform", "redirectToAdd");
-
 		actionResponse.setRenderParameter("mvcPath",
 				"/html/documents/editdocuments.jsp");
 

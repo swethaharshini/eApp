@@ -21,6 +21,7 @@ import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.repository.model.FileEntry;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.MimeTypesUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -32,8 +33,10 @@ import com.liferay.portal.util.PortalUtil;
 import com.liferay.portlet.documentlibrary.model.DLFileEntry;
 import com.liferay.portlet.documentlibrary.service.DLAppLocalServiceUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
+import com.rknowsys.eapp.hrm.model.Documents;
 import com.rknowsys.eapp.hrm.model.News;
 import com.rknowsys.eapp.hrm.model.NewsAttachments;
+import com.rknowsys.eapp.hrm.service.DocumentsLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.NewsAttachmentsLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.NewsLocalServiceUtil;
 
@@ -65,37 +68,74 @@ public class NewsAction extends MVCPortlet {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		Date publishDate = sdf.parse(publisheddate);
+		
+		if(saveid.equalsIgnoreCase("publish")){
+			if(admin ==true || supervisor == true || allemps == true){
+				
+				News news = NewsLocalServiceUtil.createNews(CounterLocalServiceUtil
+						.increment());
+				news.setTopic(topicname);
+				news.setPublishDate(publishDate);
+				news.setDescription(description);
 
-		News news = NewsLocalServiceUtil.createNews(CounterLocalServiceUtil
-				.increment());
-		news.setTopic(topicname);
-		news.setPublishDate(publishDate);
-		news.setDescription(description);
+				news.setCreateDate(date1);
+				news.setModifiedDate(date1);
+				news.setCompanyId(themeDisplay.getCompanyId());
+				news.setUserId(themeDisplay.getUserId());
+				news.setStatus(true);
+				news.setAdmin(admin);
+				news.setSupervisor(supervisor);
+				news.setAllEmployees(allemps);
 
-		news.setCreateDate(date1);
-		news.setModifiedDate(date1);
-		news.setCompanyId(themeDisplay.getCompanyId());
-		news.setUserId(themeDisplay.getUserId());
-		if (saveid.equals("save")) {
+				news.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
+				news = NewsLocalServiceUtil.addNews(news);
+				log.info("saved successfully");
 
-			news.setStatus(false);
-		} else if (saveid.equals("publish")) {
-			news.setStatus(true);
-		} else {
+				PortletSession portletSession = actionRequest.getPortletSession();
+				portletSession.setAttribute("editNews", news);
 
+				actionResponse.setRenderParameter("mvcPath", "/html/news/editNews.jsp");
+				
+			}
+			else{
+				
+				SessionMessages.add(actionRequest.getPortletSession(),
+						"news-publish-error");
+				actionResponse.setRenderParameter("mvcPath",
+						"/html/news/addNews.jsp");
+				
+			}
 		}
-		news.setAdmin(admin);
-		news.setSupervisor(supervisor);
-		news.setAllEmployees(allemps);
+		else if(saveid.equalsIgnoreCase("save")){
+			
+			News news = NewsLocalServiceUtil.createNews(CounterLocalServiceUtil
+					.increment());
+			news.setTopic(topicname);
+			news.setPublishDate(publishDate);
+			news.setDescription(description);
 
-		news.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
-		news = NewsLocalServiceUtil.addNews(news);
-		log.info("saved successfully");
+			news.setCreateDate(date1);
+			news.setModifiedDate(date1);
+			news.setCompanyId(themeDisplay.getCompanyId());
+			news.setUserId(themeDisplay.getUserId());
+			news.setStatus(false);
+			news.setAdmin(admin);
+			news.setSupervisor(supervisor);
+			news.setAllEmployees(allemps);
 
-		PortletSession portletSession = actionRequest.getPortletSession();
-		portletSession.setAttribute("editNews", news);
+			news.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
+			news = NewsLocalServiceUtil.addNews(news);
+			log.info("saved successfully");
 
-		actionResponse.setRenderParameter("mvcPath", "/html/news/editNews.jsp");
+			PortletSession portletSession = actionRequest.getPortletSession();
+			portletSession.setAttribute("editNews", news);
+
+			actionResponse.setRenderParameter("mvcPath", "/html/news/editNews.jsp");
+			
+		}
+		else{
+			log.info("else block");
+		}
 
 	}
 
@@ -121,32 +161,69 @@ public class NewsAction extends MVCPortlet {
 		boolean admin = ParamUtil.getBoolean(actionRequest, "admin");
 		boolean supervisor = ParamUtil.getBoolean(actionRequest, "supervisor");
 		boolean allemps = ParamUtil.getBoolean(actionRequest, "allemps");
+		
+		if(saveid.equalsIgnoreCase("publish")){
+			if(admin ==true || supervisor == true || allemps == true){
+				
+				News news = NewsLocalServiceUtil.getNews(newsId);
+				news.setTopic(topicname);
+				news.setPublishDate(publishDate);
+				news.setDescription(description);
 
-		News news = NewsLocalServiceUtil.getNews(newsId);
-		news.setTopic(topicname);
-		news.setPublishDate(publishDate);
-		news.setDescription(description);
+				news.setAdmin(admin);
+				news.setSupervisor(supervisor);
+				news.setAllEmployees(allemps);
+				news.setCreateDate(date);
+				news.setModifiedDate(date);
+				news.setCompanyId(themeDisplay.getCompanyId());
+				news.setUserId(themeDisplay.getUserId());
+				news.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
+				news.setStatus(true);
+				news = NewsLocalServiceUtil.updateNews(news);
 
-		news.setAdmin(admin);
-		news.setSupervisor(supervisor);
-		news.setAllEmployees(allemps);
-		news.setCreateDate(date);
-		news.setModifiedDate(date);
-		news.setCompanyId(themeDisplay.getCompanyId());
-		news.setUserId(themeDisplay.getUserId());
-		news.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
-		if (saveid.equals("save")) {
-
-			news.setStatus(false);
-		} else if (saveid.equals("publish")) {
-			news.setStatus(true);
-		} else {
-
+				actionResponse.setRenderParameter("mvcPath", "/html/news/search.jsp");
+				log.info("updated successfully");
+				
+			}
+			else{
+				
+				News news = NewsLocalServiceUtil.getNews(newsId);
+				PortletSession portletSession = actionRequest.getPortletSession();
+				portletSession.setAttribute("editNews", news);
+				actionResponse.setRenderParameter("mvcPath",
+						"/html/news/editNews.jsp");
+				SessionMessages.add(actionRequest.getPortletSession(),
+						"news-publish-error");
+				actionResponse.setRenderParameter("mvcPath",
+						"/html/news/editNews.jsp");
+				
+			}
 		}
-		news = NewsLocalServiceUtil.updateNews(news);
+		else if(saveid.equalsIgnoreCase("save")){
+			
+			News news = NewsLocalServiceUtil.getNews(newsId);
+			news.setTopic(topicname);
+			news.setPublishDate(publishDate);
+			news.setDescription(description);
 
-		actionResponse.setRenderParameter("mvcPath", "/html/news/search.jsp");
-		log.info("updated successfully");
+			news.setAdmin(admin);
+			news.setSupervisor(supervisor);
+			news.setAllEmployees(allemps);
+			news.setCreateDate(date);
+			news.setModifiedDate(date);
+			news.setCompanyId(themeDisplay.getCompanyId());
+			news.setUserId(themeDisplay.getUserId());
+			news.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
+			news.setStatus(false);
+			news = NewsLocalServiceUtil.updateNews(news);
+
+			actionResponse.setRenderParameter("mvcPath", "/html/news/search.jsp");
+			log.info("updated successfully");
+			
+		}
+		else{
+			log.info("else block");
+		}	
 	}
 
 	public void serveResource(ResourceRequest resourceRequest,
@@ -240,7 +317,7 @@ public class NewsAction extends MVCPortlet {
 		portletSession.setAttribute("editnewsattachmentform",
 				"editnewsattachmentform");
 
-		actionResponse.setRenderParameter("mvcPath", "/html/news/editNews.jsp");
+		actionResponse.setRenderParameter("mvcPath", "/html/news/editAttachments.jsp");
 
 	}
 
