@@ -1,5 +1,3 @@
-<!--code @vinay-->
-
 <%@page import="com.rknowsys.eapp.hrm.service.DocumentsAttachmentsLocalServiceUtil"%>
 <%@page import="com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil"%>
 <%@page import="com.liferay.portal.kernel.dao.search.DisplayTerms"%>
@@ -24,60 +22,6 @@
 </portlet:renderURL>
 
 <aui:script>
-AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#deleteattachment');
-    node.on(
-      'click',
-      function() {
-     var idArray = [];
-     var totalrecords = A.one('#_Documents_WAR_Documentsportlet_documentsAttachmentsesSearchContainerPrimaryKeys').get('value');
-       A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
-      idArray.push(object.get("value"));
-     });
-       if(totalrecords==""){
-			  alert("No records to delete");
-		  }
-		 else if(idArray=="" && totalrecords!=""){
-		  
-		   alert("Please select records!")
-		 
-		 }
-		 else{
-			  var d = confirm("Are you sure you want to delete the selected record ?");
-		  if(d){
-		   var url = '<%=deleteAttachment%>';
-          A.io.request(url,
-         {
-          data: {  
-                <portlet:namespace />attachmentIds: idArray,  
-                 },
-          on: {
-               success: function() { 
-                   alert('deleted successfully');
-                   window.location='<%=listview%>';
-              },
-               failure: function() {
-                  
-                 }
-                }
-                 }
-                );
-		  																		
-		  console.log(idArray);
-	  
-      return true;
-  }
-  else
-    return false;
-}             
-      }
-    );
-  }
-);
-
-
  AUI().use('aui-datepicker',function(A){
 	new A.DatePicker(
 			{
@@ -104,46 +48,7 @@ AUI().use(
 	 document.getElementById('<portlet:namespace/>myForm').action='<%=updatepublishDocumentsURL.toString()%>';
 	 
  }
- AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#addattachment');
-    node.on(
-      'click',
-      function() {
-         A.one('#attachmentAddDelete').hide();
-         A.one('#addAttachmentForm').show();
-         
-                     
-      }
-    );
-  }
-);
-  AUI().ready('event', 'node',function(A){
- A.one('#addAttachmentForm').hide();
-});
- AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#<portlet:namespace/>cancelattachment');
-    node.on(
-      'click',
-      function() {
-         A.one('#addAttachmentForm').hide();
-         A.one('#attachmentAddDelete').show();
-        
-                     
-      }
-    );
-  }
-);
- AUI().ready('event', 'node','transition',function(A){
-setTimeout(function(){
-A.one('#publishdocumentMessage').transition('fadeOut');
-A.one('#publishdocumentMessage').hide();
-},2000)
 
-});
 </aui:script>
  <%!public String humanReadableByteCount(double bytes, boolean si) {
 		int unit = si ? 1000 : 1024;
@@ -157,16 +62,13 @@ A.one('#publishdocumentMessage').hide();
  <% 
 Documents editDocument = (Documents)portletSession.getAttribute("editDocument");
 DocumentsAttachments attachments = (DocumentsAttachments)portletSession.getAttribute("editAttachment");
-SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd"); 
+ SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd"); 
  
 %>
 <portlet:actionURL name="redirectToAdd" var="redirectToAdd">
  <portlet:param name="documentId" value="<%= String.valueOf(editDocument.getDocumentId()) %>"></portlet:param>
 </portlet:actionURL> 
- <% 
-if(SessionMessages.contains(renderRequest.getPortletSession(),"documents-publish-error")){%>
-<p id="publishdocumentMessage" class="alert alert-error"><liferay-ui:message key="Please Select atleast one checkbox to Publish"/></p>
-<%}%>
+ 
 <div class="panel">
 				<div class="panel-heading">
 					<h4>Edit Documents</h4>
@@ -280,31 +182,22 @@ if(SessionMessages.contains(renderRequest.getPortletSession(),"documents-publish
 				<div class="panel-body">
 				<div class="row-fluid">
 		  <aui:form action="<%=documentattachments%>" enctype="multipart/form-data">
-		  
-		  
-		  <div class="row-fluid">	
-		<div id="attachmentAddDelete" class="span12 text-right">
-				<div class="control-group">
-			<aui:button type="button" value="Add" id="addattachment" name="" class="btn btn-primary"></aui:button>
-			<aui:button type="button" value="Delete" id="deleteattachment" name="" class="btn btn-danger"></aui:button>
-			</div>
-			</div>	
-				<div id="addAttachmentForm">
-				
-				<aui:input name="documentId" type="hidden"  value='<%=editDocument.getDocumentId() %>'></aui:input>
+		    
+          <div class="row-fluid">
+         
+           <aui:input name="documentId" type="hidden"  value='<%=editDocument.getDocumentId() %>'></aui:input>
+				<aui:input name="documentAttachmentId" type="hidden" value="<%=attachments.getDocumentAttachmentId()%>"></aui:input>
+				<label>Replace the file <b><%=attachments.getFileName()%></b> with New file.</label>
+				<br/>
 				<aui:input name="documentAttachment" type="file" showRequiredLabel="false" label="Select File" inlineLabel="left">
 				<aui:validator name="required"></aui:validator>
 				</aui:input>
-				
-				<aui:input name="description" type="textarea" label="Description" inlineLabel="left"></aui:input>
-
-				<aui:button type="submit" value="Upload" cssClass="button btn-primary"></aui:button>
-			<aui:button type="reset" value="Cancel" id="cancelattachment" name="cancelattachment"
-				cssClass="button btn-danger"></aui:button>
-				
-				</div>
-			</div>	
-				
+			    
+				<aui:input name="description" type="textarea" label="Description" value="<%=attachments.getDescription()%>" inlineLabel="left"></aui:input>
+            <aui:button type="submit" value="Upload" cssClass="button btn-primary"></aui:button>
+			<aui:button type="reset" value="Cancel" id="cancelattachment" name="cancelattachment" onClick="<%=redirectToAdd%>" cssClass="button btn-danger"></aui:button>
+	      </div>
+			
     </aui:form>
     </div>
 	<br/>
@@ -357,7 +250,7 @@ RowChecker rowChecker = new RowChecker(renderResponse);
 		keyProperty="documentAttachmentId" modelVar="DocumentsAttachments" rowVar="curRow"
 		escapedModel="<%= true %>">
 		
-		<liferay-ui:search-container-column-text name="File Name" property="fileName" href='<%=themeDisplay.getPortalURL()+"/c/document_library/get_file?uuid="+DocumentsAttachments.getUuid()+"&groupId="+themeDisplay.getScopeGroupId() %>'/>
+		<liferay-ui:search-container-column-text name="File Name" property="fileName" href='<%=themeDisplay.getPortalURL()+"/c/document_library/get_file?uuid="+DocumentsAttachments.getUuid()+"&groupId="+themeDisplay.getScopeGroupId() %>' />
 	    <liferay-ui:search-container-column-text name="Description" property="description"/>
 		<liferay-ui:search-container-column-text name="Size" value='<%=humanReadableByteCount(DocumentsAttachments.getFileSize(), true) %>'/>
 	    <liferay-ui:search-container-column-text name="Type" property="fileType"/>

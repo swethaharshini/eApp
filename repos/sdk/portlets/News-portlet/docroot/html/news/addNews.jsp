@@ -37,8 +37,18 @@
 	 document.getElementById('<portlet:namespace/>myForm').action='<%=editpublishNewsURL.toString()%>';
 	 
  }
+  AUI().ready('event', 'node','transition',function(A){
+setTimeout(function(){
+A.one('#publishnewsMessage').transition('fadeOut');
+A.one('#publishnewsMessage').hide();
+},2000)
+
+});
 </aui:script>
- 
+  <% 
+if(SessionMessages.contains(renderRequest.getPortletSession(),"news-publish-error")){%>
+<p id="publishnewsMessage" class="alert alert-error"><liferay-ui:message key="Please Select atleast one checkbox to Publish"/></p>
+<%}%>
 <div class="panel">
 				<div class="panel-heading">
 					<h4>Add News</h4>

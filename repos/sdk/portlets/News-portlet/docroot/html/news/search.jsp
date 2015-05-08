@@ -1,3 +1,4 @@
+<%@page import="org.apache.log4j.Logger"%>
 <%@page import="com.rknowsys.eapp.hrm.service.NewsLocalServiceUtil"%>
 <%@page import="com.rknowsys.eapp.hrm.model.News"%>
 <%@ include file="/html/news/init.jsp"%>
@@ -104,7 +105,7 @@ AUI().use(
 <br/>
 
  <%
-
+Logger log = Logger.getLogger(this.getClass().getName());
 PortletURL iteratorURL = renderResponse.createRenderURL();
 iteratorURL.setParameter("mvcPath", "/html/news/search.jsp");
 RowChecker rowChecker = new RowChecker(renderResponse);
@@ -125,21 +126,19 @@ RowChecker rowChecker = new RowChecker(renderResponse);
 	
 	<%
 		long groupId=themeDisplay.getLayout().getGroup().getGroupId();
-		System.out.println("groupId in jsp == "+groupId);
+		log.info("groupId in jsp == "+groupId);
 		DisplayTerms displayTerms =searchContainer.getDisplayTerms();
 		String topicname=ParamUtil.getString(renderRequest,"topic");
 	    String status=ParamUtil.getString(renderRequest,"status");
-	    System.out.println("topicName == " +topicname);
-	    System.out.println("status == " +status);
 	    List<News> newslist = new ArrayList<News>();
 	    try{
 		newslist = NewsLocalServiceUtil.findNewsDetails(topicname, status, groupId, -1, -1);
 	    
 	    }
 	    catch(Exception e){
-	    	System.out.println(e);
+	    	log.info(e);
 	    }
-	    System.out.println("list size === "+newslist.size());
+	    log.info("list size === "+newslist.size());
 	    results=ListUtil.subList(newslist, searchContainer.getStart(), searchContainer.getEnd());
 		total = newslist.size(); 
 	  	pageContext.setAttribute("results", results);

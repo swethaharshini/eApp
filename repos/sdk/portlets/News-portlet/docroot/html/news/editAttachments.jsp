@@ -25,60 +25,6 @@
 </portlet:renderURL>
 
 <aui:script>
-AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#deleteattachment');
-    node.on(
-      'click',
-      function() {
-     var idArray = [];
-     var totalrecords = A.one('#_News_WAR_Newsportlet_newsAttachmentsesSearchContainerPrimaryKeys').get('value');
-       A.all('input[name=<portlet:namespace/>rowIds]:checked').each(function(object) {
-      idArray.push(object.get("value"));
-     });
-       if(totalrecords==""){
-			  alert("No records to delete");
-		  }
-		 else if(idArray=="" && totalrecords!=""){
-		  
-		   alert("Please select records!")
-		 
-		 }
-		 else{
-			  var d = confirm("Are you sure you want to delete the selected records ?");
-		  if(d){
-		   var url = '<%=deleteAttachment%>';
-          A.io.request(url,
-         {
-          data: {  
-                <portlet:namespace />attachmentIds: idArray,  
-                 },
-          on: {
-               success: function() { 
-                   alert('deleted successfully');
-                   window.location='<%=listview%>';
-              },
-               failure: function() {
-                  
-                 }
-                }
-                 }
-                );
-		  																		
-		  console.log(idArray);
-	  
-      return true;
-  }
-  else
-    return false;
-}             
-      }
-    );
-  }
-);
-
-
  AUI().use('aui-datepicker',function(A){
 	new A.DatePicker(
 			{
@@ -105,46 +51,6 @@ AUI().use(
 	 document.getElementById('<portlet:namespace/>myForm').action='<%=updatepublishNewsURL.toString()%>';
 	 
  }
- AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#addattachment');
-    node.on(
-      'click',
-      function() {
-         A.one('#attachmentAddDelete').hide();
-         A.one('#addAttachmentForm').show();
-         
-                     
-      }
-    );
-  }
-);
-  AUI().ready('event', 'node',function(A){
- A.one('#addAttachmentForm').hide();
-});
- AUI().use(
-  'aui-node',
-  function(A) {
-    var node = A.one('#<portlet:namespace/>cancelattachment');
-    node.on(
-      'click',
-      function() {
-         A.one('#addAttachmentForm').hide();
-         A.one('#attachmentAddDelete').show();
-        
-                     
-      }
-    );
-  }
-);
- AUI().ready('event', 'node','transition',function(A){
-setTimeout(function(){
-A.one('#publishnewsMessage').transition('fadeOut');
-A.one('#publishnewsMessage').hide();
-},2000)
-
-});
 </aui:script>
  <%!public String humanReadableByteCount(double bytes, boolean si) {
 		int unit = si ? 1000 : 1024;
@@ -167,10 +73,6 @@ String formtype = "editnewsattachmentform";
 <portlet:actionURL name="redirectToAdd" var="redirectToAdd">
  <portlet:param name="newsId" value="<%= String.valueOf(editNews.getNewsId()) %>"></portlet:param>
 </portlet:actionURL> 
-  <% 
-if(SessionMessages.contains(renderRequest.getPortletSession(),"news-publish-error")){%>
-<p id="publishnewsMessage" class="alert alert-error"><liferay-ui:message key="Please Select atleast one checkbox to Publish"/></p>
-<%}%>
 <div class="panel">
 				<div class="panel-heading">
 					<h4>Edit News</h4>
@@ -258,28 +160,20 @@ if(SessionMessages.contains(renderRequest.getPortletSession(),"news-publish-erro
 				<div class="panel-body">
 				<div class="row-fluid">
 		  <aui:form action="<%=newsattachments%>" enctype="multipart/form-data">
-		<div class="row-fluid">	
-		<div id="attachmentAddDelete" class="span12 text-right">
-				<div class="control-group">
-			<aui:button type="button" value="Add" id="addattachment" name="" class="btn btn-primary"></aui:button>
-			<aui:button type="button" value="Delete" id="deleteattachment" name="" class="btn btn-danger"></aui:button>
-			</div>
-			</div>	
-				<div id="addAttachmentForm">
-				
-				<aui:input name="newsId" type="hidden"  value='<%=editNews.getNewsId() %>'></aui:input>
+		 <div class="row-fluid">
+         
+           <aui:input name="newsId" type="hidden"  value='<%=editNews.getNewsId() %>'></aui:input>
+				<aui:input name="newsAttachmentId" type="hidden" value="<%=newsAttachments.getNewsAttachmentId()%>"></aui:input>
+				<label>Replace the file <b><%=newsAttachments.getFileName()%></b> with New file.</label>
+				<br/>
 				<aui:input name="newsAttachment" type="file" showRequiredLabel="false" label="Select File" inlineLabel="left">
 				<aui:validator name="required"></aui:validator>
 				</aui:input>
-				
-				<aui:input name="newsDescription" type="textarea" label="Description" inlineLabel="left"></aui:input>
-
-				<aui:button type="submit" value="Upload" cssClass="button btn-primary"></aui:button>
-			<aui:button type="reset" value="Cancel" id="cancelattachment" name="cancelattachment"
-				cssClass="button btn-danger"></aui:button>
-				
-				</div>
-			</div>
+				<aui:input name="newsDescription" type="textarea" label="Description" value="<%=newsAttachments.getDescription()%>" inlineLabel="left"></aui:input>
+            <aui:button type="submit" value="Upload" cssClass="button btn-primary"></aui:button>
+			<aui:button type="reset" value="Cancel" id="cancelattachment" name="cancelattachment" onClick="<%=redirectToAdd%>" cssClass="button btn-danger"></aui:button>
+	      </div>
+			
     </aui:form>
     </div>
 	<br/>
