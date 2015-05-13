@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -69,12 +70,14 @@ import com.rknowsys.eapp.hrm.model.EmpImmigrationDocument;
 import com.rknowsys.eapp.hrm.model.EmpJob;
 import com.rknowsys.eapp.hrm.model.EmpLanguage;
 import com.rknowsys.eapp.hrm.model.EmpLicense;
+import com.rknowsys.eapp.hrm.model.EmpMembership;
 import com.rknowsys.eapp.hrm.model.EmpPersonalDetails;
 import com.rknowsys.eapp.hrm.model.EmpSkill;
 import com.rknowsys.eapp.hrm.model.EmpSubordinate;
 import com.rknowsys.eapp.hrm.model.EmpSupervisor;
 import com.rknowsys.eapp.hrm.model.EmpWorkExp;
 import com.rknowsys.eapp.hrm.model.Employee;
+import com.rknowsys.eapp.hrm.model.Membership;
 import com.rknowsys.eapp.hrm.model.PayGradeCurrency;
 import com.rknowsys.eapp.hrm.service.EmpAttachmentLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.EmpContactDetailsLocalServiceUtil;
@@ -86,12 +89,14 @@ import com.rknowsys.eapp.hrm.service.EmpImmigrationDocumentLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.EmpJobLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.EmpLanguageLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.EmpLicenseLocalServiceUtil;
+import com.rknowsys.eapp.hrm.service.EmpMembershipLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.EmpPersonalDetailsLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.EmpSkillLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.EmpSubordinateLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.EmpSupervisorLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.EmpWorkExpLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.EmployeeLocalServiceUtil;
+import com.rknowsys.eapp.hrm.service.MembershipLocalServiceUtil;
 import com.rknowsys.eapp.hrm.service.PayGradeCurrencyLocalServiceUtil;
 
 public class EmployeeAction extends MVCPortlet {
@@ -504,6 +509,7 @@ public class EmployeeAction extends MVCPortlet {
 				} catch (SystemException e) {
 					log.error("Error in assigning supervisor for the employee"+e);
 			 }
+			
 			empSupervisor.setReportingMethod(reportingMethod);
 			empSupervisor.setEmployeeId(empId);
 			empSupervisor.setReporterEmployeeId(supervisorId);
@@ -917,21 +923,95 @@ public class EmployeeAction extends MVCPortlet {
 		actionResponse.setRenderParameter("jspPage","/html/employee/edit_employee.jsp");
 		log.info("End of addImmigrationDetails method");
 	 }
-
-	public void updateMembership(ActionRequest actionRequest,
-			ActionResponse actionResponse) throws IOException, PortletException {
+	public void addMembership(ActionRequest actionRequest,ActionResponse actionResponse)
+	 throws IOException,PortletException,SystemException,ParseException, PortalException{
+		System.out.println("entered...");
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest
-				.getAttribute(WebKeys.THEME_DISPLAY);
-		Date date = new Date();
-		log.info("In updateMembership method");
-		long empId = ParamUtil.getLong(actionRequest, "empMemId");
-		long fileEntryId = ParamUtil.getLong(actionRequest, "memFileId");
-		Map<String, Comparable> map = setSessionAttributes(empId, fileEntryId, "jsp8");
-		actionRequest.getPortletSession(true).setAttribute("empId", map,
-				PortletSession.APPLICATION_SCOPE);
-		actionResponse.setRenderParameter("jspPage","/html/employee/edit_employee.jsp");
-		log.info("End of updateMembership method");
-	 }
+   				.getAttribute(WebKeys.THEME_DISPLAY);
+		UploadPortletRequest uploadRequest = PortalUtil.getUploadPortletRequest(actionRequest);
+		long empMemId= CounterLocalServiceUtil.increment();
+		long empId= ParamUtil.getLong(uploadRequest,"empMemId");	
+		
+		long membershipId = ParamUtil.getLong(uploadRequest,"emp_membership");
+		String subpaidby = ParamUtil.getString(uploadRequest,"subpaidby");
+		
+		System.out.println(subpaidby);
+		
+		long subamnt = ParamUtil.getLong(uploadRequest,"subamnt");
+		String currency = ParamUtil.getString(uploadRequest,"currency");
+		System.out.println(currency);
+		String subcomdate = ParamUtil.getString(uploadRequest,"subcommdate");
+		String subredate = ParamUtil.getString(uploadRequest,"subrendate");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		  
+			Date subcommdate = sdf.parse(subcomdate);
+			Date subrendate = sdf.parse(subredate);
+			Date date = new Date();
+			
+			EmpMembership empmembership = EmpMembershipLocalServiceUtil.createEmpMembership(empMemId);
+			empmembership.setEmployeeId(empId);
+			empmembership.setMembershipId(membershipId);
+			empmembership.setEmpMembershipId(empMemId);
+			empmembership.setSubscriptionPaidBy(subpaidby);
+			empmembership.setSubscriptionAmt(subamnt);
+			empmembership.setCurrency(currency);
+			empmembership.setCommenceDate(subcommdate);
+			empmembership.setRenewalDate(subrendate);
+			empmembership.setUserId(themeDisplay.getUserId());
+			empmembership.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
+			empmembership.setCompanyId(themeDisplay.getCompanyId());
+			empmembership.setCreateDate(date);
+			empmembership.setModifiedDate(date);
+		    empmembership = EmpMembershipLocalServiceUtil.addEmpMembership(empmembership);
+			actionResponse.setRenderParameter("jspPage","/html/employee/edit_employee.jsp");
+			log.info("End of updateMembership method");
+	}
+	
+	
+	public void updateEmpMembership(ActionRequest actionRequest,
+			ActionResponse actionResponse)throws IOException,PortletException,SystemException,ParseException, PortalException{
+		 ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		 Date date = new Date();
+		 
+		 UploadPortletRequest uploadRequest = PortalUtil.getUploadPortletRequest(actionRequest);
+			long empMemId= ParamUtil.getLong(uploadRequest,"empMemId");
+			long empId= ParamUtil.getLong(uploadRequest,"empId");
+			long fileEntryId = ParamUtil.getLong(actionRequest, "memFileId");
+			long membershipId = ParamUtil.getLong(uploadRequest,"emp_membership");
+			String subpaidby = ParamUtil.getString(uploadRequest,"subpaidby");
+			long subamnt = ParamUtil.getLong(uploadRequest,"subamnt");
+			String currency = ParamUtil.getString(uploadRequest,"currency");
+			System.out.println(currency);
+			String subcomdate = ParamUtil.getString(uploadRequest,"subcommdate1");
+			String subredate = ParamUtil.getString(uploadRequest,"subrendate1");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+			  
+				Date subcommdate = sdf.parse(subcomdate);
+				Date subrendate = sdf.parse(subredate);
+		   
+				Map<String, Comparable> map = setSessionAttributes(empId, fileEntryId, "jsp8");
+				actionRequest.getPortletSession(true).setAttribute("empId", map,
+						PortletSession.APPLICATION_SCOPE);
+			EmpMembership empmembership = EmpMembershipLocalServiceUtil.getEmpMembership(empMemId);
+			empmembership.setEmployeeId(empId);
+			empmembership.setMembershipId(membershipId);
+			empmembership.setEmpMembershipId(empMemId);
+			empmembership.setSubscriptionPaidBy(subpaidby);
+			empmembership.setSubscriptionAmt(subamnt);
+			empmembership.setCurrency(currency);
+			empmembership.setCommenceDate(subcommdate);
+			empmembership.setRenewalDate(subrendate);
+			empmembership.setUserId(themeDisplay.getUserId());
+			empmembership.setGroupId(themeDisplay.getLayout().getGroup().getGroupId());
+			empmembership.setCompanyId(themeDisplay.getCompanyId());
+			empmembership.setCreateDate(date);
+			empmembership.setModifiedDate(date);
+		    empmembership = EmpMembershipLocalServiceUtil.updateEmpMembership(empmembership);
+			actionResponse.setRenderParameter("jspPage","/html/employee/edit_employee.jsp");
+		
+		 
+	}
+	
 	public void deleteEmployee(ActionRequest actionRequest,ActionResponse actionResponse)
 	{
 		long[] idsArray = ParamUtil.getLongValues(actionRequest,"empIds");
@@ -1083,9 +1163,6 @@ public class EmployeeAction extends MVCPortlet {
 		actionResponse.setRenderParameter("jspPage","/html/employee/edit_employee.jsp");
 		log.info("End of updateEmpJobHistory method");
 	}
-	/* (non-Javadoc)
-	 * @see com.liferay.util.bridges.mvc.MVCPortlet#serveResource(javax.portlet.ResourceRequest, javax.portlet.ResourceResponse)
-	 */
 	public void serveResource(ResourceRequest resourceRequest,
 			ResourceResponse resourceResponse) throws IOException,
 			PortletException {
@@ -1134,6 +1211,24 @@ public class EmployeeAction extends MVCPortlet {
 				}
 			}
 
+		}else if(resourceRequest.getResourceID().equals("deleteMembership")){
+			log.info("deleting membership records");
+			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,"membershipIds");
+			for(int i= 0;i<=idsArray.length-1;i++){
+				try{
+					try{
+						EmpMembershipLocalServiceUtil.deleteEmpMembership(Long.parseLong(idsArray[i]));
+						log.info("deleted");
+					}catch(PortalException pe){
+						log.error("Error in deleting membership records of employee",pe);
+					}catch(SystemException se){
+						log.error("Error in deleting membership details of employee",se);
+					}
+				}catch(NumberFormatException e){
+					log.info("selected all records to delete");
+				}
+			}
+			
 		}
 		else if (resourceRequest.getResourceID().equals("deleteLanguage")) {
 			log.info("Deleting Dependent records");
@@ -1255,7 +1350,60 @@ public class EmployeeAction extends MVCPortlet {
 			}
 
 		}
-
+		else if(resourceRequest.getResourceID().equals("deleteSupervisor")){
+			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,"supervisorIds");
+			for(int i=0;i<=idsArray.length - 1;i++){
+				try{
+					try{
+						EmpSupervisorLocalServiceUtil.deleteEmpSupervisor(Long.parseLong(idsArray[i]));
+						log.info("employee supervisors deleted successfully");
+					}catch(PortalException e){
+						log.error("Error in deleting supervisors of employee",e);
+					}catch(SystemException e){
+						log.error("Error in deleting supervisors of employee",e);
+					}
+				}catch(NumberFormatException e){
+					log.info("selected all records to delete");
+				}
+			}
+		}
+		
+		else if(resourceRequest.getResourceID().equals("deleteSubordinate")){
+			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,"subordinateIds");
+			for(int i=0;i<=idsArray.length-1;i++){
+				try{
+					try{
+						EmpSubordinateLocalServiceUtil.deleteEmpSubordinate(Long.parseLong(idsArray[i]));
+						log.info("employee subordinates deleted successfully");
+					}catch(PortalException e){
+						log.error("Error in deleting subordinates of employee",e);
+					}catch(SystemException e){
+						log.error("Error in deleting subordinates of employee",e);
+					}
+				}catch(NumberFormatException e){
+					log.info("selected all records to delete");
+				}
+			}
+		}
+		
+		else if(resourceRequest.getResourceID().equals("deleteDirectDeposits")){
+			String[] idsArray = ParamUtil.getParameterValues(resourceRequest,"depositIds");
+			for(int i=0;i<=idsArray.length - 1;i++){
+				try{
+					try{
+						EmpDirectDepositLocalServiceUtil.deleteEmpDirectDeposit(Long.parseLong(idsArray[i]));
+						log.info("employee direct deposits deleted successfully");
+					}catch(PortalException e){
+						log.error("Error in deleting direct deposits of employee",e);
+					}catch(SystemException e){
+						log.error("Error in deleting direct deposits of employee",e);
+					}
+					
+				}catch(NumberFormatException e){
+					log.info("selected all records to delete");
+				}
+			}
+		}
 		else if (resourceRequest.getResourceID().equals("updateImage9")) {
 			log.info("Updating employee image...");
 			UploadPortletRequest uploadRequest = PortalUtil
@@ -1286,9 +1434,10 @@ public class EmployeeAction extends MVCPortlet {
 				}
 			if (updateImage != null) {
 				try {
+				    
 					DLAppLocalServiceUtil.updateFileEntry(
 							themeDisplay.getUserId(), fileEntryId2,
-							fileName+date.getTime(), "image/jpeg", fileName+date.getTime(), "",
+							fileName+date.getTime(), "image/jpeg", fileName+date.getTime(),"",
 							changeLog, true, newImage, serviceContext);
 				} catch (PortalException e) {
 					log.error("Error in updating employee image",e);
@@ -1306,19 +1455,19 @@ public class EmployeeAction extends MVCPortlet {
 			DLFileEntry b = null;
 			try {
 					b = DLFileEntryLocalServiceUtil.getFileEntry(fileEntryId);
-					} catch (PortalException e) {
+			} catch (PortalException e) {
 						log.error("Error in displaying employee image",e);
-					} catch (SystemException e) {
+			} catch (SystemException e) {
 						log.error("Error in displaying employee image",e);
-				}
+			}
 			InputStream is = null;
 			try {
 					is = b.getContentStream();
-					} catch (PortalException e1) {
+			} catch (PortalException e1) {
 						log.error("Error in displaying employee image",e1);
-					} catch (SystemException e1) {
-						log.error("Error in displaying employee image",e1);
-				}
+			} catch (SystemException e1) {
+     					log.error("Error in displaying employee image",e1);
+			}
 
 			if (is != null) {
 				byte[] imgData = null;
@@ -1387,41 +1536,11 @@ public class EmployeeAction extends MVCPortlet {
 			PrintWriter out = resourceResponse.getWriter();
 			System.out.println(currencyJsonArray.toString());
 			out.write(currencyJsonArray.toString());
-		}
-		
-		/*Delete code for Docs tab written by sreedhar*/
-		
-			else if(resourceRequest.getResourceID().equals("deleteDocs")){
-				log.info("Deleting document records");
-				String[] idsArray = ParamUtil.getParameterValues(resourceRequest,"documentIds");
-				for (int i = 0; i <= idsArray.length - 1; i++) {
-					try {
-						log.info("idArray values "+idsArray[i]);
-							try {
-								log.info("before servicebuilder method");
-								EmpAttachmentLocalServiceUtil.deleteEmpAttachment((Long.parseLong(idsArray[i])));
-								log.info("deleted");
-							} catch (PortalException e) {
-								log.error("Error in deleting dependent details of employee",e);
-							}
-							
-							catch(SystemException e){
-								log.error("Error in deleting dependent details of employee",e);
-							
-							}
-						}
-					catch(NumberFormatException e){
-						log.error("selected all records are deleted");
-
-					}
-				}
-			}
-			
-		else {
+		} else {
 			log.error("in serveResource method:Resource is not matched");
 		}
 	}
-
+    
 /*	public void addEmployee(ActionRequest actionRequest,ActionResponse actionResponse)
 			throws IOException,PortletException, SystemException {
 		log.info("In addEmployee method");

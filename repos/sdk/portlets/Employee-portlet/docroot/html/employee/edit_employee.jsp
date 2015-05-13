@@ -20,15 +20,16 @@ long fileEntryId=(Long)empId.get("fileId");
 	}
 %>
 <portlet:resourceURL var="displayImage" id="displayImage">
-<portlet:param name="imageId" value="<%=String.valueOf(fileEntryId) %>"></portlet:param>
+ <portlet:param name="imageId" value="<%=String.valueOf(fileEntryId) %>"></portlet:param>
+
 </portlet:resourceURL>
 <portlet:renderURL var="updateImage" windowState="<%=LiferayWindowState.POP_UP.toString()%>">
 	<portlet:param name="mvcPath" value="/html/employee/updateImage.jsp" />
 	<portlet:param name="imageId2" value="<%=String.valueOf(fileEntryId) %>"/>
-	</portlet:renderURL>
-	<portlet:renderURL var="refresh">
+</portlet:renderURL>
+<portlet:renderURL var="refresh">
 	<portlet:param name="mvcPath" value="/html/employee/edit_employee.jsp"/>
-	</portlet:renderURL>
+</portlet:renderURL>
 <aui:script>
 function updateImage()
 {
@@ -115,8 +116,22 @@ AUI().use(
 				<h3><%=empPersonalDetails.getFirstName()%></h3>
 			</div>
 			<div class="panel-body">
-				<img alt="upload an Image" src="<%=displayImage%>"> <a
+			<%
+			if(fileEntryId==0){
+			%>
+			<img src="/images/User-Default.jpg">
+			<a href="#" onclick="updateImage()">Change Photo</a>
+			<% 
+			}
+			else
+			{
+			%>
+			<img alt="upload an Image" src="<%=displayImage%>"> <a
 					href="#" onclick="updateImage()">Change Photo</a>
+			<%
+			}
+			%>
+					
 			</div>
 		</div>
 		<c:choose>
@@ -244,6 +259,9 @@ AUI().use(
 							key="01_add-documents"></liferay-ui:message></a></li>
 			</c:otherwise>
 		</c:choose>
+		
+		
+		
 		</ul>
 	<div class="tab-content">
 		<div id="tab-1" class="tab-pane">
